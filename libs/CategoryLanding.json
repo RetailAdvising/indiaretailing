@@ -1,0 +1,327 @@
+{
+    "page_sections": [
+        {
+            "page_section": "PS-23-00117",
+           
+            "layout_json": [
+                {
+                    "col": "1",
+                    "width": "100%",
+                    "class": "w_100",
+                    "u_id": "wcgkyzzp",
+                    "components": [
+                        {
+                            "cid": "5",
+                            "data": {
+                                "primary_text": "Editors' Picks",
+                                "section_title": "Beauty & Wellness",
+                                "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's ",
+                                "seemore": "See More",
+                                "redirectUrl": "beauty-wellness",
+                                "arrow": "/categories/arrowright.svg",
+                                "data": [
+                                    {
+                                        "image": "/categories/image1.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image2.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image3.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image2.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image1.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image2.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image3.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    }
+                                ]
+                            },
+                            "component_type": "slider",
+                            "component_title": "Category"
+                        }
+                    ]
+                }
+            ],
+            "layout_id": "STL-00035",
+            "layout_type": "Regular Section",
+            "section_title": "One Column"
+        },
+        {
+            "page_section": "PS-23-00117",
+            "layout_json": [
+                {
+                    "col": "1",
+                    "width": "100%",
+                    "class": "w_100",
+                    "u_id": "wcgkyzzp",
+                    "components": [
+                        {
+                            "cid": "5",
+                            "data": {
+                                "primary_text": "Editors' Picks",
+                                "section_title": "Consumer Durables & IT",
+                                "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's ",
+                                "seemore": "See More",
+                                "redirectUrl": "consumer-durables-IT",
+                                "arrow": "/categories/arrowright.svg",
+                                "data": [
+                                    {
+                                        "image": "/categories/image5.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image6.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image7.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image8.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image6.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image7.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image8.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    }
+                                    
+                                ]
+                            },
+                            "component_type": "slider",
+                            "component_title": "Category"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "page_section": "PS-23-00117",
+            "layout_json": [
+                {
+                    "col": "1",
+                    "width": "100%",
+                    "class": "w_100",
+                    "u_id": "wcgkyzzp",
+                    "components": [
+                        {
+                            "cid": "5",
+                            "data": {
+                                "primary_text": "Editors' Picks",
+                                "section_title": "Entertainment",
+                                "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's ",
+                                "seemore": "See More",
+                                "redirectUrl": "entertainment",
+                                "arrow": "/categories/arrowright.svg",
+                                "data": [
+                                    {
+                                        "image": "/categories/image9.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image10.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image11.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image12.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image10.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image11.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image12.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    }
+                                    
+                                ]
+                            },
+                            "component_type": "slider",
+                            "component_title": "Category"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "page_section": "PS-23-00117",
+            "layout_json": [
+                {
+                    "col": "1",
+                    "width": "100%",
+                    "class": "w_100",
+                    "u_id": "wcgkyzzp",
+                    "components": [
+                        {
+                            "cid": "5",
+                            "data": {
+                                "primary_text": "Editors' Picks",
+                                "section_title": "Food & Beverage",
+                                "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's ",
+                                "seemore": "See More",
+                                "redirectUrl": "food-beverage",
+                                "arrow": "/categories/arrowright.svg",
+                                "data": [
+                                    {
+                                        "image": "/categories/image13.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image14.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image15.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image16.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image10.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image11.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image12.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    }
+                                    
+                                ]
+                            },
+                            "component_type": "slider",
+                            "component_title": "Category"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "page_section": "PS-23-00117",
+            "layout_json": [
+                {
+                    "col": "1",
+                    "width": "100%",
+                    "class": "w_100",
+                    "u_id": "wcgkyzzp",
+                    "components": [
+                        {
+                            "cid": "5",
+                            "data": {
+                                "primary_text": "Editors' Picks",
+                                "section_title": "Home Decor & Furnishing",
+                                "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's ",
+                                "seemore": "See More",
+                                "redirectUrl": "home-decor-furnishing",
+                                "arrow": "/categories/arrowright.svg",
+                                "data": [
+                                    {
+                                        "image": "/categories/image17.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image18.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image19.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image20.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image16.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image19.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    },
+                                    {
+                                        "image": "/categories/image20.png",
+                                        "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                                        "idx": 1
+                                    }
+                                ]
+                            },
+                            "component_type": "slider",
+                            "component_title": "Category"
+                        }
+                    ]
+                }
+            ]
+        }
+       
+    ]
+}

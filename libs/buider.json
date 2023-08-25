@@ -1,0 +1,1561 @@
+{
+  "page_sections": [
+    {
+      "page_section": "PS-23-00117",
+      "background": "#F8F9FA",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "100%",
+          "class": "flex-[0_0_calc(100%_-_10px)]",
+          "u_id": "wcgkyzzp",
+          
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "data": [
+                  {
+                    "primary_title": "hotspots",
+                    "content": "Luxury hotspots: 5 most expensive high streets in the..",
+                    "image": "/top1.png",
+                    "idx": 1
+                  },
+                  {
+                    "primary_title": "AI",
+                    "content": "5 ways to leverage the power of ChatGPT in retail",
+                    "image": "/top2.png",
+                    "idx": 1
+                  },
+                  {
+                    "primary_title": "Shipping",
+                    "content": "Reliance to open 250 Azorte stores in 2-3 years",
+                    "image": "/top3.png",
+                    "idx": 1
+                  }
+                ]
+              },
+              "component_type": "Top 3 Stories",
+              "component_title": "TopStories"
+            }
+          ]
+        }
+      ],
+      "layout_id": "STL-0003",
+      "layout_type": "Regular Section",
+      "section_title": "One Column"
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "50%",
+          "class": "flex-[0_0_calc(50%_-_10px)]",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "content": "Rahul Gandhi In Manipur: Chopper Ride After Women Protesters Surround Car",
+                "author": "Rahul Gandhi",
+                "image": "/rg.jpg",
+                "button": "In Focus",
+                "button_background": "linear-gradient(305deg, #F92A28 27.00%, #DA1752 100%, #FFF 100%)",
+                "idx": 1
+              },
+              "component_type": "Image",
+              "component_title": "ImageContainer"
+            },
+            {
+              "cid": "5",
+              "data": {
+                "data": [
+                  {
+                    "primary_text": "Select Citywalk",
+                    "title": "Wow! Momo Foods enters Bhopal with Wow! ",
+                    "image": "/image1.png",
+                    "chevron_icon_right": "/rightArrow.svg",
+                    "hashtags": 
+                      "#Citywalk #reel stories podcast"
+                    
+                  },
+                  {
+                    "primary_text": "Food & Beverage",
+                    "title": "KFC opens another outlet in Punjab KFC opens another outlet in Punjab",
+                    "image": "/image2.png",
+                    "chevron_icon_right": "/rightArrow.svg",
+                    "hashtags": 
+                      "#Beverage #reel stories podcast"
+                    
+                  },
+                  {
+                    "primary_text": "Select Citywalk",
+                    "title": "FNP (Ferns N Petals) appoints Ashish Goel ",
+                    "image": "/image3.png",
+                    "chevron_icon_right": "/rightArrow.svg",
+                    "hashtags": 
+                      "#Citywalk #reel stories podcast"
+                    
+                  }
+                ]
+              },
+              "component_type": "list",
+              "component_title": "SectionList"
+            }
+          ]
+        },
+        {
+          "col": "2",
+          "width": "25%",
+          "class": "flex-[0_0_calc(25%_-_20px)]",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "title": "FAQ's",
+              "data": {
+                "title": "Latest News",
+                "data": [
+                  {
+                    "image": "/image4.png",
+                    "title": "Unwrapping the Archies’ reinvention plan",
+                    "sub_title": ""
+                  },
+                  {
+                    "image": "/image5.png",
+                    "title": "How AI is enhancing stores, How AI is enhancing stores",
+                    "sub_title": ""
+                  },
+                  {
+                    "title": "Croma opens 58 outlets in 6, Croma retails more than 16,000",
+                    "sub_title": "These companies created a lot of hype when they listed on the..."
+                  },
+                  {
+                    "title": "Select Citywalk opens 4 new stores in June",
+                    "sub_title": "These companies created a lot of hype when they listed on the..."
+                  }
+                  
+                ]
+              },
+              "component_type": "card",
+              "component_title": "LatestNews"
+            }
+          ]
+        },
+        {
+          "col": "3",
+          "width": "25%",
+          "class": "flex-[0_0_calc(25%_-_20px)]",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": 2,
+              "data": {
+                "ad_image": "/ads_baner.png",
+                "ad_title": "Advertisement"
+              },
+              "component_type": "Ad1",
+              "component_title": "AdsBaner"
+            },
+            {
+              "cid": 2,
+              "data": {
+                "image": "/IR.svg",
+                "title": "IR Prime",
+                "sub_title": "Top 3  stories of the day",
+                "button_round": "See All",
+                "background": "#ffedef",
+                "data": [
+                  {
+                    "image": "/Link1.png",
+                    "title": "8 retail companies headed by women, These brands are not just famous ...",
+                    "idx": 1
+                  },
+                  {
+                    "image": "/Link2.png",
+                    "title": "Joom Marketplace offers a global window for sellers...",
+                    "idx": 1
+                  },
+                  {
+                    "image": "/Link3.png",
+                    "title": "FreshToHome fixing a broken meat market retailing in...",
+                    "idx": 1
+                  }
+                ]
+              },
+              "component_type": "list",
+              "component_title": "IRPrime"
+            },
+            {
+              "cid": 2,
+              "data": {
+                "image": "/newsletter1.svg",
+                "placeholder": "Your email address",
+                "button_primary": "1",
+                "button": "Subscribe",
+                "background": "#fbfbfd"
+              },
+              "component_type": "subscribe",
+              "component_title": "Subscribe"
+            }
+          ]
+        }
+      ],
+      "layout_id": "STL-0003",
+      "layout_type": "Regular Section",
+      "section_title": "One Column"
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "70%",
+          "class": "flex-[0_0_calc(75%_-_10px)]",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "content": "Rahul Gandhi In Manipur: Chopper Ride After Women Protesters Surround Car",
+                "author": "Rahul Gandhi",
+                "title": "Web Specials",
+                "image": "/rg.jpg",
+                "idx": 1,
+                "data": [
+                  {
+                    "title": "Cinema industry welcomes lowering GST rates"
+                  },
+                  {
+                    "title": "Patanjali Ayurved to sell 7% stake in Patanjali"
+                  },
+                  {
+                    "title": "Select Citywalk opens 4 new stores in June"
+                  },
+                  {
+                    "title": "Govt imposes import restrictions on certain gold "
+                  },
+                  {
+                    "title": "Joom Marketplace offers a global window for sellers"
+                  },
+                  {
+                    "title": "B2B managed marketplace The Yarn"
+                  },
+                  {
+                    "title": "Sequoia Capital exits Go Fashion"
+                  },
+                  {
+                    "title": "B2B managed marketplace The Yarn"
+                  },
+                  {
+                    "title": "Sequoia Capital exits Go Fashion"
+                  }
+                ]
+              },
+              "component_type": "BulletList",
+              "component_title": "ImageContainer"
+            }
+          ]
+        },
+        {
+          "col": "2",
+          "width": "30%",
+          "class": "flex-[0_0_calc(25%_-_20px)]",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": 2,
+              "data": {
+                "ad_image": "/ads_baner.png",
+                "ad_title": "Advertisement"
+              },
+              "component_type": "Ad2",
+              "component_title": "AdsBaner"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "100%",
+          "class": "w_100",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "data": [
+                  {
+                    "title": "Fashion brand icons: Shailesh Chaturvedi of Arvind Fashions",
+                    "image": "/card1.png"
+                  },
+                  {
+                    "title": "DLF creating new retail space in Delhi for France’s Galeries Lafayette",
+                    "image": "/card2.png"
+                  },
+                  {
+                    "title": "PE firm Carlyle offloads entire, Carlyle through its special-purpose ",
+                    "image": "/card3.png"
+                  },
+                  {
+                    "title": "How AI is enhancing stores, How AI is enhancing stores",
+                    "image": "/card4.png"
+                  },
+                  {
+                    "title": "Shilpa Shetty Kundra invests, Kisankonnect is at Rs 120 crore",
+                    "image": "/card5.png"
+                  }
+                ]
+              },
+              "component_type": "card",
+              "component_title": "CardSpecial"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "100%",
+          "class": "w_100",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Trending",
+                "left_Arrow": "/leftArrow.svg",
+                "right_Arrow": "/rightArrow.svg",
+                "data": [
+                  {
+                    "title": "Rahul Gandhi In Manipur"
+                  },
+                  {
+                    "title": "Meta"
+                  },
+                  {
+                    "title": "E-commerce"
+                  },
+                  {
+                    "title": "Fashion"
+                  },
+                  {
+                    "title": "Live Cricket Score"
+                  },
+                  {
+                    "title": "Adipurush"
+                  },
+                  {
+                    "title": "Sushant Singh Rajputdeath case"
+                  },
+                  {
+                    "title": "Myntra launches "
+                  },
+                  {
+                    "title": "E-commerce"
+                  },
+                  {
+                    "title": "Live Cricket Score"
+                  },
+                  {
+                    "title": "Rahul Gandhi In Manipur"
+                  },
+                  {
+                    "title": "Meta"
+                  },
+                  {
+                    "title": "E-commerce"
+                  },
+                  {
+                    "title": "Fashion"
+                  }
+                ]
+              },
+              "component_type": "box",
+              "component_title": "TrendingBox"
+            }
+           
+          ]
+        }
+        
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "60%",
+          "class": "w_60",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Leaders Ink",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "avatar_image": "/profile_image.png",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "author": "Arundhati Roy"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "avatar_image": "/profile_image.png",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "author": "Vikram Seth"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "avatar_image": "/profile_image.png",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "author": "Jhumpa Lahiri"
+                  }
+                ]
+              },
+              "component_type": "slider",
+              "component_title": "MultiCarousel"
+            }
+          ]
+        },
+        {
+          "col": "3",
+          "width": "40%",
+          "class": "w_40",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Research",
+                "data": [
+                  {
+                    "image": "/apple_slide.png",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "primary_text": "Fashion"
+                  },
+                  {
+                    "image": "/nifty.png",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "primary_text": "Vikram Seth"
+                  },
+                  {
+                    "image": "/imageshop.png",
+                    "avatar_image": "/profile_image.png",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "author": "Jhumpa Lahiri"
+                  },
+                  {
+                    "image": "/apple_slide.png",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "primary_text": "Arundhati Roy"
+                  },
+                  {
+                    "image": "/nifty.png",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "primary_text": "Vikram Seth"
+                  },
+                  {
+                    "image": "/imageshop.png",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "primary_text": "Jhumpa Lahiri"
+                  }
+                ]
+              },
+              "component_type": "slider1",
+              "component_title": "MultiCarousel"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "background": "#000",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "40%",
+          "class": "flex-[0_0_calc(100%_-_10px)] flex gap-[20px] justify-between flex-wrap",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "class": "flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]",
+              "data": {
+                "title": "IR Video Wall",
+                "data": [
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "link": "oN6p_fxZkoU",
+                    "height": "400",
+                    "thumbnail": "/thumb1.png",
+                    "id": "thumb1",
+                    "width": "450"
+                  }
+                ]
+              },
+              "component_type": "video",
+              "component_title": "VideoContainer"
+            },
+            {
+              "cid": "5",
+              "class": "flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]",
+              "data": {
+                "title": "Retail With Rasul",
+                "data": [
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "link": "N9p63DirA7w",
+                    "thumbnail": "/thumb2.png",
+                    "id": "thumb2",
+                    "height": "200",
+                    "width": "250"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "link": "0BhMHGIbe7U",
+                    "thumbnail": "/thumb3.png",
+                    "id": "thumb3",
+                    "height": "200",
+                    "width": "250"
+                  }
+                ]
+              },
+              "component_type": "video",
+              "component_title": "VideoContainer"
+            },
+            {
+              "cid": "5",
+              "class": "flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]",
+              "data": {
+                "title": "The Store",
+                "data": [
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "link": "N9p63DirA7w",
+                    "thumbnail": "/thumb4.png",
+                    "id": "thumb4",
+                    "height": "200",
+                    "width": "250"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "link": "0BhMHGIbe7U",
+                    "thumbnail": "/thumb5.png",
+                    "id": "thumb5",
+                    "height": "200",
+                    "width": "250"
+                  }
+                ]
+              },
+              "component_type": "video",
+              "component_title": "VideoContainer"
+            },
+            {
+              "cid": "5",
+              "class": "flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]",
+              "data": {
+                "title": "IR Studio",
+                "data": [
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "link": "N9p63DirA7w",
+                    "id": "thumb6",
+                    "height": "200",
+                    "thumbnail": "/thumb6.png",
+                    "width": "250"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "link": "0BhMHGIbe7U",
+                    "height": "200",
+                    "thumbnail": "/thumb7.png",
+                    "id": "thumb7",
+                    "width": "250"
+                  }
+                ]
+              },
+              "component_type": "video",
+              "component_title": "VideoContainer"
+            }
+          ]
+        },
+        {
+          "col": 8,
+          "width": "20%",
+          "class": "flex_20",
+          "u_id": "vobotwba",
+          "components": [
+            
+          ]
+        },
+        {
+          "col": 8,
+          "width": "20%",
+          "class": "flex_20",
+          "u_id": "vobotwba",
+          "components": [
+           
+          ]
+        },
+        {
+          "col": 8,
+          "width": "20%",
+          "class": "flex_20",
+          "u_id": "vobotwba",
+          "components": [
+            
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "100%",
+          "class": "w_100",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": 2,
+              "data": {
+                "ad_image": "/ads.jpg",
+                "ad_title": "Advertisement",
+                "type": "center"
+              },
+              "component_type": "Ad3",
+              "component_title": "AdsBaner"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "70%",
+          "class": "flex-[0_0_calc(70%_-_20px)]",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Fashion & Lifestyle",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  }
+                ]
+              },
+              "component_type": "list1",
+              "component_title": "List"
+            }
+          ]
+        },
+        {
+          "col": "3",
+          "width": "30%",
+          "class": "flex-[0_0_calc(30%_-_10px)]",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Beauty & Wellness",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food"
+                  },
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food"
+                  }
+                ]
+              },
+              "component_type": "list1/2",
+              "component_title": "List"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "100%",
+          "class": "w_100",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Food & Beverage",
+                "data": [
+                  {
+                    "image": "/apple_slide.png",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/nifty.png",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/imageshop.png",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/apple_slide.png",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/nifty.png",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  }
+                ]
+              },
+              "component_type": "card1",
+              "component_title": "Card"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "33.333%",
+          "class": "flex_33",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "E-commerce",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  }
+                ]
+              },
+              "component_type": "list2",
+              "component_title": "List"
+            }
+          ]
+        },
+        {
+          "col": "2",
+          "width": "33.333%",
+          "class": "flex_33",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "People",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  }
+                ]
+              },
+              "component_type": "list2",
+              "component_title": "List"
+            }
+          ]
+        },
+        {
+          "col": "3",
+          "width": "33.333%",
+          "class": "flex_33",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": " D2C remove Buzz",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  }
+                ]
+              },
+              "component_type": "list2",
+              "component_title": "List"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "70%",
+          "class": "flex-[0_0_calc(70%_-_15px)]",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Shopping Centres",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  }
+                  
+                ]
+              },
+              "component_type": "list3",
+              "component_title": "List"
+            }
+          ]
+        },
+        {
+          "col": "3",
+          "width": "30%",
+          "class": "flex-[0_0_calc(30%_-_10px)]",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Podcast",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png"
+                  }
+                ]
+              },
+              "component_type": "list3/2",
+              "component_title": "List"
+            },
+            {
+              "cid": "5",
+              "data": {
+                "title": "Privilege Members Corner",
+                "data": [
+                  {
+                    "link": "N9p63DirA7w",
+                    "id": "thumb1",
+                    "thumbnail": "/thumb3.png",
+                    "content": "India D2C Summit & Awards 2023  Trailblazing Brands and Professionals"
+                  }
+                ]
+               
+              },
+              "component_type": "video2",
+              "component_title": "VideoContainer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "100%",
+          "class": "w_100",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": 2,
+              "data": {
+                "ad_image": "/air.png",
+                "ad_title": "Advertisement",
+                "type": "center"
+              },
+              "component_type": "Ad4",
+              "component_title": "AdsBaner"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "33.333%",
+          "class": "flex_33",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Supply Chain",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  }
+                ]
+              },
+              "component_type": "list4",
+              "component_title": "List"
+            }
+          ]
+        },
+        {
+          "col": "2",
+          "width": "33.333%",
+          "class": "flex_33",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Marketing",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  }
+                ]
+              },
+              "component_type": "list4",
+              "component_title": "List"
+            }
+          ]
+        },
+        {
+          "col": "3",
+          "width": "33.333%",
+          "class": "flex_33",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Technology",
+                "data": [
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food"
+                  },
+                  {
+                    "title": "Rollercoaster ride of four retail industry IPOs",
+                    "image": "/nifty.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food"
+                  },
+                  {
+                    "title": "Uniqlo India’s Success Mantra: Making headway...",
+                    "image": "/imageshop.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food"
+                  },
+                  {
+                    "title": "Top 5 iconic Apple stores across the world by design",
+                    "image": "/apple_slide.png",
+                    "primary_text": "Fashion",
+                    "secondary_text": "Food"
+                  }
+                ]
+              },
+              "component_type": "list4",
+              "component_title": "List"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "65%",
+          "class": "w_65",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "case studies",
+                "data": [
+                  {
+                    "image": "/apple_slide.png",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/nifty.png",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/imageshop.png",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  }
+                ]
+              },
+              "component_type": "card2",
+              "component_title": "Card"
+            }
+          ]
+        },
+        {
+          "col": "3",
+          "width": "35%",
+          "class": "w_35",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Photo Essays",
+                "data": [
+                  {
+                    "image": "/apple_slide.png",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/nifty.png",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/imageshop.png",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/apple_slide.png",
+                    "sub_title": "From a total of around 522 Apple stores across the world..",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/nifty.png",
+                    "sub_title": "These companies created a lot of hype when they listed on the...",
+                    "hashtags": "#Fashion"
+                  },
+                  {
+                    "image": "/imageshop.png",
+                    "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                    "hashtags": "#Fashion"
+                  }
+                ]
+              },
+              "component_type": "slider2",
+              "component_title": "MultiCarousel"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "background": "#FBFBFD",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "30%",
+          "class": "flex_30",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "IMAGES Group Events",
+                "data": [
+                  {
+                    "image": "/event1.png",
+                    "primary_text": "Technology",
+                    "title": "D2C India",
+                    "calender": "/calendar.svg",
+                    "location": "/location.svg",
+                    "event_time" : "Wed, 09 Aug 2023",
+                    "event_location":"Barkha Dutt",
+                    "sub_title": "get inspired BUILDING BRANDS FOR THE NEXT DECADE OF CONSUMPTION"
+                  }
+                ]
+              },
+              "component_type": "event1",
+              "component_title": "ImageGroupEvents"
+            }
+          ]
+        },
+        {
+          "col": "2",
+          "width": "70%",
+          "class": "flex_70",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "data": [
+                  
+                    {
+                        "name": "EVT-00012",
+                        "title": "internet commerce summit & awards",
+                        "description": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                        "category_name": "Partner Events",
+                        "start_date": "2023-07-26",
+                        "end_date": "2023-09-18",
+                        "locations": [
+                            {
+                                "event_location": "Chennai"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EVT-00013",
+                        "title": "Middle East Retail Forum",
+                        "description": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                        "category_name": "Partner Events",
+                        "start_date": "2023-07-27",
+                        "end_date": "2023-09-01",
+                        "locations": [
+                            {
+                                "event_location": "Delhi"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EVT-00014",
+                        "title": "internet commerce summit & awards",
+                        "description": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                        "category_name": "Partner Events",
+                        "start_date": "2023-07-12",
+                        "end_date": "2023-09-05",
+                        "locations": [
+                            {
+                                "event_location": "Hyderabad"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EVT-00016",
+                        "title": "India Food Forum Retail Horeca",
+                        "description": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                        "category_name": "Partner Events",
+                        "start_date": "2023-07-04",
+                        "end_date": "2023-09-06",
+                        "locations": [
+                            {
+                                "event_location": "Delhi"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EVT-00015",
+                        "title": "India Food Forum Retail Horeca",
+                        "description": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                        "category_name": "Partner Events",
+                        "start_date": "2023-07-18",
+                        "end_date": "2023-09-07",
+                        "locations": [
+                            {
+                                "event_location": "Chennai"
+                            }
+                        ]
+                    }
+                
+                  
+                ]
+              },
+              "component_type": "event1",
+              "component_title": "EventList"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "100%",
+          "class": "flex_100",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Book Store",
+                "data": [
+                  {
+                    "image": "/card_img1.png",
+                    "title": "Progressive Grocer – June 2023"
+
+                  },
+                  {
+                    "image": "/card_img2.png",
+                    "title": "Images Business Of Fashion – June 2023"
+
+                  },
+                  {
+                    "image": "/card_img3.png",
+                    "title": "Shopping Centre News – May 2023"
+
+                  },
+                  {
+                    "image": "/card_img4.png",
+                    "title": "Phygital May-June 2023"
+
+                  },
+                  {
+                    "image": "/card_img1.png",
+                    "title": "Progressive Grocer – June 2023"
+                   
+                  }
+                ]
+              },
+              "component_type": "card3",
+              "component_title": "Card"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page_section": "PS-23-00117",
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "80%",
+          "class": "flex_80",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title": "Reconnect",
+                "data": [
+                  {
+                    "title": "Arvind Fashions’ data-driven digital transformation",
+                    "sub_title": "In 2018, Uniqlo sent Tomohiko Sei to India to spearhead its entry..",
+                    "hashtags": "#Lifestyle",
+                    "image": "/rc_img1.png"
+                  },
+                  {
+                    "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                    "sub_title": "So far Ace Turtle has opened 80 Lee and Wrangler franchisee-stores ",
+                    "hashtags": "#Lifestyle",
+                    "image": "/rc_img2.png"
+                  },
+                  {
+                    "title": "Arvind Fashions’ data-driven digital transformation",
+                    "sub_title": "In 2018, Uniqlo sent Tomohiko Sei to India to spearhead its entry..",
+                    "hashtags": "#Lifestyle",
+                    "image": "/rc_img3.png"
+                  },
+                  {
+                    "title": "US denim brand Lee opens outlets in Sikar, Patna..",
+                    "sub_title": "So far Ace Turtle has opened 80 Lee and Wrangler franchisee-stores ",
+                    "hashtags": "#Lifestyle",
+                    "image": "/rc_img1.png"
+                  }
+                ]
+              },
+              "component_type": "card4",
+              "component_title": "Card"
+            }
+          ]
+        },
+        {
+          "col": "3",
+          "width": "20%",
+          "class": "flex_20",
+          "u_id": "vobotwba",
+          "components": [
+            {
+              "cid": 2,
+              "data": {
+                "ad_image": "/ads_bike.png",
+                "ad_title": "Advertisement"
+              },
+              "component_type": "Adbike",
+              "component_title": "AdsBaner"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

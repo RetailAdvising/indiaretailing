@@ -1,0 +1,316 @@
+{
+  "page_sections": [
+    {      
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "50%",
+          "class": "flex_50",
+          "u_id": "wcgkyzzp",
+          
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title" : "Conferences & Summits",
+                "left_title": "See more",
+                "left_icon": "/rightArrow.svg",
+                "data": [
+                  {
+                    "title": "Middle East Retail Forum",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event1.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "routerLink":"/events/Middle",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "India Food Forum Retail Horeca",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event2.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "routerLink":"/events/Middle",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "internet commerce summit & awards",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event3.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "routerLink":"/events/Middle",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "IFF India Fashion Forum 2023",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event4.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "routerLink":"/events/Middle",
+                    "calender": "/calendar.svg",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  }
+                 
+                  
+                ]
+              },
+              "component_type": "conferences",
+              "component_title": "EventCards"
+            }
+          ]
+        },
+        {
+          "col": "1",
+          "width": "50%",
+          "class": "flex_50",
+          "u_id": "wcgkyzzp",
+          
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title" : "Web Specials",
+                "left_title": "See more",
+                "left_icon": "/rightArrow.svg",
+                "data": [
+                  {
+                    "title": "IFF India Fashion Forum 2023",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event5.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "routerLink":"/events/Middle",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "internet commerce summit & awards",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event6.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "routerLink":"/events/Middle",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "India Food Forum Retail Horeca",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event7.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "routerLink":"/events/Middle",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "Unwrapping the Archies reinvention plan",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event1.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "routerLink":"/events/Middle",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  }
+                ]
+              },
+              "component_type": "webspecials",
+              "component_title": "EventCards"
+            }
+          ]
+        }
+      ],
+     
+      "layout_type": "Regular Section",
+      "section_title": "One Column"
+    },
+    {
+
+      "layout_json": [
+        {
+          "col": "1",
+          "width": "50%",
+          "class": "flex_50",
+          "u_id": "wcgkyzzp",
+          
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title" : "Webinars",
+                "left_title": "See more",
+                "left_icon": "/rightArrow.svg",
+                "data": [
+                  {
+                    "title": "Middle East Retail Forum",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event9.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "routerLink":"/events/Middle",
+                    "calender": "/calendar.svg",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "India Food Forum Retail Horeca",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event10.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "routerLink":"/events/Middle",
+                    "calender": "/calendar.svg",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "internet commerce summit & awards",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event11.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "routerLink":"/events/Middle",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "IFF India Fashion Forum 2023",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event12.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "routerLink":"/events/Middle",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  }
+                  
+                ]
+              },
+              "component_type": "webinars",
+              "component_title": "EventCards"
+            }
+          ]
+        },
+        {
+          "col": "1",
+          "width": "50%",
+          "class": "flex_50",
+          "u_id": "wcgkyzzp",
+          
+          "components": [
+            {
+              "cid": "5",
+              "data": {
+                "title" : "Partner Events",
+                "left_title": "See more",
+                "left_icon": "/rightArrow.svg",
+                "data": [
+                  {
+                    "title": "IFF India Fashion Forum 2023",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event13.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "routerLink":"/events/Middle",
+                    "calender": "/calendar.svg",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "internet commerce summit & awards",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event14.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "routerLink":"/events/Middle",
+                    "calender": "/calendar.svg",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "India Food Forum Retail Horeca",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event15.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "calender": "/calendar.svg",
+                    "routerLink":"/events/Middle",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  },
+                  {
+                    "title": "Unwrapping the Archies reinvention plan",
+                    "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
+                    "image": "/Events/event16.png",
+                    "event_time": "Wed, 09 Aug 2023",
+                    "event_location": "Barkha Dutt",
+                    "routerLink":"/events/Middle",
+                    "calender": "/calendar.svg",
+                    "location": "/location.svg",
+                    "primary_text_bottom": "registration now",
+                    "primary_arrow_icon": "/rightArrow.svg",
+                    "idx": 1
+                  }
+                  
+                ]
+              },
+              "component_type": "partnerevents",
+              "component_title": "EventCards"
+            }
+          ]
+        }
+      ],
+     
+      "layout_type": "Regular Section",
+      "section_title": "One Column"
+    }
+    
+  ]
+}

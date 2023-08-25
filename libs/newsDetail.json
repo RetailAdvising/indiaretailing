@@ -1,0 +1,104 @@
+{
+    "section_1":{
+        "title": "Ikea’s Ingka Centre to brand its India malls Lykli",
+        "description": "In a lively talk sparkling with actionable advice, Emmy-winning actress Sheryl Le Ralph shares how her struggles taught her what it takes to believe in herself and how we can all find the self-confidence to keep moving forward.",
+        "subscribe": "subscribe",
+        "image": "/newsletter/span.png"
+    },
+    "section_2":{
+        "title": "More articles from the newsletter",
+        "data":[
+            {
+                "image": "/newsletter/shop1.png",
+                "title": "Shopping centre news 2023"
+            },
+            {
+                "image": "/newsletter/shop2.png",
+                "title": "Shopping centre news 2023"
+            },
+            {
+                "image": "/newsletter/shop3.png",
+                "title": "Shopping centre news 2023"
+            },
+            {
+                "image": "/newsletter/shop4.png",
+                "title": "Shopping centre news 2023"
+            }
+        ]
+    },
+    "section_3":{
+        "title": "Read other Newsletters",
+        "data":[
+            {
+                "image": "/newsletter/other1.png",
+                "primary_text": "Retail Technology",
+                "title": "Progressive Grocer – June 2023"
+            },
+            {
+                "image": "/newsletter/other2.png",
+                "primary_text": "Food Retail",
+                "title": "Progressive Grocer – July 2023"
+            },
+            {
+                "image": "/newsletter/other3.png",
+                "primary_text": "Retail Technology",
+                "title": "Business Of Food Retail – June 2023"
+            },
+            {
+                "image": "/newsletter/other1.png",
+                "primary_text": "Shopping Centers",
+                "title": "Phygital May-June 2023"
+            }
+        ]
+    },
+    "allNews": [
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img.png",
+            "title": "Progressive Grocer – June 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (1).png",
+            "title": "Images Business Of Fashion – June 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (2).png",
+            "title": "Shopping Centre News – May 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (3).png",
+            "title": "Phygital May-June 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (4).png",
+            "title": "Progressive Grocer – June 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (5).png",
+            "title": "Images Business Of Fashion – June 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (6).png",
+            "title": "Shopping Centre News – May 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (7).png",
+            "title": "Phygital May-June 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (8).png",
+            "title": "Progressive Grocer – June 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (9).png",
+            "title": "Images Business Of Fashion – June 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (10).png",
+            "title": "Shopping Centre News – May 2023"
+        },
+        {
+            "image": "/newsletter/div.mpp-element-slider-card-img (11).png",
+            "title": "Phygital May-June 2023"
+        }
+    ]
+}

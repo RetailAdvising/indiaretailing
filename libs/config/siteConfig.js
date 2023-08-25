@@ -1,0 +1,1 @@
+export const domain = 'indiaretailing.go1cms.com';

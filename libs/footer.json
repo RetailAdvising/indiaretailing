@@ -1,0 +1,66 @@
+{
+    "footer":{
+        "section_1":{
+            "image": "/indiaretail.png",
+            "addresstitle": "New Delhi",
+            "address": "Images Multimedia Ltd. S-61 A, Pocket S, Okhla Phase II, Okhla Industrial Estate,  New Delhi, Delhi 110020 Images Multimedia Ltd.",
+            "addresstitle1": "Mumbai",
+            "address1": "E 519, Floral Deck Plaza, Central MIDC Road, Opp. SEEPZ. Andheri (East), Mumbai 400093.",
+            "phoneicon": "/phone.svg",
+            "phonenumber": "+91-9867355551",
+            "mailicon": "/email.svg",
+            "mail": "editor@indiaretailing.com",
+            "socials": [
+                {"icon": "/footer/fb.svg", "link": ""},
+                {"icon": "/footer/linkedin.svg", "link": ""},
+                {"icon": "/footer/youtube.svg", "link": ""},
+                {"icon": "/footer/instagram.svg", "link": ""}
+            ]
+        },
+        "section_2":{
+            "child_data":[
+                {
+                    "title": "About us",
+                    "data": [
+                        "About IndiaRetailing.com",
+                        "Meet the team",
+                        "Advertise with us",
+                        "Contact us"
+                    ]
+                },
+                {
+                    "title": "Categories",
+                    "data": ["Fashion & Lifestyle","Beauty & Wellness","Food & Beverage", "Consumer Durables & IT", "Entertainment", "Home Décor & Furnishing", "Specialty Retail"]
+                },
+                {
+                    "title": "Features",
+                    "data": ["Leaders Ink","People","Finance & Funding","D2C", "Shopping Centers", "Results", "Research", "Case Studies"]
+                },
+                {
+                    "title": "Events",
+                    "data": ["India Food Forum","Shopping Centre Next","Phygital Retail Convention","India D2C Summit & Awards", "Internet Commerce Summit"]
+                },
+        
+                {
+                    "title": "Bookstore",
+                    "data": ["Magazines","Yearbooks","Other publications"]
+                },
+                {
+                    "title": "Videos",
+                    "data": ["Retail with Rasul Bailay","The Store","IR Studio"]
+                },
+                {
+                    "title": "IR Prime Subscription Box",
+                    "data": ["Lorem ipsum ","Lorem ipsum ","Lorem ipsum ","Lorem ipsum"]
+                },
+                {
+                    "title": "Retail Functions",
+                    "data": ["Marketing","Technology","Operations","HR", "Supply Chain"]
+                }
+            ]
+        },
+        "copy_write": "Copyright © 2023.",
+        "copy_link_text": "Indiaretailing.com",
+        "copy_link": "#"
+    }
+}

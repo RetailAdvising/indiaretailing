@@ -1,0 +1,391 @@
+{
+    "section_1": {
+        "columns": [
+            {
+                "section": "1",
+                "rows": "2",
+                "cols": "3",
+                "width": "70%",
+                "column": "1",
+                "child_section_data": [
+                    {
+                        "parent": "section_1",
+                        "reference_document": null,
+                        "section": "1",
+                        "section_name": "Exclusive News",
+                        "section_type": "list",
+                        "title": "Exclusive News",
+                        "data": [
+                            {
+                                "hashtags": "#Fashion",
+                                "idx": 1,
+                                "image": "/files/img1.png",
+                                "primary_text": "News",
+                                "secondary_text": "India",
+                                "sub_title": "Thiruvananthapuram: Veteran ...",
+                                "title": "Prabhat books director likely\nto be removed from post"
+                            },
+                            {
+                                "hashtags": "#Fashion",
+                                "idx": 2,
+                                "image": "/files/img2.png",
+                                "primary_text": "News",
+                                "secondary_text": "India",
+                                "sub_title": "Thiruvananthapuram: Veteran ...",
+                                "title": "Prabhat books director likely\nto be removed from post"
+                            },
+                            {
+                                "hashtags": "#Fashion",
+                                "idx": 3,
+                                "image": "/files/img3.png",
+                                "primary_text": "News",
+                                "secondary_text": "India",
+                                "sub_title": "Thiruvananthapuram: Veteran ...",
+                                "title": "Prabhat books director likely\nto be removed from post"
+                            },
+                            {
+                                "hashtags": "#Fashion",
+                                "idx": 1,
+                                "image": "/files/img1.png",
+                                "primary_text": "News",
+                                "secondary_text": "India",
+                                "sub_title": "Thiruvananthapuram: Veteran ...",
+                                "title": "Prabhat books director likely\nto be removed from post"
+                            },
+                            {
+                                "hashtags": "#Fashion",
+                                "idx": 2,
+                                "image": "/files/img2.png",
+                                "primary_text": "News",
+                                "secondary_text": "India",
+                                "sub_title": "Thiruvananthapuram: Veteran ...",
+                                "title": "Prabhat books director likely\nto be removed from post"
+                            },
+                            {
+                                "hashtags": "#Fashion",
+                                "idx": 3,
+                                "image": "/files/img3.png",
+                                "primary_text": "News",
+                                "secondary_text": "India",
+                                "sub_title": "Thiruvananthapuram: Veteran ...",
+                                "title": "Prabhat books director likely\nto be removed from post"
+                            }
+                        ]
+                    },
+                    {
+                        "image": "/files/Arrow.svg",
+                        "image_type": "icon",
+                        "is_full_width": 0,
+                        "layout_json": null,
+                        "login_required": 0,
+                        "mobile_app_template": null,
+                        "no_of_records": 0,
+                        "parent": "section_1",
+                        "reference_document": null,
+                        "section": "1",
+                        "section_name": "Exclusive News",
+                        "section_type": "slider",
+                        "title": "The Discord Leaks: War in Ukraine",
+                        "data": [
+                            {
+                                "author": "Arundhati Roy",
+                                "avatar_image": "/files/Ellipse 1 (1).png",
+                                "idx": 1,
+                                "image": "/files/image 22 (3).png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Top 5 iconic Apple stores across the world by design"
+                            },
+                            {
+                                "author": "Vikram Seth",
+                                "avatar_image": "/files/Ellipse 2 (2).png",
+                                "idx": 2,
+                                "image": "/files/image 23 (3).png",
+                                "sub_title": "These companies created a lot of hype when they listed on the...",
+                                "title": "Rollercoaster ride of four retail industry IPOs"
+                            },
+                            {
+                                "author": "Jhumpa Lahiri",
+                                "avatar_image": "/files/Ellipse 2 (3).png",
+                                "idx": 3,
+                                "image": "/files/image 24 (3).png",
+                                "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                                "title": "Uniqlo India’s Success Mantra: Making headway..."
+                            },
+                            {
+                                "author": "Jhumpa Lahiri",
+                                "avatar_image": "/files/Ellipse 2 (3).png",
+                                "idx": 4,
+                                "image": "/files/image 24 (3).png",
+                                "sub_title": "Uniqlo, Asia’s largest fashion retailer has managed to hit..",
+                                "title": "Uniqlo India’s Success Mantra: Making headway..."
+                            },
+                            {
+                                "author": "Arundhati Roy",
+                                "avatar_image": "/files/Ellipse 1 (1).png",
+                                "idx": 5,
+                                "image": "/files/image 22 (3).png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Top 5 iconic Apple stores across the world by design"
+                            },
+                            {
+                                "author": "Vikram Seth",
+                                "avatar_image": "/files/Ellipse 2 (2).png",
+                                "idx": 6,
+                                "image": "/files/image 23 (3).png",
+                                "sub_title": "These companies created a lot of hype when they listed on the...",
+                                "title": "Rollercoaster ride of four retail industry IPOs"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "section": "1",
+                "rows": "2",
+                "cols": "1",
+                "width": "30%",
+                "column": "2",
+                "child_section_data": [
+                    {
+                        "is_full_width": 0,
+                        "layout_json": null,
+                        "login_required": 0,
+                        "mobile_app_template": null,
+                        "no_of_records": 0,
+                        "parent": "section_1",
+                        "reference_document": null,
+                        "section": "2",
+                        "section_name": "Beauty & Wellness",
+                        "section_type": "list",
+                        "title": "Beauty & Wellness",
+                        "data": [
+                            {
+                                "idx": 1,
+                                "image": "/files/img10.png",
+                                "primary_text": "Beauty",
+                                "secondary_text": "News",
+                                "title": "Sugar Cosmetics unveils its 200th brand-owned store"
+                            },
+                            {
+                                "idx": 2,
+                                "image": "/files/img11.png",
+                                "primary_text": "Wellness",
+                                "secondary_text": "News",
+                                "title": "Athiya Shetty becomes the face of Just Herbs’..."
+                            },
+                            {
+                                "idx": 3,
+                                "image": "/files/img12.png",
+                                "primary_text": "Wellness",
+                                "secondary_text": "News",
+                                "title": "Indian stars dazzle at\nCannes 2023"
+                            }
+                        ]
+                    },
+                    {
+                        "section": "1",
+                        "rows": "2",
+                        "cols": "3",
+                        "width": "30%",
+                        "image": "/files/image 54.png",
+                        "image_type": "Ad"
+                    }
+                ]
+            }
+        ]
+    },
+    "section_2": {
+        "columns": [
+            {
+                "section": "2",
+                "rows": "1",
+                "cols": "1",
+                "width": "100%",
+                "child_section_data": [
+                    {
+                        "image": "",
+                        "image_type": "",
+                        "is_full_width": 0,
+                        "layout_json": null,
+                        "login_required": 0,
+                        "mobile_app_template": null,
+                        "no_of_records": 0,
+                        "parent": "section_2",
+                        "reference_document": null,
+                        "section": "",
+                        "section_name": "Beauty & Wellness",
+                        "section_type": "card",
+                        "title": "Beauty & Wellness",
+                        "data": [
+                            {
+                                "idx": 1,
+                                "image": "/files/Tabpanel.png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Follow the 600-mile front line between Ukrainian and Russian\nforces"
+                            },
+                            {
+                                "idx": 2,
+                                "image": "/files/Tabpanel (1).png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Follow the 600-mile front line between Ukrainian and Russian\nforces"
+                            },
+                            {
+                                "idx": 3,
+                                "image": "/files/Tabpanel (2).png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Follow the 600-mile front line between Ukrainian and Russian\nforces"
+                            },
+                            {
+                                "idx": 4,
+                                "image": "/files/Tabpanel (3).png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Follow the 600-mile front line between Ukrainian and Russian\nforces"
+                            },
+                            {
+                                "idx": 5,
+                                "image": "/files/Tabpanel (4).png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Follow the 600-mile front line between Ukrainian and Russian\nforces"
+                            },
+                            {
+                                "idx": 6,
+                                "image": "/files/Tabpanel (5).png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Follow the 600-mile front line between Ukrainian and Russian\nforces"
+                            },
+                            {
+                                "idx": 7,
+                                "image": "/files/Tabpanel (7).png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Follow the 600-mile front line between Ukrainian and Russian\nforces"
+                            },
+                            {
+                                "idx": 8,
+                                "image": "/files/Tabpanel (6).png",
+                                "sub_title": "From a total of around 522 Apple stores across the world..",
+                                "title": "Follow the 600-mile front line between Ukrainian and Russian\nforces"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "section_3": {
+        "columns": [
+            {
+                "section": "3",
+                "rows": "1",
+                "cols": "2",
+                "width": "70%",
+                "child_section_data": [
+                    {
+                        "image": "",
+                        "image_type": "",
+                        "is_full_width": 0,
+                        "layout_json": null,
+                        "login_required": 0,
+                        "mobile_app_template": null,
+                        "no_of_records": 0,
+                        "parent": "section_3",
+                        "reference_document": null,
+                        "section": "1",
+                        "section_name": "Beauty & Wellness",
+                        "section_type": "list",
+                        "title": "Beauty & Wellness",
+                        "data": [
+                            {
+                                "hashtags": "#kerala sastra sahitya parishad",
+                                "idx": 1,
+                                "image": "/files/img16.png",
+                                "primary_text": "News",
+                                "secondary_text": "India",
+                                "sub_title": "Pathanamthitta: The 'Kerala Shastra Sahitya Parishad' ...",
+                                "title": "Centre and Gujarat govt to sign MoU for PM MITRA textile park to"
+                            },
+                            {
+                                "hashtags": "#kerala sastra sahitya parishad",
+                                "idx": 2,
+                                "image": "/files/imgs17.png",
+                                "primary_text": "News",
+                                "secondary_text": "India",
+                                "sub_title": "The company has undergone multiple scanning and inspection processes..",
+                                "title": "Insight Cosmetics becomes India’s first Bureau Veritas certified..."
+                            },
+                            {
+                                "hashtags": "#kerala sastra sahitya parishad",
+                                "idx": 3,
+                                "image": "/files/drfj.png",
+                                "primary_text": "News",
+                                "secondary_text": "India",
+                                "sub_title": "Pathanamthitta: The 'Kerala Shastra Sahitya Parishad' ...",
+                                "title": "Lulu Mall Lucknow celebrates 1st anniversary with flat 50% off on over 300 brands"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "section": "3",
+                "rows": "1",
+                "cols": "2",
+                "width": "30%",
+                "child_section_data": [
+                    {
+                        "image": "",
+                        "image_type": "",
+                        "is_full_width": 0,
+                        "layout_json": null,
+                        "login_required": 0,
+                        "mobile_app_template": null,
+                        "no_of_records": 0,
+                        "parent": "section_3",
+                        "reference_document": null,
+                        "section": "2",
+                        "section_name": "Beauty & Wellness",
+                        "section_type": "list",
+                        "title": "Beauty & Wellness",
+                        "data": [
+                            {
+                                "idx": 1,
+                                "image": "/files/Link1.png",
+                                "primary_text": "Beauty",
+                                "secondary_text": "News",
+                                "title": "Sugar Cosmetics unveils its 200th brand-owned store"
+                            },
+                            {
+                                "idx": 2,
+                                "image": "/files/Link3.png",
+                                "primary_text": "Wellness",
+                                "secondary_text": "News",
+                                "title": "Athiya Shetty becomes the face of Just Herbs’..."
+                            },
+                            {
+                                "idx": 3,
+                                "image": "/files/Link2.png",
+                                "primary_text": "Wellness",
+                                "secondary_text": "News",
+                                "title": "Indian stars dazzle at\nCannes 2023"
+                            },
+                            {
+                                "idx": 4,
+                                "image": "/files/Link4.png",
+                                "primary_text": "Beauty",
+                                "secondary_text": "News",
+                                "title": "Recode Studios to expand footprint with 5 store..."
+                            },
+                            {
+                                "idx": 5,
+                                "image": "/files/Link5.png",
+                                "primary_text": "Beauty",
+                                "secondary_text": "News",
+                                "title": "Recode Studios to expand footprint with 5 store..."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
+   

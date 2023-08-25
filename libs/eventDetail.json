@@ -1,0 +1,70 @@
+{
+    "baner_image": "/Events/detail.png",
+    "event_time": "Wed, Aug 09 ",
+    "title" : "Unwrapping the Archies reinvention plan",
+    "short_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
+    "sub_title": "When and where",
+    "date_time_title": "Date and Time",
+    "date_time": "Wed, 09 Aug 2023",
+    "date_time_icon": "/Events/date_time.svg",
+    "location_title": "location",
+    "location" : "Lorem Ipsum is simply dummy text of the printing and typesetting",
+    "location_icon": "/Events/location.svg",
+    "about_title": "About this event",
+    "about_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
+    "upcoming_title": "Upcoming Events",
+    "upcoming_events":[
+        {
+            "image": "/event2.png",
+            "primary_text_bottom": "registration now",
+            "title": "Unwrapping the Archies reinvention plan",
+            "calender": "/calendar.svg",
+            "location": "/location.svg",
+            "primary_arrow_icon": "/arrowrightprimary.svg",
+            "event_time" : "Wed, 09 Aug 2023",
+            "event_location":"Barkha Dutt",
+            "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs"
+          },
+          {
+            "image": "/event3.png",
+            "primary_text_bottom": "registration now",
+            "title": "Phygital Retail Convention Phygital Retail Convention",
+            "event_time" : "Wed, 09 Aug 2023",
+            "event_location":"Barkha Dutt",
+            "calender": "/calendar.svg",
+            "location": "/location.svg",
+            "primary_arrow_icon": "/arrowrightprimary.svg",
+            "sub_title": "India's Largest Retail Intelligence EventLargest Retail Intellig"
+          },
+          {
+            "image": "/event4.png",
+            "primary_text_bottom": "registration now",
+            "title": "Unwrapping the Archies reinvention plan",
+            "event_time" : "Wed, 09 Aug 2023",
+            "event_location":"Barkha Dutt",
+            "calender": "/calendar.svg",
+            "location": "/location.svg",
+            "primary_arrow_icon": "/arrowrightprimary.svg",
+            "sub_title": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs"
+          },
+          {
+            "image": "/event5.png",
+            "primary_text_bottom": "registration now",
+            "title": "India Fashion ForumLargest Retail Intellig",
+            "event_time" : "Wed, 09 Aug 2023",
+            "event_location":"Barkha Dutt",
+            "calender": "/calendar.svg",
+            "location": "/location.svg",
+            "primary_arrow_icon": "/arrowrightprimary.svg",
+            "sub_title": "Launched in 2000, India Fashion Forum (IFF) is India’s largest and most influential fashion retail intelligence event"
+          }
+    ],
+    "button_1": "registration now",
+    "button_1_primary": "1",
+    "button_2": "more details",
+    "button_2_primary": "0",
+    "ad_image": "/ads_baner.png",
+    "ad_title": "Advertisement",
+    "share_icon": "/share.svg",
+    "settings_icon": "/settings.svg"
+}

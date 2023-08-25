@@ -1,0 +1,154 @@
+{
+    "header": {
+        "is_transparent_header": 0,
+        "title": "India Retailing",
+        "is_menu_full_width": 0,
+        "layout_json": "[{\"fullwidth\":true,\"columns\":[{\"width\":\"20%\",\"rows\":[]},{\"width\":\"60%\",\"rows\":[]},{\"width\":\"20%\",\"rows\":[]}]}]",
+        "enable_top_menu": 0,
+        "sticky_on_top": 0,
+        "is_dismissable": 0,
+        "layout": "One Column",
+        "sticky_header": 1,
+        "call_to_action_button": 1,
+        "button_text": "Get Started",
+        "button_link": "#",
+        "link_target": "_self",
+        "sticky_header_background": "#ffffff",
+        "menu_text_color": "#000000",
+        "items": [
+            {
+                "class_name": "fuvrextx",
+                "column_index": 0,
+                "content_type": "",
+                "dynamic_data": 1,
+                "is_full_width": 0,
+                "layout_json": null,
+                "login_required": 0,
+                "mobile_app_template": null,
+                "no_of_records": 0,
+                "reference_document": null,
+                "section": "PS-22-00016",
+                "section_name": "Header Logo",
+                "section_type": "Static Section",
+                "view_more_redirect_to": null,
+                "view_type": ""
+            },
+            {
+                "class_name": "jkjcrroz",
+                "column_index": 1,
+                "content_type": "",
+                "dynamic_data": 1,
+                "is_full_width": 0,
+                "layout_json": null,
+                "login_required": 0,
+                "mobile_app_template": null,
+                "no_of_records": 0,
+                "reference_document": null,
+                "section": "PS-22-00017",
+                "section_name": "Header Menu",
+                "section_type": "Menu",
+                "view_more_redirect_to": null,
+                "view_type": "",
+                "menus": [
+                    {
+                        "menu_label": "Home",
+                        "redirect_url": "/",
+                        "is_mega_menu": 0,
+                        "no_of_column": 0,
+                        "child_menu": []
+                    },
+                    {
+                        "menu_label": "Categories",
+                        "redirect_url": "/categories",
+                        "is_mega_menu": 0,
+                        "no_of_column": 0,
+                        "child_menu": []
+                    },
+                    {
+                        "menu_label": "IR Prime",
+                        "redirect_url": "/IRPrime",
+                        "is_mega_menu": 0,
+                        "no_of_column": 0,
+                        "child_menu": []
+                    },
+                    {
+                        "menu_label": "Events",
+                        "redirect_url": "/events",
+                        "is_mega_menu": 0,
+                        "no_of_column": 0,
+                        "child_menu": []
+                    },
+                    {
+                        "menu_label": "Book Store",
+                        "redirect_url": "/bookstore",
+                        "is_mega_menu": 0,
+                        "no_of_column": 0,
+                        "child_menu": []
+                    },
+                    {
+                        "menu_label": "News Letters",
+                        "redirect_url": "/newsletters",
+                        "is_mega_menu": 0,
+                        "no_of_column": 0,
+                        "child_menu": []
+                    }
+                ]
+            },
+            {
+                "class_name": "mlnfjnxl",
+                "column_index": 2,
+                "content_type": "",
+                "defalut_profile": "",
+                "dynamic_data": 1,
+                "is_full_width": 0,
+                "layout_json": null,
+                "login_required": 0,
+                "message_icon": "",
+                "mobile_app_template": null,
+                "no_of_records": 0,
+                "notification_icon": "",
+                "profile_menu": [
+                    {
+                        "idx": 1,
+                        "menu_name": "Dashboard",
+                        "redirect_url": "/dashboard"
+                    },
+                    {
+                        "idx": 2,
+                        "menu_name": "Service Request",
+                        "redirect_url": "/my-tickets"
+                    },
+                    {
+                        "idx": 3,
+                        "menu_name": "Document Vault",
+                        "redirect_url": "/vault"
+                    },
+                    {
+                        "idx": 4,
+                        "menu_name": "Invite & Earn",
+                        "redirect_url": "/referral"
+                    },
+                    {
+                        "idx": 5,
+                        "menu_name": "Search Tickets",
+                        "redirect_url": "/all-tickets"
+                    },
+                    {
+                        "idx": 6,
+                        "menu_name": "Change Password"
+                    },
+                    {
+                        "idx": 7,
+                        "menu_name": "Logout"
+                    }
+                ],
+                "reference_document": null,
+                "section": "PS-22-00018",
+                "section_name": "Header Profile Info",
+                "section_type": "Static Section",
+                "view_more_redirect_to": null,
+                "view_type": ""
+            }
+        ]
+    }
+}

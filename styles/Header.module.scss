@@ -1,0 +1,76 @@
+@import './Variables.module.scss';
+
+.list{
+    gap: 50px;
+    .listKey{
+        list-style-type: none;
+        text-decoration: none !important;
+        color: $dark-color;
+    }
+}
+
+.activeMenu{
+    color: $primary-color !important;
+}
+
+
+@media screen and (min-width:768px) {
+ 
+    .cards{
+        border: 1px solid $border-color;
+        height: 250px !important;
+        width: 220px !important;
+        border-radius: 10px;
+        .sub_title{
+            margin: 0;
+            font-size: 14px;
+            padding: 10px;
+        }
+        .img{
+            border-radius: 10px 10px 0 0 !important;
+        }
+    }
+    // .slide{
+    //     width: 60% !important;
+    // }
+    
+}
+
+.bb1{
+    border-bottom: 1px solid $border-color;
+}
+.btn_sub{
+    border: 1px solid $primary-color;
+    color:  $white-color;
+    background: $primary-color;
+    // height: 30px;
+    font-size: 12px;
+    padding: 8px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn_sig{
+    border: 1px solid $border-color;
+    color: $dark-color;
+    background:  $white-color;
+    // height: 30px;
+    font-size: 12px;
+    padding: 8px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.input1{
+    border: none;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 0;
+    &:focus{
+        outline: none;
+    }
+}
+
+.navHead{
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
