@@ -113,12 +113,22 @@ export default function Bookstore({ data }) {
 }
 
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const resp = await booksLanding();
   const data = resp.message;
 
   return {
-    props: { data }
+    props: { data }, revalidate: 50,
   }
 
 }
+
+// export async function getServerSideProps() {
+//   const resp = await booksLanding();
+//   const data = resp.message;
+
+//   return {
+//     props: { data }
+//   }
+
+// }

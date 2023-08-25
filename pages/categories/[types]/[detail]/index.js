@@ -24,10 +24,11 @@ export default function CategoryDetail({ data }) {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       let val = [data]
       setValues(d => [...d, ...val])
     }
-    setPrev(router.query.detail)
+    setPrev(router.query.types + '/' +router.query.detail)
     // setPagination(true)
   }, [])
 
@@ -39,7 +40,7 @@ export default function CategoryDetail({ data }) {
     // console.log(pagination)
 
     let param = {
-      "article": prev,
+      "route": prev,
       "category": router.query.types,
       "next": 1
     }
@@ -50,7 +51,7 @@ export default function CategoryDetail({ data }) {
       let data = value.message;
       // console.log(data)
       if (data && data.status == "Success") {
-        setPrev(data.name)
+        setPrev(data.route)
         // router.replace(`/categories/${router.query.types}/${data.name}`)
         let val = [data]
         setValues(d => d = [...d, ...val])
@@ -60,7 +61,7 @@ export default function CategoryDetail({ data }) {
         //   // pagination = false
         // }, 300);
         // console.log(pagination)
-      }else{
+      } else {
         setPagination(!pagination)
       }
       //  if (data && data.length == 0) {
@@ -101,7 +102,7 @@ export async function getServerSideProps({ params }) {
   let Id = await params?.detail;
   let Category = await params?.types;
   let param = {
-    "article": Id,
+    "route": Category + '/' + Id,
     "category": Category,
     "next": 0
   }

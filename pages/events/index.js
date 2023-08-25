@@ -23,6 +23,7 @@ export default function Events({ data }) {
     const cardref = useRef()
     useEffect(() => {
         if (data) {
+            console.log(data);
             setPageData(data)
         }
         if (!cardref?.current) return;
@@ -46,11 +47,10 @@ export default function Events({ data }) {
                         return (
                             <div key={index} className='flex flex-col flex-[0_0_calc(50%_-_15px)]'>
                                 <div><Title data={resp} seeMore={true} /></div>
-                                <div className={`flex flex-wrap justify-between gap-[20px]`}><EventCards islanding={true} route={resp.name} data={resp.events.slice(0,4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} height={'h-[210px]'} width={'w-full'} /></div>
+                                <div className={`flex flex-wrap justify-between gap-[20px]`}><EventCards data={resp.events.slice(0,4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} height={'h-[210px]'} width={'w-full'} /></div>
                             </div>
                         )
                     })}
-
                 </div>
 
             </RootLayout>
@@ -59,21 +59,25 @@ export default function Events({ data }) {
       
     )
 }
-// export async function getServerSideProps() {
-//     const response = await getExclusives();
-//     const data = await response.message;
-//     return {
-//         props: { data }
-//     }
-// }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     let params = {
-        "doctype": "Community Event", "filter_name": "category", "parent_fields": ["name", "title","thumbnail_path","start_date","description","category"], "category_doctype": "Event Category", "category_fields": ["name", "category_name"], "page_no": 1, "records": 4, "category_count": 4
+        "doctype": "Community Event", "filter_name": "category", "parent_fields": ["name", "title","thumbnail_path","start_date","description","category","route"], "category_doctype": "Event Category", "category_fields": ["name", "category_name","route"], "page_no": 1, "records": 4, "category_count": 4
     }
     const resp = await getCategoryList(params);
     const data = resp.message;
     return {
-        props: { data }
+        props: { data } , revalidate: 50,
     }
 }
+
+// export async function getServerSideProps() {
+//     let params = {
+//         "doctype": "Community Event", "filter_name": "category", "parent_fields": ["name", "title","thumbnail_path","start_date","description","category","route"], "category_doctype": "Event Category", "category_fields": ["name", "category_name","route"], "page_no": 1, "records": 4, "category_count": 4
+//     }
+//     const resp = await getCategoryList(params);
+//     const data = resp.message;
+//     return {
+//         props: { data }
+//     }
+// }

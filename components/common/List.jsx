@@ -10,7 +10,7 @@ export default function List({imgFlex,contentWidth,line,data,check,isTop,isRever
             {data && data.map((res,index) => {
                 return (
                     // style={{flex:flex}}
-                    <div key={index}  onClick={()=> router.push(`${router.asPath}/${res.name}`)} className={`${flex} flex gap-3 pb10 relative ${exclusives.card_item} ${isReverse ? 'flex-row-reverse items-center  mb-[10px] justify-between' : ''} ${(isReverse && index != data.length -1 ) ? 'border_bottom' : ''} ${(isBB && index != data.length - 1) && 'border_bottom mb-[10px]'}`}>
+                    <div key={index}  onClick={()=> router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} className={`${flex} flex cursor-pointer gap-3 pb10 relative ${exclusives.card_item} ${isReverse ? 'flex-row-reverse items-center  mb-[10px] justify-between' : ''} ${(isReverse && index != data.length -1 ) ? 'border_bottom' : ''} ${(isBB && index != data.length - 1) && 'border_bottom mb-[10px]'}`}>
                          {(res.primary_text && res.secondary_text && isTop) && <p className={`flex  ${exclusives.title_top} items-center absolute`}><span className='primary_text pr-[10px] '>{res.primary_text}</span> <span className='h-[15px] w-[2px] bg-[#121212]'></span> <span className='pl-[10px] secondary_text'>{res.secondary_text}</span></p>}
                         {/* ${check ? '' : 'basis-1/4'} */}
                         <div className={`${imgFlex} ${isTop && 'pt-[25px]'} ${isReverse ? 'flex-[0_0_calc(35%_-_10px)]' : ''}`}>

@@ -9,7 +9,9 @@ import MultiCarousel from '../Sliders/MultiCarousel'
 import Title from '../common/Title'
 import YTVideo from '../Landing/YTVideo'
 import val from '@/libs/irprime'
+import { useRouter } from 'next/router'
 export default function ExclusiveBuilder({ data }) {
+    const router = useRouter();
     return (
         <div className=' p-[30px] gap-5 container'>
             {data.map((res, index) => {
@@ -20,7 +22,7 @@ export default function ExclusiveBuilder({ data }) {
                             <div className={`h-[685px] border rounded-[5px] p-[10px] flex-[0_0_calc(42%_-_10px)] md:basis-full`}>
                                 {res.events.slice(0, 1).map((item, index) => {
                                     return (
-                                        <div key={index} className={`mb-[10px] pb-[10px] ${index == 0 ? 'border_bottom' : ''}`}>
+                                        <div key={index} onClick={()=> router.push(`/${router.asPath.split('/')[1]}/${item.route}`)} className={`mb-[10px] cursor-pointer pb-[10px] ${index == 0 ? 'border_bottom' : ''}`}>
                                             <p className={`${index == 0 ? 'text-[18px] font-semibold' : ''}`}>{item.title}</p>
                                             <Image className={`${index == 0 ? 'h-[320px] w-full pt-[10px] rounded-[5px]' : ''}`} src={check_Image(item.thumbnail_image)} height={250} width={300} alt={item.title} />
                                             <p className={`flex items-center ${index == 0 ? 'pt-[10px]' : ''}`}><span className={`primary_text pr-[10px]`}>{item.primary_text}</span><span className='h-[15px] w-[2px] bg-[#121212]'></span><span className={`secondary_text pl-[10px]`}>{item.secondary_text}</span></p>

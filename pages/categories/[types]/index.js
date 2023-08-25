@@ -15,8 +15,8 @@ export default function CategoryType({ values }) {
     let apiCall = false;
     let page_no = 1;
 
+    console.log(router);
     useEffect(() => {
-
         if (values) {
             console.log(values);
             setData(values)
@@ -72,9 +72,9 @@ export default function CategoryType({ values }) {
                             <Title data={{ title: router.query.types }} />
                             <div className='border rounded-[10px] h-[520px] p-[17px]'>{data.slice(0, 1).map((res, index) => {
                                 return (
-                                    <div key={index} onClick={() => router.push(`${router.asPath}/${res.name}`)} className={` pb-[10px]`}>
+                                    <div key={index} onClick={() => router.push(`/categories/${res.route}`)} className={` pb-[10px]`}>
                                         <p className={`text-[18px] font-semibold`}>{res.title}</p>
-                                        <Image className={`h-[350px] w-full pt-[10px] rounded-[5px]`} src={check_Image(res.thumbnail_image)} height={250} width={300} alt={res.title} />
+                                        <Image className={`h-[330px] w-full pt-[10px] rounded-[5px]`} src={check_Image(res.thumbnail_image)} height={250} width={300} alt={res.title} />
                                         <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#121212]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
                                         <p className={`sub_title line-clamp-2 pt-[10px]`}>{res.blog_intro}</p>
                                         <p className={`hashtags pt-[5px]`}>{res.publisher}</p>
@@ -91,7 +91,6 @@ export default function CategoryType({ values }) {
                         <Cards cardClass={"h-[310px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} check={true} width={"w-full"} isBorder={true} data={data} />
                     </div>
                 </div>
-
             </RootLayout>
         </>
     )

@@ -17,7 +17,7 @@ export default function forget() {
         <>
             <div className='flex container justify-between p-[30px] relative'>
                 <div className='flex-[0_0_calc(40%_-_10px)] relative'>
-                    <div className='absolute top-0 left-[-50px]'>
+                    <div className='absolute cursor-pointer top-0 left-[-50px]'>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>
                     <div className='flex flex-col items-center justify-center h-full'>
@@ -32,7 +32,7 @@ export default function forget() {
                                 <Image className={`absolute  right-[10px] h-[21px] w-[25px] ${errors.user?.message ? 'bottom-[60px]' : 'bottom-[25px]'}`} src={'/login/email.svg'} height={15} width={15} alt={"pass"} />
                                 {errors?.user && <p className={`${styles.danger}`}>{errors.user.message}</p>}
                             </div>
-                            <button className={`${styles.loginBtn}`} type='submit'>Send</button>
+                            <button className={`${styles.loginBtn} cursor-pointer`} type='submit'>Send</button>
                         </form>
                     </div>
                 </div>

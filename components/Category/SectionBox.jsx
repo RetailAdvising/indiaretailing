@@ -10,7 +10,7 @@ export default function SectionBox({ data }) {
                 <p className='text-red text-[14px]'>{data.primary_text}</p>
                 <p className='text-[20px] font-semibold cursor-pointer'>{data.title}</p>
                 <p className='sub_title cursor-pointer'>{data.description}</p>
-                <p className='flex gap-[15px] items-center cursor-pointer seeMore' onClick={()=> router.push(`/categories/${data.name}`)}><span className='text-gray font-semibold '>See More</span><Image className='img' src={'/categories/arrowright.svg'} alt='arrow' height={20} width={20} /></p>
+                <p className='flex gap-[15px] items-center cursor-pointer seeMore' onClick={()=> router.push(`/categories/${data.route}`)}><span className='text-gray font-semibold '>See More</span><Image className='img' src={'/categories/arrowright.svg'} alt='arrow' height={20} width={20} /></p>
             </div>}
         </>
     )

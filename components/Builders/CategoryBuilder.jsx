@@ -21,7 +21,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   const [placeholder, setPlaceholder] = useState([]);
-  const [validator,setValidator] = useState(undefined)
+  const [validator, setValidator] = useState(undefined)
   const router = useRouter();
   // console.log(router)
   // let validate;
@@ -100,12 +100,12 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
   const [visible, setVisible] = useState(false)
   function show() {
     setVisible(true);
-    
+
   }
 
   function hide() {
     setVisible(false)
-    if(localStorage['apikey']){
+    if (localStorage['apikey']) {
       setValidator(localStorage['apikey']);
       router.reload();
     }
@@ -216,13 +216,11 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
 
   return (
     <>
-      {/* {(data && data.length != 0) && data.map((res, index) => {
-        return ( */}
       <div ref={cardref}>
         <div className='flex w-full gap-11 md:flex-wrap p-[30px] container'>
           <div className='w_70 md:w-full'>
             <div>
-              <Content res={data} />
+              <Content i={i} res={data} />
             </div>
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'line-clamp-5'}`} />
 
@@ -236,35 +234,14 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
 
             <Modal modal={modal} show={show} visible={visible} hide={hide} />
 
-            {/* <p className='content' id={`${i}`}>{i}</p> */}
-            {/* <div id='container1'>{element}</div> */}
-
-            {/* <div id='container1' className={``}>
-              <Placeholders data={placeholder} index={i} />
-            </div> */}
-
-            {/* <p className='content' id={`cont${i}`}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique, fugiat dignissimos. Incidunt placeat officia maior[events]es ad sed soluta tempore, perferendis [articles], iure iusto doloribus error sequi natus hic quo eligendi animi?</p>
-                <div id='container1'>{el}</div> */}
-            {/* {(value && value.length == 0 && !isPrime)? <div className='flex items-center gap-[10px] py-5'>
-                  <input name="placeholder" className='border w-[50%] h-[40px] p-[10px] rounded-[5px]' id="placeholder" placeholder='Enter section to load' />
-                  <button onClick={loadSection}>Submit</button>
-                </div> :
-                  <div className={`grid grid-cols-3 p-[20px_30px] gap-[20px]`}>
-                    contentHeight={'h-[175px]'}
-                    <Cards cardClass={"h-[310px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} check={true} width={"w-full"} isBorder={true} data={value.slice(0,6)} />
-                  </div>
-                } */}
-
-
-            <div className={`${styles.slider_parent}`}>
+            {/* <div className={`${styles.slider_parent}`}>
               <div>
                 <Title data={{ title: "Must Read" }} />
               </div>
-              {/* <ChildSlider data={data.related_articles} per_view={3} cols={3} colsPerView={1} rows={2} type={'list'} /> */}
               <ChildSlider data={categories.sections.section_1.must_read.data} per_view={3} cols={3} colsPerView={1} rows={2} type={'list'} />
-            </div>
+            </div> */}
 
-            {/* Footer */}
+            {/* Comments */}
             {<div className='py-12'>
               <div className={`flex flex-row justify-between`}>
                 <p className="gray-text">Previous Post</p>
@@ -306,12 +283,6 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
                 })}
               </div>
 
-              {/* <div className='flex justify-center py-4 '> */}
-              {/* <Image src={r} height={15} width={15} alt="" /> */}
-              {/* <Image src={showComment ? '/chevron-up.svg' : '/downArrow.svg'} height={11} width={13} alt={"chevron"} className='flex items-center' /> <span className='pr-2'>{' ( ' + 2 + ' )'}</span> */}
-              {/* <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} w-[25%] flex `}>Add Comment</button> */}
-              {/* </div> */}
-
               {(data.comments) && <>
                 <div className={` border_bottom py-1.5 ${styles.profile_div}`}>
                   <p className='font-semibold'>Comments</p>
@@ -328,7 +299,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
                   </div>
                 }
               </>}
-              <div className={`flex justify-center`}>
+              <div className={`${(data.comments && data.comments.length != 0) ? '': 'mt-[10px]'} flex justify-center`}>
                 <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} w-[25%] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
               </div>
 
@@ -395,9 +366,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
                         <AdsBaner data={res.baner_img3} text={"Advertisement"} height={'220px'} width={'275px'} />
                       </div>
                     }
-
                   </div>
-
                 )
               })}
             </div>
@@ -408,19 +377,15 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
         {categories.sections.section_3 && <div className={`container ${styles.section_3}`}>
           {/* Slider */}
           {(categories.sections.section_3.section_type == 'slider' && categories.sections.section_3.type == 'card') && <div className={`${styles.slider_parent} p03015 mb-7`}>
-            {/* <div> */}
             <div className='title_div pb10'>
               <h6 className='title'>{categories.sections.section_3.title}</h6>
               <div className='line'></div>
             </div>
-            {/* </div> */}
             {((categories.sections.section_3.type == 'list' || categories.sections.section_3.type == 'card') && categories.sections.section_3.data) && <MultiCarousel perView={5} data={categories.sections.section_3.data} height={"h-full"} width={'w-full'} type={'card'} />}
           </div>}
 
         </div>}
       </div>
-      {/* )
-      })} */}
     </>
   )
 }

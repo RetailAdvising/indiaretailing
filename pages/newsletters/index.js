@@ -2,15 +2,14 @@
 import RootLayout from '@/layouts/RootLayout'
 import React from 'react'
 import NewsList from '@/components/Newsletter/NewsList';
-import data from '@/libs/newsletter';
-import NewsCard from '@/components/Newsletter/NewsCard';
+import value from '@/libs/newsletter';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import Subscribe from '@/components/Landing/Subscribe';
-import { getList, newsLanding } from '@/libs/api';
+import { newsLanding } from '@/libs/api';
 
 export default function newsletter({ data }) {
-  console.log(data);
+
   return (
     <>
       <RootLayout>
@@ -21,16 +20,16 @@ export default function newsletter({ data }) {
               <NewsList data={data} />
             </div>
 
-            {/* {data.col_2 &&
+            {value.col_2 &&
               <div className='flex-[0_0_calc(30%_-_10px)]'>
                 <div className='pb-[20px]'>
-                  <AdsBaner data={data.col_2} />
+                  <AdsBaner data={value.col_2} />
                 </div>
                 <div>
-                  <Subscribe height={'h-[162px]'} width={'w-full'} data={data.col_2.data} />
+                  <Subscribe height={'h-[162px]'} width={'w-full'} data={value.col_2.data} />
                 </div>
               </div>
-            } */}
+            }
 
           </div>
 
@@ -43,7 +42,7 @@ export default function newsletter({ data }) {
 }
 
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let param = {
     fields: ['custom_day', 'name', 'custom_category', 'custom_description', 'custom_image_', 'custom_title', 'route']
   }
@@ -51,6 +50,18 @@ export async function getServerSideProps() {
   let data = value.message;
 
   return {
-    props: { data }
+    props: { data }, revalidate: 50,
   }
 }
+
+// export async function getServerSideProps() {
+//   let param = {
+//     fields: ['custom_day', 'name', 'custom_category', 'custom_description', 'custom_image_', 'custom_title', 'route']
+//   }
+//   let value = await newsLanding(param);
+//   let data = value.message;
+
+//   return {
+//     props: { data }
+//   }
+// }

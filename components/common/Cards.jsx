@@ -9,7 +9,7 @@ export default function Cards({noPrimaryText,data, check,contentHeight, flex, bo
     <>
       {data && data.map((res, index) => {
         return (
-          <div key={index} onClick={()=> router.push(`${router.asPath}/${res.name}`)} className={`${styles.cards} ${flex} ${isBorder&& 'border rounded-[10px]'} ${cardClass}`} >
+          <div key={index} onClick={()=> router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} className={`${styles.cards} ${flex} cursor-pointer ${isBorder&& 'border rounded-[10px]'} ${cardClass}`} >
             <div className={`${styles.img_div}`}>
               {/* layout="fill" sizes="(min-width: 60em) 24vw, (min-width: 28em) 45vw, 100vw"  objectFit="cover" */}
               <Image height={100} width={200} className={` ${height} ${width} ${borderRadius} ${styles.card_img} ${border_none ? 'rounded-[5px]' : 'rounded-[10px]'} `} src={check ? check_Image(res.thumbnail_image) : res.image}  alt={"cards"} />

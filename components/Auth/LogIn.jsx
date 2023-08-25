@@ -40,7 +40,7 @@ export default function LogIn({ isModal, hide }) {
         <>
             {!otp ? <div className='flex container p-[20px] justify-center gap-[60px] '>
                 <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] relative h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(35%_-_10px)] mt-[30px]'} flex-col flex justify-center`}>
-                    {!isModal && <div className='absolute top-0 left-[10px]'>
+                    {!isModal && <div className='absolute top-0 left-[10px] cursor-pointer'>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
@@ -60,34 +60,34 @@ export default function LogIn({ isModal, hide }) {
                         </div>
 
                         <div className={`flex items-center justify-between gap-[50px] pb-5`}>
-                            <div className='flex items-center gap-[10px]'>
+                            <div className='flex cursor-pointer items-center gap-[10px]'>
                                 <input type='checkbox' className={`${styles.checkBox} indeterminate:bg-gray-300`} {...register('remember')} />
                                 {/* <span className={`${styles.checkmark}`}></span> */}
                                 <span >Remember Me</span>
                             </div>
-                            <p className='text-blue-500 font-semibold text-[13px]' onClick={() => router.push('/forget   ')}>Forget Password</p>
+                            <p className='text-blue-500 font-semibold text-[13px] cursor-pointer' onClick={() => router.push('/forget   ')}>Forget Password</p>
                         </div>
                         <button type="submit" className={`${styles.loginBtn}`}>Log In</button>
-                        {wrong && <p>Please check you email or password</p>}
+                        {wrong && <p>Please check your email or password</p>}
                     </form>
-                    <p className='pt-[10px]'>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold'>create an account</span></p>
+                    <p className='pt-[10px] '>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>create an account</span></p>
                     <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div>
 
                     {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}
-                    <div onClick={() => setOtp(!otp)} className='flex gap-[10px] my-[18px] h-[45px] rounded-[5px] border items-center justify-center '>
+                    <div onClick={() => setOtp(!otp)} className='flex gap-[10px] my-[18px] h-[45px] cursor-pointer rounded-[5px] border items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/login/Login-OTP.svg'} />
                         <p>Login With OTP</p>
                     </div>
-                    <div className='flex gap-[10px] mb-[18px] h-[45px] rounded-[5px] border items-center justify-center '>
+                    <div className='flex gap-[10px] mb-[18px] h-[45px] rounded-[5px] border cursor-pointer items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/google-login.svg'} />
                         <p>Continue with Google</p>
                     </div>
-                    <div className='flex gap-[10px] items-center h-[45px] rounded-[5px] justify-center border'>
+                    <div className='flex gap-[10px] items-center h-[45px] rounded-[5px] cursor-pointer justify-center border'>
                         <Image height={20} width={20} alt='apple' src={'/Apple-login.svg'} />
                         <p>Continue with Apple</p>
                     </div>
                 </div>
-                {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
+                {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] bg-[#E9ECF2] cursor-pointer border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full`} />
                 </div>}
             </div> : <OTP hide={hide} isModal={isModal} setotp={() => setOtp(!otp)} />

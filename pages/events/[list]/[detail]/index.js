@@ -4,7 +4,7 @@ import Detail from '@/libs/eventDetail';
 import RootLayout from '@/layouts/RootLayout';
 import EventDetail from '@/components/Events/EventDetail';
 import { postMethod } from '@/libs/api';
-export default function EventDetails({data}) {
+export default function EventDetails({ data }) {
     const router = useRouter();
 
     return (
@@ -17,8 +17,8 @@ export default function EventDetails({data}) {
 }
 
 export async function getServerSideProps({ params }) {
-    const Id = await params?.detail;
-    const datas = { event: Id }
+    const Id = await params?.list + '/' + params?.detail;
+    const datas = { route: Id }
     const response = await postMethod("india_retailing.india_retailing.api.event_detail", datas)
     const data = await response;
     return {

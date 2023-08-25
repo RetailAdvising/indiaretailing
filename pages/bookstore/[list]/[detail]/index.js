@@ -190,7 +190,7 @@ export default function Bookstoredetail({ value, res }) {
               <div className='px-[10px] border_bottom pb-[10px] mb-[10px]'>
                 <h6 className='pb-[10px] font-semibold'>This Issue</h6>
                 {/* <div className='line-clamp-[10]' dangerouslySetInnerHTML={{__html:data.full_description}} ></div> */}
-                <div dangerouslySetInnerHTML={{ __html: data.full_description }} />
+                <div className='line-clamp-[8]' dangerouslySetInnerHTML={{ __html: data.full_description }} />
                 {/* <p className='font-semibold'>Read More...</p> */}
               </div>
 

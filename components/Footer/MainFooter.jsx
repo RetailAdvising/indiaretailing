@@ -42,7 +42,7 @@ export default function MainFooter() {
                         </div>
                     }
 
-                    {(footer.footer.section_2 && footer.footer.section_2.child_data) && <div className={`grid grid-cols-4 md:grid-cols-3 gap-[100px_20px] md:gap-5 md:flex-[0_0_calc(100%_-_10px)] flex-[0_0_calc(75%_-_10px)] `}>
+                    {(footer.footer.section_2 && footer.footer.section_2.child_data) && <div className={`grid grid-cols-4 md:grid-cols-2 gap-[100px_20px] md:gap-5 md:flex-[0_0_calc(100%_-_10px)] flex-[0_0_calc(75%_-_10px)] `}>
                         {footer.footer.section_2.child_data.map((res, index) => {
                             return (
                                 <div key={index} className={`list_div leading-[2.5]`}>

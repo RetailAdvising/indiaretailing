@@ -86,7 +86,7 @@ export default function Lists({data}) {
 }
 
 export async function getServerSideProps({ params }) {
-    let Id = await params?.list;
+    let Id = await params?.types;
     // let Id = 'beauty-wellness';
     let param = {
         doctype: "Articles",

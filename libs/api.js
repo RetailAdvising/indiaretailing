@@ -192,3 +192,8 @@ export async function newsLanding(data){
     let api = domainUrl + 'newsletter_list_with_categories';
     return await postMethod(api,data)
 }
+
+export async function newsDetail(data){
+    let api = domainUrl + 'newsletter_details';
+    return await postMethod(api,data)
+}

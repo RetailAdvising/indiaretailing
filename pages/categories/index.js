@@ -10,6 +10,7 @@ import SectionBox from '@/components/Category/SectionBox';
 import MultiCarousel from '@/components/Sliders/MultiCarousel';
 import Title from '@/components/common/Title';
 export default function Categories({ data }) {
+    console.log(data);
     // useEffect(()=>{
         // const checkBfcache = (e) => {
         //     console.log("This page is restored from bfcache?", e.persisted);
@@ -39,13 +40,24 @@ export default function Categories({ data }) {
 }
 
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     let params = {
-        "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title","thumbnail_image","articles_category"], "category_doctype": "Articles Category", "category_fields": ["name", "title","primary_text","description"], "page_no": 1, "records": 4, "category_count": 5
+        "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title","thumbnail_image","articles_category","route"], "category_doctype": "Articles Category", "category_fields": ["name", "title","primary_text","description","route"], "page_no": 1, "records": 4, "category_count": 7
     }
     const res = await getCategoryList(params);
     const data = res.message;
     return {
-        props: { data }
+        props: { data }, revalidate: 50,
     }
 }
+
+// export async function getServerSideProps() {
+//     let params = {
+//         "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title","thumbnail_image","articles_category","route"], "category_doctype": "Articles Category", "category_fields": ["name", "title","primary_text","description","route"], "page_no": 1, "records": 4, "category_count": 7
+//     }
+//     const res = await getCategoryList(params);
+//     const data = res.message;
+//     return {
+//         props: { data }
+//     }
+// }

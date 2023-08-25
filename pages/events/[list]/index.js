@@ -33,6 +33,7 @@ export default function EventDetails({ values }) {
 
     useEffect(()=>{
         if (values) {
+            console.log(values);
             setData(values.message)
         }
 
@@ -64,7 +65,7 @@ export default function EventDetails({ values }) {
 
     async function loadMore() {
         let Id = router.query?.list;
-        let param = { category: Id,page_no: page_no,page_length: 6, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path"] }
+        let param = { route: Id,page_no: page_no,page_length: 6, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path"] }
         let value = await eventList(param)
         if (value && value.message.length != 0) {
             setData(d => d=[...d,...value.message]);
@@ -129,7 +130,7 @@ export default function EventDetails({ values }) {
 }
 export async function getServerSideProps({ params }) {
     const Id = await params?.list;
-    const datas = { category: Id,page_no:1,page_length: 6, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path"] }
+    const datas = { route: Id,page_no:1,page_length: 6, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path","route"] }
     const response = await eventList(datas)
     const values = await response;
     return {

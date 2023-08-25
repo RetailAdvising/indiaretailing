@@ -36,7 +36,7 @@ export default function EventList({ data, flex, height, width, imageBackground, 
 
             {data && data.map((res, index) => {
                 return (
-                    <div className={`overflow-hidden flex ${isHome ? 'flex rounded-[5px] border' : ''} border_bottom pb-[20px] bg-white gap-[10px]   ${flex}`} onClick={() => router.push(`${router.asPath}/${res.name}`)} key={index}>
+                    <div className={`overflow-hidden cursor-pointer flex ${isHome ? 'flex rounded-[5px] border' : ''} border_bottom pb-[20px] bg-white gap-[10px]   ${flex}`} onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} key={index}>
                         <div className='flex-[0_0_calc(40%_-_10px)]'>
                             <Image height={100} width={200} alt={res.title} src={check_Image(res.thumbnail_path)} className={`${height} ${width} rounded-[10px]`} />
                         </div>
@@ -45,7 +45,7 @@ export default function EventList({ data, flex, height, width, imageBackground, 
                             <p className={`sub_title line-clamp-2`}>{res.description}</p>
                             {/* <p className={`sub_title pt-[5px]`}>{res.end}</p> */}
                             <div className={`flex gap-[10px] items-center pt-[10px] `}>
-                                <p className={`flex gap-[5px] items-center border_right pr-[10px]`}><Image src="/calendar.svg" className={`object-contain`} objectFit='contain' height={15} width={20} alt={res.title} /> <span className={`light_text pt-[2px]`}>{res.start_date}</span></p>
+                                <p className={`flex gap-[5px] items-center `}><Image src="/calendar.svg" className={`object-contain`} objectFit='contain' height={15} width={20} alt={res.title} /> <span className={`light_text pt-[2px]`}>{res.start_date}</span></p> <span className='h-[18px] w-[3px] mx-[6px] bg-[#ddd]'></span>
                                 <p className={`flex gap-[5px] items-center`}><Image src="/location.svg" className={`object-contain`} objectFit='contain' height={10} width={20} alt={res.title} /> <span className={`light_text `}>{res.locations[0] && res.locations[0].event_location}</span></p>
                             </div>
                             <div className='flex gap-[5px] items-center py-[10px]'><p className={`primary_text font-semibold`}>Register Now</p>

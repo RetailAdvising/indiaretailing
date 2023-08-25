@@ -16,7 +16,7 @@ export default function Membership() {
     return (
       <RootLayout>
         <div className='container p-[30px]'>
-            <h2 className="font-bold text-5xl text-center">{data.title}</h2>
+            <h2 className="font-bold text-5xl md:text-2xl text-center">{data.title}</h2>
             <p className="sub_title text-center pb-10 pt-3">{data.subtitle}</p>
             <div className="flex flex-row m-auto justify-center gap-2 mb-3">
               <div className='inline-block rounded-2xl p-1 border-gray-300 border border-solid'>

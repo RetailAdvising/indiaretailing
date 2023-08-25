@@ -148,6 +148,64 @@
                 "section_type": "Static Section",
                 "view_more_redirect_to": null,
                 "view_type": ""
+            },
+            {
+                "class_name": "mlnfjnxl",
+                "column_index": 2,
+                "content_type": "",
+                "defalut_profile": "",
+                "dynamic_data": 1,
+                "is_full_width": 0,
+                "layout_json": null,
+                "login_required": 0,
+                "message_icon": "",
+                "mobile_app_template": null,
+                "no_of_records": 0,
+                "notification_icon": "",
+                "menus": [
+                    {
+                        "idx": 1,
+                        "menu_name": "Fashion & Lifestyle",
+                        "redirect_url": "/categories/fashion-lifestyle"
+                    },
+                    {
+                        "idx": 2,
+                        "menu_name": "Beauty & Wellness",
+                        "redirect_url": "/categories/beauty-wellness"
+                    },
+                    {
+                        "idx": 3,
+                        "menu_name": "Food & Beverage",
+                        "redirect_url": "/categories/food-beverage"
+                    },
+                    {
+                        "idx": 4,
+                        "menu_name": "Consumer Durables & IT",
+                        "redirect_url": "/categories/consumer-durables-it"
+                    },
+                    {
+                        "idx": 4,
+                        "menu_name": "Entertainment",
+                        "redirect_url": "/categories/entertainment"
+                    },
+                    {
+                        "idx": 4,
+                        "menu_name": "Home Decor & Furnishing",
+                        "redirect_url": "/categories/home-decor-furnishing"
+                    },
+                    {
+                        "idx": 4,
+                        "menu_name": "Specialty Retail",
+                        "redirect_url": "/categories/specialty-retail"
+                    }
+                    
+                ],
+                "reference_document": null,
+                "section": "PS-22-00018",
+                "section_name": "Header Category Info",
+                "section_type": "Static Section",
+                "view_more_redirect_to": null,
+                "view_type": "" 
             }
         ]
     }

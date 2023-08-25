@@ -13,11 +13,11 @@ export default function Details() {
   // let prev = router.query.detail;
 
   async function articleDetail() {
-    if (router.query && (router.query.detail && router.query.list)) {
+    if (router.query && (router.query.detail && router.query.types)) {
       let Id = await router.query?.detail;
-      let category = await router.query?.list;
+      let category = await router.query?.types;
       let param = {
-        "article": Id,
+        "route": category + '/' + Id,
         "category": category,
         "next": 0
       }
@@ -25,7 +25,7 @@ export default function Details() {
       let data = value.message;
       let val = [data]
       setValues(d => [...d, ...val])
-      setPrev(router.query.detail)
+      setPrev(router.query.types + '/' + router.query.detail)
     }
   }
 
@@ -49,8 +49,8 @@ export default function Details() {
     // console.log(pagination)
 
     let param = {
-      "article": prev,
-      "category": router.query.list,
+      "route": prev,
+      "category": router.query.types,
       "next": 1,
     }
 
@@ -59,7 +59,7 @@ export default function Details() {
       let data = value.message;
       // console.log(data)
       if (data && data.status == "Success") {
-        setPrev(data.name)
+        setPrev(data.route)
         let val = [data]
         setValues(d => d = [...d, ...val])
       } else {

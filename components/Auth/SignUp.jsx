@@ -41,7 +41,7 @@ export default function SignUp({ isModal, hide }) {
         <>
             <div className='flex container p-[20px] justify-center gap-[60px] '>
                 <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(35%_-_10px)]'} flex-col flex justify-center`}>
-                    {!isModal && <div className='absolute top-0 left-[10px]'>
+                    {!isModal && <div className='absolute top-0 cursor-pointer left-[10px]'>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Sign Up</h6>
@@ -78,22 +78,22 @@ export default function SignUp({ isModal, hide }) {
                         </div>
 
                         <button type="submit" className={`${styles.loginBtn}`}>Signup</button>
-                        {wrong && <p className={`${styles.danger}`}>Please check you email or password</p>}
+                        {wrong && <p className={`${styles.danger}`}>Please check your email or password</p>}
                     </form>
-                    <p className='pt-[10px]'>already have an account? <span onClick={() => router.push('/login')} className='text-[#e21b22] font-semibold'>login</span></p>
+                    <p className='pt-[10px]'>already have an account? <span onClick={() => router.push('/login')} className='text-[#e21b22] font-semibold cursor-pointer'>login</span></p>
                     <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div>
 
                     {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}
-                    <div className='flex gap-[10px] mb-[18px] h-[45px] rounded-[5px] border items-center justify-center '>
+                    <div className='flex gap-[10px] cursor-pointer mb-[18px] h-[45px] rounded-[5px] border items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/google-login.svg'} />
                         <p>Continue with Google</p>
                     </div>
-                    <div className='flex gap-[10px] items-center h-[45px] rounded-[5px] justify-center border'>
+                    <div className='flex gap-[10px] cursor-pointer items-center h-[45px] rounded-[5px] justify-center border'>
                         <Image height={20} width={20} alt='apple' src={'/Apple-login.svg'} />
                         <p>Continue with Apple</p>
                     </div>
                 </div>
-                {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
+                {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full`} />
                 </div>}
             </div>

@@ -25,7 +25,7 @@ export default function AlertPopup({ message, show }) {
     };
     return (
         <>
-            <div className="alert-popup " style={{backgroundColor: "rgb(255, 237, 239)"}}>
+            <div className="alert-popup z-[99]" style={{backgroundColor: "rgb(255, 237, 239)"}}>
                 <div className="contents">
                     <div className='w-full flex justify-end'>
                         <Image onClick={show} className='cursor-pointer' src={'/newsletter/close.svg'} height={30} width={30} alt='close' />

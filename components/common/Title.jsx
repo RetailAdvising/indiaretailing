@@ -9,7 +9,7 @@ export default function Title({ data, textClass, seeMore,font,query }) {
     if(query){
       router.push(`${router.asPath}/${data.category_name}?c=${data.category}`)
     }else{
-      router.push(`${router.asPath}/${data.name}`)
+      router.push(`/${router.asPath.split('/')[1]}/${data.route}`)
     }
   }
   return (

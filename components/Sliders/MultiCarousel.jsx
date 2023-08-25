@@ -49,7 +49,7 @@ export default function MultiCarousel({ islanding,cardHeight,noPlay, check, devi
                     {/* {type != 'profile' && <div className=''> */}
                     {(data && data.length != 0) && data.map((res, index) => {
                         return (
-                            <div key={index} onClick={()=> islanding ? router.push(`${router.asPath}/${res.articles_category}/${res.name}`) : null} className={`${styles.cards} ${cardHeight}`} >
+                            <div key={index} onClick={()=> islanding ? router.push(`${router.asPath}/${res.route}`) : null} className={`${styles.cards} cursor-pointer ${cardHeight}`} >
                                 <div>
                                     <Image src={check ? check_Image(res.thumbnail_image) : res.image} className={`${height} ${width}`} height={150} width={300} alt={"image"} />
                                 </div>

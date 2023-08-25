@@ -31,7 +31,7 @@ export default function Faq() {
   return (
     <div className="flex flex-row pt-3.5 gap-6">
       <div className="basis-1/2">
-        <h2 className='font-bold text-3xl'>{data.title}</h2>
+        <h2 className='font-bold text-3xl md:text-2xl'>{data.title}</h2>
       </div>
       <div className="basis-1/2">
         <div className='accordion'>

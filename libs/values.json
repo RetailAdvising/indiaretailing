@@ -1,0 +1,26 @@
+{
+    "title":"Values",
+    "subtitle":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies leo eget nisi finibus, eleifend consectetur tortor blandit",
+    "values":[
+        {
+            "title":"Creativity",
+            "content":"We love unboxed ideas and unexpected ways to give surprising results"
+        },
+        {
+            "title":"Passion",
+            "content":"It's not just a job."
+        },
+        {
+            "title":"Respect",
+            "content":"Every opinion, feeling & person is special"
+        },
+        {
+            "title":"Uphold commitment",
+            "content":"Thought through … and delivered."
+        },
+        {
+            "title":"Value for customers",
+            "content":"We can only succeed by understanding the real needs of our (internal & external) Customers & going out of the way to exceed their expectations."
+        }
+    ]
+}

@@ -215,7 +215,45 @@ body {
   font-weight: 400;
   color: $secondary-color;
 }
-
+.pastel-bg-parent:nth-child(1){
+  background: #EEF8F9;
+}
+.pastel-bg-parent:nth-child(2){
+  background: #FFF5DD;
+}
+.pastel-bg-parent:nth-child(3){
+  background: #EEECFE;
+}
+.pastel-bg-parent:nth-child(4){
+  background: #FCF2F2;
+}
+.pastel-bg-parent:nth-child(5){
+  background: #E5ECFF;
+}
+.benefitcard:nth-child(1){
+  background: #EEF8F9;
+}
+.benefitcard:nth-child(2){
+  background: #FFF5DD;
+}
+.benefitcard:nth-child(3){
+  background: #EEECFE;
+}
+.benefitcard:nth-child(4){
+  background: #FCF2F2;
+}
+.benefitcard:nth-child(5){
+  background:   #FFF5DD;
+}
+.benefitcard:nth-child(6){
+  background: #EEF8F9;
+}
+.benefitcard:nth-child(7){
+  background:  #FCF2F2;
+}
+.benefitcard:nth-child(8){
+  background: #EEECFE;
+}
 .hashtags {
   font-size: $font-13;
   // color: $secondary-color;
@@ -255,8 +293,9 @@ body {
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0,1,0,1);
  }
- .benefitcard{
-    background-color: #EEF8F9;
+
+ .valuescard{
+    background-color: #FFF5DD;
     min-height: 380px;
  }
  .content.show{
@@ -264,10 +303,10 @@ body {
   max-height:9999px;
   transition: all 0.5s cubic-bezier(1,0,1,0);
  }
- .bg-red {
-  background-color: salmon;
-  color: white;
-}
+//  .bg-red {
+//   background-color: salmon;
+//   color: white;
+// }
 
 .p10 {
   padding: 10px;
@@ -455,7 +494,10 @@ input{
   .w_100 {
     width: 100%;
   }
-
+  .flex-row {
+    flex-direction: column;
+  }
+ 
   .mobile-flex {
     display: block;
     width: 100%;
