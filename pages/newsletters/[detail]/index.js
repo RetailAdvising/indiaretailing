@@ -30,6 +30,7 @@ export default function NewsLists({data}) {
     // }, 100000);
   };
 
+ 
   useEffect(()=>{
     allNews();
   },[router.query])
@@ -45,7 +46,6 @@ export default function NewsLists({data}) {
 
     const resp = await getList(param);
     if(resp.message && resp.message.length != 0){
-      console.log(resp.message);
       setAllNewsLetter(resp.message)
     }
   }
@@ -97,7 +97,7 @@ export default function NewsLists({data}) {
               <div className='grid grid-cols-4 md:grid-cols-2 gap-5'><NewsCard data={data.other_newsletters} imgClass={'h-[340px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[460px]'} /></div>
             </div>}
 
-            {showAlert && <AlertPopup show={() => setShowAlert(false)} />}
+            {showAlert && <AlertPopup data={data} show={() => setShowAlert(false)} />}
           </> : <>
            {(allNewsLetter && allNewsLetter.length != 0) &&  <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] pt-[20px]'>
               <NewsCard load={() => handleCheckboxChange()} pagination={true} data={allNewsLetter} imgClass={'h-[340px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[460px]'} />

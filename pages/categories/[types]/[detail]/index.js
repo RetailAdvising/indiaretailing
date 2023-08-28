@@ -26,11 +26,12 @@ export default function CategoryDetail({ data }) {
     if (data) {
       console.log(data);
       let val = [data]
-      setValues(d => [...d, ...val])
+      // setValues(d => [...d, ...val])
+      setValues(val)
     }
     setPrev(router.query.types + '/' +router.query.detail)
     // setPagination(true)
-  }, [])
+  }, [router.query])
 
 
   async function loadMore() {

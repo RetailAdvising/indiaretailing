@@ -10,6 +10,8 @@ import { newsLanding } from '@/libs/api';
 
 export default function newsletter({ data }) {
 
+
+
   return (
     <>
       <RootLayout>

@@ -39,7 +39,7 @@ export default function LogIn({ isModal, hide }) {
     return (
         <>
             {!otp ? <div className='flex container p-[20px] justify-center gap-[60px] '>
-                <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] relative h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(35%_-_10px)] mt-[30px]'} flex-col flex justify-center`}>
+                <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] relative h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] mt-[30px]'} flex-col flex justify-center`}>
                     {!isModal && <div className='absolute top-0 left-[10px] cursor-pointer'>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
@@ -87,7 +87,7 @@ export default function LogIn({ isModal, hide }) {
                         <p>Continue with Apple</p>
                     </div>
                 </div>
-                {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] bg-[#E9ECF2] cursor-pointer border rounded-[5px] p-[20px]'>
+                {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full`} />
                 </div>}
             </div> : <OTP hide={hide} isModal={isModal} setotp={() => setOtp(!otp)} />

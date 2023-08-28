@@ -27,7 +27,7 @@ export default function OTP({ setotp, isModal, hide }) {
     return (
         <>
             <div className='flex container p-[20px] justify-center gap-[60px] '>
-                <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)]'} flex-col flex justify-center`}>
+                <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px]'} flex-col flex justify-center`}>
                     {!isModal && <div className='absolute cursor-pointer top-0 left-[10px]'>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
@@ -75,7 +75,7 @@ export default function OTP({ setotp, isModal, hide }) {
                         <p>Continue with Apple</p>
                     </div>
                 </div>
-                {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
+                {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`h-full w-full`} />
                 </div>}
             </div>

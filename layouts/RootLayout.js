@@ -13,7 +13,7 @@ export default function RootLayout({children}) {
   return (
     <>
     {/* <SEO /> */}
-    <AdsBaner data={{ad_image: "/audi_car.png"}} style={styles} height={'150px'} width={'500px'} />
+    <div className="md:hidden"><AdsBaner  data={{ad_image: "/audi_car.png"}} style={styles} height={'150px'} width={'500px'} /></div>
     <Header />
     <Navbar />
       <main >{children}</main>

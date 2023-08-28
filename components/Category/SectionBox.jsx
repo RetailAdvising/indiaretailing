@@ -6,7 +6,7 @@ export default function SectionBox({ data }) {
     const router = useRouter();
     return (
         <>
-            {data && <div className={`border rounded-[10px] justify-center p-[10px] h-[280px] flex flex-col gap-[15px]`}>
+            {data && <div className={`border rounded-[10px] justify-center p-[10px] md:min-h-[310px] lg:h-[280px] flex flex-col gap-[15px]`}>
                 <p className='text-red text-[14px]'>{data.primary_text}</p>
                 <p className='text-[20px] font-semibold cursor-pointer'>{data.title}</p>
                 <p className='sub_title cursor-pointer'>{data.description}</p>

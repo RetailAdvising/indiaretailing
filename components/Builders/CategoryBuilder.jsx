@@ -133,65 +133,6 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
       })
     }
 
-    // let element = document.getElementsByClassName('content');
-    // var arr = Array.prototype.slice.call(element)
-
-    // let matchingWords = []
-    // const searchTerm = '['; // Replace with your specific word
-    // const searchTerm2 = ']'; // Replace with your specific word
-
-    // if (arr && arr.length != 0) {
-    //   let start;
-    //   arr.map((val) => {
-    //     let word = val.innerText;
-    //     let val1 = word.split(" ");
-    //     val1.forEach((word) => {
-    //       for (let i = 0; i < word.length; i++) {
-    //         if (word[i] == searchTerm) {
-    //           start = i;
-    //           // matchingWords.push(word.slice(i,word.length));
-    //         }
-    //         if (word[i] == searchTerm2) {
-    //           let arr = [];
-    //           let splits = word.slice(start, i + 1)
-    //           arr.push(splits.split("[")[1].split("]")[0])
-
-    //           let obj = { attr: val.getAttribute('id'), data: arr }
-    //           // let obj = {attr: val.getAttribute('id'),data:arr}
-    //           // obj[val.getAttribute('id')] = obj[val.getAttribute('id')] ? obj[val.getAttribute('id')] : [];
-    //           // obj[val.getAttribute('id')].push(arr[0])
-    //           if (matchingWords.length == 0) {
-    //             matchingWords.push(obj);
-    //           } else {
-    //             let index = matchingWords.findIndex(res => { return res.attr == val.getAttribute('id') })
-    //             if (index >= 0) {
-    //               matchingWords[index].data = [...matchingWords[index].data, ...obj.data]
-    //             } else {
-    //               matchingWords.push(obj);
-    //             }
-    //           }
-    //           // matchingWords.push(word.slice(start, i + 1));
-    //         }
-    //       }
-    //     });
-    //   })
-    // }
-    // console.log(matchingWords);
-
-    // let content = document.getElementById('c');
-
-    // let div = document.createElement("div");
-    // div.setAttribute("class", "democlass");
-    // div.addEventListener('scroll',handleClick)
-    // document.getElementById('container1').appendChild(div)
-    // let data = document.createElement(`<div>${data}</div`);
-    // div.append(data)
-    // console.log(data)
-    // div.after(<AdsBaner data={{ad_image: '/ads_baner.png'}} />)
-
-    // div.innerHTML = `${el}`
-    // content.after(div)
-
   }
 
 
@@ -244,11 +185,11 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
             {/* Comments */}
             {<div className='py-12'>
               <div className={`flex flex-row justify-between`}>
-                <p className="gray-text">Previous Post</p>
+                {/* <p className="gray-text">Previous Post</p> */}
                 <hr></hr>
                 <p className={`font15_bold`}>Share this Article</p>
                 <hr></hr>
-                <p className="gray-text">Next Post</p>
+                {/* <p className="gray-text">Next Post</p> */}
               </div>
               <div className='flex flex-row gap-3 items-center justify-center py-5'>
                 {socials.map((res, index) => {
@@ -285,7 +226,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
 
               {(data.comments) && <>
                 <div className={` border_bottom py-1.5 ${styles.profile_div}`}>
-                  <p className='font-semibold'>Comments</p>
+                  <p id={`cmt${i}`} className='font-semibold'>Comments</p>
                 </div>
 
                 {(data.comments && data.comments.length != 0) &&
@@ -295,12 +236,11 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
                         <Comments cmt={true} data={res} key={index} />
                       )
                     })}
-                    <Image src={'/categories/PNG.png'} height={30} width={100} alt='hide' className='absolute h-[85px] w-full bottom-0' />
                   </div>
                 }
               </>}
-              <div className={`${(data.comments && data.comments.length != 0) ? '': 'mt-[10px]'} flex justify-center`}>
-                <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} w-[25%] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
+              <div className={` mt-[10px] flex justify-center`}>
+                <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[50%] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
               </div>
 
               {(!showComment && data) && <>
@@ -315,62 +255,37 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
             </div>}
           </div>
 
+          <div className='w_30'>
+            {(data.related_articles && data.related_articles.length != 0) && <div className='border rounded-[5px] p-[10px]'>
+              <Title data={{ title: 'Related Stories' }} />
+              <List tittleOnly={true} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.related_articles} imgHeight={'h-[110px]'} imgWidth={'w-full'} />
+            </div>}
 
-          {
-            (categories.sections && categories.sections.section_2) &&
-            <div className='w_30'>
-              {categories.sections.section_2.message.map(res => {
-                return (
-                  <div key={res.section_type}>
-                    {
-                      res.child_section_data &&
-                      <div className='py-3'>
-                        {res.child_section_data.map((item, index) => {
-                          return (
-                            <div key={index}>
-                              {(item.section_type == 'list' && item.section_name == 'Must Read' && item.data) && <div className='border rounded-[5px] p-[10px]'>
-                                <Title data={item} />
-                                <List borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} data={item.data} imgHeight={'h-full'} imgWidth={'w-full'} />
-                              </div>}
-
-                              {
-                                item.section_type == 'Ad1' && <div className='py-3'>
-                                  <AdsBaner text={"Advertisement"} data={item} height={'260px'} width={'300px'} />
-                                </div>
-                              }
-
-
-                              {(item.section_type == 'list' && item.section_name != 'Must Read' && item.data) && <div className='border rounded-[5px] p-[10px]'>
-                                <Title data={item} />
-                                <List borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} data={item.data} imgHeight={'h-full'} imgWidth={'w-full'} />
-                              </div>}
-
-                              {
-                                item.section_type == 'Ad2' && <div className='py-3'>
-                                  <AdsBaner text={"Advertisement"} data={item} height={'h-[600px]'} width={'w-[300px]'} />
-                                </div>
-                              }
-
-                              {(item.section_type == 'list1' && item.section_name != 'Must Read' && item.data) && <div className='border rounded-[5px] p-[10px]'>
-                                <Title data={item} />
-                                <List isTop={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} isBB={true} data={item.data} imgHeight={'h-full'} imgWidth={'w-full'} />
-                              </div>}
-                            </div>
-                          )
-                        })}
-                      </div>
-                    }
-
-                    {
-                      res.section_type == 'Ad' && <div className='py-3'>
-                        <AdsBaner data={res.baner_img3} text={"Advertisement"} height={'220px'} width={'275px'} />
-                      </div>
-                    }
-                  </div>
-                )
-              })}
+            <div className='py-3'>
+              <AdsBaner text={"Advertisement"} data={{ ad_image: '/ads_baner.png' }} height={'260px'} width={'300px'} />
             </div>
-          }
+
+            {(data.other_category2 && data.other_category2.data.length != 0) && <div className='border rounded-[5px] p-[10px]'>
+              <Title data={data.other_category2} />
+              <List tittleOnly={true} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.other_category2.data} imgHeight={'h-[110px]'} imgWidth={'w-full'} />
+            </div>}
+
+            <div className='py-3'>
+              <AdsBaner text={"Advertisement"} data={{ ad_image: '/ads_music.png' }} height={'h-[600px]'} width={'w-[300px]'} />
+            </div>
+
+
+            {/* {(item.section_type == 'list1' && item.section_name != 'Must Read' && item.data) && <div className='border rounded-[5px] p-[10px]'>
+              <Title data={item} />
+              <List isTop={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} isBB={true} data={item.data} imgHeight={'h-full'} imgWidth={'w-full'} />
+            </div>} */}
+
+            {/* <div className='py-3'>
+              <AdsBaner data={res.baner_img3} text={"Advertisement"} height={'220px'} width={'275px'} />
+            </div> */}
+
+          </div>
+
 
         </div>
 

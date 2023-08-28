@@ -133,8 +133,8 @@ export default function Bookstoredetail({ value, res }) {
             <div className={`flex flex-col justify-between flex-[0_0_calc(60%_-_10px)] p-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
               <div className={`flex gap-5 h-[40px] `}>
                 <h6 className={`text-[20px] font-semibold`}>{data.item_title}</h6>
-                <div className='dropdown w-[130px] cursor-pointer pr-[40px]'>
-                  <Image onClick={share} className={`dropdown transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} />
+                <div className='dropdowns w-[130px] cursor-pointer pr-[40px]'>
+                  <Image onClick={share} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} />
                   <div className={`dropdown-menu p-[20px] grid justify-center`} style={{ borderRadius: '10px', width: '190px' }} id='dropdown'>
                     {icons && icons.map((res, index) => {
                       return (

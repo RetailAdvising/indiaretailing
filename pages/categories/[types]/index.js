@@ -83,10 +83,10 @@ export default function CategoryType({ values }) {
                             })}</div>
                         </div>
                         <div className={`flex-[0_0_calc(35%_-_10px)] pt-[35px] md:flex-[0_0_calc(100%_-_10px)]`}>
-                            <div className='border p-[17px] md:h-[auto] h-[520px] rounded-[10px]'> <List imgWidth={'w-full'} line={'line-clamp-1'} imgHeight={'h-[80px]'} check={true} data={data.slice(0, 3)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
+                            <div className='border p-[17px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List contentWidth={'flex-[0_0_calc(65%_-_10px)]'} imgWidth={'w-full'} line={'line-clamp-1'} imgHeight={'h-[80px]'} check={true} data={data.slice(0, 3)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}
-                    <div className={`grid grid-cols-4 p-[20px_30px] gap-[20px]`}>
+                    <div className={`grid grid-cols-4 md:grid-cols-2 p-[20px_30px] gap-[20px]`}>
                         {/* contentHeight={'h-[175px]'} */}
                         <Cards cardClass={"h-[310px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} check={true} width={"w-full"} isBorder={true} data={data} />
                     </div>

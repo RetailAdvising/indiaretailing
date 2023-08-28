@@ -89,10 +89,10 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                         : modal == 'comments' ? <Rodal visible={visible} animation='slideRight' onClose={hide}>
                             <div className={`flex justify-between h-[60px]`}>
                                 <h6 className='text-[18px] font-semibold'>All Comments</h6>
-                                <div className='dropdown w-[130px] cursor-pointer pr-[40px]'>
+                                <div className='dropdowns w-[130px] cursor-pointer pr-[40px]'>
                                     <div className='flex items-center gap-[5px]' onClick={sortBy}>
                                         <Image src={'/categories/sort-by.svg'} height={20} width={30} alt="sortBy" className='' />
-                                        <p className={`dropdown transition-all delay-500`} >Sort by</p>
+                                        <p className={`dropdowns transition-all delay-500`} >Sort by</p>
                                     </div>
 
                                     <div className={`dropdown-menu`} id='dropdown'>

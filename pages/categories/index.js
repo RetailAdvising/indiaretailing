@@ -29,7 +29,7 @@ export default function Categories({ data }) {
                         return (
                             <div key={index} className={`flex justify-between gap-[15px]`}>
                                 <div className={`lg:w-[calc(25%_-_10px)] md:w-[calc(40%_-_10px)] xl:w-[calc(20%_-_10px)]`}><SectionBox data={res} /></div>
-                                <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(60%_-_10px)] xl:w-[calc(80%_-_10px)]'><MultiCarousel cardHeight={'h-[280px]'} islanding={true} noPlay={true} check={true} height={'h-[185px]'} perView={4} width={'w-full'} data={res.events} /></div>
+                                <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(60%_-_10px)] xl:w-[calc(80%_-_10px)]'><MultiCarousel cardHeight={'lg:h-[280px] md:min-h-[310px]'} islanding={true} noPlay={true} check={true} height={'h-[185px]'} perView={4} width={'w-full'} data={res.events} /></div>
                             </div>
                         )
                     })}
@@ -42,7 +42,7 @@ export default function Categories({ data }) {
 
 export async function getStaticProps() {
     let params = {
-        "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title","thumbnail_image","articles_category","route"], "category_doctype": "Articles Category", "category_fields": ["name", "title","primary_text","description","route"], "page_no": 1, "records": 4, "category_count": 7
+        "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title","thumbnail_image","articles_category","route"], "category_doctype": "Articles Category", "category_fields": ["name", "title","primary_text","description","route"], "page_no": 1, "records": 6, "category_count": 7
     }
     const res = await getCategoryList(params);
     const data = res.message;

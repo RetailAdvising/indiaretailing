@@ -92,6 +92,11 @@ export async function articlesDetail(data) {
     return await postMethod(api, data)
 }
 
+// Prime Landing
+export async function primeLanding(data){
+    let api = domainUrl + 'ir_prime_content';
+    return await postMethod(api,data);
+}
 // Login
 
 export async function logIn(data) {
@@ -195,5 +200,10 @@ export async function newsLanding(data){
 
 export async function newsDetail(data){
     let api = domainUrl + 'newsletter_details';
+    return await postMethod(api,data)
+}
+
+export async function newsSubscribe(data){
+    let api = domainUrl + 'subscribe_newsletter';
     return await postMethod(api,data)
 }
