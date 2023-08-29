@@ -17,6 +17,14 @@ if (typeof window !== 'undefined') {
     secret = localStorage['secret'] ? localStorage['secret'] : undefined;
 }
 
+export const checkMobile = async () => {
+    if (window.innerWidth < 767) {
+        return true;
+    } else if (window.innerWidth > 767) {
+        return false;
+    }
+}
+
 export async function postMethod(api, payload) {
     const myHead = new Headers((apikey && secret) ? { "Authorization": 'token ' + apikey + ':' + secret, "Content-Type": "application/json" } : { "Content-Type": "application/json" })
     // const myHead = new Headers()
@@ -154,6 +162,16 @@ export async function getProductDetail(data){
     return await postMethod(api,data)
 }
 
+// export async function get_cart_items(data) {
+//     let api = domainUrl + 'ecommerce_business_store.ecommerce_business_store.v2.cart.get_cart_items';
+//     return await postMethod(api, data)
+// }
+
+export async function get_cart_items(){
+    let api = 'ecommerce_business_store.ecommerce_business_store.v2.cart.get_cart_items';
+    return await GET(api)
+}
+
 export async function subscriptionPlans(){
     let api = subscription + `list_subscription_plans`;
     return await GET(api)
@@ -207,3 +225,28 @@ export async function newsSubscribe(data){
     let api = domainUrl + 'subscribe_newsletter';
     return await postMethod(api,data)
 }
+
+export async function get_country_list(){
+    let api = 'ecommerce_business_store.ecommerce_business_store.mobileapi.get_country_list';
+    return await GET(api)
+}
+
+export async function get_country_states(data){
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.get_country_states?country=' + data;
+    return await GET(api)
+}
+
+export async function get_customer_info(data){
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.get_customer_info';
+    return await postMethod(api,data)
+}
+
+export async function insert_address(data) {
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.insert_address'
+    return await postMethod(api,data)
+}
+
+export async function update_address(data) { 
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.update_address'
+    return await postMethod(api,data)
+  }

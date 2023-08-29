@@ -15,7 +15,7 @@ export default function ExclusiveBuilder({ data }) {
     return (
         <div className=' p-[30px] gap-5 container'>
             <div className={`flex flex-wrap  gap-[15px] lg:flex-[calc(100%_-_10px)] `}>
-                {(data.message && data.message.length != 0) && <div className={`h-[685px] border rounded-[5px] p-[10px] flex-[0_0_calc(42%_-_10px)] md:basis-full`}>
+                {(data.message && data.message.length != 0) && <div className={`lg:h-[685px] border rounded-[5px] p-[10px] flex-[0_0_calc(42%_-_10px)] md:basis-full`}>
                     {data.message.slice(0, 1).map((res, index) => {
                         return (
                             <div key={index} onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} className={`mb-[10px] cursor-pointer pb-[10px] ${index == 0 ? 'border_bottom' : ''}`}>
@@ -30,13 +30,13 @@ export default function ExclusiveBuilder({ data }) {
                 </div>}
 
 
-                <div className={`overflow-auto customScroll rounded-[5px] flex-[0_0_calc(33%_-_10px)] md:basis-full border p-[10px] h-[685px]`}>
+                <div className={`overflow-auto customScroll rounded-[5px] flex-[0_0_calc(33%_-_10px)] md:basis-full border p-[10px] lg:h-[685px]`}>
                     <List imgFlex={'flex-[0_0_calc(40%_-_10px)]'} check={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[80px] md:h-full'} data={data.message.slice(2, data.message.length - 1)} borderRadius={'rounded-[5px]'} isReverse={true} />
                 </div>
 
-               {(data.sec1 && data.sec1.data && data.sec1.data.length != 0) && <div className='w-full h-[685px] pb-5 flex-[0_0_calc(25%_-_10px)] md:basis-full'>
+               {(data.sec1 && data.sec1.data && data.sec1.data.length != 0) && <div className='w-full lg:h-[685px] pb-5 flex-[0_0_calc(25%_-_10px)] md:basis-full'>
                     <Title data={data.sec1} />
-                    <div className={`border h-[648px] p-[10px] rounded-[5px]`}><List check={true} tittleOnly={true} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isBB={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[82px] md:h-[110px]'} data={data.sec1.data.slice(0, 5)} borderRadius={'rounded-[5px]'} isTop={true} /></div>
+                    <div className={`border lg:h-[648px] p-[10px] rounded-[5px]`}><List check={true} tittleOnly={true} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isBB={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[82px] md:h-[110px]'} data={data.sec1.data.slice(0, 5)} borderRadius={'rounded-[5px]'} isTop={true} /></div>
                 </div>}
 
                 {/* </div> */}
@@ -58,10 +58,21 @@ export default function ExclusiveBuilder({ data }) {
 
                 {/* Section - 3 p-[20px_30px]*/}
 
-                {/* <div style={{ background: val.section_3.col_1.background }}>
-                    <Title data={val.section_3.col_1} seeMore={true} />
-                    <div className='flex  gap-[15px] justify-between'><YTVideo data={res.ir_video} flex={"flex-[0_0_calc(25%_-_10px)]"} /></div>
-                </div> */}
+               {(data.videos && data.videos.ir_video && data.videos.ir_video.length != 0) && <div>
+                    <Title data={{title: 'IR Prime Video'}} seeMore={true} />
+                    {/* <div className='flex  gap-[15px] justify-between'><YTVideo data={res.ir_video} flex={"flex-[0_0_calc(25%_-_10px)]"} /></div> */}
+                    <div className='grid grid-cols-4 md:grid-cols-2  gap-[15px] justify-between'>
+                        {data.videos.ir_video.map((res,index)=>{
+                            return(
+                                <div key={index}>
+                                    <Image src={check_Image(res.video_image)} className='h-[175px] w-full' height={100} width={100} alt={res.title} />
+                                    <p className='pt-[10px]'>{res.title}</p>
+                                </div>
+                            )
+                        })}
+
+                    </div>
+                </div>}
 
                 {/* Section - 4 */}
                 {(data.sec2 && data.sec2.data && data.sec2.data.length != 0) && <div className={`pt-[30px] flex-wrap justify-between flex gap-[15px]`}>

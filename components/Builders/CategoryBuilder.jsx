@@ -21,7 +21,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   const [placeholder, setPlaceholder] = useState([]);
-  const [validator, setValidator] = useState(undefined)
+  const [validator, setValidator] = useState(false)
   const router = useRouter();
   // console.log(router)
   // let validate;
@@ -67,7 +67,19 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
 
 
   useEffect(() => {
-    setValidator(localStorage['apikey'] ? localStorage['apikey'] : undefined);
+    if (typeof window !== 'undefined' && localStorage['roles'] ) {
+      const data = JSON.parse(localStorage['roles']);
+      if (data && data.length != 0) {
+        data.map(res => {
+          if (res.role == 'Member') {
+            setValidator(!validator);
+          }
+        })
+      }
+    }
+
+    console.log(validator);
+
 
     if (document.readyState === 'complete') {
       // setTimeout(() => {
@@ -79,7 +91,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
       return () => window.removeEventListener('load', onPageLoad);
     }
 
-  }, [validator])
+  }, [])
 
   const cardref = useRef(null)
   useEffect(() => {
@@ -105,9 +117,16 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
 
   function hide() {
     setVisible(false)
-    if (localStorage['apikey']) {
-      setValidator(localStorage['apikey']);
-      router.reload();
+    if (localStorage['roles']) {
+      const data = JSON.parse(localStorage['roles']);
+
+      if (data && data.length != 0) {
+        data.map(res => {
+          if (res.role == 'Member') {
+            setValidator(true);
+          }
+        })
+      }
     }
   }
 
@@ -153,6 +172,28 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
     }
   }
 
+  const checkMobile = async () => {
+    if (window.innerWidth < 767) {
+      return true;
+    } else if (window.innerWidth > 767) {
+      return false;
+    }
+  }
+
+  const logInModal = async (type) => {
+    if (checkMobile()) {
+      type == 'login' ? router.push('/login') : router.push('/signup');
+    } else {
+      if (type == 'login') {
+        setVisible(true)
+        setModal('login')
+      } else {
+        setVisible(true)
+        setModal('signup')
+      }
+    }
+  }
+
 
 
   return (
@@ -165,11 +206,13 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
             </div>
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'line-clamp-5'}`} />
 
-            {(isPrime && !validator) && <div className='border p-[20px] shadow-2xl h-[7%] my-[20px]'>
+
+            {validator}
+            {(isPrime && !validator) && <div className='border p-[20px] shadow-2xl h-[10%] my-[20px]'>
               <p className='text-center text-[20px] font-semibold pb-[15px]'>This story is free you simply have to Login / Signup to Unlock</p>
               <div className='flex gap-[20px] justify-center pt-[20px]'>
-                <button className='primary_btn h-[40px] w-[15%]' onClick={() => { setVisible(true), setModal('login') }}>LogIn</button>
-                <button className='border  h-[40px] w-[15%]' onClick={() => { setVisible(true), setModal('signup') }}>SignUp</button>
+                <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
+                <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button>
               </div>
             </div>}
 
@@ -239,9 +282,9 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
                   </div>
                 }
               </>}
-              <div className={` mt-[10px] flex justify-center`}>
+              {data.disable_comments != 1 && <div className={` mt-[10px] flex justify-center`}>
                 <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[50%] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
-              </div>
+              </div>}
 
               {(!showComment && data) && <>
                 <div className='popright'>
@@ -265,9 +308,9 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
               <AdsBaner text={"Advertisement"} data={{ ad_image: '/ads_baner.png' }} height={'260px'} width={'300px'} />
             </div>
 
-            {(data.other_category2 && data.other_category2.data.length != 0) && <div className='border rounded-[5px] p-[10px]'>
-              <Title data={data.other_category2} />
-              <List tittleOnly={true} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.other_category2.data} imgHeight={'h-[110px]'} imgWidth={'w-full'} />
+            {(data.must_read && data.must_read.length != 0) && <div className='border rounded-[5px] p-[10px]'>
+              <Title data={{ title: 'Must Read' }} />
+              <List tittleOnly={true} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.must_read} imgHeight={'h-[110px]'} imgWidth={'w-full'} />
             </div>}
 
             <div className='py-3'>
@@ -275,10 +318,10 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
             </div>
 
 
-            {/* {(item.section_type == 'list1' && item.section_name != 'Must Read' && item.data) && <div className='border rounded-[5px] p-[10px]'>
-              <Title data={item} />
-              <List isTop={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} isBB={true} data={item.data} imgHeight={'h-full'} imgWidth={'w-full'} />
-            </div>} */}
+            {(data.other_category2 && data.other_category2.data && data.other_category2.data.length != 0) && <div className='border rounded-[5px] p-[10px]'>
+              <Title data={data.other_category2} />
+              <List isTop={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={data.other_category2.data} imgHeight={'h-full'} imgWidth={'w-full'} />
+            </div>}
 
             {/* <div className='py-3'>
               <AdsBaner data={res.baner_img3} text={"Advertisement"} height={'220px'} width={'275px'} />
@@ -292,13 +335,9 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
         {categories.sections.section_3 && <div className={`container ${styles.section_3}`}>
           {/* Slider */}
           {(categories.sections.section_3.section_type == 'slider' && categories.sections.section_3.type == 'card') && <div className={`${styles.slider_parent} p03015 mb-7`}>
-            <div className='title_div pb10'>
-              <h6 className='title'>{categories.sections.section_3.title}</h6>
-              <div className='line'></div>
-            </div>
-            {((categories.sections.section_3.type == 'list' || categories.sections.section_3.type == 'card') && categories.sections.section_3.data) && <MultiCarousel perView={5} data={categories.sections.section_3.data} height={"h-full"} width={'w-full'} type={'card'} />}
+            <Title data={{ title: 'Latest News' }} />
+            <MultiCarousel perView={5} data={categories.sections.section_3.data} height={"h-full"} width={'w-full'} type={'card'} />
           </div>}
-
         </div>}
       </div>
     </>

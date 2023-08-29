@@ -90,8 +90,8 @@ export default function Details() {
 const Skeleton = () => {
   return (
     <>
-      <div className='flex container justify-between p-[30px]'>
-        <div className='flex-[0_0_calc(70%_-_10px)]'>
+      <div className='flex md:flex-wrap container justify-between p-[30px]'>
+        <div className='flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
           <div className='flex gap-[5px]'>
             {[0, 1, 2, 3].map((res, index) => {
               return (
@@ -147,7 +147,7 @@ const Skeleton = () => {
 
           </div>
         </div>
-        <div className='flex-[0_0_calc(30%_-_10px)]'>
+        <div className='flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
           <p className='h-[15px] w-[100px] bg-[#E5E4E2]'></p>
           {[0, 1, 2].map((res, index) => {
             return (

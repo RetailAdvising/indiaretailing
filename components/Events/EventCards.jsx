@@ -12,7 +12,7 @@ export default function EventCards({ data, flex,height,width }) {
                     <div className={` flex flex-col rounded-[10px] h-[390px]  border cursor-pointer ${flex}`} onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`) } key={index}>
                         <div className={``} >
                             {/* style={{ height: '250px', width: '100%', borderRadius: '10px 10px 0 0' }} */}
-                            <Image src={check_Image(res.thumbnail_path)} className={`rounded-[10px_10px_0_0] ${height} ${width}`}  height={100} width={200} alt={res.title} />
+                            <Image src={check_Image(res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : null)} className={`rounded-[10px_10px_0_0] ${height} ${width}`}  height={100} width={200} alt={res.title} />
                         </div>
                         <div className={`flex flex-col p-[10px] h-full justify-between`}>
                             <h4 className={`event-title font-semibold text-lg line-clamp-2`}>{res.title} </h4>

@@ -27,7 +27,8 @@ module.exports = {
         'text-red': '#e21b22' ,
         'light-gray': '#ddd',
         'border_color':'#EEEEEE',
-        "gray-light": "#efefef"
+        "gray-light": "#efefef",
+        "gray-dark1": "#20272C"
       }
       
       

@@ -4,23 +4,28 @@
     "values":[
         {
             "title":"Creativity",
-            "content":"We love unboxed ideas and unexpected ways to give surprising results"
+            "content":"We love unboxed ideas and unexpected ways to give surprising results",
+            "image":"/about/value1.svg"
         },
         {
             "title":"Passion",
-            "content":"It's not just a job."
+            "content":"It's not just a job.",
+            "image":"/about/value2.svg"
         },
         {
             "title":"Respect",
-            "content":"Every opinion, feeling & person is special"
+            "content":"Every opinion, feeling & person is special",
+            "image":"/about/value3.svg"
         },
         {
             "title":"Uphold commitment",
-            "content":"Thought through … and delivered."
+            "content":"Thought through … and delivered.",
+            "image":"/about/value4.svg"
         },
         {
             "title":"Value for customers",
-            "content":"We can only succeed by understanding the real needs of our (internal & external) Customers & going out of the way to exceed their expectations."
+            "content":"We can only succeed by understanding the real needs of our (internal & external) Customers & going out of the way to exceed their expectations.",
+            "image":"/about/value5.svg"
         }
     ]
 }

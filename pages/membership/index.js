@@ -15,15 +15,15 @@ export default function Membership() {
   let toggleClassCheck = btnState ? 'active': '';
     return (
       <RootLayout>
-        <div className='container p-[30px]'>
-            <h2 className="font-bold text-5xl md:text-2xl text-center">{data.title}</h2>
+        <div className='container p-[30px] md:p-[15px]'>
+            <h2 className="font-bold text-4xl md:text-2xl text-center">{data.title}</h2>
             <p className="sub_title text-center pb-10 pt-3">{data.subtitle}</p>
             <div className="flex flex-row m-auto justify-center gap-2 mb-3">
               <div className='inline-block rounded-2xl p-1 border-gray-300 border border-solid'>
                   <button className={`bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl font-medium bg-[red] member-button1 ${toggleClassCheck}`} onClick={handleClick}>Monthly Billing</button>
               </div>
             </div>
-            <div className="flex flex-row pt-3.5 gap-6">
+            <div className="flex flex-row pt-3.5 gap-6 md:flex-col">
             {data.membership.map((membership,index) => {
             return(
                   <div key={index} className="basis-1/3 member-card p-8 rounded-2xl">
@@ -49,10 +49,10 @@ export default function Membership() {
                 })}
           </div>
         </div>
-        <div className='container p-[30px]'>
+        <div className='container p-[30px] md:p-[15px]'>
             <Benefits></Benefits>
         </div>
-        <div className='container p-[30px]'>
+        <div className='container p-[30px] md:p-[15px]'>
               <Faq></Faq>
         </div>
       </RootLayout>

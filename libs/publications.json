@@ -2,84 +2,105 @@
     "abouttitle":"About Us",
     "aboutsubtitle":"Indiaretailing.com",
     "aboutsubtitle1":"Your window to the world of Retail",
-    "aboutimage":"/articles.svg",
+    "aboutimage":"/about/about.svg",
     "aboutcontent":"Indiaretailing.com, offers a window to the world of Retail in India. It is an initiative of IMAGES Group, a retail intelligence organisation that is trusted globally as the catalyst for profitable growth of modern Indian retail through knowledge platform leadership. Headquartered in New Delhi, the IMAGES Group has offices across Indian metros and the Middle East.",
     "aboutcontent1":"Headquartered in New Delhi, the IMAGES Group has offices across Indian metros and the Middle East.  ",
     "aboutcontent2":"IndiaRetailing.com is a trusted knowledge platform that provides suppliers, investors, and retailers with critical insights that create competitive advantage. It has been India’s leading retail intelligence portal since 2006 and provides unrivalled news, insights, intelligence, analysis, and data covering retail operations across most Indian markets.",
-    "twocolumnsection":[
+    "visionmission":[
         {
-            "title":"Images Business of Fashion",
-            "content":""
+            "title":"Our Vision",
+            "content":"To be trusted as the catalyst for profitable growth of modern retail, through knowledge platform leadership.",
+            "image":"/about/vision.svg"
         },
         {
-            "title":"Images Retail",
-            "content":""
+            "title":"Our Mission",
+            "content":"Profitably connecting our Consumers & Customers to businesses, people, knowledge and ideas associated with modern retail.",
+            "image":"/about/mission.svg"
         }
     ],
     "title":"Images Publications",
     "subtitle":"A strong portfolio of B2B publications covering all retail verticals have served since 1992 to inform, advise, and inspire industry leaders and decision makers.",
     "publication":[
         {
-            "title":"Images Business of Fashion"
+            "title":"Images Business of Fashion",
+            "image":"/about/publications1.png"
         },
         {
-            "title":"Images Retail"
+            "title":"Images Retail",
+            "image":"/about/publications2.png"
         },
         {
-            "title":"Images Retail ME"
+            "title":"Images Retail ME",
+            "image":"/about/publications3.png"
+
         },
         {
-            "title":"Progressive Grocer"
+            "title":"Progressive Grocer",
+            "image":"/about/publications4.png"
         },
         {
-            "title":"Shopping Centre News"
+            "title":"Shopping Centre News",
+            "image":"/about/publications5.png"
         },
         {
-            "title":"Phygital"
+            "title":"Phygital",
+            "image":"/about/publications6.png"
         }
     ],
     "title1":"Images Awards",
     "subtitle1":"Images Awards are respected for their unbiased assessment & recognition of retail performance, while other initiatives in Business Intelligence, Real Estate & Market Research, Retail Training and On-line Community Building play important roles in further developing the world’s most attractive retail destination India. Some of the prestigious awards from IMAGES Group are as follows",
     "exhibitions":[
         {
-            "title":"Images Retail Awards (IRA)"
+            "title":"Images Retail Awards (IRA)",
+            "image":"/about/publications1.png"
         },
         {
-            "title":"Images Fashion Awards (IFA)"
+            "title":"Images Fashion Awards (IFA)",
+            "image":"/about/publications2.png"
         },
         {
-            "title":"India Shopping Centre Awards (ISCA)"
+            "title":"India Shopping Centre Awards (ISCA)",
+            "image":"/about/publications3.png"
         },
         {
-            "title":"Images Food Service Awards"
+            "title":"Images Food Service Awards",
+            "image":"/about/publications4.png"
         },
         {
-            "title":"India E-commerce Awards"
+            "title":"India E-commerce Awards",
+            "image":"/about/publications5.png"
         },
         {
-            "title":"India D2C Awards"
+            "title":"India D2C Awards",
+            "image":"/about/publications6.png"
         }
     ],
     "title2":"IMAGES Events & Exhibitions",
     "subtitle2":"Images business exhibitions and knowledge forums & conferences connect businesses, people, knowledge, and ideas associated with modern retail across different verticals.",
     "events":[
         {
-            "title":"India Fashion Forum"
+            "title":"India Fashion Forum",
+            "image":"/about/publications1.png"
         },
         {
-            "title":"India Food Forum"
+            "title":"India Food Forum",
+            "image":"/about/publications2.png"
         },
         {
-            "title":"Shopping Centre Next"
+            "title":"Shopping Centre Next",
+            "image":"/about/publications3.png"
         },
         {
-            "title":"Phygital Retail Convention"
+            "title":"Phygital Retail Convention",
+            "image":"/about/publications4.png"
         },
         {
-            "title":"India D2C Summit & Awards"
+            "title":"India D2C Summit & Awards",
+            "image":"/about/publications5.png"
         },
         {
-            "title":"Internet Commerce Summit"
+            "title":"Internet Commerce Summit",
+            "image":"/about/publications6.png"
         }
     ]
 }

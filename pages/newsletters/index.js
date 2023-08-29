@@ -17,13 +17,13 @@ export default function newsletter({ data }) {
       <RootLayout>
         {(data) && <div className='container p-[30px]'>
           <div className='text-center'><Title data={{title:'Newsletters'}} /></div>
-          <div className=' flex justify-between gap-[20px]'>
-            <div className={`flex-[0_0_calc(70%_-_10px)] border p-[20px] rounded-[5px]`}>
+          <div className=' flex md:flex-wrap justify-between gap-[20px]'>
+            <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] border p-[20px] rounded-[5px]`}>
               <NewsList data={data} />
             </div>
 
             {value.col_2 &&
-              <div className='flex-[0_0_calc(30%_-_10px)]'>
+              <div className='flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
                 <div className='pb-[20px]'>
                   <AdsBaner data={value.col_2} />
                 </div>

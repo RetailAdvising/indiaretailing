@@ -110,14 +110,14 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                                 <Image src={'/categories/send-arrow.svg'} className='cursor-pointer' onClick={() => sendMsg('addCmt')} height={20} width={20} alt='send' />
                             </div>
                             {(comments && comments.length != 0) ?
-                                <div className='commentPopup'>
+                                <div className='commentPopup '>
                                     {comments.map((res, index) => {
                                         return (
                                             <Comments load={loadMore} key={index} isLast={index == comments.length - 1} data={res} />
                                         )
                                     })}
                                 </div>
-                                : <div className='mt-[15px]'>
+                                : <div className='mt-[15px] h-[70vh] overflow-auto'>
                                     {[0, 1, 2, 3, 4, 5].map((res, index) => {
                                         return (
                                             <Skeleton key={index} />

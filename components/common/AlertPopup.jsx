@@ -12,8 +12,11 @@ export default function AlertPopup({ message, show,data }) {
                     email: element.value, group: data.custom_category
                 }
                 const res = await newsSubscribe(param);
-                console.log(res);
-                show();
+                if(res.status == 'Success'){
+                    show();
+                }else{
+                    show();
+                }
             } else {
                 setInvalid(false)
                 alert('Enter valid email')
@@ -36,7 +39,7 @@ export default function AlertPopup({ message, show,data }) {
                     <div className='w-full flex justify-end'>
                         <Image onClick={show} className='cursor-pointer' src={'/newsletter/close.svg'} height={30} width={30} alt='close' />
                     </div>
-                    <div className='flex relative w-[40%] flex-wrap'>
+                    <div className='flex relative w-[40%] md:w-[70%] flex-wrap'>
                         <Image className={`h-[25px] w-[25px] absolute ${valid ? 'bottom-[10px]' : 'bottom-[30px]'}  left-[10px]`} src={'/email.svg'} height={30} width={30} alt='email' />
                         <input id='email' placeholder="What's your email?" type='email' className={`h-[45px] w-[60%] pl-[50px] text-[13.5px]`} />
                         <button onClick={checkEmail} style={{ borderRadius: 'unset' }} className='border w-[25%] primary_btn'>Subscribe</button>

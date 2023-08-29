@@ -484,6 +484,9 @@ input{
   .w_100 {
     width: 100%;
   }
+  .p30 {
+    padding: 15px;
+  }
   // .flex-row {
   //   flex-direction: column;
   // }
@@ -518,6 +521,29 @@ input{
     font-size: $font-13;
     text-transform: uppercase;
     font-weight: 600;
+  }
+
+  .alert-popup {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounceUpIn 1s ease;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 100%;
+    height: 35%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .commentPopup{
+    height: calc(85vh - 90px);
+    overflow: auto;
+    margin-top: 10px;
+    &::-webkit-scrollbar{
+      display: none;
+    }
   }
 }
 
@@ -646,6 +672,29 @@ input{
     font-weight: 600;
   }
 
+  .alert-popup {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounceUpIn 1s ease;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 100%;
+    height: 25%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .commentPopup{
+    height: calc(100vh - 100px);
+    overflow: auto;
+    margin-top: 10px;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
+
   // .w_60 {
   //   width: 60%;
   // }
@@ -752,6 +801,9 @@ input{
   .react-multi-carousel-item{
     width: 217px !important;
   }
+  // .react-multiple-carousel__arrow--left{
+
+  // }
 }
 
 .primeSlide{
@@ -765,9 +817,9 @@ input{
   border: 1px solid $primary-color;
   color: $dark-color;
   background: $white-color;
-  height: 45px;
+  // height: 45px;
   text-transform: capitalize;
-  width: 220px;
+  // width: 220px;
   border-radius: 5px;
   text-align: center;
 }
@@ -777,9 +829,9 @@ input{
   color: $white-color;
   background: $primary-color;
   text-transform: capitalize;
-  height: 45px;
+  // height: 45px;
   border-radius: 5px;
-  width: 220px;
+  // width: 220px;
   text-align: center;
 }
 
@@ -861,14 +913,14 @@ input{
 }
 .sideActive{
   translate: 0;
-  width: 80%;
+  width: 100%;
   z-index: 1000;
-  background: $white-color;
+  background: rgb(0 0 0 / 64%);;
   top: 0;
   height: 100%;
-  &::backdrop{
-    background: #111111;
-  }
+  // &::backdrop{
+  //   background: #111111;
+  // }
 }
 
 
@@ -915,19 +967,7 @@ input{
   }
 }
 
-.alert-popup {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: bounceUpIn 1s ease;
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  width: 100%;
-  height: 25%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+
 
 .contents {
   /* Add your content styling here */
@@ -1034,14 +1074,7 @@ input{
 }
 
 
-.commentPopup{
-  height: calc(100vh - 100px);
-  overflow: auto;
-  margin-top: 10px;
-  &::-webkit-scrollbar{
-    display: none;
-  }
-}
+
 
 
 // Skeleton Loader
@@ -1112,3 +1145,8 @@ input{
 .active_border{
   border-color: $primary-color;
 }
+
+.custom-select .react-select__control {
+  border: none !important; /* Remove borders */
+  box-shadow: none !important; /* Remove any box shadow */
+} 

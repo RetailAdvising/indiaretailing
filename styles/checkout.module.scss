@@ -18,6 +18,13 @@
     }
 }
 
+.input_radio:checked {
+  background-color: $primary-color;
+  padding: 4px;
+  border: 2px solid $primary-color;
+  accent-color: $primary-color;
+}
+
 .custom_input{
     margin: 10px 0;
     border-radius: 5px;
@@ -32,12 +39,30 @@
 }
 
 .flex_2{
-    flex: 0 0 calc(50% - 5px);
+  flex: 0 0 calc(50% - 5px);
 }
 
 .flex_3{
-    flex: 0 0 calc(33.33% - 7px);
+  // flex: 0 0 calc(33.33% - 7px);
+  width: calc(33.33% - 7px);
 }
+
+@media only screen and (min-width: 768px) {
+ 
+}
+
+@media only screen and (max-width: 768px) {
+  .container_{
+    padding: 10px;
+    flex-direction: column;
+  }
+
+  // .box_{
+  //   flex-direction: column;
+  // }
+}
+
+
 
 .card_detail{
   align-items: unset !important;
@@ -75,4 +100,9 @@
         background: #ddd;
     }
   }
+}
+
+.react_selectselect__control {
+  border: none;
+  box-shadow: none;
 }

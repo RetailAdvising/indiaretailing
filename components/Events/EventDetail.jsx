@@ -5,14 +5,15 @@ import Cards from '../common/Cards'
 import { check_Image } from '@/libs/common'
 // import detail from '@/libs/eventDetail'
 import Title from '../common/Title'
+import EventCards from './EventCards'
 
 export default function EventDetail({ data }) {
     return (
         <>
             {data && <div className={`p-[30px] container`}>
                 <Image height={200} width={400} priority src={check_Image(data.message.thumbnail_path)} className={`h-[450px] w-full`} alt={data.message.title} />
-                <div className={`flex gap-[20px] pt-[30px]`}>
-                    <div className={`flex-[0_0_calc(75%_-_10px)] p-[10px] border rounded-[5px]`}>
+                <div className={`flex md:flex-wrap gap-[20px] pb-[20px] pt-[30px]`}>
+                    <div className={`flex-[0_0_calc(75%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] p-[10px] border rounded-[5px]`}>
                         <p>{data.message.start_date}</p>
                         {/* <div className={`flex items-center pt-[15px] justify-between`}> */}
                             <h6 className={`text-xl pt-[15px] font-semibold`}>{data.message.title}</h6>
@@ -50,20 +51,22 @@ export default function EventDetail({ data }) {
                     </div>
 
                     {/* Col-2 */}
-                    <div className='flex flex-col gap-[20px] items-center'>
-                        <button type='button' className={`primary_button`}>Registration Now</button>
-                        <button type='button' className={`primary_outline`}>More Details</button>
+                    <div className='flex flex-col flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] gap-[20px] items-center'>
+                        <button type='button' className={`primary_button h-[45px] w-full md:w-[45%]`}>Registration Now</button>
+                        <button type='button' className={`primary_outline h-[45px] w-full md:w-[45%]`}>More Details</button>
                         {data && <AdsBaner data={{ ad_image: '/ads_baner.png' }} />}
                     </div>
                 </div>
+
                 {(data.upcoming_events && data.upcoming_events.length != 0) && <>
                     {/* <div className={`title_div py-5`}>
                         <h4 className={`title`}>Upcoming Events</h4>
                         <div className='line'></div>
                     </div> */}
                     <Title data={{ title: 'Upcoming Events' }} />
-                    <div className='flex gap-[20px]'>
-                        <Cards data={data.upcoming_events} borderRadius={"10px 10px 0 0"} height={"h-[200px]"} width={'w-full'} flex={'basis-1/4'} isBorder={true} />
+                    <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px]'>
+                        <EventCards height={'h-[200px]'} width={'w-full'} data={data.upcoming_events} />
+                        {/* <Cards data={data.upcoming_events} borderRadius={"10px 10px 0 0"} check={true} height={"h-[200px]"} width={'w-full'}  isBorder={true} /> */}
                     </div>
                 </>}
             </div>}

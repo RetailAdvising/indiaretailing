@@ -28,7 +28,7 @@ export default function OTP({ setotp, isModal, hide }) {
         <>
             <div className='flex container p-[20px] justify-center gap-[60px] '>
                 <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px]'} flex-col flex justify-center`}>
-                    {!isModal && <div className='absolute cursor-pointer top-0 left-[10px]'>
+                    {!isModal && <div className=' cursor-pointer '>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>

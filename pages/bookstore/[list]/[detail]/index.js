@@ -55,6 +55,7 @@ export default function Bookstoredetail({ value, res }) {
 
   useEffect(() => {
     if (value) {
+      console.log(value);
       setData(value)
     }
     if (res && res.length != 0) {
@@ -121,7 +122,8 @@ export default function Bookstoredetail({ value, res }) {
             <div className={`flex-[0_0_calc(40%_-_10px)] flex flex-col md:flex-[0_0_calc(100%_-_10px)]`}>
               {/* flex-[0_0_calc(100%_-_10px)] */}
               <div className={``}>
-                <Image className={`w-full h-[665px]`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />
+                {(data.images && data.images.length != 0) ? <Image className={`w-full h-[665px]`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
+                  <Image className={`w-full h-[665px]`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />}
               </div>
               <div className='text-center pt-[15px]'>
                 <button className={`w-full h-[40px] border`}>Preview</button>

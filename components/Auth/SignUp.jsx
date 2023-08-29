@@ -25,6 +25,8 @@ export default function SignUp({ isModal, hide }) {
                     localStorage['secret'] = val.message.api_secret
                     localStorage['userid'] = val.message.user_id;
                     localStorage['customer_id'] = val.message.customer_id;
+                    localStorage['roles'] = JSON.stringify(val.message.roles)
+                    localStorage['full_name'] = val.full_name;
                     isModal ? hide() : router.push('/')
                 } else {
                     setWrong(!wrong);

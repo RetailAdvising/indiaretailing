@@ -10,14 +10,14 @@ export default function forget() {
         if (data) {
             // console.log(data);
             const resp = await forget_password(data);
-            // console.log(resp);
+            console.log(resp);
         }
     }
     return (
         <>
-            <div className='flex container justify-between p-[30px] relative'>
-                <div className='flex-[0_0_calc(40%_-_10px)] relative'>
-                    <div className='absolute cursor-pointer top-0 left-[-50px]'>
+            <div className='flex container md:flex-wrap justify-between p-[30px] '>
+                <div className='flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+                    <div className=' cursor-pointer '>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>
                     <div className='flex flex-col items-center justify-center h-full'>
@@ -36,7 +36,7 @@ export default function forget() {
                         </form>
                     </div>
                 </div>
-                <div className='flex-[0_0_calc(60%_-_10px)] bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
+                <div className='flex-[0_0_calc(60%_-_10px)] md:hidden md:flex-[0_0_calc(100%_-_10px)] bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full`} />
                 </div>
             </div>

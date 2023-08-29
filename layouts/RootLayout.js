@@ -5,6 +5,7 @@ import Navbar from '@/components/Headers/Navbar'
 import SEO from '@/components/common/SEO'
 import React from 'react'
 // import '@/styles/globals.scss'
+
 export default function RootLayout({children}) {
   const styles = {
     display:'flex',

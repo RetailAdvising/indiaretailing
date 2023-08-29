@@ -90,7 +90,7 @@ export default function EventDetails({ values }) {
                         <div>
                             <Title data={values} />
                         </div>
-                        <div>
+                        {/* <div>
                             <label className='themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center rounded-md bg-white p-1'>
                                 <input
                                     type='checkbox'
@@ -111,15 +111,17 @@ export default function EventDetails({ values }) {
                                     Grid View
                                 </span>
                             </label>
-                        </div>
+                        </div> */}
 
                     </div>
-                    <div className={`grid ${!isChecked ? 'grid-cols-2 md:grid-cols-1' : 'grid-cols-4 md:grid-cols-2'}  gap-[20px]`}>
+                    {/*  ${!isChecked ? 'grid-cols-2 md:grid-cols-1' : 'grid-cols-4 md:grid-cols-2'} */}
+                    <div className={`grid grid-cols-4 md:grid-cols-2  gap-[20px]`}>
                         {/* {data && <EventList data={data.message} />} */}
                         {(data) && <>
-                            {!isChecked ? <EventList data={data} height={'h-[200px]'} width={'w-full'} />
+                            {/* {!isChecked ? <EventList data={data} height={'h-[200px]'} width={'w-full'} />
                                 : <EventCards data={data} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} height={'h-[210px]'} width={'w-full'} />
-                            }
+                            } */}
+                            <EventCards data={data} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} height={'h-[210px]'} width={'w-full'} />
                         </>
                         }
                     </div>

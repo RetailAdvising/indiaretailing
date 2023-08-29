@@ -29,7 +29,7 @@ export default function Faq() {
   },[seclected,open])
 
   return (
-    <div className="flex flex-row pt-3.5 gap-6">
+    <div className="flex flex-row pt-3.5 gap-6 md:flex-col">
       <div className="basis-1/2">
         <h2 className='font-bold text-3xl md:text-2xl'>{data.title}</h2>
       </div>

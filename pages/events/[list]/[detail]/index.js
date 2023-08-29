@@ -1,12 +1,14 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Detail from '@/libs/eventDetail';
 import RootLayout from '@/layouts/RootLayout';
 import EventDetail from '@/components/Events/EventDetail';
 import { postMethod } from '@/libs/api';
 export default function EventDetails({ data }) {
     const router = useRouter();
+    // useEffect(()=>{
 
+    // },[router.query])
     return (
         <>
             <RootLayout>

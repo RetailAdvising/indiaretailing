@@ -17,6 +17,7 @@ export default function cart() {
         style: 'currency',
         currency: 'INR',
     });
+    
     const getCarts = async () => {
         let param = {
             customer: localStorage['customer_id'],

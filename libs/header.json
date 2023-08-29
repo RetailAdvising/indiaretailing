@@ -53,6 +53,7 @@
                     {
                         "menu_label": "Home",
                         "redirect_url": "/",
+                        "icon": "/Navbar/home.svg",
                         "is_mega_menu": 0,
                         "no_of_column": 0,
                         "child_menu": []
@@ -60,6 +61,7 @@
                     {
                         "menu_label": "Categories",
                         "redirect_url": "/categories",
+                        "icon": "/Navbar/Categories.svg",
                         "is_mega_menu": 0,
                         "no_of_column": 0,
                         "child_menu": []
@@ -67,6 +69,7 @@
                     {
                         "menu_label": "IR Prime",
                         "redirect_url": "/IRPrime",
+                        "icon": "/Navbar/IR-prime.svg",
                         "is_mega_menu": 0,
                         "no_of_column": 0,
                         "child_menu": []
@@ -74,6 +77,7 @@
                     {
                         "menu_label": "Events",
                         "redirect_url": "/events",
+                        "icon": "/Navbar/Events.svg",
                         "is_mega_menu": 0,
                         "no_of_column": 0,
                         "child_menu": []
@@ -81,6 +85,7 @@
                     {
                         "menu_label": "Book Store",
                         "redirect_url": "/bookstore",
+                        "icon": "/Navbar/Book-Store.svg",
                         "is_mega_menu": 0,
                         "no_of_column": 0,
                         "child_menu": []
@@ -88,6 +93,7 @@
                     {
                         "menu_label": "News Letters",
                         "redirect_url": "/newsletters",
+                        "icon": "/Navbar/newsletter.svg",
                         "is_mega_menu": 0,
                         "no_of_column": 0,
                         "child_menu": []

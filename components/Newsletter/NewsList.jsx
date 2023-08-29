@@ -8,9 +8,11 @@ import AlertPopup from '../common/AlertPopup';
 export default function NewsList({ data }) {
   const router = useRouter();
   const [showAlert, setShowAlert] = useState(false);
+  const [news,setNews] = useState()
 
   async function showPopup(data) {
     // console.log(data);
+    setNews(data)
     setShowAlert(true);
   }
 
@@ -36,7 +38,7 @@ export default function NewsList({ data }) {
         )
       })}
 
-      {showAlert && <AlertPopup show={() => setShowAlert(false)} />}
+      {(showAlert && news) && <AlertPopup data={news} show={() => setShowAlert(false)} />}
     </>
   )
 }

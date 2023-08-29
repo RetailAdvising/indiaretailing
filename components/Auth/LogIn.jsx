@@ -29,6 +29,8 @@ export default function LogIn({ isModal, hide }) {
                 localStorage['secret'] = val.message.api_secret
                 localStorage['userid'] = val.message.user_id;
                 localStorage['customer_id'] = val.message.customer_id;
+                localStorage['full_name'] = val.full_name;
+                localStorage['roles'] = JSON.stringify(val.message.roles)
                 dispatch(setUser(val.message));
                 isModal ? hide() : router.push('/')
             } else {
@@ -68,7 +70,7 @@ export default function LogIn({ isModal, hide }) {
                             <p className='text-blue-500 font-semibold text-[13px] cursor-pointer' onClick={() => router.push('/forget   ')}>Forget Password</p>
                         </div>
                         <button type="submit" className={`${styles.loginBtn}`}>Log In</button>
-                        {wrong && <p>Please check your email or password</p>}
+                        {wrong && <p className='text-center pt-[5px] text-[#ff1010] font-semibold'>Please check your email or password</p>}
                     </form>
                     <p className='pt-[10px] '>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>create an account</span></p>
                     <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div>

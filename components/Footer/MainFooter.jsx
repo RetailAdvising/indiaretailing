@@ -1,6 +1,5 @@
 import React from 'react'
 import footer from '@/libs/footer';
-
 import Image from 'next/image';
 export default function MainFooter() {
 
@@ -49,7 +48,7 @@ export default function MainFooter() {
                                     <h6 className='text-[15px] font-semibold'>{res.title}</h6>
                                     {res.data && res.data.map((res, index) => {
                                         return (
-                                            <p className='sub_title hover:text-[red]' key={index}>{res}</p>
+                                            <a href='{res.link}' target='_blank' key={index}><p className='sub_title hover:text-[red]'>{res}</p></a>
                                         )
                                     })}
                                 </div>

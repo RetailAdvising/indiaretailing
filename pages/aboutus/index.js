@@ -13,19 +13,19 @@ import About from '@/components/Aboutus/about';
 export default function Aboutus() {
     return (
       <RootLayout>
-        <div className='container p-[30px]'>
+        <div className='container md:p-[15px]'>
             <About></About>
         </div>
-        <div className='container p-[30px]'>
+        <div className='container md:p-[15px]'>
             <Values></Values>
         </div>
-        <div className='container p-[30px]'>
+        <div className='container md:p-[15px]'>
             <Publications></Publications>
         </div>
-        <div className='container p-[30px]'>
+        <div className='container md:p-[15px]'>
             <Events></Events>
         </div>
-        <div className='container p-[30px]'>
+        <div className='container md:p-[15px]'>
             <Exhibitions></Exhibitions>
         </div>
        

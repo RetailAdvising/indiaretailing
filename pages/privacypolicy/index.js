@@ -9,8 +9,8 @@ import data from '@/libs/privacypolicy'
 export default function PrivacyPolicy() {
     return (
       <RootLayout>
-        <div className='container p-[30px]'>
-            <h1 className='text-3xl font-bold text-center'>{data.title}</h1>
+        <div className='container p-[30px] md:p-[15px]'>
+            <h1 className='text-3xl md:text-2xl font-bold text-center'>{data.title}</h1>
             <p className='sub_title text-left pb-2 pt-3'>{data.content}</p>
             <p className='sub_title text-left pb-2'>{data.content1}</p>
             <p className='sub_title text-left pb-2'>{data.content2}</p>
