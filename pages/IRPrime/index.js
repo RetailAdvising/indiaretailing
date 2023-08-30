@@ -5,7 +5,6 @@ import ExclusiveBuilder from '@/components/Builders/ExclusiveBuilder'
 
 
 export default function IRPrime({ data }) {
-    console.log(data);
     return (
         <>
             <RootLayout>

@@ -17,7 +17,7 @@ import Comments from '../Category/Comments'
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { useRouter } from 'next/router'
 
-export default function CategoryBuilder({ data, isPrime, load, isLast, i , ads }) {
+export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   const [placeholder, setPlaceholder] = useState([]);
@@ -67,7 +67,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i , ads }
 
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage['roles'] ) {
+    if (typeof window !== 'undefined' && localStorage['roles']) {
       const data = JSON.parse(localStorage['roles']);
       if (data && data.length != 0) {
         data.map(res => {
@@ -209,10 +209,11 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i , ads }
 
             {validator}
             {(isPrime && !validator) && <div className='border p-[20px] shadow-2xl h-[10%] my-[20px]'>
-              <p className='text-center text-[20px] font-semibold pb-[15px]'>This story is free you simply have to Login / Signup to Unlock</p>
+              <p className='text-center text-[20px] font-semibold pb-[15px]'>This story is for Premium Members you  have to buy Membership to Unlock</p>
               <div className='flex gap-[20px] justify-center pt-[20px]'>
-                <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
-                <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button>
+                <button className='primary_btn h-[40px] w-[20%]' onClick={() => router.push('/membership')}>Subscribe</button>
+                {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
+                <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button> */}
               </div>
             </div>}
 

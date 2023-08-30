@@ -21,41 +21,82 @@
             "child_data":[
                 {
                     "title": "About us",
-                    "data": [
-                        "About IndiaRetailing.com",
-                        "Meet the team",
-                        "Advertise with us",
-                        "Contact us"
-                    ]
+                        "footerlinks": [
+                            {"footerlink": "About IndiaRetailing.com", "link": "#"},
+                            {"footerlink": "Meet the team", "link": "#"},
+                            {"footerlink": "Advertise with us", "link": "#"},
+                            {"footerlink": "Contact us", "link": "#"}
+                        ]
                 },
                 {
                     "title": "Categories",
-                    "data": ["Fashion & Lifestyle","Beauty & Wellness","Food & Beverage", "Consumer Durables & IT", "Entertainment", "Home Décor & Furnishing", "Specialty Retail"]
+                        "footerlinks": [
+                            {"footerlink": "Fashion & Lifestyle", "link": "#"},
+                            {"footerlink": "Beauty & Wellness", "link": "#"},
+                            {"footerlink": "Food & Beverage", "link": "#"},
+                            {"footerlink": "Consumer Durables & IT", "link": "#"},
+                            {"footerlink": "Entertainment", "link": "#"},
+                            {"footerlink": "Home Decor & Furnishing", "link": "#"},
+                            {"footerlink": "Specialty Retail", "link": "#"}
+                        ]
                 },
                 {
                     "title": "Features",
-                    "data": ["Leaders Ink","People","Finance & Funding","D2C", "Shopping Centers", "Results", "Research", "Case Studies"]
+                        "footerlinks": [
+                            {"footerlink": "Leaders Ink", "link": "#"},
+                            {"footerlink": "People", "link": "#"},
+                            {"footerlink": "Finance & Funding", "link": "#"},
+                            {"footerlink": "D2C", "link": "#"},
+                            {"footerlink": "Shopping Centers", "link": "#"},
+                            {"footerlink": "Results", "link": "#"},
+                            {"footerlink": "Research", "link": "#"},
+                            {"footerlink": "Case Studies", "link": "#"}
+                        ]
                 },
                 {
                     "title": "Events",
-                    "data": ["India Food Forum","Shopping Centre Next","Phygital Retail Convention","India D2C Summit & Awards", "Internet Commerce Summit"]
+                        "footerlinks": [
+                            {"footerlink": "India Food Forum", "link": "#"},
+                            {"footerlink": "Shopping Centre Next", "link": "#"},
+                            {"footerlink": "Phygital Retail Convention", "link": "#"},
+                            {"footerlink": "India D2C Summit & Awards", "link": "#"},
+                            {"footerlink": "Internet Commerce Summit", "link": "#"}
+                        ]
                 },
-        
                 {
                     "title": "Bookstore",
-                    "data": ["Magazines","Yearbooks","Other publications"]
+                        "footerlinks": [
+                            {"footerlink": "Magazines", "link": "#"},
+                            {"footerlink": "Yearbooks", "link": "#"},
+                            {"footerlink": "Other publications", "link": "#"}
+                        ]
                 },
                 {
                     "title": "Videos",
-                    "data": ["Retail with Rasul Bailay","The Store","IR Studio"]
+                        "footerlinks": [
+                            {"footerlink": "Retail with Rasul Bailay", "link": "#"},
+                            {"footerlink": "The Store", "link": "#"},
+                            {"footerlink": "IR Studio", "link": "#"}
+                        ]
                 },
                 {
                     "title": "IR Prime Subscription Box",
-                    "data": ["Lorem ipsum ","Lorem ipsum ","Lorem ipsum ","Lorem ipsum"]
+                        "footerlinks": [
+                            {"footerlink": "Lorem ipsum", "link": "#"},
+                            {"footerlink": "Lorem ipsum", "link": "#"},
+                            {"footerlink": "Lorem ipsum", "link": "#"},
+                            {"footerlink": "Lorem ipsum", "link": "#"}
+                        ]
                 },
                 {
                     "title": "Retail Functions",
-                    "data": ["Marketing","Technology","Operations","HR", "Supply Chain"]
+                        "footerlinks": [
+                            {"footerlink": "Marketing", "link": "#"},
+                            {"footerlink": "Technology", "link": "#"},
+                            {"footerlink": "Operations", "link": "#"},
+                            {"footerlink": "HR", "link": "#"},
+                            {"footerlink": "Supply Chain", "link": "#"}
+                        ]
                 }
             ]
         },

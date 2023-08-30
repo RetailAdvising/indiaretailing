@@ -28,7 +28,7 @@ export default function EventCards({ data, flex,height,width }) {
                                 })}
                                 </p>
                             </div>
-                            <div className='flex gap-[5px] pt-[5px]'><p className={`primary_text font-semibold capitalize `}>Register Now</p><Image src={'/arrowrightprimary.svg'} className='p-0.5 right-arrow' height={6} width={12} alt={'res.title'} /></div>
+                            <div className='flex items-center gap-[5px] pt-[5px]'><p className={`primary_text font-semibold capitalize `}>Register Now</p><Image src={'/arrowrightprimary.svg'} className='p-0.5 right-arrow' height={6} width={12} alt={'res.title'} /></div>
                         </div>
                     </div>
                 )

@@ -1,5 +1,6 @@
 import React, { useState,useRef,useEffect } from 'react'
 import Image from 'next/image'
+import { like } from '@/libs/api';
 export default function Comments({ data,isLast,load,cmt}) {
     const [input, setInput] = useState({ index: -1, show: false })
     function showInputs(index) {
@@ -22,6 +23,13 @@ export default function Comments({ data,isLast,load,cmt}) {
 
     const likeCmt = async (data) => {
         console.log(data)
+        let param = {
+            name: data.name,
+            like: 'yes'
+        }
+
+        const resp = await like(param);
+        console.log(resp);
     }
     return (
         <>

@@ -18,6 +18,8 @@ export default function Navbar() {
 
     useEffect(() => {
         dispatch(setRoutes(router.route));
+        const day = new Date();
+        console.log(day.getDate())
     }, [router.query, route])
 
     const showSidebar = async () => {

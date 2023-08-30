@@ -4,13 +4,17 @@ import React, { useState } from 'react'
 import Title from '@/components/common/Title'
 import List from '@/components/common/List'
 import { getList } from '@/libs/api'
-
-export default function Lists({data}) {
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+import { check_Image } from '@/libs/common'
+export default function Lists({ data }) {
     const [isChecked, setIsChecked] = useState(false)
-
+    const router = useRouter();
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked)
     }
+
+    console.log(data)
 
 
     const data1 = [
@@ -73,12 +77,28 @@ export default function Lists({data}) {
                     </div>
 
                     <>
-                    {/* ${!isChecked ? 'grid grid-cols-2' : 'grid grid-cols-4'} */}
-                        {(data) && <div className={`grid grid-cols-4 md:grid-cols-2 gap-5`}>
+                        {/* ${!isChecked ? 'grid grid-cols-2' : 'grid grid-cols-4'} */}
+                        {(data) && <>
                             {/* {!isChecked ? <List fullWidth={true} check={true} isBB={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px]'} data={data} borderRadius={'rounded-[5px]'} />
                                 : <Cards cardClass={"h-[360px]"} check={true} noPrimaryText={false} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"}  width={"w-full"} isBorder={true} data={data} />} */}
-                             <Cards cardClass={"h-[360px]"} check={true} noPrimaryText={false} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"}  width={"w-full"} isBorder={true} data={data} />
-                        </div>}
+                            {router.query.types == 'ir_prime_videos' ?
+                                <div className='grid grid-cols-4 md:grid-cols-2  gap-[15px] justify-between'>
+                                    {data.map((res, index) => {
+                                        return (
+                                            <div key={index}>
+                                                <Image src={check_Image(res.video_image)} className='h-[175px] w-full' height={100} width={100} alt={res.title} />
+                                                <p className='pt-[10px]'>{res.title}</p>
+                                            </div>
+                                        )
+                                    })}
+
+                                </div>
+                                :
+                                <div className={`grid grid-cols-4 md:grid-cols-2 gap-5`}>
+                                    <Cards cardClass={"h-[360px]"} check={true} noPrimaryText={false} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} isBorder={true} data={data} />
+                                </div>
+                            }
+                        </>}
                     </>
                 </div>
             </RootLayout>
@@ -90,9 +110,9 @@ export async function getServerSideProps({ params }) {
     let Id = await params?.types;
     // let Id = 'beauty-wellness';
     let param = {
-        doctype: "Articles",
-        fields: ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image"],
-        filters: { articles_category: Id },
+        doctype: Id == 'ir_prime_videos' ? 'Video' : "Articles",
+        fields: Id == 'ir_prime_videos' ? ["name", "video_id", "video_image", "title", "category"] : ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image"],
+        filters: Id == 'ir_prime_videos' ? { category: 'IR Prime Videos' } : { articles_category: Id },
         ir_prime: 1,
     }
     let value = await getList(param);

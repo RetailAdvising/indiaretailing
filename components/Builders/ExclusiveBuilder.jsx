@@ -61,7 +61,7 @@ export default function ExclusiveBuilder({ data }) {
             {(data.videos && data.videos.ir_video && data.videos.ir_video.length != 0) &&
                 <div className='bg-[#F8F8F8] '>
                     <div className='p-[30px]  container'>
-                        <Title data={{ title: 'IR Prime Video' }} seeMore={true} />
+                        <Title data={data.videos} seeMore={true} />
                         {/* <div className='flex  gap-[15px] justify-between'><YTVideo data={res.ir_video} flex={"flex-[0_0_calc(25%_-_10px)]"} /></div> */}
                         <div className='grid grid-cols-4 md:grid-cols-2  gap-[15px] justify-between'>
                             {data.videos.ir_video.map((res, index) => {

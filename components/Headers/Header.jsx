@@ -21,9 +21,9 @@ export default function Header() {
         }
 
         const handleClickOutside = (event) => {
-            let el = document.getElementById('dropdown1').classList;
-            let classs = Array.from(el);
-            let out = classs.find(res => res == 'dropdown-menu-active');
+            let el = document.getElementById('dropdown1')?.classList;
+            let classs = el && Array.from(el);
+            let out = classs && classs.find(res => res == 'dropdown-menu-active');
             if (ref.current && !ref.current.contains(event.target) && out) {
                 el.remove('dropdown-menu-active')
             }
