@@ -20,7 +20,9 @@ body {
     // height: auto;
   }
 }
-
+h1, h2, h3, h4, h5, h6 {
+  color: $dark-color;
+}
 
 .font14_bold {
   font-size: $font-14;
@@ -79,10 +81,12 @@ body {
 }
 
 .event-title {
-  font-size: $font-18;
+  font-size: $font-16;
   color: $dark-color;
 }
-
+.books .slick-dots{
+  bottom: -30px !important;
+}
 .card-title {
   font-size: $font-16;
   color: $dark-color;
@@ -391,7 +395,15 @@ input{
 .border_bottom_white {
   border-bottom: 1px solid $white-color;
 }
-
+.eventeam{
+  background-color: #EAF0F6;
+}
+.evenabout{
+  background-color: #F8F8F8;
+}
+.eventeam .flex, .evenabout .flex{
+  flex-direction: row-reverse;
+}
 
 .border {
   border: 1px solid $border-color;
@@ -483,6 +495,12 @@ input{
 @media screen and (max-width:768px) {
   .w_100 {
     width: 100%;
+  }
+  .eventeam .flex{
+    flex-direction: column-reverse;
+  }
+  .evenabout .flex, .oddabout .flex{
+    flex-direction: column;
   }
   .p30 {
     padding: 15px;

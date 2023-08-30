@@ -1,16 +1,26 @@
 import { forget_password } from '@/libs/api';
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
+import { useRouter } from 'next/router';
 export default function forget() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+    const router = useRouter();
+    const [wrong,setWrong] = useState(false)
     async function forgetPass(data) {
         if (data) {
             // console.log(data);
             const resp = await forget_password(data);
             console.log(resp);
+            if(resp.status == "Success"){
+                alert('Password reset instructions have been sent to your email');
+                setTimeout(() => {
+                    router.push('/login')
+                }, 500);
+            }else{
+                setWrong(!wrong)
+            }
         }
     }
     return (
@@ -33,6 +43,7 @@ export default function forget() {
                                 {errors?.user && <p className={`${styles.danger}`}>{errors.user.message}</p>}
                             </div>
                             <button className={`${styles.loginBtn} cursor-pointer`} type='submit'>Send</button>
+                            {wrong && <p className={`${styles.danger} text-[14px]`}>Check your E-mail</p>}
                         </form>
                     </div>
                 </div>

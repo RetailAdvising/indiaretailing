@@ -13,11 +13,11 @@ export default function Events() {
       {data.events.map((events,index) => {
       return(
       <div className="basis-1/3 md:basis-1/2" key={index}>
-        <div className='bg-[#FBFBFB] rounded-2xl p-0 border border-inherit border-solid'>
-          <Image src={events.image} alt="Article" width={180} height={180} className='m-2 m-auto p-3' />
+        <div className='bg-[#F8F8F8] rounded-2xl p-0 border border-inherit border-solid'>
+          <Image src={events.image} alt="Article" width={200} height={200} className='m-2 m-auto p-3' />
           <div className='flex justify-between items-center px-4 pt-2 pb-2 bg-[#fff] rounded-bl-[1rem] rounded-br-[1rem]'>
           <h3 className='text-1xl font-bold text-center'>{events.title}</h3> 
-          <Image src="/about/right-point.svg" alt="Article" width={12} height={12} className='' />
+          <Image src="/about/right-point.svg" alt="Article" width={11} height={11} className='' />
           </div>
           </div>
       </div>

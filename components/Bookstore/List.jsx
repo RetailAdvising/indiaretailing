@@ -14,8 +14,8 @@ export default function List({ data, flex, height, width, imgWidth, isLanding, b
             </div>
             <div className={`flex flex-col items-start gap-[10px] justify-center`}>
               {res.primary_text && <p className={`flex items-center`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#121212]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>}
-              <p className=''>{res.item_title}</p>
-              {res.sub_title && <p className={`sub_title`}>{res.sub_title}</p>}
+              <p className='line-clamp-2'>{res.item_title}</p>
+              {res.sub_title && <p className={`sub_title line-clamp-2`}>{res.sub_title}</p>}
               {/* <button className={`primary_btn p-[5px] text-[13px]`}>select options</button> */}
             </div>
           </div>

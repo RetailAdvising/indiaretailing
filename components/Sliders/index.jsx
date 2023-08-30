@@ -4,7 +4,9 @@ import 'react-multi-carousel/lib/styles.css';
 import styles from '@/styles/Slider.module.scss'
 import Image from 'next/image';
 import { check_Image } from '@/libs/common';
+import { useRouter } from 'next/router';
 export default function Sliders({ data,perView }) {
+  const router = useRouter();
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -47,14 +49,14 @@ export default function Sliders({ data,perView }) {
       >
         {data.map((res, index) => {
           return (
-            <div className={`flex items-center gap-[15px] h-full`} key={index}>
+            <div onClick={()=> router.push(`/${router.asPath.split('/')[1]}/category/${res.item ? res.item : ''}?id=${res.name}`)} className={`flex items-center gap-[15px] h-full`} key={index}>
               <div className={`lg:flex-[0_0_calc(50%_-_10px)]`}>
-                <Image alt={res.title} src={res.image} height={200} width={400} className={`h-full lg:w-full`} />
+                <Image alt={''} src={check_Image(res.image)} height={200} width={400} className={`h-[310px] w-[210px]`} />
               </div>
               <div className={`flex flex-col items-start justify-between lg:h-[175px]`}>
-                <p className={`text-[15px]`}>{res.title}</p>
-                <p className={`sub_title`}>{res.description}</p>
-                <button className={`p-[8px] text-[14px] rounded-[5px] ${styles.optionsBtn}`} style={{background: res.button_bg}}>{res.button}</button>
+                <p className={`text-[15px]`}>{res.item}</p>
+                <p className={`sub_title`}>{res.short_description ? res.short_description : 'Retail in the New Phygital Era Arguably the Indian consumers have come of age'}</p>
+                <button className={`p-[8px] text-[14px] rounded-[5px] ${styles.optionsBtn} bg-[#fff]`} >Select options</button>
               </div>
             </div>
           )

@@ -6,8 +6,17 @@ import { check_Image } from '@/libs/common'
 // import detail from '@/libs/eventDetail'
 import Title from '../common/Title'
 import EventCards from './EventCards'
+import { useRouter } from 'next/router'
 
 export default function EventDetail({ data }) {
+    console.log(data)
+    const router = useRouter();
+
+    const redirectTo = () => {
+        if(data.message && data.message.link){
+            window.open(data.message.link,'_blank')
+        }
+    }
     return (
         <>
             {data && <div className={`p-[30px] container`}>
@@ -22,7 +31,7 @@ export default function EventDetail({ data }) {
                                 <Image height={13} width={13} objectFit='contain' className={`h-[23px] w-[20px] object-contain`} alt={'settings'} src={'/settings.svg'}></Image>
                             </div> */}
                         {/* </div> */}
-                        <p className='sub_title pt-[15px] w-[80%]'>{data.message.description}</p>
+                        <p className='sub_title pt-[15px] w-[80%] line-clamp-2'>{data.message.description}</p>
                         <div className={`title_div py-5`}>
                             <h6 className={`title`}>When and where</h6>
                             <div className='line'></div>
@@ -47,13 +56,14 @@ export default function EventDetail({ data }) {
                             <h6 className={`title`}>About This Event</h6>
                             <div className='line'></div>
                         </div>
-                        <p className='w-[80%]'>{data.message.description}</p>
+                        {/* <p className='w-[80%]'>{data.message.description}</p> */}
+                        <div dangerouslySetInnerHTML={{ __html: data.message.event_description }}  className={`contents`} />
                     </div>
 
                     {/* Col-2 */}
                     <div className='flex flex-col flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] gap-[20px] items-center'>
-                        <button type='button' className={`primary_button h-[45px] w-full md:w-[45%]`}>Registration Now</button>
-                        <button type='button' className={`primary_outline h-[45px] w-full md:w-[45%]`}>More Details</button>
+                        <button type='button' className={`primary_button h-[45px] w-full md:w-[45%]`} onClick={redirectTo} >Registration Now</button>
+                        <button type='button' className={`primary_outline h-[45px] w-full md:w-[45%]`}  onClick={redirectTo}>More Details</button>
                         {data && <AdsBaner data={{ ad_image: '/ads_baner.png' }} />}
                     </div>
                 </div>

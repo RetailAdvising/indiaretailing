@@ -31,7 +31,6 @@ export default function CategoryType({ values }) {
                     apiCall = true;
                     page_no += 1;
                     loadMore()
-
                 }
             }
         };

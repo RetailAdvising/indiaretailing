@@ -18,17 +18,17 @@ export default function MainFooter() {
 
                             <span className='flex flex-row mt-2.5 gray-text'>
                                 <Image src={footer.footer.section_1.phoneicon} height={18} width={18} alt={"image"} className='mr-3 m-0.5' />
-                                <a href='tel:{footer.footer.section_1.phonenumber}' className='hover:text-[red]'>{footer.footer.section_1.phonenumber}</a>
+                                <a href={`tel:${footer.footer.section_1.phonenumber}`} className='hover:text-[red]'>{footer.footer.section_1.phonenumber}</a>
                             </span>
                             <span className='flex flex-row mt-2.5 gray-text'>
                                 <Image src={footer.footer.section_1.mailicon} height={18} width={18} alt={"image"} className='mr-3 m-0.5' />
-                                <a href='mailto:{footer.footer.section_1.mail}' className='hover:text-[red]'>{footer.footer.section_1.mail}</a>
+                                <a href={`mailto:${footer.footer.section_1.mail}`} className='hover:text-[red]'>{footer.footer.section_1.mail}</a>
                             </span>
                             <p className='text-[16px] font-semibold pb-[10px] pt-[20px]'>Our Social Media</p>
                             <div className='flex items-center gap-[15px] py-[10px]'>
                                 {footer.footer.section_1.socials && footer.footer.section_1.socials.map((res, index) => {
                                     return (
-                                        <div key={index}><a href='{res.link}' target='_blank'><Image src={res.icon} height={20} width={25} alt='icon' className='h-[34px] w-[34px]' /></a></div>
+                                        <div key={index}><a href={res.link} target='_blank'><Image src={res.icon} height={20} width={25} alt='icon' className='h-[34px] w-[34px]' /></a></div>
                                     )
                                 })}
                             </div>
@@ -48,7 +48,7 @@ export default function MainFooter() {
                                     <h6 className='text-[15px] font-semibold'>{res.title}</h6>
                                     {res.data && res.data.map((res, index) => {
                                         return (
-                                            <a href='{res.link}' target='_blank' key={index}><p className='sub_title hover:text-[red]'>{res}</p></a>
+                                            <a href={res.link} target='_blank' key={index}><p className='sub_title hover:text-[red]'>{res}</p></a>
                                         )
                                     })}
                                 </div>
@@ -58,7 +58,7 @@ export default function MainFooter() {
                     }
                 </div>
             </div>
-            <p className='copy_write'>{footer.footer.copy_write}<a href='{footer.footer.copy_link}' className='hover:text-[red]'> {footer.footer.copy_link_text}</a>. All Rights Reserved</p>
+            <p className='copy_write'>{footer.footer.copy_write}<a href={footer.footer.copy_link} className='hover:text-[red]'> {footer.footer.copy_link_text}</a>. All Rights Reserved</p>
 
             
         </>

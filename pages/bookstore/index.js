@@ -7,9 +7,10 @@ import Card from '@/components/Bookstore/Card'
 import AdsBaner from '@/components/Baners/AdsBaner'
 import List from '@/components/Bookstore/List'
 import { booksLanding, getCategories } from '@/libs/api'
-export default function Bookstore({ data }) {
+export default function Bookstore({ data,resp }) {
 
   console.log(data);
+  console.log(resp);
   // useEffect(() => {
   // const category = async () => {
   //   let data = await booksLanding();
@@ -22,8 +23,8 @@ export default function Bookstore({ data }) {
     <>
       <RootLayout>
         {(data && data.length != 0) && <>
-          {(val.section_1 && val.section_1.col_1.data) && <div className='' style={{ background: "#f0f0f0" }}>
-            <Sliders data={val.section_1.col_1.data} perView={3} />
+          {(resp.recent_products && resp.recent_products.length != 0) && <div className='' style={{ background: "#f0f0f0" }}>
+            <Sliders data={resp.recent_products} perView={3} />
           </div>}
 
           <div className={`bg-[#FBFBFD] mt-[50px]`}>
@@ -32,7 +33,7 @@ export default function Bookstore({ data }) {
             <div className='md:flex-wrap p-[30px] container justify-between gap-[15px] flex'>
               <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
                 <Title data={data[0]} query={true} seeMore={true} />
-                <div className={`grid gap-[35px] grid-cols-4 md:grid-cols-2 justify-between`}><Card imgClass={'h-[270px] w-[181px]'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 8)} boxShadow={true} /></div>
+                <div className={`grid gap-[35px] grid-cols-4 md:grid-cols-2 `}><Card imgClass={'h-[270px] w-[181px]'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 8)} boxShadow={true} /></div>
               </div>
               <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}><AdsBaner data={val.section_2.col_2} /></div>
             </div>
@@ -43,19 +44,19 @@ export default function Bookstore({ data }) {
           {(data[1] && data[2]) && <div className='container p-[30px] md:flex-wrap flex justify-between gap-[15px]'>
             <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
               <Title data={data[1]} query={true} seeMore={true} />
-              <div className={`flex gap-[15px] h-full rounded-[5px] flex-wrap justify-between border p-[10px]`}><List category={data[1].category_name} check={true} isLanding={true} boxShadow={true} imgWidth={'flex-[0_0_calc(35%_-_10px)]'} height={'h-[210px]'} width={'w-full'} data={data[1].products.slice(0, 4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} /></div>
+              <div className={`flex gap-[15px] h-full rounded-[5px] flex-wrap  border p-[10px]`}><List category={data[1].category_name} check={true} isLanding={true} boxShadow={true} imgWidth={'flex-[0_0_calc(35%_-_10px)]'} height={'h-[210px]'} width={'w-full'} data={data[1].products.slice(0, 4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] h-[220px]'} /></div>
             </div>
 
             <div className={`flex-[0_0_calc(30%_-_10px)] md:pt-[40px] md:flex-[0_0_calc(100%_-_10px)]`}>
               <Title  data={data[2]} />
-              <div className={`flex gap-[10px] h-full rounded-[5px] flex-wrap justify-between flex-col border p-[10px]`}><List category={data[2].category_name} check={true} boxShadow={true} isLanding={true} imgWidth={'flex-[0_0_calc(30%_-_10px)]'} height={'h-[130px]'} width={'w-full'} data={data[2].products.slice(0, 3)} /></div>
+              <div className={`flex gap-[10px] h-full rounded-[5px] flex-wrap  flex-col border p-[10px]`}><List category={data[2].category_name} check={true} boxShadow={true} isLanding={true} imgWidth={'flex-[0_0_calc(30%_-_10px)]'} height={'h-[130px]'} width={'w-full'} data={data[2].products.slice(0, 3)} /></div>
             </div>
           </div>}
 
           { data[3] && <div className='mb-[30px] mt-[60px]' style={{ background: '#fbfbfd' }}>
             <div className={`flex-[0_0_calc(100%_-_10px)] container  p-[30px]`}>
               <Title data={data[3]} />
-              <div className={`flex gap-[15px] flex-wrap justify-between`}><Card category={data[3].category_name} isBorder={true} check={true} isLanding={true} flex={'flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data[3].products} /></div>
+              <div className={`flex gap-[15px] flex-wrap `}><Card category={data[3].category_name} isBorder={true} check={true} isLanding={true} flex={'flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data[3].products} /></div>
             </div>
           </div>}
 
@@ -115,10 +116,10 @@ export default function Bookstore({ data }) {
 
 export async function getStaticProps() {
   const resp = await booksLanding();
-  const data = resp.message;
+  const data = resp?.message;
 
   return {
-    props: { data }, revalidate: 50,
+    props: { data,resp }, revalidate: 50,
   }
 
 }

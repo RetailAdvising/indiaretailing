@@ -7,15 +7,15 @@ import Publications from '@/components/Aboutus/publications';
 import Exhibitions from '@/components/Aboutus/exhibitions';
 import Events from '@/components/Aboutus/events';
 import About from '@/components/Aboutus/about';
+import Books from '@/components/Aboutus/books';
+
 
 
 
 export default function Aboutus() {
     return (
       <RootLayout>
-        <div className='container md:p-[15px]'>
-            <About></About>
-        </div>
+        <About></About>
         <div className='container md:p-[15px]'>
             <Values></Values>
         </div>
@@ -23,12 +23,14 @@ export default function Aboutus() {
             <Publications></Publications>
         </div>
         <div className='container md:p-[15px]'>
+            <Books></Books>
+        </div>
+        <div className='container md:p-[15px]'>
             <Events></Events>
         </div>
         <div className='container md:p-[15px]'>
             <Exhibitions></Exhibitions>
         </div>
-       
       </RootLayout>
     )
   }

@@ -13,9 +13,9 @@ export default function Publications() {
       {data.publication.map((publication,index) => {
       return(
       <div className="basis-1/3 md:basis-1/2" key={index}>
-        <div className='bg-[#FBFBFB] rounded-2xl p-4'>
-          <Image src={publication.image} alt="Article" width={180} height={180} className='m-2 m-auto' />
-          <h3 className='text-1xl font-bold pb-2 text-center mt-4'>{publication.title}</h3>        </div>
+        <div className='bg-[#F8F8F8] rounded-2xl md:rounded-lg p-4'>
+          <Image src={publication.image} alt="Article" width={350} height={180} className='m-2 m-auto rounded-2xl md:rounded-lg' />
+          <h3 className='text-1xl font-bold pb-2 text-center mt-4'>{publication.title}</h3></div>
       </div>
       )
       }

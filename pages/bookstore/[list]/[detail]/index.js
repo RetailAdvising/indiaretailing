@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image';
 import val from '@/libs/bookdetails'
 import RootLayout from '@/layouts/RootLayout';
@@ -17,7 +17,7 @@ export default function Bookstoredetail({ value, res }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState();
-
+  const ref = useRef(null)
   const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
 
   const formatter = new Intl.NumberFormat('en-US', {
@@ -61,6 +61,21 @@ export default function Bookstoredetail({ value, res }) {
     if (res && res.length != 0) {
       setSubs(res)
     }
+
+
+    const handleClickOutside = (event) => {
+      let el = document.getElementById('dropdown').classList;
+      let classs = Array.from(el);
+      let out = classs.find(res => res == 'dropdown-menu-active');
+      if (ref.current && !ref.current.contains(event.target) && out) {
+        el.remove('dropdown-menu-active')
+      }
+    };
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+
   }, [router.query])
 
   async function addToCart() {
@@ -119,7 +134,7 @@ export default function Bookstoredetail({ value, res }) {
         {/* <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}
         {(data && Object.keys(data).length != 0) && <div className='container'>
           <div className={`flex justify-between flex-wrap gap-[15px] p-[30px]`}>
-            <div className={`flex-[0_0_calc(40%_-_10px)] flex flex-col md:flex-[0_0_calc(100%_-_10px)]`}>
+            <div className={`flex-[0_0_calc(40%_-_10px)] md:hidden flex flex-col md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
               {/* flex-[0_0_calc(100%_-_10px)] */}
               <div className={``}>
                 {(data.images && data.images.length != 0) ? <Image className={`w-full h-[665px]`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
@@ -132,11 +147,11 @@ export default function Bookstoredetail({ value, res }) {
 
 
             {/* p-[20px] */}
-            <div className={`flex flex-col justify-between flex-[0_0_calc(60%_-_10px)] p-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
-              <div className={`flex gap-5 h-[40px] `}>
+            <div className={`flex flex-col justify-between flex-[0_0_calc(60%_-_10px)] lg:p-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
+              <div className={`flex gap-5 h-[40px]`}>
                 <h6 className={`text-[20px] font-semibold`}>{data.item_title}</h6>
                 <div className='dropdowns w-[130px] cursor-pointer pr-[40px]'>
-                  <Image onClick={share} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} />
+                  <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} />
                   <div className={`dropdown-menu p-[20px] grid justify-center`} style={{ borderRadius: '10px', width: '190px' }} id='dropdown'>
                     {icons && icons.map((res, index) => {
                       return (
@@ -164,20 +179,31 @@ export default function Bookstoredetail({ value, res }) {
                 </div>
               </div>
 
+              <div className={`flex lg:hidden flex-col`}>
+                {/* flex-[0_0_calc(100%_-_10px)] */}
+                <div className={``}>
+                  {(data.images && data.images.length != 0) ? <Image className={`w-full h-[665px]`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
+                    <Image className={`w-full h-[665px]`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />}
+                </div>
+                <div className='text-center pt-[15px]'>
+                  <button className={`w-full h-[40px] border`}>Preview</button>
+                </div>
+              </div>
+
               <div className={`flex items-center pt-[10px] gap-5`}>
                 <p className={`p-[5px] border rounded-[10px] cursor-pointer`}>pdf</p>
                 <p className={`text-[20px] text-red font-semibold`}>{formatter.format(data.price)}</p>
               </div>
               {/* p-[20px] */}
-              {(subs && subs.length != 0) && <div className={`flex gap-[10px] p-[20px]  justify-between`}>
+              {(subs && subs.length != 0) && <div className={`grid grid-cols-3 gap-[10px] lg:p-[20px] md:p-[10px_0] justify-between`}>
 
                 {subs.map((item, index) => {
                   return (
-                    <div className={`border cursor-pointer ${(index == indexs && open) ? 'activeBorder' : ''} flex flex-col flex-[0_0_calc(33.333%_-_10px)] justify-between text-center p-[10px] rounded-[10px] h-[130px] `} onClick={() => handleSubs(res, item, index)} key={index}>
-                      <p className='text-[16px] font-semibold'>{item.plan_name}</p>
-                      <p className='text-[20px] font-semibold'>{formatter.format(item.total_amount)}</p>
+                    <div className={`border cursor-pointer ${(index == indexs && open) ? 'activeBorder' : ''} flex flex-col justify-between text-center p-[10px] rounded-[10px] lg:h-[130px] md:h-[110px]`} onClick={() => handleSubs(res, item, index)} key={index}>
+                      <p className='lg:text-[16px] md:text-[13px] font-semibold'>{item.plan_name}</p>
+                      <p className='text-[20px] md:text-[13px] font-semibold'>{formatter.format(item.total_amount)}</p>
                       {item.features && item.features.map((f, index) => {
-                        return (<p key={index} className='text-[14px]'>{f.features}</p>)
+                        return (<p key={index} className='lg:text-[14px] md:text-[13px]'>{f.features}</p>)
                       })}
                       {/* <p className='text-[14px]'>{res.issues}</p> */}
                     </div>
@@ -210,7 +236,7 @@ export default function Bookstoredetail({ value, res }) {
 
           {data.related_products && <div className={`p-[30px]`}>
             <Title data={{ title: 'Previous Issues' }} seeMore={true} />
-            <div className={`flex gap-[20px] flex-wrap justify-between`}><Card category={router.query.list} check={true} flex={'flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data.related_products.slice(0, 5)} boxShadow={true} /></div>
+            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.related_products.slice(0, 5)} boxShadow={true} /></div>
           </div>}
 
           {/* Section - 3 */}
@@ -218,7 +244,7 @@ export default function Bookstoredetail({ value, res }) {
           {data.related_products && <div className={`p-[30px] flex-wrap flex gap-[20px] justify-between`}>
             <div className='flex-[0_0_calc(70%_-_20px)] md:flex-[0_0_calc(100%_-_10px)]'>
               <Title data={{ title: 'Other Magazines' }} seeMore={true} />
-              <div className={`flex gap-[20px] flex-wrap justify-between`}><Card category={router.query.list} flex={'flex-[0_0_calc(25%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data.related_products.slice(0, 4)} check={true} boxShadow={true} /></div>
+              <div className={`flex gap-[20px] flex-wrap `}><Card category={router.query.list} flex={'flex-[0_0_calc(25%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data.related_products.slice(0, 4)} check={true} boxShadow={true} /></div>
             </div>
             <div className='flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
               <AdsBaner data={val.section_3.col_2} />
@@ -227,9 +253,9 @@ export default function Bookstoredetail({ value, res }) {
 
           {/* Section - 4 */}
 
-          {data.related_products && <div className={`p-[30px]`}>
-            <Title data={{ title: 'Other Group Publications' }} seeMore={true} />
-            <div className={`flex gap-[20px] flex-wrap `}><Card category={router.query.list} flex={'flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} check={true} data={data.related_products} boxShadow={true} /></div>
+          {(data.other_group_items && data.other_group_items.data && data.other_group_items.data.length != 0) && <div className={`p-[30px]`}>
+            <Title data={data.other_group_items} seeMore={true} />
+            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.other_group_items.data.slice(0, 5)} boxShadow={true} /></div>
           </div>}
         </div>}
 

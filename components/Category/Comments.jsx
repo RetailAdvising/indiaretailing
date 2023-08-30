@@ -19,6 +19,10 @@ export default function Comments({ data,isLast,load,cmt}) {
   
       observer.observe(cardref.current);
     }, [isLast])
+
+    const likeCmt = async (data) => {
+        console.log(data)
+    }
     return (
         <>
             <div ref={cardref} className={`transition-all ease-in delay-500 duration-500 rounded-lg ${cmt ? 'p-[10px]': ''}`}>
@@ -33,7 +37,7 @@ export default function Comments({ data,isLast,load,cmt}) {
                                 <div className='py-2 sub_title' dangerouslySetInnerHTML={{ __html: data.content }} />
                                 <div className='flex justify-between items-center py-[5px]'>
                                     <div className='flex gap-3'>
-                                        <p className='flex gap-2 items-center sub_title'><span>{data.likes}</span><Image className='h-[20px] w-[20px]'  src={'/like.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-2 items-center sub_title'><span>{data.likes}</span><Image className='h-[20px] w-[20px]' onClick={()=> likeCmt(data)}  src={'/like.svg'} height={20} width={20} alt={""} /></p>
                                         <p className='flex gap-2 items-center sub_title'><span>{data.dislikes}</span><Image className='h-[20px] w-[20px]' src={'/dislike.svg'} height={20} width={20} alt={""} /></p>
                                         <p className='sub_title'>Share</p>
                                         <p className='sub_title' onClick={() => showInputs(index)}>Reply</p>

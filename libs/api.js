@@ -1,4 +1,5 @@
 import { domain } from "./config/siteConfig"
+import { check_Image } from '@/libs/common'
 
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
@@ -8,6 +9,8 @@ const subscription = `subscription.subscription.api.`;
 
 let apikey;
 let secret;
+let razorpay_settings;
+let r_pay_color ='#e21b22';
 
 if (typeof window !== 'undefined') {
     // Perform localStorage action
@@ -24,6 +27,69 @@ export const checkMobile = async () => {
         return false;
     }
 }
+
+
+export async function get_razorpay_settings() {
+    const resp = await get_razorpaysetting();
+    if (resp && resp.message) {
+        razorpay_settings = resp.message;
+    }
+}
+
+
+
+export async function load_razorpay(amount,description) {
+    var options = {
+      "key": razorpay_settings.api_key,
+      "amount": (amount * 100).toString(),
+      "currency": "INR",
+      "name": environment.app_config.app_name,
+      "description": "Payment for" + description,
+      "image": (razorpay_settings.site_logo ? check_Image(razorpay_settings.site_logo) : null),
+      "prefill": {
+          "name": localStorage['full_name'],
+          "email": localStorage['userid'],
+        //   "contact": localStorage.Customerphone
+      },
+      "theme": {
+          "color": r_pay_color
+      },
+      "modal": {
+        "backdropclose": false,
+        "ondismiss": () => {  payment_error_callback(description,'error') }
+      },
+      "handler" : (response, error) => {
+        if(response){
+          let data = { response : { amount : amount,description : description,razorpay_payment_id : response.razorpay_payment_id }}
+          payment_Success_callback(data);
+        } else if(error){
+          payment_error_callback(description,error)
+        }
+        // console.log(response);
+        // console.log(error);
+      }
+    };
+
+    const rzp = new Razorpay.open(options);
+    rzp.open();
+}
+
+function payment_Success_callback(data){
+    order_payment_capture(data['response']['razorpay_payment_id'],data['response']['description']);
+}
+
+function payment_error_callback(description,error){
+    order_payment_capture(undefined,description);
+}
+
+export async function order_payment_capture(id,order_id) {
+    var updatedate = {  'order_id': order_id,  'transaction_id': id  }
+    const resp = await update_order_status(updatedate);
+    if (resp) {
+        // this.success(order_id);
+    }
+}
+
 
 export async function postMethod(api, payload) {
     const myHead = new Headers((apikey && secret) ? { "Authorization": 'token ' + apikey + ':' + secret, "Content-Type": "application/json" } : { "Content-Type": "application/json" })
@@ -100,6 +166,11 @@ export async function articlesDetail(data) {
     return await postMethod(api, data)
 }
 
+export async function like(data){
+    let api = domainUrl + 'like_dislike';
+    return await postMethod(api,data)
+}
+
 // Prime Landing
 export async function primeLanding(data){
     let api = domainUrl + 'ir_prime_content';
@@ -159,6 +230,11 @@ export async function getCategoryProduct(data){
 
 export async function getProductDetail(data){
     let api = `ecommerce_business_store.ecommerce_business_store.mobileapi.get_product_details`;
+    return await postMethod(api,data)
+}
+
+export async function getAds(data){
+    let api = domainUrl + 'ad_list';
     return await postMethod(api,data)
 }
 
@@ -241,12 +317,42 @@ export async function get_customer_info(data){
     return await postMethod(api,data)
 }
 
-export async function insert_address(data) {
-    let api = 'ecommerce_business_store.ecommerce_business_store.api.insert_address'
+export async function get_payment_method(){
+    let data = { domain : domainUrl}
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.get_payment_method';
     return await postMethod(api,data)
 }
 
-export async function update_address(data) { 
+export async function insert_address(data) {
+    let datas = {data :JSON.stringify(data)}
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.insert_address'
+    return await postMethod(api,datas)
+}
+
+export async function update_address(data) {
+    let datas = {data :JSON.stringify(data)}
     let api = 'ecommerce_business_store.ecommerce_business_store.api.update_address'
+    return await postMethod(api,datas)
+}
+
+export async function insertOrder(data) {
+    let datas = {data :JSON.stringify(data)}
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.insert_order'
+    return await postMethod(api,datas)
+}
+
+export async function delete_address(data) {
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.delete_address'
     return await postMethod(api,data)
-  }
+}
+
+export async function update_order_status(data) {
+    let api = 'ecommerce_business_store.ecommerce_business_store.mobileapi.update_order_status'
+    return await postMethod(api,data)
+}
+
+export async function get_razorpaysetting(data){
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.razor_pay_settings'
+    return await GET(api)
+}
+

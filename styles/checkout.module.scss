@@ -14,16 +14,36 @@
     }
     
     .box_2{
-        flex: 0 0 calc(30% - 5px);
+        flex: 0 0 calc(30% - 15px);
     }
 }
 
 .input_radio:checked {
   background-color: $primary-color;
-  padding: 4px;
-  border: 2px solid $primary-color;
+  padding: 3px;
+  border: 1px solid $primary-color;
   accent-color: $primary-color;
 }
+
+
+.input_radio {
+  // -webkit-appearance: none;
+  // -moz-appearance: none;
+  // appearance: none;
+  // display: inline-block;
+  width: 17px;
+  // height: 17px;
+  // margin: 1px;
+  /* padding: 1px; */
+  background-clip: content-box;
+  border: 1px solid #000;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+
 
 .custom_input{
     margin: 10px 0;
@@ -105,4 +125,18 @@
 .react_selectselect__control {
   border: none;
   box-shadow: none;
+}
+
+.add_new{
+  border-color: $primary-color;
+  color: $primary-color;
+}
+
+.address_sec{
+  .edit_text{
+   color: #4fc716;
+  }
+  .delete_text{
+   color: #e84a50;
+  }
 }

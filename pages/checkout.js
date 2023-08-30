@@ -1,46 +1,54 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, { useEffect, useState } from 'react'
 import styles from'../styles/checkout.module.scss';
-import { get_cart_items, get_country_list, get_country_states, get_customer_info, insert_address } from '@/libs/api';
+import { get_cart_items, get_customer_info, get_payment_method, delete_address, get_razorpay_settings, load_razorpay, insertOrder } from '@/libs/api';
 import { check_Image } from '@/libs/common'
 import Image from 'next/image'
 import { checkMobile } from '@/libs/api';
-import { useForm, Controller } from "react-hook-form";
-import Select from 'react-select';
+import AddressModal from '@/components/Bookstore/AddressModal';
+import Address from '@/components/Bookstore/Address';
+import { format } from 'date-fns';
 
 export default function checkout() {
 
-  const payment_methods = [
-    { card_number: '**** 7899', payment: 'Visa' },
-    { card_number: '**** 7154', payment: 'Paytm' },
-    { card_number: '**** 8369', payment: 'Razor Pay' },
-  ];
+  // const payment_methods = [
+  //   { card_number: '**** 7899', payment: 'Visa' },
+  //   { card_number: '**** 7154', payment: 'Paytm' },
+  //   { card_number: '**** 8369', payment: 'Razor Pay' },
+  // ];
 
   const [selectedOption, setSelectedOption] = useState('India');
   const [currentIndex, setIndex] = useState(-1);
-  const [payment, setPaymentMethods] = useState(payment_methods);
+  const [payment_methods, setPaymentMethods] = useState([]);
   const [cart_items, setCartItems] = useState({});
-  const [isMobile, setIsmobile] = useState(false);
-  const [countryList, setCounty] = useState([]);
-  const [stateList, setState] = useState([]);
+  let [isMobile, setIsmobile] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({});
-
-
+  const [editAddress, setEditAddress] = useState(undefined);
+  
   useEffect(() => {
     getCartItem();
-    get_country();
     customer_info();
-    let value = checkMobile();
-    setIsmobile(value)
+    get_payments();
+    get_razorpay_settings();	
+    isMobile = checkMobile();
+    setIsmobile(isMobile)
   },[])
 
-async function getCartItem(){
-  const resp = await get_cart_items();
-    if (resp && resp.message && resp.message.status == 'success') {
-       let data = resp.message.cart
-       setCartItems(data)
-    }
-}
+  async function getCartItem(){
+    const resp = await get_cart_items();
+      if (resp && resp.message && resp.message.status == 'success') {
+          let data = resp.message.cart
+          setCartItems(data)
+      }
+  }
+
+  async function get_payments(){
+    const resp = await get_payment_method();
+      if (resp && resp.message && resp.message.length != 0) {
+          let data = resp.message
+          setPaymentMethods(data)
+      } 
+  }
 
 async function customer_info(){
   let data = { guest_id: '',user: localStorage['customer_id'] };
@@ -48,24 +56,6 @@ async function customer_info(){
     if (resp && resp.message && resp.message[0]) {
        let data = resp.message[0];
        setCustomerInfo(data);
-    }
-}
-
-async function get_country(){
-  const resp = await get_country_list();
-    if (resp && resp.message && resp.message.length != 0) {
-       let data = resp.message;
-       setCounty(data);
-       get_state(data[0].value);
-    }
-}
-
-async function get_state(data){
-  console.log(data)
-  const resp = await get_country_states(data);
-    if (resp && resp.message && resp.message.length != 0) {
-       let data = resp.message
-       setState(data);
     }
 }
 
@@ -79,11 +69,63 @@ async function get_state(data){
   };
 
   const selectMethod = (e,index) =>{
-   setIndex(index);
-  //  setPaymentMethods(updatedItems);
+    setIndex(index);
   };
 
   const checkout = (e) =>{
+    check_checkout_values()
+  }
+
+  function check_checkout_values(){
+    let check_address = (customerInfo.address && customerInfo.address.length != 0) ?  customerInfo.address.find((res)=> {return res.is_default == 1}) : undefined
+    
+    if(!check_address){
+
+    }else if(currentIndex < 0){
+
+    }else{
+      pay(check_address)
+    }
+
+  }
+
+  async function pay(check_address){
+    var orderdata = {
+      "customer_name": localStorage['customer_id'],
+      "order_type" : "Shopping Cart",
+      "bill_addr" : check_address.name ?  check_address.name :  check_address.name,
+      "ship_addr" : check_address.name,
+      "payment_method" : payment_methods[currentIndex].name,
+      "payment_gateway_charges" : "",
+      "order_date" : format(new Date(), 'yyyy/MM/dd'),
+      "slot_time" : 0,
+      "from_time" : null,
+      "to_time" : null,
+      "date" : null,
+      "coupon_code" : '',
+
+      // "order_date" : formatDate(new Date(), 'yyyy/MM/dd', 'en'),
+      // "shipping_charge" : this.db.shipping_settings.shipping_charges,
+      // "shipping_method" : this.db.shipping_settings.selected_shipping_method,
+      // "order_time" : this.time,
+      // "discount_amount" : this.db.discounts.discount_amount + this.db.coupon_discounts.discount_amount,
+      // "discount" : this.db.discounts.discount,
+      // "discount_free_products" : this.db.coupon_discounts.discount_products,
+      // "order_from" : this.db.current_device,
+      // "checkout_attributes" : this.selected_checkout_attributes,
+      // "manual_wallet_debit": this.wallet_amount > 0 ? 1 : 0, 
+    
+      // "loyalty_points" : this.loyalty_settings && this.loyalty_settings.selected_royalty ?this.loyalty_settings.selected_royalty.noof_points:0,
+      // "loyalty_amount" : this.loyalty_settings && this.loyalty_settings.selected_royalty ?this.loyalty_settings.selected_royalty.amount:0 ,
+      // "redeem_loyalty_points" : this.royalty_amount > 0 ? true:false,
+      // 'delivery_slots' : ''
+   }
+
+   const resp = await insertOrder(orderdata);
+      if (resp && resp.message && resp.message.status == 'Success') {
+          let data = resp.message
+          load_razorpay(data.message.order.outstanding_amount,data.message.order.name,);
+      } 
 
   }
 
@@ -105,82 +147,12 @@ async function get_state(data){
     return value; 
   };
 
-  // const { register, handleSubmit, formState: { errors } } = useForm();
-
-  // const onSubmit = (data) => {
-  //   console.log('Form submitted:', data);
-  // };
-
-  const { handleSubmit, control, reset , formState: { errors } } = useForm({
-    defaultValues: {
-      first_name: '',
-      last_name: '',
-      state : '',
-      city:'',
-      country:'',
-      company:'',
-      phone:'',
-      pincode:'',
-      address:''
-    }
-  });
-
-  const onSubmit = (data) => {
-    data.zipcode = data.pincode;
-    data.addr1 = data.address;
-    data.is_default = false;
-    let datas = {
-      "name": "5185d91993",
-      "owner": "x1testy1@gmail.com",
-      "creation": "2023-08-29 18:53:38.553832",
-      "modified": "2023-08-29 18:53:38.553832",
-      "modified_by": "x1testy1@gmail.com",
-      "parent": "CUST-00090",
-      "parentfield": "table_6",
-      "parenttype": "Customers",
-      "idx": 0,
-      "docstatus": 0,
-      "first_name": "Test",
-      "last_name": "",
-      "house_type": "",
-      "address": "100 lake view",
-      "city": "chennai",
-      "state": "Tamil Nadu",
-      "country": "India",
-      "landmark": "",
-      "zipcode": 600116,
-      "is_default": 0,
-      "door_no": null,
-      "unit_number": null,
-      "phone": 8608558005,
-      "address_type": "Home",
-      "latitude": null,
-      "longitude": null,
-      "doctype": "Customer Address"
-  }
-    customerInfo.address.push(datas);
-    reset();
-    setCustomerInfo(customerInfo);
-  };
-
-  async function insert_address(data) {
-    const resp = await insert_address(data);
-    if(resp && resp.message){
-      console.log(resp.message);
-      // customerInfo.address.push(resp.message);
-      setCustomerInfo(
-        {...customerInfo,address:customerInfo.address.push(resp.message)}
-      )
-      console.log(customerInfo);
-    }
-  }
-
   const selectAddress = (array,index) =>{
     array.map((res,i)=>{
       if(i == index){
-        res.checked = true
+        res.is_default = 1
       }else{
-        res.checked = false
+        res.is_default = 0
       }
     })
     setCustomerInfo(
@@ -188,105 +160,123 @@ async function get_state(data){
     )
   }
 
+  // Modal
+  const [visible, setVisible] = useState(false)
+
+  function show() {
+    setVisible(true);
+  }
+
+  function hide(obj) {
+    setVisible(false);
+    console.log(obj);
+    if(obj){
+      
+      if(customerInfo.address && customerInfo.address.length != 0 && obj.name){
+        let addressIndex = customerInfo.address.findIndex((res)=>{ return res.name == obj.name });
+        if(addressIndex >= 0){
+          customerInfo.address[addressIndex] = obj;
+        }else{
+          customerInfo.address.push(obj);
+        }
+      }else{
+        customerInfo.address.push(obj);
+      }
+
+      setCustomerInfo(
+        {...customerInfo,address:customerInfo.address}
+      )
+      // setCustomerInfo(customerInfo);
+    }
+  }
+
+
+
+  function edit_address(res,type,index){
+    if(type == 'New'){
+      setEditAddress(undefined);
+      show();
+    }else if(type == 'Edit'){
+      setEditAddress(res);
+      show();
+    }else if(type == 'Delete'){
+      deleteAddress(res,index);
+    }
+
+  }
+
+  async function deleteAddress(delete_obj,index) {
+    console.log(delete_obj)
+    let data ={ "id": delete_obj.name,"customer": localStorage['customer_id']}
+    const resp = await delete_address(data);
+    if(resp && resp.message && resp.message == 'Success'){
+      customerInfo.address.splice(index,1);
+      setCustomerInfo(
+        {...customerInfo,address:customerInfo.address}
+      )
+    }
+  }
+
   return (
     <>
       <RootLayout>
-      <div className={`flex ${styles.container_} gap-[10px] py-[10px] container`}>
+      <div className={`flex ${styles.container_} gap-[20px] py-[10px] container`}>
  
        <div className={`${styles.box_1}`}>
        
-        <h6 className='text-[16px] font-semibold'>Billing Address</h6>
-
+       <div className='flex justify-between items-center'>
+          <h6 className='text-[16px] font-semibold' >Billing Address</h6>
+          {customerInfo && customerInfo.address && customerInfo.address.length != 0  &&
+            <button className={`${styles.add_new} border rounded-[5px] py-[2px] px-[7px] text-[14px] text-medium`} onClick={()=>edit_address(undefined,'New','')} >Add New</button>  
+          }
+       </div>
         {customerInfo && customerInfo.address && customerInfo.address.length != 0  && customerInfo.address.map((res,index)=>(
-          <div onClick={() => { selectAddress(customerInfo.address,index) }} className='flex items-baseline py-[10px] gap-[10px]'>
-            <input className={styles.input_radio} checked={res.checked} type="radio"/>
-            <div >
-              <span className='flex items-center'>
-               <h6 className='m-0 font-[15px] font-semibold'>{res.first_name + ' ' + res.last_name}</h6>
-              </span> 
-              <p className='m-0 font-[14px] text-medium'>{res.address} <br></br> {res?.city}, {res?.state}, {res?.country} - {res?.zipcode}</p>
+          <div key={index} className={`${styles.address_sec} flex cursor-pointer justify-between py-[10px] gap-[5px]`}>
+            <div onClick={() => { selectAddress(customerInfo.address,index) }} className={`flex w-full justify-between cursor-pointer gap-[10px]`}>
+              <input className={styles.input_radio} checked={res.is_default} type="radio"/>
+              <div className='w-full'>
+                <span className='flex justify-between items-center'>
+                  <h6 className='m-0 text-[15px]  capitalize font-semibold'>{res.first_name + ' ' + res.last_name}</h6>
+                </span> 
+                <p className='m-0 text-[14px] text-medium'>{res.address} <br></br> {res?.city}, {res?.state}, {res?.country} - {res?.zipcode}</p>
+              </div>  
+            </div>
+
+            <div className='flex items-center'> 
+               <div onClick={() =>{edit_address(res,'Edit',index)}} className='flex cursor-pointer mr-[15px] items-center'>
+                <span className={`${styles.edit_text} text-[12px] mr-[5px]`}>Edit</span>
+                <Image className='h-[14px]' src="/edit.svg" height={14} width={15} layout="fixed" alt="Edit" />
+               </div> 
+               <div className='flex cursor-pointer  items-center'>
+                <span onClick={() =>{edit_address(res,'Delete',index)}}className={`${styles.delete_text} text-[12px] mr-[5px]`}>Delete</span>
+                <Image className='h-[14px]' src="/delete.svg" height={14} width={15} layout="fixed" alt="Ddelete" />
+               </div> 
+               
             </div>  
+      
           </div>  
         ))}
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        {customerInfo && customerInfo.address && customerInfo.address.length == 0 &&
+          <Address hide={(obj)=> hide(obj)} />
+        }
 
-        <Controller
-           name="country"
-           control={control}
-           render={({ field }) => 
-           <Select className={`${styles.custom_input} custom-select_ w-full`} placeholder='Country'
-            {...field} 
-            options={countryList} 
-           />}
-          />
-          
-        <div className={`box_ flex gap-[10px]`}>
-          <div className={`${styles.flex_2} `}>
-            <Controller name="first_name" control={control} rules={{ required: 'First Name is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="First name" id="first_name" {...field} />)} />
-            {errors.first_name && <p className="text-red-500">{errors.first_name.message}</p>}
-          </div>
-          <div className={`${styles.flex_2} `}>
-            <Controller name="last_name" control={control} rules={{ required: 'Last Name is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Last name" id="last_name" {...field} />)} />
-            {errors.last_name && <p className="text-red-500">{errors.last_name.message}</p>}
-          </div>
-        </div>
-
-        <Controller name="company" control={control} rules={{ required: 'Company is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Company (Optional)" id="company" {...field} />)} />
-        {errors.company && <p className="text-red-500">{errors.company.message}</p>}
-
-        <Controller name="address" control={control} rules={{ required: 'Address is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Address" id="address" {...field} />)} />
-        {errors.address && <p className="text-red-500">{errors.address.message}</p>}
-
-
-        <div className={`box_ flex gap-[10px]`}>
-         <div className={`${styles.flex_3} `}>
-          <Controller name="city" control={control} rules={{ required: 'City is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="City" id="city" {...field} />)} />
-          {errors.city && <p className="text-red-500">{errors.city.message}</p>}
-         </div>
-         
-         <div className={`${styles.flex_3} `}>
-          <Controller
-           name="state"
-           control={control}
-           render={({ field }) => 
-           <Select className={`${styles.custom_input} w-full`} placeholder='State'
-            {...field} 
-            options={stateList} 
-           />}
-          />
-         </div>
-      
-
-         <div className={`${styles.flex_3} `}>
-          <Controller name="pincode" control={control} rules={{ required: 'Zip Code is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Last name" id="pincode" {...field} />)} />
-          {errors.pincode && <p className="text-red-500">{errors.pincode.message}</p>}
-         </div>
-
-        </div>
-
-        <Controller name="phone" control={control} rules={{ required: 'Phone is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Phone (Required" id="phone" {...field} />)} />
-        {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
-
-        <div class="flex mb-[15px] justify-center items-center">
-            <button className={`primary_btn text-[14px] h-[40px] w-[50%]`} type="submit" >Save</button>
-        </div>
-
-        </form>
-
+       {visible &&
+         <AddressModal edit_address={editAddress} visible={visible} hide={(obj)=> hide(obj)} />
+       }
+        
         <h6 className='text-[16px] font-semibold'>Payment Methods</h6>
 
         <div className={`flex ${styles.card_detail} py-[8px] gap-[10px]`}>
           {payment_methods.map((res,index) => (
-            <div key={index} onClick={() => selectMethod(res,index)} className={`flex ${styles.payment_sec} ${styles.flex_3} ${index == currentIndex ? 'active_border' : null} h-[60px] items-center border rounded-[5px] p-[4px_10px] `}>
+            <div key={index} onClick={() => selectMethod(res,index)} className={`flex ${styles.payment_sec} ${index == currentIndex ? 'active_border' : null} h-[50px] w-[15%] cursor-pointer items-center border rounded-[5px] p-[4px_10px] `}>
               <input className={styles.input_radio} checked={index == currentIndex} type="radio"/>
-              
-                {isMobile &&
-                    <div  className={`flex justify-center items-center ${styles.sec_2}`}>
-                      <img  className="h-[13px]" src={imageChange(res)} />
-                   </div> 
-                }
-                {!isMobile &&
+            
+              <div  className={`flex justify-center items-center ${styles.sec_2}`}>
+                <img  className="h-[13px]" src={check_Image(res.logo)} />
+              </div> 
+                
+              {/* {!isMobile &&
               <div  className={`flex ${styles.card_info}`}>
                 <div  className={`${styles.sec_1}`}>
                   <h6 className='text-[14px] font-semibold'>{res.card_number}</h6> 
@@ -296,7 +286,7 @@ async function get_state(data){
                   <img  className="h-[13px]" src={imageChange(res)} />
                 </div> 
               </div>
-              }
+              } */}
             </div>
           ))}
       
@@ -310,7 +300,7 @@ async function get_state(data){
 
           <h6 className='text-[16px] pt-[10px] px-[10px]  font-semibold'>Your Orders</h6>
             {cart_items && cart_items.marketplace_items && cart_items.marketplace_items.map((res,index) =>(
-              <div className="flex py-[10px] px-[25px] border-b-[1px] border-slate-200 last:border-b-[0px] gap-[7px] items-center">
+              <div key={index} className="flex py-[10px] px-[25px] border-b-[1px] border-slate-200 last:border-b-[0px] gap-[7px] items-center">
                 <div className="relative w-1/4">
                  <Image  src={check_Image(res.image)} height={130} width={130} layout="fixed" alt={res.name} />
                  <span className="absolute inline-flex items-center justify-center w-[24px] h-[24px] text-[12px] border border-slate-400 font-bold text-black bg-white rounded-full -top-2 -right-2">{res.quantity}</span>
@@ -345,7 +335,7 @@ async function get_state(data){
                <h6 className='w-3/6 text-[14px] text-end pb-[5px] text-medium'>{formatter.format(cart_items.tax_rate)}</h6>
 
                <h6 className='w-3/6 text-[14px] border-y-[1px] border-slate-200 my-[8px] py-[8px]'>Total</h6>
-               <h6 className='w-3/6 text-[14px] border-y-[1px] border-slate-200 text-end my-[8px] py-[8px] text-medium'>{formatter.format(cart_items.total)}</h6>
+               <h6 className='w-3/6 text-[14px] border-y-[1px] border-slate-200 text-end my-[8px] py-[8px] text-medium'>{formatter.format(cart_items.total + cart_items.tax_rate)}</h6>
 
              </div>
      

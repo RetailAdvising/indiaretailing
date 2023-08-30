@@ -121,7 +121,7 @@ export default function EventDetails({ values }) {
                             {/* {!isChecked ? <EventList data={data} height={'h-[200px]'} width={'w-full'} />
                                 : <EventCards data={data} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} height={'h-[210px]'} width={'w-full'} />
                             } */}
-                            <EventCards data={data} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} height={'h-[210px]'} width={'w-full'} />
+                            <EventCards data={data} height={'h-[210px]'} width={'w-full'} />
                         </>
                         }
                     </div>

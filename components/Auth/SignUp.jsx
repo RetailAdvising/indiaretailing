@@ -15,11 +15,11 @@ export default function SignUp({ isModal, hide }) {
             const resp = await signUp(data)
             console.log(resp)
             if (resp.message.status == 'Success') {
-                let data = {
+                let datas = {
                     usr: data.email,
                     pwd: data.new_password
                 }
-                const val = await logIn(data);
+                const val = await logIn(datas);
                 if (val.message.status == 'Success') {
                     localStorage['apikey'] = val.message.api_key
                     localStorage['secret'] = val.message.api_secret

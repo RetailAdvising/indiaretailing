@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef,useEffect } from 'react'
 import styles from '@/styles/category.module.scss'
 import Image from 'next/image'
 import { check_Image } from '@/libs/common'
@@ -6,28 +6,54 @@ import { check_Image } from '@/libs/common'
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { useRouter } from 'next/router'
 
-export default function Content({ res,i }) {
+export default function Content({ res, i }) {
     const router = useRouter()
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
-    const setings = [{name: 'more stories'},{name: 'copy link'},{name:'comment'}]
-    
+    const setings = [{ name: 'more stories' }, { name: 'copy link' }, { name: 'comment' }]
+
     const [sort, setSort] = useState(false);
+    const ref = useRef(null);
+    const setting = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            let el = document.getElementById(`dropdown${i}`).classList;
+            let classs = Array.from(el);
+            let out = classs.find(res => res == 'dropdown-menu-active');
+            if (ref.current && !ref.current.contains(event.target) && out) {
+                el.remove('dropdown-menu-active');
+            }
+
+            let el2 = document.getElementById(`down${i}`).classList;
+            let class2 = Array.from(el2);
+            let out2 = class2.find(res => res == 'dropdown-menu-active');
+            if (setting.current && !setting.current.contains(event.target) && out2) {
+                el2.remove('dropdown-menu-active');
+            }
+        };
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, [])
+
+
     const share = (type) => {
         setSort(!sort);
         let element = type == 'share' ? document.getElementById(`dropdown${i}`) : document.getElementById(`down${i}`);
         sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
     }
 
-    const settings = async (data) =>{
-        if(data.name == 'more stories'){
-            router.push('/'+router.asPath.split('/')[1]+'/'+router.query.types)
-        }else if(data.name == 'copy link'){
-            console.log('/'+router.asPath.split('/')[1]+'/'+ res.route)
-            let str = '/'+router.asPath.split('/')[1]+'/'+ res.route
+    const settings = async (data) => {
+        if (data.name == 'more stories') {
+            router.push('/' + router.asPath.split('/')[1] + '/' + router.query.types)
+        } else if (data.name == 'copy link') {
+            console.log('/' + router.asPath.split('/')[1] + '/' + res.route)
+            let str = '/' + router.asPath.split('/')[1] + '/' + res.route
             await navigator?.clipboard?.writeText(str)
-        }else{
+        } else {
             let el = document.getElementById(`cmt${i}`)
-            el.scrollIntoView({block:'center',behavior:'smooth',inline:'nearest'})
+            el.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
         }
     }
 
@@ -51,7 +77,7 @@ export default function Content({ res,i }) {
 
                 <div className='flex items-center gap-2'>
                     <div className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '10px' }}>
-                        <Image onClick={()=> share('share')} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} />
+                        <Image onClick={() => share('share')} ref={ref} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} />
                         <div className={`dropdown-menu p-[20px]  right-0 grid justify-center`} style={{ borderRadius: '10px', width: '190px', position: 'absolute' }} id={`dropdown${i}`}>
                             {icons && icons.map((res, index) => {
                                 return (
@@ -79,12 +105,12 @@ export default function Content({ res,i }) {
                     </div>
                     {/* <Image className='object-contain' src={'/share.svg'} height={14} width={15} alt={"image"} /> */}
                     {/* <Image className='object-contain h-[25px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} /> */}
-                    <div  className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '20px' }}>
-                        <Image onClick={()=> share('settings')} className='object-contain h-[25px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} />
+                    <div className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '20px' }}>
+                        <Image onClick={() => share('settings')} ref={setting} className='object-contain h-[25px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} />
                         <div className={`dropdown-menu p-[10px_0_10px_0] right-0 grid justify-center`} style={{ borderRadius: '10px', width: '190px', position: 'absolute' }} id={`down${i}`}>
-                            {setings && setings.map((res,index)=>{
-                                return(
-                                    <div onClick={()=> settings(res)} key={index} className='flex p-[5px_10px_0_10px] hover:bg-[#EEEE] hover:rounded-[10px] items-center gap-[15px]'>
+                            {setings && setings.map((res, index) => {
+                                return (
+                                    <div onClick={() => settings(res)} key={index} className='flex p-[5px_10px_0_10px] hover:bg-[#EEEE] hover:rounded-[10px] items-center gap-[15px]'>
                                         <div className='h-[10px] w-[10px] rounded-full bg-[#ddd]'></div>
                                         <p className='capitalize'>{res.name}</p>
                                     </div>

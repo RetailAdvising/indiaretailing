@@ -9,11 +9,11 @@ import AlertPopup from '@/components/common/AlertPopup';
 import { getList, newsDetail } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
-export default function NewsLists({data}) {
+export default function NewsLists({ data }) {
   const tabs = [{ name: 'Current edition' }, { name: 'All Newsletter' }]
   const [isChecked, setIsChecked] = useState(false);
-  const [allNewsLetter,setAllNewsLetter] = useState([])
-  const [page_no,setPageno] = useState(1)
+  const [allNewsLetter, setAllNewsLetter] = useState([])
+  const [page_no, setPageno] = useState(1)
 
   const router = useRouter()
   const handleCheckboxChange = () => {
@@ -30,13 +30,13 @@ export default function NewsLists({data}) {
     // }, 100000);
   };
 
- 
-  useEffect(()=>{
+
+  useEffect(() => {
     allNews();
-  },[router.query])
+  }, [router.query])
 
   // All News
-  const allNews = async () =>{
+  const allNews = async () => {
     let param = {
       doctype: "Newsletter",
       fields: ["custom_title", "name", "custom_image_", "route"],
@@ -45,10 +45,11 @@ export default function NewsLists({data}) {
     }
 
     const resp = await getList(param);
-    if(resp.message && resp.message.length != 0){
+    if (resp.message && resp.message.length != 0) {
       setAllNewsLetter(resp.message)
     }
   }
+  console.log(data)
 
   return (
     <>
@@ -79,27 +80,31 @@ export default function NewsLists({data}) {
             {data && <div className={`flex pt-[20px] flex-wrap justify-between gap-5`}>
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_10px)]`}>
                 <p className='text-[20px] font-semibold'>{data.custom_title}</p>
-                <p className='sub_title py-3'>{data.custom_description}</p>
-                <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn my-3 text-[14px] h-[35px] w-[100px]'>subscribe</button>
+                <p className='sub_title py-3 md:hidden'>{data.custom_description}</p>
+                <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] h-[35px] w-[100px]'>subscribe</button>
               </div>
               <div className={`flex-[0_0_calc(45%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
-                <Image className={`h-full w-full`} src={check_Image(data.custom_image_)} height={300} width={500} alt={data.custom_title} />
+                <Image className={`h-[380px] w-full`} src={check_Image(data.custom_image_)} height={300} width={500} alt={data.custom_title} />
+                <p className='sub_title py-3 lg:hidden'>{data.custom_description}</p>
+                <div className='w-full text-center lg:hidden'>
+                  <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn  my-3 text-[14px] h-[35px] w-[50%]'>subscribe</button>
+                </div>
               </div>
             </div>}
 
             {(data.related_newsletters && data.related_newsletters.length != 0) && <div className='p-[30px_0]'>
-              <Title data={{title: "More articles from the newsletter"}} />
+              <Title data={{ title: "More articles from the newsletter" }} />
               <div className='grid grid-cols-4 md:grid-cols-2 gap-5'><NewsCard data={data.related_newsletters} imgClass={'h-[240px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[310px] md:h-[325px]'} /></div>
             </div>}
 
             {(data.other_newsletters && data.other_newsletters.length != 0) && <div className='p-[30px_0]'>
-              <Title data={{title:"Read other Newsletters"}} />
+              <Title data={{ title: "Read other Newsletters" }} />
               <div className='grid grid-cols-4 md:grid-cols-2 gap-5'><NewsCard data={data.other_newsletters} imgClass={'h-[340px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[460px]'} /></div>
             </div>}
 
             {showAlert && <AlertPopup data={data} show={() => setShowAlert(false)} />}
           </> : <>
-           {(allNewsLetter && allNewsLetter.length != 0) &&  <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] pt-[20px]'>
+            {(allNewsLetter && allNewsLetter.length != 0) && <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] pt-[20px]'>
               <NewsCard load={() => handleCheckboxChange()} pagination={true} data={allNewsLetter} imgClass={'h-[340px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[460px]'} />
             </div>}
           </>}
@@ -115,13 +120,13 @@ export async function getServerSideProps({ params }) {
   let param = {
     newsletter: Id,
     another_category: "Fashion & Lifestyle",
-    newsletter_fields: ["custom_title","custom_image_","route","name","custom_category"]
+    newsletter_fields: ["custom_title", "custom_image_", "route", "name", "custom_category"]
   }
 
   const resp = await newsDetail(param);
   const data = resp.message;
 
-  return{
-    props:{data}
+  return {
+    props: { data }
   }
 }

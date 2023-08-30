@@ -11,14 +11,16 @@ export default function cart() {
     // const [total, setTotal] = useState(0);
     const [cartTotal, setCartTotal] = useState(0);
     const [load, setload] = useState(false);
+    const[skeleton,setSkeleton] = useState(false)
     const [indexs, setIndex] = useState(-1)
     const router = useRouter();
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'INR',
     });
-    
+
     const getCarts = async () => {
+        setSkeleton(!skeleton)
         let param = {
             customer: localStorage['customer_id'],
             user: ""
@@ -27,7 +29,9 @@ export default function cart() {
         if (resp && resp.message) {
             setValue(resp.message.cart);
             calculateTotal(resp.message.cart);
-
+            setTimeout(() => {
+                setSkeleton(false)
+            }, 200);
         }
     }
 
@@ -41,8 +45,9 @@ export default function cart() {
         if (type == 'inc') {
             data['quantity'] += 1;
         } else if (type == 'dec') {
-            data['quantity'] = data['quantity'] == 1 ? 0 : data['quantity'] - 1;
+            data['quantity'] = data['quantity'] == 1 ? 1 : data['quantity'] - 1;
         }
+
 
         let param = {
             name: data.name,
@@ -76,7 +81,7 @@ export default function cart() {
                 <div className='container p-[30px]'>
                     <Title data={{ title: 'Shopping Cart' }} />
                     {/* {load && <div className='overlay'><Image src={'/cart/loading.gif'} className='h-[100px] w-full'  height={40} width={40} alt='loading' /></div>} */}
-                    {(value && value.items && value.items.length != 0) ? <div className={`flex justify-between md:flex-wrap gap-[15px]`}>
+                    {(value && value.items && !skeleton && value.items.length != 0) ? <div className={`flex justify-between md:flex-wrap gap-[15px]`}>
                         <div className={`border p-[20px] rounded-[5px] flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
                             <div className='flex pb-[20px] items-center gap-5 justify-between '>
                                 <p className='flex-[0_0_calc(45%_-_10px)]  font-semibold text-center'>Products</p>
@@ -87,7 +92,7 @@ export default function cart() {
                             {value.items.map((res, index) => {
                                 return (
                                     <div key={index} className={`flex gap-[15px] items-center justify-between ${index != value.items.length - 1 ? 'border_bottom pb-[10px] mb-[10px]' : ''}`}>
-                                        <Image className='flex-[0_0_calc(5%_-_10px)]' onClick={() => dltCart(res)} src={'/cart/Remove.svg'} height={20} width={20} alt={res.name} />
+                                        <Image className='flex-[0_0_calc(5%_-_10px)] cursor-pointer' onClick={() => dltCart(res)} src={'/cart/Remove.svg'} height={20} width={20} alt={res.name} />
                                         <Image className='flex-[0_0_calc(15%_-_10px)] h-[150px] w-[100px]' src={check_Image(res.image)} height={80} width={100} alt={res.name} />
                                         <p className='flex-[0_0_calc(25%_-_10px)] text-[16px] font-semibold'>{res.product_name}</p>
                                         <p className='flex-[0_0_calc(15%_-_10px)] text-[16px] font-semibold'>Rs {res.price}</p>
@@ -109,12 +114,53 @@ export default function cart() {
                             <p style={{ borderTop: '1px solid #EEEEEE' }} className='flex justify-between mt-[10px] leading-[2.5] text-[16px] border_bottom py-[10px]'><span className='text-[16px]'>Total</span><span className='text-[16px]'>{formatter.format(cartTotal)}</span></p>
                             <button className='capitalize primary_btn text-[14px] h-[40px] w-full mt-[25px]' onClick={() => router.push('/checkout')}>Proceed to checkout</button>
                         </div>}
-                    </div> : <div className='h-[50vh]'>
+                    </div> : skeleton ? <Skeleton /> :
+                    <div className='h-[50vh]'>
                         <p>Your Cart is Empty</p>
                         <button onClick={() => router.push('/bookstore')}>Return shop</button>
                     </div>}
                 </div>
             </RootLayout>
         </>
+    )
+}
+
+
+const Skeleton = () => {
+    return (
+        <div className='flex justify-between md:flex-wrap gap-[15px]'>
+            <div className='border p-[20px] rounded-[5px] flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+                <div className='flex pb-[20px] items-center gap-5 justify-between '>
+                    <p className='flex-[0_0_calc(45%_-_10px)] h-[20px] w-[80px] bg-[#E5E4E2] font-semibold text-center'></p>
+                    <p className='flex-[0_0_calc(15%_-_10px)] h-[20px] w-[80px] bg-[#E5E4E2] font-semibold text-center'></p>
+                    <p className='flex-[0_0_calc(15%_-_10px)] h-[20px] w-[80px] bg-[#E5E4E2] font-semibold text-center'></p>
+                    <p className='flex-[0_0_calc(15%_-_10px)] h-[20px] w-[80px] bg-[#E5E4E2] font-semibold text-center'></p>
+                </div>
+                {[0, 1, 2].map((res, index) => {
+                    return (
+                        <div key={index} className={`flex gap-[15px]  items-center justify-between border_bottom pb-[10px] mb-[10px]`}>
+                            <p className='flex-[0_0_calc(5%_-_10px)] bg-[#E5E4E2] h-[20px] cursor-pointer' />
+                            <p className='flex-[0_0_calc(15%_-_10px)] bg-[#E5E4E2] h-[150px] w-[100px]' />
+                            <p className='flex-[0_0_calc(25%_-_10px)] bg-[#E5E4E2] h-[15px] text-[16px] font-semibold'></p>
+                            <p className='flex-[0_0_calc(15%_-_10px)] bg-[#E5E4E2] h-[15px] text-[16px] font-semibold'></p>
+                            <div className='flex flex-[0_0_calc(15%_-_10px)] items-center justify-between p-[10px] border h-[30px] w-[100px] gap-[10px]'>
+                                <p className='h-[20px] cursor-pointer bg-[#E5E4E2]  w-[10px]' />
+                                <p className='h-[20px] cursor-pointer bg-[#E5E4E2]  w-[10px]' />
+                                <p className='h-[20px] cursor-pointer bg-[#E5E4E2] w-[10px]' />
+                            </div>
+                            <p className='flex-[0_0_calc(15%_-_10px)] h-[20px] bg-[#E5E4E2] text-center font-semibold text-[16px]'></p>
+                        </div>
+                    )
+                })}
+            </div>
+            <div className={`border md:flex-[0_0_calc(100%_-_10px)] h-[250px] rounded-[5px] p-[20px] flex-[0_0_calc(30%_-_10px)]`}>
+                <p className='pb-[10px] w-[100px] mb-[10px] bg-[#E5E4E2] h-[15px] text-[20px] font-semibold border_bottom'></p>
+                <div className='flex justify-between leading-[2.5] text-[16px] my-[10px]'><span className='flex gap-[10px] bg-[#E5E4E2] h-[15px] w-[80px] text-[16px] items-center'></span><span className='bg-[#E5E4E2] h-[15px] w-[50px]'></span></div>
+                <p className='flex justify-between leading-[2.5] text-[16px]'><span className='text-[16px] bg-[#E5E4E2] h-[15px] w-[80px]'></span><span className='text-[16px] bg-[#E5E4E2] h-[15px] w-[60px]'></span></p>
+                <p className='flex justify-between my-[10px] leading-[2.5] text-[16px]'><span className='text-[16px] bg-[#E5E4E2] h-[15px] w-[80px]'></span><span className='text-[16px] bg-[#E5E4E2] h-[15px] w-[60px]'></span></p>
+                <div style={{ borderTop: '1px solid #EEEEEE' }} className='flex justify-between mt-[10px] leading-[2.5] text-[16px] border_bottom py-[10px]'><span className='text-[16px] bg-[#E5E4E2] w-[60px] h-[15px]'></span><span className='text-[16px] bg-[#E5E4E2] h-[15px] w-[60px]'></span></div>
+                <button className='capitalize  text-[14px] h-[40px] w-full mt-[25px] bg-[#E5E4E2] ' ></button>
+            </div>
+        </div>
     )
 }

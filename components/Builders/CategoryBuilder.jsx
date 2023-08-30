@@ -17,7 +17,7 @@ import Comments from '../Category/Comments'
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { useRouter } from 'next/router'
 
-export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
+export default function CategoryBuilder({ data, isPrime, load, isLast, i , ads }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   const [placeholder, setPlaceholder] = useState([]);
@@ -307,6 +307,8 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i }) {
             <div className='py-3'>
               <AdsBaner text={"Advertisement"} data={{ ad_image: '/ads_baner.png' }} height={'260px'} width={'300px'} />
             </div>
+
+            {/* {(ads && )} */}
 
             {(data.must_read && data.must_read.length != 0) && <div className='border rounded-[5px] p-[10px]'>
               <Title data={{ title: 'Must Read' }} />

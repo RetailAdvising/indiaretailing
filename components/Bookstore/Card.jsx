@@ -12,7 +12,7 @@ export default function Card({ data, category, check, flex, isBorder, boxShadow,
             <div className={``}>
               <Image className={`${imgClass ? imgClass : 'h-[300px] w-full'} ${boxShadow && 'shadow-2xl rounded-[5px]'}`} src={check ? check_Image(res.product_image) : res.image} height={200} width={300} alt={res.title ? res.title : 's'}></Image>
             </div>
-            <p className={`pt-[15px] text-[16px] font-[500]`}>{res.item_title}</p>
+            <p className={`pt-[15px] line-clamp-2 text-[16px] font-[500]`}>{res.item_title}</p>
           </div>
         )
       })}

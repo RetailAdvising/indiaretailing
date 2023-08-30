@@ -11,10 +11,10 @@
             "mailicon": "/email.svg",
             "mail": "editor@indiaretailing.com",
             "socials": [
-                {"icon": "/footer/fb.svg", "link": ""},
-                {"icon": "/footer/linkedin.svg", "link": ""},
-                {"icon": "/footer/youtube.svg", "link": ""},
-                {"icon": "/footer/instagram.svg", "link": ""}
+                {"icon": "/footer/fb.svg", "link": "https://www.facebook.com/indiaretailing"},
+                {"icon": "/footer/linkedin.svg", "link": "https://www.linkedin.com/company/indiaretailing"},
+                {"icon": "/footer/youtube.svg", "link": "https://www.youtube.com/user/Indiaretailing1"},
+                {"icon": "/footer/instagram.svg", "link": "https://www.instagram.com/indiaretailingdotcom/"}
             ]
         },
         "section_2":{

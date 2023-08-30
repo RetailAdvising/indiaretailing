@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import styles from '@/styles/Header.module.scss'
 import { useRouter } from 'next/router'
@@ -9,21 +9,35 @@ export default function Header() {
         btn2: 'Sign in',
     }
 
-    const profile = [{name: 'Logout',icon: '/Navbar/logout.svg'},{name:'Subscribe',icon: '', route: '/membership'}]
+    const profile = [{ name: 'Logout', icon: '/Navbar/logout.svg' }, { name: 'Subscribe', icon: '/Navbar/crown.svg', route: '/membership' }]
     const [valid, setValid] = useState(false);
     const [member, setMember] = useState(false);
     const [sort, setSort] = useState(false);
-
+    const ref = useRef(null);
     useEffect(() => {
         if (typeof window !== 'undefined') {
             localStorage['apikey'] ? setValid(!valid) : null;
             roleMember();
         }
+
+        const handleClickOutside = (event) => {
+            let el = document.getElementById('dropdown1').classList;
+            let classs = Array.from(el);
+            let out = classs.find(res => res == 'dropdown-menu-active');
+            if (ref.current && !ref.current.contains(event.target) && out) {
+                el.remove('dropdown-menu-active')
+            }
+        };
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
     }, [])
+
 
     const profileMenu = () => {
         setSort(!sort);
-        let element = document.getElementById('dropdown');
+        let element = document.getElementById('dropdown1');
         sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
     }
 
@@ -40,11 +54,11 @@ export default function Header() {
         }
     }
 
-    const myAccounts = async (data) =>{
-        if(data.name == 'Logout'){
+    const myAccounts = async (data) => {
+        if (data.name == 'Logout') {
             localStorage.clear();
             router.push('/login')
-        }else if(data.name == 'Subscribe'){
+        } else if (data.name == 'Subscribe') {
             router.push('/membership')
         }
     }
@@ -77,11 +91,11 @@ export default function Header() {
                                         <Image className='cursor-pointer h-[10px] w-[18px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
                                     </div>
                                 </div>
-                                <div className={`dropdown-menu`} style={{ width: 'auto' }} id='dropdown'>
-                                    {profile && profile.map((res,index)=>{
-                                        return(
+                                <div className={`dropdown-menu`} ref={ref} style={{ width: 'auto' }} id='dropdown1'>
+                                    {profile && profile.map((res, index) => {
+                                        return (
                                             <div key={index} >
-                                                {(member && res.name != 'Subscribe') && <div onClick={() => myAccounts(res)} className='flex cursor-pointer gap-[10px] p-[10px] items-center'>{res.icon && <Image src={res.icon} height={20} alt={res.name} width={20}  />}<p className='capitalize text-[13px]'>{res.name}</p></div>}
+                                                <div onClick={() => myAccounts(res)} className='flex cursor-pointer gap-[10px] p-[10px] items-center'>{res.icon && <Image src={res.icon} height={20} alt={res.name} width={20} />}<p className='capitalize text-[13px]'>{res.name}</p></div>
                                             </div>
                                         )
                                     })}
