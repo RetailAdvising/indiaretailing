@@ -1,11 +1,10 @@
-
-const routesReducer = (state={},action) =>{
+const isMobileReducer = (state=false,action) =>{
     switch(action.type){
-        case 'SET_ROUTE':
+        case 'setIsMobile':
             return state = action.payload;
         default:
             return state;
     }
 }
 
-export default routesReducer;
+export default isMobileReducer;

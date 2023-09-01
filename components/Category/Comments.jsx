@@ -47,12 +47,12 @@ export default function Comments({ data,isLast,load,cmt}) {
                                     <div className='flex gap-3'>
                                         <p className='flex gap-2 items-center sub_title'><span>{data.likes}</span><Image className='h-[20px] w-[20px]' onClick={()=> likeCmt(data)}  src={'/like.svg'} height={20} width={20} alt={""} /></p>
                                         <p className='flex gap-2 items-center sub_title'><span>{data.dislikes}</span><Image className='h-[20px] w-[20px]' src={'/dislike.svg'} height={20} width={20} alt={""} /></p>
-                                        <p className='sub_title'>Share</p>
-                                        <p className='sub_title' onClick={() => showInputs(index)}>Reply</p>
+                                        {/* <p className='sub_title'>Share</p>
+                                        <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         <Image src={'/flag.svg'} height={16} width={16} alt={"image"} />
-                                    </div>
+                                    </div> */}
                                 </div>
                                 {/* {(input.index == index && input.show) &&
                                     <div>

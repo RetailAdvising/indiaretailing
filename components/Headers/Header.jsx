@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import styles from '@/styles/Header.module.scss'
 import { useRouter } from 'next/router'
-export default function Header() {
+
+export default function Header({checkout}) {
     const router = useRouter();
     const head = {
         btn1: 'Subscribe',
@@ -67,13 +68,13 @@ export default function Header() {
             {head && <div className={``}>
                 <div className='container md:hidden grid grid-cols-3 items-center justify-between p030'>
                     {/* <div> */}
-                    <div className={`flex items-center `}>
-                        <Image style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} className="pr-2"></Image>
+                      <div className={`flex items-center `}>
+                        <Image style={{ objectFit: 'contain' }}  height={60} priority width={24} alt='search' src={'/search.svg'} className="pr-2"></Image>
                         <input className={styles.input1} type="text" placeholder='Search here...' name="search"></input>
-                    </div>
+                      </div>
                     {/* </div> */}
                     <div className=''>
-                        <Image style={{ objectFit: 'contain' }} height={76.23} priority width={284.65} alt='' src={'/indiaretail.png'}></Image>
+                        <Image style={{ objectFit: 'contain' }} height={76.23} priority width={284.65} alt='' onClick={()=> router.push('/')} src={'/indiaretail.png'}></Image>
                     </div>
                     {!valid ? <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
                         <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
@@ -88,7 +89,7 @@ export default function Header() {
                                         {member && <div className='flex text-[13px] items-center gap-[10px]'><p>Premium</p>  <Image src={'/Navbar/premium.svg'} className='h-[15px] w-[15px]' height={20} width={20} alt='premium' /></div>}
                                     </div>
                                     <div>
-                                        <Image className='cursor-pointer h-[10px] w-[18px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
+                                        <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
                                     </div>
                                 </div>
                                 <div className={`dropdown-menu`} ref={ref} style={{ width: 'auto' }} id='dropdown1'>

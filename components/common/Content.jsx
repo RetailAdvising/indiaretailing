@@ -66,7 +66,7 @@ export default function Content({ res, i }) {
                 <p className='flex items-center gap-2'><Image height={15} width={15} alt={"image"} src={'/shares.svg'} /><span className='fnt_14 gray-text'>3 Shares</span></p>
                 <p className='flex items-center gap-2'><Image height={15} width={15} alt={"image"} src={'/time.svg'} /><span className='fnt_14 gray-text'>2 Minutes </span></p>
             </div>
-            <h1 className='mega_title text-5xl my-5'>{res.title}</h1>
+            <h1 className='mega_title lg:text-5xl md:text-[19px] md:leading-[29.23px] my-5'>{res.title}</h1>
             <div className={`flex items-center justify-between ${styles.profile_div}`}>
                 <div className='flex gap-3 items-center'>
                     <Image className='rounded-full object-contain' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
@@ -122,7 +122,7 @@ export default function Content({ res, i }) {
             </div>
 
             <p className='py-3 text-[18px]'>{res.title}</p>
-            <Image src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} priority={true} width={1000} alt={res.title} className="py-3 h-[500px] w-full" />
+            <Image src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} priority={true} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
             <p className='py-3 '>{res.blog_intro}</p>
         </>
     )

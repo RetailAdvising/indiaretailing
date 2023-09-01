@@ -1,11 +1,10 @@
-
-const routesReducer = (state={},action) =>{
+const customerInfoReducer = (state={},action) =>{
     switch(action.type){
-        case 'SET_ROUTE':
+        case 'Set_CustomerInfo':
             return state = action.payload;
         default:
             return state;
     }
 }
 
-export default routesReducer;
+export default customerInfoReducer;

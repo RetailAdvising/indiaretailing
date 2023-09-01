@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { domain } from "./config/siteConfig"
-import { check_Image } from '@/libs/common'
 
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
@@ -20,11 +20,24 @@ if (typeof window !== 'undefined') {
     secret = localStorage['secret'] ? localStorage['secret'] : undefined;
 }
 
-export const checkMobile = async () => {
+export const checkMobile = () => {
     if (window.innerWidth < 767) {
         return true;
     } else if (window.innerWidth > 767) {
         return false;
+    }
+}
+
+
+
+export const check_Image = (Image) => {
+    let baseUrl = `https://${domain}`
+    if (Image) {
+        if (Image.indexOf('https') == -1) {
+            return baseUrl + Image;
+        } else if (Image.indexOf('https') == 0) {
+            return Image;
+        }
     }
 }
 
@@ -355,4 +368,3 @@ export async function get_razorpaysetting(data){
     let api = 'ecommerce_business_store.ecommerce_business_store.api.razor_pay_settings'
     return await GET(api)
 }
-

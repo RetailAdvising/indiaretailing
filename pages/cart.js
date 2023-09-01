@@ -115,9 +115,10 @@ export default function cart() {
                             <button className='capitalize primary_btn text-[14px] h-[40px] w-full mt-[25px]' onClick={() => router.push('/checkout')}>Proceed to checkout</button>
                         </div>}
                     </div> : skeleton ? <Skeleton /> :
-                    <div className='h-[50vh]'>
-                        <p>Your Cart is Empty</p>
-                        <button onClick={() => router.push('/bookstore')}>Return shop</button>
+                    <div className='md:h-[50vh] lg:h-[60vh] grid place-content-center'>
+                        <Image src={'/cart/no_cart.svg'} height={100} width={100} alt='no cart'  className='md:h-[200px] md:w-[220px] lg:h-[270px] lg:w-[300px]'/>
+                        <p className='p-[10px] text-center font-semibold text-[18px]'>Your Cart is Empty</p>
+                        <button className='primary_button lg:h-[40px] md:h-[35px]' onClick={() => router.push('/bookstore')}>Return shop</button>
                     </div>}
                 </div>
             </RootLayout>

@@ -1,14 +1,11 @@
-// 'use client'
-import React, { useEffect } from 'react'
-// import CategoryBuilder from '@/components/Builders/CategoryBuilder';
-// import categories from '@/libs/categories'
-// import HomePageBuilder from '@/components/Builders/HomePageBuilder';
-// import data from '@/libs/categoryLanding';
+
+import React, { useEffect, useState } from 'react'
 import RootLayout from '@/layouts/RootLayout';
-import { getAds, getCategoryList } from '@/libs/api';
+import { getAds, getCategoryList, checkMobile } from '@/libs/api';
 import SectionBox from '@/components/Category/SectionBox';
 import MultiCarousel from '@/components/Sliders/MultiCarousel';
 import Title from '@/components/common/Title';
+
 export default function Categories({ data, ads }) {
     console.log(data);
     console.log(ads);
@@ -21,19 +18,34 @@ export default function Categories({ data, ads }) {
     //   };
     //   window.addEventListener("pageshow", checkBfcache);
     // },[])
+
+    const [isMobile, setIsMobile] = useState()
+    useEffect(() => {
+        checkIsMobile();
+        window.addEventListener('resize', checkIsMobile)
+        return () => {
+            window.removeEventListener('resize', checkIsMobile);
+        };
+    }, [])
+
+    const checkIsMobile = async () => {
+        let isMobile = await checkMobile();
+        setIsMobile(isMobile);
+        console.log('isMobile', isMobile)
+    }
     return (
         <>
             <RootLayout>
-                <div className='p-[30px] container'>
-                    <Title data={{ title: 'Categories' }} font={'26px'} />
+                <div className={`lg:p-[30px_20px] md:p-[10px_20px]  ${isMobile ? '' : 'container'}`}>
+                    {!isMobile && <Title data={{ title: 'Categories' }} font={'26px'} />}
                     {data && data.map((res, index) => {
                         return (
-                            <div key={index}>
-                                {(res.events && res.events.length != 0) && <div  className={`flex justify-between gap-[15px]`}>
-                                    <div className={`lg:w-[calc(25%_-_10px)] md:w-[calc(40%_-_10px)] xl:w-[calc(20%_-_10px)]`}><SectionBox data={res} /></div>
-                                    <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(60%_-_10px)] xl:w-[calc(80%_-_10px)]'><MultiCarousel cardHeight={'lg:h-[280px] md:min-h-[310px]'} islanding={true} noPlay={true} check={true} height={'h-[185px]'} perView={4} width={'w-full'} data={res.events} /></div>
-                                </div>}
+                            // <div key={index} className=''>
+                            <div key={index} className={`flex md:mb-[20px]  lg:mb-[30px] justify-between gap-[15px]`}>
+                                <div className={`lg:w-[calc(25%_-_10px)] md:w-[calc(45%_-_10px)] xl:w-[calc(20%_-_10px)] `}><SectionBox data={res} /></div>
+                                <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(55%_-_10px)] xl:w-[calc(80%_-_10px)]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[270px]'} islanding={true} noPlay={true} check={true} height={'h-[185px]'} perView={4} width={'w-full'} data={res.events} /></div>
                             </div>
+                            // </div>
                         )
                     })}
                 </div>

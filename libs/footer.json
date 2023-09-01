@@ -14,7 +14,8 @@
                 {"icon": "/footer/fb.svg", "link": "https://www.facebook.com/indiaretailing"},
                 {"icon": "/footer/linkedin.svg", "link": "https://www.linkedin.com/company/indiaretailing"},
                 {"icon": "/footer/youtube.svg", "link": "https://www.youtube.com/user/Indiaretailing1"},
-                {"icon": "/footer/instagram.svg", "link": "https://www.instagram.com/indiaretailingdotcom/"}
+                {"icon": "/footer/instagram.svg", "link": "https://www.instagram.com/indiaretailingdotcom/"},
+                {"icon": "/footer/instagram.svg", "link": "https://news.google.com/publications/CAAiEDXIOJ59NeImKwFWQAEAbQcqFAgKIhA1yDiefTXiJisBVkABAG0H?ceid=US:en&oc=3&hl=en-US&gl=US"}
             ]
         },
         "section_2":{
@@ -22,8 +23,8 @@
                 {
                     "title": "About us",
                         "footerlinks": [
-                            {"footerlink": "About IndiaRetailing.com", "link": "#"},
-                            {"footerlink": "Meet the team", "link": "#"},
+                            {"footerlink": "About IndiaRetailing.com", "link": "/aboutus"},
+                            {"footerlink": "Meet the team", "link": "/teams"},
                             {"footerlink": "Advertise with us", "link": "#"},
                             {"footerlink": "Contact us", "link": "#"}
                         ]
@@ -56,11 +57,12 @@
                 {
                     "title": "Events",
                         "footerlinks": [
-                            {"footerlink": "India Food Forum", "link": "#"},
-                            {"footerlink": "Shopping Centre Next", "link": "#"},
-                            {"footerlink": "Phygital Retail Convention", "link": "#"},
-                            {"footerlink": "India D2C Summit & Awards", "link": "#"},
-                            {"footerlink": "Internet Commerce Summit", "link": "#"}
+                            {"footerlink": "India Fashion Forum", "link": "https://www.indiafashionforum.in/"},
+                            {"footerlink": "India Food Forum", "link": "https://www.indiafoodforum.com/"},
+                            {"footerlink": "Shopping Centre Next", "link": "https://www.shoppingcentresnext.com/"},
+                            {"footerlink": "Phygital Retail Convention", "link": "https://www.phygitalretailconvention.com/"},
+                            {"footerlink": "India D2C Summit & Awards", "link": "https://www.indiad2csummit.com/"},
+                            {"footerlink": "Internet Commerce Summit", "link": "http://www.internetcommercesummit.com/"}
                         ]
                 },
                 {

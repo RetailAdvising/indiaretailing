@@ -5,8 +5,8 @@ import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
 import List from '@/components/common/List';
 import Cards from '@/components/common/Cards';
-import { getList } from '@/libs/api';
-import { check_Image } from '@/libs/common';
+import { getList,checkMobile,check_Image } from '@/libs/api';
+// import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 export default function CategoryType({ values }) {
     const router = useRouter();
@@ -62,32 +62,47 @@ export default function CategoryType({ values }) {
         }
 
     }
+
+    const [isMobile, setIsMobile] = useState()
+    useEffect(() => {
+        checkIsMobile();
+        window.addEventListener('resize', checkIsMobile)
+        return () => {
+            window.removeEventListener('resize', checkIsMobile);
+        };
+    }, [])
+
+    const checkIsMobile = async () => {
+        let isMobile = await checkMobile();
+        setIsMobile(isMobile);
+        console.log('isMobile', isMobile)
+    }
     return (
         <>
             <RootLayout>
-                <div className='container' id='root' >
-                    {(data && data.length != 0) && <div className={`flex flex-wrap p-[20px_30px] gap-[20px]`}>
+                <div className={`${isMobile ? 'md:p-[10px_20px]' : 'container'}`} id='root' >
+                    {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap lg:p-[20px_30px]  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
-                            <Title data={{ title: router.query.types }} />
-                            <div className='border rounded-[10px] h-[520px] p-[17px]'>{data.slice(0, 1).map((res, index) => {
+                            {!isMobile && <Title data={{ title: router.query.types }} />}
+                            <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[17px]`}>{data.slice(0, 1).map((res, index) => {
                                 return (
                                     <div key={index} onClick={() => router.push(`/categories/${res.route}`)} className={` pb-[10px]`}>
                                         <p className={`text-[18px] font-semibold`}>{res.title}</p>
-                                        <Image className={`h-[330px] w-full pt-[10px] rounded-[5px]`} src={check_Image(res.thumbnail_image)} height={250} width={300} alt={res.title} />
-                                        <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#121212]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
+                                        <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.thumbnail_image)} height={250} width={300} alt={res.title} />
+                                        <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
                                         <p className={`sub_title line-clamp-2 pt-[10px]`}>{res.blog_intro}</p>
                                         <p className={`hashtags pt-[5px]`}>{res.publisher}</p>
                                     </div>
                                 )
                             })}</div>
                         </div>
-                        <div className={`flex-[0_0_calc(35%_-_10px)] pt-[35px] md:flex-[0_0_calc(100%_-_10px)]`}>
+                        <div className={`lg:flex-[0_0_calc(35%_-_10px)] lg:pt-[35px] md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
                             <div className='border p-[17px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List contentWidth={'flex-[0_0_calc(65%_-_10px)]'} imgWidth={'w-full'} line={'line-clamp-1'} imgHeight={'h-[80px]'} check={true} data={data.slice(0, 3)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}
-                    <div className={`grid grid-cols-4 md:grid-cols-2 p-[20px_30px] gap-[20px]`}>
+                    <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:p-[20px_30px] md:gap-[10px] lg:gap-[20px]`}>
                         {/* contentHeight={'h-[175px]'} */}
-                        <Cards cardClass={"h-[310px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} check={true} width={"w-full"} isBorder={true} data={data} />
+                        <Cards cardClass={"lg:h-[310px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data} />
                     </div>
                 </div>
             </RootLayout>

@@ -20,7 +20,7 @@ export default function EventDetail({ data }) {
     return (
         <>
             {data && <div className={`p-[30px] container`}>
-                <Image height={200} width={400} priority src={check_Image(data.message.thumbnail_path)} className={`h-[450px] w-full`} alt={data.message.title} />
+                <Image height={200} width={400} priority src={check_Image(data.message.image_path ? data.message.image_path : data.message.thumbnail_path)} className={`lg:h-[450px] md:object-contain w-full`} alt={data.message.title} />
                 <div className={`flex md:flex-wrap gap-[20px] pb-[20px] pt-[30px]`}>
                     <div className={`flex-[0_0_calc(75%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] p-[10px] border rounded-[5px]`}>
                         <p>{data.message.start_date}</p>
@@ -38,11 +38,11 @@ export default function EventDetail({ data }) {
                         </div>
                         <div className={`flex gap-[20px] pt-[10px] w-[80%]`}>
                             <div className='flex gap-[10px] items-start border_right pr-[60px]'>
-                                <Image src={'/events/date_time.svg'} objectFit='contain' height={20} width={20} alt={''} />
+                                <Image src={'/Events/Date-time.svg'}  height={20} width={20} alt={'date and time'} />
                                 <p className={`flex flex-col`}><span className='text-[15px] font-semibold'>Date and Time</span><span className='sub_title'>{data.message.start_date}</span></p>
                             </div>
                             <div className='flex gap-[10px] items-start pl-[20px]'>
-                                <Image src={'/events/location.svg'} objectFit='contain' height={20} width={20} alt={''} />
+                                <Image src={'/Events/locations.svg'}  height={20} width={20} alt={'location'} />
                                 <p className={`flex flex-col`}><span className='text-[15px] font-semibold'>Location</span>
                                     {(data.message.event_location && data.message.event_location.length != 0) && data.message.event_location.map((res, index) => {
                                         return (

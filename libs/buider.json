@@ -1376,6 +1376,7 @@
                         "category_name": "Partner Events",
                         "start_date": "2023-07-26",
                         "end_date": "2023-09-18",
+                        "image": "/home/image1.png",
                         "locations": [
                             {
                                 "event_location": "Chennai"
@@ -1388,6 +1389,7 @@
                         "description": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
                         "category_name": "Partner Events",
                         "start_date": "2023-07-27",
+                        "image": "/home/image2.png",
                         "end_date": "2023-09-01",
                         "locations": [
                             {
@@ -1401,6 +1403,7 @@
                         "description": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
                         "category_name": "Partner Events",
                         "start_date": "2023-07-12",
+                        "image": "/home/image3.png",
                         "end_date": "2023-09-05",
                         "locations": [
                             {
@@ -1414,6 +1417,7 @@
                         "description": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
                         "category_name": "Partner Events",
                         "start_date": "2023-07-04",
+                        "image": "/home/image4.png",
                         "end_date": "2023-09-06",
                         "locations": [
                             {
@@ -1427,6 +1431,7 @@
                         "description": "The Middle East Retail Forum (MRF) is a powerful aggregator of entrepreneurs",
                         "category_name": "Partner Events",
                         "start_date": "2023-07-18",
+                        "image": "/home/image5.png",
                         "end_date": "2023-09-07",
                         "locations": [
                             {

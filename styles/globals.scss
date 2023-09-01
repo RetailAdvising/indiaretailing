@@ -87,10 +87,7 @@ h1, h2, h3, h4, h5, h6 {
 .books .slick-dots{
   bottom: -30px !important;
 }
-.card-title {
-  font-size: $font-16;
-  color: $dark-color;
-}
+
 
 .relative-pos {
   position: relative !important;
@@ -164,6 +161,10 @@ h1, h2, h3, h4, h5, h6 {
   color: $gray-color-text;
 }
 
+.primary_color{
+  color: $primary-color;
+}
+
 .button_text_color {
   color: $primary-color;
 }
@@ -200,15 +201,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .title {
   font-size: $font-14;
-  font-weight: 500;
-  line-height: 1.3;
+  font-weight: 600;
+  // line-height: 1.3;
+  line-height: 21.91px;
 }
 
-.sub_title {
-  font-size: $font-14;
-  font-weight: 400;
-  color: $secondary-color;
-}
+
 .pastel-bg-parent:nth-child(1){
   background: #EEF8F9;
 }
@@ -563,6 +561,30 @@ input{
       display: none;
     }
   }
+
+  .categorySlide{
+    .react-multi-carousel-item{
+      width: 190px !important;
+    }
+    // .react-multiple-carousel__arrow--left{
+  
+    // }
+  }
+
+  .card-title {
+    font-size: $font-13;
+    color: $dark-color;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .sub_title {
+    font-size: $font-13;
+    font-weight: 400;
+    // line-height: 1.3;
+    line-height: 18.62px;
+    color: $secondary-color;
+  }
 }
 
 
@@ -604,36 +626,6 @@ input{
   .w_60 {
     width: calc(60% - 15px);
   }
-  .flex_33{
-    flex: 0 0 calc(33.333% - 20px);
-  }
-  .flex_70{
-    flex: 0 0 calc(70% - 20px);
-  }
-
-  .flex_30{
-    flex: 0 0 calc(30% - 20px);
-  }
-
-  .flex_100{
-    flex: 0 0 100%;
-  }
-
-  .flex_80{
-    flex: 0 0 calc(80% - 20px);
-  }
-  .flex_20{
-    flex: 0 0 calc(20% - 20px);
-  }
-
-  .flex_40{
-    flex: 0 0 calc(40% - 20px);
-  }
-
-  .flex_50{
-    flex: 0 0 calc(50% - 20px);
-  }
-
 
   .w_40 {
     width: calc(40% - 15px);
@@ -668,6 +660,14 @@ input{
         height: calc(100vh - 0px) !important;
       }
     }
+  }
+
+  .sub_title {
+    font-size: $font-14;
+    font-weight: 400;
+    // line-height: 1.3;
+    line-height: 18.62px;
+    color: $secondary-color;
   }
 
   .rodal-dialog{
@@ -713,6 +713,22 @@ input{
     }
   }
 
+  .categorySlide{
+    .react-multi-carousel-item{
+      width: 217px !important;
+    }
+    // .react-multiple-carousel__arrow--left{
+  
+    // }
+  }
+
+  .card-title {
+    font-size: $font-16;
+    color: $dark-color;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
   // .w_60 {
   //   width: 60%;
   // }
@@ -753,7 +769,7 @@ input{
 
 .react-multi-carousel-track {
   gap: 10px !important;
-  min-height: 370px !important;
+  // min-height: 370px !important;
 }
 
 .react-multiple-carousel__arrow--left {
@@ -815,14 +831,7 @@ input{
   }
 }
 
-.categorySlide{
-  .react-multi-carousel-item{
-    width: 217px !important;
-  }
-  // .react-multiple-carousel__arrow--left{
 
-  // }
-}
 
 .primeSlide{
   .react-multi-carousel-item{

@@ -11,10 +11,10 @@ export default function MainFooter() {
                         <div className={`flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
                             <Image src={footer.footer.section_1.image} height={100} width={250} alt={"image"} />
                             <p className='font-bold	pb-1'>{footer.footer.section_1.addresstitle}</p>
-                            <p className='address font-normal	'>{footer.footer.section_1.address}</p>
+                            <p className='address font-normal'>{footer.footer.section_1.address}</p>
 
                             <p className='font-bold pb-1 pt-2'>{footer.footer.section_1.addresstitle1}</p>
-                            <p className='address font-normal	'>{footer.footer.section_1.address1}</p>
+                            <p className='address font-normal'>{footer.footer.section_1.address1}</p>
 
                             <span className='flex flex-row mt-2.5 gray-text'>
                                 <Image src={footer.footer.section_1.phoneicon} height={18} width={18} alt={"image"} className='mr-3 m-0.5' />
@@ -48,7 +48,7 @@ export default function MainFooter() {
                                     <h6 className='text-[15px] font-semibold'>{res.title}</h6>
                                     {(res.footerlinks && res.footerlinks.length != 0) && res.footerlinks.map((item, index) => {
                                         return (
-                                            <a href={item.link} key={index}><p className='sub_title hover:text-[red]'>{item.footerlink}</p></a>
+                                            <a href={item.link} key={index}><p className='sub_title pb-2 hover:text-[red]'>{item.footerlink}</p></a>
                                         )
                                     })}
                                 </div>

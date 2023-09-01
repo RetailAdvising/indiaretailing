@@ -6,7 +6,7 @@ import SEO from '@/components/common/SEO'
 import React from 'react'
 // import '@/styles/globals.scss'
 
-export default function RootLayout({children}) {
+export default function RootLayout({children, checkout}) {
   const styles = {
     display:'flex',
     justifyContent:'center'
@@ -14,9 +14,9 @@ export default function RootLayout({children}) {
   return (
     <>
     {/* <SEO /> */}
-    <div className="md:hidden"><AdsBaner  data={{ad_image: "/audi_car.png"}} style={styles} height={'150px'} width={'500px'} /></div>
-    <Header />
-    <Navbar />
+    {!checkout &&   <div className="md:hidden"><AdsBaner  data={{ad_image: "/audi_car.png"}} style={styles} height={'150px'} width={'500px'} /></div>}
+    <Header checkout={checkout} />
+    {!checkout &&  <Navbar />}
       <main >{children}</main>
     <MainFooter />
     </>

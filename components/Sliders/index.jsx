@@ -54,8 +54,8 @@ export default function Sliders({ data,perView }) {
                 <Image alt={''} src={check_Image(res.image)} height={200} width={400} className={`h-[310px] w-[210px]`} />
               </div>
               <div className={`flex flex-col items-start justify-between lg:h-[175px]`}>
-                <p className={`text-[15px]`}>{res.item}</p>
-                <p className={`sub_title`}>{res.short_description ? res.short_description : 'Retail in the New Phygital Era Arguably the Indian consumers have come of age'}</p>
+                <p className={`text-[15px] line-clamp-2`}>{res.item}</p>
+                <p className={`sub_title line-clamp-4`}>{res.short_description ? res.short_description : 'Retail in the New Phygital Era Arguably the Indian consumers have come of age'}</p>
                 <button className={`p-[8px] text-[14px] rounded-[5px] ${styles.optionsBtn} bg-[#fff]`} >Select options</button>
               </div>
             </div>

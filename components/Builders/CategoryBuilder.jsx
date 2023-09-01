@@ -194,20 +194,32 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
     }
   }
 
+  const [isMobile, setIsMobile] = useState()
+  useEffect(() => {
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile)
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, [])
+
+  const checkIsMobile = async () => {
+    let isMobile = await checkMobile();
+    setIsMobile(isMobile);
+  }
+
 
 
   return (
     <>
       <div ref={cardref}>
-        <div className='flex w-full gap-11 md:flex-wrap p-[30px] container'>
+        <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0] md:p-[10px_20px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
             <div>
               <Content i={i} res={data} />
             </div>
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'line-clamp-5'}`} />
 
-
-            {validator}
             {(isPrime && !validator) && <div className='border p-[20px] shadow-2xl h-[10%] my-[20px]'>
               <p className='text-center text-[20px] font-semibold pb-[15px]'>This story is for Premium Members you  have to buy Membership to Unlock</p>
               <div className='flex gap-[20px] justify-center pt-[20px]'>
@@ -227,15 +239,15 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             </div> */}
 
             {/* Comments */}
-            {<div className='py-12'>
-              <div className={`flex flex-row justify-between`}>
+            {<div className='lg:py-12'>
+              {!isMobile && <div className={`flex flex-row justify-between`}>
                 {/* <p className="gray-text">Previous Post</p> */}
                 <hr></hr>
                 <p className={`font15_bold`}>Share this Article</p>
                 <hr></hr>
                 {/* <p className="gray-text">Next Post</p> */}
-              </div>
-              <div className='flex flex-row gap-3 items-center justify-center py-5'>
+              </div>}
+              {!isMobile && <div className='flex flex-row gap-3 items-center justify-center py-5'>
                 {socials.map((res, index) => {
                   return (
                     <div key={index}>
@@ -266,10 +278,10 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                     </div>
                   )
                 })}
-              </div>
+              </div>}
 
               {(data.comments) && <>
-                <div className={` border_bottom py-1.5 ${styles.profile_div}`}>
+                <div className={`${!isMobile && 'border_bottom'} py-1.5 ${styles.profile_div}`}>
                   <p id={`cmt${i}`} className='font-semibold'>Comments</p>
                 </div>
 
@@ -283,9 +295,19 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                   </div>
                 }
               </>}
-              {data.disable_comments != 1 && <div className={` mt-[10px] flex justify-center`}>
-                <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[50%] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
-              </div>}
+              {data.disable_comments != 1 &&
+                <>
+                  {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
+                    {(data.comments && data.comments.length != 0) && <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>Read all comments</button>}
+                    <button onClick={showSidebar} className={`justify-center border-[#e21b22] text-[#e21b22] h-[45px] rounded items-center lg:w-[25%] md:w-[45%] flex border`}>Post a comment </button>
+                  </div> : <div className={`mt-[10px] flex justify-center`}>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[50%] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
+                  </div>}
+
+
+                </>
+
+              }
 
               {(!showComment && data) && <>
                 <div className='popright'>
