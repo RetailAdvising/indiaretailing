@@ -1,7 +1,7 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, {useEffect, useState } from 'react'
 import styles from'../styles/checkout.module.scss';
-import { get_cart_items, get_customer_info, get_payment_method, delete_address, get_razorpay_settings, load_razorpay, insertOrder } from '@/libs/api';
+import { get_cart_items, get_customer_info, stored_customer_info, get_payment_method, delete_address, get_razorpay_settings, load_razorpay, insertOrder } from '@/libs/api';
 import { check_Image } from '@/libs/common'
 import Image from 'next/image'
 import { checkMobile } from '@/libs/api';
@@ -29,7 +29,8 @@ export default function checkout() {
   // const userInfo = useSelector(s=>s.user);
 
   const dispatch = useDispatch()
-
+  
+  let [localValue, setLocalValue] = useState(undefined);
 
   
   useEffect(() => {
@@ -37,6 +38,8 @@ export default function checkout() {
     getCartItem();
     customer_info();
     get_payments();
+    let localValue = stored_customer_info()
+    setLocalValue(localValue);
     get_razorpay_settings();	
     checkIsMobile();
     window.addEventListener('resize',checkIsMobile)
@@ -293,19 +296,23 @@ function goToAddres(){
 
               <div className={`${styles.box_1}`}>
 
-              <div className='flex justify-between bg-slate-100 h-[43px] px-[10px] rounded-md items-center'>
-                  <h6 className='text-[16px] font-semibold' >Login / Register</h6>
+              <div className='flex lg:bg-slate-100 h-[45px] px-[10px] rounded-md items-center'>
+                  <span className='flex items-center justify-center w-[25px]'><Image className='h-[23px] object-contain' src="/checkout/login.svg" height={20} width={20} layout="fixed" alt="Edit" /></span>
+                  <h6 className='text-[16px] ml-[10px] font-semibold' >Login / Register</h6>
               </div>
 
-              <div className={`${styles.address_sec} ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto] '} flex py-[10px] cursor-pointer justify-between  gap-[5px]`}>
-               {/* {localStorage && localStorage['full_name'] && <p className='m-0 text-[14px] text-medium'>{localStorage['full_name']}</p> }
-               {localStorage && localStorage['userid'] && <p className='m-0 text-[14px] text-medium'>{localStorage['userid']}</p> }
-               {localStorage && localStorage['phone'] && <p className='m-0 text-[14px] text-medium'>{localStorage['phone']}</p> } */}
+              <div className={`${styles.address_sec} ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto] '} py-[10px] cursor-pointer justify-between  gap-[5px]`}>
+               {localValue && localValue['cust_name'] && <p className='m-0 text-[14px] text-medium'>{localValue['cust_name']}</p> }
+               {localValue && localValue['cust_email'] && <p className='m-0 text-[14px] py-[5px] text-medium'>{localValue['cust_email']}</p> }
+               {localValue && localValue['phone'] && <p className='m-0 text-[14px] text-medium'>{localValue['phone']}</p> }
               </div> 
 
 
-                <div className='flex justify-between bg-slate-100 h-[43px] px-[10px] rounded-md items-center'>
-                  <h6 className='text-[16px] font-semibold' >Billing Address</h6>
+                <div className='flex justify-between lg:bg-slate-100 h-[43px] px-[10px] rounded-md items-center'>
+                  <div className='flex'>
+                  <span className='flex items-center justify-center w-[25px]'><Image className='h-[23px] object-contain' src="/checkout/Billing.svg" height={20} width={20} layout="fixed" alt="Edit" /></span>
+                   <h6 className='text-[16px] ml-[10px] font-semibold' >Billing Address</h6>
+                  </div>
                   {customerInfo && customerInfo.address && customerInfo.address.length != 0  &&
                     <button className={`${styles.add_new} ${isMobile ? 'text-[14px] font-semibold primary_color' : 'border rounded-[5px] py-[2px] px-[7px] text-[14px] text-medium'}`} onClick={()=>isMobile ? goToAddres() : edit_address(undefined,'New','')} >{isMobile ? 'Edit' : 'Add New'}</button>  
                   }
@@ -349,9 +356,12 @@ function goToAddres(){
                   <AddressModal edit_address={editAddress} visible={visible} hide={(obj)=> hide(obj)} />
                 }
 
-                <h6 className='text-[16px] bg-slate-100 flex items-center h-[43px] px-[10px] rounded-md font-semibold'>Payment Methods</h6>
+                <div className='flex lg:bg-slate-100 flex items-center h-[43px] px-[10px] rounded-md'>
+                   <span className='flex items-center justify-center w-[25px]'><Image className='h-[23px] object-contain' src="/checkout/payment.svg" height={20} width={20} layout="fixed" alt="Edit" /></span>
+                   <h6 className='text-[16px] ml-[10px] font-semibold' >Payment Methods</h6>
+                  </div>
 
-                <div className={`flex ${styles.card_detail} ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto]'} py-[8px] gap-[10px]`}>
+                <div className={`flex ${styles.card_detail} ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto]'} py-[10px] gap-[10px]`}>
                   {payment_methods.map((res,index) => (
                     <div key={index} onClick={() => selectMethod(res,index)} className={`flex ${styles.payment_sec} ${isMobile ? 'w-max' : 'w-[15%]'} ${index == currentIndex ? 'active_border' : null} h-[50px] cursor-pointer items-center border rounded-[5px] p-[4px_10px] `}>
                       <input className={styles.input_radio} checked={index == currentIndex} type="radio"/>

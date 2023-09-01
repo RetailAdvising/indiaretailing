@@ -1,7 +1,6 @@
 import '@/styles/globals.scss'
 import store from '../redux/store'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react';
 import { Roboto } from 'next/font/google'
 import setIsMobile from 'redux/actions/isMobileAction'
 import { useDispatch, useSelector, Provider  } from 'react-redux'
@@ -17,20 +16,6 @@ const inter = Roboto({
 export default function App({ Component, pageProps }) {
 
 
-  // const userInfo = useSelector(s=>s.user);
-  // const dispatch = useDispatch()
-
-  useEffect(() => {
-    // get_customer_info()
-  },[])  
-
-  // function get_customer_info(){
-  //   let users = {}
-  //   users.cust_email = localStorage['userid'] ? localStorage['userid'] : undefined;
-  //   users.cust_name = localStorage['full_name'] ? localStorage['full_name'] : undefined;
-  //   users.customer_id = localStorage['customer_id'] ? localStorage['customer_id'] : undefined;
-  //   dispatch(userAction(users));
-  // }
 
   // const router = useRouter();
   // const [loading, setLoading] = useState(false);
