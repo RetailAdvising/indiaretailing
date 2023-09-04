@@ -329,6 +329,12 @@ export async function deleteCartItems(data){
     return await postMethod(api,data)
 }
 
+//podcast
+export async function podcastLanding(data){
+    let api = domainUrl + 'podcast_list_with_categoies';
+    return await postMethod(api,data)
+}
+
 // Newsletter
 export async function newsLanding(data){
     let api = domainUrl + 'newsletter_list_with_categories';
