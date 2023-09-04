@@ -1,0 +1,120 @@
+{
+    "page_sections": [
+      {
+        "page_section": "PS-23-12313",
+        "layout_json": [
+          {
+            "col": "1",
+            "width": "100%",
+            "class": "w_100",
+            "u_id": "vobotwba",
+            "components": [
+              {
+                "cid": "5",
+                "data": {
+                  "title": "Top 10 Podcasts",
+                  "data": [
+                    {
+                      "title": "Modern retail Podcast",
+                      "sub_title":"Education:Self-Improvement",
+                      "image": "/podcast/card1.png",
+                      "route":"podcast/Modern retail Podcast"
+                    },
+                    {
+                      "title": "Zero-Shot",
+                      "sub_title":"Technology",
+                      "image": "/podcast/card2.png",
+                      "route":"podcast/Zero-Shot"
+
+                    },
+                    {
+                      "title": "The No-Frills Teacher Pod…",
+                      "sub_title":"Education",
+                      "image": "/podcast/card3.png",
+                      "route":"podcast/The No-Frills Teacher"
+
+                    },
+                    {
+                      "title": "Insight Story: Tech Trends…",
+                      "sub_title":"Technology",
+                      "image": "/podcast/card4.png",
+                      "route":"podcast/Insight Story"
+
+                    },
+                    {
+                      "title": "Better Call Daddy",
+                      "sub_title":"TV & Film:Film Interviews",
+                      "image": "/podcast/card5.png",
+                      "route":"podcast/Better Call Daddy"
+                    },
+                    {
+                        "title": "The Meaningful Life with A…",
+                        "sub_title":"Education:Self-Improvement",
+                        "image": "/podcast/card6.png",
+                        "route":"podcast/The Meaningful Life"
+                      },
+                      {
+                        "title": "Zero-Shot",
+                        "sub_title":"Technology",
+                        "image": "/podcast/card7.png",
+                        "route":"podcast/Zero-Shot"
+                      },
+                      {
+                        "title": "The No-Frills Teacher Pod…",
+                        "sub_title":"Education",
+                        "image": "/podcast/card8.png",
+                        "route":"podcast/The No-Frills Teacher"
+                      },
+                      {
+                        "title": "Insight Story: Tech Trends…",
+                        "sub_title":"Technology",
+                        "image": "/podcast/card9.png",
+                        "route":"podcast/Insight Story"
+                      },
+                      {
+                        "title": "Better Call Daddy",
+                        "sub_title":"TV & Film:Film Interviews",
+                        "image": "/podcast/card10.png",
+                        "route":"podcast/Better Call Daddy"
+                      },
+                      {
+                        "title": "Modern retail Podcast",
+                        "sub_title":"Education:Self-Improvement",
+                        "image": "/podcast/card11.png",
+                        "route":"podcast/Modern retail Podcast"
+                      },
+                      {
+                        "title": "Zero-Shot",
+                        "sub_title":"Technology",
+                        "image": "/podcast/card12.png",
+                        "route":"podcast/Zero-Shot"
+                      },
+                      {
+                        "title": "The No-Frills Teacher Pod…",
+                        "sub_title":"Education",
+                        "image": "/podcast/card13.png",
+                        "route":"podcast/The No-Frills Teacher"
+                      },
+                      {
+                        "title": "Insight Story: Tech Trends…",
+                        "sub_title":"Technology",
+                        "image": "/podcast/card14.png",
+                        "route":"podcast/Insight Story"
+                      },
+                      {
+                        "title": "Better Call Daddy",
+                        "sub_title":"TV & Film:Film Interviews",
+                        "image": "/podcast/card15.png",
+                        "route":"podcast/Better Call Daddy"
+                      }
+                  ]
+                },
+                "component_type": "card",
+                "component_title": "CardSpecial"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+}

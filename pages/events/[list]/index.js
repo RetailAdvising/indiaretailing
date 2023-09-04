@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { postMethod,eventList } from '@/libs/api.js';
+import { postMethod, eventList } from '@/libs/api.js';
 import RootLayout from '@/layouts/RootLayout';
 import EventList from '@/components/Events/EventList';
 import Title from '@/components/common/Title';
@@ -31,7 +31,7 @@ export default function EventDetails({ values }) {
     //     }
     // }
 
-    useEffect(()=>{
+    useEffect(() => {
         if (values) {
             console.log(values);
             setData(values.message)
@@ -46,7 +46,7 @@ export default function EventDetails({ values }) {
                 // console.log(scrollTop);
                 // console.log(clientHeight);
                 // console.log(scrollHeight);
-                if(!apiCall){
+                if (!apiCall) {
                     apiCall = true;
                     page_no += 1;
                     loadMore()
@@ -60,15 +60,15 @@ export default function EventDetails({ values }) {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    },[])
+    }, [])
 
 
     async function loadMore() {
         let Id = router.query?.list;
-        let param = { route: Id,page_no: page_no,page_length: 6, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path"] }
+        let param = { route: Id, page_no: page_no, page_length: 6, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path"] }
         let value = await eventList(param)
         if (value && value.message.length != 0) {
-            setData(d => d=[...d,...value.message]);
+            setData(d => d = [...d, ...value.message]);
             // setData(d => d={...d,...value});
             // setData(d => console.log(d));
             // data = [...data,...value.message]
@@ -80,13 +80,9 @@ export default function EventDetails({ values }) {
     }
     return (
         <>
-            <RootLayout>
-                {/* <div className='p-[30px]'>
-                    <h6 className="head_title">Category</h6>
-                    <hr className='under_line'></hr>
-                </div> */}
-                <div className='p-[30px] container'>
-                    <div className='flex justify-between items-center'>
+            <RootLayout isLanding={false} head={values.title}>
+                <div className='p-[30px_0px] md:p-[15px] container'>
+                    <div className='flex md:hidden justify-between items-center'>
                         <div>
                             <Title data={values} />
                         </div>
@@ -115,13 +111,13 @@ export default function EventDetails({ values }) {
 
                     </div>
                     {/*  ${!isChecked ? 'grid-cols-2 md:grid-cols-1' : 'grid-cols-4 md:grid-cols-2'} */}
-                    <div className={`grid grid-cols-4 md:grid-cols-2  gap-[20px]`}>
+                    <div className={`grid grid-cols-4 md:grid-cols-2 md:gap-[10px] gap-[20px]`}>
                         {/* {data && <EventList data={data.message} />} */}
                         {(data) && <>
                             {/* {!isChecked ? <EventList data={data} height={'h-[200px]'} width={'w-full'} />
                                 : <EventCards data={data} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} height={'h-[210px]'} width={'w-full'} />
                             } */}
-                            <EventCards data={data} height={'h-[210px]'} width={'w-full'} />
+                            <EventCards card={'h-[370px] md:h-[320px]'} data={data} height={'h-[210px] md:h-[150px]'} width={'w-full'} />
                         </>
                         }
                     </div>
@@ -132,7 +128,7 @@ export default function EventDetails({ values }) {
 }
 export async function getServerSideProps({ params }) {
     const Id = await params?.list;
-    const datas = { route: Id,page_no:1,page_length: 6, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path","route"] }
+    const datas = { route: Id, page_no: 1, page_length: 6, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path", "route"] }
     const response = await eventList(datas)
     const values = await response;
     return {

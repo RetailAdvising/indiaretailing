@@ -1,13 +1,13 @@
 import RootLayout from '@/layouts/RootLayout'
 import React from 'react'
-import { primeLanding } from '@/libs/api'
+import { primeLanding,getAds } from '@/libs/api'
 import ExclusiveBuilder from '@/components/Builders/ExclusiveBuilder'
 
 
-export default function IRPrime({ data }) {
+export default function IRPrime({ data , ads }) {
     return (
         <>
-            <RootLayout>
+            <RootLayout isLanding={true} head={'IR Prime'}>
                 {(data && data.message && data.message.length != 0) && <ExclusiveBuilder data={data} />}
             </RootLayout>
 
@@ -26,8 +26,12 @@ export async function getStaticProps() {
     }
     const res = await primeLanding(params);
     const data = await res;
+
+    let param = { doctype: 'Articles', page_type: 'Home' }
+    const resp = await getAds(param);
+    const ads = resp.message;
     return {
-        props: { data } , revalidate: 50,
+        props: { data , ads } , revalidate: 50,
     }
 }
 

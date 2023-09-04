@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import AdsBaner from '../Baners/AdsBaner'
-import ChildSlider from '../Sliders/ChildSlider'
 import List from '../common/List'
 import { useState } from 'react'
 import Content from '../common/Content'
@@ -9,8 +8,7 @@ import Title from '../common/Title'
 import MultiCarousel from '../Sliders/MultiCarousel'
 import categories from '@/libs/categories'
 import Modal from '../common/Modal'
-import Placeholders from '../Category/Placeholders'
-import { check_Image } from '@/libs/common'
+import { check_Image,checkMobile } from '@/libs/api'
 import Comments from '../Category/Comments'
 
 // Social Share
@@ -20,16 +18,11 @@ import { useRouter } from 'next/router'
 export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
-  const [placeholder, setPlaceholder] = useState([]);
   const [validator, setValidator] = useState(false)
   const router = useRouter();
   // console.log(router)
   // let validate;
-  // const [searchTxt, setSearchTxt] = useState('');
 
-  function handleComment() {
-    setshowComment(!showComment);
-  }
   const socials = [
     {
       "icon": "/fb.svg",
@@ -48,7 +41,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
       "name": "ws"
     }
   ]
-
+  // const [searchTxt, setSearchTxt] = useState('');
   // useEffect(() => {
   // if (searchTxt && searchTxt != '') {
   //   const timeOut = setTimeout(async () => {
@@ -78,13 +71,8 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
       }
     }
 
-    console.log(validator);
-
-
     if (document.readyState === 'complete') {
-      // setTimeout(() => {
       onPageLoad();
-      // }, 500);
     } else {
       window.addEventListener('load', onPageLoad);
       // Remove the event listener when component unmounts
@@ -112,7 +100,6 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   const [visible, setVisible] = useState(false)
   function show() {
     setVisible(true);
-
   }
 
   function hide() {
@@ -158,7 +145,6 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   //  FUNCTION TO HANDLE CLOSE ACTION ON SIDEDRAWER/MODAL
   const sideDrawerClosedHandler = () => {
     setshowComment(!showComment)
-
     // Unsets Background Scrolling to use when SideDrawer/Modal is closed
     document.body.style.overflow = 'unset';
   }
@@ -169,28 +155,6 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
     // Disables Background Scrolling whilst the SideDrawer/Modal is open
     if (typeof window != 'undefined' && window.document) {
       document.body.style.overflow = 'hidden';
-    }
-  }
-
-  const checkMobile = async () => {
-    if (window.innerWidth < 767) {
-      return true;
-    } else if (window.innerWidth > 767) {
-      return false;
-    }
-  }
-
-  const logInModal = async (type) => {
-    if (checkMobile()) {
-      type == 'login' ? router.push('/login') : router.push('/signup');
-    } else {
-      if (type == 'login') {
-        setVisible(true)
-        setModal('login')
-      } else {
-        setVisible(true)
-        setModal('signup')
-      }
     }
   }
 
@@ -213,7 +177,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   return (
     <>
       <div ref={cardref}>
-        <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0] md:p-[10px_20px] ${isMobile ? '' : 'container'}`}>
+        <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[10px_15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
             <div>
               <Content i={i} res={data} />
@@ -253,22 +217,22 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                     <div key={index}>
                       {
                         res.name == 'fb' ? <FacebookShareButton url={`${!isPrime ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
-                          <div key={index} className={`rounded-full bg-light-gray p-4`}>
+                          <div key={index} className={`rounded-full bg-light-gray p-2`}>
                             <Image src={res.icon} alt={res.name} height={25} width={20} />
                           </div>
                         </FacebookShareButton>
                           : res.name == 'ws' ? <WhatsappShareButton url={`${!isPrime ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
-                            <div key={index} className={`rounded-full bg-light-gray p-4`}>
+                            <div key={index} className={`rounded-full bg-light-gray p-2`}>
                               <Image src={res.icon} alt={res.name} height={25} width={20} />
                             </div>
                           </WhatsappShareButton>
                             : res.name == 'linkedin' ? <LinkedinShareButton url={`${!isPrime ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
-                              <div key={index} className={`rounded-full bg-light-gray p-4`}>
+                              <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                 <Image src={res.icon} alt={res.name} height={25} width={20} />
                               </div>
                             </LinkedinShareButton>
                               : res.name == 'twitter' ? <TwitterShareButton url={`${!isPrime ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
-                                <div key={index} className={`rounded-full bg-light-gray p-4`}>
+                                <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                   <Image src={res.icon} alt={res.name} height={25} width={20} />
                                 </div>
                               </TwitterShareButton>
@@ -299,7 +263,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
                     {(data.comments && data.comments.length != 0) && <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>Read all comments</button>}
-                    <button onClick={showSidebar} className={`justify-center border-[#e21b22] text-[#e21b22] h-[45px] rounded items-center lg:w-[25%] md:w-[45%] flex border`}>Post a comment </button>
+                    <button onClick={showSidebar} className={`justify-center  h-[45px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center lg:w-[25%] md:w-[45%] flex border`}>Post a comment </button>
                   </div> : <div className={`mt-[10px] flex justify-center`}>
                     <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[50%] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
                   </div>}
@@ -316,12 +280,11 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                   {/* <iframe className='w-full ' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092358111637737472" height="696" width="504" frameborder="0" allowfullscreen="false" title="Embedded post"></iframe> */}
                   {/* <iframe className='w-full' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}
                 </div>
-
               </>}
             </div>}
           </div>
 
-          <div className='w_30'>
+          <div className='w_30 md:hidden'>
             {(data.related_articles && data.related_articles.length != 0) && <div className='border rounded-[5px] p-[10px]'>
               <Title data={{ title: 'Related Stories' }} />
               <List tittleOnly={true} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.related_articles} imgHeight={'h-[110px]'} imgWidth={'w-full'} />
@@ -351,18 +314,20 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             {/* <div className='py-3'>
               <AdsBaner data={res.baner_img3} text={"Advertisement"} height={'220px'} width={'275px'} />
             </div> */}
-
           </div>
-
-
         </div>
 
-        {categories.sections.section_3 && <div className={`container ${styles.section_3}`}>
+        {categories.sections.section_3 && <div className={`${isMobile ? '' : 'container'} ${styles.section_3}`}>
           {/* Slider */}
-          {(categories.sections.section_3.section_type == 'slider' && categories.sections.section_3.type == 'card') && <div className={`${styles.slider_parent} p03015 mb-7`}>
+          {(categories.sections.section_3.section_type == 'slider' && categories.sections.section_3.type == 'card') && <div className={`${styles.slider_parent} latestNews_slider p-[10px_0px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
-            <MultiCarousel perView={5} data={categories.sections.section_3.data} height={"h-full"} width={'w-full'} type={'card'} />
+            <MultiCarousel perView={5} noPlay={true} data={categories.sections.section_3.data} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} />
           </div>}
+        </div>}
+
+        {!isLast && <div className={`flex md:gap-[10px] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px_0] ${isMobile ? '' : 'container'}`}>
+          <h6 className={`flex-[0_0_auto] lg:text-[16px] md:text-[14px] font-semibold`}>Next Post</h6>
+          <div className='lg:bg-[#EEEEEE] w-full lg:h-[1px] md:bg-stone-200 md:h-[3px]'></div>
         </div>}
       </div>
     </>

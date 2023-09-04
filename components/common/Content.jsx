@@ -1,7 +1,7 @@
-import React, { useState, useRef,useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from '@/styles/category.module.scss'
 import Image from 'next/image'
-import { check_Image } from '@/libs/common'
+import { check_Image } from '@/libs/api'
 
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { useRouter } from 'next/router'
@@ -60,24 +60,24 @@ export default function Content({ res, i }) {
 
     return (
         <>
-            <div className='flex gap-4'>
+            <div className='flex gap-4 items-center'>
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
-                <p className='flex items-center gap-2'><Image height={13} width={11} alt={"image"} src={'/views.svg'} /><span className='fnt_14 gray-text'>500 Views</span></p>
-                <p className='flex items-center gap-2'><Image height={15} width={15} alt={"image"} src={'/shares.svg'} /><span className='fnt_14 gray-text'>3 Shares</span></p>
-                <p className='flex items-center gap-2'><Image height={15} width={15} alt={"image"} src={'/time.svg'} /><span className='fnt_14 gray-text'>2 Minutes </span></p>
+                <p className='flex items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} /><span className='text-[12px] md:text-[12px] gray-text'>500 Views</span></p>
+                <p className='flex  items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[12px]' src={'/shares.svg'} /><span className='text-[12px] md:text-[12px] gray-text'>3 Shares</span></p>
+                <p className='flex items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} /><span className='text-[12px] md:text-[12px] gray-text'>2 Minutes </span></p>
             </div>
-            <h1 className='mega_title lg:text-5xl md:text-[19px] md:leading-[29.23px] my-5'>{res.title}</h1>
+            <h1 className='mega_title lg:text-4xl md:text-[18px] md:leading-[29.23px] my-4'>{res.title}</h1>
             <div className={`flex items-center justify-between ${styles.profile_div}`}>
                 <div className='flex gap-3 items-center'>
                     <Image className='rounded-full object-contain' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <p className='flex flex-col'>
-                        <span className="font-semibold">{res.publisher}</span><span className='text-gray fnt_13 gray-text'>2 days ago</span>
+                        <span className="font-semibold">{res.publisher}</span><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>2 days ago</span>
                     </p>
                 </div>
 
-                <div className='flex items-center gap-2'>
-                    <div className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '10px' }}>
-                        <Image onClick={() => share('share')} ref={ref} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} />
+                <div className='flex items-center md:gap-1 lg:gap-2'>
+                    <div className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '20px' }}>
+                        <Image onClick={() => share('share')} ref={ref} className={`dropdowns transition-all delay-500 md:h-[17px] md:w-[15px]`} src={'/share.svg'} height={10} width={15} alt={'share'} />
                         <div className={`dropdown-menu p-[20px]  right-0 grid justify-center`} style={{ borderRadius: '10px', width: '190px', position: 'absolute' }} id={`dropdown${i}`}>
                             {icons && icons.map((res, index) => {
                                 return (
@@ -106,7 +106,7 @@ export default function Content({ res, i }) {
                     {/* <Image className='object-contain' src={'/share.svg'} height={14} width={15} alt={"image"} /> */}
                     {/* <Image className='object-contain h-[25px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} /> */}
                     <div className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '20px' }}>
-                        <Image onClick={() => share('settings')} ref={setting} className='object-contain h-[25px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} />
+                        <Image onClick={() => share('settings')} ref={setting} className='object-contain md:h-[20px] md:w-[19px] h-[25px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} />
                         <div className={`dropdown-menu p-[10px_0_10px_0] right-0 grid justify-center`} style={{ borderRadius: '10px', width: '190px', position: 'absolute' }} id={`down${i}`}>
                             {setings && setings.map((res, index) => {
                                 return (
@@ -121,7 +121,7 @@ export default function Content({ res, i }) {
                 </div>
             </div>
 
-            <p className='py-3 text-[18px]'>{res.title}</p>
+            <p className='py-3 text-[18px] md:hidden'>{res.title}</p>
             <Image src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} priority={true} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
             <p className='py-3 '>{res.blog_intro}</p>
         </>

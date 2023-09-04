@@ -23,7 +23,7 @@ export default function Header({checkout}) {
 
         const handleClickOutside = (event) => {
             let el = document.getElementById('dropdown1')?.classList;
-            let classs = el && Array.from(el);
+            let classs = (el && el != null) && Array.from(el);
             let out = classs && classs.find(res => res == 'dropdown-menu-active');
             if (ref.current && !ref.current.contains(event.target) && out) {
                 el.remove('dropdown-menu-active')
@@ -66,7 +66,7 @@ export default function Header({checkout}) {
     return (
         <>
             {head && <div className={``}>
-                <div className='container md:hidden grid grid-cols-3 items-center justify-between p030'>
+                <div className='container md:hidden grid grid-cols-3 items-center justify-between'>
                     {/* <div> */}
                       <div className={`flex items-center `}>
                         <Image style={{ objectFit: 'contain' }}  height={60} priority width={24} alt='search' src={'/search.svg'} className="pr-2"></Image>

@@ -1,12 +1,11 @@
 import '@/styles/globals.scss'
 import store from '../redux/store'
-import { useRouter } from 'next/router'
-import { Roboto } from 'next/font/google'
-import setIsMobile from 'redux/actions/isMobileAction'
-import { useDispatch, useSelector, Provider  } from 'react-redux'
+import { Inter } from 'next/font/google'
+import { useDispatch, useSelector, Provider } from 'react-redux'
 // import userAction from 'redux/actions/userAction'
+import ErrorBoundary from '@/components/Exception/ErrorBoundary'
 
-const inter = Roboto({
+const inter = Inter({
   weight: ["400"],
   display: "swap",
   preload: true,
@@ -56,11 +55,15 @@ export default function App({ Component, pageProps }) {
   //   console.log('isMobile', isMobile)
   // }
   return (
-    <Provider store={store}>
-      {/* { loading ? <p>loading...</p> */}
-      <main className={inter.className}>
-        <Component {...pageProps} />
-      </main>
-    </Provider>
+    <>
+      <ErrorBoundary > 
+        <Provider store={store}>
+          {/* { loading ? <p>loading...</p> */}
+          <main className={inter.className}>
+            <Component {...pageProps} />
+          </main>
+        </Provider>
+      </ErrorBoundary>
+    </>
   )
 }

@@ -1,20 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import header from '@/styles/Header.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { roleMember } from '@/libs/api';
-export default function SideBar({ data, close }) {
+
+export default function SideBar({ data, close, navbar }) {
     const router = useRouter();
     const [valid, setValid] = useState(false)
     const [member, setMember] = useState(false);
+    const ref = useRef(null);
     useEffect(() => {
         if (typeof window !== 'undefined') {
             localStorage['apikey'] ? setValid(!valid) : null;
             roleMember()
             // let val = roleMember();
         }
+
+        const handleClickOutside = (event) => {
+            // let el = document.getElementById('side')?.classList;
+            // let classs = (el && el != null) && Array.from(el);
+            // let out = classs && classs.find(res => res == 'sideActive');
+            if (ref.current && !ref.current.contains(event.target) && !navbar) {
+                // el.remove('sideActive')
+                close()
+            }
+        };
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
     }, [])
+
+
 
     const route = async (type) => {
         if (type == 'login') {
@@ -43,9 +60,11 @@ export default function SideBar({ data, close }) {
             }
         }
     }
+
+
     return (
         <>
-            {data.header && data.header.items.length != 0 && <div className={`p-[20px] bg-[#fff] w-[80%] h-screen relative`}>
+            {(data.header && data.header.items.length != 0 && navbar) && <div id='side' ref={ref} className={`p-[20px] bg-[#fff] w-[80%] h-screen relative`}>
                 {/* <div className=''> */}
                 {valid ? <div className='flex items-center gap-[15px] border_bottom pb-[15px]'>
                     <Image className='h-[40px] w-[40px]' src={'/profit.svg'} height={20} width={20} alt={'profile'} />

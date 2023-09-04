@@ -14,6 +14,7 @@ export default function Modal({ modal, hide, visible, data, cur }) {
     const [sortbyVal, setSortByVal] = useState('Newest');
     const [pageno, setPageno] = useState(1);
     const [comments, setComments] = useState([]);
+    const [noData,setNoData] = useState(false)
     const router = useRouter();
    
     function sortBy() {
@@ -33,7 +34,7 @@ export default function Modal({ modal, hide, visible, data, cur }) {
         if (cur && pageno == 1) {
             commentslist();
         }
-    }, [pageno, comments])
+    }, [pageno])
 
 
     function checkValid() {
@@ -44,12 +45,20 @@ export default function Modal({ modal, hide, visible, data, cur }) {
 
 
     async function commentslist() {
+        setNoData(!noData)
         let param = { ref: cur.name, page_no: pageno, page_size: 10 };
         let resp = await commentList(param);
         // console.log(resp)
         if (resp.message && resp.message.length != 0) {
             setComments(resp.message);
-        } 
+            setTimeout(() => {
+                setNoData(false)
+            }, 200);
+        } else{
+            setTimeout(() => {
+                setNoData(false)
+            }, 200);
+        }
     }
 
     async function loadMore() {
@@ -109,21 +118,23 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                                 <input id='addCmt' type='text' onClick={checkValid} placeholder='Add a comment...' className='border-none border_bottom w-full text-[14px]' />
                                 <Image src={'/categories/send-arrow.svg'} className='cursor-pointer' onClick={() => sendMsg('addCmt')} height={20} width={20} alt='send' />
                             </div>
-                            {(comments && comments.length != 0) ?
+                            {(comments && comments.length != 0 && !noData) ?
                                 <div className='commentPopup '>
                                     {comments.map((res, index) => {
                                         return (
-                                            <Comments load={loadMore} key={index} isLast={index == comments.length - 1} data={res} />
+                                            // isLast={index == comments.length - 1}
+                                            <Comments load={loadMore} key={index}  data={res} />
                                         )
                                     })}
                                 </div>
-                                : <div className='mt-[15px] h-[70vh] overflow-auto'>
+                                : noData ? <div className='mt-[15px] h-[70vh] overflow-auto'>
                                     {[0, 1, 2, 3, 4, 5].map((res, index) => {
                                         return (
                                             <Skeleton key={index} />
                                         )
                                     })}
                                 </div>
+                                :<div className='grid place-content-center h-[50vh]'><h6 className='font-semibold text-[16px]'>No Comments</h6></div>
                             }
                         </Rodal>
                             : null

@@ -7,7 +7,8 @@ import IRPrime from '@/components/Landing/IRPrime';
 // import {setRoutes} from 'redux/actions/routesAction';
 import PageData from '@/libs/buider'
 import HomePageBuilder from '@/components/Builders/HomePageBuilder';
-// import { useEffect, useState } from 'react';
+import { HomePage } from '../libs/api';
+import { useEffect, useState } from 'react';
 
 
 export default function Home() {
@@ -30,9 +31,13 @@ export default function Home() {
   }
 
   useEffect(()=>{
-
     // console.log('userInfo',userInfo);
+    const data = async () =>{
+      let val = await HomePage();
+      console.log(val)
+    }
 
+    data()
     if(pageNo > 0){
       // console.log('Load more')
       // console.log('start',start)
@@ -43,7 +48,7 @@ export default function Home() {
 
   return (
     <>
-      <RootLayout>
+      <RootLayout isLanding={true} head={''}>
         {(PageData && PageData.page_sections) && PageData.page_sections.slice(start,end).map((res,index)=>{
           return(
             <HomePageBuilder data={res} loadMore={()=> setPageNo(p=> p+1)} isLast={index == PageData.page_sections.slice(start,end).length-1}/>

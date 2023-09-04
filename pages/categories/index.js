@@ -7,18 +7,6 @@ import MultiCarousel from '@/components/Sliders/MultiCarousel';
 import Title from '@/components/common/Title';
 
 export default function Categories({ data, ads }) {
-    console.log(data);
-    console.log(ads);
-    // useEffect(()=>{
-    // const checkBfcache = (e) => {
-    //     console.log("This page is restored from bfcache?", e.persisted);
-    //     if (e.persisted) {
-    //       alert("This page is served from bfcache");
-    //     }
-    //   };
-    //   window.addEventListener("pageshow", checkBfcache);
-    // },[])
-
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
         checkIsMobile();
@@ -31,21 +19,18 @@ export default function Categories({ data, ads }) {
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
         setIsMobile(isMobile);
-        console.log('isMobile', isMobile)
     }
     return (
         <>
-            <RootLayout>
-                <div className={`lg:p-[30px_20px] md:p-[10px_20px]  ${isMobile ? '' : 'container'}`}>
-                    {!isMobile && <Title data={{ title: 'Categories' }} font={'26px'} />}
+            <RootLayout head={'Categories'} isLanding={true}>
+                <div className={`lg:p-[30px_0px] md:p-[15px]  ${isMobile ? '' : 'container'}`}>
+                    {!isMobile && <Title data={{ title: 'Categories' }} font={'20px'} />}
                     {data && data.map((res, index) => {
                         return (
-                            // <div key={index} className=''>
-                            <div key={index} className={`flex md:mb-[20px]  lg:mb-[30px] justify-between gap-[15px]`}>
+                            <div key={index} className={`flex md:mb-[10px] justify-between gap-[15px]`}>
                                 <div className={`lg:w-[calc(25%_-_10px)] md:w-[calc(45%_-_10px)] xl:w-[calc(20%_-_10px)] `}><SectionBox data={res} /></div>
-                                <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(55%_-_10px)] xl:w-[calc(80%_-_10px)]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[270px]'} islanding={true} noPlay={true} check={true} height={'h-[185px]'} perView={4} width={'w-full'} data={res.events} /></div>
+                                <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(55%_-_10px)] xl:w-[calc(80%_-_10px)]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[200px]'} islanding={true} noPlay={true} check={true} height={'lg:h-[185px] md:h-[140px]'} perView={4} width={'w-full'} data={res.events} /></div>
                             </div>
-                            // </div>
                         )
                     })}
                 </div>

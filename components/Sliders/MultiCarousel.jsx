@@ -6,6 +6,7 @@ import Image from 'next/image';
 // import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 import { check_Image,checkMobile } from '@/libs/api'
+
 export default function MultiCarousel({ islanding, cardHeight, noPlay, check, deviceType, data, type, height, width, card_width, perView }) {
     const router = useRouter();
     const responsive = {
@@ -20,7 +21,7 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
             paritialVisibilityGutter: 50
         },
         mobile: {
-            breakpoint: { max: 464, min: 340 },
+            breakpoint: { max: 464, min: 300 },
             items: 1,
             paritialVisibilityGutter: 30
         }
@@ -37,7 +38,6 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
         setIsMobile(isMobile);
-        console.log('isMobile', isMobile)
     }
     return (
         <>
@@ -85,16 +85,16 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
             {type == 'profile' && <>
                 <Carousel
                     // autoPlay={noPlay ? false :true}
-                    arrows={true}
+                    arrows={isMobile ? false : true}
                     autoPlaySpeed={2000}
                     // containerClass="container-with-dots"
-                    // dotListClass="dots"
+                    dotListClass="dots"
                     infinite
                     pauseOnHover
                     responsive={responsive}
                     // shouldResetAutoplay
-                    // showDots
-                    // renderDotsOutside={false}
+                    showDots={isMobile ? true : false}
+                    renderDotsOutside={false}
                     // sliderClass=""
                     slidesToSlide={1}
                     swipeable
@@ -113,7 +113,7 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
                                         <p className={` title line-clamp-2`}>{res.title ? res.title : ''}</p>
                                     </div>
                                     <p className={` sub_title pt-[5px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
-                                    <p className='hashtags pt-[5px]'>{res.hashtags ? res.hashtags : res.author ? res.author : res.publisher ? res.publisher : ''}</p>
+                                    <p style={{fontSize:'12px'}} className='hashtags pt-[5px]'>{res.hashtags ? res.hashtags : res.author ? res.author : res.publisher ? res.publisher : ''}</p>
                                 </div>
                             </div>
                         )

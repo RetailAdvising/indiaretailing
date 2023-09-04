@@ -5,10 +5,9 @@ import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
 import List from '@/components/common/List';
 import Cards from '@/components/common/Cards';
-import { getList,checkMobile,check_Image } from '@/libs/api';
-// import { check_Image } from '@/libs/common';
+import { getList,checkMobile,check_Image,getAds } from '@/libs/api';
 import { useRouter } from 'next/router';
-export default function CategoryType({ values }) {
+export default function CategoryType({ values , ads }) {
     const router = useRouter();
     const [data, setData] = useState([]);
  
@@ -18,7 +17,6 @@ export default function CategoryType({ values }) {
     console.log(router);
     useEffect(() => {
         if (values) {
-            console.log(values);
             setData(values)
         }
 
@@ -75,19 +73,18 @@ export default function CategoryType({ values }) {
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
         setIsMobile(isMobile);
-        console.log('isMobile', isMobile)
     }
     return (
         <>
-            <RootLayout>
-                <div className={`${isMobile ? 'md:p-[10px_20px]' : 'container'}`} id='root' >
-                    {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap lg:p-[20px_30px]  lg:gap-[20px]`}>
+            <RootLayout isLanding={false} head={router.query.types}>
+                <div className={`${isMobile ? 'md:p-[10px_15px]' : 'container'}`} id='root' >
+                    {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap lg:p-[20px_0px]  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
                             {!isMobile && <Title data={{ title: router.query.types }} />}
                             <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[17px]`}>{data.slice(0, 1).map((res, index) => {
                                 return (
                                     <div key={index} onClick={() => router.push(`/categories/${res.route}`)} className={` pb-[10px]`}>
-                                        <p className={`text-[18px] font-semibold`}>{res.title}</p>
+                                        <p className={`lg:text-[18px] md:text-[16px] font-semibold`}>{res.title}</p>
                                         <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.thumbnail_image)} height={250} width={300} alt={res.title} />
                                         <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
                                         <p className={`sub_title line-clamp-2 pt-[10px]`}>{res.blog_intro}</p>
@@ -100,7 +97,7 @@ export default function CategoryType({ values }) {
                             <div className='border p-[17px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List contentWidth={'flex-[0_0_calc(65%_-_10px)]'} imgWidth={'w-full'} line={'line-clamp-1'} imgHeight={'h-[80px]'} check={true} data={data.slice(0, 3)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}
-                    <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:p-[20px_30px] md:gap-[10px] lg:gap-[20px]`}>
+                    <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:p-[20px_0px] md:gap-[10px] lg:gap-[20px]`}>
                         {/* contentHeight={'h-[175px]'} */}
                         <Cards cardClass={"lg:h-[310px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data} />
                     </div>
@@ -110,6 +107,10 @@ export default function CategoryType({ values }) {
     )
 }
 
+
+// export async function getStaticPaths({params}){
+
+// }
 
 export async function getServerSideProps({ params }) {
     let Id = await params?.types;
@@ -123,7 +124,11 @@ export async function getServerSideProps({ params }) {
     let value = await getList(param);
     let values = value.message;
 
+    let param1 = { doctype: 'Articles', page_type: 'Home' }
+    const resp = await getAds(param1);
+    const ads = resp.message;
+
     return {
-        props: { values }
+        props: { values , ads }
     }
 }

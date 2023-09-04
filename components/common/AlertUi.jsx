@@ -37,13 +37,13 @@ export default function AlertUi({ isOpen, closeModal, headerMsg, alertMsg, butto
               </Dialog.Title>
               <div className="mt-2">
                 <p className="text-sm text-gray-500">
-                 {alertMsg}
+                 {alertMsg.message}
                 </p>
               </div>
 
-              <div className="flex items-center justify-end mt-4">
-                { button_1 && <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" onClick={()=> closeModal('yes')}> {button_1} </button>}
-                { button_2 && <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" onClick={()=> closeModal('No')}> {button_2} </button> }
+              <div className="flex items-center gap-[10px] justify-end mt-4">
+                { button_1 && <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" onClick={()=> closeModal('No')}> {button_1} </button>}
+                { button_2 && <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" onClick={()=> closeModal('Yes')}> {button_2} </button> }
               </div>
             </Dialog.Panel>
           </Transition.Child>

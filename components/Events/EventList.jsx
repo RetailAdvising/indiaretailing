@@ -45,7 +45,7 @@ export default function EventList({ data, flex, height, width, imageBackground,c
                             <p className={`sub_title line-clamp-2`}>{res.description}</p>
                             {/* <p className={`sub_title pt-[5px]`}>{res.end}</p> */}
                             <div className={`flex gap-[10px] items-center pt-[10px] `}>
-                                <p className={`flex gap-[5px] items-center `}><Image src="/calendar.svg" className={`object-contain`} objectFit='contain' height={15} width={20} alt={res.title} /> <span className={`light_text pt-[2px]`}>{res.start_date}</span></p> <span className='h-[18px] w-[3px] mx-[6px] bg-[#ddd]'></span>
+                                <p className={`flex gap-[5px] items-center `}><Image src="/calendar.svg" className={`object-contain`} objectFit='contain' height={15} width={20} alt={res.title} /> <span className={`light_text pt-[2px]`}>{res.start_date}</span></p> <span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>
                                 <p className={`flex gap-[5px] items-center`}><Image src="/location.svg" className={`object-contain`} objectFit='contain' height={10} width={20} alt={res.title} /> <span className={`light_text `}>{res.locations[0] && res.locations[0].event_location}</span></p>
                             </div>
                             <div className='flex gap-[5px] items-center py-[10px]'><p className={`primary_text font-semibold`}>Register Now</p>

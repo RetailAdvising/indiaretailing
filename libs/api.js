@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { domain } from "./config/siteConfig"
-
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
 const domainUrl = `india_retailing.india_retailing.api.`;
 const ecomUrl = `ecommerce_business_store.ecommerce_business_store.api.`;
+const ecomUrlV2 = `ecommerce_business_store.ecommerce_business_store.v2.`;
 const subscription = `subscription.subscription.api.`;
+const app_name = 'India Retail';
 
 let apikey;
 let secret;
@@ -27,6 +28,15 @@ export const checkMobile = () => {
         return false;
     }
 }
+
+export async function getCartItem(){
+    const resp = await get_cart_items();
+      if (resp && resp.message && resp.message.status == 'success') {
+          let data = resp.message.cart
+          return data;
+        //   setCartItems(data)
+      }
+  }
 
 export function stored_customer_info(){
     let users = {}
@@ -57,12 +67,12 @@ export async function get_razorpay_settings() {
 
 
 
-export async function load_razorpay(amount,description) {
+export async function load_razorpay(amount,description,type) {
     var options = {
       "key": razorpay_settings.api_key,
       "amount": (amount * 100).toString(),
       "currency": "INR",
-      "name": environment.app_config.app_name,
+      "name": app_name,
       "description": "Payment for" + description,
       "image": (razorpay_settings.site_logo ? check_Image(razorpay_settings.site_logo) : null),
       "prefill": {
@@ -80,7 +90,7 @@ export async function load_razorpay(amount,description) {
       "handler" : (response, error) => {
         if(response){
           let data = { response : { amount : amount,description : description,razorpay_payment_id : response.razorpay_payment_id }}
-          payment_Success_callback(data);
+          payment_Success_callback(data,description,type);
         } else if(error){
           payment_error_callback(description,error)
         }
@@ -89,16 +99,39 @@ export async function load_razorpay(amount,description) {
       }
     };
 
-    const rzp = new Razorpay.open(options);
-    rzp.open();
+    // const rzp = new Razorpay.open(options);
+    // rzp.open();
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    script.onload = () => {
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
 }
 
-function payment_Success_callback(data){
-    order_payment_capture(data['response']['razorpay_payment_id'],data['response']['description']);
+function payment_Success_callback(data,order_id,type){
+    console.log('Subscription',order_id)
+    console.log('Subscription',type)
+
+    if(type == 'Subscription'){
+        createSubscription(order_id)
+    }else if(type ==' Order'){
+        order_payment_capture(data['response']['razorpay_payment_id'],data['response']['description']);
+    }
+    
 }
+
+
 
 function payment_error_callback(description,error){
-    order_payment_capture(undefined,description);
+    // order_payment_capture(undefined,description);
 }
 
 export async function order_payment_capture(id,order_id) {
@@ -108,6 +141,17 @@ export async function order_payment_capture(id,order_id) {
         // this.success(order_id);
     }
 }
+
+export async function createSubscription(order_id) {
+    let param = {
+        party: localStorage['customer_id'],
+        party_name: localStorage['userid'],
+        subscription_plan: order_id
+    };
+    const resp = await insertSubscription(param);
+    console.log(resp);
+}
+
 
 
 export async function postMethod(api, payload) {
@@ -132,36 +176,16 @@ export async function GET(api) {
     return data;
 }
 
-export async function getExclusives() {
-    const myHead = new Headers()
-    myHead.append('Content-Type', 'application/json');
-    let datas = {
-        application_type: "web",
-        domain: "indiaretailing.go1cms.com",
-        route: "p/exclusives"
+export async function HomePage(){
+    let params = {
+        // "application_type": "mobile",
+        "route": "home"
     }
-    const response = await fetch(methodUrl + 'go1_cms.go1_cms.api.get_page_content',
-        { method: 'POST', headers: myHead, body: JSON.stringify(datas) });
-    const data = await response.json();
-    return await data;
+    let api = 'go1_cms.go1_cms.api.get_page_content';
+    return await postMethod(api,params)
 }
 
 
-export async function placeHolder() {
-    const myHead = new Headers()
-    myHead.append('Content-Type', 'application/json');
-    const resp = await fetch('https://jsonplaceholder.typicode.com/photos', { method: 'GET', headers: myHead });
-    const data = await resp.json();
-    return data;
-}
-
-export async function Blogs() {
-    const myHead = new Headers()
-    myHead.append('Content-Type', 'application/json');
-    const resp = await fetch(resourceUrl + 'Articles?fields=["*"]', { method: 'GET', headers: myHead });
-    const data = await resp.json();
-    return data;
-}
 
 export async function getList(data) {
     let api = domainUrl + 'get_list';
@@ -243,12 +267,12 @@ export async function getCategories(){
 }
 
 export async function getCategoryProduct(data){
-    let api = ecomUrl + `get_category_products`;
+    let api = domainUrl + `magazines`;
     return await postMethod(api,data)
 }
 
 export async function getProductDetail(data){
-    let api = `ecommerce_business_store.ecommerce_business_store.mobileapi.get_product_details`;
+    let api = ecomUrlV2 + `product.get_product_details`;
     return await postMethod(api,data)
 }
 
@@ -263,7 +287,7 @@ export async function getAds(data){
 // }
 
 export async function get_cart_items(){
-    let api = 'ecommerce_business_store.ecommerce_business_store.v2.cart.get_cart_items';
+    let api = ecomUrlV2 + 'cart.get_cart_items';
     return await GET(api)
 }
 
@@ -301,7 +325,7 @@ export async function updateCartItems(data){
 }
 
 export async function deleteCartItems(data){
-    const api = 'ecommerce_business_store.ecommerce_business_store.v2.cart.delete_cart_items';
+    const api = ecomUrlV2 + 'cart.delete_cart_items';
     return await postMethod(api,data)
 }
 
@@ -373,4 +397,16 @@ export async function update_order_status(data) {
 export async function get_razorpaysetting(data){
     let api = 'ecommerce_business_store.ecommerce_business_store.api.razor_pay_settings'
     return await GET(api)
+}
+
+
+// Videos
+export async function video_list_with_categoies(data){
+    let api = domainUrl + 'video_list_with_categoies'
+    return await postMethod(api,data)
+}
+
+export async function video_details(data){
+    let api = domainUrl + 'video_details'
+    return await postMethod(api,data)
 }

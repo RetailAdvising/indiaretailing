@@ -1,5 +1,5 @@
 import RootLayout from '@/layouts/RootLayout'
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import val from '@/libs/bookstore'
 import Sliders from '@/components/Sliders'
 import Title from '@/components/common/Title'
@@ -7,10 +7,27 @@ import Card from '@/components/Bookstore/Card'
 import AdsBaner from '@/components/Baners/AdsBaner'
 import List from '@/components/Bookstore/List'
 import { booksLanding, getCategories } from '@/libs/api'
+import { checkMobile } from '@/libs/api';
+
 export default function Bookstore({ data,resp }) {
 
-  console.log(data);
-  console.log(resp);
+  // console.log(data);
+  // console.log(resp);
+  let [isMobile, setIsmobile] = useState();
+
+  useEffect(()=>{
+    checkIsMobile();
+    window.addEventListener('resize',checkIsMobile)
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  },[])
+
+  const  checkIsMobile = async () => {
+    isMobile = await checkMobile();
+    setIsmobile(isMobile);
+    console.log('isMobile',isMobile)
+  }
   // useEffect(() => {
   // const category = async () => {
   //   let data = await booksLanding();
@@ -23,16 +40,17 @@ export default function Bookstore({ data,resp }) {
     <>
       <RootLayout>
         {(data && data.length != 0) && <>
-          {(resp.recent_products && resp.recent_products.length != 0) && <div className='' style={{ background: "#f0f0f0" }}>
+          {(resp.recent_products && resp.recent_products.length != 0) && 
+          <div className='py-[10px]' style={{ background: "#f0f0f0" }}>
             <Sliders data={resp.recent_products} perView={3} />
           </div>}
 
-          <div className={`bg-[#FBFBFD] mt-[50px]`}>
+          <div className={`lg:bg-[#FBFBFD] md:mt-[15px] lg:mt-[50px]`}>
             {/* {data.map((res, index) => {
               return ( */}
-            <div className='md:flex-wrap p-[30px] container justify-between gap-[15px] flex'>
-              <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
-                <Title data={data[0]} query={true} seeMore={true} />
+            <div className='md:flex-wrap  md:p-[10px] lg:p-[30px] container justify-between gap-[15px] flex'>
+              <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
+                <Title data={data[0]}  seeMore={true} />
                 <div className={`grid gap-[35px] grid-cols-4 md:grid-cols-2 `}><Card imgClass={'h-[270px] w-[181px]'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 8)} boxShadow={true} /></div>
               </div>
               <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}><AdsBaner data={val.section_2.col_2} /></div>
@@ -41,22 +59,22 @@ export default function Bookstore({ data,resp }) {
             })} */}
           </div>
 
-          {(data[1] && data[2]) && <div className='container p-[30px] md:flex-wrap flex justify-between gap-[15px]'>
-            <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
-              <Title data={data[1]} query={true} seeMore={true} />
-              <div className={`flex gap-[15px] h-full rounded-[5px] flex-wrap  border p-[10px]`}><List category={data[1].category_name} check={true} isLanding={true} boxShadow={true} imgWidth={'flex-[0_0_calc(35%_-_10px)]'} height={'h-[210px]'} width={'w-full'} data={data[1].products.slice(0, 4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] h-[220px]'} /></div>
+          {(data[1] && data[2]) && <div className='container md:p-[15px_10px_10px_10px] lg:p-[30px] md:flex-wrap md:flex-col flex justify-between gap-[15px]'>
+            <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
+              <Title data={data[1]}  seeMore={true} />
+              <div className={`flex lg:gap-[15px] h-full rounded-[5px] flex-wrap border p-[10px]`}><List category={data[1].category_name} check={true} isLanding={true} boxShadow={true} imgWidth={'flex-[0_0_calc(40%_-_10px)]'} height={isMobile ? 'h-[180px]' : 'h-[210px]'} width={'w-full'} data={data[1].products.slice(0, 4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] lg:h-[220px] md:h-[190px]'} /></div>
             </div>
 
-            <div className={`flex-[0_0_calc(30%_-_10px)] md:pt-[40px] md:flex-[0_0_calc(100%_-_10px)]`}>
+            <div className={`flex-[0_0_calc(30%_-_10px)] md:pt-[10px] md:flex-[0_0_calc(100%_-_10px)]`}>
               <Title  data={data[2]} />
-              <div className={`flex gap-[10px] h-full rounded-[5px] flex-wrap  flex-col border p-[10px]`}><List category={data[2].category_name} check={true} boxShadow={true} isLanding={true} imgWidth={'flex-[0_0_calc(30%_-_10px)]'} height={'h-[130px]'} width={'w-full'} data={data[2].products.slice(0, 3)} /></div>
+              <div className={`flex gap-[10px]  h-full lg:rounded-[5px] flex-wrap  flex-col lg:border lg:border-slate-200 lg:p-[10px]`}><List category={data[2].category_name} border_b={'md:border-b-[1px] md:p-[0px_0_10px_0] md:border-slate-200 md:last:border-b-[0]'} check={true} boxShadow={true} isLanding={true} imgWidth={'flex-[0_0_calc(35%_-_10px)]'} height={'h-[150px]'} width={'w-full'} data={data[2].products.slice(0, 3)} /></div>
             </div>
           </div>}
 
-          { data[3] && <div className='mb-[30px] mt-[60px]' style={{ background: '#fbfbfd' }}>
-            <div className={`flex-[0_0_calc(100%_-_10px)] container  p-[30px]`}>
+          { data[3] && <div className='lg:mb-[30px] lg:mt-[60px] md:mt-[10px]' style={{ background: '#fbfbfd' }}>
+            <div className={`flex-[0_0_calc(100%_-_10px)] container md:p-[10px] lg:p-[30px]`}>
               <Title data={data[3]} />
-              <div className={`flex gap-[15px] flex-wrap `}><Card category={data[3].category_name} isBorder={true} check={true} isLanding={true} flex={'flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data[3].products} /></div>
+              <div className={`flex gap-[15px] flex-wrap `}><Card category={data[3].category_name} object_fit={'object-contain'} padding={true} isBorder={true} check={true} isLanding={true} height={isMobile ? 'h-[160px]' : 'h-[280px]'} flex={'flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data[3].products} /></div>
             </div>
           </div>}
 

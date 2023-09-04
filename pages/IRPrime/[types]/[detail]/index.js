@@ -1,7 +1,7 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
-import { articlesDetail } from '@/libs/api';
+import { articlesDetail,getAds } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 export default function Details() {
@@ -68,9 +68,15 @@ export default function Details() {
     }
   }
 
+  const getAdsList = async () =>{
+    let param = { doctype: 'Articles', page_type: 'Detail' }
+    const resp = await getAds(param);
+    const ads = resp.message;
+  }
+
   return (
     <>
-      <RootLayout>
+      <RootLayout isLanding={true} head={''}>
         {/* {data && <CategoryBuilder isPrime={true} data={data} />} */}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
@@ -90,8 +96,8 @@ export default function Details() {
 const Skeleton = () => {
   return (
     <>
-      <div className='flex md:flex-wrap container justify-between p-[30px]'>
-        <div className='flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+      <div className='lg:flex md:flex-wrap container justify-between p-[30px_0px] md:p-[20px_15px]'>
+        <div className='flex-[0_0_calc(70%_-_10px)] md:overflow-hidden md:flex-[0_0_calc(100%_-_10px)]'>
           <div className='flex gap-[5px]'>
             {[0, 1, 2, 3].map((res, index) => {
               return (
@@ -147,7 +153,7 @@ const Skeleton = () => {
 
           </div>
         </div>
-        <div className='flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+        <div className='flex-[0_0_calc(30%_-_10px)] md:overflow-hidden md:mt-[20px] md:flex-[0_0_calc(100%_-_10px)]'>
           <p className='h-[15px] w-[100px] bg-[#E5E4E2]'></p>
           {[0, 1, 2].map((res, index) => {
             return (
@@ -194,7 +200,7 @@ const Skeleton = () => {
       </div>
 
       {/* Cards */}
-      <div className='container px-[30px] flex justify-between gap-[15px]'>
+      <div className='container lg:px-[30px] md:px-[15px] md:mb-[20px] md:overflow-hidden flex justify-between gap-[15px]'>
         {[0, 1, 2, 3, 4].map((res, index) => {
           return (
             <div key={index} className='flex-[0_0_calc(20%_-_10px)]'>

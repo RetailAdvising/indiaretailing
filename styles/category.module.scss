@@ -1,8 +1,10 @@
 @import './Variables.module.scss';
 
-.profile_div{
-    border-bottom: 1px solid $border-color;
-    padding-bottom: 10px;
+@media screen and (min-width: 768px) {
+    .profile_div{
+        border-bottom: 1px solid $border-color;
+        padding-bottom: 10px;
+    }
 }
 
 .slider_parent{

@@ -41,7 +41,7 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
             {/* {data && data.map((res,index) => { */}
             {/* return ( */}
             <div ref={cardref} className={`${data.layout_id == "STL-0003" && 'border_bottom'}`} style={{ background: data.background }}>
-                <div ref={cardref} className={`flex p-[20px_30px] justify-between flex-wrap gap-[25px] container`}>
+                <div ref={cardref} className={`flex p-[20px_0px] justify-between flex-wrap gap-[25px] container`}>
                     {
                         (data.layout_json) && data.layout_json.map((item, index) => {
                             return (
@@ -145,7 +145,7 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
                                                     <Title data={resp.data} />
                                                     <div className={``}><ImageGroupEvents data={resp.data.data} height={"h-[80%]"} width={"w-[80%]"} /></div>
                                                 </>}
-                                                {(resp.component_title == "EventList" && resp.component_type == "event1" && resp.data) && <div className={`flex flex-wrap p-[30px] gap-[10px_20px]`}><EventList check={true} data={resp.data.data} height={"h-[110px]"} width={"w-full"} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} isHome={true} imageBackground={"#f7f7f7"} /></div>}
+                                                {(resp.component_title == "EventList" && resp.component_type == "event1" && resp.data) && <div className={`flex flex-wrap p-[30px_0px] gap-[10px_20px]`}><EventList check={true} data={resp.data.data} height={"h-[110px]"} width={"w-full"} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} isHome={true} imageBackground={"#f7f7f7"} /></div>}
                                                 {(resp.component_title == "Card" && resp.component_type == "card3" && resp.data) && <>
                                                     <Title data={resp.data} />
                                                     <div className={`flex flex-wrap gap-5 justify-between`}><Cards data={resp.data.data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[330px]"} width={"w-full"} flex={'flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} isBorder={true} /></div>

@@ -11,7 +11,7 @@ export default function EventDetails({ data }) {
     // },[router.query])
     return (
         <>
-            <RootLayout>
+            <RootLayout isLanding={false} head={'Events'}>
                 {data && <EventDetail data={data} />}
             </RootLayout>
         </>

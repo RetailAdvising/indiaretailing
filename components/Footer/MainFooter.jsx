@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 import footer from '@/libs/footer';
 import Image from 'next/image';
 export default function MainFooter() {
+ 
 
     return (
         <>
             <div className={`footer`}>
-                <div className='container md:flex-wrap flex gap-11 p30 '>
-                    {footer.footer.section_1 &&
-                        <div className={`flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
+                <div className='container md:flex-wrap flex gap-11 p-[30px_0px] md:p-[15px]'>
+                    {footer.footer.section_1 && <div className={`flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
                             <Image src={footer.footer.section_1.image} height={100} width={250} alt={"image"} />
                             <p className='font-bold	pb-1'>{footer.footer.section_1.addresstitle}</p>
                             <p className='address font-normal'>{footer.footer.section_1.address}</p>
@@ -18,11 +18,11 @@ export default function MainFooter() {
 
                             <span className='flex flex-row mt-2.5 gray-text'>
                                 <Image src={footer.footer.section_1.phoneicon} height={18} width={18} alt={"image"} className='mr-3 m-0.5' />
-                                <a href='tel:{footer.footer.section_1.phonenumber}' className='hover:text-[red]'>{footer.footer.section_1.phonenumber}</a>
+                                <a href={`tel:${footer.footer.section_1.phonenumber}`} className='hover:text-[red]'>{footer.footer.section_1.phonenumber}</a>
                             </span>
                             <span className='flex flex-row mt-2.5 gray-text'>
                                 <Image src={footer.footer.section_1.mailicon} height={18} width={18} alt={"image"} className='mr-3 m-0.5' />
-                                <a href='mailto:{footer.footer.section_1.mail}' className='hover:text-[red]'>{footer.footer.section_1.mail}</a>
+                                <a href={`mailto:${footer.footer.section_1.mail}`} className='hover:text-[red]'>{footer.footer.section_1.mail}</a>
                             </span>
                             <p className='text-[16px] font-semibold pb-[10px] pt-[20px]'>Our Social Media</p>
                             <div className='flex items-center gap-[15px] py-[10px]'>
@@ -58,7 +58,7 @@ export default function MainFooter() {
                     }
                 </div>
             </div>
-            <p className='copy_write'>{footer.footer.copy_write}<a href='{footer.footer.copy_link}' className='hover:text-[red]'> {footer.footer.copy_link_text}</a>. All Rights Reserved</p>
+            <p className='copy_write'>{footer.footer.copy_write}<a href={`${footer.footer.copy_link}`} className='hover:text-[red]'> {footer.footer.copy_link_text}</a>. All Rights Reserved</p>
         </>
     )
 }

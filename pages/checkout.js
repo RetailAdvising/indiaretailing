@@ -1,13 +1,14 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, {useEffect, useState } from 'react'
 import styles from'../styles/checkout.module.scss';
-import { get_cart_items, get_customer_info, stored_customer_info, get_payment_method, delete_address, get_razorpay_settings, load_razorpay, insertOrder } from '@/libs/api';
+import { get_cart_items, get_customer_info,getCartItem, stored_customer_info, get_payment_method, delete_address, get_razorpay_settings, load_razorpay, insertOrder } from '@/libs/api';
 import { check_Image } from '@/libs/common'
 import Image from 'next/image'
 import { checkMobile } from '@/libs/api';
 import AddressModal from '@/components/Bookstore/AddressModal';
 import Address from '@/components/Bookstore/Address';
 import AlertUi from '@/components/Common/AlertUi';
+import LoaderButton from '@/components/Common/LoaderButton';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector, Provider  } from 'react-redux'
@@ -20,7 +21,7 @@ export default function checkout() {
   const [selectedOption, setSelectedOption] = useState('India');
   const [currentIndex, setIndex] = useState(-1);
   const [payment_methods, setPaymentMethods] = useState([]);
-  const [cart_items, setCartItems] = useState({});
+  let [cart_items, setCartItems] = useState({});
   let [isMobile, setIsmobile] = useState();
   const [customerInfo, setCustomerInfo] = useState({});
   const [editAddress, setEditAddress] = useState(undefined);
@@ -34,8 +35,7 @@ export default function checkout() {
 
   
   useEffect(() => {
-    // console.log(userInfo);
-    getCartItem();
+    CartItem()
     customer_info();
     get_payments();
     let localValue = stored_customer_info()
@@ -51,16 +51,22 @@ export default function checkout() {
 const  checkIsMobile = async () => {
   isMobile = await checkMobile();
   setIsmobile(isMobile);
-  console.log('isMobile',isMobile)
+  // console.log('isMobile',isMobile)
 }
 
-  async function getCartItem(){
-    const resp = await get_cart_items();
-      if (resp && resp.message && resp.message.status == 'success') {
-          let data = resp.message.cart
-          setCartItems(data)
-      }
-  }
+const  CartItem = async () => {
+  cart_items = await getCartItem();
+  setCartItems(cart_items);
+  // console.log('isMobile',isMobile);
+}
+
+  // async function getCartItem(){
+  //   const resp = await get_cart_items();
+  //     if (resp && resp.message && resp.message.status == 'success') {
+  //         let data = resp.message.cart
+  //         setCartItems(data)
+  //     }
+  // }
 
   async function get_payments(){
     const resp = await get_payment_method();
@@ -121,13 +127,16 @@ function goToAddres(){
     setIndex(index);
   };
 
+  const [loader,setLoader] = useState(false)
+
   const checkout = (e) =>{
+    setLoader(true)
     check_checkout_values()
   }
 
   const alert = useSelector(s=>s.alert);
   const alert_dispatch = useDispatch()
-  const [alertMsg, setAlertMsg] = useState('')
+  const [alertMsg, setAlertMsg] = useState({})
 
   function closeModal(value) {
     alert_dispatch(alertAction(false))
@@ -138,16 +147,18 @@ function goToAddres(){
   }
 
 
-  function check_checkout_values(){
+  async function check_checkout_values(){
     let check_address = (customerInfo.address && customerInfo.address.length != 0) ?  customerInfo.address.find((res)=> {return res.is_default == 1}) : undefined
     
     if(!check_address){
-      setAlertMsg('Please select Billing address')
+      setLoader(false);
+      await setAlertMsg({message:'Please select Billing address'});
       alert_dispatch(alertAction(true))
       // openModal();
       // dispatch(openDialog('OPEN_DIALOG'))
     }else if(currentIndex < 0){
-      setAlertMsg('Please select Payment Method');
+      setLoader(false);
+      await setAlertMsg({message:'Please select Payment Method'});
       alert_dispatch(alertAction(true))
       // openModal()
     }else{
@@ -191,7 +202,7 @@ function goToAddres(){
    const resp = await insertOrder(orderdata);
       if (resp && resp.message && resp.message.status == 'Success') {
           let data = resp.message
-          load_razorpay(data.message.order.outstanding_amount,data.message.order.name,);
+          load_razorpay(data.message.order.outstanding_amount,data.message.order.name,'Order');
       } 
 
   }
@@ -257,6 +268,15 @@ function goToAddres(){
     }
   }
 
+  const [addressDelete,setDeleteAddress] = useState(false)
+
+  function address_closeModal(value) {
+    setDeleteAddress(false);
+    if(value == 'Yes'){
+      deleteAddress(alertMsg.res,alertMsg.index);
+    }
+
+  }
 
 
   function edit_address(res,type,index){
@@ -267,16 +287,19 @@ function goToAddres(){
       setEditAddress(res);
       show();
     }else if(type == 'Delete'){
-      deleteAddress(res,index);
+      setAlertMsg({message:'Do you want to delete your address',res:res,index:index});
+      setDeleteAddress(true);
+      // alert_dispatch(alertAction(true))
+      // deleteAddress(res,index);
     }
 
   }
 
   async function deleteAddress(delete_obj,index) {
-    console.log(delete_obj)
     let data ={ "id": delete_obj.name,"customer": localStorage['customer_id']}
     const resp = await delete_address(data);
     if(resp && resp.message && resp.message == 'Success'){
+      setAlertMsg({});
       customerInfo.address.splice(index,1);
       setCustomerInfo(
         {...customerInfo,address:customerInfo.address}
@@ -286,32 +309,36 @@ function goToAddres(){
 
   return (
     <>
-       <RootLayout checkout={true}>
+       <RootLayout checkout={isMobile ? false : true}>
        {alert.isOpen && 
             <AlertUi isOpen={alert.isOpen} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} /> 
        }
 
-      <div className='border-t-[1px] border-slate-200 pt-[25px]'>
-           <div className={`flex ${styles.container_} gap-[20px] py-[10px] container`}>
+       {addressDelete && 
+            <AlertUi isOpen={addressDelete} closeModal={(value)=>address_closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} /> 
+       }
+
+      <div className='border-t-[1px] border-slate-200 lg:pt-[25px]'>
+           <div className={`flex ${styles.container_} md:gap-8px lg:gap-[20px] md:flex-col py-[10px] container`}>
 
               <div className={`${styles.box_1}`}>
 
-              <div className='flex lg:bg-slate-100 h-[45px] px-[10px] rounded-md items-center'>
-                  <span className='flex items-center justify-center w-[25px]'><Image className='h-[23px] object-contain' src="/checkout/login.svg" height={20} width={20} layout="fixed" alt="Edit" /></span>
-                  <h6 className='text-[16px] ml-[10px] font-semibold' >Login / Register</h6>
+              <div className='flex lg:bg-slate-100 md:[22px] lg:md:[22px] lg:h-[43px] px-[10px] rounded-md items-center'>
+                  <span className='flex items-center justify-center md:hidden mr-[10px] w-[25px]'><Image className='h-[23px] object-contain' src="/checkout/login.svg" height={20} width={20} layout="fixed" alt="Edit" /></span>
+                  <h6 className='text-[16px] font-semibold' >Login / Register</h6>
               </div>
 
-              <div className={`${styles.address_sec} ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto] '} py-[10px] cursor-pointer justify-between  gap-[5px]`}>
-               {localValue && localValue['cust_name'] && <p className='m-0 text-[14px] text-medium'>{localValue['cust_name']}</p> }
-               {localValue && localValue['cust_email'] && <p className='m-0 text-[14px] py-[5px] text-medium'>{localValue['cust_email']}</p> }
-               {localValue && localValue['phone'] && <p className='m-0 text-[14px] text-medium'>{localValue['phone']}</p> }
+              <div className={`${styles.address_sec} ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto] '} md:border-b-[1px] md:border-slate-200 md:mb-[8px] md:px-[10px] py-[10px] cursor-pointer justify-between  gap-[5px]`}>
+               {localValue && localValue['cust_name'] && <p className={`${isMobile ? 'sub_title' : null} m-0 text-[14px] text-medium`}>{localValue['cust_name']}</p> }
+               {localValue && localValue['cust_email'] && <p className={`${isMobile ? 'sub_title' : null} m-0 text-[14px] py-[5px] text-medium`}>{localValue['cust_email']}</p> }
+               {localValue && localValue['phone'] && <p className={`${isMobile ? 'sub_title' : null}vm-0 text-[14px] text-medium`}>{localValue['phone']}</p> }
               </div> 
 
 
-                <div className='flex justify-between lg:bg-slate-100 h-[43px] px-[10px] rounded-md items-center'>
+                <div className='flex justify-between lg:bg-slate-100 md:[22px] lg:h-[43px] px-[10px] rounded-md items-center'>
                   <div className='flex'>
-                  <span className='flex items-center justify-center w-[25px]'><Image className='h-[23px] object-contain' src="/checkout/Billing.svg" height={20} width={20} layout="fixed" alt="Edit" /></span>
-                   <h6 className='text-[16px] ml-[10px] font-semibold' >Billing Address</h6>
+                  <span className='flex items-center justify-center md:hidden mr-[10px] w-[25px]'><Image className='h-[23px] object-contain' src="/checkout/Billing.svg" height={20} width={20} layout="fixed" alt="Edit" /></span>
+                   <h6 className='text-[16px] font-semibold' >Billing Address</h6>
                   </div>
                   {customerInfo && customerInfo.address && customerInfo.address.length != 0  &&
                     <button className={`${styles.add_new} ${isMobile ? 'text-[14px] font-semibold primary_color' : 'border rounded-[5px] py-[2px] px-[7px] text-[14px] text-medium'}`} onClick={()=>isMobile ? goToAddres() : edit_address(undefined,'New','')} >{isMobile ? 'Edit' : 'Add New'}</button>  
@@ -320,21 +347,21 @@ function goToAddres(){
 
                 {customerInfo && customerInfo.address && customerInfo.address.length != 0  && customerInfo.address.map((res,index)=>(
 
-                    <div key={index} className={`${styles.address_sec} ${(isMobile && res.is_default != 1) ? 'hidden' : null}  flex cursor-pointer justify-between ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto] '} py-[10px] gap-[5px]`}>
+                    <div key={index} className={`${styles.address_sec} ${(isMobile && res.is_default != 1) ? 'hidden' : null}  flex cursor-pointer justify-between ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto] '} md:border-b-[1px] md:border-slate-200 md:mb-[8px] md:px-[10px] py-[10px] gap-[5px]`}>
                       <div onClick={() => { selectAddress(customerInfo.address,index) }} className={`flex w-full justify-between cursor-pointer gap-[10px]`}>
                         {!isMobile && <input className={styles.input_radio} checked={res.is_default} type="radio"/>}
                         <div className='w-full'>
                           <span className='flex justify-between items-center'>
-                            <h6 className='m-0 text-[15px]  capitalize font-semibold'>{res.first_name + ' ' + res.last_name}</h6>
+                            <h6 className={`${isMobile ? 'sub_title' : null} m-0 text-[15px]  capitalize font-semibold`}>{res.first_name + ' ' + res.last_name}</h6>
                           </span> 
-                          <p className='m-0 text-[14px] text-medium'>{res.address} <br></br> {res?.city}, {res?.state}, {res?.country} - {res?.zipcode}</p>
+                          <p className={`${isMobile ? 'sub_title' : null} m-0 text-[14px] text-medium`}>{res.address} , <br></br> {res?.city}, {res?.state}, {res?.country} - {res?.zipcode}</p>
                         </div>  
                       </div>
 
                       {!isMobile && 
                         <div className='flex items-center'> 
                             <div onClick={() =>{edit_address(res,'Edit',index)}} className='flex cursor-pointer mr-[15px] items-center'>
-                              <span className={`${styles.edit_text} text-[12px] mr-[5px]`}>Edit</span>
+                              <span className={`${styles.edit_text}  text-[12px] mr-[5px]`}>Edit</span>
                               <Image className='h-[14px]' src="/edit.svg" height={14} width={15} layout="fixed" alt="Edit" />
                             </div> 
                             <div onClick={() =>{edit_address(res,'Delete',index)}} className='flex cursor-pointer  items-center'>
@@ -356,12 +383,12 @@ function goToAddres(){
                   <AddressModal edit_address={editAddress} visible={visible} hide={(obj)=> hide(obj)} />
                 }
 
-                <div className='flex lg:bg-slate-100 flex items-center h-[43px] px-[10px] rounded-md'>
-                   <span className='flex items-center justify-center w-[25px]'><Image className='h-[23px] object-contain' src="/checkout/payment.svg" height={20} width={20} layout="fixed" alt="Edit" /></span>
-                   <h6 className='text-[16px] ml-[10px] font-semibold' >Payment Methods</h6>
-                  </div>
+                <div className='flex lg:bg-slate-100 flex items-center md:[22px] lg:h-[43px] px-[10px] rounded-md'>
+                   <span className='flex items-center justify-center md:hidden mr-[10px] w-[25px]'><Image className='h-[23px] object-contain' src="/checkout/payment.svg" height={20} width={20} layout="fixed" alt="Edit" /></span>
+                   <h6 className='text-[16px] font-semibold' >Payment Methods</h6>
+                </div>
 
-                <div className={`flex ${styles.card_detail} ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto]'} py-[10px] gap-[10px]`}>
+                <div className={`flex ${styles.card_detail} ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto]'} md:border-b-[1px] md:border-slate-200 md:px-[10px] py-[10px] gap-[10px]`}>
                   {payment_methods.map((res,index) => (
                     <div key={index} onClick={() => selectMethod(res,index)} className={`flex ${styles.payment_sec} ${isMobile ? 'w-max' : 'w-[15%]'} ${index == currentIndex ? 'active_border' : null} h-[50px] cursor-pointer items-center border rounded-[5px] p-[4px_10px] `}>
                       <input className={styles.input_radio} checked={index == currentIndex} type="radio"/>
@@ -390,9 +417,9 @@ function goToAddres(){
 
               <div className={`${styles.box_2}`}>
 
-                <div className='border rounded-[10px]'>
+                <div className='lg:border lg:rounded-[10px] md:border-b-[1px] border-slate-200 md:mb-[8px] lg:overflow-auto lg:hide-scrollbar lg:h-[calc(100vh_-_450px)]'>
 
-                  <h6 className='text-[16px]  pt-[10px] px-[10px]  font-semibold'>Your Orders</h6>
+                  <h6 className='text-[16px] lg:sticky lg:z-[9] lg:bg-white lg:top-0 pt-[10px] px-[10px] font-semibold'>Your Orders</h6>
                     {cart_items && cart_items.marketplace_items && cart_items.marketplace_items.map((res,index) =>(
                       <div key={index} className="flex py-[10px] px-[25px] border-b-[1px] border-slate-200 last:border-b-[0px] gap-[7px] items-center">
                         <div className="relative w-1/4">
@@ -400,7 +427,7 @@ function goToAddres(){
                           <span className="absolute inline-flex items-center justify-center w-[24px] h-[24px] text-[12px] border border-slate-400 font-bold text-black bg-white rounded-full -top-2 -right-2">{res.quantity}</span>
                         </div>
                         <div className="w-3/4">
-                          <h6 className='font-semibold line-clamp-2 opacity-[70px] text-[15px]'>{res.item}</h6>
+                          <h6 style={{fontWeight:'600'}} className='font-semibold sub_title line-clamp-2 text-[15px]'>{res.item}</h6>
                           <h6 className='font-semibold pt-[5px] text-[15px]'>Rs {res.price}</h6>
                         </div>
                       </div>
@@ -409,16 +436,16 @@ function goToAddres(){
                 </div>
 
                 {cart_items && 
-                    <div className='border mt-[10px] rounded-[10px]'>
+                    <div className='lg:border lg:rounded-[10px] md:border-b-[1px] border-slate-200 md:mb-[8px] lg:mt-[10px]'>
 
                     <h6 className='text-[16px] pt-[10px] px-[10px] font-semibold'>Discount Code</h6>
                   
                     {/* border-sky-600 */}
-                    <div className="flex border h-[40px]  rounded-[5px] py-[5px] px-[7px] mt-[10px] mr-[10px] ml-[10px] items-center">
+                    {/* <div className="flex border h-[40px]  rounded-[5px] py-[5px] px-[7px] mt-[10px] mr-[10px] ml-[10px] items-center">
                       <Image className='' src={imageChange('Visa')} height={10} width={30} layout="fixed" />
                       <input className={`border-transparent !important text-[14px] mx-[5px] w-[217px]`} type="text" placeholder="Enter the coupon code" value={name}  onChange={handleNameChange} />
                       <button className='button text-end text-[14px] text-sky-400 font-semibold w-1/4'>Apply</button>
-                    </div> 
+                    </div>  */}
 
                     <div className='flex flex-wrap  py-[10px] px-[25px] justify-between items-center'>
                       <h6 className='w-3/6 text-[14px] pb-[5px]'>Subtotal</h6>
@@ -434,7 +461,11 @@ function goToAddres(){
                     </div>
 
                     <div class="flex mb-[15px] justify-center items-center">
-                    <button className={`primary_btn text-[14px] h-[40px] w-[90%] hover:bg-red-200 focus:outline-none focus-visible:ring-2`} onClick={() => checkout() }>Checkout Order</button>
+                      <LoaderButton loader={loader} buttonClick={checkout} width={'w-[90%]'} button_name={'Checkout Order'} />
+                      {/* <button className={`${loader ? 'opacity-[0.9]' : null} primary_btn flex items-center justify-center text-[14px] h-[40px] w-[90%] hover:bg-red-200 focus:outline-none focus-visible:ring-2`} onClick={() => loader ? null : checkout() }>
+                        {!loader && 'Checkout Order'}
+                        {loader && <div class="animate-spin rounded-full h-[15px] w-[15px] border-l-2 border-t-2 border-white"></div>}
+                      </button> */}
                     </div>
 
                   </div>

@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 // import { useDispatch, useSelector } from 'react-redux'
 // import setPagination from 'redux/actions/paginationAction';
 
-export default function CategoryDetail({ data }) {
+export default function CategoryDetail({ data, ads }) {
   // Store
   // const pagination = useSelector(s => s.pagination);
   // const dispatch = useDispatch();
@@ -20,16 +20,12 @@ export default function CategoryDetail({ data }) {
   // let pagination = false;
   // let prev = router.query.detail;
 
-
-
   useEffect(() => {
     if (data) {
       let val = [data]
-      // setValues(d => [...d, ...val])
       setValues(val)
     }
-    setPrev(router.query.types + '/' +router.query.detail)
-    // setPagination(true)
+    setPrev(router.query.types + '/' + router.query.detail)
   }, [router.query])
 
 
@@ -40,11 +36,10 @@ export default function CategoryDetail({ data }) {
       "next": 1
     }
 
-    // console.log(pagination)
+
     if (pagination) {
       let value = await articlesDetail(param);
       let data = value.message;
-      // console.log(data)
       if (data && data.status == "Success") {
         setPrev(data.route)
         // router.replace(`/categories/${router.query.types}/${data.name}`)
@@ -53,24 +48,20 @@ export default function CategoryDetail({ data }) {
       } else {
         setPagination(!pagination)
       }
-      
     }
   }
 
 
-
-
-
   return (
     <>
-      <RootLayout>
+      <RootLayout isLanding={true} head={''} homeAd={(ads) ? ads : null}>
         {/* {data && <div> */}
         {/* setPage={(data) => setPagination(data)} pagination={pagination} */}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
               <div key={index}>
-                <CategoryBuilder isLast={index == values.length - 1}  i={index} data={res} load={loadMore} />
+                <CategoryBuilder isLast={index == values.length - 1} ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
               </div>
             )
           })}
@@ -85,8 +76,8 @@ export default function CategoryDetail({ data }) {
 const Skeleton = () => {
   return (
     <>
-      <div className='flex md:flex-wrap container justify-between p-[30px]'>
-        <div className='flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+      <div className='lg:flex md:flex-wrap container justify-between p-[15px_0px] md:p-[15px]'>
+        <div className='lg:flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
           <div className='flex gap-[5px]'>
             {[0, 1, 2, 3].map((res, index) => {
               return (
@@ -142,7 +133,7 @@ const Skeleton = () => {
 
           </div>
         </div>
-        <div className='flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+        <div className='lg:flex-[0_0_calc(30%_-_10px)] md:mt-[20px] md:flex-[0_0_calc(100%_-_10px)]'>
           <p className='h-[15px] w-[100px] bg-[#E5E4E2]'></p>
           {[0, 1, 2].map((res, index) => {
             return (
@@ -189,7 +180,7 @@ const Skeleton = () => {
       </div>
 
       {/* Cards */}
-      <div className='container px-[30px] flex justify-between gap-[15px]'>
+      <div className='container lg:px-[30px] md:px-[15px] md:mb-[20px] overflow-hidden flex justify-between gap-[15px]'>
         {[0, 1, 2, 3, 4].map((res, index) => {
           return (
             <div key={index} className='flex-[0_0_calc(20%_-_10px)]'>
@@ -217,20 +208,11 @@ export async function getServerSideProps({ params }) {
   let value = await articlesDetail(param);
   let data = value.message;
 
-  // let paras = {doctype:'Articles',page_type: 'Detail'}
-  // const resp = await getAds(param);
-  // const ads = resp.message;
-
-  // let param = {
-  //     doctype: "Articles",
-  //     name: Id,
-  //     related_fields:["primary_text","secondary_text","title","publisher"],
-  //     related_records: 6
-  // }
-  // let value = await getDetails(param);
-  // let data = value.message;
+  let paras = { doctype: 'Articles', page_type: 'Detail' }
+  const resp = await getAds(paras);
+  const ads = resp.message;
 
   return {
-    props: { data }
+    props: { data, ads }
   }
 }

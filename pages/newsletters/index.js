@@ -1,29 +1,42 @@
 // import NewsLetterBuilder from '@/components/Builders/NewsLetterBuilder'
 import RootLayout from '@/layouts/RootLayout'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import NewsList from '@/components/Newsletter/NewsList';
 import value from '@/libs/newsletter';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import Subscribe from '@/components/Landing/Subscribe';
-import { newsLanding } from '@/libs/api';
+import { newsLanding, checkMobile } from '@/libs/api';
 
 export default function newsletter({ data }) {
 
+  const [isMobile, setIsMobile] = useState()
+  useEffect(() => {
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile)
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, [])
+
+  const checkIsMobile = async () => {
+    let isMobile = await checkMobile();
+    setIsMobile(isMobile);
+  }
 
 
   return (
     <>
-      <RootLayout>
-        {(data) && <div className='container p-[30px]'>
-          <div className='text-center'><Title data={{title:'Newsletters'}} /></div>
-          <div className=' flex md:flex-wrap justify-between gap-[20px]'>
-            <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] border p-[20px] rounded-[5px]`}>
+      <RootLayout isLanding={true} head={'Newsletters'}>
+        {(data) && <div className='container p-[30px_0px] md:p-[15px]'>
+          <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
+          <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
+            <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_0px)] ${isMobile ? '' : 'border p-[20px] rounded-[5px]'} `}>
               <NewsList data={data} />
             </div>
 
-            {value.col_2 &&
-              <div className='flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+            {(value.col_2 && !isMobile) &&
+              <div className='flex-[0_0_calc(30%_-_10px)] md:mt-[15px] md:flex-[0_0_calc(100%_-_0px)]'>
                 <div className='pb-[20px]'>
                   <AdsBaner data={value.col_2} />
                 </div>
@@ -37,7 +50,6 @@ export default function newsletter({ data }) {
 
 
         </div>}
-
       </RootLayout>
     </>
   )
