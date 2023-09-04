@@ -1,7 +1,6 @@
 import React from 'react';
 import RootLayout from '@/layouts/RootLayout'
 import { getList } from '@/libs/api'
-// import PageListData from '@/libs/PodcastList'
 import HomePodcast from '@/components/Podcast/HomePodcast';
 
 export default function PodcastList(data) {
@@ -9,11 +8,12 @@ export default function PodcastList(data) {
     return (
         <>
             <RootLayout>
-                {/* {(PageListData && PageListData.page_sections) && PageListData.page_sections.map((res, index) => {
+                {data && <HomePodcast data={data} />}
+                {/* {(data && data.data)
                     return (
                         <HomePodcast key={index} data={res} />
                     )
-                })} */}
+                } */}
             </RootLayout>
 
         </>
@@ -21,15 +21,16 @@ export default function PodcastList(data) {
 }
 
 export async function getServerSideProps({ params }) {
-    console.log(params);
-    // let Id = await params?.detail;
-    // let param = {
-    //     doctype: "Podcast",
-    //     fields: Id    
-    // }
-    // let value = await getList(param);
-    // let data = value.message;
+    // console.log(params);
+    let Id = await params?.list;
+    let param = {
+        doctype: "Podcast",
+        fields:['name', 'title', 'sound', 'image', 'category', 'description', 'route'],
+        filters:{"route":["like",'%'+Id+'%']}   
+    }
+    let value = await getList(param);
+    let data = value.message;
     return {
-        props: { params }
+        props: { data }
     }
 }

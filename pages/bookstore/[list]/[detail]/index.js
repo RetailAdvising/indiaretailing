@@ -184,8 +184,14 @@ const  getCarts = async (type) => {
   cart_items = await getCartItem();
   setCartItems(cart_items);
   if(cart_items && cart_items.marketplace_items && cart_items.marketplace_items.length != 0){
-    let getValue = cart_items.marketplace_items.find(res=>{ return res.product == value.name})
-    value.quantity = getValue ? getValue.quantity : 0
+    if(value.has_variants == 1){
+      let getValue = cart_items.marketplace_items.find(res=>{ return res.attribute_ids == value.attribute_ids})
+      value.quantity = getValue ? getValue.quantity : 0
+    }else{
+      let getValue = cart_items.marketplace_items.find(res=>{ return res.product == value.name})
+      value.quantity = getValue ? getValue.quantity : 0
+    }
+
   }else{
     value.quantity = 0
   }
@@ -208,7 +214,7 @@ const  getCarts = async (type) => {
       <RootLayout>
         {/* <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}
         {(data && Object.keys(data).length != 0) && <div className='container'>
-          <div className={`flex justify-between flex-wrap gap-[15px]  lg:p-[30px]`}>
+          <div className={`flex justify-between flex-wrap gap-[15px] py-8`}>
             <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex flex-col md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               {/* flex-[0_0_calc(100%_-_10px)] */}
               <div className={``}>
@@ -278,7 +284,7 @@ const  getCarts = async (type) => {
                   <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${isMobile ? 'w-max' : 'w-[15%]'} ${index == currentVariantIndex ? 'active_border' : null} h-[50px] cursor-pointer items-center border rounded-[5px] p-[4px_10px] `}>
                     <input className='' checked={index == currentVariantIndex} type="radio"/>
                     <div  className={`flex justify-center items-center`}>
-                      {/* <p></p> */}
+                      <p>{vendor.variant_text}</p>
                       {/* <img  className="h-[13px]" src={check_Image(res.logo)} /> */}
                     </div> 
                  </div>

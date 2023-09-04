@@ -57,6 +57,11 @@
   }
 }
 
+
+.gray_color{
+  color: $secondary-color;
+}
+
 html,
 body {
 
@@ -581,7 +586,7 @@ input {
 
   .title_div {
     .title {
-      font-size: $font-16;
+      font-size: $font-15;
       font-weight: 600;
       text-transform: capitalize;
     }

@@ -41,25 +41,25 @@ export default function Bookstore({ data,resp }) {
       <RootLayout>
         {(data && data.length != 0) && <>
           {(resp.recent_products && resp.recent_products.length != 0) && 
-          <div className='py-[10px]' style={{ background: "#f0f0f0" }}>
+          <div className='pt-[10px]' style={{ background: "#f0f0f0" }}>
             <Sliders data={resp.recent_products} perView={3} />
           </div>}
 
-          <div className={`lg:bg-[#FBFBFD] md:mt-[15px] lg:mt-[50px]`}>
+          <div className={`lg:bg-[#FBFBFD]`}>
             {/* {data.map((res, index) => {
               return ( */}
-            <div className='md:flex-wrap  md:p-[10px] lg:p-[30px] container justify-between gap-[15px] flex'>
+            <div className='md:flex-wrap  md:p-[15px] py-8 container justify-between gap-[15px] flex'>
               <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
                 <Title data={data[0]}  seeMore={true} />
                 <div className={`grid gap-[35px] grid-cols-4 md:grid-cols-2 `}><Card imgClass={'h-[270px] w-[181px]'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 8)} boxShadow={true} /></div>
               </div>
-              <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}><AdsBaner data={val.section_2.col_2} /></div>
+              <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}><AdsBaner data={val.section_2.col_2} /></div>
             </div>
             {/* )
             })} */}
           </div>
 
-          {(data[1] && data[2]) && <div className='container md:p-[15px_10px_10px_10px] lg:p-[30px] md:flex-wrap md:flex-col flex justify-between gap-[15px]'>
+          {(data[1] && data[2]) && <div className='container md:p-[10px_15px_10px_15px] py-8 md:flex-wrap md:flex-col flex justify-between gap-[15px]'>
             <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
               <Title data={data[1]}  seeMore={true} />
               <div className={`flex lg:gap-[15px] h-full rounded-[5px] flex-wrap border p-[10px]`}><List category={data[1].category_name} check={true} isLanding={true} boxShadow={true} imgWidth={'flex-[0_0_calc(40%_-_10px)]'} height={isMobile ? 'h-[180px]' : 'h-[210px]'} width={'w-full'} data={data[1].products.slice(0, 4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] lg:h-[220px] md:h-[190px]'} /></div>
@@ -71,8 +71,8 @@ export default function Bookstore({ data,resp }) {
             </div>
           </div>}
 
-          { data[3] && <div className='lg:mb-[30px] lg:mt-[60px] md:mt-[10px]' style={{ background: '#fbfbfd' }}>
-            <div className={`flex-[0_0_calc(100%_-_10px)] container md:p-[10px] lg:p-[30px]`}>
+          { data[3] && <div className='' style={{ background: '#fbfbfd' }}>
+            <div className={`flex-[0_0_calc(100%_-_10px)] container md:p-[15px] lg:py-8`}>
               <Title data={data[3]} />
               <div className={`flex gap-[15px] flex-wrap `}><Card category={data[3].category_name} object_fit={'object-contain'} padding={true} isBorder={true} check={true} isLanding={true} height={isMobile ? 'h-[160px]' : 'h-[280px]'} flex={'flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data[3].products} /></div>
             </div>

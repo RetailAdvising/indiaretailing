@@ -76,7 +76,7 @@ export default function NewsLists({ data }) {
                 <p className='sub_title py-3 md:hidden'>{data.custom_description}</p>
                 <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] h-[35px] w-[100px]'>subscribe</button>
               </div>
-              <div className={`flex-[0_0_calc(45%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
+              <div className={`flex-[0_0_calc(45%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
                 <Image className={`h-[380px] w-full`} src={check_Image(data.custom_image_)} height={300} width={500} alt={data.custom_title} />
                 <p className='sub_title py-3 lg:hidden'>{data.custom_description}</p>
                 <div className='w-full text-center lg:hidden'>

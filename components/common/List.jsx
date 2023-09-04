@@ -14,7 +14,7 @@ export default function List({imgFlex,contentWidth,line,data,check,isTop,isRever
                          {(res.primary_text && res.secondary_text && isTop) && <p className={`flex  ${exclusives.title_top}  items-center absolute`}><span className='primary_text pr-[8px] '>{res.primary_text}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span> <span className='pl-[8px] secondary_text'>{res.secondary_text}</span></p>}
                         {/* ${check ? '' : 'basis-1/4'} */}
                         <div className={`${imgFlex} ${isTop && 'pt-[25px]'} ${isReverse ? 'flex-[0_0_calc(35%_-_10px)]' : ''}`}>
-                            <Image  className={`${imgHeight} ${imgWidth} ${borderRadius}`} src={check ? check_Image(res.image ? res.image : res.thumbnail_image) : res.image}  height={100} width={100} alt={"image"} />
+                            <Image  className={`${imgHeight} ${imgWidth} ${borderRadius}`} src={check ? check_Image(res.image || res.video_image || res.thumbnail_image) : res.image}  height={100} width={100} alt={"image"} />
                         </div>
                         {/* w-[280px] */}
                         <div className={`${(!fullWidth && !isReverse) && ''} ${contentWidth} flex flex-col leading-[1] ${isTop && 'pt-[25px]'}`}>

@@ -179,15 +179,15 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
       <div ref={cardref}>
         <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[10px_15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
-            <div>
+            <p>
               <Content i={i} res={data} />
-            </div>
+            </p>
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'line-clamp-5'}`} />
 
-            {(isPrime && !validator) && <div className='border p-[20px] shadow-2xl h-[10%] my-[20px]'>
-              <p className='text-center text-[20px] font-semibold pb-[15px]'>This story is for Premium Members you  have to buy Membership to Unlock</p>
-              <div className='flex gap-[20px] justify-center pt-[20px]'>
-                <button className='primary_btn h-[40px] w-[20%]' onClick={() => router.push('/membership')}>Subscribe</button>
+            {(isPrime && !validator) && <div className='border p-[20px] shadow-xl my-[20px] rounded-lg'>
+              <p className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px]'>This story is for Premium Members you  have to buy Membership to Unlock</p>
+              <div className='flex gap-[20px] justify-center pt-[0px]'>
+                <button className='primary_btn p-[8px_16px]' onClick={() => router.push('/membership')}>Subscribe</button>
                 {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
                 <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button> */}
               </div>
@@ -263,9 +263,9 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
                     {(data.comments && data.comments.length != 0) && <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>Read all comments</button>}
-                    <button onClick={showSidebar} className={`justify-center  h-[45px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center lg:w-[25%] md:w-[45%] flex border`}>Post a comment </button>
+                    <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button>
                   </div> : <div className={`mt-[10px] flex justify-center`}>
-                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[50%] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
                   </div>}
 
 
@@ -319,7 +319,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
         {categories.sections.section_3 && <div className={`${isMobile ? '' : 'container'} ${styles.section_3}`}>
           {/* Slider */}
-          {(categories.sections.section_3.section_type == 'slider' && categories.sections.section_3.type == 'card') && <div className={`${styles.slider_parent} latestNews_slider p-[10px_0px] ${isLast && 'mb-7'}`}>
+          {(categories.sections.section_3.section_type == 'slider' && categories.sections.section_3.type == 'card') && <div className={`${styles.slider_parent} latestNews_slider p-[10px_0px] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
             <MultiCarousel perView={5} noPlay={true} data={categories.sections.section_3.data} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} />
           </div>}

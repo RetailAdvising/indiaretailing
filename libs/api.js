@@ -176,13 +176,9 @@ export async function GET(api) {
     return data;
 }
 
-export async function HomePage(){
-    let params = {
-        // "application_type": "mobile",
-        "route": "home"
-    }
+export async function HomePage(data){
     let api = 'go1_cms.go1_cms.api.get_page_content';
-    return await postMethod(api,params)
+    return await postMethod(api,data)
 }
 
 
@@ -332,6 +328,11 @@ export async function deleteCartItems(data){
 //podcast
 export async function podcastLanding(data){
     let api = domainUrl + 'podcast_list_with_categoies';
+    return await postMethod(api,data)
+}
+
+export async function podcast_details(data){
+    let api = domainUrl + 'podcast_details';
     return await postMethod(api,data)
 }
 

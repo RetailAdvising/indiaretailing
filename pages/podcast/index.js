@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout'
-import PageData from '@/libs/Podcast'
+// import PageData from '@/libs/Podcast'
 import HomePodcast from '@/components/Podcast/HomePodcast'
-import { podcastLanding } from '@/libs/api'
+import { podcastLanding, checkMobile } from '@/libs/api'
 
 export default function Podcast({ data }) {
-    console.log(data)
+
+    // const [isMobile, setIsMobile] = useState()
+    // useEffect(() => {
+    //     checkIsMobile();
+    //     window.addEventListener('resize', checkIsMobile)
+    //     return () => {
+    //         window.removeEventListener('resize', checkIsMobile);
+    //     };
+    // }, [])
+
+    // const checkIsMobile = async () => {
+    //     let isMobile = await checkMobile();
+    //     setIsMobile(isMobile);
+    // }
     return (
         <>
             <RootLayout>
-                {(PageData && PageData.page_sections) && PageData.page_sections.map((res, index) => {
+                {(data && data) && data.map((res, index) => {
                     return (
                         <HomePodcast key={index} data={res} />
                     )

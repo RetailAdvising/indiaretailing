@@ -21,8 +21,6 @@ import SectionBox from '../Category/SectionBox'
 
 export default function HomePageBuilder({ data, isLast, loadMore }) {
     const cardref = useRef()
-    // const [isLast,setIsLast] = useState(false);
-    // const route = useSelector(state => state.routes);
     useEffect(() => {
         if (!cardref?.current) return;
         const observer = new IntersectionObserver(([entry]) => {
@@ -36,16 +34,19 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
 
         observer.observe(cardref.current);
     }, [isLast]);
+    // console.log(data)
+    // console.log(data.layout_json)
+    console.log(JSON.parse(data.layout_json))
     return (
         <>
             {/* {data && data.map((res,index) => { */}
             {/* return ( */}
-            <div ref={cardref} className={`${data.layout_id == "STL-0003" && 'border_bottom'}`} style={{ background: data.background }}>
-                <div ref={cardref} className={`flex p-[20px_0px] justify-between flex-wrap gap-[25px] container`}>
+            {/* <div ref={cardref} className={`${data.layout_id == "STL-0003" && 'border_bottom'}`} style={{ background: data.background }}>
+                <div className={`flex p-[20px_0px] justify-between flex-wrap gap-[25px] container`}>
                     {
                         (data.layout_json) && data.layout_json.map((item, index) => {
                             return (
-                                // ${(item.col == "1" || item.col == "3") && 'p1030'}
+                             
                                 <div key={index} className={`${item.class} md:w-full md:basis-full`} style={{ background: item.background }}>
                                     {item.components.map((resp, index) => {
                                         return (
@@ -61,10 +62,6 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
                                                 {(resp.component_title == "IRPrime" && resp.data.data) && <IRPrime data={resp.data} />}
                                                 {(resp.component_title == "Subscribe" && resp.data) && <Subscribe data={resp.data} height={"h-[162px]"} width={"w-full"} />}
                                                 {(resp.component_title == "ImageContainer" && resp.component_type == "BulletList" && resp.data) && <>
-                                                    {/* <div className='title_div pb-3'>
-                                                            <h6 className='title '>{resp.data.title}</h6>
-                                                            <div className='line'></div>
-                                                        </div> */}
                                                     <Title data={resp.data} />
                                                     <div className={`flex gap-[20px] justify-between flex-wrap`}>
                                                         <div className='flex-[0_0_calc(55%_-_10px)]'><ImageContainer data={resp.data} height={'h-[250px]'} width={'w-[500px]'} /></div>
@@ -81,9 +78,6 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
                                                         <div className={`flex gap-[10px] flex-[0_0_calc(7%_-_10px)] justify-end`}><TrendingBox icons={resp.data} parentElement={'trending'} /></div>
                                                     </div>
                                                 </>}
-                                                {/* {(resp.component_title == "TrendingBox" && resp.component_type == "box1" && resp.data) && <>
-                                                <div className={`flex gap-[10px] pt-[45px]`}><TrendingBox icons={resp.data} parentElement={'trending'} /></div>
-                                            </>} */}
                                                 {(resp.component_title == "MultiCarousel" && resp.component_type == "slider" && resp.data) && <>
                                                     <Title data={resp.data} />
                                                     {resp.data.data &&
@@ -117,11 +111,11 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
                                                 </>}
                                                 {(resp.component_title == "List" && resp.component_type == "list3" && resp.data) && <>
                                                     <Title data={resp.data} />
-                                                    <div className={``}><List  data={resp.data.data} fullWidth={true} imgWidth={"w-[164px]"} imgHeight={"h-[144px]"} borderRadius={"rounded-[10px]"} /></div>
+                                                    <div className={``}><List data={resp.data.data} fullWidth={true} imgWidth={"w-[164px]"} imgHeight={"h-[144px]"} borderRadius={"rounded-[10px]"} /></div>
                                                 </>}
                                                 {(resp.component_title == "List" && resp.component_type == "list3/2" && resp.data) && <>
                                                     <Title data={resp.data} />
-                                                    <div className={``}><List  data={resp.data.data} imgWidth={"w-[60px]"} imgHeight={"h-[50px]"} isBB={true} borderRadius={"rounded-[10px]"} /></div>
+                                                    <div className={``}><List data={resp.data.data} imgWidth={"w-[60px]"} imgHeight={"h-[50px]"} isBB={true} borderRadius={"rounded-[10px]"} /></div>
                                                 </>}
                                                 {(resp.component_title == "VideoContainer" && resp.component_type == "video2" && resp.data) && <>
                                                     <Title data={resp.data} />
@@ -130,7 +124,7 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
                                                 {(resp.component_title == "AdsBaner" && resp.component_type == "Ad4" && resp.data) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={resp.data} height={"100px"} /></>}
                                                 {(resp.component_title == "List" && resp.component_type == "list4" && resp.data) && <>
                                                     <Title data={resp.data} />
-                                                    <div className={`${resp.data.title == 'Technology' && 'border p-[10px] rounded-[5px]'}`}><List data={resp.data.data} imgFlex={resp.data.title == 'Technology' ? 'flex-[0_0_calc(25%_-_10px)]': 'flex-[0_0_calc(40%_-_10px)]'} imgWidth={resp.data.title == 'Technology' ? "w-[100px]" : "w-[185px]"} imgHeight={resp.data.title == 'Technology' ? "h-[75px]" : "h-[156px]"} borderRadius={"rounded-[10px]"} isTop={resp.data.title == 'Technology' ? true : false} isBB={resp.data.title == 'Technology' ? true : false} /></div>
+                                                    <div className={`${resp.data.title == 'Technology' && 'border p-[10px] rounded-[5px]'}`}><List data={resp.data.data} imgFlex={resp.data.title == 'Technology' ? 'flex-[0_0_calc(25%_-_10px)]' : 'flex-[0_0_calc(40%_-_10px)]'} imgWidth={resp.data.title == 'Technology' ? "w-[100px]" : "w-[185px]"} imgHeight={resp.data.title == 'Technology' ? "h-[75px]" : "h-[156px]"} borderRadius={"rounded-[10px]"} isTop={resp.data.title == 'Technology' ? true : false} isBB={resp.data.title == 'Technology' ? true : false} /></div>
                                                 </>}
                                                 {(resp.component_title == "Card" && resp.component_type == "card2" && resp.data) && <>
                                                     <Title data={resp.data} />
@@ -155,30 +149,6 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
                                                     <div className={`flex flex-wrap gap-5 justify-between`}><Cards flex={'flex-[0_0_calc(25%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} data={resp.data.data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[200px]"} width={"w-full"} isBorder={true} /></div>
                                                 </>}
                                                 {(resp.component_title == "AdsBaner" && resp.component_type == "Adbike" && resp.data) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-full"} width={'w-full'} data={resp.data} /></div>}
-
-                                                {/* Events Page */}
-                                                {/* {(resp.component_title == "EventCards" && resp.component_type == "conferences" && resp.data) && <>
-                                                    <Title data={resp.data} seeMore={true} />
-                                                    <div className={`flex gap-[20px] justify-between flex-wrap`}><EventCards data={resp.data.data} flex={'flex_50 md:flex-[0_0_calc(100%_-_10px)]'} /></div>
-                                                </>}
-                                                {(resp.component_title == "EventCards" && resp.component_type == "webspecials" && resp.data) && <>
-                                                    <Title data={resp.data} seeMore={true} />
-                                                    <div className={`flex gap-[20px] justify-between flex-wrap`}><EventCards data={resp.data.data} flex={'flex_50 md:flex-[0_0_calc(100%_-_10px)]'} /></div>
-                                                </>}
-                                                {(resp.component_title == "EventCards" && resp.component_type == "webinars" && resp.data) && <>
-                                                    <Title data={resp.data} seeMore={true} />
-                                                    <div className={`flex gap-[20px] justify-between flex-wrap`}><EventCards data={resp.data.data} flex={'flex_50 md:flex-[0_0_calc(100%_-_10px)]'} /></div>
-                                                </>}
-                                                {(resp.component_title == "EventCards" && resp.component_type == "partnerevents" && resp.data) && <>
-                                                    <Title data={resp.data} seeMore={true} />
-                                                    <div className={`flex gap-[20px] justify-between flex-wrap`}><EventCards data={resp.data.data} flex={'flex_50 md:flex-[0_0_calc(100%_-_10px)]'} /></div>
-                                                </>} */}
-
-                                                {/* Category Page */}
-                                                {(resp.component_title == "Category" && resp.component_type == "slider" && resp.data) && <div className={`flex justify-between gap-[15px]`}>
-                                                    <div className={`lg:w-[calc(25%_-_10px)] md:w-[calc(40%_-_10px)] xl:w-[calc(20%_-_10px)]`}><SectionBox data={resp.data} /></div>
-                                                    <div className='lg:w-[calc(75%_-_10px)] md:w-[calc(60%_-_10px)] xl:w-[calc(80%_-_10px)]'><MultiCarousel noPlay={true} check={false} height={'h-[185px]'} perView={4} width={'w-full'} data={resp.data.data} /></div>
-                                                </div>}
                                             </div>
                                         )
                                     })}
@@ -188,6 +158,24 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
                     }
 
                 </div>
+            </div> */}
+
+            <div  >
+                {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
+                    return (
+                        <div key={index} className={`${res.class}`}>
+                            {(res.components && res.components.length != 0) && res.components.map(c => {
+                                return (
+                                    <div key={index}>
+                                        {console.log(data.data[c.cid])}
+                                        {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 3 Stories") && <TopStories data={data.data[c.cid].data} />}
+                                    </div>
+                                )
+                            })}
+                            {/* {(res.u_id) &&  data[u_id]} */}
+                        </div>
+                    )
+                })}
             </div>
             {/* ) */}
             {/* })} */}

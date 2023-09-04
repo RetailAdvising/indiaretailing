@@ -97,8 +97,7 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
                     renderDotsOutside={false}
                     // sliderClass=""
                     slidesToSlide={1}
-                    swipeable
-                >
+                    swipeable>
 
                     {(data && data.length != 0) && data.map((res, index) => {
                         return (
@@ -110,9 +109,9 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
                                     {/* {(res.primary_text && res.secondary_text) && <p className='flex gap-2'><span className={`text-red ${styles.primary_text}`}>{res.primary_text}</span> | <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>} */}
                                     <div className='flex gap-[10px]'>
                                         <Image src={check ? ((res.avatar && res.avatar != null && res.avatar != '') ? check_Image(res.avatar) : '/profit.svg') : res.profile} height={40} width={60} alt={res.title} className={`rounded-full h-[40px] w-full flex-[0_0_calc(20%_-_10px)]`} />
-                                        <p className={` title line-clamp-2`}>{res.title ? res.title : ''}</p>
+                                        <p className={`title line-clamp-2`}>{res.title ? res.title : ''}</p>
                                     </div>
-                                    <p className={` sub_title pt-[5px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
+                                    <p className={`sub_title pt-[5px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
                                     <p style={{fontSize:'12px'}} className='hashtags pt-[5px]'>{res.hashtags ? res.hashtags : res.author ? res.author : res.publisher ? res.publisher : ''}</p>
                                 </div>
                             </div>

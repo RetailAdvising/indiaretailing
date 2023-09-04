@@ -31,7 +31,7 @@ export default function newsletter({ data }) {
         {(data) && <div className='container p-[30px_0px] md:p-[15px]'>
           <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
           <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
-            <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_0px)] ${isMobile ? '' : 'border p-[20px] rounded-[5px]'} `}>
+            <div className={`flex-[0_0_calc(70%_-_0px)] md:flex-[0_0_calc(100%_-_0px)] ${isMobile ? '' : 'border p-[20px] rounded-[5px]'} `}>
               <NewsList data={data} />
             </div>
 

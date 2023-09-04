@@ -8,19 +8,19 @@ export default function Videos({ data, ads }) {
   console.log(ads)
   return (
     <>
-      <RootLayout>
-        {/* {(data && data.length != 0) ? <>
+      <RootLayout isLanding={true} head={'IR Prime Videos'}>
+        {(data && data.length != 0) ? <div className='container lg:p-[30px_20px] md:p-[15px]'>
           {data.map((res, index) => {
             return (
-              <div key={index}>
+              <div key={index} className='pb-[20px]'>
                 <Title data={res} seeMore={true} />
-                <div className={`lg:grid grid-cols-4 lg:gap[15px]`}><Video data={res.video} /></div>
+                <div className={`lg:grid grid-cols-4 no_scroll lg:gap-[15px]`}><Video data={res.videos} flex={'md:flex-[0_0_calc(50%_-_10px)] md:h-full'} /></div>
               </div>
             )
           })}
 
 
-        </> : <>Loading</>} */}
+        </div> : <>Loading</>}
       </RootLayout>
     </>
   )
