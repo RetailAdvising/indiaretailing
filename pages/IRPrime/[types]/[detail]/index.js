@@ -1,7 +1,7 @@
-'use client'
+// 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
-import { articlesDetail, getAds } from '@/libs/api';
+import { articlesDetail } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 export default function Details() {
@@ -9,45 +9,32 @@ export default function Details() {
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);
-  // let pagination = false;
-  // let prev = router.query.detail;
 
-  async function articleDetail() {
-    if (router.query && (router.query.detail && router.query.types)) {
-      let Id = await router.query?.detail;
-      let category = await router.query?.types;
-      let param = {
-        "route": category + '/' + Id,
-        "category": category,
-        "next": 0
-      }
-      let value = await articlesDetail(param);
-      let data = value.message;
-      let val = [data]
-      setValues(d => [...d, ...val])
-      setPrev(router.query.types + '/' + router.query.detail)
-    }
-  }
+  // const articleDetail = async () => {
+  //   if (router.query && (router.query.detail && router.query.types)) {
+  //     let Id = await router.query?.detail;
+  //     let category = await router.query?.types;
+  //     let param = {
+  //       "route": category + '/' + Id,
+  //       "category": category,
+  //       "next": 0
+  //     }
+  //     let value = await articlesDetail(param);
+  //     let data = value.message;
+  //     let val = [data]
+  //     setValues(d => [...d, ...val])
+  //     setPrev(router.query.types + '/' + router.query.detail)
+  //   }
+  // }
 
 
 
-  useEffect(() => {
-    articleDetail();
-    // if (data) {
-    //   let val = [data]
-    //   setValues(d => [...d, ...val])
-    // }
-    // setPrev(router.query.detail)
-    // setPagination(true)
-  }, [router.query])
+  // useEffect(() => {
+  //   articleDetail();
+  // }, [router.query])
 
 
   async function loadMore() {
-    // setPagination(t => t = true);
-    // dispatch(setPagination(true))
-    // pagination = true
-    // console.log(pagination)
-
     let param = {
       "route": prev,
       "category": router.query.types,
@@ -68,16 +55,15 @@ export default function Details() {
     }
   }
 
-  const getAdsList = async () => {
-    let param = { doctype: 'Articles', page_type: 'Detail' }
-    const resp = await getAds(param);
-    const ads = resp.message;
-  }
+  // const getAdsList = async () => {
+  //   let param = { doctype: 'Articles', page_type: 'Detail' }
+  //   const resp = await getAds(param);
+  //   const ads = resp.message;
+  // }
 
   return (
     <>
       <RootLayout isLanding={true} head={''}>
-        {/* {data && <CategoryBuilder isPrime={true} data={data} />} */}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
