@@ -9,5 +9,7 @@ export const check_Image = (Image) => {
         } else if (Image.indexOf('https') == 0) {
             return Image;
         }
+    }else{
+       return '/empty_state.svg'
     }
 }

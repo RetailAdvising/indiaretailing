@@ -8,7 +8,7 @@ export default function PodcastDetail(data) {
     // console.log(data);
     return (
         <>
-            <RootLayout>
+            <RootLayout head={data.data.title}>
                 <div className={`flex p-[20px_30px] md:p-[10px] justify-between flex-wrap gap-[25px] container`}>
                     {
                         <div className="w-full">

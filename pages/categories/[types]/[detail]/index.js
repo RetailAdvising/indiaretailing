@@ -76,7 +76,7 @@ export default function CategoryDetail({ data, ads }) {
 const Skeleton = () => {
   return (
     <>
-      <div className='lg:flex md:flex-wrap container justify-between p-[15px_0px] md:p-[15px]'>
+      <div className='lg:flex md:flex-wrap container justify-between p-[30px_20px] md:p-[15px]'>
         <div className='lg:flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
           <div className='flex gap-[5px]'>
             {[0, 1, 2, 3].map((res, index) => {

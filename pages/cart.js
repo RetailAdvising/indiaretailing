@@ -6,8 +6,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { checkMobile } from '@/libs/api';
-import AlertUi from '@/components/Common/AlertUi';
-import LoaderButton from '@/components/Common/LoaderButton';
+import AlertUi from '@/components/common/AlertUi';
+import LoaderButton from '@/components/common/LoaderButton';
 
 export default function cart() {
     // const [value, setValue] = useState();
@@ -53,7 +53,7 @@ export default function cart() {
     let [isMobile, setIsmobile] = useState();
 
 
-    const  getCarts = async (type) => {
+    const getCarts = async (type) => {
         type == 'loader' ? setSkeleton(!skeleton) : null
         cart_items = await getCartItem();
         setCartItems(cart_items);
@@ -65,35 +65,38 @@ export default function cart() {
         setIsmobile(isMobile);
       }
 
-    const updateCart = async (data, type, i) => {
-        setload(!load)
-        setIndex(i)
-        if (type == 'inc') {
-            data['quantity'] += 1;
-        } else if (type == 'dec') {
-            // data['quantity'] == 1 ? 1 : 
-            data['quantity'] = data['quantity'] - 1;
-        }
 
- 
-       if(data['quantity'] > 0){
+    async function update_cart(dataValue,type){
+
         let param = {
-            name: data.name,
-            qty: data.quantity,
-            qty_type: ""
+          name: dataValue.name,
+        //   qty: check_count(dataValue['quantity'],type),
+          qty: type == 'inc' ? (dataValue['quantity'] + 1) : (dataValue['quantity'] - 1),
+          "business": dataValue.business ? dataValue.business : '',
+          qty_type: ""
         }
-
+      
         const resp = await updateCartItems(param);
         if (resp.message.status == 'success') {
             getCarts('');
             setload(false)
+        }else{
+            setload(false)
         }
-       }else{
-         data['quantity'] = 1
-         dltCart(data,i)
-       }
-        
-    }
+      }
+      
+
+    const updateCart = async (dataValue, type, i) => {
+
+        setload(true);
+      
+        if(type == 'dec' && dataValue['quantity'] == 1){
+            dltCart(dataValue,i)
+         }else  if(dataValue['quantity'] > 0){
+           update_cart(dataValue,type);
+         }
+          
+      }
 
 
   const [enableModal,setEnableModal] = useState(false)
@@ -121,7 +124,6 @@ export default function cart() {
     const [loader,setLoader] = useState(false)
 
     const buttonClick = () =>{
-        console.log('12345')
       setLoader(true)
       router.push('/checkout')
     }
@@ -165,7 +167,10 @@ export default function cart() {
                                         
                                         <div className='lg:flex-[0_0_calc(80%_-_20px)] md:flex-[0_0_calc(70%_-_20px)] lg:flex mx-[10px]'>
 
-                                            <p style={{fontWeight:'500',fontSize:'16px'}} className='lg:flex-[0_0_calc(40%_-_0px)] text-[16px] sub_title font-semibold'>{res.product_name}</p>
+                                           <div className='lg:flex-[0_0_calc(40%_-_0px)]'>
+                                             <p className='text-[16px] font-semibold'>{res.product_name}</p>
+                                             {res.attribute_description && <p className='text-[12px] gray_color'>{res.attribute_description}</p>}
+                                           </div> 
                                             <p className='lg:flex-[0_0_calc(20%_-_10px)] lg:mx-[5px] md:hidden text-[15px] font-semibold'>Rs {res.price}</p>
 
                                             <div className='lg:flex-[0_0_calc(40%_-_0px)] lg:justify-around lg:flex lg:items-center md:flex md:flex-row-reverse py-[6px] w-full md:justify-between'>

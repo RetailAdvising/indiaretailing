@@ -7,8 +7,8 @@ import Image from 'next/image'
 import { checkMobile } from '@/libs/api';
 import AddressModal from '@/components/Bookstore/AddressModal';
 import Address from '@/components/Bookstore/Address';
-import AlertUi from '@/components/Common/AlertUi';
-import LoaderButton from '@/components/Common/LoaderButton';
+import AlertUi from '@/components/common/AlertUi';
+import LoaderButton from '@/components/common/LoaderButton';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector, Provider  } from 'react-redux'
@@ -181,28 +181,13 @@ function goToAddres(){
       "to_time" : null,
       "date" : null,
       "coupon_code" : '',
-
-      // "order_date" : formatDate(new Date(), 'yyyy/MM/dd', 'en'),
-      // "shipping_charge" : this.db.shipping_settings.shipping_charges,
-      // "shipping_method" : this.db.shipping_settings.selected_shipping_method,
-      // "order_time" : this.time,
-      // "discount_amount" : this.db.discounts.discount_amount + this.db.coupon_discounts.discount_amount,
-      // "discount" : this.db.discounts.discount,
-      // "discount_free_products" : this.db.coupon_discounts.discount_products,
-      // "order_from" : this.db.current_device,
-      // "checkout_attributes" : this.selected_checkout_attributes,
-      // "manual_wallet_debit": this.wallet_amount > 0 ? 1 : 0, 
-    
-      // "loyalty_points" : this.loyalty_settings && this.loyalty_settings.selected_royalty ?this.loyalty_settings.selected_royalty.noof_points:0,
-      // "loyalty_amount" : this.loyalty_settings && this.loyalty_settings.selected_royalty ?this.loyalty_settings.selected_royalty.amount:0 ,
-      // "redeem_loyalty_points" : this.royalty_amount > 0 ? true:false,
-      // 'delivery_slots' : ''
    }
 
-   const resp = await insertOrder(orderdata);
-      if (resp && resp.message && resp.message.status == 'Success') {
+     const resp = await insertOrder(orderdata);
+      if (resp && resp.message && resp.message.status == true) {
           let data = resp.message
-          load_razorpay(data.message.order.outstanding_amount,data.message.order.name,'Order');
+          setLoader(false);
+          load_razorpay(data.order.outstanding_amount,data.order.name,'Order');
       } 
 
   }

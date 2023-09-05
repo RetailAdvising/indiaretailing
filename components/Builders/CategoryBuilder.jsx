@@ -177,7 +177,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   return (
     <>
       <div ref={cardref}>
-        <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[10px_15px] ${isMobile ? '' : 'container'}`}>
+        <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
             <p>
               <Content i={i} res={data} />
@@ -319,13 +319,13 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
         {categories.sections.section_3 && <div className={`${isMobile ? '' : 'container'} ${styles.section_3}`}>
           {/* Slider */}
-          {(categories.sections.section_3.section_type == 'slider' && categories.sections.section_3.type == 'card') && <div className={`${styles.slider_parent} latestNews_slider p-[10px_0px] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
+          {(categories.sections.section_3.section_type == 'slider' && categories.sections.section_3.type == 'card') && <div className={`${styles.slider_parent} latestNews_slider p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
             <MultiCarousel perView={5} noPlay={true} data={categories.sections.section_3.data} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} />
           </div>}
         </div>}
 
-        {!isLast && <div className={`flex md:gap-[10px] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px_0] ${isMobile ? '' : 'container'}`}>
+        {!isLast && <div className={`flex md:gap-[10px] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] ${isMobile ? '' : 'container'}`}>
           <h6 className={`flex-[0_0_auto] lg:text-[16px] md:text-[14px] font-semibold`}>Next Post</h6>
           <div className='lg:bg-[#EEEEEE] w-full lg:h-[1px] md:bg-stone-200 md:h-[3px]'></div>
         </div>}

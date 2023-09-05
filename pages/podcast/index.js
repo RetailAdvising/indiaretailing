@@ -21,7 +21,7 @@ export default function Podcast({ data }) {
     // }
     return (
         <>
-            <RootLayout>
+            <RootLayout isLanding={true} head="">
                 {(data && data) && data.map((res, index) => {
                     return (
                         <HomePodcast key={index} data={res} />

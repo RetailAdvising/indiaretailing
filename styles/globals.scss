@@ -10,6 +10,10 @@
     border-radius: 3px;
     color: $white-color;
   }
+
+  .border_top{
+    border-top: 1px solid $border-color;
+  }
   @screen lg {
     .title {
       @apply text-[14px] font-semibold leading-[17.62px]
@@ -441,6 +445,8 @@ input {
   border-bottom: 1px solid $border-color;
 }
 
+
+
 .border_left {
   border-left: 1px solid $border-color;
 }
@@ -486,7 +492,6 @@ input {
   border-top: 1px solid $border-color;
 
   .address {
-    font-size: $font-16;
     font-weight: 400;
     color: $secondary-color;
   }
@@ -691,7 +696,7 @@ input {
   .categorySlide {
     .react-multi-carousel-item {
       // width: 190px !important;
-      width: 180px !important;
+      // width: 180px !important;
     }
 
     // .react-multiple-carousel__arrow--left{
@@ -812,6 +817,9 @@ input {
     .react-multi-carousel-item {
       width: 300px !important;
     }
+    .dots{
+      bottom: 30px !important;
+    }
   }
 
   .react-multi-carousel-track {
@@ -892,7 +900,8 @@ input {
 
   .categorySlide {
     .react-multi-carousel-item {
-      width: 217px !important;
+      // width: 217px !important;
+      width: 220px !important;
     }
 
     // .react-multiple-carousel__arrow--left{
@@ -901,7 +910,7 @@ input {
   }
 
   .card-title {
-    font-size: $font-16;
+    font-size: $font-14;
     color: $dark-color;
     font-weight: 600;
     line-height: 1.4;

@@ -163,11 +163,11 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
             <div  >
                 {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                     return (
-                        <div key={index} className={`${res.class}`}>
+                        <div key={index} className={`flex`}>
                             {(res.components && res.components.length != 0) && res.components.map(c => {
                                 return (
-                                    <div key={index}>
-                                        {console.log(data.data[c.cid])}
+                                    <div key={index} className={``}>
+                                        {/* {console.log(data.data[c.cid])} */}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 3 Stories") && <TopStories data={data.data[c.cid].data} />}
                                     </div>
                                 )

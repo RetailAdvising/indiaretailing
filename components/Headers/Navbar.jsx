@@ -43,7 +43,7 @@ export default function Navbar({heading,isLanding}) {
             {/* sticky_header */}
             {/* {<div className={` lg:hidden sidebar ${navbar ? 'sideActive' : ''} `} ><SideBar data={nav} close={() => close()} /></div>} */}
             {/* onClick={showSidebar} */}
-            {(nav.header && nav.header.items.length != 0 && !isMobile) ? <div className={`sticky_header ${(router.asPath == '' || router.asPath == '/') ? 'lg:p-[15px_30px_0]' : 'lg:p-[15px_30px]'} ${navbar ? '' : 'md:p-[0_20px]'} ${header.navHead} md:h-[55px]`}>
+            {(nav.header && nav.header.items.length != 0 && !isMobile) ? <div className={`border_top sticky_header ${(router.asPath == '' || router.asPath == '/') ? 'lg:p-[15px_30px_0]' : 'lg:p-[15px_30px]'} ${navbar ? '' : 'md:p-[0_20px]'} ${header.navHead} md:h-[55px]`}>
                 <div className={`${navbar ? '' : 'container'}  flex flex-wrap items-center justify-between`}>
                     {nav.header.items.map(res => {
                         return (
@@ -70,8 +70,9 @@ export default function Navbar({heading,isLanding}) {
                                     </div>
 
                                 </>}
-                                {res.section_name == 'Header Profile Info' && <div className={`text-end ${date && 'lg:flex lg:items-center lg:gap-[10px] lg:justify-end'} md:float-right ${navbar ? 'md:pr-[20px]' : ''}`}>
-                                    {date && <><Image src={'/Navbar/weather.svg'} className='md:hidden' height={20} width={20} alt={'weather'} /> <p className='md:hidden text-[#66161]'>{date ? date : ''}</p></>}
+                                {res.section_name == 'Header Profile Info' && <div className={`text-end ${date && 'lg:flex lg:items-center lg:gap-[5px] lg:justify-end'} md:float-right ${navbar ? 'md:pr-[20px]' : ''}`}>
+                                {/* <Image src={'/Navbar/weather.svg'} className='md:hidden' height={20} width={20} alt={'weather'} /> */}
+                                    {date && <> <p className='md:hidden text-[#66161] text-[12px]'>{date ? date : ''}</p></>}
                                     <Image className='lg:hidden' style={{ objectFit: 'contain' }} height={50} priority width={24} alt='search' src={'/search.svg'} ></Image>
                                 </div>}
 
@@ -80,7 +81,7 @@ export default function Navbar({heading,isLanding}) {
                                         return (
                                             <div key={index} className='cursor-pointer justify-center p-[10px_8px] flex gap-[5px] items-center' onClick={() => router.push(item.redirect_url)}>
                                                 <div className='h-[3px] w-[3px] rounded-full bg-red'></div>
-                                                <p className='text-[13px]'>{item.menu_name}</p>
+                                                <p className='text-[14px]'>{item.menu_name}</p>
                                             </div>
                                         )
                                     })}

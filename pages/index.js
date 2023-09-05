@@ -7,11 +7,11 @@ import IRPrime from '@/components/Landing/IRPrime';
 // import {setRoutes} from 'redux/actions/routesAction';
 import PageData from '@/libs/buider'
 import HomePageBuilder from '@/components/Builders/HomePageBuilder';
-import { HomePage } from '../libs/api';
+import { HomePage,getAds } from '../libs/api';
 import { useEffect, useState } from 'react';
 
 
-export default function Home({ data }) {
+export default function Home({ data,ads }) {
 
   const [pageNo, setPageNo] = useState(0);
   const [start, setStart] = useState(0);
@@ -38,8 +38,8 @@ export default function Home({ data }) {
     //   console.log(val)
     // }
     if (data && data.page_content && data.page_content.length != 0) {
-      console.log(data.page_content)
       setValue(data.page_content)
+      console.log(ads)
     }
 
     // data()
@@ -54,7 +54,7 @@ export default function Home({ data }) {
 
   return (
     <>
-      <RootLayout isLanding={true} head={''}>
+      <RootLayout isLanding={true} head={''} homeAd={ads ? ads : null}>
         {/* {(PageData && PageData.page_sections) && PageData.page_sections.slice(start, end).map((res, index) => {
           return (
             <HomePageBuilder data={res} loadMore={() => setPageNo(p => p + 1)} isLast={index == PageData.page_sections.slice(start, end).length - 1} />
@@ -81,8 +81,12 @@ export async function getStaticProps() {
   const resp = await HomePage(param);
   const data = await resp.message;
 
+  let params = { doctype: 'Web Page Builder', page_type: 'Home' }
+  const res = await getAds(params);
+  const ads = res.message;
+
   return {
-    props: { data }
+    props: { data, ads }
   }
 
 }

@@ -1,5 +1,5 @@
 import RootLayout from '@/layouts/RootLayout'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Title from '@/components/common/Title'
 import { getList, getAds } from '@/libs/api'
 import { useRouter } from 'next/router'
@@ -10,6 +10,10 @@ export default function Lists({ data, ads }) {
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked)
     }
+
+    // useEffect(()=>{
+
+    // },[router])
 
 
 

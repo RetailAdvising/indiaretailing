@@ -39,7 +39,7 @@ export default function CategoryType({ values , ads }) {
             window.removeEventListener('scroll', handleScroll);
         };
 
-    }, []);
+    }, [router.query]);
 
     async function loadMore() {
         let Id = router.query.types;
@@ -77,8 +77,8 @@ export default function CategoryType({ values , ads }) {
     return (
         <>
             <RootLayout isLanding={false} head={router.query.types}>
-                <div className={`${isMobile ? 'md:p-[10px_15px]' : 'container'}`} id='root' >
-                    {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap lg:p-[20px_0px]  lg:gap-[20px]`}>
+                <div className={`${isMobile ? 'md:p-[15px]' : 'container'}`} id='root' >
+                    {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap lg:p-[30px_0px]  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
                             {!isMobile && <Title data={{ title: router.query.types }} />}
                             <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[17px]`}>{data.slice(0, 1).map((res, index) => {
@@ -94,10 +94,10 @@ export default function CategoryType({ values , ads }) {
                             })}</div>
                         </div>
                         <div className={`lg:flex-[0_0_calc(35%_-_10px)] lg:pt-[35px] md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
-                            <div className='border p-[17px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List contentWidth={'flex-[0_0_calc(65%_-_10px)]'} imgWidth={'w-full'} line={'line-clamp-1'} imgHeight={'h-[80px]'} check={true} data={data.slice(0, 3)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
+                            <div className='border p-[17px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List contentWidth={'flex-[0_0_calc(65%_-_10px)]'} imgWidth={'w-full'} line={'line-clamp-1'} imgHeight={'h-[80px]'} check={true} data={data.slice(0, 4)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}
-                    <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:p-[20px_0px] md:gap-[10px] lg:gap-[20px]`}>
+                    <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:p-[20px] md:gap-[10px] lg:gap-[20px]`}>
                         {/* contentHeight={'h-[175px]'} */}
                         <Cards cardClass={"lg:h-[310px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data} />
                     </div>

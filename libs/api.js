@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { domain } from "./config/siteConfig"
+import { useRouter } from 'next/router';
+
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
 const domainUrl = `india_retailing.india_retailing.api.`;
@@ -12,6 +14,9 @@ let apikey;
 let secret;
 let razorpay_settings;
 let r_pay_color ='#e21b22';
+
+const router = useRouter();
+
 
 if (typeof window !== 'undefined') {
     // Perform localStorage action
@@ -37,6 +42,17 @@ export async function getCartItem(){
         //   setCartItems(data)
       }
   }
+
+//   export async function check_count(quantity,type){
+//     let count = quantity
+//     if (type == 'inc') {
+//       count = quantity + 1;
+//     } else if (type == 'dec') {
+//       count = quantity - 1;
+//     }
+  
+//     return count;
+//   }
 
 export function stored_customer_info(){
     let users = {}
@@ -117,12 +133,11 @@ export async function load_razorpay(amount,description,type) {
 }
 
 function payment_Success_callback(data,order_id,type){
-    console.log('Subscription',order_id)
-    console.log('Subscription',type)
-
+    
+    console.log('type',type)
     if(type == 'Subscription'){
         createSubscription(order_id)
-    }else if(type ==' Order'){
+    }else if(type == 'Order'){
         order_payment_capture(data['response']['razorpay_payment_id'],data['response']['description']);
     }
     
@@ -138,6 +153,7 @@ export async function order_payment_capture(id,order_id) {
     var updatedate = {  'order_id': order_id,  'transaction_id': id  }
     const resp = await update_order_status(updatedate);
     if (resp) {
+        router.push('/thankyou?order_id=' + order_id)
         // this.success(order_id);
     }
 }
@@ -311,12 +327,17 @@ export async function insertCartItems(data){
     //     cartType: "Shopping Cart",
     //     // "customer": "GC-00294"
     // }
-    const api = ecomUrl + 'insert_cartItems';
+    const api = ecomUrlV2 + 'cart.insert_cartItems';
+    return await postMethod(api,data)
+}
+
+export async function insert_cart_items(data){
+    const api = ecomUrlV2 + 'cart.insert_cart_items';
     return await postMethod(api,data)
 }
 
 export async function updateCartItems(data){
-    const api = ecomUrl + 'update_cartitem';
+    const api = ecomUrlV2 + 'cart.update_cartitem';
     return await postMethod(api,data)
 }
 
@@ -387,7 +408,8 @@ export async function update_address(data) {
 
 export async function insertOrder(data) {
     let datas = {data :JSON.stringify(data)}
-    let api = 'ecommerce_business_store.ecommerce_business_store.api.insert_order'
+    // let api = 'ecommerce_business_store.ecommerce_business_store.api.insert_order'
+    let api = 'ecommerce_business_store.ecommerce_business_store.v2.orders.insert_order'
     return await postMethod(api,datas)
 }
 

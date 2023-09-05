@@ -15,7 +15,7 @@
                 {"icon": "/footer/linkedin.svg", "link": "https://www.linkedin.com/company/indiaretailing"},
                 {"icon": "/footer/youtube.svg", "link": "https://www.youtube.com/user/Indiaretailing1"},
                 {"icon": "/footer/instagram.svg", "link": "https://www.instagram.com/indiaretailingdotcom/"},
-                {"icon": "/footer/instagram.svg", "link": "https://news.google.com/publications/CAAiEDXIOJ59NeImKwFWQAEAbQcqFAgKIhA1yDiefTXiJisBVkABAG0H?ceid=US:en&oc=3&hl=en-US&gl=US"}
+                {"icon": "/footer/google-news.svg", "link": "https://news.google.com/publications/CAAiEDXIOJ59NeImKwFWQAEAbQcqFAgKIhA1yDiefTXiJisBVkABAG0H?ceid=US:en&oc=3&hl=en-US&gl=US"}
             ]
         },
         "section_2":{
@@ -25,20 +25,20 @@
                         "footerlinks": [
                             {"footerlink": "About IndiaRetailing.com", "link": "/aboutus"},
                             {"footerlink": "Meet the team", "link": "/teams"},
-                            {"footerlink": "Advertise with us", "link": "#"},
-                            {"footerlink": "Contact us", "link": "#"}
+                            {"footerlink": "Advertise with us", "link": "/advertise-with-us"},
+                            {"footerlink": "Contact us", "link": "/contact-us"}
                         ]
                 },
                 {
                     "title": "Categories",
                         "footerlinks": [
-                            {"footerlink": "Fashion & Lifestyle", "link": "#"},
-                            {"footerlink": "Beauty & Wellness", "link": "#"},
-                            {"footerlink": "Food & Beverage", "link": "#"},
-                            {"footerlink": "Consumer Durables & IT", "link": "#"},
-                            {"footerlink": "Entertainment", "link": "#"},
-                            {"footerlink": "Home Decor & Furnishing", "link": "#"},
-                            {"footerlink": "Specialty Retail", "link": "#"}
+                            {"footerlink": "Fashion & Lifestyle", "link": "/categories/fashion-lifestyle"},
+                            {"footerlink": "Beauty & Wellness", "link": "/categories/beauty-wellness"},
+                            {"footerlink": "Food & Beverage", "link": "/categories/food-beverage"},
+                            {"footerlink": "Consumer Durables & IT", "link": "/categories/consumer-durables-it"},
+                            {"footerlink": "Entertainment", "link": "/entertainment"},
+                            {"footerlink": "Home Decor & Furnishing", "link": "/home-decor-furnishing"},
+                            {"footerlink": "Specialty Retail", "link": "/specialty-retail"}
                         ]
                 },
                 {

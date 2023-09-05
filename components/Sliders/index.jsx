@@ -57,7 +57,7 @@ export default function Sliders({ data,perView }) {
             <div onClick={()=> router.push(`/${router.asPath.split('/')[1]}/category/${res.route}`)} className={`flex items-center justify-center gap-[15px] h-full`} key={index}>
               <div className={`lg:flex-[0_0_calc(30%_-_10px)]`}>
               {/* h-[310px] w-[210px] */}
-                <Image alt={''} src={check_Image(res.image)} height={540} width={200} className={`h-[540px] object-contain`} />
+                <Image alt={''} src={check_Image(res.image)} height={300} width={200} className={`h-[300px] object-cover`} />
               </div>
               <div className={`flex flex-col items-start justify-start lg:h-[175px]`}>
                 <p className={`text-[15px] line-clamp-2 font-bold`}>{res.item}</p>

@@ -91,7 +91,7 @@
                         "child_menu": []
                     },
                     {
-                        "menu_label": "News Letters",
+                        "menu_label": "Newsletters",
                         "redirect_url": "/newsletters",
                         "icon": "/Navbar/newsletter.svg",
                         "is_mega_menu": 0,

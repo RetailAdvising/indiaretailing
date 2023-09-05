@@ -14,7 +14,7 @@ export default function Videos({ data, ads }) {
             return (
               <div key={index} className='pb-[20px]'>
                 <Title data={res} seeMore={true} />
-                <div className={`lg:grid grid-cols-4 no_scroll lg:gap-[15px]`}><Video data={res.videos} flex={'md:flex-[0_0_calc(50%_-_10px)] md:h-full'} /></div>
+                <div className={`lg:grid grid-cols-4 no_scroll lg:gap-[15px]`}><Video data={res.videos} flex={'md:flex-[0_0_calc(50%_-_10px)] md:h-full'} imgClass={'h-[150px] md:h-[110px] w-full'} /></div>
               </div>
             )
           })}

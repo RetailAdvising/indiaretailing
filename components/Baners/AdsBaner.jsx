@@ -14,8 +14,8 @@ export default function AdsBaner({ data, height, Class, text, style, width, home
       {
         (homeAd && homeAd.header && homeAd.header.length != 0) ? <>
           {homeAd.header[0] && <div style={style} className={`${Class}`}>
-            {(homeAd.header[0].title && homeAd.header[0].title != null) && <p className='fnt_12 text-center'>{homeAd.header[0].title ? homeAd.header[0].title : ''}</p>}
-            <Image priority src={check_Image(homeAd.header[0].banner_image)} height={250} className={`${height ? height : 'h-[250px]'} ${width ? width : 'w-full'} `} width={970} alt='ad' />
+            {/* {(homeAd.header[0].title && homeAd.header[0].title != null) && <p className='fnt_12 text-center'>{homeAd.header[0].title ? homeAd.header[0].title : ''}</p>} */}
+            <Image priority src={check_Image(homeAd.header[0].banner_image)} height={250} className={`${height ? height : 'h-[250px]'} ${width ? width : 'w-full'} object-contain`} width={970} alt='ad' />
           </div>}
         </> : null
       }

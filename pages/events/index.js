@@ -42,7 +42,7 @@ export default function Events({ data }) {
     return (
         <>
             <RootLayout isLanding={true} head={'Events'}>
-                <div className='gap-[20px] container justify-between flex-wrap p-[30px_0px] md:p-[15px] lg:flex'>
+                <div className='gap-[20px] container justify-between flex-wrap p-[30px_20px] md:p-[15px] lg:flex'>
                     {(pageData && pageData.length != 0) && pageData.map((resp, index) => {
                         return (
                             <div key={index} className={`flex flex-col md:flex-[0_0_calc(100%_-_0px)] flex-[0_0_calc(50%_-_15px)] ${index != 0 ? 'md:pt-[15px]' : ''}`}>

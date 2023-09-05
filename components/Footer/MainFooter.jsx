@@ -58,7 +58,7 @@ export default function MainFooter() {
                     }
                 </div>
             </div>
-            <p className='copy_write'>{footer.footer.copy_write}<a href={`${footer.footer.copy_link}`} className='hover:text-[red]'> {footer.footer.copy_link_text}</a>. All Rights Reserved</p>
+            <p className='copy_write md:p-[10px_10px]'>{footer.footer.copy_write}<a href={`${footer.footer.copy_link}`} className='hover:text-[red]'> {footer.footer.copy_link_text}</a>. All Rights Reserved</p>
         </>
     )
 }

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import nav from '@/libs/header'
 import SideBar from './SideBar';
 import { useRouter } from 'next/router';
-export default function MobileHead({ isLanding, Heading }) {
+export default function MobileHead({ isLanding=false, Heading }) {
     const [navbar, setNavbar] = useState(false);
     const router = useRouter()
 

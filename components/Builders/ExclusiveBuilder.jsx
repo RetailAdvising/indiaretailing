@@ -65,7 +65,7 @@ export default function ExclusiveBuilder({ data }) {
                 </div>} */}
 
             {/* Section - 2 p-[20px_30px_0_0] w-[30%]*/}
-            <div className={`flex lg:p-[0_0px] md:p-[0_15px] container flex-wrap justify-between w-full gap-[15px]`}>
+            <div className={`flex lg:p-[20px 0] md:p-[0_15px] container flex-wrap justify-between w-full gap-[15px]`}>
                 <div className='w-[calc(75%_-_10px)] md:basis-full md:pt-[10px]'>
                     {isMobile ? <Title data={{ title: 'IR Prime Leaders Ink' }} noPadding={true} /> : <div className='flex gap-2 items-center pb-[10px]'>
                         <h6 className={`text-[15px] font-semibold`}>{val.section_2.col_1.section_title}</h6>
@@ -83,7 +83,7 @@ export default function ExclusiveBuilder({ data }) {
 
             {(data.videos && data.videos.ir_video && data.videos.ir_video.length != 0) &&
                 <div className='bg-[#F8F8F8] md:mt-[20px]'>
-                    <div className='lg:p-[30px_0px] md:p-[15px] container'>
+                    <div className='lg:p-[20px] md:p-[15px] container'>
                         <Title data={data.videos} isVid={true} seeMore={true} />
                         {/* <div className='flex  gap-[15px] justify-between'><YTVideo data={res.ir_video} flex={"flex-[0_0_calc(25%_-_10px)]"} /></div> */}
                         <div className='lg:grid lg:grid-cols-4 md:grid-cols-2 irVideos lg:gap-[15px] lg:justify-between'>
@@ -104,7 +104,7 @@ export default function ExclusiveBuilder({ data }) {
                 </div>}
 
             {/* Section - 4 */}
-            {(data.sec2 && data.sec2.data && data.sec2.data.length != 0) && <div className={`lg:p-[30px_0px] md:p-[30px_15px]  container flex-wrap justify-between flex gap-[15px]`}>
+            {(data.sec2 && data.sec2.data && data.sec2.data.length != 0) && <div className={`lg:p-[20px 0] md:p-[30px_15px]  container flex-wrap justify-between flex gap-[15px]`}>
                 <div className={`flex-[0_0_calc(75%_-_10px)] md:basis-full`}>
                     <Title data={data.sec2} seeMore={true} />
                     <List fullWidth={true} check={true} isBB={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px] md:h-[130px]'} data={data.sec2.data.slice(0, 3)} borderRadius={'rounded-[5px]'} />

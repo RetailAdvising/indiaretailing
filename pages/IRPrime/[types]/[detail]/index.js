@@ -1,7 +1,7 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
-import { articlesDetail,getAds } from '@/libs/api';
+import { articlesDetail, getAds } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 export default function Details() {
@@ -68,7 +68,7 @@ export default function Details() {
     }
   }
 
-  const getAdsList = async () =>{
+  const getAdsList = async () => {
     let param = { doctype: 'Articles', page_type: 'Detail' }
     const resp = await getAds(param);
     const ads = resp.message;

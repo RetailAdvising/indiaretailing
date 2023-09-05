@@ -6,11 +6,12 @@ import Card from '@/components/Bookstore/Card';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import { useRouter } from 'next/router';
-import { getProductDetail, insertCartItems, insertSubscription, updateCartItems, getCartItem, deleteCartItems, load_razorpay, get_razorpay_settings, subscriptionPlans } from '@/libs/api';
+import { getProductDetail, insertCartItems, insertSubscription, insert_cart_items, updateCartItems, getCartItem, deleteCartItems, load_razorpay, get_razorpay_settings, subscriptionPlans } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import Modal from '@/components/common/Modal';
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
-import LoaderButton from '@/components/Common/LoaderButton';
+import LoaderButton from '@/components/common/LoaderButton';
+import styles from '@/styles/checkout.module.scss';
 
 export default function Bookstoredetail({ value, res }) {
 
@@ -67,17 +68,25 @@ export default function Bookstoredetail({ value, res }) {
     get_razorpay_settings()
     if (value) {
       console.log(value);
-      setData(value);
-      if(value.vendor_price_list && value.vendor_price_list.length != 0){
-        value.vendor_price_list.map((vendor)=>{
-          value.price = vendor.product_price;
-        })
+      if(value.vendor_price_list && value.vendor_price_list.length != 0){     
+        if(value.has_variants == 1){
+            value.price = value.vendor_price_list[0].default_variant.product_price;
+            value.attribute_ids = value.vendor_price_list[0].default_variant.attribute_id;
+            value.business = value.vendor_price_list[0].business;
+            value.attribute = value.vendor_price_list[0].default_variant.variant_text;
+        } else{
+          value.price = value.vendor_price_list[0].product_price;
+          value.attribute_ids = value.vendor_price_list[0].attribute_id ? value.vendor_price_list[0].attribute_id : '';
+          value.business = value.vendor_price_list[0].business;
+          value.attribute =  value.vendor_price_list[0].variant_text ? value.vendor_price_list[0].variant_text : '';
+        }
       }
+      setData(value);
     }
+
     if (res && res.length != 0) {
       setSubs(res)
     }
-
 
     const handleClickOutside = (event) => {
       let el = document.getElementById('dropdown').classList;
@@ -101,31 +110,17 @@ export default function Bookstoredetail({ value, res }) {
       let val = subs.find(res => res.active == true)
 
       if (val) {
-        console.log(val)
+        // console.log(val)
         load_razorpay(val.total_amount,val.name,'Subscription');
         setLoader(false);
-        // let param = {
-        //   party: localStorage['customer_id'],
-        //   party_name: localStorage['userid'],
-        //   subscription_plan: val.name
-        // };
-        // const resp = await insertSubscription(param)
-
       } else {
         data['count'] = 1;
-        let param = {
-          item_code: data.name,
-          qty: data.count,
-          qty_type: "",
-          rate: data.price,
-          cartType: "Shopping Cart",
-          customer: localStorage['customer_id']
-        };
-        const resp = await insertCartItems(param);
-        if (resp.message) {
-          router.push('/cart');
-          setLoader(false);
+        if(data['quantity'] == 0) {
+          insert_cart(data,'buy_now')
+        }else{
+          updateCart(data,'inc')
         }
+
       }
     } else {
       setVisible(!visible);
@@ -145,39 +140,66 @@ export default function Bookstoredetail({ value, res }) {
 
 
   const updateCart = async (dataValue, type) => {
-    console.log(dataValue);
-    setLoader(true)
-    if (type == 'inc') {
-        dataValue['quantity'] += 1;
-    } else if (type == 'dec') {
-        // dataValue['quantity'] == 1 ? 1 : 
-        dataValue['quantity'] = dataValue['quantity'] - 1;
-    }
 
+  setLoader(true);
 
-   if(dataValue['quantity'] > 0){
-    let param = {
-        name: dataValue.name,
-        qty: dataValue.quantity,
-        qty_type: ""
-    }
-
-    const resp = await updateCartItems(param);
-    if (resp.message.status == 'success') {
-        getCarts('');
-        setLoader(false)
-    }
-   }else{
-     dataValue['quantity'] = 1
-    //  dltCart(dataValue,i)
-    let param = { name: dataValue.name }
+  if(type == 'dec' && dataValue['quantity'] == 1){
+    let param = { name: dataValue.cart_id,}
     const resp = await deleteCartItems(param);
       if (resp.message.status == 'success') {
+          dataValue['quantity'] = 0
           getCarts('');
+          setLoader(false);
       }
+   }else  if(dataValue['quantity'] > 0){
+     update_cart(dataValue,type);
    }
     
 }
+
+async function insert_cart(dataValue,type){
+  // console.log('dataValue',dataValue)
+  let param = {
+    "item_code": dataValue.name,
+    "qty": 1,
+    "qty_type": "",
+    "cart_type": "Shopping Cart",
+    "customer": localStorage['customer_id'],
+    "attribute": dataValue.attribute ? dataValue.attribute : '',
+    "attribute_id": dataValue.attribute_ids ? dataValue.attribute_ids : '',
+    "business": dataValue.business ? dataValue.business : ''
+}
+
+  const resp = await insert_cart_items(param);
+  if (resp.message && resp.message.marketplace_items) {
+      type == 'buy_now' ? router.push('/cart') : null;
+      getCarts('');
+      setLoader(false);
+  }else if(resp.message && resp.message.status == 'Failed'){
+    setLoader(false)
+  }
+}
+
+async function update_cart(dataValue,type){
+
+  let param = {
+    name: dataValue.cart_id,
+    // qty: check_count(dataValue['quantity'],type),
+    qty: type == 'inc' ? (dataValue['quantity'] + 1) : (dataValue['quantity'] - 1),
+    "business": dataValue.business ? dataValue.business : '',
+    qty_type: ""
+  }
+
+  const resp = await updateCartItems(param);
+  if (resp.message.status == 'success') {
+      router.push('/cart')
+      getCarts('');
+      setLoader(false)
+  }else{
+     setLoader(false)
+  }
+}
+
 
 
 const  getCarts = async (type) => {
@@ -186,10 +208,20 @@ const  getCarts = async (type) => {
   if(cart_items && cart_items.marketplace_items && cart_items.marketplace_items.length != 0){
     if(value.has_variants == 1){
       let getValue = cart_items.marketplace_items.find(res=>{ return res.attribute_ids == value.attribute_ids})
-      value.quantity = getValue ? getValue.quantity : 0
+      value.quantity = getValue ? getValue.quantity : 0;
+
+       if(getValue){
+        value.cart_id = getValue.name;
+       }
+
     }else{
-      let getValue = cart_items.marketplace_items.find(res=>{ return res.product == value.name})
-      value.quantity = getValue ? getValue.quantity : 0
+      let getValue = cart_items.marketplace_items.find(res=>{ return res.product == value.name});
+      value.quantity = getValue ? getValue.quantity : 0;
+
+       if(getValue){
+         value.cart_id = getValue.name;
+       }
+
     }
 
   }else{
@@ -207,6 +239,20 @@ const  getCarts = async (type) => {
 
   const selectMethod = (e,index) =>{
     setVariantsIndex(index);
+    data.attribute_ids = e.attribute_id;
+    data.attribute = e.variant_text ;
+    data.price = e.product_price;
+    setData(data);
+    getCarts('');
+
+    if(subs && subs.length != 0){
+      setIndex(-1);
+      subs.map((res)=>{
+        res['active'] = false
+      }) 
+      
+      setSubs(subs);
+    }
   };
 
   return (
@@ -228,7 +274,7 @@ const  getCarts = async (type) => {
 
 
             {/* p-[20px] flex flex-col justify-between*/}
-            <div className={` flex-[0_0_calc(60%_-_10px)] md:p-[10px]lg:p-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
+            <div className={` flex-[0_0_calc(60%_-_10px)] md:p-[10px] lg:p-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
                 <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{data.item_title}</h6>
                 <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
@@ -279,16 +325,18 @@ const  getCarts = async (type) => {
                 <p className={`text-[20px] text-red font-semibold`}>{formatter.format(data.price)}</p>
               </div>
 
-              {value.vendor_price_list && value.vendor_price_list.length != 0 && value.vendor_price_list.variants && value.vendor_price_list.variants.length != 0 &&
-                value.vendor_price_list.variants.map((vendor,index)=>{
-                  <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${isMobile ? 'w-max' : 'w-[15%]'} ${index == currentVariantIndex ? 'active_border' : null} h-[50px] cursor-pointer items-center border rounded-[5px] p-[4px_10px] `}>
-                    <input className='' checked={index == currentVariantIndex} type="radio"/>
-                    <div  className={`flex justify-center items-center`}>
-                      <p>{vendor.variant_text}</p>
-                      {/* <img  className="h-[13px]" src={check_Image(res.logo)} /> */}
-                    </div> 
-                 </div>
-                }) 
+              {data.vendor_price_list && data.vendor_price_list[0] && data.vendor_price_list[0].variants && data.vendor_price_list[0].variants.length != 0 &&
+                 <div className='flex gap-[10px] lg:m-[18px_0px_0_0px] md:m-[18px_10px_0_10px] items-center'>
+                    {data.vendor_price_list[0].variants.map((vendor,index)=>{
+                      return(
+                        <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == vendor.attribute_id && (indexs < 0)) ? 'active_border' : null} h-[45px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_8px] `}>
+                          <input className={styles.input_radio} checked={data.attribute_ids == vendor.attribute_id && (indexs < 0)} type="radio"/>
+                          <p className='text-[12px]'>{vendor.variant_text}</p>
+                        </div>
+                      )
+                      }) 
+                    }
+                  </div> 
               }
 
               {/* p-[20px] */}
@@ -310,18 +358,19 @@ const  getCarts = async (type) => {
 
               <div className={`md:p-[10px] text-center md:p-[10px_0_30px_0] lg:p-[20px_0_40px_0] border_bottom mb-[20px]`}>
 
-                {(value.quantity == 0 || indexs >= 0) && <LoaderButton loader={loader} width={'lg:w-[60%] md:w-[85%]'} image_left={indexs >= 0 ? '/bookstore/subscribe.svg' :'/bookstore/addtocart.svg'} button_name={indexs >= 0 ? 'Subscribe' : 'Add to Cart'} buttonClick={addToCart} />}
-                {(value.quantity > 0 && indexs < 0) &&
+                {/* (value.quantity == 0 || indexs >= 0) &&  */}
+
+                <LoaderButton loader={loader} width={'lg:w-[60%] md:w-[85%]'} image_left={indexs >= 0 ? '/bookstore/subscribe.svg' :'/bookstore/addtocart.svg'} button_name={indexs >= 0 ? 'Subscribe' : 'Add to Cart'} buttonClick={addToCart} />
+               
+
+                {/* {(value.quantity > 0 && indexs < 0) &&
                  <div className='flex items-center justify-between p-[10px] border border-slate-100 rounded-[5px] h-[30px] w-[85px] gap-[10px]'>
                   <Image onClick={() => loader ? null : updateCart(value, 'dec')} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/_.svg'} height={20} width={20} alt='minus' />
                   {loader ? <div class="animate-spin rounded-full h-[15px] w-[15px] border-l-2 border-t-2 border-black"></div> : <p className='font-semibold'>{value.quantity}</p>}
                   <Image onClick={() => loader ? null :  updateCart(value, 'inc')} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/+.svg'} height={20} width={20} alt='plus' />
                  </div>
-                } 
+                }  */}
                 
-                {/* <button onClick={addToCart} className={`primary_btn inline-flex justify-center items-center h-[45px] w-[50%] rounded-[5px] gap-[15px]`}>
-                  <Image className={``} height={10} width={20} alt={'add cart'} src={'/bookstore/addtocart.svg'} />{open ? 'Subscribe' : 'Add to Cart'}
-                </button> */}
 
               </div>
 

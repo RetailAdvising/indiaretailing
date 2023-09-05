@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import styles from '@/styles/Header.module.scss'
 import { useRouter } from 'next/router'
-
+// import Dropdowns from '@/components/common/Dropdowns'
 export default function Header({checkout}) {
     const router = useRouter();
     const head = {
@@ -66,7 +66,7 @@ export default function Header({checkout}) {
     return (
         <>
             {head && <div className={``}>
-                <div className='container md:hidden grid grid-cols-3 items-center justify-between'>
+                <div className='container p-[0px] md:hidden grid grid-cols-3 items-center justify-between'>
                     {/* <div> */}
                       <div className={`flex items-center `}>
                         <Image style={{ objectFit: 'contain' }}  height={60} priority width={24} alt='search' src={'/search.svg'} className="pr-2"></Image>
@@ -74,7 +74,7 @@ export default function Header({checkout}) {
                       </div>
                     {/* </div> */}
                     <div className=''>
-                        <Image style={{ objectFit: 'contain' }} height={76.23} priority width={284.65} alt='' onClick={()=> router.push('/')} src={'/indiaretail.png'}></Image>
+                        <Image style={{ objectFit: 'cover' }} className='m-auto' height={66} priority width={200} alt='' onClick={()=> router.push('/')} src={'/indiaretail.png'}></Image>
                     </div>
                     {!valid ? <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
                         <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
@@ -110,6 +110,8 @@ export default function Header({checkout}) {
                 </div>
             </div>
             }
+
+            {/* <Dropdowns /> */}
         </>
     )
 }
