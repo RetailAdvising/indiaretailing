@@ -5,7 +5,7 @@ import React from 'react';
 // import DOMPurify from 'dompurify';
 
 function AudioPlayer(data) {
-  console.log(data.data)
+  // console.log(data.data)
   //   const [isPlaying, setIsPlaying] = useState(false);
   // const audioSrc = '/podcast/fast.mp3';  // Replace with the path to your audio file
   //   const toggleAudio = () => {
@@ -23,7 +23,7 @@ function AudioPlayer(data) {
   return (
     <div className="border p-[20px_30px] flex md:p-[10px]">
       <div className="w-[40%]">
-        <Image height={220} width={200} className={`rounded-[5px] float-right pr-10 h-[220px] w-[60%]`} src={check_Image(data.data.image)} alt={"cards"} />
+        <Image height={220} width={200} className={`rounded-[5px] float-right pr-10 h-[220px] w-[60%] md:w-[100%] md:h-[130px] md:pr-[5px]`} src={check_Image(data.data.image)} alt={"cards"} />
       </div>
       <div className="w-[60%]">
         <h6 className="text-[32px] font-[100] pb-2 md:text-[18px]">{data.data.title}</h6>

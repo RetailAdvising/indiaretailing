@@ -16,9 +16,9 @@ export default function SectionBox({ data }) {
         <>
             {data && <div className={`border rounded-[10px] justify-center p-[10px] md:h-[200px] lg:h-[280px] flex flex-col md:gap-[5px] lg:gap-[15px]`}>
                 <p className='text-red lg:text-[14px] md:text-[12px] cursor-pointer'>{data.primary_text}</p>
-                <p className='lg:text-[20px] md:text-[15px] line-clamp-[2] font-semibold cursor-pointer'>{data.title}</p>
+                <h6 className='lg:text-[20px] md:text-[15px] line-clamp-[2] font-semibold cursor-pointer'>{data.title}</h6>
                 <p className={`sub_title line-clamp-[4] cursor-pointer `}>{data.description}</p>
-                <p className='flex gap-[15px] items-center cursor-pointer  seeMore' onClick={()=> router.push(`/categories/${data.route}`)}><span className='text-gray font-semibold md:text-[12px]'>See More</span><Image className='img md:h-[18px] md:w-[18px]' src={'/categories/arrowright.svg'} alt='arrow' height={20} width={20} /></p>
+                <p className='flex gap-[5px] items-center cursor-pointer  seeMore' onClick={()=> router.push(`/categories/${data.route}`)}><span className='text-gray font-medium	 md:text-[12px]'>See More</span><Image className='img md:h-[14px] md:w-[14px]' src={'/categories/arrowright.svg'} alt='arrow' height={16} width={16} /></p>
             </div>}
         </>
     )

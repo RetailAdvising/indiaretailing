@@ -1,4 +1,4 @@
-// 'use client'
+'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
 import { articlesDetail } from '@/libs/api';
@@ -20,7 +20,7 @@ export default function Details() {
         "next": 0
       }
       let value = await articlesDetail(param);
-      let data = value.message;
+      let data = await value.message;
       if(data.status == "Success"){
         let val = [data]
         // setValues(d => [...d, ...val])

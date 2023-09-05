@@ -1,11 +1,11 @@
 import '@/styles/globals.scss'
 import store from '../redux/store'
-import { Inter } from 'next/font/google'
+import { Rubik } from 'next/font/google'
 import { useDispatch, useSelector, Provider } from 'react-redux'
 // import userAction from 'redux/actions/userAction'
 import ErrorBoundary from '@/components/Exception/ErrorBoundary'
 
-const inter = Inter({
+const inter = Rubik({
   weight: ["400"],
   display: "swap",
   preload: true,

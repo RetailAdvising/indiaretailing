@@ -1,6 +1,5 @@
 import { domain } from "./config/siteConfig";
 
-
 export const check_Image = (Image) => {
     let baseUrl = `https://${domain}`
     if (Image) {

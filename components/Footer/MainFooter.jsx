@@ -9,7 +9,7 @@ export default function MainFooter() {
             <div className={`footer`}>
                 <div className='container md:flex-wrap flex gap-11 p-[30px_0px] md:p-[15px]'>
                     {footer.footer.section_1 && <div className={`flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
-                            <Image src={footer.footer.section_1.image} height={100} width={250} alt={"image"} />
+                            <Image src={footer.footer.section_1.image} height={66} width={200} alt={"image"} />
                             <p className='font-bold	pb-1'>{footer.footer.section_1.addresstitle}</p>
                             <p className='address font-normal'>{footer.footer.section_1.address}</p>
 

@@ -6,6 +6,7 @@ import Faq from '@/components/Membership/faq';
 import Benefits from '@/components/Membership/benefits';
 
 
+
 export default function Membership() {
   const  [btnState, setbtnState] = useState(false);
 

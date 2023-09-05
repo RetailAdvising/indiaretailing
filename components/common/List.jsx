@@ -19,7 +19,7 @@ export default function List({imgFlex,contentWidth,line,data,check,isTop,isRever
                         {/* w-[280px] */}
                         <div className={`${(!fullWidth && !isReverse) && ''} ${contentWidth} flex flex-col leading-[1] ${isTop && 'pt-[25px]'}`}>
                             {(res.primary_text && res.secondary_text && !isTop) && <p className='flex items-center '><span className='primary_text pr-[8px] '>{res.primary_text}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span> <span className='secondary_text pl-[8px]'>{res.secondary_text}</span></p>}
-                            {res.title && <p className='title pt-[5px] line-clamp-2'>{res.title ? res.title : ''}</p>}
+                            {res.title && <h6 className='title pt-[5px] line-clamp-2'>{res.title ? res.title : ''}</h6>}
                             {((res.sub_title || res.blog_intro)&& !tittleOnly) && <p className={`sub_title pt-[5px] ${line ? line : 'line-clamp-2'}`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
                             {((res.hashtags || res.publisher)&& !tittleOnly) && <p className='hashtags pt-[5px]'>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}
                         </div>

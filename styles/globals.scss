@@ -71,9 +71,10 @@ body {
 
   // font-family: 'Poppins', sans-serif !important;
   p,
-  span,
-  h6 {
+  span {
     font-size: $font-14;
+    color: $secondary-color;
+    line-height: 28px;
   }
 
   img {
@@ -528,7 +529,7 @@ input {
   border-top: 1px solid $border-color;
   text-align: center;
   padding: 10px 0;
-  font-size: $font-16;
+  font-size: $font-13;
   color: $gray-color-text;
 }
 
@@ -1084,7 +1085,7 @@ input {
 @media (min-width: 1281px) {
   .container {
     // max-width: 1452px !important;
-    max-width: 1200px !important;
+    max-width: 1300px !important;
     margin: auto;
     width: 100%;
   }

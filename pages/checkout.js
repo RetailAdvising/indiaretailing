@@ -1,7 +1,7 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, {useEffect, useState } from 'react'
 import styles from'../styles/checkout.module.scss';
-import { get_cart_items, get_customer_info,getCartItem, stored_customer_info, get_payment_method, delete_address, get_razorpay_settings, load_razorpay, insertOrder } from '@/libs/api';
+import { get_cart_items, get_customer_info,getCartItem, update_order_status, stored_customer_info, get_payment_method, delete_address, get_razorpay_settings, load_razorpay, insertOrder } from '@/libs/api';
 import { check_Image } from '@/libs/common'
 import Image from 'next/image'
 import { checkMobile } from '@/libs/api';
@@ -187,10 +187,31 @@ function goToAddres(){
       if (resp && resp.message && resp.message.status == true) {
           let data = resp.message
           setLoader(false);
-          load_razorpay(data.order.outstanding_amount,data.order.name,'Order');
+          // payment_via_razor(data.order.outstanding_amount,data.order.name,'Order');
+          load_razorpay(data.order.outstanding_amount,data.order.name,'Order',router);
+
+          // console.log('check_payment',check_payment)
+          // if(check_payment){
+          //   console.log(check_payment)
+          // }
       } 
 
   }
+
+  // async function payment_via_razor(amount,name,type){
+  //   let value = await load_razorpay(amount,name,type)
+  //   console.log(value);
+  // }
+
+  // async function order_payment_capture(id,order_id) {
+  //   var updatedate = {  'order_id': order_id,  'transaction_id': id  }
+  //   const resp = await update_order_status(updatedate);
+  //   if (resp) {
+  //       console.log()
+  //       // router.push('/thankyou?order_id=' + order_id)
+  //       // this.success(order_id);
+  //   }
+  // }
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',

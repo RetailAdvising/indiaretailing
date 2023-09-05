@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import data from '@/libs/benefits'
+import data from '@/libs/benefits';
+import irprime from '@/libs/benefitscolumn';
 
 
 export default function Benefits() {
@@ -21,7 +22,23 @@ export default function Benefits() {
       )
       }
       )}
+    </div>
 
+    <div className='container md:p-[15px]' >
+        {irprime.memberships.map((membership, index) =>  {
+          <div className={index % 2 === 0 ? 'oddabout' : 'evenabout'}>
+                  <div className="flex md:flex-col-reverse flex-row gap-4 md:gap-2 pt-9 pb-9  md:pt-4 md:pb-4">
+                      <div className="m-auto basis-2/4 md:basis-full">
+                        <h2 className='font-bold text-3xl md:text-2xl pt-6 md:pt-0 text-left md:text-left'>{membership.title}</h2>
+                        <p className='sub_title text-left pb-2 pt-3 md:text-left'>{membership.content}</p>
+                      </div>
+                      <div className="text-center m-auto basis-2/4 md:basis-full">
+                        <Image src={membership.image} alt="About" width={400} height={400} className='m-auto'/>
+                      </div>
+                </div>
+          </div>
+        }
+      )}
     </div>
     </>
   )

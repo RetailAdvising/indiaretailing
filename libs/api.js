@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { domain } from "./config/siteConfig"
-import { useRouter } from 'next/router';
 
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
@@ -15,7 +14,7 @@ let secret;
 let razorpay_settings;
 let r_pay_color ='#e21b22';
 
-const router = useRouter();
+// const router = useRouter();
 
 
 if (typeof window !== 'undefined') {
@@ -83,7 +82,9 @@ export async function get_razorpay_settings() {
 
 
 
-export async function load_razorpay(amount,description,type) {
+// export async function load_razorpay(amount,description,type) {
+export const load_razorpay = async (amount,description,type,router) => {
+
     var options = {
       "key": razorpay_settings.api_key,
       "amount": (amount * 100).toString(),
@@ -94,7 +95,6 @@ export async function load_razorpay(amount,description,type) {
       "prefill": {
           "name": localStorage['full_name'],
           "email": localStorage['userid'],
-        //   "contact": localStorage.Customerphone
       },
       "theme": {
           "color": r_pay_color
@@ -105,8 +105,9 @@ export async function load_razorpay(amount,description,type) {
       },
       "handler" : (response, error) => {
         if(response){
+        // return response.razorpay_payment_id
           let data = { response : { amount : amount,description : description,razorpay_payment_id : response.razorpay_payment_id }}
-          payment_Success_callback(data,description,type);
+          payment_Success_callback(data,description,type,router);
         } else if(error){
           payment_error_callback(description,error)
         }
@@ -132,13 +133,12 @@ export async function load_razorpay(amount,description,type) {
     };
 }
 
-function payment_Success_callback(data,order_id,type){
-    
-    console.log('type',type)
+function payment_Success_callback(data,order_id,type,router){
+
     if(type == 'Subscription'){
         createSubscription(order_id)
     }else if(type == 'Order'){
-        order_payment_capture(data['response']['razorpay_payment_id'],data['response']['description']);
+        order_payment_capture(data['response']['razorpay_payment_id'],data['response']['description'],router);
     }
     
 }
@@ -146,15 +146,16 @@ function payment_Success_callback(data,order_id,type){
 
 
 function payment_error_callback(description,error){
-    // order_payment_capture(undefined,description);
+    order_payment_capture(undefined,description);
 }
 
-export async function order_payment_capture(id,order_id) {
+export async function order_payment_capture(id,order_id,router) {
     var updatedate = {  'order_id': order_id,  'transaction_id': id  }
     const resp = await update_order_status(updatedate);
     if (resp) {
-        router.push('/thankyou?order_id=' + order_id)
-        // this.success(order_id);
+        router.push('/bookstore')
+
+        // router.push('/thankyou?order_id=' + order_id)
     }
 }
 
