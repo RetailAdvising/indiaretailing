@@ -10,34 +10,38 @@ export default function Details() {
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);
 
-  // const articleDetail = async () => {
-  //   if (router.query && (router.query.detail && router.query.types)) {
-  //     let Id = await router.query?.detail;
-  //     let category = await router.query?.types;
-  //     let param = {
-  //       "route": category + '/' + Id,
-  //       "category": category,
-  //       "next": 0
-  //     }
-  //     let value = await articlesDetail(param);
-  //     let data = value.message;
-  //     let val = [data]
-  //     setValues(d => [...d, ...val])
-  //     setPrev(router.query.types + '/' + router.query.detail)
-  //   }
-  // }
+  const articleDetail = async () => {
+    if (router.query && (router.query.detail && router.query.types)) {
+      let Id =  router.query?.detail;
+      let category =  router.query?.types;
+      let param = {
+        "route": category + '/' + Id,
+        "category": category,
+        "next": 0
+      }
+      let value = await articlesDetail(param);
+      let data = value.message;
+      if(data.status == "Success"){
+        let val = [data]
+        // setValues(d => [...d, ...val])
+        setValues(val)
+        setPrev(router.query.types + '/' + router.query.detail)
+
+      }
+    }
+  }
 
 
 
-  // useEffect(() => {
-  //   articleDetail();
-  // }, [router.query])
+  useEffect(() => {
+    articleDetail();
+  }, [router])
 
 
   async function loadMore() {
     let param = {
       "route": prev,
-      "category": router.query.types,
+      "category": router.query?.types,
       "next": 1,
     }
 
