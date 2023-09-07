@@ -5,9 +5,10 @@ import styles from '@/styles/Slider.module.scss'
 import Image from 'next/image';
 // import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
-import { check_Image,checkMobile } from '@/libs/api'
+import { check_Image, checkMobile } from '@/libs/api'
+import Link from 'next/link'
 
-export default function MultiCarousel({ islanding, cardHeight, noPlay, check, deviceType, data, type, height, width, card_width, perView }) {
+export default function MultiCarousel({ islanding, isHome = undefined, cardHeight, none = false, noPlay, check, deviceType, data, type, height, width, card_width, perView }) {
     const router = useRouter();
     const responsive = {
         desktop: {
@@ -46,8 +47,8 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
                     // ssr
                     // partialVisbile
                     // deviceType={deviceType}
-                    autoPlay={noPlay ? false : true}
-                    arrows={(noPlay && !isMobile) ? true : false}
+                    autoPlay={(noPlay || !none) ? false : true}
+                    arrows={(noPlay && !isMobile && !none) ? true : false}
                     autoPlaySpeed={2000}
                     containerClass="container-with-dots"
                     dotListClass="dots"
@@ -55,7 +56,7 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
                     pauseOnHover
                     responsive={responsive}
                     shouldResetAutoplay
-                    showDots={!isMobile ? true : false}
+                    showDots={(!isMobile || !none) ? true : false}
                     renderDotsOutside={!isMobile ? false : true}
                     // sliderClass=""
                     slidesToSlide={1}
@@ -64,17 +65,21 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
                     {/* {type != 'profile' && <div className=''> */}
                     {(data && data.length != 0) && data.map((res, index) => {
                         return (
-                            <div key={index} onClick={() => islanding ? router.push(`${router.asPath}/${res.route}`) : null} className={`${styles.cards} cursor-pointer ${cardHeight}`} >
-                                <div>
-                                    <Image src={check ? check_Image(res.thumbnail_image) : res.image} className={`${height} ${width}`} height={150} width={300} alt={"image"} />
+                            <Link key={index} href={isHome ? isHome + res.route : '/' + router.asPath.split('/')[1] + '/' + res.route}>
+                                {/* onClick={() => islanding ? router.push(`${router.asPath}/${res.route}`) : null} */}
+                                <div className={`${styles.cards} cursor-pointer ${cardHeight}`} >
+                                    <div>
+                                        <Image src={check ? check_Image(res.thumbnail_image) : res.image} className={`${height} ${width}`} height={150} width={300} alt={"image"} />
+                                    </div>
+                                    <div className={`${styles.card_content} flex flex-col justify-between`}>
+                                        {(res.primary_text && res.secondary_text) && <p className='flex gap-2'><span className={`text-red ${styles.primary_text}`}>{res.primary_text}</span> | <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>}
+                                        <h4 className={` title line-clamp-2`}>{res.title ? res.title : ''}</h4>
+                                        <p className={` sub_title pt-1 line-clamp-2`}>{res.sub_title ? res.sub_title : ''}</p>
+                                        <p className='hashtags pt-1'>{res.hashtags ? res.hashtags : ''}</p>
+                                    </div>
                                 </div>
-                                <div className={`${styles.card_content} flex flex-col justify-between`}>
-                                    {(res.primary_text && res.secondary_text) && <p className='flex gap-2'><span className={`text-red ${styles.primary_text}`}>{res.primary_text}</span> | <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>}
-                                    <h4 className={` title line-clamp-2`}>{res.title ? res.title : ''}</h4>
-                                    <p className={` sub_title pt-1 line-clamp-2`}>{res.sub_title ? res.sub_title : ''}</p>
-                                    <p className='hashtags pt-1'>{res.hashtags ? res.hashtags : ''}</p>
-                                </div>
-                            </div>
+
+                            </Link>
                         )
                     })}
                     {/* </div>} */}
@@ -85,7 +90,7 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
             {type == 'profile' && <>
                 <Carousel
                     // autoPlay={noPlay ? false :true}
-                    arrows={isMobile ? false : true}
+                    arrows={(isMobile || none) ? false : true}
                     autoPlaySpeed={2000}
                     // containerClass="container-with-dots"
                     dotListClass="dots"
@@ -93,7 +98,7 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
                     pauseOnHover
                     responsive={responsive}
                     // shouldResetAutoplay
-                    showDots={isMobile ? true : false}
+                    showDots={(isMobile || none) ? true : false}
                     renderDotsOutside={false}
                     // sliderClass=""
                     slidesToSlide={1}
@@ -101,20 +106,25 @@ export default function MultiCarousel({ islanding, cardHeight, noPlay, check, de
 
                     {(data && data.length != 0) && data.map((res, index) => {
                         return (
-                            <div key={index} className={`border rounded-[5px] h-[330px]`} >
-                                <div>
-                                    <Image src={check ? check_Image(res.thumbnail_image) : res.image} className={`${height} ${width}`} height={150} width={300} alt={"image"} />
-                                </div>
-                                <div className={`${styles.card_content} flex flex-col justify-between p-[10px]`}>
-                                    {/* {(res.primary_text && res.secondary_text) && <p className='flex gap-2'><span className={`text-red ${styles.primary_text}`}>{res.primary_text}</span> | <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>} */}
-                                    <div className='flex gap-[10px]'>
-                                        <Image src={check ? ((res.avatar && res.avatar != null && res.avatar != '') ? check_Image(res.avatar) : '/profit.svg') : res.profile} height={40} width={40} alt={res.title} className={`rounded-full h-[40px] w-full flex-[0_0_calc(20%_-_10px)]`} />
-                                        <h4 className={`title line-clamp-2`}>{res.title ? res.title : ''}</h4>
+                            <Link key={index} href={isHome ? isHome + res.route : '/' + router.asPath.split('/')[1] + '/' + res.route}>
+
+                                <div className={`border rounded-[5px] ${cardHeight ? cardHeight : 'h-[330px]'}`} >
+                                    <div>
+                                        <Image src={check ? check_Image(res.thumbnail_image) : res.image} className={`${height} ${width}`} height={150} width={300} alt={"image"} />
                                     </div>
-                                    <p className={`sub_title pt-[5px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
-                                    <p style={{fontSize:'12px'}} className='hashtags pt-[5px]'>{res.hashtags ? res.hashtags : res.author ? res.author : res.publisher ? res.publisher : ''}</p>
+                                    <div className={`${styles.card_content} flex flex-col justify-between p-[10px]`}>
+                                        {/* {(res.primary_text && res.secondary_text) && <p className='flex gap-2'><span className={`text-red ${styles.primary_text}`}>{res.primary_text}</span> | <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>} */}
+                                        <div className='flex gap-[10px]'>
+                                            <Image src={check ? ((res.avatar && res.avatar != null && res.avatar != '') ? check_Image(res.avatar) : '/profit.svg') : res.profile} height={40} width={40} alt={res.title} className={`rounded-full h-[40px] w-full flex-[0_0_calc(20%_-_10px)]`} />
+                                            <h4 className={`title line-clamp-2`}>{res.title ? res.title : ''}</h4>
+                                        </div>
+                                        <p className={`sub_title pt-[5px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
+                                        <p style={{ fontSize: '12px' }} className='hashtags pt-[5px]'>{res.hashtags ? res.hashtags : res.author ? res.author : res.publisher ? res.publisher : ''}</p>
+                                    </div>
                                 </div>
-                            </div>
+
+
+                            </Link>
                         )
                     })}
                     {/* </div> */}

@@ -1,7 +1,7 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, {useEffect, useState } from 'react'
 import styles from'../styles/checkout.module.scss';
-import { get_cart_items, get_customer_info,getCartItem, update_order_status, stored_customer_info, get_payment_method, delete_address, get_razorpay_settings, load_razorpay, insertOrder } from '@/libs/api';
+import { get_cart_items, get_customer_info,getCartItem, update_order_status, stored_customer_info, get_payment_method, delete_address, get_razorpay_settings, insertOrder } from '@/libs/api';
 import { check_Image } from '@/libs/common'
 import Image from 'next/image'
 import { checkMobile } from '@/libs/api';
@@ -28,6 +28,7 @@ export default function checkout() {
   const router = useRouter();
   const customer = useSelector(s=>s.customer);
   // const userInfo = useSelector(s=>s.user);
+  const [razorpay_settings, setRazorpay_settings] = useState({}) ;
 
   const dispatch = useDispatch()
   
@@ -40,7 +41,7 @@ export default function checkout() {
     get_payments();
     let localValue = stored_customer_info()
     setLocalValue(localValue);
-    get_razorpay_settings();	
+    get_razor_pay_values();
     checkIsMobile();
     window.addEventListener('resize',checkIsMobile)
     return () => {
@@ -48,11 +49,17 @@ export default function checkout() {
     };
   },[])
 
-const  checkIsMobile = async () => {
-  isMobile = await checkMobile();
-  setIsmobile(isMobile);
-  // console.log('isMobile',isMobile)
-}
+    
+  async function get_razor_pay_values(){
+    let razorpay = await get_razorpay_settings();
+    setRazorpay_settings(razorpay);
+  }
+
+  const  checkIsMobile = async () => {
+    isMobile = await checkMobile();
+    setIsmobile(isMobile);
+    // console.log('isMobile',isMobile)
+  }
 
 const  CartItem = async () => {
   cart_items = await getCartItem();
@@ -140,10 +147,14 @@ function goToAddres(){
 
   function closeModal(value) {
     alert_dispatch(alertAction(false))
-
-    if('Yes'){
-
+     
+     if(alertMsg && alertMsg.navigate){
+      setAlertMsg({});
+      router.push('/bookstore');
+     }else if('Yes' ){
+      
     }
+
   }
 
 
@@ -187,31 +198,65 @@ function goToAddres(){
       if (resp && resp.message && resp.message.status == true) {
           let data = resp.message
           setLoader(false);
-          // payment_via_razor(data.order.outstanding_amount,data.order.name,'Order');
-          load_razorpay(data.order.outstanding_amount,data.order.name,'Order',router);
-
-          // console.log('check_payment',check_payment)
-          // if(check_payment){
-          //   console.log(check_payment)
-          // }
+          load_razorpay(data.order.outstanding_amount,'Order',data.order.name);
       } 
 
   }
 
-  // async function payment_via_razor(amount,name,type){
-  //   let value = await load_razorpay(amount,name,type)
-  //   console.log(value);
-  // }
+  function payment_error_callback(error){
+    setAlertMsg({message: 'Payment failed'});
+    setEnableModal(true);
+  }
 
-  // async function order_payment_capture(id,order_id) {
-  //   var updatedate = {  'order_id': order_id,  'transaction_id': id  }
-  //   const resp = await update_order_status(updatedate);
-  //   if (resp) {
-  //       console.log()
-  //       // router.push('/thankyou?order_id=' + order_id)
-  //       // this.success(order_id);
-  //   }
-  // }
+  async function payment_Success_callback(response,amount,order_id){
+    let params = {
+      "transaction_id":response.razorpay_payment_id,
+      "order_id":order_id,
+    }
+    const resp = await update_order_status(params);
+    if(resp && resp.message && resp.message.status && resp.message.status == true){
+      setAlertMsg({message:'Order inserted successfully',navigate:true});
+      alert_dispatch(alertAction(true))
+      // setEnableModal(true);
+    }
+  }
+
+ const load_razorpay = async (amount,description,order_id) => { 
+  console.log(razorpay_settings.api_key)
+    let r_pay_color ='#e21b22';
+    const app_name = 'India Retail';
+    var options = {
+      "key": razorpay_settings.api_key,
+      "amount": (amount * 100).toString(),
+      "currency": "INR",
+      "name": app_name,
+      "description": "Payment for" + description,
+      "image": (razorpay_settings.site_logo ? check_Image(razorpay_settings.site_logo) : null),
+      "prefill": { "name": localStorage['full_name'],"email": localStorage['userid']},
+      "theme": { "color": r_pay_color },
+      "modal": { "backdropclose": false, "ondismiss": () => { payment_error_callback(description)} },
+      "handler" : async (response, error) => {
+        if(response){
+          payment_Success_callback(response,amount,order_id)
+          // response.razorpay_payment_id
+        } else if(error){
+          payment_error_callback(error)
+        }
+
+      }
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    script.onload = () => {const rzp = new window.Razorpay(options); rzp.open();};
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+
+  }
+
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',

@@ -78,24 +78,24 @@ export default function Content({ res, i }) {
                 <div className='flex items-center md:gap-1 lg:gap-2'>
                     <div className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '20px' }}>
                         <Image onClick={() => share('share')} ref={ref} className={`dropdowns transition-all delay-500 md:h-[17px] md:w-[15px]`} src={'/share.svg'} height={10} width={15} alt={'share'} />
-                        <div className={`dropdown-menu p-[20px]  right-0 grid justify-center`} style={{ borderRadius: '10px', width: '190px', position: 'absolute' }} id={`dropdown${i}`}>
+                        <div className={`dropdown-menu p-[10px]  right-0 grid justify-center`} style={{ borderRadius: '10px', width: '150px', position: 'absolute' }} id={`dropdown${i}`}>
                             {icons && icons.map((res, index) => {
                                 return (
-                                    <div key={index}>
+                                    <div key={index} className='hover:bg-[#FDF5F5] p-[0_10px] rounded'>
                                         {res.name == 'Linkedin' && <LinkedinShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                            <Image src={res.icon} className='h-[23px] w-[21px]' height={40} width={40} alt={'imgs'} />
+                                            <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                             <p>{res.name}</p>
                                         </LinkedinShareButton>}
                                         {res.name == 'Facebook' && <FacebookShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                            <Image src={res.icon} className='h-[25px] w-[15px]' height={40} width={40} alt={'imgs'} />
+                                            <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                             <p>{res.name}</p>
                                         </FacebookShareButton>}
                                         {res.name == 'Twitter' && <TwitterShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                            <Image src={res.icon} className='h-[20px] w-[18px]' height={40} width={40} alt={'imgs'} />
+                                            <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                             <p>{res.name}</p>
                                         </TwitterShareButton>}
                                         {res.name == 'Whatsapp' && <WhatsappShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                            <Image src={res.icon} className='h-[23px] w-[21px]' height={40} width={40} alt={'imgs'} />
+                                            <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                             <p>{res.name}</p>
                                         </WhatsappShareButton>}
                                     </div>
@@ -106,7 +106,7 @@ export default function Content({ res, i }) {
                     {/* <Image className='object-contain' src={'/share.svg'} height={14} width={15} alt={"image"} /> */}
                     {/* <Image className='object-contain h-[25px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} /> */}
                     <div className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '20px' }}>
-                        <Image onClick={() => share('settings')} ref={setting} className='object-contain md:h-[20px] md:w-[19px] h-[25px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} />
+                        <Image onClick={() => share('settings')} ref={setting} className='object-contain md:h-[20px] md:w-[19px] h-[20px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} />
                         <div className={`dropdown-menu p-[10px_0_10px_0] right-0 grid justify-center`} style={{ borderRadius: '10px', width: '190px', position: 'absolute' }} id={`down${i}`}>
                             {setings && setings.map((res, index) => {
                                 return (

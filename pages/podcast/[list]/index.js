@@ -9,20 +9,13 @@ export default function PodcastList(data) {
         <>
             <RootLayout>
                 {data && <HomePodcast data={data} />}
-                {/* {(data && data.data)
-                    return (
-                        <HomePodcast key={index} data={res} />
-                    )
-                } */}
             </RootLayout>
-
         </>
     )
 }
 
 export async function getServerSideProps({ params }) {
-    // console.log(params);
-    let Id = await params ?.list;
+    let Id = await params?.list;
     let param = {
         doctype: "Podcast",
         fields: ['name', 'title', 'sound', 'image', 'category', 'description', 'route'],

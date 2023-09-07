@@ -6,12 +6,14 @@ import Card from '@/components/Bookstore/Card';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import { useRouter } from 'next/router';
-import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, insert_cart_items, updateCartItems, getCartItem, deleteCartItems, load_razorpay, get_razorpay_settings, subscriptionPlans, get_subscription_plans } from '@/libs/api';
+import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, make_payment_entry, insert_cart_items, updateCartItems, getCartItem, deleteCartItems , get_razorpay_settings, subscriptionPlans, get_subscription_plans } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import Modal from '@/components/common/Modal';
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import LoaderButton from '@/components/common/LoaderButton';
 import styles from '@/styles/checkout.module.scss';
+import AlertUi from '@/components/common/AlertUi';
+// import Razorpay from 'razorpay';
 
 export default function Bookstoredetail({ value, res }) {
 
@@ -20,8 +22,14 @@ export default function Bookstoredetail({ value, res }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState();
+  const [razorpay_settings, setRazorpay_settings] = useState({}) ;
+
   const ref = useRef(null);
   const [loader,setLoader] = useState(false)
+  // const [variants,setVariants] = useState([{'name':'PDF','selected':true},{'name':'PRINT','selected':false}])
+  const [enableModal,setEnableModal] = useState(false)
+  const [alertMsg,setAlertMsg] = useState({})
+  let content_type = 'PDF';
 
   const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
 
@@ -46,28 +54,12 @@ export default function Bookstoredetail({ value, res }) {
     }
   }
 
-  // Active Plans
-  const handleSubs = (data, e, i) => {
-    // console.log('data,',data)
-    if (data) {
-      data.map((res, index) => {
-        if (index == i) {
-          // res['active'] = true;
-          res['active'] = res['active'] ? false : true;
-          res['active'] ? setIndex(i) : setIndex(-1);
-          setOpen(!open)
-        }else{
-          res['active'] = false;
-        }
-      })
-    }
-  }
 
   useEffect(() => {
     getCarts('');
-    get_razorpay_settings()
+    get_razor_pay_values()
     if (value) {
-      console.log(res);
+      console.log(value);
       if(value.vendor_price_list && value.vendor_price_list.length != 0){     
         if(value.has_variants == 1){
             value.price = value.vendor_price_list[0].default_variant.product_price;
@@ -85,7 +77,7 @@ export default function Bookstoredetail({ value, res }) {
     }
 
     if (res && res.length != 0) {
-      setSubs(res)
+       setPlans(content_type)
     }
 
     const handleClickOutside = (event) => {
@@ -110,9 +102,6 @@ export default function Bookstoredetail({ value, res }) {
       let val = subs.find(res => res.active == true)
 
       if (val) {
-        // console.log(val)
-        // load_razorpay(val.total_amount,val.name,'Subscription');
-        // setLoader(false);
         insert_subscription(val)
       } else {
         data['count'] = 1;
@@ -131,20 +120,96 @@ export default function Bookstoredetail({ value, res }) {
 
   }
 
+  async function get_razor_pay_values(){
+    let razorpay = await get_razorpay_settings();
+    setRazorpay_settings(razorpay);
+  }
+
   async function insert_subscription(checked_plans){
     let params = {
         "party": localStorage['customer_id'],
         "subscription_plan": checked_plans.plan_name,
         "item":data['name'],
-        "subscription_type":"item"
+        "subscription_type":"item",
+        "content_type":content_type
     }
     const resp = await insert_member_subscription(params);
-    console.log(resp);
     setLoader(false);
-    //   if (resp && resp.message && resp.message.page_content && resp.message.page_content != 0) {
-    //       let datas = resp.message.page_content
-    //       setpageContent(datas);
-    //   } 
+    if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
+    // console.log(resp.message.data[0].document_name)
+    load_razorpay(checked_plans.total_amount,checked_plans.plan_name,resp.message.data[0].document_name)
+      if(subs && subs.length != 0){
+          setIndex(-1);
+          subs.map((res)=>{
+            res['active'] = false
+          }) 
+          setSubs(subs);
+       }
+
+
+    }else{
+      setAlertMsg({message:resp.message.message});
+      setEnableModal(true)
+    }
+  }
+
+  function payment_error_callback(error){
+    setAlertMsg({message: 'Payment failed'});
+    setEnableModal(true);
+  }
+
+  async function payment_Success_callback(response,amount,order_id){
+    let params = {
+      "customer_id": localStorage['customer_id'],
+      "payment_method": "PAY-M00001",
+      "amount":amount,
+      "remarks":"paid",
+      "transaction_id":response.razorpay_payment_id,
+      "order_id":order_id,
+      "payment_method_name":"Razor Pay"
+    }
+    const resp = await make_payment_entry(params);
+    if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
+     setAlertMsg({message:'Subscription created successfully'});
+     setEnableModal(true);
+    }
+  }
+
+ const load_razorpay = async (amount,description,order_id) => { 
+  console.log(razorpay_settings.api_key)
+    let r_pay_color ='#e21b22';
+    const app_name = 'India Retail';
+    var options = {
+      "key": razorpay_settings.api_key,
+      "amount": (amount * 100).toString(),
+      "currency": "INR",
+      "name": app_name,
+      "description": "Payment for" + description,
+      "image": (razorpay_settings.site_logo ? check_Image(razorpay_settings.site_logo) : null),
+      "prefill": { "name": localStorage['full_name'],"email": localStorage['userid']},
+      "theme": { "color": r_pay_color },
+      "modal": { "backdropclose": false, "ondismiss": () => {  payment_error_callback(description) } },
+      "handler" : async (response, error) => {
+        if(response){
+          payment_Success_callback(response,amount,order_id)
+          // response.razorpay_payment_id
+        } else if(error){
+           payment_error_callback(error)
+           console.log(error)
+        }
+
+      }
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    script.onload = () => {const rzp = new window.Razorpay(options); rzp.open();};
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+
   }
 
   const [sort, setSort] = useState(false);
@@ -252,7 +317,20 @@ const  getCarts = async (type) => {
   //   // }
   // }
 
-  const [currentVariantIndex, setVariantsIndex] = useState(-1);
+  const [currentVariantIndex, setVariantsIndex] = useState(0);
+
+  // const selectMethod = (e,index) =>{
+  //   setVariantsIndex(index);
+  //   if(subs && subs.length != 0){
+  //       setIndex(-1);
+  //       subs.map((res)=>{
+  //         res['active'] = false
+  //       }) 
+  //       setSubs(subs);
+  //   }
+  //   content_type = e['name'];
+  //   setPlans(content_type)
+  // };
 
   const selectMethod = (e,index) =>{
     setVariantsIndex(index);
@@ -270,13 +348,54 @@ const  getCarts = async (type) => {
       
       setSubs(subs);
     }
+    
+    if(e.variant_text){
+      let data_1 = e.variant_text.includes("PDF");
+      let data_2 = e.variant_text.includes("PRINT");
+      if(data_1 || data_2){
+        content_type = data_1 ? 'PDF' : 'PRINT';
+        setPlans(content_type)
+      }
+    }
+
   };
+
+  function setPlans(val){
+    let data = res.filter((res)=>{ return (res.item__type && res.item__type == val) })
+    setSubs(data)
+  }
+
+    // Active Plans
+  const handleSubs = (data, e, i) => {
+    if (data) {
+      data.map((res, index) => {
+        if (index == i) {
+          res['active'] =! res['active'];
+          res['active'] ? setIndex(i) : setIndex(-1);
+        }else{
+          res['active'] = false;
+        }
+      })
+
+    setSubs(data)
+
+      // setPlans(content_type)
+    }
+  }
+
+
+  async function closeModal(value){
+    setEnableModal(false);
+  }
 
   return (
     <>
       <RootLayout>
-        {/* {data ?  <Skeleton /> : */}
-          {(data && Object.keys(data).length != 0) && <div className='container'>
+    
+      { enableModal &&   <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+        
+        {!data ?  <Skeleton /> :
+          (data && Object.keys(data).length != 0) && <div className='container'>
           <div className={`flex justify-between flex-wrap gap-[15px] py-8`}>
             <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex flex-col md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               {/* flex-[0_0_calc(100%_-_10px)] */}
@@ -300,21 +419,21 @@ const  getCarts = async (type) => {
                     <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
                       {icons && icons.map((res, index) => {
                         return (
-                          <div key={index}>
+                          <div key={index} className='hover:bg-[#FDF5F5] p-[0 10px] rounded'>
                             {res.name == 'Linkedin' && <LinkedinShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                              <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
+                              <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                               <p>{res.name}</p>
                             </LinkedinShareButton>}
                             {res.name == 'Facebook' && <FacebookShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                              <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
+                              <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                               <p>{res.name}</p>
                             </FacebookShareButton>}
                             {res.name == 'Twitter' && <TwitterShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                              <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
+                              <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                               <p>{res.name}</p>
                             </TwitterShareButton>}
                             {res.name == 'Whatsapp' && <WhatsappShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                              <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
+                              <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                               <p>{res.name}</p>
                             </WhatsappShareButton>}
                           </div>
@@ -346,8 +465,9 @@ const  getCarts = async (type) => {
                  <div className='flex gap-[10px] lg:m-[18px_0px_0_0px] md:m-[18px_10px_0_10px] items-center'>
                     {data.vendor_price_list[0].variants.map((vendor,index)=>{
                       return(
-                        <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == vendor.attribute_id && (indexs < 0)) ? 'active_border' : null} h-[45px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_8px] `}>
-                          <input className={styles.input_radio} checked={data.attribute_ids == vendor.attribute_id && (indexs < 0)} type="radio"/>
+                        // && (indexs < 0)
+                        <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == vendor.attribute_id ) ? 'active_border' : null} h-[45px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_8px] `}>
+                          <input className={styles.input_radio} checked={data.attribute_ids == vendor.attribute_id} type="radio"/>
                           <p className='text-[12px]'>{vendor.variant_text}</p>
                         </div>
                       )
@@ -356,12 +476,25 @@ const  getCarts = async (type) => {
                   </div> 
               }
 
-              {/* p-[20px] */}
-              {(subs && subs.length != 0) && <div className={`grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[30px] lg:w-[570px] lg:m-[0_auto] lg:p-[20px] justify-between`}>
+              {/* <div className='flex gap-[10px] lg:m-[18px_0px_0_0px] md:m-[3px_10px_8px_10px] items-center'>
+                    {variants.map((vendor,index)=>{
+                      return(
+                        <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${(currentVariantIndex == index) ? 'active_border' : null} lg:h-[40px] md:h-[35px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_15px_4px_8px] `}>
+                          <input className={styles.input_radio} checked={currentVariantIndex == index} type="radio"/>
+                          <p className='text-[12px]'>{vendor.name}</p>
+                        </div>
+                      )
+                      }) 
+                    }
+              </div>  */}
+              
+
+              {/* p-[20px] lg:m-[0_auto]*/ }
+              {(subs && subs.length != 0) && <div className={`grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[30px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
 
                 {subs.map((item, index) => {
                   return (
-                    <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(res, item, index)} key={index}>
+                    <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(subs, item, index)} key={index}>
                       <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.plan_name}</p>
                       <p className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.total_amount)}</p>
                       {item.features && item.features.map((f, index) => {
@@ -373,11 +506,11 @@ const  getCarts = async (type) => {
                 })}
               </div>}
 
-              <div className={`md:p-[10px] text-center md:p-[10px_0_30px_0] lg:p-[20px_0_40px_0] border_bottom mb-[20px]`}>
+              <div className={`md:p-[10px] lg:w-[570px] text-center md:p-[10px_0_30px_0] lg:p-[20px_0_40px_0] border_bottom mb-[20px]`}>
 
                 {/* (value.quantity == 0 || indexs >= 0) &&  */}
 
-                <LoaderButton loader={loader} width={'lg:w-[60%] md:w-[85%]'} image_left={indexs >= 0 ? '/bookstore/subscribe.svg' :'/bookstore/addtocart.svg'} button_name={indexs >= 0 ? 'Subscribe' : 'Add to Cart'} buttonClick={addToCart} />
+                <LoaderButton loader={loader} width={'lg:w-[250px] md:w-[85%]'} image_left={indexs >= 0 ? '/bookstore/subscribe.svg' :'/bookstore/cart.svg'} button_name={indexs >= 0 ? 'Subscribe' : 'Add to Cart'} buttonClick={addToCart} />
                
 
                 {/* {(value.quantity > 0 && indexs < 0) &&
@@ -437,8 +570,7 @@ const  getCarts = async (type) => {
             <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.other_group_items.data.slice(0, 5)} boxShadow={true} /></div>
           </div>}
            </div>
-          }
-         {/* } */}
+        }
       </RootLayout>
 
     </>
@@ -457,19 +589,6 @@ export async function getServerSideProps({ params }) {
   let resp = await getProductDetail(param);
   let value = resp.message;
 
-  // let cart_items = await getCartItem();
-
-  // console.log('cart_items',cart_items);
- 
-  //   if(cart_items && cart_items.marketplace_items && cart_items.marketplace_items.length != 0){
-  //     let getValue = cart_items.marketplace_items.find(res=>{ return res.product == value.name})
-  //     value.quantity = getValue.quantity
-  //   }else{
-  //     value.quantity = 0
-  //   }
-
-  // let subscription = await subscriptionPlans();
-  // const res = subscription;
 
   let data = {"res_type":"item"}
   const subscription = await get_subscription_plans(data);
@@ -488,10 +607,55 @@ export async function getServerSideProps({ params }) {
 const Skeleton = () => {
   return (
     <>
-        <div class="animate-pulse">
-          <div class="h-4 bg-slate-300 rounded w-3/4 mb-2"></div>
-          <div class="h-4 bg-slate-300 rounded w-2/4 mb-2"></div>
-          <div class="h-4 bg-slate-300 rounded w-4/4"></div>
+        <div class="container lg:py-8 md:p-[10px] flex lg:gap-[30px] md:flex-col animate-pulse">
+
+          <div class="lg:flex-[0_0_calc(40%_-_10px)]">
+            <div className='h-[455px] lg:w-[510px] bg-slate-100 rounded'></div>
+            <div className='h-[45px] w-full my-[20px] bg-slate-300 rounded'></div>
+          </div>
+             
+          <div class="lg:flex-[0_0_calc(40%_-_10px)]">
+           <div className='h-[40px] w-[75%] bg-slate-300 rounded'></div>
+           <div className='h-[40px] w-[15%] my-[20px] bg-slate-300 rounded'></div>
+           <div className='flex mb-[20px] gap-[10px]'>
+               <div className='h-[40px] w-[140px] bg-slate-300 rounded'></div>
+               <div className='h-[40px] w-[140px] bg-slate-300 rounded'></div>
+           </div>
+           <div className='flex mb-[20px] gap-[10px]'>
+               <div className='h-[120px] w-[130px] bg-slate-300 rounded'></div>
+               <div className='h-[120px] w-[130px] bg-slate-300 rounded'></div>
+               <div className='h-[120px] w-[130px] bg-slate-300 rounded'></div>
+           </div>
+
+           <div className='h-[40px] mb-[20px] w-[60%] bg-slate-300 rounded'></div>
+
+           <div className='h-[40px] mb-[20px] w-[100px] bg-slate-300 rounded'></div>
+
+           <div className='h-[20px] mb-[8px] w-full bg-slate-300 rounded'></div>
+           <div className='h-[20px] mb-[8px] w-full bg-slate-300 rounded'></div>
+           <div className='h-[20px] mb-[8px] w-full bg-slate-300 rounded'></div>
+           <div className='h-[20px] mb-[8px] w-full bg-slate-300 rounded'></div>
+           <div className='h-[20px] mb-[8px] w-full bg-slate-300 rounded'></div>
+           <div className='h-[20px] mb-[8px] w-[75%] bg-slate-300 rounded'></div>
+
+
+
+          </div>
         </div>
     </>
   )}
+
+  // const Alert = (alertMsg) => {
+
+  //   const [enableModal,setEnableModal] = useState(true)
+
+  //   async function closeModal(value){
+  //     setEnableModal(false);
+  //   }
+
+  //   return (
+  //     <>
+  //       <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} /> 
+  //     </>
+  //   )
+  // }

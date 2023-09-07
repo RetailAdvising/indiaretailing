@@ -6,7 +6,8 @@ import Faq from '@/components/Membership/faq';
 import Benefits from '@/components/Membership/benefits';
 import ConfirmationScreen from '@/components/Membership/ConfirmationScreen';
 import Modal from '@/components/common/Modal';
-import { checkMobile, HomePage, get_subscription_plans } from '@/libs/api'
+import { checkMobile, HomePage, get_subscription_plans, get_razorpay_settings, make_payment_entry  } from '@/libs/api'
+import AlertUi from '@/components/common/AlertUi';
 
 export default function Membership() {
 
@@ -14,8 +15,7 @@ export default function Membership() {
   const  [pageContent, setpageContent] = useState([]);
   let  [memberShipDetails, setMemberShipDetails] = useState([]);
   const [modal, setModal] = useState('login')
-
-
+  const [razorpay_settings, setRazorpay_settings] = useState({}) ;
   let [isMobile, setIsmobile] = useState();
 
 
@@ -24,12 +24,19 @@ export default function Membership() {
     getMembershipLanding()
     getMembershipData()
     checkIsMobile();
+    get_razor_pay_values()
     // setTimeout(()=>{},700)
     window.addEventListener('resize',checkIsMobile)
     return () => {
       window.removeEventListener('resize', checkIsMobile);
     };
   },[])
+
+  
+  async function get_razor_pay_values(){
+    let razorpay = await get_razorpay_settings();
+    setRazorpay_settings(razorpay);
+  }
 
   const  checkIsMobile = async () => {
     isMobile = await checkMobile();
@@ -51,9 +58,10 @@ export default function Membership() {
     style: 'currency',
     currency: 'INR',
   });
+  
 
   async function getMembershipData(){
-    let data = { "plan_type": btnState ? "Month" : "Year", "role":"Customer","res_type":"member"}
+    let data = { "plan_type": btnState ? "Month" : "Year","res_type":"member"}
     const resp = await get_subscription_plans(data);
     console.log(resp);
       if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
@@ -136,6 +144,8 @@ export default function Membership() {
   }
 
   const [visible, setVisible] = useState(false)
+  const [alertMsg,setAlertMsg] = useState({})
+  const [enableModal,setEnableModal] = useState(false)
 
   function show() {
     setVisible(true);
@@ -144,10 +154,87 @@ export default function Membership() {
   function hide(obj) {
     setVisible(false);
     setVisible_(false);
+    if(obj && obj.status && obj.status == "success"){
+      load_razorpay(obj.checked_plans.total_amount,obj.checked_plans.name,obj.name)
+      setAlertMsg(obj);
+      // setEnableModal(true);
+    }else{
+      setAlertMsg(obj);
+      setEnableModal(true);
+    }
   }
+
+
+  function payment_error_callback(error){
+    setAlertMsg({message: 'Payment failed'});
+    setEnableModal(true);
+  }
+
+  async function payment_Success_callback(response,amount,order_id){
+    let params = {
+      "customer_id": localStorage['customer_id'],
+      "payment_method": "PAY-M00001",
+      "amount":amount,
+      "remarks":"paid",
+      "transaction_id":response.razorpay_payment_id,
+      "order_id":order_id,
+      "payment_method_name":"Razor Pay"
+    }
+    const resp = await make_payment_entry(params);
+    if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
+    //  setAlertMsg({message:'Subscription created successfully'});
+     setEnableModal(true);
+    }
+  }
+
+ const load_razorpay = async (amount,description,order_id) => { 
+  console.log(razorpay_settings.api_key)
+    let r_pay_color ='#e21b22';
+    const app_name = 'India Retail';
+    var options = {
+      "key": razorpay_settings.api_key,
+      "amount": (amount * 100).toString(),
+      "currency": "INR",
+      "name": app_name,
+      "description": "Payment for" + description,
+      "image": (razorpay_settings.site_logo ? check_Image(razorpay_settings.site_logo) : null),
+      "prefill": { "name": localStorage['full_name'],"email": localStorage['userid']},
+      "theme": { "color": r_pay_color },
+      "modal": { "backdropclose": false, "ondismiss": () => { payment_error_callback(description)} },
+      "handler" : async (response, error) => {
+        if(response){
+          payment_Success_callback(response,amount,order_id)
+          // response.razorpay_payment_id
+        } else if(error){
+          payment_error_callback(error)
+        }
+
+      }
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    script.onload = () => {const rzp = new window.Razorpay(options); rzp.open();};
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+
+  }
+
+
+
+  async function closeModal(value){
+    setEnableModal(false);
+  }
+
+
 
   return (
       <RootLayout>
+
+      { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
         {visible &&
             <ConfirmationScreen membershipDetails={memberShipDetails} visible={visible} hide={(obj)=> hide(obj)} startPlan={(membership,index)=> startPlan(membership,index)} btnState={btnState} handleClick={handleClick}/>
@@ -158,7 +245,7 @@ export default function Membership() {
        <div className="pt-[30px] bg-[url('/membership/bg_membership.svg')] bg-no-repeat bg-contain">
          <div className="max-w-[1200px] m-[0px_auto]">
             <h2 className="font-bold text-4xl md:text-2xl text-center">{data.title}</h2>
-            <p className="sub_title text-center pb-10 pt-3">{data.subtitle}</p>
+            <p className="sub_title text-center lg:pb-10 lg:pt-3 md:py-3">{data.subtitle}</p>
             <div className="flex flex-row m-auto justify-center gap-2 mb-3 border rounded-[35px] w-max p-[5px]">
               <div className='inline-block'>
                   <button className={`bg-blue-500 text-white font-bold py-2 px-4 rounded-[35px] font-medium bg-[red] member-button1 ${btnState ? 'active' : ''}`} onClick={handleClick}>Monthly Billing</button>
@@ -169,15 +256,15 @@ export default function Membership() {
             </div>
 
            
-            {memberShipDetails && memberShipDetails.length != 0 &&  
+            {memberShipDetails && memberShipDetails.length != 0 ?
              <div className='relative'>
              { memberShipDetails.length > 3 && <p id={'left_arrow'} className='z-[99] absolute left-[-10px] top-[45%] shadow-[0_0_5px_#ddd] bg-white cursor-pointer h-[35px] w-[35px] border rounded-[50%] p-[6px]' onClick={moveRight}><Image className={`h-[20px] w-[20px]`} src={'/leftArrow.svg'} height={28} width={28} alt={'left'}></Image></p> }
              { memberShipDetails.length > 3 && <p id={'right_arrow'} className='z-[99] absolute right-[-10px] top-[45%] shadow-[0_0_5px_#ddd] bg-white cursor-pointer h-[35px] w-[35px] border rounded-[50%] p-[6px]' onClick={moveLeft}><Image className={`h-[20px] w-[20px]`} src={'/rightArrow.svg'} height={28} width={28} alt={'right'}></Image></p> }
           
-              <div id={'scroll_div'} className="flex lg:p-[10px] gap-6 md:p-[15px] overflow-auto scrollbar-hide ">
+              <div id={'scroll_div'} className="lg:flex lg:p-[10px] gap-6 md:p-[15px] overflow-auto scrollbar-hide ">
               {memberShipDetails.map((membership,index) => {
               return(
-                  <div key={index} className="flex-[0_0_calc(33.333%_-_16px)] member-card lg:p-8 md:p-[15px] bg-white rounded-2xl active_member_ship relative">
+                  <div key={index} className="md:mb-[20px] flex-[0_0_calc(33.333%_-_16px)] member-card lg:p-8 md:p-[15px] bg-white rounded-2xl active_member_ship relative">
                       <h3 className='text-2xl font-bold'>{membership.plan_name}</h3>
                                         
                       {/* <div className='flex items-center gap-[3px] my-[2px] rounded-[35px] w-max p-[5px_8px] member-button'>
@@ -206,7 +293,8 @@ export default function Membership() {
                 })}
           </div>
           
-             </div>
+             </div> 
+             : <Skeleton />
             }
 
         </div>
@@ -235,5 +323,32 @@ export default function Membership() {
       </RootLayout>
     )
   }
+
+  const Skeleton = () => {
+    return (
+      <>
+          <div class="max-w-[1200px] p-[10px] lg:flex gap-6 lg:gap-6 animate-pulse">
+  
+           {[0,1,2].map((res,index)=> {return(
+             <div key={index} class="lg:p-8 md:mb-[20px] lg:flex-[0_0_calc(33.333%_-_16px)] relative border h-[445px] md:p-[15px] bg-white rounded"> 
+               <div className='h-[35px] my-[10px] w-[60%] bg-slate-200 rounded'></div>
+               <div className='h-[35px] mb-[10px] w-[30%] bg-slate-200 rounded'></div>  
+               <div className='h-[20px] mb-[10px] w-[75%] bg-slate-200 rounded'></div>   
+
+                <div className='h-[16px] mt-[25px] mb-[8px] w-full bg-slate-200 rounded'></div>
+                <div className='h-[16px] mb-[8px] w-full bg-slate-200 rounded'></div>
+                <div className='h-[16px] mb-[8px] w-full bg-slate-200 rounded'></div>
+                <div className='h-[16px] mb-[8px] w-full bg-slate-200 rounded'></div>
+                <div className='h-[16px] mb-[8px] w-full bg-slate-200 rounded'></div>
+                <div className='h-[16px] mb-[8px] w-[75%] bg-slate-200 rounded'></div>
+
+                <div className='h-[45px] absolute bottom-[20px] m-[10px] w-[75%] bg-slate-200 rounded-[35px]'></div>   
+
+             </div>
+           )})}
+               
+          </div>
+      </>
+    )}
 
 

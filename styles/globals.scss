@@ -11,6 +11,11 @@
     color: $white-color;
   }
 
+  .border {
+    border: 1px solid $border-color;
+    // border-radius: 5px;
+  }
+
   .border_top{
     border-top: 1px solid $border-color;
   }
@@ -93,12 +98,52 @@
 
 .flex_70{
   flex: 0 0 calc(70% - 15px);
-  // width: calc(70% - 15px);
+  width: calc(70% - 15px);
 }
 
 .flex_30{
   flex: 0 0 calc(30% - 15px);
-  // width: calc(30% - 15px);
+  width: calc(30% - 15px);
+}
+
+.flex-33{
+  flex: 0 0 calc(33.333% - 15px);
+  width: calc(33.333% - 15px);
+}
+
+.flex-40{
+  flex: 0 0 calc(40% - 15px);
+  width: calc(40% - 15px);
+}
+.flex-20{
+  flex: 0 0 calc(20% - 15px);
+  width: calc(20% - 15px);
+}
+
+
+.none{
+  .dots{
+    bottom: 30px !important;
+  }
+}
+
+.leaders{
+  .react-multi-carousel-item{
+    width: 288px !important;
+  }
+}
+
+.research{
+  .react-multi-carousel-item{
+    width: 163px !important;
+  }
+}
+
+
+.photo{
+  .react-multi-carousel-item{
+    width: 178px !important;
+  }
 }
 
 
@@ -514,10 +559,7 @@ input {
   flex-direction: row-reverse;
 }
 
-.border {
-  border: 1px solid $border-color;
-  // border-radius: 5px;
-}
+
 
 
 
@@ -834,7 +876,7 @@ input {
 
   .primeSlide {
     .react-multi-carousel-item {
-      width: 272px !important;
+      width: 231px !important;
     }
   }
 
@@ -865,7 +907,7 @@ input {
 
   .latestNews_slider {
     .react-multi-carousel-item {
-      width: 300px !important;
+      width: 250px !important;
     }
     .dots{
       bottom: 30px !important;
@@ -1240,6 +1282,7 @@ input {
   .ql-editor {
     width: 100% !important;
   }
+
 }
 
 
@@ -1287,7 +1330,7 @@ input {
   line-height: 2.5;
   margin-top: 10px;
   position: relative;
-  z-index: 10;
+  z-index: 999;
   width: 130px;
   background: #fff;
   border-radius: 5px;
@@ -1484,4 +1527,8 @@ input {
     width:14px !important;
     height: 14px !important;
   }
+}
+
+.mouse{
+  cursor: pointer;
 }

@@ -7,7 +7,7 @@ export default function LatestNews({ data, height, width }) {
     <>
       {data && data.map((res, index) => {
         return (
-          <Link key={index} href={res.route}>
+          <Link key={index} href={'/news/'+res.route}>
             <div className={`pb-[10px] ${!res.image && ((index != data.length - 1 || index == 1)) && 'border_bottom'}`}>
               {(res.thumbnail_image && index < 2) && <Image priority src={check_Image(res.thumbnail_image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />}
               {res.title && <p className={`my-[10px] line-clamp-1 title `}>{res.title}</p>}

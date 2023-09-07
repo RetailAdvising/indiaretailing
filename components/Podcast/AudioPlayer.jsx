@@ -2,24 +2,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { check_Image } from '@/libs/common';
 import React from 'react';
-// import DOMPurify from 'dompurify';
 
 function AudioPlayer(data) {
-  // console.log(data.data)
-  //   const [isPlaying, setIsPlaying] = useState(false);
-  // const audioSrc = '/podcast/fast.mp3';  // Replace with the path to your audio file
-  //   const toggleAudio = () => {
-  //     const audioElement = document.getElementById('audio-element');
-
-  //     if (isPlaying) {
-  //       audioElement.pause();
-  //     } else {
-  //       audioElement.play();
-  //     }
-
-  //     setIsPlaying(!isPlaying);
-  //   };
-
   return (
     <div className="border p-[20px_30px] flex md:p-[10px]">
       <div className="w-[40%]">

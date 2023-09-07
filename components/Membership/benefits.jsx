@@ -17,7 +17,7 @@ export default function Benefits({data}) {
        <div style={{background:benefits.color ?  benefits.color  : '#EEF8F9'}} className={`lg:basis-1/4 benefitcard rounded-2xl p-6 md:flex-[0_0_calc(75%_-_10px)]`} key={index}>
           <h3 className='text-1xl  font-bold pb-2'>{benefits.list_heading}</h3>
           <p className='content_ lg:pb-6 text-xs mb-[15px] line-clamp-5'>{benefits.list_sub_heading}</p>
-          <Image src={check_Image(benefits.image)} alt="Article" width={150} height={150} className='m-2 m-auto' />
+          <div className='md:h-[150px]'> <Image src={check_Image(benefits.image)} alt="Article" width={150} height={150} className='m-2 m-auto h-[145px] object-cover' /></div>
        </div>
       )}
     )}

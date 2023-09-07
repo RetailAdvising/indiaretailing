@@ -2,8 +2,10 @@ import React, { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import styles from '@/styles/Header.module.scss'
 import { useRouter } from 'next/router'
+import { check_Image } from '@/libs/common'
 import Dropdowns from '../common/Dropdowns';
 // import Dropdowns from '@/components/common/Dropdowns'
+
 export default function Header({checkout}) {
     const router = useRouter();
     const head = {
@@ -64,15 +66,50 @@ export default function Header({checkout}) {
             router.push('/membership')
         }
     }
+
+    const[enableSearch, setEnableSearch] = useState(false)
+
+    let searchResult = [{'name': 'potential-to-double-our-income-over-3-4-years-pushpa-bector', 'product_id': 'potential-to-double-our-income-over-3-4-years-pushpa-bector', 'title': 'Potential to double our income over 3-4 years: Pushpa Bector', 'route': 'reconnect/potential-to-double-our-income-over-3-4-years:-pushpa-bector', 'type': 'Articles', 'search_keyword': 'Potential to double our income over 3-4 years: Pushpa Bector', 'product_image': '/files/Screenshot 2023-09-07 190539.jpg'}]
+
+    function searchFn(){
+        setEnableSearch(true)
+    }
+
     return (
         <>
-            {head && <div className={``}>
-                <div className='container p-[0px] md:hidden grid grid-cols-3 items-center justify-between'>
+            {head && 
+            <div className={``}>
+                <div className='container relative p-[0px] md:hidden grid grid-cols-3 items-center justify-between'>
                     {/* <div> */}
-                      <div className={`flex items-center `}>
+
+                     <div onClick={searchFn} className={`flex items-center `}>
                         <Image style={{ objectFit: 'contain' }}  height={60} priority width={24} alt='search' src={'/search.svg'} className="pr-2"></Image>
                         <input className={styles.input1} type="text" placeholder='Search here...' name="search"></input>
-                      </div>
+                     </div>
+
+                     {enableSearch && 
+
+                       <div className='flex flex-col items-center justify-center absolute top-[15px] z-[99] w-full margin-[0_auto] bg-white '>
+                                <div className={`flex items-center w-[60%] margin-[0_auto] border rounded-[10px] p-[10px]`}>
+                                    <Image style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} className="pr-2"></Image>
+                                    <input className={'border-[0px]'} type="text" placeholder='Search here...' name="search"></input>
+                                </div>
+                                <div className='border w-[60%] margin-[0_auto] mt-[2px] rounded-[10px]'>
+                                    {searchResult && searchResult.length != 0 &&
+                                        searchResult.map((res, index) => {
+                                            return (
+                                                <div className='flex items-center cursor-pointer border-b[1px] border-slate-100 last-child:border-b-[0px] gap-[8px] p-[10px]'>
+                                                    <div className='flex items-center justify-center h-[55px]'><Image className='h-[50px]' src={check_Image(res.product_image)} height={50} width={50} alt={res.title} /></div>
+                                                    <h6 className='text-[15px] font-semibold'>{res.title}</h6>
+                                                </div>
+                                            )
+                                        })}
+                                </div>
+                                <span className='h-[25px] absolute right-[25px]'><Image className='cursor-pointer' onClick={() => setEnableSearch(false)} src={'/cart/Remove.svg'} height={20} width={20} alt={'Delete'} /></span>
+                        </div>
+                     }
+
+
                     {/* </div> */}
                     <div className=''>
                         <Image style={{ objectFit: 'cover' }} className='m-auto' height={66} priority width={200} alt='' onClick={()=> router.push('/')} src={'/indiaretail.png'}></Image>

@@ -76,7 +76,7 @@ export const check_Image = (Image) => {
 export async function get_razorpay_settings() {
     const resp = await get_razorpaysetting();
     if (resp && resp.message) {
-        razorpay_settings = resp.message;
+       return razorpay_settings = resp.message;
     }
 }
 
@@ -84,7 +84,6 @@ export async function get_razorpay_settings() {
 
 // export async function load_razorpay(amount,description,type) {
 export const load_razorpay = async (amount,description,type,router) => {
-
     var options = {
       "key": razorpay_settings.api_key,
       "amount": (amount * 100).toString(),
@@ -103,21 +102,21 @@ export const load_razorpay = async (amount,description,type,router) => {
         "backdropclose": false,
         "ondismiss": () => {  payment_error_callback(description,'error') }
       },
-      "handler" : (response, error) => {
+      "handler" : async (response, error) => {
         if(response){
-        // return response.razorpay_payment_id
-          let data = { response : { amount : amount,description : description,razorpay_payment_id : response.razorpay_payment_id }}
-          payment_Success_callback(data,description,type,router);
+        //   await razorpay_payment_id(response.razorpay_payment_id)
+        if(response.razorpay_payment_id){
+            return response
+        }
+        //   let data = { response : { amount : amount,description : description,razorpay_payment_id : response.razorpay_payment_id }}
+        //   payment_Success_callback(data,description,type,router);
         } else if(error){
           payment_error_callback(description,error)
         }
-        // console.log(response);
-        // console.log(error);
+
       }
     };
 
-    // const rzp = new Razorpay.open(options);
-    // rzp.open();
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
     script.async = true;
@@ -128,9 +127,14 @@ export const load_razorpay = async (amount,description,type,router) => {
 
     document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    };
+    // return () => {
+    //   document.body.removeChild(script);
+    // };
+}
+
+
+async function razorpay_payment_id(razorpay_payment_id){
+    return  razorpay_payment_id
 }
 
 function payment_Success_callback(data,order_id,type,router){
@@ -223,6 +227,11 @@ export async function articlesDetail(data) {
     let api = domainUrl + 'article_details';
     return await postMethod(api, data)
 }
+export async function articleNewsDetail(data) {
+    let api = domainUrl + 'news_details';
+    return await postMethod(api, data)
+}
+
 
 export async function like(data){
     let api = domainUrl + 'like_dislike';
@@ -317,7 +326,18 @@ export async function insertSubscription(data){
 }
 
 export async function insert_member_subscription(data){
-    let api = subscription + 'insert_member_subscription';
+    // let api = subscription + 'insert_member_subscription';
+    let api = subscription + 'create_subscription';
+    return await postMethod(api,data)
+}
+
+export async function make_payment_entry(data){
+    let api = subscription + 'make_payment_entry';
+    return await postMethod(api,data)
+}
+
+export async function sliders(data){
+    let api='go1_cms.go1_cms.api.sliders';
     return await postMethod(api,data)
 }
 

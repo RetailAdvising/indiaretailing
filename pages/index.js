@@ -50,7 +50,7 @@ export default function Home({ data,ads }) {
     //   setEnd(end + 2)
     // }
   }, [])
-  // console.log(data)
+  console.log(data)
 
   return (
     <>

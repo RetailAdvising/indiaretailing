@@ -1,14 +1,15 @@
 import Image from 'next/image'
 import React from 'react'
+import { check_Image } from '../../libs/api'
 
 export default function ImageGroupEvents({ data, height, width }) {
     return (
         <>
             {data && data.map((res, index) => {
                 return (
-                    <div className={`imageGroup`} key={index}>
-                        <div className={`imageContainer`}>
-                            <Image className={`image ${height} ${width}`} src={res.image} height={100} width={200} alt={res.title} />
+                    <div className={`imageGroup h-full`} key={index}>
+                        <div className={`imageContainer h-full`}>
+                            <Image className={`image ${height} ${width}`} src={check_Image(res.thumbnail_path)} height={100} width={200} alt={res.title} />
                         </div>
                         <div className={`content pt-[10px]`}>
                             <p className={`primary_text `}>{res.primary_text} </p>

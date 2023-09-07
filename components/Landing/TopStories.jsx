@@ -8,7 +8,8 @@ export default function TopStories({ data }) {
         <>
             {data && data.map((res, index) => {
                 return (
-                    <div key={index} className={`flex gap-[10px] flex-[0_0_calc(33.333%_-_10px)] items-center h-[100px] px-[10px]  rounded-[5px] bg-white  md:h-[80px]  md:flex-[0_0_calc(90%_-_10px)] ${index == data.length - 1 ? 'md:mx-[15px]' : 'md:ml-[15px]'}`}>
+                    <Link key={index} href={'/categories/'+res.route} className='flex-[0_0_calc(33.333%_-_10px)] md:flex-[0_0_calc(80%_-_10px)]'>
+                    <div  className={`flex gap-[10px]  items-center h-[100px] px-[10px]  rounded-[5px] bg-white  md:h-[80px]  md:flex-[0_0_calc(90%_-_10px)] ${index == data.length - 1 ? 'md:mx-[15px]' : 'md:ml-[15px]'}`}>
                         <div className='flex-[0_0_calc(25%_-_10px)]'>
                             <Link href={res.route}>
                                 <Image src={check_Image(res.thumbnail_image)} height={80} width={100} alt={res.title} className={`rounded-[5px] h-[75px] md:h-[60px] w-full`} />
@@ -20,7 +21,8 @@ export default function TopStories({ data }) {
                                 <h6 className={`top_title`}>{res.title}</h6>
                             </Link>
                         </div>
-                    </div>
+                    </div>                    
+                    </Link>
                 )
             })}
         </>

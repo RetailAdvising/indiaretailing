@@ -18,7 +18,7 @@ export default function Navbar({heading,isLanding}) {
     const [date, setDate] = useState(undefined)
 
     const subnavrouter = useRouter();
-    console.log(subnavrouter);
+    // console.log(subnavrouter);
 
 
     const [active, setActive] = useState(false);

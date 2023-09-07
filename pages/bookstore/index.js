@@ -41,7 +41,7 @@ export default function Bookstore({ data,resp }) {
       <RootLayout>
         {(data && data.length != 0) && <>
           {(resp.recent_products && resp.recent_products.length != 0) && 
-          <div className='pt-[10px]' style={{ background: "#f0f0f0" }}>
+          <div className='pt-[10px] container' style={{ background: "#f0f0f0" }}>
             <Sliders data={resp.recent_products} perView={1} />
           </div>}
 
@@ -49,11 +49,12 @@ export default function Bookstore({ data,resp }) {
             {/* {data.map((res, index) => {
               return ( */}
             <div className='md:flex-wrap  md:p-[15px] py-8 container justify-between gap-[15px] flex'>
-              <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
+              <div className={`flex-[0_0_calc(100%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
                 <Title data={data[0]}  seeMore={true} />
-                <div className={`grid gap-[35px] grid-cols-4 md:grid-cols-2 `}><Card imgClass={'h-[270px] w-[181px]'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 8)} boxShadow={true} /></div>
+                {/* [270px] w-[181px] */}
+                <div className={`grid gap-[35px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'h-[365px] mouse'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 10)} boxShadow={true} /></div>
               </div>
-              <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}><AdsBaner data={val.section_2.col_2} /></div>
+              {/* <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}><AdsBaner data={val.section_2.col_2} /></div> */}
             </div>
             {/* )
             })} */}

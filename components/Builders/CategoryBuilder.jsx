@@ -184,7 +184,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             </p>
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'line-clamp-5'}`} />
 
-            {(isPrime && !validator) && <div className='border p-[20px] shadow-xl my-[20px] rounded-lg'>
+            {(isPrime && !validator) && <div className='border md:border-0 p-[20px] shadow-xl my-[20px] rounded-lg'>
               <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px]'>This story is for Premium Members you  have to buy Membership to Unlock</h6>
               <div className='flex gap-[20px] justify-center pt-[0px]'>
                 <button className='primary_btn p-[8px_16px]' onClick={() => router.push('/membership')}>Subscribe</button>
@@ -285,7 +285,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
           </div>
 
           <div className='w_30 md:hidden'>
-            {(data.related_articles && data.related_articles.length != 0) && <div className='border rounded-[5px] p-[10px]'>
+            {(data.related_articles && data.related_articles.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px]'>
               <Title data={{ title: 'Related Stories' }} />
               <List tittleOnly={true} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.related_articles} imgHeight={'h-[110px]'} imgWidth={'w-full'} />
             </div>}
@@ -296,9 +296,13 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
             {/* {(ads && )} */}
 
-            {(data.must_read && data.must_read.length != 0) && <div className='border rounded-[5px] p-[10px]'>
+            {(data.must_read && data.must_read.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px]'>
               <Title data={{ title: 'Must Read' }} />
               <List tittleOnly={true} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.must_read} imgHeight={'h-[110px]'} imgWidth={'w-full'} />
+            </div>}
+            {(data.other_category3 && data.other_category3.data && data.other_category3.data.length != 0) && <div className='border rounded-[5px] p-[10px]'>
+              <Title data={data.other_category3} />
+              <List isTop={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={data.other_category3.data} imgHeight={'h-full'} imgWidth={'w-full'} />
             </div>}
 
             <div className='py-3'>
@@ -306,7 +310,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             </div>
 
 
-            {(data.other_category2 && data.other_category2.data && data.other_category2.data.length != 0) && <div className='border rounded-[5px] p-[10px]'>
+            {(data.other_category2 && data.other_category2.data && data.other_category2.data.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px]'>
               <Title data={data.other_category2} />
               <List isTop={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={data.other_category2.data} imgHeight={'h-full'} imgWidth={'w-full'} />
             </div>}
@@ -315,7 +319,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
               <AdsBaner data={res.baner_img3} text={"Advertisement"} height={'220px'} width={'275px'} />
             </div> */}
           </div>
-        </div>
+        </div> 
 
         {categories.sections.section_3 && <div className={`${isMobile ? '' : 'container'} ${styles.section_3}`}>
           {/* Slider */}

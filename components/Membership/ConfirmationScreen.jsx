@@ -26,6 +26,8 @@ export default function ConfirmationScreen({membershipDetails,visible,hide,start
    });
 
    const [loader,setLoader] = useState(false)
+   const [loadAlert,setLoadAlert] = useState(false)
+
 
    const getStarted = (e) =>{
      setLoader(true)
@@ -41,20 +43,18 @@ export default function ConfirmationScreen({membershipDetails,visible,hide,start
    }
 
    async function insert_subscription(checked_plans){
-    let data = {
+    let params = {
         "party": localStorage['customer_id'],
         "subscription_plan": checked_plans.plan_name,
     }
-    const resp = await insert_member_subscription(data);
-    console.log(resp);
+    const resp = await insert_member_subscription(params);
     setLoader(false);
-    //   if (resp && resp.message && resp.message.page_content && resp.message.page_content != 0) {
-    //       let datas = resp.message.page_content
-    //       setpageContent(datas);
-    //   } 
+    if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
+      hide({status:'success', message:'Subscription created successfully', name:resp.message.data[0].document_name, checked_plans:checked_plans});
+    }else{
+      hide({status:'failed',message:resp.message.message});
+    }
   }
-
-   const [loadAlert,setLoadAlert] = useState(false)
 
 
   return (
