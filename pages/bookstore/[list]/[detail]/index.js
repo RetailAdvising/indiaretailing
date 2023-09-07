@@ -275,8 +275,8 @@ const  getCarts = async (type) => {
   return (
     <>
       <RootLayout>
-        {data ?  <Skeleton /> :
-          (data && Object.keys(data).length != 0) && <div className='container'>
+        {/* {data ?  <Skeleton /> : */}
+          {(data && Object.keys(data).length != 0) && <div className='container'>
           <div className={`flex justify-between flex-wrap gap-[15px] py-8`}>
             <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex flex-col md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               {/* flex-[0_0_calc(100%_-_10px)] */}
@@ -436,8 +436,9 @@ const  getCarts = async (type) => {
             <Title data={data.other_group_items} seeMore={true} />
             <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.other_group_items.data.slice(0, 5)} boxShadow={true} /></div>
           </div>}
-          </div>
-         }
+           </div>
+          }
+         {/* } */}
       </RootLayout>
 
     </>
@@ -487,12 +488,10 @@ export async function getServerSideProps({ params }) {
 const Skeleton = () => {
   return (
     <>
-      <div class="p-4 bg-white shadow-md rounded-md">
         <div class="animate-pulse">
           <div class="h-4 bg-slate-300 rounded w-3/4 mb-2"></div>
           <div class="h-4 bg-slate-300 rounded w-2/4 mb-2"></div>
           <div class="h-4 bg-slate-300 rounded w-4/4"></div>
         </div>
-      </div>
     </>
   )}
