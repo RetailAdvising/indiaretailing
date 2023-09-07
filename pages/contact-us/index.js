@@ -11,10 +11,10 @@ export default function Contact() {
                 <div className='container gap-11 p-[30px_0px] md:p-[15px] '>
                     {footer.footer.section_1 && <div className={`flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] flex flex-row`}>
                     <div className="basis-2/6">
-                            <p className='font-bold	pb-1'>{footer.footer.section_1.addresstitle}</p>
+                            <h6 className='font-bold pb-1'>{footer.footer.section_1.addresstitle}</h6>
                             <p className='address font-normal'>{footer.footer.section_1.address}</p>
 
-                            <p className='font-bold pb-1 pt-2'>{footer.footer.section_1.addresstitle1}</p>
+                            <h6 className='font-bold pb-1 pt-2'>{footer.footer.section_1.addresstitle1}</h6 >
                             <p className='address font-normal'>{footer.footer.section_1.address1}</p>
                             </div>
                             <div className="basis-2/6">
@@ -28,7 +28,7 @@ export default function Contact() {
                             </span>
                             </div>
                             <div className="basis-2/6">
-                            <p className='text-[16px] font-semibold pb-[10px] pt-[20px]'>Our Social Media</p>
+                            <h6 className='text-[16px] font-semibold pb-[10px] pt-[20px]'>Our Social Media</h6>
                             <div className='flex items-center gap-[15px] py-[10px]'>
                                 {footer.footer.section_1.socials && footer.footer.section_1.socials.map((res, index) => {
                                     return (

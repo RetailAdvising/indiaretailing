@@ -1,15 +1,19 @@
 import React from 'react'
 import Image from 'next/image'
-export default function LatestNews({ data,height,width }) {
+import { check_Image } from '@/libs/api'
+import Link from 'next/link'
+export default function LatestNews({ data, height, width }) {
   return (
     <>
       {data && data.map((res, index) => {
         return (
-          <div key={index} className={`pb-[10px] ${!res.image && ((index != data.length-1)) && 'border_bottom'}`}>
-            {res.image && <Image priority src={res.image}  className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />}
-            {res.title && <p className={`py-[10px] title ${!res.image && 'py-[10px]'}`}>{res.title}</p>}
-            {res.sub_title && <p className={`${!res.image && 'pb-[10px]'} sub_title`}>{res.sub_title}</p>}
-          </div>
+          <Link key={index} href={res.route}>
+            <div className={`pb-[10px] ${!res.image && ((index != data.length - 1 || index == 1)) && 'border_bottom'}`}>
+              {(res.thumbnail_image && index < 2) && <Image priority src={check_Image(res.thumbnail_image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />}
+              {res.title && <p className={`my-[10px] line-clamp-1 title `}>{res.title}</p>}
+              {(res.blog_intro && index >= 2) && <p className={`${!res.image && 'mb-[10px]'} sub_title line-clamp-2`}>{res.blog_intro}</p>}
+            </div>
+          </Link>
         )
       })}
     </>

@@ -14,10 +14,24 @@
   .border_top{
     border-top: 1px solid $border-color;
   }
+
+
   @screen lg {
-    .title {
-      @apply text-[14px] font-semibold leading-[17.62px]
+    // Top 3 Stories
+    .top3{
+      @apply flex gap-[15px] bg-[#F8F9FA] py-5
     }
+    .top_title{
+      @apply text-[14px] font-semibold leading-[17.62px] line-clamp-2
+    }
+    .top_primary_text{
+      @apply text-[12px] font-semibold text-[#e21b22] line-clamp-1
+    }
+
+    .title {
+      @apply text-[14px] font-semibold leading-[17.62px] line-clamp-2
+    }
+
     .sub_title {
       font-size: $font-13;
       font-weight: 400;
@@ -34,8 +48,24 @@
   }
 
   @screen md {
+     // Top 3 Stories
+    .top3{
+      @apply flex  overflow-auto bg-[#F8F9FA] py-[10px];
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    .top_title{
+      @apply text-[13px] font-semibold leading-[17.62px] line-clamp-2
+    }
+    .top_primary_text{
+      @apply text-[12px] font-semibold text-[#e21b22] line-clamp-1
+    }
+
+
     .title {
       @apply text-[13px] font-semibold leading-[17.62px]
+      
     }
     .sub_title {
       font-size: $font-12;
@@ -61,6 +91,16 @@
   }
 }
 
+.flex_70{
+  flex: 0 0 calc(70% - 15px);
+  // width: calc(70% - 15px);
+}
+
+.flex_30{
+  flex: 0 0 calc(30% - 15px);
+  // width: calc(30% - 15px);
+}
+
 
 .gray_color{
   color: $secondary-color;
@@ -73,8 +113,8 @@ body {
   p,
   span {
     font-size: $font-14;
-    color: $secondary-color;
-    line-height: 28px;
+    // color: $secondary-color;
+    // line-height: 18px;
   }
 
   img {
@@ -219,7 +259,7 @@ h6 {
 
 .sticky_header {
   position: sticky;
-  top: 0;
+  top: -2px;
   background: #fff;
   z-index: 10;
 }
@@ -285,41 +325,42 @@ h6 {
   background: #E5ECFF;
 }
 
-.benefitcard:nth-child(1) {
-  background: #EEF8F9;
-}
+// .benefitcard {
+//   background: #EEF8F9;
+// }
 
-.benefitcard:nth-child(2) {
-  background: #FFF5DD;
-}
+// .benefitcard:nth-child(2) {
+//   background: #FFF5DD;
+// }
 
-.benefitcard:nth-child(3) {
-  background: #EEECFE;
-}
+// .benefitcard:nth-child(3) {
+//   background: #EEECFE;
+// }
 
-.benefitcard:nth-child(4) {
-  background: #FCF2F2;
-}
+// .benefitcard:nth-child(4) {
+//   background: #FCF2F2;
+// }
 
-.benefitcard:nth-child(5) {
-  background: #FFF5DD;
-}
+// .benefitcard:nth-child(5) {
+//   background: #FFF5DD;
+// }
 
-.benefitcard:nth-child(6) {
-  background: #EEF8F9;
-}
+// .benefitcard:nth-child(6) {
+//   background: #EEF8F9;
+// }
 
-.benefitcard:nth-child(7) {
-  background: #FCF2F2;
-}
+// .benefitcard:nth-child(7) {
+//   background: #FCF2F2;
+// }
 
-.benefitcard:nth-child(8) {
-  background: #EEECFE;
-}
+// .benefitcard:nth-child(8) {
+//   background: #EEECFE;
+// }
 
 
 
 .member-card {
+border: 1px solid #fff;
   box-shadow: 0px 4.904330253601074px 29.425983428955078px 0px rgba(0, 0, 0, 0.06), 0px 3.923464298248291px 9.808660507202148px 0px rgba(0, 0, 0, 0.02), 0px 0.9808660745620728px 3.923464298248291px 0px rgba(0, 0, 0, 0.03);
 }
 
@@ -420,17 +461,17 @@ h6 {
   color: #111111;
 }
 
-.flex_70 {
-  flex: 0 0 calc(70% - 10px);
-}
+// .flex_70 {
+//   flex: 0 0 calc(70% - 10px);
+// }
 
-.flex_20 {
-  flex: 0 0 calc(20% - 10px);
-}
+// .flex_20 {
+//   flex: 0 0 calc(20% - 10px);
+// }
 
-.flex_25 {
-  flex: 0 0 calc(25% - 15px);
-}
+// .flex_25 {
+//   flex: 0 0 calc(25% - 15px);
+// }
 
 
 
@@ -557,6 +598,7 @@ input {
 }
 
 @media screen and (max-width:768px) {
+
   .w_100 {
     width: 100%;
   }
@@ -765,6 +807,13 @@ input {
 
 
 @media screen and (min-width:768px) {
+
+  .benefitcard{
+    .content_{
+     min-height: 104px;
+    }
+  }
+
   .w_30 {
     width: calc(30% - 20px);
   }
@@ -902,7 +951,7 @@ input {
   .categorySlide {
     .react-multi-carousel-item {
       // width: 217px !important;
-      width: 220px !important;
+      width: 248px !important;
     }
 
     // .react-multiple-carousel__arrow--left{
@@ -1401,3 +1450,38 @@ input {
 //   margin-top: 20px;
 //   padding-bottom: 10px;
 // }
+
+
+@media only screen and (min-width: 768px) and (max-width: 1280px) {
+  .container{
+    padding: 30px 15px !important;
+  }
+}
+
+.active_member_ship:hover{
+  border:1px solid $primary-color !important;
+  .member-button_ {
+   background: $primary-color !important;
+   color: #fff;
+ }
+}
+
+.scrollbar-hide::-webkit-scrollbar{
+  display: none;
+}
+
+.hiding{
+  display: none
+}
+
+.confirmMembership{
+  .rodal-dialog{
+    padding: 0 !important;
+  }
+  .rodal-close {
+    top: 11px !important;
+    right: 16px;
+    width:14px !important;
+    height: 14px !important;
+  }
+}

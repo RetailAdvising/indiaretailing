@@ -6,7 +6,7 @@ import Card from '@/components/Bookstore/Card';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import { useRouter } from 'next/router';
-import { getProductDetail, insertCartItems, insertSubscription, insert_cart_items, updateCartItems, getCartItem, deleteCartItems, load_razorpay, get_razorpay_settings, subscriptionPlans } from '@/libs/api';
+import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, insert_cart_items, updateCartItems, getCartItem, deleteCartItems, load_razorpay, get_razorpay_settings, subscriptionPlans, get_subscription_plans } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import Modal from '@/components/common/Modal';
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
@@ -67,7 +67,7 @@ export default function Bookstoredetail({ value, res }) {
     getCarts('');
     get_razorpay_settings()
     if (value) {
-      console.log(value);
+      console.log(res);
       if(value.vendor_price_list && value.vendor_price_list.length != 0){     
         if(value.has_variants == 1){
             value.price = value.vendor_price_list[0].default_variant.product_price;
@@ -111,8 +111,9 @@ export default function Bookstoredetail({ value, res }) {
 
       if (val) {
         // console.log(val)
-        load_razorpay(val.total_amount,val.name,'Subscription');
-        setLoader(false);
+        // load_razorpay(val.total_amount,val.name,'Subscription');
+        // setLoader(false);
+        insert_subscription(val)
       } else {
         data['count'] = 1;
         if(data['quantity'] == 0) {
@@ -128,6 +129,22 @@ export default function Bookstoredetail({ value, res }) {
       setModal('login')
     }
 
+  }
+
+  async function insert_subscription(checked_plans){
+    let params = {
+        "party": localStorage['customer_id'],
+        "subscription_plan": checked_plans.plan_name,
+        "item":data['name'],
+        "subscription_type":"item"
+    }
+    const resp = await insert_member_subscription(params);
+    console.log(resp);
+    setLoader(false);
+    //   if (resp && resp.message && resp.message.page_content && resp.message.page_content != 0) {
+    //       let datas = resp.message.page_content
+    //       setpageContent(datas);
+    //   } 
   }
 
   const [sort, setSort] = useState(false);
@@ -258,8 +275,8 @@ const  getCarts = async (type) => {
   return (
     <>
       <RootLayout>
-        {/* <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}
-        {(data && Object.keys(data).length != 0) && <div className='container'>
+        {data ?  <Skeleton /> :
+          (data && Object.keys(data).length != 0) && <div className='container'>
           <div className={`flex justify-between flex-wrap gap-[15px] py-8`}>
             <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex flex-col md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               {/* flex-[0_0_calc(100%_-_10px)] */}
@@ -345,7 +362,7 @@ const  getCarts = async (type) => {
                 {subs.map((item, index) => {
                   return (
                     <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(res, item, index)} key={index}>
-                      <p className='lg:text-[14px] md:text-[10px] font-semibold'>{item.plan_name}</p>
+                      <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.plan_name}</p>
                       <p className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.total_amount)}</p>
                       {item.features && item.features.map((f, index) => {
                         return (<p key={index} style={{fontWeight:'400'}} className='lg:text-[10px] sub_title md:text-[10px]'>{f.features}</p>)
@@ -419,8 +436,8 @@ const  getCarts = async (type) => {
             <Title data={data.other_group_items} seeMore={true} />
             <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.other_group_items.data.slice(0, 5)} boxShadow={true} /></div>
           </div>}
-        </div>}
-
+          </div>
+         }
       </RootLayout>
 
     </>
@@ -450,10 +467,32 @@ export async function getServerSideProps({ params }) {
   //     value.quantity = 0
   //   }
 
-  let subscription = await subscriptionPlans();
-  const res = subscription.message;
+  // let subscription = await subscriptionPlans();
+  // const res = subscription;
+
+  let data = {"res_type":"item"}
+  const subscription = await get_subscription_plans(data);
+  let res =[]
+  if (subscription && subscription.message && subscription.message.status && subscription.message.status == 'success') {
+      res = subscription.message.message;
+  } 
 
   return {
     props: { value, res }
   }
 }
+
+
+
+const Skeleton = () => {
+  return (
+    <>
+      <div class="p-4 bg-white shadow-md rounded-md">
+        <div class="animate-pulse">
+          <div class="h-4 bg-slate-300 rounded w-3/4 mb-2"></div>
+          <div class="h-4 bg-slate-300 rounded w-2/4 mb-2"></div>
+          <div class="h-4 bg-slate-300 rounded w-4/4"></div>
+        </div>
+      </div>
+    </>
+  )}

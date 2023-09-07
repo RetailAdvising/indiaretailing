@@ -39,7 +39,7 @@ export default function Home({ data,ads }) {
     // }
     if (data && data.page_content && data.page_content.length != 0) {
       setValue(data.page_content)
-      console.log(ads)
+      // console.log(ads)
     }
 
     // data()
@@ -50,19 +50,20 @@ export default function Home({ data,ads }) {
     //   setEnd(end + 2)
     // }
   }, [])
-  console.log(data)
+  // console.log(data)
 
   return (
     <>
-      <RootLayout isLanding={true} head={''} homeAd={ads ? ads : null}>
+    {/* <Dropdowns /> */}
         {/* {(PageData && PageData.page_sections) && PageData.page_sections.slice(start, end).map((res, index) => {
           return (
             <HomePageBuilder data={res} loadMore={() => setPageNo(p => p + 1)} isLast={index == PageData.page_sections.slice(start, end).length - 1} />
           )
         })} */}
+        {/*  isLast={index == value.length - 1} */}
+      <RootLayout data={data} isLanding={true} head={''} homeAd={ads ? ads : null}>
         {(value && value.length != 0) && value.map((res, index) => {
           return (
-            // isLast={index == value.length - 1}
             <HomePageBuilder key={index} data={res} loadMore={() => setPageNo(p => p + 1)} />
           )
         })}

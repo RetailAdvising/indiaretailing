@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { logIn } from '@/libs/api';
 import { useRouter } from 'next/router';
 import OTP from './OTP';
+// import { LoginSocialGoogle } from 'reactjs-social-login';
 
 import { useDispatch, useSelector } from 'react-redux';
 import setUser from 'redux/actions/userAction';
@@ -38,12 +39,21 @@ export default function LogIn({ isModal, hide }) {
             }
         }
     }
+
+    async function loginGoogle(){
+
+    }
+
+    async function go_to_home() {
+        isModal ? hide() : router.push('/')
+    }
+
     return (
         <>
             {!otp ? <div className='flex container p-[20px] justify-center gap-[60px] '>
                 <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] relative h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] mt-[30px]'} flex-col flex justify-center`}>
                     {!isModal && <div className='absolute top-0 left-[10px] cursor-pointer'>
-                        <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
+                        <Image onClick={() => go_to_home()} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
                     <form onSubmit={handleSubmit((data) => login(data))} autoComplete='off'>
@@ -80,7 +90,7 @@ export default function LogIn({ isModal, hide }) {
                         <Image height={20} width={20} alt='google' src={'/login/Login-OTP.svg'} />
                         <p>Login With OTP</p>
                     </div>
-                    <div className='flex gap-[10px] mb-[18px] h-[45px] rounded-[5px] border cursor-pointer items-center justify-center '>
+                    <div onClick={() => loginGoogle()} className='flex gap-[10px] mb-[18px] h-[45px] rounded-[5px] border cursor-pointer items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/google-login.svg'} />
                         <p>Continue with Google</p>
                     </div>

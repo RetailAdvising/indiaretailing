@@ -58,12 +58,12 @@ export default function NewsLists({ data }) {
           <label className='themeSwitcherTwo w-full  border_bottom shadow-card relative inline-flex cursor-pointer select-none'>
             <input type='checkbox' className='sr-only' checked={isChecked} onChange={handleCheckboxChange}/>
             <span
-              className={`flex capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-semibold ${!isChecked ? 'tabActive' : ''
+              className={`flex capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-semibold text-[#111111] ${!isChecked ? 'tabActive' : ''
                 }`}>
               Current edition
             </span>
             <span
-              className={`flex capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-semibold ${isChecked ? 'tabActive' : ''
+              className={`flex capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-semibold text-[#111111] ${isChecked ? 'tabActive' : ''
                 }`}>
               All Newsletter
             </span>
@@ -72,7 +72,7 @@ export default function NewsLists({ data }) {
           {!isChecked ? <>
             {data && <div className={`flex pt-[20px] md:pt-[0px] flex-wrap justify-between gap-5`}>
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_0px)]`}>
-                <p className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.custom_title}</p>
+                <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.custom_title}</h6>
                 <p className='sub_title py-3 md:hidden'>{data.custom_description}</p>
                 <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] h-[35px] w-[100px]'>subscribe</button>
               </div>

@@ -25,8 +25,8 @@ export default function NewsList({ data }) {
               <Image className={`lg:h-[90px] md:h-full w-full rounded-[3px] `} src={check_Image(res.custom_image_)} height={100} width={200} alt={res.custom_day} />
             </div>
             <div  onClick={() => router.push(`/${res.route}`)} className={`lg:leading-[1.7] md:gap-[5px] md:flex-[0_0_calc(65%_-_5px)] lg:flex-[0_0_calc(60%_-_10px)]`}>
-              <p className={`text-[#818181] leading-[17.62px] lg:text-[14px] md:text-[11px]`}>{res.custom_day}</p>
-              <p className={`line-clamp-1 font-semibold text-[16px] md:text-[14px]`}>{res.custom_category}</p>
+              <p className={`text-[#818181] leading-[17.62px] lg:text-[13px] md:text-[11px]`}>{res.custom_day}</p>
+              <h6 className={`line-clamp-1 font-semibold text-[16px] md:text-[14px]`}>{res.custom_category}</h6>
               <p className={`text-[14px] md:text-[12px] line-clamp-2`}>{res.custom_title}</p>
               <div className='flex lg:hidden items-center md:gap-[10px] gap-[20px]'>
                 <p className='cursor-pointer text-[14px] md:text-[12px] font-semibold' onClick={() => router.push(`/${res.route}`)}>Preview</p>

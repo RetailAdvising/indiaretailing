@@ -5,13 +5,13 @@ export default function TrendingBox({ data, icons, parentElement }) {
   const moveLeft = () => {
     let element = document.querySelector(`.${parentElement}`);
     element.scrollBy(100, 0);
-
   }
 
   const moveRight = () => {
     let element = document.querySelector(`.${parentElement}`);
     element.scrollBy(-100, 0);
   }
+  
   return (
     <>
       {data && data.map((res, index) => {

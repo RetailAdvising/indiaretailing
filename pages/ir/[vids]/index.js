@@ -8,7 +8,7 @@ export default function Videos({data,ads}) {
     return (
         <>
             <RootLayout isLanding={false} head={router.query.vids}>
-                {(data && data.length != 0) && <div className='grid grid-cols-4 md:grid-cols-2 container lg:p-[30px_20px] md:p-[15px] gap-[15px] justify-between'>
+                {(data && data.length != 0) && <div className='grid grid-cols-4 md:grid-cols-2 container lg:p-[30px_0px] md:p-[15px] gap-[15px] justify-between'>
                     <Video data={data} />
                 </div>}
             </RootLayout>

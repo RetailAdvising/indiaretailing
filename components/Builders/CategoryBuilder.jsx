@@ -185,7 +185,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'line-clamp-5'}`} />
 
             {(isPrime && !validator) && <div className='border p-[20px] shadow-xl my-[20px] rounded-lg'>
-              <p className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px]'>This story is for Premium Members you  have to buy Membership to Unlock</p>
+              <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px]'>This story is for Premium Members you  have to buy Membership to Unlock</h6>
               <div className='flex gap-[20px] justify-center pt-[0px]'>
                 <button className='primary_btn p-[8px_16px]' onClick={() => router.push('/membership')}>Subscribe</button>
                 {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
@@ -207,7 +207,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
               {!isMobile && <div className={`flex flex-row justify-between`}>
                 {/* <p className="gray-text">Previous Post</p> */}
                 <hr></hr>
-                <p className={`font15_bold`}>Share this Article</p>
+                <h6 className={`font15_bold`}>Share this Article</h6>
                 <hr></hr>
                 {/* <p className="gray-text">Next Post</p> */}
               </div>}
@@ -246,7 +246,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
               {(data.comments) && <>
                 <div className={`${!isMobile && 'border_bottom'} py-1.5 ${styles.profile_div}`}>
-                  <p id={`cmt${i}`} className='font-semibold'>Comments</p>
+                  <h6 id={`cmt${i}`} className='font-semibold'>Comments</h6>
                 </div>
 
                 {(data.comments && data.comments.length != 0) &&

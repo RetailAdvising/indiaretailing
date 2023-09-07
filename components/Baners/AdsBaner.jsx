@@ -2,13 +2,13 @@ import { check_Image } from '@/libs/api'
 import Image from 'next/image'
 import React from 'react'
 
-export default function AdsBaner({ data, height, Class, text, style, width, homeAd }) {
+export default function AdsBaner({ data, height, Class, text, style, width, homeAd, }) {
   return (
     <>
       {
         data && <div style={style} className={`${Class}`}>
           {data.ad_title && <p className='fnt_12 text-center'>{data.ad_title ? data.ad_title : ''}</p>}
-          <Image priority src={data.ad_image} height={250} className={`${height} ${width} `} width={970} alt='ad' />
+          <Image priority src={data.ad_image || check_Image(data.banner_image)} height={250} className={`${height} ${width} `} width={970} alt='ad' />
         </div>
       }
       {

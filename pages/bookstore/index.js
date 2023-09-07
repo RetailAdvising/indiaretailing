@@ -42,7 +42,7 @@ export default function Bookstore({ data,resp }) {
         {(data && data.length != 0) && <>
           {(resp.recent_products && resp.recent_products.length != 0) && 
           <div className='pt-[10px]' style={{ background: "#f0f0f0" }}>
-            <Sliders data={resp.recent_products} perView={3} />
+            <Sliders data={resp.recent_products} perView={1} />
           </div>}
 
           <div className={`lg:bg-[#FBFBFD]`}>

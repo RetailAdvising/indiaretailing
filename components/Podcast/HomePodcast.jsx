@@ -23,7 +23,7 @@ export default function HomePodcast({ data }) {
                                                     {/* <Title data={data} seeMore={true} /> */}
                                                     {data && data.category && <Title data={data} seeMore={true} />}
                                                     <div className={`flex gap-[10px] justify-between no_scroll lg:flex-wrap`}>
-                                                        <Cards data={data.data} check={true} border_none={true} height={'h-[190px]'} flex={'flex-[0_0_calc(20%_-_40px)] md:flex-[0_0_calc(50%_-_10px)]'} />
+                                                        <Cards data={data.data} check={true} border_none={true} width={'w-[100%]'} height={'h-[220px]'} flex={'flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} />
                                                     </div>
                                                     </>
                                                 }

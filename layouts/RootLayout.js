@@ -6,7 +6,8 @@ import SEO from '@/components/common/SEO'
 import React from 'react'
 // import '@/styles/globals.scss'
 
-export default function RootLayout({ children, checkout, isLanding, head, homeAd }) {
+export default function RootLayout({ children, checkout, isLanding, head, homeAd, data }) {
+  // console.log(data.footer_content)
   const styles = {
     display: 'flex',
     justifyContent: 'center'

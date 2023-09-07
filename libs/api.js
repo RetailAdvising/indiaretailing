@@ -154,7 +154,6 @@ export async function order_payment_capture(id,order_id,router) {
     const resp = await update_order_status(updatedate);
     if (resp) {
         router.push('/bookstore')
-
         // router.push('/thankyou?order_id=' + order_id)
     }
 }
@@ -198,7 +197,10 @@ export async function HomePage(data){
     return await postMethod(api,data)
 }
 
-
+export async function get_subscription_plans(data){
+    let api = 'subscription.subscription.api.get_subscription_plans';
+    return await postMethod(api,data)
+}
 
 export async function getList(data) {
     let api = domainUrl + 'get_list';
@@ -311,6 +313,11 @@ export async function subscriptionPlans(){
 
 export async function insertSubscription(data){
     let api = subscription + 'insert_subscription';
+    return await postMethod(api,data)
+}
+
+export async function insert_member_subscription(data){
+    let api = subscription + 'insert_member_subscription';
     return await postMethod(api,data)
 }
 

@@ -39,7 +39,7 @@ export default function Comments({ data, isLast, load, cmt }) {
                         <Image className='rounded-full object-contain' src={'/profit.svg'} height={48} width={48} alt={data.name} />
                     </div>
                     <div className='max-w-full w-full'>
-                        <p className='flex gap-3 '><span className='font14_bold'>{data.comment_by}</span> | <span>{data.duration}</span></p>
+                        <p className='flex gap-3 '><h6 className='font14_bold'>{data.comment_by}</h6> | <span>{data.duration}</span></p>
                         <div className='py-2 sub_title' dangerouslySetInnerHTML={{ __html: data.content }} />
                         <div className='flex justify-between items-center py-[5px]'>
                             <div className='flex gap-3'>

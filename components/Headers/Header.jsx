@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import styles from '@/styles/Header.module.scss'
 import { useRouter } from 'next/router'
+import Dropdowns from '../common/Dropdowns';
 // import Dropdowns from '@/components/common/Dropdowns'
 export default function Header({checkout}) {
     const router = useRouter();
@@ -81,7 +82,30 @@ export default function Header({checkout}) {
                         <button type='button' onClick={() => router.push('/login')} className={`${styles.btn_sig}`}>{head.btn2}</button>
                     </div> :
                         <div className='flex justify-end'>
-                            <div className='dropdowns h-[20px]'>
+                            <div className=' h-[20px]'>
+                                <div onClick={profileMenu} className='flex cursor-pointer items-center gap-[10px]'>
+                                    <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  ${member ? 'h-[40px] w-[40px]' : 'h-[25px] w-[25px]'}`} height={30} width={30} alt='profile' />
+                                    <div>
+                                        {localStorage['full_name'] && <p className='cursor-pointer capitalize font-semibold'>{localStorage['full_name']}</p>}
+                                        {member && <div className='flex text-[13px] items-center gap-[10px]'><p>Premium</p>  <Image src={'/Navbar/premium.svg'} className='h-[15px] w-[15px]' height={20} width={20} alt='premium' /></div>}
+                                    </div>
+                                    <div>
+                                        <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
+                                    </div>
+                                </div>
+                                {/* {localStorage['full_name'] && <Dropdowns btn_name={localStorage['full_name']} data={profile} />} */}
+                                <div className={`dropdown-menu`} ref={ref} style={{ width: 'auto' }} id='dropdown1'>
+                                    {profile && profile.map((res, index) => {
+                                        return (
+                                            <div key={index} >
+                                                <div onClick={() => myAccounts(res)} className='flex cursor-pointer gap-[10px] p-[10px] items-center'>{res.icon && <Image src={res.icon} height={20} alt={res.name} width={20} />}<p className='capitalize text-[13px]'>{res.name}</p></div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+
+                            </div>
+                            {/* <div className='dropdowns h-[20px]'>
                                 <div onClick={profileMenu} className='flex cursor-pointer items-center gap-[10px]'>
                                     <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  ${member ? 'h-[40px] w-[40px]' : 'h-[25px] w-[25px]'}`} height={30} width={30} alt='profile' />
                                     <div>
@@ -102,7 +126,7 @@ export default function Header({checkout}) {
                                     })}
                                 </div>
 
-                            </div>
+                            </div> */}
 
                         </div>
 

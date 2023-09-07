@@ -71,7 +71,7 @@ export default function Content({ res, i }) {
                 <div className='flex gap-3 items-center'>
                     <Image className='rounded-full object-contain' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <p className='flex flex-col'>
-                        <span className="font-semibold">{res.publisher}</span><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>2 days ago</span>
+                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>2 days ago</span>
                     </p>
                 </div>
 
@@ -121,7 +121,7 @@ export default function Content({ res, i }) {
                 </div>
             </div>
 
-            <p className='py-3 text-[18px] md:hidden'>{res.title}</p>
+            {/* <p className='py-3 text-[18px] md:hidden'>{res.title}</p> */}
             <Image src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} priority={true} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
             <p className='py-3 '>{res.blog_intro}</p>
         </>

@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Components.module.scss'
-import data from '@/libs/faq'
+// import data from '@/libs/faq'
 
 
 
-export default function Faq() {
-  const [open, setOPen] = useState(false);
+export default function Faq({data}) {
+  // const [open, setOPen] = useState(false);
 
   const [seclected, setSelcted] = useState(-1)
 
   const toggle = (index) => {
-    for (let i = 0; i < data.faq.length; i++) {
+    for (let i = 0; i < data.data.length; i++) {
       if (index == i) {
-        setOPen(!open)
         setSelcted(i)
       }
-
     }
-    // if (seclected == i) {
-    //   return setSelcted(null)
-    // }
-    // setSelcted(i)
-
   }
 
   useEffect(()=>{
 
-  },[seclected,open])
+  },[seclected])
 
   return (
     <div className="flex flex-row pt-3.5 gap-6 md:flex-col">
@@ -35,11 +28,11 @@ export default function Faq() {
       </div>
       <div className="basis-1/2">
         <div className='accordion'>
-          {data.faq.map((faq,index) => {
+          {data.data.map((faq,index) => {
             return (
               <div key={index}>
-                <h3  className='text-1xl font-bold pb-2 d__flex faq_title' onClick={() => toggle(index)}>{faq.question}<span>{(seclected == index && open) ? '-' : '+'}</span></h3>
-                <p className={(seclected == index && open) ? 'content show' : 'content'}>{faq.answer}</p>
+                <h3  className='text-1xl font-bold pb-2 d__flex faq_title' onClick={() => toggle(index)}>{faq.question}<span>{(seclected == index) ? '-' : '+'}</span></h3>
+                <p className={(seclected == index) ? 'content show' : 'content'}>{faq.answer}</p>
               </div>
             )
           })

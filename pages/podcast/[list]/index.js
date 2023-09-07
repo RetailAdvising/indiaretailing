@@ -22,11 +22,11 @@ export default function PodcastList(data) {
 
 export async function getServerSideProps({ params }) {
     // console.log(params);
-    let Id = await params?.list;
+    let Id = await params ?.list;
     let param = {
         doctype: "Podcast",
-        fields:['name', 'title', 'sound', 'image', 'category', 'description', 'route'],
-        filters:{"route":["like",'%'+Id+'%']}   
+        fields: ['name', 'title', 'sound', 'image', 'category', 'description', 'route'],
+        filters: { "route": ["like", '%' + Id + '%'] }
     }
     let value = await getList(param);
     let data = value.message;

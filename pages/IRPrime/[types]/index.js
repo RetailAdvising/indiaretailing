@@ -46,7 +46,7 @@ export default function Lists({ data, ads }) {
     return (
         <>
             <RootLayout isLanding={false} head={'List'}>
-                <div className='p-[30px_20px] md:p-[15px] container'>
+                <div className='p-[30px_0px] md:p-[15px] container'>
                     <div className='flex justify-between items-center'>
                         <div>
                             <Title data={''} />

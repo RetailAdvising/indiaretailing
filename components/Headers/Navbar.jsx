@@ -17,6 +17,13 @@ export default function Navbar({heading,isLanding}) {
     // const [isMobile, setIsMobile] = useState(false)
     const [date, setDate] = useState(undefined)
 
+    const subnavrouter = useRouter();
+    console.log(subnavrouter);
+
+
+    const [active, setActive] = useState(false);
+
+
     useEffect(() => {
         dispatch(setRoutes(router.route));
         const formattedDate = format(new Date(), "iiii, d MMMM yyyy");
@@ -70,8 +77,8 @@ export default function Navbar({heading,isLanding}) {
                                     </div>
 
                                 </>}
-                                {res.section_name == 'Header Profile Info' && <div className={`text-end ${date && 'lg:flex lg:items-center lg:gap-[5px] lg:justify-end'} md:float-right ${navbar ? 'md:pr-[20px]' : ''}`}>
-                                {/* <Image src={'/Navbar/weather.svg'} className='md:hidden' height={20} width={20} alt={'weather'} /> */}
+                                {res.section_name == 'Header Profile Info' && <div className={`text-end items-center ${date && 'lg:flex lg:items-center lg:gap-[5px] lg:justify-end'} md:float-right ${navbar ? 'md:pr-[20px]' : ''}`}>
+                                <Image src={'/Navbar/Date-and-time-01.svg'} className='md:hidden' height={20} width={20} alt={'weather'} />
                                     {date && <> <p className='md:hidden text-[#66161] text-[12px]'>{date ? date : ''}</p></>}
                                     <Image className='lg:hidden' style={{ objectFit: 'contain' }} height={50} priority width={24} alt='search' src={'/search.svg'} ></Image>
                                 </div>}
@@ -79,7 +86,7 @@ export default function Navbar({heading,isLanding}) {
                                 {res.section_name == 'Header Category Info' && <div className='flex justify-center items-center md:hidden'>
                                     {res.menus.map((item, index) => {
                                         return (
-                                            <div key={index} className='cursor-pointer justify-center p-[10px_8px] flex gap-[5px] items-center' onClick={() => router.push(item.redirect_url)}>
+                                            <div key={index} onClick={() => router.push(item.redirect_url)} className='cursor-pointer justify-center p-[10px_8px] flex gap-[5px] items-center'>
                                                 <div className='h-[3px] w-[3px] rounded-full bg-red'></div>
                                                 <p className='text-[14px]'>{item.menu_name}</p>
                                             </div>

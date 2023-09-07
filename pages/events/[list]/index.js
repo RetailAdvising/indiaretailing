@@ -81,7 +81,7 @@ export default function EventDetails({ values }) {
     return (
         <>
             <RootLayout isLanding={false} head={values.title}>
-                <div className='p-[30px_20px] md:p-[15px] container'>
+                <div className='p-[30px_0px] md:p-[15px] container'>
                     <div className='flex md:hidden justify-between items-center'>
                         <div>
                             <Title data={values} />

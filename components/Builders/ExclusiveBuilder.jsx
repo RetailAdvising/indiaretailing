@@ -34,10 +34,10 @@ export default function ExclusiveBuilder({ data }) {
                     {data.message.slice(0, 1).map((res, index) => {
                         return (
                             <div key={index} onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} className={`mb-[10px] cursor-pointer pb-[10px] ${(index == 0 && !isMobile) ? 'border_bottom' : ''}`}>
-                                <p className={`${index == 0 ? 'lg:text-[18px] md:text-[17px] font-semibold' : ''}`}>{res.title}</p>
+                                <h6 className={`${index == 0 ? 'lg:text-[18px] md:text-[17px] font-semibold' : ''}`}>{res.title}</h6>
                                 <Image className={`${index == 0 ? 'h-[320px] w-full mt-[10px] rounded-[5px]' : ''}`} src={check_Image(res.thumbnail_image)} height={250} width={300} alt={res.title} />
                                 <p className={`flex items-center ${index == 0 ? 'pt-[10px]' : ''}`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
-                                <p className={`sub_title line-clamp-3 ${index == 0 ? 'pt-[10px]' : ''}`}>{res.blog_intro}</p>
+                                <p className={`sub_title line-clamp-2 ${index == 0 ? 'pt-[10px]' : ''}`}>{res.blog_intro}</p>
                             </div>
                         )
                     })}
@@ -72,7 +72,7 @@ export default function ExclusiveBuilder({ data }) {
                         <Image className='h-[20px] w-[15px]' src={'/arrowrightprimary.svg'} height={6} width={8} alt={'chevron'} />
                     </div>}
                     <div className='primeSlide'>
-                        <MultiCarousel type={'profile'} noPlay={true} height={'h-[185px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} />
+                        <MultiCarousel type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} />
                     </div>
                 </div>
 
@@ -83,7 +83,7 @@ export default function ExclusiveBuilder({ data }) {
 
             {(data.videos && data.videos.ir_video && data.videos.ir_video.length != 0) &&
                 <div className='bg-[#F8F8F8] md:mt-[20px]'>
-                    <div className='lg:p-[20px] md:p-[15px] container'>
+                    <div className='lg:py-8 md:p-[15px] container'>
                         <Title data={data.videos} isVid={true} seeMore={true} />
                         {/* <div className='flex  gap-[15px] justify-between'><YTVideo data={res.ir_video} flex={"flex-[0_0_calc(25%_-_10px)]"} /></div> */}
                         <div className='lg:grid lg:grid-cols-4 md:grid-cols-2 irVideos lg:gap-[15px] lg:justify-between'>
@@ -104,7 +104,7 @@ export default function ExclusiveBuilder({ data }) {
                 </div>}
 
             {/* Section - 4 */}
-            {(data.sec2 && data.sec2.data && data.sec2.data.length != 0) && <div className={`lg:p-[20px 0] md:p-[30px_15px]  container flex-wrap justify-between flex gap-[15px]`}>
+            {(data.sec2 && data.sec2.data && data.sec2.data.length != 0) && <div className={`lg:py-8 md:p-[30px_15px]  container flex-wrap justify-between flex gap-[15px]`}>
                 <div className={`flex-[0_0_calc(75%_-_10px)] md:basis-full`}>
                     <Title data={data.sec2} seeMore={true} />
                     <List fullWidth={true} check={true} isBB={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px] md:h-[130px]'} data={data.sec2.data.slice(0, 3)} borderRadius={'rounded-[5px]'} />

@@ -15,7 +15,11 @@ import Books from '@/components/Aboutus/books';
 export default function Advertise() {
     return (
       <RootLayout>
-        <About></About>
+        <div className='container py-8 md:p-[15px]'>
+        <h2>Advertise with us</h2>
+        <p>Showcase your product / solution to digitally savvy decision makers from Retail, eCommerce, D2C, Fashion, Food, shopping centres and grow exponentially.</p>
+        </div>
+        
       </RootLayout>
     )
   }

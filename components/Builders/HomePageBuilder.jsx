@@ -160,15 +160,25 @@ export default function HomePageBuilder({ data, isLast, loadMore }) {
                 </div>
             </div> */}
 
-            <div  >
+            <div  className='container lg:pb-[20px] md:p-[15px] md:py-[10px] lg:flex gap-5'>
                 {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                     return (
-                        <div key={index} className={`flex`}>
+                        <div key={index} className={`${res.class} `}>
                             {(res.components && res.components.length != 0) && res.components.map(c => {
                                 return (
-                                    <div key={index} className={``}>
-                                        {/* {console.log(data.data[c.cid])} */}
+                                    <div key={index} className={`${c.component_title == "Top 3 Stories" ? 'top3' : ''}`}>
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 3 Stories") && <TopStories data={data.data[c.cid].data} />}
+                                        {(c.component_title == "News" && c.cid && data.data[c.cid] && data.data[c.cid].data) && <div className='lg:flex gap-5'>
+                                            <div className={`flex-[0_0_calc(65%_-_10px)]`}><ImageContainer data={data.data[c.cid].data[0]} height={"h-[340px]"} width={'w-full'} />
+                                                <SectionList data={data.data[c.cid].data.slice(1,4)} /></div>
+                                            <div className={`flex-[0_0_calc(35%_-_10px)]`}>
+                                                <Title data={{ title: 'Latest News' }} seeMore={true} />
+                                                <LatestNews height={'h-[160px]'} width={'w-full'} data={data.data[c.cid].data.slice(4,8)} />
+                                            </div>
+                                        </div>}
+                                        {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Advertisement") && <AdsBaner data={data.data[c.cid].data[0]} />}
+                                        {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
+
                                     </div>
                                 )
                             })}
