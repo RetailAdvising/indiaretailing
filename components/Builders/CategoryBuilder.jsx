@@ -60,7 +60,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage['roles']) {
+    if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
       const data = JSON.parse(localStorage['roles']);
       if (data && data.length != 0) {
         data.map(res => {
@@ -266,7 +266,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                     {(data.comments && data.comments.length != 0) && <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>Read all comments</button>}
                     <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button>
                   </div> : <div className={`mt-[10px] flex justify-center`}>
-                    <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] w-[20%] h-[40px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
                   </div>}
 
 

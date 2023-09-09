@@ -107,7 +107,7 @@ export default function ExclusiveBuilder({ data }) {
             {(data.sec2 && data.sec2.data && data.sec2.data.length != 0) && <div className={`lg:py-8 md:p-[30px_15px]  container flex-wrap justify-between flex gap-[15px]`}>
                 <div className={`flex-[0_0_calc(75%_-_10px)] md:basis-full`}>
                     <Title data={data.sec2} seeMore={true} />
-                    <List fullWidth={true} check={true} isBB={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px] md:h-[130px]'} data={data.sec2.data.slice(0, 3)} borderRadius={'rounded-[5px]'} />
+                    <List fullWidth={true} check={true} isBB={true} titleClamp={'line-clamp-2'} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px] md:h-[130px]'} data={data.sec2.data.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                 </div>
                 {(val.section_4 && val.section_4.col_2 && !isMobile) && <div className='flex-[0_0_calc(25%_-_10px)] pt-[15px] md:basis-full'> <AdsBaner height={'h-[560px]'} width={'w-full'} data={val.section_4.col_2} /></div>}
             </div>}

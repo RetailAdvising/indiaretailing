@@ -1129,6 +1129,17 @@ input {
   }
 }
 
+.popBtn:focus{
+  outline: none !important;
+}
+.popBtn{
+  width: 8px;
+}
+
+button:focus{
+  outline: none !important;
+}
+
 //Trending Box
 .trending {
   scroll-behavior: smooth;

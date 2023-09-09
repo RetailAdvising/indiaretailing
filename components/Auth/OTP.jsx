@@ -31,7 +31,9 @@ export default function OTP({ setotp, isModal, hide }) {
                 // OTP sent successfully.
 
             } else {
-                setWrong(!wrong);
+                // setWrong(!wrong);
+                setAlertMessage({message:"Otp Sent Failed"})
+                setIsSuccessPopup(true)
             }
         }
     }
@@ -54,9 +56,10 @@ export default function OTP({ setotp, isModal, hide }) {
                     localStorage['full_name'] = val.message.customer_name;
                     localStorage['roles'] = JSON.stringify(val.message.roles)
                     router.push('/')
-                }else if(val.message.type == 'Customer Registration'){
-
                 }
+            }else{
+                setAlertMessage(val.message)
+                setIsSuccessPopup(true)
             }
         }
     }
