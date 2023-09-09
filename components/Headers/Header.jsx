@@ -3,8 +3,8 @@ import Image from 'next/image'
 import styles from '@/styles/Header.module.scss'
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common'
-import Dropdowns from '../common/Dropdowns';
-import { search_product } from '@/libs/api';
+// import Dropdowns from '../common/Dropdowns';
+import { search_product,checkMobile } from '@/libs/api';
 
 // import Dropdowns from '@/components/common/Dropdowns'
 
@@ -15,7 +15,7 @@ export default function Header({checkout}) {
         btn2: 'Sign in',
     }
 
-    const profile = [{ name: 'Logout', icon: '/Navbar/logout.svg' }, { name: 'Subscribe', icon: '/Navbar/crown.svg', route: '/membership' }]
+    const profile = [{ name: 'Logout', icon: '/Navbar/logout.svg' }, { name: 'Profile', icon: '/Navbar/crown.svg', route: '/profile?my_account=edit-profile',mob_route:'/ profile?my_account=' }]
     const [valid, setValid] = useState(false);
     const [member, setMember] = useState(false);
     const [sort, setSort] = useState(false);
@@ -53,7 +53,8 @@ export default function Header({checkout}) {
     }
 
     const roleMember = () => {
-        if (localStorage['roles']) {
+        console.log(localStorage['roles']);
+        if (localStorage['roles'] && localStorage['roles'] != 'undefined') {
             const data = JSON.parse(localStorage['roles']);
             if (data && data.length != 0) {
                 data.map(res => {
@@ -65,12 +66,26 @@ export default function Header({checkout}) {
         }
     }
 
+    const [isMobile, setIsMobile] = useState()
+    useEffect(() => {
+      checkIsMobile();
+      window.addEventListener('resize', checkIsMobile)
+      return () => {
+        window.removeEventListener('resize', checkIsMobile);
+      };
+    }, [])
+  
+    const checkIsMobile = async () => {
+      let isMobile = await checkMobile();
+      setIsMobile(isMobile);
+    }
+
     const myAccounts = async (data) => {
         if (data.name == 'Logout') {
             localStorage.clear();
             router.push('/login')
-        } else if (data.name == 'Subscribe') {
-            router.push('/membership')
+        } else if (data.name == 'Profile') {
+            router.push(isMobile ? data.mob_route : data.route)
         }
     }
 

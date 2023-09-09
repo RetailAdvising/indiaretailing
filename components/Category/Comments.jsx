@@ -1,16 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { like,dislike } from '@/libs/api';
+import { like,dislike,getList } from '@/libs/api';
 import Modal from '../common/Modal';
+import AlertUi from '../common/AlertUi';
+
 export default function Comments({ data, isLast, load, cmt }) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
+    const [reportComment, setReporComment] = useState()
+    const [selecedComment, setSelecedComment] = useState()
+    const [isSuccessPopup,setIsSuccessPopup] =  useState(false)
+    const [alertMessage,setAlertMessage] =  useState("")
 
     function showInputs(index) {
         setInput({ index: index, show: true });
         console.log(input)
     }
-
+    
     const cardref = useRef(null)
     useEffect(() => {
         setComment(data)
@@ -23,7 +29,7 @@ export default function Comments({ data, isLast, load, cmt }) {
         });
 
         observer.observe(cardref.current);
-    }, [isLast])
+    }, [isLast,reportComment])
 
     const likeCmt = async (comm) => {
         let param = {
@@ -31,9 +37,10 @@ export default function Comments({ data, isLast, load, cmt }) {
             like: comm.is_liked == 1 ?  'No' :'Yes'
         }
         const resp = await like(param);
-        if(resp.status == 'Success') setComment({...comm,likes:(comm.is_liked && comm.is_liked == 1) ? comm.likes - 1:comm.likes + 1
-            ,is_liked:(comm.is_liked && comm.is_liked == 1) ? 0 : 1})  ;
-            if(comm.is_disliked ==1 && comm.is_liked == 0) dislikeCmt(comm);
+        if(resp.status == 'Success') setComment(resp.message)
+        // setComment({...comm,likes:(comm.is_liked && comm.is_liked == 1) ? comm.likes - 1:comm.likes + 1
+        //     ,is_liked:(comm.is_liked && comm.is_liked == 1) ? 0 : 1})  ;
+        //     if(comm.is_disliked ==1 && comm.is_liked == 0) dislikeCmt(comm);
     }
     const dislikeCmt = async (comm) => {
         console.log(comment);
@@ -42,16 +49,23 @@ export default function Comments({ data, isLast, load, cmt }) {
             dislike: comm.is_disliked == 1 ?  'No' :'Yes'
         }
         const resp = await dislike(param);
-        if(resp.status == 'success') setComment({...comm,dislikes:(comm.is_disliked && comm.is_disliked == 1) ? comm.dislikes - 1:comm.dislikes + 1,
-            is_disliked:(comm.is_disliked && comm.is_disliked == 1) ? 0 : 1});
-            console.log(comment);
+        if(resp.status == 'success') setComment(resp.message)
+        // setComment({...comm,dislikes:(comm.is_disliked && comm.is_disliked == 1) ? comm.dislikes - 1:comm.dislikes + 1,
+        //     is_disliked:(comm.is_disliked && comm.is_disliked == 1) ? 0 : 1});
+        //     console.log(comment);
     }
-    const report = async () => {
+    const closeModal = () => {
+        setIsSuccessPopup(false)
+    }
+    const report = async (cur_command) => {
         let param = {
             doctype:"Report Type",
             fields:["name","title"]
         }
          let resp = await getList(param)
+         if(resp.message) setReporComment(resp.message)
+         console.log(reportComment);
+         setSelecedComment(cur_command)
          show()
     }
     
@@ -60,8 +74,14 @@ export default function Comments({ data, isLast, load, cmt }) {
   const [visible, setVisible] = useState(false)
   function show() {
     setVisible(true);
+    setModal('report')
   }
-
+  const hideReport = (resp_message) => {
+    console.log(resp_message);
+    setVisible(false)
+    setAlertMessage(resp_message)
+    setIsSuccessPopup(true)
+  }
   function hide() {
     setVisible(false)
     if (localStorage['roles']) {
@@ -85,8 +105,9 @@ export default function Comments({ data, isLast, load, cmt }) {
                         <div>
                             <Image className='rounded-full object-contain' src={'/profit.svg'} height={48} width={48} alt={comment.name} />
                         </div>
-                        <div className='max-w-full w-full'>
-                            <p className='flex gap-3 '><h6 className='font14_bold'>{comment.comment_by}</h6> | <span>{comment.duration}</span></p>
+                        <div className='max-w-full w-full comment'>
+                            {/* | <span>{comment.duration}</span> */}
+                            <p className='flex gap-3 '><h6 className='font14_bold'>{comment.comment_by}</h6> </p>
                             <div className='py-2 sub_title' dangerouslySetInnerHTML={{ __html: comment.content }} />
                             <div className='flex justify-between items-center py-[5px]'>
                                 <div className='flex gap-3'>
@@ -96,12 +117,11 @@ export default function Comments({ data, isLast, load, cmt }) {
                                             <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
                                 </div>
                                     <div>
-                                       <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={report}/>
+                                       <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={()=>report(comment)}/>
                                    </div>
                               </div>
-                              <div>
-                                  <Modal modal={modal} show={show} visible={visible} hide={hide} />
-                              </div>
+                                  {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message)=>hideReport(resp_message)} data={reportComment} cur={selecedComment.name}/>}
+                                 { isSuccessPopup &&  <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"}/>  }                         
                             {/* {(input.index == index && input.show) &&
                                         <div>
                                             <input type='text' />

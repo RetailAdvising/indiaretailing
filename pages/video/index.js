@@ -3,6 +3,7 @@ import React from 'react'
 import { video_list_with_categoies, getAds } from '@/libs/api'
 import Video from '@/components/Video/Video'
 import Title from '@/components/common/Title'
+import Tabs from '@/components/Landing/Tabs'
 export default function Videos({ data, ads }) {
   console.log(data)
   console.log(ads)
@@ -21,6 +22,7 @@ export default function Videos({ data, ads }) {
 
 
         </div> : <>Loading</>}
+        <Tabs />
       </RootLayout>
     </>
   )

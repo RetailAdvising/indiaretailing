@@ -29,7 +29,7 @@ export default function Categories({ data, ads }) {
                         return (
                             <div key={index} className={`flex md:mb-[10px] md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>
                                 <div className={`lg:w-[calc(25%_-_10px)] md:w-[calc(100%_-_0px)] xl:w-[calc(20%_-_10px)] `}><SectionBox data={res} /></div>
-                                <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(100%_-_0px)] xl:w-[calc(80%_-_10px)] md:p-[10px]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[200px]'} islanding={true} noPlay={true} check={true} height={'lg:h-[185px] md:h-[140px]'} perView={4} width={'w-full'} data={res.events} /></div>
+                                <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(100%_-_0px)] xl:w-[calc(80%_-_10px)] md:p-[10px]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[200px]'} islanding={true} noPlay={false} check={true} height={'lg:h-[185px] md:h-[140px]'} perView={4} width={'w-full'} data={res.events} /></div>
                             </div>
                         )
                     })}

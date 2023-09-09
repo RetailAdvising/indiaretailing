@@ -76,12 +76,12 @@ export default function CategoryType({ values , ads }) {
     }
     return (
         <>
-            <RootLayout isLanding={false} head={router.query.types}>
+            <RootLayout isLanding={false} homeAd={ads ? ads : null} head={router.query.types}>
                 <div className={`${isMobile ? 'md:p-[15px]' : 'container'}`} id='root' >
                     {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap lg:p-[30px_0px]  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
                             {!isMobile && <Title data={{ title: router.query.types }} />}
-                            <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px]`}>{data.slice(0, 1).map((res, index) => {
+                            <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px] cursor-pointer`}>{data.slice(0, 1).map((res, index) => {
                                 return (
                                     <div key={index} onClick={() => router.push(`/categories/${res.route}`)} className={` pb-[10px]`}>
                                         <h6 className={`lg:text-[18px] md:text-[16px] font-semibold`}>{res.title}</h6>
@@ -124,7 +124,7 @@ export async function getServerSideProps({ params }) {
     let value = await getList(param);
     let values = value.message;
 
-    let param1 = { doctype: 'Articles', page_type: 'Home' }
+    let param1 = { doctype: 'Articles', page_type: 'List' }
     const resp = await getAds(param1);
     const ads = resp.message;
 

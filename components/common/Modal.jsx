@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Rodal from 'rodal';
-
+import { useForm } from 'react-hook-form';
+import styles from '@/styles/Components.module.scss'
 // include styles
 import 'rodal/lib/rodal.css';
 import LogIn from '../Auth/LogIn';
 import SignUp from '../Auth/SignUp';
 import Comments from '../Category/Comments';
 import Image from 'next/image';
-import { addComment, commentList } from '@/libs/api'
+import { addComment, commentList,report } from '@/libs/api'
 import { useRouter } from 'next/router';
 export default function Modal({ modal, hide, visible, data, cur }) {
     const [sort, setSort] = useState(false);
@@ -16,7 +17,8 @@ export default function Modal({ modal, hide, visible, data, cur }) {
     const [comments, setComments] = useState([]);
     const [noData,setNoData] = useState(false)
     const router = useRouter();
-   
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
     function sortBy() {
         setSort(!sort);
         let element = document.getElementById('dropdown');
@@ -59,6 +61,20 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                 setNoData(false)
             }, 200);
         }
+    }
+    async function check(form_data) {
+        console.log(form_data,data,cur)
+        let params = {
+            "comment_id": cur,
+            "report_type":form_data.report,
+            "report":form_data.report,
+            "new":1,
+            "update":1,
+            // "report_id":"ss"
+            }
+        let resp = await report(params)
+        hide(resp)
+        
     }
 
     async function loadMore() {
@@ -143,9 +159,28 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                             }
                         </Rodal>
                             : modal == 'report' ?
-                            <Rodal visible={visible} animation='slideUp' onClose={hide}>
-                                hgjg
-                            </Rodal> :
+                            <Rodal visible={visible} animation='slideUp' onClose={hide} className='h-[70%]'>
+                               <h3 className='text-[18px] font-bold'>Report Comment </h3>
+                                {errors ?.report && <p className={`${styles.danger}`}>{errors.report.message}</p>}
+
+                               <form onSubmit={handleSubmit((form_data) => check(form_data))} autoComplete='off'>
+                                {
+                                    data && data.map(rc=>{
+                                        return( <div className='flex items-center gap-[10px] m-[20px]'>
+                                                <input type="radio" className='cursor-pointer' id={ rc.name} name={modal} value={ rc.name} {...register('report', { required: { value: true, message: 'Must be Select One Report' }} )}/>
+                                                <label for={rc.name} className='cursor-pointer text-[14px]'>{ rc.name}</label>
+                                                </div>                                                
+                                            )
+                                       }
+                                       )
+                                  } 
+                                  <div className='flex gap-[10px] justify-end text-[14px] absolute bottom-[20px] right-[20px]'>
+                                    <button className='primary_outline px-[10px] py-[5px] color-red' style={{color:'#e21b22'}} onClick={hide}>Cancel</button>
+                                    <input className='primary_button px-[10px] cursor-pointer' type="Submit" />
+                                    </div>
+                                </form>
+                             
+                            </Rodal> : 
                             null
             }
         </>

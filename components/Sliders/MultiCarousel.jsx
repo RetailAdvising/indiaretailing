@@ -24,7 +24,7 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
         mobile: {
             breakpoint: { max: 464, min: 300 },
             items: 1,
-            paritialVisibilityGutter: 30
+            paritialVisibilityGutter: 60
         }
     }
     const [isMobile, setIsMobile] = useState()
@@ -52,7 +52,7 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                     autoPlaySpeed={2000}
                     containerClass="container-with-dots"
                     dotListClass="dots"
-                    infinite
+                    infinite={false}
                     pauseOnHover
                     responsive={responsive}
                     shouldResetAutoplay

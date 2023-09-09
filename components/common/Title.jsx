@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export default function Title({ data, textClass, seeMore,font,noPadding,isVid }) {
+export default function Title({ data, textClass, seeMore,font,noPadding,isVid,see }) {
   const router = useRouter()
 
   async function goTo(data){
@@ -23,8 +23,8 @@ export default function Title({ data, textClass, seeMore,font,noPadding,isVid })
           {
             seeMore &&
             <div className='flex items-center gap-[5px] cursor-pointer' onClick={()=> goTo(data)}>
-              <p className='text-[13px] font-normal'>See More</p>
-              <Image className='h-[11px] w-[5px]' src={'/forwardIcon.svg'} height={5} width={5} alt='see more' />
+              <p className={`text-[13px] font-normal ${see}`}>See More</p>
+              <Image className='h-[11px] w-[5px] ' src={'/forwardIcon.svg'} height={5} width={5} alt='see more' />
             </div>
           }
 

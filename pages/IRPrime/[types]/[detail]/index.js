@@ -1,7 +1,7 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
-import { articlesDetail } from '@/libs/api';
+import { articlesDetail,getAds } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 export default function Details() {
@@ -9,11 +9,12 @@ export default function Details() {
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);
+  const[advertisement,setAds] = useState()
 
   const articleDetail = async () => {
     if (router.query && (router.query.detail && router.query.types)) {
-      let Id =  router.query?.detail;
-      let category =  router.query?.types;
+      let Id = router.query?.detail;
+      let category = router.query?.types;
       let param = {
         "route": category + '/' + Id,
         "category": category,
@@ -21,7 +22,7 @@ export default function Details() {
       }
       let value = await articlesDetail(param);
       let data = await value.message;
-      if(data.status == "Success"){
+      if (data.status == "Success") {
         let val = [data]
         // setValues(d => [...d, ...val])
         setValues(val)
@@ -31,10 +32,18 @@ export default function Details() {
     }
   }
 
+  const ads = async () => {
+    let param = { doctype: 'Articles', page_type: 'Detail' }
+    const resp = await getAds(param);
+    const ads = resp.message;
+    setAds(ads)
+  }
+
 
 
   useEffect(() => {
     articleDetail();
+    ads();
   }, [router])
 
 
@@ -67,7 +76,7 @@ export default function Details() {
 
   return (
     <>
-      <RootLayout isLanding={true} head={''}>
+      <RootLayout isLanding={true} homeAd={advertisement ? advertisement :null} head={''}>
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (

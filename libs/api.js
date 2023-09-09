@@ -69,6 +69,8 @@ export const check_Image = (Image) => {
         } else if (Image.indexOf('https') == 0) {
             return Image;
         }
+    }else{
+        return '/empty_state.svg'
     }
 }
 
@@ -80,6 +82,22 @@ export async function get_razorpay_settings() {
     }
 }
 
+
+export function getColor(value){
+  if(value == 'Paid' || value == 'success' || value == 'Active'){
+    return '#02b290'
+  }else if(value == 'Pending' || value == 'Cancelled' || value == 'Unpaid'){
+    return '#ff0000a3'
+  }else if(value == 'Shipped' || value == 'Placed'){
+    return '#e0d9cec2'
+  }else if(value == 'Order Delivered'){
+    return '#02b290'
+  }else if(value == 'Pending'){
+    return '#ff0000a3'
+  }else{
+    return '#ddd'
+  }
+}
 
 
 // export async function load_razorpay(amount,description,type) {
@@ -243,6 +261,12 @@ export async function dislike(data){
     let api = domainUrl + '_toggle_dislike';
     return await postMethod(api,data)
 }
+
+export async function report(data){
+    let api = domainUrl + 'report_update_the_comment';
+    return await postMethod(api,data)
+}
+
 // Prime Landing
 export async function primeLanding(data){
     let api = domainUrl + 'ir_prime_content';
@@ -265,6 +289,12 @@ export async function forget_password(data){
     return await postMethod(api,data)
 }
 
+
+export async function insert_doc(data){
+    let datas = {data:data}
+    let api =  domainUrl +'insert_doc';
+    return await postMethod(api,datas)
+}
 
 // Event List
 export async function eventList(data) {
@@ -490,5 +520,25 @@ export async function video_details(data){
 
 export async function search_product(data){
     let api = 'ecommerce_business_store.ecommerce_business_store.v2.whoosh.search_product'
+    return await postMethod(api,data)
+}
+
+export async function get_customer_order_list(data){
+    let api = 'ecommerce_business_store.ecommerce_business_store.v2.customer.get_customer_order_list'
+    return await postMethod(api,data)
+}
+
+export async function get_order_info(data){
+    let api = 'ecommerce_business_store.ecommerce_business_store.v2.customer.get_order_info'
+    return await postMethod(api,data)
+}
+
+export async function update_password(data){
+    let api = 'ecommerce_business_store.ecommerce_business_store.api.update_password'
+    return await postMethod(api,data)
+}
+
+export async function get_customer_plan_based_subscritpions(data){
+    let api = 'subscription.subscription.api.get_customer_plan_based_subscritpions'
     return await postMethod(api,data)
 }

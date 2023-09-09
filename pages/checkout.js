@@ -205,7 +205,7 @@ function goToAddres(){
 
   function payment_error_callback(error){
     setAlertMsg({message: 'Payment failed'});
-    setEnableModal(true);
+    // setEnableModal(true);
   }
 
   async function payment_Success_callback(response,amount,order_id){
