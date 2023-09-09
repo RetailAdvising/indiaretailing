@@ -149,6 +149,7 @@ function payment_Success_callback(data,order_id,type,router){
 
 
 
+
 function payment_error_callback(description,error){
     order_payment_capture(undefined,description);
 }
@@ -238,6 +239,10 @@ export async function like(data){
     return await postMethod(api,data)
 }
 
+export async function dislike(data){
+    let api = domainUrl + '_toggle_dislike';
+    return await postMethod(api,data)
+}
 // Prime Landing
 export async function primeLanding(data){
     let api = domainUrl + 'ir_prime_content';
@@ -456,6 +461,21 @@ export async function get_razorpaysetting(data){
     return await GET(api)
 }
 
+export async function send_otp(data){
+    let api = 'ecommerce_business_store.ecommerce_business_store.v2.customer.send_otp'
+    return await postMethod(api,data)
+}
+
+export async function verify_otp(data){
+    let api = 'ecommerce_business_store.ecommerce_business_store.v2.customer.verify_otp'
+    return await postMethod(api,data)
+}
+
+export async function update_user_password(data){
+    let api = 'india_retailing.india_retailing.api.update_user_password'
+    return await postMethod(api,data)
+}
+
 
 // Videos
 export async function video_list_with_categoies(data){
@@ -465,5 +485,10 @@ export async function video_list_with_categoies(data){
 
 export async function video_details(data){
     let api = domainUrl + 'video_details'
+    return await postMethod(api,data)
+}
+
+export async function search_product(data){
+    let api = 'ecommerce_business_store.ecommerce_business_store.v2.whoosh.search_product'
     return await postMethod(api,data)
 }

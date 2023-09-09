@@ -1,16 +1,19 @@
 import '@/styles/globals.scss'
 import store from '../redux/store'
-import { Rubik } from 'next/font/google'
+import { Rubik,Inter,Roboto } from 'next/font/google'
 import { useDispatch, useSelector, Provider } from 'react-redux'
 // import userAction from 'redux/actions/userAction'
 import ErrorBoundary from '@/components/Exception/ErrorBoundary'
 
-const inter = Rubik({
-  weight: ["400"],
-  display: "swap",
+const inter = Inter({
+  weight: ["200","300","400","500","600",'700'],
+  display: "block",
   preload: true,
-  subsets: ["latin"]
+  style: 'normal',
+  subsets: ["latin"],
+  variable:'--font-inter'
 })
+
 
 export default function App({ Component, pageProps }) {
 
@@ -59,7 +62,7 @@ export default function App({ Component, pageProps }) {
       <ErrorBoundary > 
         <Provider store={store}>
           {/* { loading ? <p>loading...</p> */}
-          <main className={inter.className}>
+          <main className={` ${inter.className} `}>
             <Component {...pageProps} />
           </main>
         </Provider>

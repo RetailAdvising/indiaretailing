@@ -1,14 +1,14 @@
 import React from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import AudioPlayer from '@/components/Podcast/AudioPlayer';
-import { podcast_details } from '@/libs/api'
+import { podcast_details,getAds } from '@/libs/api'
 
-export default function PodcastDetail(data) {
+export default function PodcastDetail(data, ads_data) {
 
     // console.log(data);
     return (
         <>
-            <RootLayout head={data.data.title}>
+            <RootLayout homeAd={ads_data ? ads_data : null} head={data.data.title}>
                 <div className={`flex p-[20px_30px] md:p-[10px] justify-between flex-wrap gap-[25px] container`}>
                     {
                         <div className="w-full">
@@ -35,7 +35,10 @@ export async function getServerSideProps({ params }) {
     }
     let value = await podcast_details(param);
     let data = value.message;
+    let ads_params = { doctype: 'Podcast', page_type: 'Detail' }
+    const res_ads = await getAds(ads_params);
+    const ads_data = res_ads.message;
     return {
-        props: { data }
+        props: { data, ads_data }
     }
 }

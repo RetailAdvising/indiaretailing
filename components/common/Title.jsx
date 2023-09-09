@@ -7,7 +7,7 @@ export default function Title({ data, textClass, seeMore,font,noPadding,isVid })
 
   async function goTo(data){
     if(isVid){
-      router.push(`/ir/${data.route}`)
+      router.push(`/video/${data.route}`)
     }else{
       router.push(`/${router.asPath.split('/')[1]}/${data.route}`)
     }

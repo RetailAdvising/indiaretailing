@@ -6,9 +6,9 @@ import value from '@/libs/newsletter';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import Subscribe from '@/components/Landing/Subscribe';
-import { newsLanding, checkMobile } from '@/libs/api';
+import { newsLanding, checkMobile, getAds } from '@/libs/api';
 
-export default function newsletter({ data }) {
+export default function newsletter({ data, ads }) {
 
   const [isMobile, setIsMobile] = useState()
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function newsletter({ data }) {
 
   return (
     <>
-      <RootLayout isLanding={true} head={'Newsletters'}>
+      <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'}>
         {(data) && <div className='container p-[30px_0px] md:p-[15px]'>
           <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
           <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
@@ -63,8 +63,11 @@ export async function getStaticProps() {
   let value = await newsLanding(param);
   let data = value.message;
 
+  let ads_param = { doctype: 'News Letter', page_type: 'Home' }
+  const resp = await getAds(ads_param);
+  const ads = resp.message;
   return {
-    props: { data }, revalidate: 50,
+    props: { data, ads }, revalidate: 50,
   }
 }
 

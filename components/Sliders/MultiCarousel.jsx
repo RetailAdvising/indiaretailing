@@ -74,8 +74,8 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                                     <div className={`${styles.card_content} flex flex-col justify-between`}>
                                         {(res.primary_text && res.secondary_text) && <p className='flex gap-2'><span className={`text-red ${styles.primary_text}`}>{res.primary_text}</span> | <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>}
                                         <h4 className={` title line-clamp-2`}>{res.title ? res.title : ''}</h4>
-                                        <p className={` sub_title pt-1 line-clamp-2`}>{res.sub_title ? res.sub_title : ''}</p>
-                                        <p className='hashtags pt-1'>{res.hashtags ? res.hashtags : ''}</p>
+                                        <p className={` sub_title mt-[6px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
+                                        <p className='hashtags pt-1'>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>
                                     </div>
                                 </div>
 

@@ -6,14 +6,19 @@ import Title from '@/components/common/Title'
 import Card from '@/components/Bookstore/Card'
 import AdsBaner from '@/components/Baners/AdsBaner'
 import List from '@/components/Bookstore/List'
-import { booksLanding, getCategories } from '@/libs/api'
+import { booksLanding, getCategories, getAds } from '@/libs/api'
 import { checkMobile } from '@/libs/api';
+// import BreadCrumb from '@/components/common/BreadCrumb';
 
-export default function Bookstore({ data,resp }) {
+export default function Bookstore({ data,resp,ads_data }) {
 
   // console.log(data);
   // console.log(resp);
   let [isMobile, setIsmobile] = useState();
+  let [breadCrumbs,setBreadCrumbs] = useState([
+    {name:'Home',route:'/'},
+    {name:'Bookstore'},
+  ])
 
   useEffect(()=>{
     checkIsMobile();
@@ -26,7 +31,7 @@ export default function Bookstore({ data,resp }) {
   const  checkIsMobile = async () => {
     isMobile = await checkMobile();
     setIsmobile(isMobile);
-    console.log('isMobile',isMobile)
+    // console.log('isMobile',isMobile)
   }
   // useEffect(() => {
   // const category = async () => {
@@ -38,7 +43,10 @@ export default function Bookstore({ data,resp }) {
   // }, [])
   return (
     <>
-      <RootLayout>
+      <RootLayout homeAd={ads_data ? ads_data : null}>
+
+      {/* {!isMobile && <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>} */}
+
         {(data && data.length != 0) && <>
           {(resp.recent_products && resp.recent_products.length != 0) && 
           <div className='pt-[10px] container' style={{ background: "#f0f0f0" }}>
@@ -137,8 +145,12 @@ export async function getStaticProps() {
   const resp = await booksLanding();
   const data = resp?.message;
 
+  let ads_params = { doctype: 'Product', page_type: 'Home' }
+  const res_ads = await getAds(ads_params);
+  const ads_data = res_ads.message;
+  
   return {
-    props: { data,resp }, revalidate: 50,
+    props: { data,resp, ads_data }, revalidate: 50,
   }
 
 }

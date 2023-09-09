@@ -37,7 +37,7 @@ export default function Contact() {
                             </div>
                     </div>
                     <div className="basis-2/4">
-                                <Image src="/contact_us_01.svg" alt="About" width={500} height={500} className='m-auto'/>
+                                <Image src="/contact_us_02.svg" alt="About" width={500} height={500} className='m-auto'/>
                     </div>
         
 

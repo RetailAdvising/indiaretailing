@@ -13,6 +13,7 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import LoaderButton from '@/components/common/LoaderButton';
 import styles from '@/styles/checkout.module.scss';
 import AlertUi from '@/components/common/AlertUi';
+// import BreadCrumb from '@/components/common/BreadCrumb';
 // import Razorpay from 'razorpay';
 
 export default function Bookstoredetail({ value, res }) {
@@ -32,6 +33,8 @@ export default function Bookstoredetail({ value, res }) {
   let content_type = 'PDF';
 
   const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
+  
+  let [breadCrumbs,setBreadCrumbs] = useState([{name:'Home',route:'/'}])
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -57,9 +60,16 @@ export default function Bookstoredetail({ value, res }) {
 
   useEffect(() => {
     getCarts('');
-    get_razor_pay_values()
+    get_razor_pay_values();
     if (value) {
-      console.log(value);
+      let routPath = router.asPath.split('/')
+      if(routPath && routPath.length != 0){
+        routPath.map((res,i)=>{
+          if(i > 0){
+            setBreadCrumbs((d)=> d = [...d,{name:res,route:'/'+ res}]);
+          }
+        })
+      }
       if(value.vendor_price_list && value.vendor_price_list.length != 0){     
         if(value.has_variants == 1){
             value.price = value.vendor_price_list[0].default_variant.product_price;
@@ -79,6 +89,7 @@ export default function Bookstoredetail({ value, res }) {
     if (res && res.length != 0) {
        setPlans(content_type)
     }
+
 
     const handleClickOutside = (event) => {
       let el = document.getElementById('dropdown').classList;
@@ -391,7 +402,11 @@ const  getCarts = async (type) => {
   return (
     <>
       <RootLayout>
-    
+
+      {/* <div className='md:hidden'>
+        <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>
+      </div> */}
+      
       { enableModal &&   <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
         
         {!data ?  <Skeleton /> :

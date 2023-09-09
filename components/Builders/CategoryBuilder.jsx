@@ -176,6 +176,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
   return (
     <>
+                            
       <div ref={cardref}>
         <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
@@ -321,11 +322,11 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
           </div>
         </div> 
 
-        {categories.sections.section_3 && <div className={`${isMobile ? '' : 'container'} ${styles.section_3}`}>
+        {data.latest_news && <div className={`${isMobile ? '' : 'container'} ${styles.section_3}`}>
           {/* Slider */}
-          {(categories.sections.section_3.section_type == 'slider' && categories.sections.section_3.type == 'card') && <div className={`${styles.slider_parent} latestNews_slider p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
+          {(data.latest_news ) && <div className={`${styles.slider_parent} latestNews_slider p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
-            <MultiCarousel perView={5} noPlay={true} data={categories.sections.section_3.data} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} />
+            <MultiCarousel perView={5} noPlay={true} data={data.latest_news} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} check={true}/>
           </div>}
         </div>}
 

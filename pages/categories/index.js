@@ -22,7 +22,7 @@ export default function Categories({ data, ads }) {
     }
     return (
         <>
-            <RootLayout head={'Categories'} isLanding={true}>
+            <RootLayout homeAd={ads ? ads : null} head={'Categories'} isLanding={true}>
                 <div className={`lg:p-[30px_0px] md:p-[15px]  ${isMobile ? '' : 'container'}`}>
                     {!isMobile && <Title data={{ title: 'Categories' }} font={'20px'} />}
                     {data && data.map((res, index) => {

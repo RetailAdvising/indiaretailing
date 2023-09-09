@@ -23,18 +23,20 @@
 
   @screen lg {
     // Top 3 Stories
+    // py-5
     .top3{
-      @apply flex gap-[15px] bg-[#F8F9FA] py-5
+      @apply flex gap-[15px] bg-[#F8F9FA] 
     }
     .top_title{
-      @apply text-[14px] font-semibold leading-[17.62px] line-clamp-2
+      @apply text-[14px] font-medium leading-[17.62px] line-clamp-2
     }
     .top_primary_text{
-      @apply text-[12px] font-semibold text-[#e21b22] line-clamp-1
+      @apply text-[12px] uppercase font-semibold text-[#e21b22] line-clamp-1
     }
 
     .title {
-      @apply text-[14px] font-semibold leading-[17.62px] line-clamp-2
+      @apply text-[14px] font-semibold leading-[18.62px] line-clamp-2;
+      
     }
 
     .sub_title {
@@ -61,15 +63,15 @@
       }
     }
     .top_title{
-      @apply text-[13px] font-semibold leading-[17.62px] line-clamp-2
+      @apply text-[11px] font-medium leading-[17.62px] line-clamp-2
     }
     .top_primary_text{
-      @apply text-[12px] font-semibold text-[#e21b22] line-clamp-1
+      @apply text-[12px] uppercase font-semibold text-[#e21b22] line-clamp-1
     }
 
 
     .title {
-      @apply text-[13px] font-semibold leading-[17.62px]
+      @apply text-[13px] font-semibold leading-[1.7]
       
     }
     .sub_title {
@@ -118,6 +120,7 @@
 .flex-20{
   flex: 0 0 calc(20% - 15px);
   width: calc(20% - 15px);
+  padding: 40px 0;
 }
 
 
@@ -129,13 +132,14 @@
 
 .leaders{
   .react-multi-carousel-item{
-    width: 288px !important;
+    width: 289px !important;
   }
 }
 
 .research{
   .react-multi-carousel-item{
-    width: 163px !important;
+    // width: 163px !important;
+    width: 221px !important;
   }
 }
 
@@ -143,6 +147,9 @@
 .photo{
   .react-multi-carousel-item{
     width: 178px !important;
+  }
+  .dots{
+    bottom: 65px !important;
   }
 }
 
@@ -568,7 +575,7 @@ input {
   border: 1px solid #D9D9D9;
   border-radius: 5px;
   flex: 0 0 auto;
-  padding: 10px;
+  padding: 7px 10px;
 }
 
 // Footer
@@ -644,6 +651,63 @@ input {
   .w_100 {
     width: 100%;
   }
+
+  // .none{
+  //   .dots{
+  //     bottom: 30px !important;
+  //   }F
+  // }
+  
+  .leaders{
+    .react-multi-carousel-list{
+      height: 350px !important;
+    }
+    .react-multi-carousel-item{
+      width: 288px !important;
+    }
+
+    .dots{
+      bottom: 0px !important;
+    }
+  }
+  
+  .research{
+    .react-multi-carousel-item{
+      width: 163px !important;
+    }
+  }
+  
+  
+  .photo{
+    .react-multi-carousel-item{
+      width: 178px !important;
+    }
+  }
+  
+
+  .flex_70,.flex_30,.flex-33,.flex-40,.flex-20{
+    flex: 0 0 calc(100% - 10px);
+    width: calc(100% - 0px);
+  }
+  
+  // .flex_30{
+  //   flex: 0 0 calc(30% - 15px);
+  //   width: calc(30% - 15px);
+  // }
+  
+  // .flex-33{
+  //   flex: 0 0 calc(33.333% - 15px);
+  //   width: calc(33.333% - 15px);
+  // }
+  
+  // .flex-40{
+  //   flex: 0 0 calc(40% - 15px);
+  //   width: calc(40% - 15px);
+  // }
+  // .flex-20{
+  //   flex: 0 0 calc(20% - 15px);
+  //   width: calc(20% - 15px);
+  // }
 
   .irVideos {
     display: flex;
@@ -891,6 +955,7 @@ input {
       font-size: $font-18;
       font-weight: 600;
       text-transform: capitalize;
+      line-height: unset;
     }
 
     .line {
@@ -910,7 +975,7 @@ input {
       width: 250px !important;
     }
     .dots{
-      bottom: 30px !important;
+      bottom: 5px !important;
     }
   }
 
@@ -1483,7 +1548,9 @@ input {
   box-shadow: none !important;
   /* Remove any box shadow */
 }
-
+.nav-item.active{
+  color: #e21b22 !important;
+}
 
 .image-item {
   padding: 10px;
@@ -1497,7 +1564,10 @@ input {
 
 @media only screen and (min-width: 768px) and (max-width: 1280px) {
   .container{
-    padding: 30px 15px !important;
+    padding: 0px 15px !important;
+  }
+  .navigation_c{
+    font-size: 14px;
   }
 }
 

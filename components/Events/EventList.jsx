@@ -4,7 +4,7 @@ import { check_Image } from '@/libs/common'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-export default function EventList({ data, flex, height, width, imageBackground,check, isHome }) {
+export default function EventList({ data, flex, height, width, imageBackground,check, isHome,isRoute=undefined }) {
     const router = useRouter();
     return (
         <>
@@ -36,12 +36,13 @@ export default function EventList({ data, flex, height, width, imageBackground,c
 
             {data && data.map((res, index) => {
                 return (
-                    <div className={`overflow-hidden cursor-pointer flex ${isHome ? 'flex rounded-[5px] border h-[180px]' : ''} border_bottom pb-[20px] bg-white gap-[10px]   ${flex}`} onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} key={index}>
+                    // /${router.asPath.split('/')[1]}/${res.route}
+                    <div className={`overflow-hidden cursor-pointer flex ${isHome ? 'flex rounded-[5px] border h-[180px]' : ''} border_bottom pb-[20px] bg-white gap-[10px]   ${flex}`} onClick={() => router.push(`${isRoute ? isRoute + res.route : '/'+router.asPath.split('/')[1]+'/'+res.route}`)} key={index}>
                         <div className='flex-[0_0_calc(40%_-_10px)]'>
                             <Image height={100} width={200} alt={res.title} src={!check ? check_Image(res.thumbnail_path) : res.image} className={`${height} ${width} rounded-[10px]`} />
                         </div>
                         <div className={`flex flex-col leading-[2] px-[10px] min-h-[185px]`}>
-                            <h4 className={`font-semibold text-[18px] text-[#39364F] py-[10px]`}>{res.title} </h4>
+                            <h4 className={`font-semibold ${isHome ? 'text-[14px]' : 'text-[16px]'}  text-[#39364F] py-[10px]`}>{res.title} </h4>
                             <p className={`sub_title line-clamp-2`}>{res.description}</p>
                             {/* <p className={`sub_title pt-[5px]`}>{res.end}</p> */}
                             <div className={`flex gap-[10px] items-center pt-[10px] `}>

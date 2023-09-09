@@ -1,24 +1,11 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, { useEffect, useRef, useState } from 'react'
-// import EventList from '@/components/Events/EventList'
-// import PageData from '@/libs/events'
-// import HomePageBuilder from '@/components/Builders/HomePageBuilder'
 import Title from '@/components/common/Title'
 import Sliders from '@/components/Sliders/index'
 import EventCards from '@/components/Events/EventCards'
-import { getCategoryList, sliders } from '@/libs/api'
-export default function Events({ data, slider_data }) {
-    // console.log(res)
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         // You can await here
-    //         const response = await getExclusives();
-    //         console.log(response)
-    //         // ...
-    //     }
-    //     fetchData();
-
-    // }, [])
+import { getCategoryList, sliders, getAds } from '@/libs/api'
+export default function Events({ data, slider_data, ads_data }) {
+    // console.log(ads_data)  
     const [pageData, setPageData] = useState([])
     const [isLast, setIsLast] = useState([])
     const cardref = useRef()
@@ -26,9 +13,7 @@ export default function Events({ data, slider_data }) {
         slider_data.map((res)=> {
             res.web_image ? res.image = res.web_image : res.image = ''
         })
-        console.log(slider_data);
         if (data) {
-
             setPageData(data)
         }
         if (!cardref?.current) return;
@@ -46,9 +31,9 @@ export default function Events({ data, slider_data }) {
 
     return (
         <>
-            <RootLayout isLanding={true} head={'Events'}>
+            <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head={'Events'}>
                 <div className="container">
-                    {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[300px] w-full'} event={true} data={slider_data} perView={1} />}
+                    {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] w-full'} event={true} data={slider_data} perView={1} />}
                 </div>
                 <div className='gap-[20px] container justify-between flex-wrap p-[30px_0px] md:p-[15px] lg:flex'>
                     {(pageData && pageData.length != 0) && pageData.map((resp, index) => {
@@ -82,8 +67,12 @@ export async function getStaticProps() {
     const res = await sliders(slider_params)
     const data = resp.message;
     const slider_data = res.message
+
+    let ads_params = { doctype: 'Community Event', page_type: 'Home' }
+    const res_ads = await getAds(ads_params);
+    const ads_data = res_ads.message;
     return {
-        props: { data, slider_data }, revalidate: 50,
+        props: { data, slider_data, ads_data }, revalidate: 50,
     }
 }
 

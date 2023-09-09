@@ -22,8 +22,8 @@ export default function TrendingBox({ data, icons, parentElement }) {
         )
       })}
       {icons && <>
-        <p className='cursor-pointer h-[35px] w-[35px] border rounded-[5px] p-[6px]' onClick={moveRight}><Image className={`h-[20px] w-[20px]`} src={'/leftArrow.svg'} height={28} width={28} alt={'left'}></Image></p>
-        <p className='cursor-pointer h-[35px] w-[35px] border rounded-[5px] p-[6px]' onClick={moveLeft}><Image className={`h-[20px] w-[20px]`} src={'/rightArrow.svg'} height={28} width={28} alt={'right'}></Image></p>
+        <p className='cursor-pointer h-[30px] w-[30px] border rounded-[5px] p-[6px]' onClick={moveRight}><Image className={`h-[15px] w-[15px]`} src={'/leftArrow.svg'} height={28} width={28} alt={'left'}></Image></p>
+        <p className='cursor-pointer h-[30px] w-[30px] border rounded-[5px] p-[6px]' onClick={moveLeft}><Image className={`h-[15px] w-[15px]`} src={'/rightArrow.svg'} height={28} width={28} alt={'right'}></Image></p>
 
       </>}
     </>

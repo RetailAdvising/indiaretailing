@@ -24,7 +24,7 @@ export default function Advertise() {
                   <p className='address font-normal'>We have various ways to promote your brand and to know how, please get in touch with Bhavesh Pitroda email : bhaveshpitroda@imagesgroup.in</p>
                   </div>
                   <div className="basis-2/4">
-                      <Image src="/advertise_with_us_01.svg" alt="About" width={500} height={500} className='m-auto'/>
+                      <Image src="/advertise_with_us_02.svg" alt="About" width={500} height={500} className='m-auto'/>
                   </div>
                 </div>
               </div>

@@ -89,7 +89,7 @@ export default function ExclusiveBuilder({ data }) {
                         <div className='lg:grid lg:grid-cols-4 md:grid-cols-2 irVideos lg:gap-[15px] lg:justify-between'>
                             {data.videos.ir_video.map((res, index) => {
                                 return (
-                                    <div key={index} className='ir_div cursor-pointer'>
+                                    <div key={index} onClick={() => router.push(`/video/${res.route}`)} className='ir_div cursor-pointer'>
                                         <div className='relative'>
                                             <Image src={check_Image(res.video_image)} className='h-[175px] w-full' height={100} width={100} alt={res.title} />
                                             <Image src={'/irprime/youtube.svg'} className='absolute bottom-[10px] left-[10px] object-contain h-[20px] w-[30px]' height={100} width={100} alt={res.title} />

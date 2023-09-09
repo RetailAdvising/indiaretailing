@@ -7,7 +7,7 @@ import ExclusiveBuilder from '@/components/Builders/ExclusiveBuilder'
 export default function IRPrime({ data , ads }) {
     return (
         <>
-            <RootLayout isLanding={true} head={'IR Prime'}>
+            <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'IR Prime'}>
                 {(data && data.message && data.message.length != 0) && <ExclusiveBuilder data={data} />}
             </RootLayout>
 

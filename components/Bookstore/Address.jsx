@@ -9,7 +9,6 @@ export default function Address({hide,edit_address,modal}) {
 
 
   const { handleSubmit, control, reset , setValue, formState: { errors } } = useForm({
-
     defaultValues: {
       first_name: ((edit_address && edit_address.first_name) ? edit_address.first_name : ''),
       last_name: ((edit_address && edit_address.last_name) ? edit_address.last_name : ''),
@@ -46,15 +45,13 @@ export default function Address({hide,edit_address,modal}) {
       if (resp && resp.message && resp.message.length != 0) {
          stateList = resp.message
          setState(resp.message);
-         console.log(stateList);
-         if(edit_address && edit_address.country){
+         if(edit_address && edit_address.country != ''){
            let formData = {}
            formData.country = countryList.find((res)=> { return res.label == edit_address.country})
            formData.state = stateList.find((res)=> { return res.label == edit_address.state})
            setValue('country', formData.country);
            setValue('state', formData.state);
            setSelectedValues(formData);
-           console.log(selectedValues)
         }
       }
   }
@@ -135,14 +132,16 @@ export default function Address({hide,edit_address,modal}) {
     <form className={`${modal ? 'pt-[20px]' : null}`} onSubmit={handleSubmit(onSubmit)}>
 
 
-        <Controller
+    {selectedValues && selectedValues['country'] ?
+      <Controller
           name="country"
           control={control}
           render={({ field }) => 
             <Select className={`${styles.custom_input} custom-select_ w-full`} placeholder='Country'
               {...field} 
               options={countryList} 
-              value={(selectedValues && selectedValues['country']) ? selectedValues['country'] : '' } // Set the value directly
+              // value={(selectedValues && selectedValues['country']) ? selectedValues['country'] : 'India' } // Set the value directly
+              value={countryList.find(option => option.value === (selectedValues && selectedValues['country']))}
               styles={{
               control: (provided) => ({
               ...provided,
@@ -153,6 +152,25 @@ export default function Address({hide,edit_address,modal}) {
               }}
             />}
         />
+        :
+        <Controller
+          name="country"
+          control={control}
+          render={({ field }) => 
+            <Select className={`${styles.custom_input} custom-select_ w-full`} placeholder='Country'
+              {...field} 
+              options={countryList} 
+              styles={{
+              control: (provided) => ({
+              ...provided,
+              border: 'none', // Set border to none
+              height: '43px',
+              }),
+              // Other style overrides
+              }}
+            />}
+        />
+    }
 
         <div className={`box_ flex gap-[10px]`}>
         <div className={`${styles.flex_2} `}>
@@ -179,18 +197,14 @@ export default function Address({hide,edit_address,modal}) {
         </div>
 
         <div className={`${styles.flex_3} `}>
-        <Controller
+        {selectedValues && selectedValues['state'] ? 
+          <Controller
             name="state"
             control={control}
             render={({ field }) => 
               <Select className={`${styles.custom_input} w-full`} placeholder='State'
               {...field} 
               value={(selectedValues && selectedValues['state']) ? selectedValues['state'] : '' } // Set the value directly
-
-              // value={field} // Set the value directly
-              // onChange={(selectedOption) => {
-              //   field.onChange(selectedOption?.value || ''); // Set the value using field.onChange
-              // }}
               options={stateList} 
               styles={{
               control: (provided) => ({
@@ -201,7 +215,31 @@ export default function Address({hide,edit_address,modal}) {
               // Other style overrides
               }}
             />}
-        />
+           /> :
+           <Controller
+           name="state"
+           control={control}
+           render={({ field }) => 
+             <Select className={`${styles.custom_input} w-full`} placeholder='State'
+             {...field} 
+            //  value={(selectedValues && selectedValues['state']) ? selectedValues['state'] : '' } // Set the value directly
+
+             // value={field} // Set the value directly
+             // onChange={(selectedOption) => {
+             //   field.onChange(selectedOption?.value || ''); // Set the value using field.onChange
+             // }}
+             options={stateList} 
+             styles={{
+             control: (provided) => ({
+             ...provided,
+             border: 'none', // Set border to none
+             height: '43px'
+             }),
+             // Other style overrides
+             }}
+           />}
+          />
+            }
         </div>
 
 

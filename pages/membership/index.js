@@ -243,7 +243,7 @@ export default function Membership() {
         <Modal modal={modal} show={show} visible={visible_} hide={hide} />
 
        <div className="pt-[30px] bg-[url('/membership/bg_membership.svg')] bg-no-repeat bg-contain">
-         <div className="max-w-[1200px] m-[0px_auto]">
+         <div className="max-w-[1300px] m-[0px_auto]">
             <h2 className="font-bold text-4xl md:text-2xl text-center">{data.title}</h2>
             <p className="sub_title text-center lg:pb-10 lg:pt-3 md:py-3">{data.subtitle}</p>
             <div className="flex flex-row m-auto justify-center gap-2 mb-3 border rounded-[35px] w-max p-[5px]">
@@ -287,7 +287,7 @@ export default function Membership() {
                           )
                         })}
                       </ul>
-                      <button onClick={()=> startPlan(membership,index)} className="absolute bottom-[30px] w-[calc(100%_-_60px)] bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl font-medium member-button member-button_"> Start your free Pro trial </button>
+                      <button onClick={()=> startPlan(membership,index)} className="absolute bottom-[30px] md:bottom-[15px] w-[calc(100%_-_60px)] bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl font-medium member-button member-button_"> Start your free Pro trial </button>
                   </div>
                   )
                 })}
@@ -352,3 +352,6 @@ export default function Membership() {
     )}
 
 
+
+
+ 

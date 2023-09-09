@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { like } from '@/libs/api';
+import { like,dislike } from '@/libs/api';
+import Modal from '../common/Modal';
 export default function Comments({ data, isLast, load, cmt }) {
     const [input, setInput] = useState({ index: -1, show: false })
+    const [comment, setComment] = useState()
+
     function showInputs(index) {
         setInput({ index: index, show: true });
         console.log(input)
@@ -10,6 +13,7 @@ export default function Comments({ data, isLast, load, cmt }) {
 
     const cardref = useRef(null)
     useEffect(() => {
+        setComment(data)
         if (!cardref?.current) return;
         const observer = new IntersectionObserver(([entry]) => {
             if (isLast && entry.isIntersecting) {
@@ -21,45 +25,93 @@ export default function Comments({ data, isLast, load, cmt }) {
         observer.observe(cardref.current);
     }, [isLast])
 
-    const likeCmt = async (data) => {
-        console.log(data)
+    const likeCmt = async (comm) => {
         let param = {
-            name: data.name,
-            like: 'yes'
+            name: comm.name,
+            like: comm.is_liked == 1 ?  'No' :'Yes'
         }
-
         const resp = await like(param);
-        console.log(resp);
+        if(resp.status == 'Success') setComment({...comm,likes:(comm.is_liked && comm.is_liked == 1) ? comm.likes - 1:comm.likes + 1
+            ,is_liked:(comm.is_liked && comm.is_liked == 1) ? 0 : 1})  ;
+            if(comm.is_disliked ==1 && comm.is_liked == 0) dislikeCmt(comm);
     }
+    const dislikeCmt = async (comm) => {
+        console.log(comment);
+        let param = {
+            name: comm.name,
+            dislike: comm.is_disliked == 1 ?  'No' :'Yes'
+        }
+        const resp = await dislike(param);
+        if(resp.status == 'success') setComment({...comm,dislikes:(comm.is_disliked && comm.is_disliked == 1) ? comm.dislikes - 1:comm.dislikes + 1,
+            is_disliked:(comm.is_disliked && comm.is_disliked == 1) ? 0 : 1});
+            console.log(comment);
+    }
+    const report = async () => {
+        let param = {
+            doctype:"Report Type",
+            fields:["name","title"]
+        }
+         let resp = await getList(param)
+         show()
+    }
+    
+  // Modal Popup
+  const [modal, setModal] = useState('')
+  const [visible, setVisible] = useState(false)
+  function show() {
+    setVisible(true);
+  }
+
+  function hide() {
+    setVisible(false)
+    if (localStorage['roles']) {
+      const data = JSON.parse(localStorage['roles']);
+
+      if (data && data.length != 0) {
+        data.map(res => {
+          if (res.role == 'Member') {
+            setValidator(true);
+          }
+        })
+      }
+    }
+  }
     return (
         <>
-            <div ref={cardref} className={`transition-all ease-in delay-500 duration-500 rounded-lg ${cmt ? 'p-[10px]' : ''}`}>
-                <div className={`flex gap-3 p10 ${!isLast ? 'border_bottom' : ''}`}>
-                    <div>
-                        <Image className='rounded-full object-contain' src={'/profit.svg'} height={48} width={48} alt={data.name} />
-                    </div>
-                    <div className='max-w-full w-full'>
-                        <p className='flex gap-3 '><h6 className='font14_bold'>{data.comment_by}</h6> | <span>{data.duration}</span></p>
-                        <div className='py-2 sub_title' dangerouslySetInnerHTML={{ __html: data.content }} />
-                        <div className='flex justify-between items-center py-[5px]'>
-                            <div className='flex gap-3'>
-                                <p className='flex gap-2 items-center sub_title'><span>{data.likes}</span><Image className='h-[20px] w-[20px]' onClick={() => likeCmt(data)} src={'/like.svg'} height={20} width={20} alt={""} /></p>
-                                <p className='flex gap-2 items-center sub_title'><span>{data.dislikes}</span><Image className='h-[20px] w-[20px]' src={'/dislike.svg'} height={20} width={20} alt={""} /></p>
-                                {/* <p className='sub_title'>Share</p>
-                                        <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
-                            </div>
-                            {/* <div>
-                                        <Image src={'/flag.svg'} height={16} width={16} alt={"image"} />
-                                    </div> */}
+                            
+        {comment && 
+                    <div ref={cardref} className={`transition-all ease-in delay-500 duration-500 rounded-lg ${cmt ? 'p-[10px]' : ''}`}>
+                    <div className={`flex gap-3 p10 ${!isLast ? 'border_bottom' : ''}`}>
+                        <div>
+                            <Image className='rounded-full object-contain' src={'/profit.svg'} height={48} width={48} alt={comment.name} />
                         </div>
-                        {/* {(input.index == index && input.show) &&
+                        <div className='max-w-full w-full'>
+                            <p className='flex gap-3 '><h6 className='font14_bold'>{comment.comment_by}</h6> | <span>{comment.duration}</span></p>
+                            <div className='py-2 sub_title' dangerouslySetInnerHTML={{ __html: comment.content }} />
+                            <div className='flex justify-between items-center py-[5px]'>
+                                <div className='flex gap-3'>
+                                    <p className='flex gap-2 items-center sub_title'><span>{comment.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => likeCmt(comment)} src={(comment.is_liked && comment.is_liked == 1) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
+                                    <p className='flex gap-2 items-center sub_title'><span>{comment.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => dislikeCmt(comment)} src={(comment.is_disliked && comment.is_disliked == 1) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
+                                    {/* <p className='sub_title'>Share</p>
+                                            <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
+                                </div>
                                     <div>
-                                        <input type='text' />
-                                    </div>
-                                } */}
+                                       <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={report}/>
+                                   </div>
+                              </div>
+                              <div>
+                                  <Modal modal={modal} show={show} visible={visible} hide={hide} />
+                              </div>
+                            {/* {(input.index == index && input.show) &&
+                                        <div>
+                                            <input type='text' />
+                                        </div>
+                            } */}
+                        </div>
                     </div>
                 </div>
-            </div>
+        }
+
 
         </>
     )

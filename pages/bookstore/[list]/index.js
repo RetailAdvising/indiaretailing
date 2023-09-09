@@ -5,15 +5,27 @@ import Title from '@/components/common/Title';
 import Card from '@/components/Bookstore/Card';
 import { getCategoryProduct } from '@/libs/api';
 import { useRouter } from 'next/router';
+// import BreadCrumb from '@/components/common/BreadCrumb';
 
 export default function BookstoreList({ value }) {
+
     const router = useRouter();
     let [data, setData] = useState([]);
     let cardref = useRef();
     let page_no = 1
     let no_product = false;
+    let [breadCrumbs,setBreadCrumbs] = useState([{name:'Home',route:'/'}])
 
     useEffect(() => {
+        let routPath = router.asPath.split('/')
+        if(routPath && routPath.length != 0){
+            routPath.map((res,i)=>{
+              if(i > 0){
+                setBreadCrumbs((d)=> d = [...d,{name:res,route:'/'+ res}]);
+              }
+            })
+        }
+
         if (value && value.length != 0) {
             setData(value.data)
         }
@@ -50,6 +62,11 @@ export default function BookstoreList({ value }) {
     return (
         <>
             <RootLayout>
+
+            {/* <div className='md:hidden'>
+              <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>
+           </div> */}
+
                 <div className='container'>
                     {(data && data.length != 0) &&
                         <div className='py-8 md:p-[15px]'>

@@ -479,6 +479,7 @@ function goToAddres(){
                         </div>
                         <div className="w-3/4">
                           <h6 style={{fontWeight:'600'}} className='font-semibold sub_title line-clamp-2 text-[15px]'>{res.item}</h6>
+                          {res.attribute_description && <p className='text-[12px] gray_color'>{res.attribute_description}</p>}
                           <h6 className='font-semibold pt-[5px] text-[15px]'>Rs {res.price}</h6>
                         </div>
                       </div>

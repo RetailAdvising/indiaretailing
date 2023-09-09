@@ -73,6 +73,11 @@ export default function Modal({ modal, hide, visible, data, cur }) {
             let param = { article: cur.name, comment: element.value };
             let resp = await addComment(param);
             if (resp.message) {
+                console.log(resp.message);
+                resp.message["is_liked"] = 0
+                resp.message["likes"] = 0
+                resp.message["is_disliked"] = 0
+                resp.message["dislikes"] = 0
                 setComments(c => [...c, resp.message])
                 element.value = '';
             }
@@ -137,7 +142,11 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                                 :<div className='grid place-content-center h-[50vh]'><h6 className='font-semibold text-[16px]'>No Comments</h6></div>
                             }
                         </Rodal>
-                            : null
+                            : modal == 'report' ?
+                            <Rodal visible={visible} animation='slideUp' onClose={hide}>
+                                hgjg
+                            </Rodal> :
+                            null
             }
         </>
     )

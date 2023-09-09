@@ -1,29 +1,64 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { send_otp, verify_otp } from '@/libs/api'
+
 export default function OTP({ setotp, isModal, hide }) {
-    const router = useRouter();
+    // const router = useRouter();
     const [show, setShow] = useState(false)
+    const [otp, set_otp] = useState(true)
     const { register, handleSubmit, formState: { errors } } = useForm();
-    async function login(data) {
+
+    // useEffect(()=>{
+
+    // },[otp])
+
+    async function sent_otp(data) {
         if (data) {
-            //     let datas = {
-            //         usr: data.email,
-            //         pwd: data.password
-            //     }
-            //     let val = await logIn(datas);
-            //     if (val.message.status == 'Success') {
-            //         localStorage['apikey'] = val.message.api_key
-            //         localStorage['secret'] = val.message.api_secret
-            //         localStorage['userid'] = val.message.user_id
-            //         router.push('/')
-            //     } else {
-            //         setWrong(!wrong);
-            //     }
+            let datas = {
+                mobile_no: data.mobile
+            }
+            let val = await send_otp(datas);
+            // console.log(val)
+            if (val.message.status == 'Success') {
+                set_otp(!otp)
+                // OTP sent successfully.
+
+            } else {
+                setWrong(!wrong);
+            }
         }
     }
+
+    async function verify_otp(data) {
+        if (data) {
+            console.log(data)
+            let datass = {
+                mobile_no: data.mobile,
+                otp: data.otp
+            }
+            let val = await verify_otp(datass);
+            if (val.message.status == 'Success') {
+                if (val.message.type == 'Customer') {
+                    localStorage['apikey'] = val.message.api_key
+                    localStorage['secret'] = val.message.api_secret
+                    localStorage['userid'] = val.message.customer_email;
+                    localStorage['customer_id'] = val.message.customer_id;
+                    localStorage['full_name'] = val.customer_name;
+                    localStorage['roles'] = JSON.stringify(val.message.roles)
+                    router.push('/')
+                }
+            }
+        }
+    }
+
+    async function check(data) {
+        console.log(data)
+        data.otp ? verify_otp(data) : sent_otp(data)
+    }
+
     return (
         <>
             <div className='flex container p-[20px] justify-center gap-[60px] '>
@@ -32,30 +67,39 @@ export default function OTP({ setotp, isModal, hide }) {
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
-                    <form onSubmit={handleSubmit((data) => login(data))} autoComplete='off'>
-                        <div className={`flex flex-col py-5 relative`}>
-                            <label className={`${styles.label} text-[#808D9E]`} htmlFor='mobile' >Mobile Number</label>
-                            <input className={`${styles.input} `} {...register('mobile', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } },)} />
-                            <Image className={`absolute  right-[10px] h-[27px] w-[22px] ${errors.mobile?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/mobile.svg'} height={15} width={15} alt={"pass"} />
-                            {errors?.mobile && <p className={`${styles.danger}`}>{errors.mobile.message}</p>}
-                        </div>
-                        <div className={`flex flex-col pt-[10px] pb-4 relative`}>
-                            <label className={`text-[#808D9E]`} htmlFor='password'>OTP</label>
-                            <input type={`${show ? 'text' : 'password'}`} className={`${styles.input} `} {...register('otp', { required: { value: true, message: 'OTP is required' } })} />
-                            <Image onClick={() => setShow(!show)} className={`absolute  right-[10px] h-[23px] w-[20px] ${errors.otp?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={show ? '/login/showPass.svg' : '/login/hidePass.svg'} height={15} width={15} alt={"pass"} />
-                            {/* <button onClick={()=> setShow(!show)}>show</button> */}
-                            {errors.otp && <p className={`${styles.danger}`}>{errors.otp.message}</p>}
-                        </div>
+                    <form onSubmit={handleSubmit((data) => check(data))} autoComplete='off'>
+                        {
+                            <>
+                                {otp ? <div className={`flex flex-col py-5 relative`}>
+                                    <label className={`${styles.label} text-[#808D9E]`} htmlFor='mobile' >Mobile Number</label>
+                                    <input className={`${styles.input} `} {...register('mobile', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } })} />
+                                    <Image className={`absolute  right-[10px] h-[27px] w-[22px] ${errors.mobile ?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/mobile.svg'} height={15} width={15} alt={"pass"} />
+                                    {errors ?.mobile && <p className={`${styles.danger}`}>{errors.mobile.message}</p>}
+                                </div> :
+                                    <div className={`flex flex-col pt-[10px] pb-4 relative`}>
+                                        <label className={`text-[#808D9E]`} htmlFor='password'>OTP</label>
+                                        <input type={`${show ? 'text' : 'number'}`} className={`${styles.input} `} {...register('otp', { required: { value: true, message: 'OTP is required' } })} />
+                                        {/* <Image onClick={() => setShow(!show)} className={`absolute  right-[10px] h-[23px] w-[20px] ${errors.otp ?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={show ? '/login/showPass.svg' : '/login/hidePass.svg'} height={15} width={15} alt={"pass"} /> */}
+                                        {errors.otp && <p className={`${styles.danger}`}>{errors.otp.message}</p>}
+                                    </div>}
+                            </>}
 
-                        <div className={`flex items-center justify-between gap-[50px] pb-5`}>
+                        {/* <div className={`flex items-center justify-between gap-[50px] pb-5`}>
                             <div className='flex cursor-pointer items-center gap-[10px]'>
                                 <input type='checkbox' className={`${styles.checkBox} indeterminate:bg-gray-300`} {...register('remember')} />
-                                {/* <span className={`${styles.checkmark}`}></span> */}
+                                {/* <span className={`${styles.checkmark}`}></span> 
                                 <span >Remember Me</span>
                             </div>
                             <p className='text-blue-500 cursor-pointer font-semibold'>Forget Password</p>
-                        </div>
-                        <button type="submit" className={`${styles.loginBtn} cursor-pointer`}>Log In</button>
+                        </div> */}
+                        {
+                            <>
+                                {
+                                    otp ?
+                                        <button type="submit" className={`${styles.loginBtn} cursor-pointer`}>Sent OTP</button> : <button type="submit" className={`${styles.loginBtn} cursor-pointer`}>Verify OTP</button>
+                                }
+                            </>
+                        }
                         {/* {wrong && <p>Please check you email or password</p>} */}
                     </form>
                     <p className='pt-[10px]'>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>create an account</span></p>

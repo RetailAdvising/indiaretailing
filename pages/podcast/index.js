@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 // import PageData from '@/libs/Podcast'
 import HomePodcast from '@/components/Podcast/HomePodcast'
-import { podcastLanding, checkMobile } from '@/libs/api'
+import { podcastLanding, getAds } from '@/libs/api'
 
-export default function Podcast({ data }) {
+export default function Podcast({ data, ads_data }) {
 
     // const [isMobile, setIsMobile] = useState()
     // useEffect(() => {
@@ -21,7 +21,7 @@ export default function Podcast({ data }) {
     // }
     return (
         <>
-            <RootLayout isLanding={true} head="">
+            <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head="">
                 {(data && data) && data.map((res, index) => {
                     return (
                         <HomePodcast key={index} data={res} />
@@ -39,7 +39,10 @@ export async function getStaticProps() {
     }
     let value = await podcastLanding(param);
     let data = value.message;
+    let ads_params = { doctype: 'Podcast', page_type: 'Home', position:'Header' }
+    const res_ads = await getAds(ads_params);
+    const ads_data = res_ads.message;
     return {
-        props: { data }, revalidate: 10,
+        props: { data,ads_data }, revalidate: 10,
     }
 }

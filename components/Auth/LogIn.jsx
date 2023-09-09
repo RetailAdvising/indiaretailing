@@ -52,7 +52,7 @@ export default function LogIn({ isModal, hide }) {
         <>
             {!otp ? <div className='flex container p-[20px] justify-center gap-[60px] '>
                 <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] relative h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] mt-[30px]'} flex-col flex justify-center`}>
-                    {!isModal && <div className='absolute top-0 left-[10px] cursor-pointer'>
+                    {!isModal && <div className=' top-0 left-[10px] cursor-pointer'>
                         <Image onClick={() => go_to_home()} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>

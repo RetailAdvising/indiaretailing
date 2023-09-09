@@ -64,7 +64,7 @@ export default function Home({ data,ads }) {
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads ? ads : null}>
         {(value && value.length != 0) && value.map((res, index) => {
           return (
-            <HomePageBuilder key={index} data={res} loadMore={() => setPageNo(p => p + 1)} />
+            <HomePageBuilder key={index} i={index} data={res} loadMore={() => setPageNo(p => p + 1)} />
           )
         })}
       </RootLayout>
@@ -87,7 +87,7 @@ export async function getStaticProps() {
   const ads = res.message;
 
   return {
-    props: { data, ads }
+    props: { data, ads },revalidate: 10
   }
 
 }

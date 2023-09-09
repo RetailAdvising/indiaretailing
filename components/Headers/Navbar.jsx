@@ -17,11 +17,21 @@ export default function Navbar({heading,isLanding}) {
     // const [isMobile, setIsMobile] = useState(false)
     const [date, setDate] = useState(undefined)
 
-    const subnavrouter = useRouter();
+
+    const [activeIndex, setActiveIndex] = useState(false);
+
+    const handleItemClick = (index) => {
+    // Toggle the active state for the clicked item
+    if (index === activeIndex) {
+        setActiveIndex(null); // Remove active class if clicked item is already active
+      } else {
+        setActiveIndex(index); // Add active class to the clicked item
+      }
+    };
+
     // console.log(subnavrouter);
 
 
-    const [active, setActive] = useState(false);
 
 
     useEffect(() => {
@@ -50,7 +60,7 @@ export default function Navbar({heading,isLanding}) {
             {/* sticky_header */}
             {/* {<div className={` lg:hidden sidebar ${navbar ? 'sideActive' : ''} `} ><SideBar data={nav} close={() => close()} /></div>} */}
             {/* onClick={showSidebar} */}
-            {(nav.header && nav.header.items.length != 0 && !isMobile) ? <div className={`border_top sticky_header ${(router.asPath == '' || router.asPath == '/') ? 'lg:p-[15px_30px_0]' : 'lg:p-[15px_30px]'} ${navbar ? '' : 'md:p-[0_20px]'} ${header.navHead} md:h-[55px]`}>
+            {(nav.header && nav.header.items.length != 0 && !isMobile) ? <div className={`border_top sticky_header ${(router.asPath == '' || router.asPath == '/') ? 'lg:p-[15px_30px]' : 'lg:p-[15px_30px]'} ${navbar ? '' : 'md:p-[0_20px]'} ${header.navHead} md:h-[55px]`}>
                 <div className={`${navbar ? '' : 'container'}  flex flex-wrap items-center justify-between`}>
                     {nav.header.items.map(res => {
                         return (
@@ -65,7 +75,7 @@ export default function Navbar({heading,isLanding}) {
                                         {res.menus.map(item => {
                                             return (
                                                 // ${nav1 == item.redirect_url ? header.activeMenu : ''}
-                                                <Link href={item.redirect_url} className={`${header.listKey} font-semibold navigation_c tracking-wide ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''}`} key={item.menu_label}>
+                                                <Link href={item.redirect_url} className={`${header.listKey} font-semibold navigation_c lg1:text-[13px] tracking-wide ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''}`} key={item.menu_label}>
                                                     {item.menu_label}
                                                 </Link>
                                             )
@@ -78,18 +88,20 @@ export default function Navbar({heading,isLanding}) {
 
                                 </>}
                                 {res.section_name == 'Header Profile Info' && <div className={`text-end items-center ${date && 'lg:flex lg:items-center lg:gap-[5px] lg:justify-end'} md:float-right ${navbar ? 'md:pr-[20px]' : ''}`}>
-                                <Image src={'/Navbar/Date-and-time-01.svg'} className='md:hidden' height={20} width={20} alt={'weather'} />
-                                    {date && <> <p className='md:hidden text-[#66161] text-[12px]'>{date ? date : ''}</p></>}
+                                <Image src={'/Navbar/Date-and-time-01.svg'} className='md:hidden lg1:hidden' height={20} width={20} alt={'weather'} />
+                                    {date && <> <p className='md:hidden text-[#66161] text-[12px] lg1:text-[10px]'>{date ? date : ''}</p></>}
                                     <Image className='lg:hidden' style={{ objectFit: 'contain' }} height={50} priority width={24} alt='search' src={'/search.svg'} ></Image>
                                 </div>}
 
                                 {res.section_name == 'Header Category Info' && <div className='flex justify-center items-center md:hidden'>
                                     {res.menus.map((item, index) => {
                                         return (
-                                            <div key={index} onClick={() => router.push(item.redirect_url)} className='cursor-pointer justify-center p-[10px_8px] flex gap-[5px] items-center'>
-                                                <div className='h-[3px] w-[3px] rounded-full bg-red'></div>
-                                                <p className='text-[14px]'>{item.menu_name}</p>
+                                        <span key={index} className={`nav-item ${index === activeIndex ? 'active' : ''}`} onClick={() => handleItemClick(index)}>
+                                            <div className='cursor-pointer justify-center p-[10px_8px] flex gap-[5px] items-center' onClick={() => router.push(item.redirect_url)}>
+                                                    <div className='h-[3px] w-[3px] rounded-full bg-red'></div>
+                                                    <p >{item.menu_name}</p>
                                             </div>
+                                        </span>
                                         )
                                     })}
                                 </div>}
