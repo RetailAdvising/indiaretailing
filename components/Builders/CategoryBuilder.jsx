@@ -58,6 +58,8 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
   // }, [])
 
+  console.log(data)
+
 
   useEffect(() => {
     if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
@@ -118,7 +120,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   }
 
   function onPageLoad() {
-    if ((data && data.article_sections && data.article_sections.length != 0) && localStorage['apikey']) {
+    if ((data && data.article_sections && data.article_sections.length != 0)) {
       data.article_sections.map((res) => {
         let element = document.getElementById(`${res.placeholder_key}`);
         // console.log(element)
@@ -126,11 +128,14 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
         let html = ''
         res.data.map((item, index) => {
           html +=
-            `<div key=${index} class='${'card'}'>
+            `<div key=${index} class='${'card'} cursor-pointer'>
               <div>
                 <Image class=${'img'} src='${check_Image(item.thumbnail_image)}' height={40} width={50} alt='image' />
               </div>
-              <p class=p-[10px]>${item.title}</p>            
+              <div class='p-[10px]'>
+              <p class='line-clamp-2 title'>${item.title}</p>            
+              <p class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : ''}</p>            
+              </div>
             </div>`
         })
         element ? element.innerHTML = html : null
@@ -183,12 +188,12 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             <p>
               <Content i={i} res={data} />
             </p>
-            <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'line-clamp-5'}`} />
+            <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'prime-article'}`} />
 
-            {(isPrime && !validator) && <div className='border md:border-0 p-[20px] shadow-xl my-[20px] rounded-lg'>
-              <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px]'>This story is for Premium Members you  have to buy Membership to Unlock</h6>
+            {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22]'>
+              <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='cursor-pointer mr-3'/>This story is for Premium Members you  have to buy Membership to Unlock</h6>
               <div className='flex gap-[20px] justify-center pt-[0px]'>
-                <button className='primary_btn p-[8px_16px]' onClick={() => router.push('/membership')}>Subscribe</button>
+                <button className='primary_btn p-[6px_8px] text-[13px]' onClick={() => router.push('/membership')}>Subscribe</button>
                 {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
                 <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button> */}
               </div>
@@ -266,7 +271,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                     {(data.comments && data.comments.length != 0) && <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>Read all comments</button>}
                     <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button>
                   </div> : <div className={`mt-[10px] flex justify-center`}>
-                    <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] w-[20%] h-[40px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
                   </div>}
 
 

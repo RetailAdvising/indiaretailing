@@ -1,17 +1,16 @@
 import Image from 'next/image'
 import RootLayout from '@/layouts/RootLayout'
 import { useDispatch, useSelector } from 'react-redux'
-import IRPrime from '@/components/Landing/IRPrime';
 // import { useRouter } from 'next/router'
 // import { useEffect } from 'react';
 // import {setRoutes} from 'redux/actions/routesAction';
 import PageData from '@/libs/buider'
 import HomePageBuilder from '@/components/Builders/HomePageBuilder';
-import { HomePage,getAds } from '../libs/api';
+import { HomePage, getAds } from '../libs/api';
 import { useEffect, useState } from 'react';
+import SEO from '@/components/common/SEO'
 
-
-export default function Home({ data,ads }) {
+export default function Home({ data, ads }) {
 
   const [pageNo, setPageNo] = useState(0);
   const [start, setStart] = useState(0);
@@ -54,14 +53,9 @@ export default function Home({ data,ads }) {
 
   return (
     <>
-    {/* <Dropdowns /> */}
-        {/* {(PageData && PageData.page_sections) && PageData.page_sections.slice(start, end).map((res, index) => {
-          return (
-            <HomePageBuilder data={res} loadMore={() => setPageNo(p => p + 1)} isLast={index == PageData.page_sections.slice(start, end).length - 1} />
-          )
-        })} */}
-        {/*  isLast={index == value.length - 1} */}
+      {/*  isLast={index == value.length - 1} */}
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads ? ads : null}>
+
         {(value && value.length != 0) && value.map((res, index) => {
           return (
             <HomePageBuilder key={index} i={index} data={res} loadMore={() => setPageNo(p => p + 1)} />
@@ -87,7 +81,7 @@ export async function getStaticProps() {
   const ads = res.message;
 
   return {
-    props: { data, ads },revalidate: 10
+    props: { data, ads }, revalidate: 10
   }
 
 }

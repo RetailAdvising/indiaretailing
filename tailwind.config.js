@@ -43,7 +43,8 @@ module.exports = {
         'light-gray': '#ddd',
         'border_color': '#EEEEEE',
         "gray-light": "#efefef",
-        "gray-dark1": "#20272C"
+        "gray-dark1": "#20272C",
+        "white": "#ffffff"
       }
 
 

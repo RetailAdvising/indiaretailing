@@ -47,7 +47,8 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
 
     return (
         <>
-            <Popover className={`relative ${share ? 'w-[17px]' : type == 'head' ? 'w-[auto]' : 'w-[8px]'}`}>
+        {/* ${share ? 'w-[17px]' : type == 'head' ? 'w-[auto]' : 'w-[8px]'} */}
+            <Popover className={`relative `}>
                 {({ open }) => (
                     <>
                         <Popover.Button
@@ -57,7 +58,8 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                         >
                             {/* <span>{btn_name}</span> */}
                             <div className='flex gap-[10px] items-center'>
-                                <Image src={share ? '/share.svg' : img} height={share ? 30 : 6} width={share ? 30 : 5.5} alt='img' className={`${type == 'head' ? 'h-[35px] w-[35px]' : ''}`} />
+                                {/*  */}
+                                <Image src={share ? '/share.svg' : img} height={share ? 18 : 5.5} width={share ? 18 : 5.5} alt='img' className={``} />
                                 {(localStorage['full_name'] && type == 'head') && <p className='text-[14px] font-semibold'>{localStorage['full_name']}</p>}
                             </div>
                         </Popover.Button>
@@ -78,7 +80,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                 return (
                                                     <div onClick={() => setting ? settings(res) : type == 'head' ? myAccounts(res) : null} className={`cursor-pointer ${res.icon ? 'flex items-center gap-[10px] pb-[10px]' : ''}`} key={index}>
                                                         {res.icon && <Image className='object-contain' src={res.icon} height={20} alt={res.name} width={20} />}
-                                                        <p className={`${(index != data.length - 1 && !res.icon) ? 'pb-[15px]' : ''}`}>{res.name}</p>
+                                                        <p className={`${(index != data.length - 1 && !res.icon) ? 'pb-[15px]' : ''} text-[14px]`}>{res.name}</p>
                                                     </div>
                                                 )
                                             })}
@@ -88,19 +90,19 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                     <div key={index} className=' p-[10px] rounded'>
                                                         {res.name == 'Linkedin' && <LinkedinShareButton url={router.asPath} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                                            <p>{res.name}</p>
+                                                            <p className={'text-[14px]'}>{res.name}</p>
                                                         </LinkedinShareButton>}
                                                         {res.name == 'Facebook' && <FacebookShareButton url={router.asPath} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                                            <p>{res.name}</p>
+                                                            <p className={'text-[14px]'}>{res.name}</p>
                                                         </FacebookShareButton>}
                                                         {res.name == 'Twitter' && <TwitterShareButton url={router.asPath} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                                            <p>{res.name}</p>
+                                                            <p className={'text-[14px]'}>{res.name}</p>
                                                         </TwitterShareButton>}
                                                         {res.name == 'Whatsapp' && <WhatsappShareButton url={router.asPath} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                                            <p>{res.name}</p>
+                                                            <p className={'text-[14px]'}>{res.name}</p>
                                                         </WhatsappShareButton>}
                                                     </div>
                                                 )

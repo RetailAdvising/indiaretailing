@@ -69,7 +69,8 @@ export default function ExclusiveBuilder({ data }) {
                 <div className='w-[calc(75%_-_10px)] md:basis-full md:pt-[10px]'>
                     {isMobile ? <Title data={{ title: 'IR Prime Leaders Ink' }} noPadding={true} /> : <div className='flex gap-2 items-center pb-[10px]'>
                         <h6 className={`text-[15px] font-semibold`}>{val.section_2.col_1.section_title}</h6>
-                        <Image className='h-[20px] w-[15px]' src={'/arrowrightprimary.svg'} height={6} width={8} alt={'chevron'} />
+                        <div className='line mt-1'></div>
+                        {/* <Image className='h-[20px] w-[15px]' src={'/arrowrightprimary.svg'} height={6} width={8} alt={'chevron'} /> */}
                     </div>}
                     <div className='primeSlide'>
                         <MultiCarousel cardHeight={'h-[280px]'} type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} />

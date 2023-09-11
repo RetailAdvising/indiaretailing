@@ -194,7 +194,6 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                             <div className={`flex-[0_0_calc(35%_-_10px)]`}>
                                                 <Title data={{ title: 'Latest News' }}  />
                                                 {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(4, 8)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(6, 8)} /></> : <LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(4, 8)} />}
-
                                             </div>
                                         </div>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Advertisement") && <AdsBaner data={data.data[c.cid].data[0]} height={'h-[200px]'} />}

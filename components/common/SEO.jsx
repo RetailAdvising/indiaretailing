@@ -9,17 +9,17 @@ import { domain } from '@/libs/config/siteConfig'
 //         image: '/ads_baner.png'
 //     }
 // }
-const DEFAULT_OG_IMAGE = '/ads_baner.png'
+const DEFAULT_OG_IMAGE = '/indiaretail.png'
 export default function SEO({ title = "India Reatiling",
     description = "This is IndiaRetailing and its about news and articles based on the popular site.",
-    siteName = "Indiaretailing",
-    canonical = domain,
+    siteName = "https://indiaretail.vercel.app/",
+    canonical = 'https://indiaretail.vercel.app/',
     ogImage = DEFAULT_OG_IMAGE,
     ogType = "website",
     twitterHandle = "@d__indiaRetail" }) {
     return (
         <>
-            <html>
+            {/* <html> */}
                 <Head>
                     <title key="title">{`${title} – ${siteName}`}</title>
                     <meta name="description" content={description} />
@@ -73,9 +73,9 @@ export default function SEO({ title = "India Reatiling",
 
                     <link rel="canonical" href={canonical ?? domain} />
 
-                    <link rel="shortcut icon" href="/favicon.ico" />
+                    <link rel="shortcut icon" href="/ir_2023.png" />
                 </Head>
-            </html>
+            {/* </html> */}
         </>
     )
 }

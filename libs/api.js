@@ -220,6 +220,11 @@ export async function HomePage(data){
     return await postMethod(api,data)
 }
 
+export async function getTagsList(data){
+    const api = domainUrl + 'get_article_news_by_tag';
+    return await postMethod(api,data)
+}
+
 export async function get_subscription_plans(data){
     let api = 'subscription.subscription.api.get_subscription_plans';
     return await postMethod(api,data)

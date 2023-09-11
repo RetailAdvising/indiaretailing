@@ -61,7 +61,7 @@ export default function Content({ res, i }) {
                 <div className='flex gap-3 items-center'>
                     <Image className='rounded-full object-contain' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <p className='flex flex-col'>
-                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>2 days ago</span>
+                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{res.creation}</span>
                     </p>
                 </div>
 
@@ -110,7 +110,7 @@ export default function Content({ res, i }) {
                     </div> */}
                     {icons && <Dropdowns share={true} width={'w-[170px]'} data={icons} />}
 
-                    {setings && <Dropdowns setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px]'} data={setings} />}
+                    {setings && <Dropdowns setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
 

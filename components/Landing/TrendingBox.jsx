@@ -1,7 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 export default function TrendingBox({ data, icons, parentElement }) {
-
+  const router = useRouter();
   const moveLeft = () => {
     let element = document.querySelector(`.${parentElement}`);
     element.scrollBy(100, 0);
@@ -11,13 +12,13 @@ export default function TrendingBox({ data, icons, parentElement }) {
     let element = document.querySelector(`.${parentElement}`);
     element.scrollBy(-100, 0);
   }
-  
+
   return (
     <>
       {data && data.map((res, index) => {
         return (
-          <div className={`trendingList cursor-pointer`} key={index}>
-            <p className={`text-[15px]`} >{res.tag}</p>
+          <div className={`trendingList cursor-pointer`} onClick={() => router.push('/' + res.custom_route)} key={index}>
+            <p className={`text-[15px]`} >{res.name}</p>
           </div>
         )
       })}

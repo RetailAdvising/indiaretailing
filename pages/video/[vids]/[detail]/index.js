@@ -37,7 +37,7 @@ export default function Videos() {
     const get_video_details = async () => {
         let id = await router.query.vids + '/' + router.query.detail;
         // "primary_text","secondary_text",
-        let data = { "route": id, fields:["name","route","title","video_image"]
+        let data = { "route": id, fields:["name","route","title","video_image",'description']
     }
         let res = await video_details(data);
         if (res && res.status == "Success") {

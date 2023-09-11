@@ -13,7 +13,7 @@ export default function Header({ checkout }) {
         btn2: 'Sign in',
     }
 
-    const profile = [{ name: 'Logout', icon: '/Navbar/Logout.svg' }, { name: 'Profile', icon: '/login/profile-01.svg', route: '/profile?my_account=edit-profile', mob_route: '/ profile?my_account=' }]
+    const profile = [{ name: 'Logout', icon: '/Navbar/Logout.svg' }, { name: 'Profile', icon: '/login/profile-01.svg', route: '/profile?my_account=edit-profile', mob_route: '/profile?my_account=' }]
     const [valid, setValid] = useState(false);
     const [member, setMember] = useState(false);
     const [sort, setSort] = useState(false);
@@ -44,11 +44,11 @@ export default function Header({ checkout }) {
     }, [])
 
 
-    const profileMenu = () => {
-        setSort(!sort);
-        let element = document.getElementById('dropdown1');
-        sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
-    }
+    // const profileMenu = () => {
+    //     setSort(!sort);
+    //     let element = document.getElementById('dropdown1');
+    //     sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
+    // }
 
     const roleMember = () => {
         console.log(localStorage['roles']);
@@ -78,13 +78,14 @@ export default function Header({ checkout }) {
         setIsMobile(isMobile);
     }
 
-    const myAccounts = async (data) => {
-        if (data.name == 'Logout') {
-            localStorage.clear();
-            router.push('/login')
-        } else if (data.name == 'Profile') {
-            router.push(isMobile ? data.mob_route : data.route)
-        }
+    const myAccounts = () => {
+        router.push(isMobile ? '/profile?my_account=' : '/profile?my_account=edit-profile')
+        // if (data.name == 'Logout') {
+        //     localStorage.clear();
+        //     router.push('/login')
+        // } else if (data.name == 'Profile') {
+        //     router.push(isMobile ? data.mob_route : data.route)
+        // }
     }
 
 
@@ -211,7 +212,6 @@ export default function Header({ checkout }) {
                         }
 
 
-                        {/* </div> */}
                         <div className=''>
                             <Image style={{ objectFit: 'cover' }} className='m-auto' height={66} priority width={200} alt='' onClick={() => router.push('/')} src={'/indiaretail.png'}></Image>
                         </div>
@@ -220,51 +220,15 @@ export default function Header({ checkout }) {
                             <button type='button' onClick={() => router.push('/login')} className={`${styles.btn_sig}`}>{head.btn2}</button>
                         </div> :
                             <div className='flex justify-end'>
-                                {profile && <Dropdowns width={'w-[150px]'} data={profile} type={'head'} img={'/Navbar/profile.svg'} />}
-
-                                {/* <div className=' h-[20px]'>
-                                <div onClick={profileMenu} className='flex cursor-pointer items-center gap-[10px]'>
+                                <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
                                     <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  ${member ? 'h-[40px] w-[40px]' : 'h-[25px] w-[25px]'}`} height={30} width={30} alt='profile' />
                                     <div>
                                         {localStorage['full_name'] && <p className='cursor-pointer capitalize font-semibold'>{localStorage['full_name']}</p>}
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
-                                    </div>
+                                    </div> */}
                                 </div>
-                                <div className={`dropdown-menu`} ref={ref} style={{ width: 'auto' }} id='dropdown1'>
-                                    {profile && profile.map((res, index) => {
-                                        return (
-                                            <div key={index} >
-                                                <div onClick={() => myAccounts(res)} className='flex cursor-pointer gap-[10px] p-[10px] items-center'>{res.icon && <Image className={`${res.name == 'Profile' ? 'h-[25px] w-[25px]' : ''}`} src={res.icon} height={20} alt={res.name} width={20} />}<p className='capitalize text-[13px]'>{res.name}</p></div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-
-                            </div> */}
-                                {/* <div className='dropdowns h-[20px]'>
-                                <div onClick={profileMenu} className='flex cursor-pointer items-center gap-[10px]'>
-                                    <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  ${member ? 'h-[40px] w-[40px]' : 'h-[25px] w-[25px]'}`} height={30} width={30} alt='profile' />
-                                    <div>
-                                        {localStorage['full_name'] && <p className='cursor-pointer capitalize font-semibold'>{localStorage['full_name']}</p>}
-                                        {member && <div className='flex text-[13px] items-center gap-[10px]'><p>Premium</p>  <Image src={'/Navbar/premium.svg'} className='h-[15px] w-[15px]' height={20} width={20} alt='premium' /></div>}
-                                    </div>
-                                    <div>
-                                        <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
-                                    </div>
-                                </div>
-                                <div className={`dropdown-menu`} ref={ref} style={{ width: 'auto' }} id='dropdown1'>
-                                    {profile && profile.map((res, index) => {
-                                        return (
-                                            <div key={index} >
-                                                <div onClick={() => myAccounts(res)} className='flex cursor-pointer gap-[10px] p-[10px] items-center'>{res.icon && <Image src={res.icon} height={20} alt={res.name} width={20} />}<p className='capitalize text-[13px]'>{res.name}</p></div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-
-                            </div> */}
 
                             </div>
 
@@ -273,7 +237,6 @@ export default function Header({ checkout }) {
                 </div>
             }
 
-            {/* <Dropdowns /> */}
         </>
     )
 }
