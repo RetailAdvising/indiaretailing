@@ -261,7 +261,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
 
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Food & Beverage") && <>
                                             <Title data={{ title: c.component_title }}  />
-                                            <div className={`${isMobile ? 'no_scroll' : 'grid gap-5  grid-cols-5'}`}><Cards isHome={'/categories/'} cardClass={"h-[300px] md:h-[260px]"} check={true} data={data.data[c.cid].data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'md:flex-[0_0_calc(75%_-_15px)]'} isBorder={true} /></div>
+                                            <div className={`${isMobile ? 'no_scroll' : 'grid gap-5  grid-cols-5'}`}><Cards isHome={'/categories/'} cardClass={"h-[300px] md:h-[280px]"} check={true} data={data.data[c.cid].data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'md:flex-[0_0_calc(75%_-_15px)]'} isBorder={true} /></div>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "E-Commerce" || c.component_title == "People" || c.component_title == "D2C Buzz")) && <>
                                             {/* {isMobile ? <>
@@ -294,7 +294,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         {/* {(resp.component_title == "AdsBaner" && resp.component_type == "Ad4" && resp.data) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={resp.data} height={"100px"} /></>} */}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <><List isHome={'/news/'} data={data.data[c.cid].data} titleClamp={'line-clamp-2'} hash_bg={'pt-[10px]'} check={true} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[140px]"} borderRadius={"rounded-[10px]"} /></>
+                                            <><List isHome={'/news/'} data={data.data[c.cid].data} titleClamp={'line-clamp-2'} hash_bg={'pt-[10px]'} check={true} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[140px]"} borderRadius={"rounded-[10px]"} /></>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Technology") && <>
                                             <Title data={{ title: c.component_title }} />
@@ -302,7 +302,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Case Studies") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className={`lg:flex no_scroll lg:gap-5`}><Cards check={true} isHome={'/categories/'} data={data.data[c.cid].data} cardClass={"h-[310px] md:h-[280px]"} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /></div>
+                                            <div className={`lg:flex no_scroll lg:gap-5`}><Cards check={true} isHome={'/categories/'} data={data.data[c.cid].data} cardClass={"h-[310px] "} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /></div>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Photo Essays") && <>
                                             <Title data={{ title: c.component_title }} />
