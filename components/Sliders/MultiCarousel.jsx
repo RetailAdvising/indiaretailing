@@ -52,7 +52,7 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                     autoPlaySpeed={2000}
                     containerClass="container-with-dots"
                     dotListClass="dots"
-                    infinite={false}
+                    infinite
                     pauseOnHover
                     responsive={responsive}
                     shouldResetAutoplay
@@ -72,9 +72,9 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                                         <Image src={check ? check_Image(res.thumbnail_image) : res.image} className={`${height} ${width}`} height={150} width={300} alt={"image"} />
                                     </div>
                                     <div className={`${styles.card_content} flex flex-col justify-between`}>
-                                        {(res.primary_text && res.secondary_text) && <p className='flex gap-2'><span className={`text-red ${styles.primary_text}`}>{res.primary_text}</span> | <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>}
-                                        <h4 className={` title line-clamp-2`}>{res.title ? res.title : ''}</h4>
-                                        <p className={` sub_title mt-[6px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
+                                        {(res.primary_text && res.secondary_text) && <p className='flex gap-2 items-center'><span className={`text-red leading-normal tracking-wider !text-[10px] ${styles.primary_text}`}>{res.primary_text}</span> <span class="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>}
+                                        <h4 className={`title line-clamp-2`}>{res.title ? res.title : ''}</h4>
+                                        <p className={`sub_title mt-[6px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
                                         <p className='hashtags pt-1'>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                     showDots={(isMobile || none) ? true : false}
                     renderDotsOutside={false}
                     // sliderClass=""
-                    slidesToSlide={1}
+                    slidesToSlide={5}
                     swipeable>
 
                     {(data && data.length != 0) && data.map((res, index) => {
@@ -119,7 +119,7 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                                             <h4 className={`title line-clamp-2`}>{res.title ? res.title : ''}</h4>
                                         </div>
                                         <p className={`sub_title pt-[5px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
-                                        <p style={{ fontSize: '12px' }} className='hashtags pt-[5px]'>{res.hashtags ? res.hashtags : res.author ? res.author : res.publisher ? res.publisher : ''}</p>
+                                        <p style={{ fontSize: '13px' }} className='hashtags pt-[5px] font-[500]'>by {res.hashtags ? res.hashtags : res.author ? res.author : res.publisher ? res.publisher : ''}</p>
                                     </div>
                                 </div>
 

@@ -1,7 +1,7 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
 import val from '@/libs/bookstore'
-import Sliders from '@/components/Sliders'
+import Sliders from '@/components/Sliders/index'
 import Title from '@/components/common/Title'
 import Card from '@/components/Bookstore/Card'
 import AdsBaner from '@/components/Baners/AdsBaner'
@@ -11,6 +11,14 @@ import { checkMobile } from '@/libs/api';
 // import BreadCrumb from '@/components/common/BreadCrumb';
 
 export default function Bookstore({ data,resp,ads_data }) {
+
+
+  // const images = [
+  //   'https://indiaretailing.go1cms.com/files/Screenshot%202023-09-11%20144600.jpg',
+  //   'https://indiaretailing.go1cms.com/files/Screenshot%202023-09-11%20144600.jpg',
+  //   'https://indiaretailing.go1cms.com/files/Screenshot%202023-09-11%20144600.jpg',
+
+  // ];
 
   // console.log(data);
   // console.log(resp);
@@ -47,11 +55,15 @@ export default function Bookstore({ data,resp,ads_data }) {
 
       {/* {!isMobile && <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>} */}
 
+
         {(data && data.length != 0) && <>
-          {(resp.recent_products && resp.recent_products.length != 0) && 
+
+
+
+          {/* {(resp.recent_products && resp.recent_products.length != 0) && 
           <div className='pt-[10px] container' style={{ background: "#f0f0f0" }}>
-            <Sliders data={resp.recent_products} perView={1} />
-          </div>}
+            <Sliders data={resp.recent_products} perView={1} imgClass={'h-[400px] w-full'} />
+          </div>} */}
 
           <div className={`lg:bg-[#FBFBFD]`}>
             {/* {data.map((res, index) => {

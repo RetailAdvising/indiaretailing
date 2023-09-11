@@ -57,7 +57,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                         >
                             {/* <span>{btn_name}</span> */}
                             <div className='flex gap-[10px] items-center'>
-                                <Image src={share ? '/share.svg' : img} height={30} width={30} alt='img' className={`${type == 'head' ? 'h-[35px] w-[35px]' : ''}`} />
+                                <Image src={share ? '/share.svg' : img} height={share ? 30 : 6} width={share ? 30 : 5.5} alt='img' className={`${type == 'head' ? 'h-[35px] w-[35px]' : ''}`} />
                                 {(localStorage['full_name'] && type == 'head') && <p className='text-[14px] font-semibold'>{localStorage['full_name']}</p>}
                             </div>
                         </Popover.Button>

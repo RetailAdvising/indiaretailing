@@ -66,8 +66,8 @@ export default function SideBar({ data, close, navbar }) {
         <>
             {(data.header && data.header.items.length != 0 && navbar) && <div id='side' ref={ref} className={`p-[20px] bg-[#fff] w-[80%] h-screen relative`}>
                 {/* <div className=''> */}
-                {valid ? <div className='flex items-center gap-[15px] border_bottom pb-[15px]'>
-                    <Image className='h-[40px] w-[40px]' src={'/profit.svg'} height={20} width={20} alt={'profile'} />
+                {valid ? <div className='flex items-center gap-[10px] border_bottom pb-[15px]'>
+                    <Image className='h-[40px] w-[40px]' src={'/profit.svg'} height={17} width={17} alt={'profile'} />
                     <div>
                         {localStorage && <p className='text-[14px] font-semibold'>{localStorage['userid']}</p>}
                     </div>
@@ -75,18 +75,21 @@ export default function SideBar({ data, close, navbar }) {
                         <Image height={30} width={30} alt='hide' onClick={close} src={'/hide.svg'} />
                     </div>
 
-                </div> : <div className='flex gap-[15px] items-center border_bottom pb-[15px]'>
-                    <Image className='h-[50px] w-[50px]' src={'/profit.svg'} height={20} width={20} alt={'profile'} />
+                </div> : 
+                    <div className='flex gap-[10px] border_bottom pb-[15px] items-center'>
+                    <div style={{flex:'0 0 40px'}}>
+                    <Image  src={'/profit.svg'}  height={40} width={40} alt={'profile'} />
+                    </div>
                     <div className='w-full'>
-                        <p className='text-[16px] font-semibold'>Welcome! to indiaretail.com </p>
-                        <div className='w-[90%]'>
-                            <button style={{ height: '30px', width: '150px', textTransform: 'uppercase', fontSize: '13px', padding: '5px 15px' }} className='uppercase primary_button' onClick={() => router.push('/login')}>Sign in / register</button>
-                        </div>
+                        <p className='text-[18px] font-semibold' style={{color:'#000'}}>Welcome! to IndiaRetailing</p>
+                        {/* <div className='w-[90%]'>
+                            <button style={{ height: '30px', width: '150px', textTransform: 'uppercase', fontSize: '13px', padding: '5px 15px' }} className='uppercase primary_button' onClick={() => router.push('/login')}>Sign in</button>
+                        </div> */}
                     </div>
 
-                    <div className={`w-full flex justify-end`}>
-                        <Image height={30} width={30} alt='hide' onClick={close} src={'/hide.svg'} />
-                    </div>
+                    {/* <div className={`w-full flex justify-end`} style={{flex:'0 0 30px'}}>
+                        <Image height={25} width={25} alt='hide' onClick={close} src={'/hide.svg'} />
+                    </div> */}
 
                 </div>}
 
@@ -95,13 +98,13 @@ export default function SideBar({ data, close, navbar }) {
                     {data.header.items.map(res => {
                         return (
                             <div key={res.section_name}>
-                                {res.section_name == 'Header Menu' && res.menus && <ul className={`flex flex-col items-start gap-20px px-4`}>
+                                {res.section_name == 'Header Menu' && res.menus && <ul className={`flex flex-col items-start gap-20px px-2`}>
                                     {res.menus.map(item => {
                                         return (
                                             // ${nav1 == item.redirect_url ? header.activeMenu : ''}
                                             <div key={item.menu_label} className='flex gap-[10px]'>
                                                 <Image src={item.icon} className='h-[20px] w-[20px]' height={40} width={40} alt={item.menu_label} />
-                                                <Link href={item.redirect_url} onClick={close} className={`${header.listKey} pb-[20px]  navigation_c `} >
+                                                <Link href={item.redirect_url} onClick={close} className={`${header.listKey} font-semibold pb-[20px]  navigation_c `} >
                                                     {item.menu_label}
                                                 </Link>
                                             </div>
@@ -114,7 +117,7 @@ export default function SideBar({ data, close, navbar }) {
                     }
                 </div>
 
-                {valid && <div className='absolute bottom-[10px] w-[90%]'>
+                {valid ? <div className='absolute bottom-[10px] w-[90%]'>
                     <div className='flex justify-between items-center'>
                         <div className='flex items-center gap-[10px] w-[50%] cursor-pointer' onClick={() => logout()}>
                             <Image className='h-[22px] w-[20px]' src={'/Navbar/Logout.svg'} height={20} width={20} alt={'logout'}></Image>
@@ -128,6 +131,21 @@ export default function SideBar({ data, close, navbar }) {
                         </div>}
                     </div>
 
+                </div>:<div className='absolute bottom-[10px] w-[90%]'>
+                    <div className='flex justify-between items-center py-[10px]'>
+                        {!member && <div className='flex  cursor-pointer justify-center w-full'>
+                            <div className='flex bg-[#e21b22] rounded-[5px] p-[8px_15px] gap-[5px] items-center justify-end px-[20px]'>
+                                {/* <Image className='h-[18px] w-[18px]' src={'/Navbar/premium.svg'} height={20} width={20} alt='premium' /> */}
+                                <p onClick={() => router.push('/login')} className='text-[#fff] text-[15px] cursor-pointer font-semibold'>Login</p>
+                            </div>
+                          
+                        </div>}
+                    </div>
+                    <div className='text-[13px] color-[#595959] text-center'>
+                            {/* We have 50,000+ articles,  */}
+                            {/* <span className='text-red text-[13px] font-bold'> */}
+                                Stay informed and log in to access the latest news and updates.
+                            </div>
                 </div>}
                 {/* //  :
                 //     <div className='absolute w-[90%] bottom-[10px]'>

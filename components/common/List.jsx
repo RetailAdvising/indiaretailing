@@ -33,7 +33,7 @@ export default function List({ imgFlex,hash_bg, contentWidth,primary_pb, line, d
                             {(res.primary_text && res.secondary_text && !isTop) && <p className={`flex items-center ${primary_pb}`}><span className='primary_text pr-[8px] '>{res.primary_text}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span> <span className='secondary_text pl-[8px]'>{res.secondary_text}</span></p>}
                             {res.title && <h6 className={`title  pt-[5px] ${titleClamp ? titleClamp : 'line-clamp-1'}`}>{res.title ? res.title : ''}</h6>}
                             {((res.sub_title || res.blog_intro) && !tittleOnly) && <p className={`sub_title pt-[5px] ${line ? line : 'line-clamp-2'}`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
-                            {((res.hashtags || res.publisher) && !tittleOnly) && <p className={`hashtags  ${hash_bg ? hash_bg : 'pt-[5px]'}`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}
+                            {((res.hashtags || res.publisher) && !tittleOnly) && <p className={`hashtags  ${hash_bg ? hash_bg : 'pt-[5px]'} font-[500]`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}
                         </div>
                     </div>
                 )

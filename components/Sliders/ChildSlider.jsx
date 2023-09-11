@@ -108,7 +108,7 @@ export default function ChildSlider({ data, type, rows,colsPerView, cols, per_vi
                                     <Image src={check ? check_Image(res.image) : res.image} height={150} width={300} alt={"image"} />
                                 </div>
                                 <div className={`${styles.card_content}`}>
-                                    {(res.primary_text && res.secondary_text) && <p className='flex gap-2'><span className={`text-red ${styles.primary_text}`}>{res.primary_text}</span> | <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>}
+                                    {(res.primary_text && res.secondary_text) && <p className='flex gap-2 items-center'><span className={`text-red ${styles.primary_text}`}>{res.primary_text}</span> <span class="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>}
                                     <h4 className={` title`}>{res.title ? res.title : ''}</h4>
                                     <p className={` sub_title pt-1`}>{res.sub_title ? res.sub_title : ''}</p>
                                     <p className='hashtags pt-1'>{res.hashtags ? res.hashtags : ''}</p>

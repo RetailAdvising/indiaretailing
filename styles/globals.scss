@@ -144,13 +144,13 @@
 
 html,
 body {
-
+  overflow-x: hidden;
   // font-family: 'Poppins', sans-serif !important;
   p,
   span {
-    font-size: $font-14;
-    // color: $secondary-color;
-    // line-height: 18px;
+    font-size: $font-16;
+    color: $secondary-color;
+    // line-height: 28px;
   }
 
   img {
@@ -687,11 +687,11 @@ input {
   
 
   
-  .photo{
-    .react-multi-carousel-item{
-      width: 178px !important;
-    }
-  }
+  // .photo{
+  //   .react-multi-carousel-item{
+  //     width: 178px !important;
+  //   }
+  // }
   
 
   .flex_70,.flex_30,.flex-33,.flex-40,.flex-20{
@@ -938,10 +938,12 @@ input {
 
   .photo{
     .react-multi-carousel-item{
-      width: 178px !important;
+      // width: 178px !important;
+      width: 242px !important;
     }
     .dots{
-      bottom: 45px !important;
+      bottom: 30px !important;
+      // bottom: 45px !important;
     }
   }
 
@@ -1659,6 +1661,9 @@ button:focus{
     .rodal-dialog{
       width: 100% !important;
     }
+  }
+  .react-multi-carousel-dot-list {
+   display: none !important;
   }
 }
 

@@ -72,11 +72,11 @@ export default function ExclusiveBuilder({ data }) {
                         <Image className='h-[20px] w-[15px]' src={'/arrowrightprimary.svg'} height={6} width={8} alt={'chevron'} />
                     </div>}
                     <div className='primeSlide'>
-                        <MultiCarousel type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} />
+                        <MultiCarousel cardHeight={'h-[280px]'} type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} />
                     </div>
                 </div>
 
-                {(val.section_2 && val.section_2.col_2 && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><AdsBaner height={'h-[330px] '} Class={'pt-[40px]'} width={'w-full'} data={val.section_2.col_2} /></div>}
+                {(val.section_2 && val.section_2.col_2 && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><AdsBaner height={'h-[280px] '} Class={'pt-[40px]'} width={'w-full'} data={val.section_2.col_2} /></div>}
             </div>
 
             {/* Section - 3 p-[20px_30px]*/}

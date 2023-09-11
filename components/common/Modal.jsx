@@ -10,12 +10,16 @@ import Comments from '../Category/Comments';
 import Image from 'next/image';
 import { addComment, commentList,report } from '@/libs/api'
 import { useRouter } from 'next/router';
+import AlertUi from './AlertUi';
 export default function Modal({ modal, hide, visible, data, cur }) {
     const [sort, setSort] = useState(false);
     const [sortbyVal, setSortByVal] = useState('Newest');
     const [pageno, setPageno] = useState(1);
     const [comments, setComments] = useState([]);
     const [noData,setNoData] = useState(false)
+    const [isSuccessPopup,setIsSuccessPopup] =  useState(false)
+    const [alertMessage,setAlertMessage] =  useState("")
+
     const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -30,7 +34,10 @@ export default function Modal({ modal, hide, visible, data, cur }) {
         setSortByVal(e.name);
         sortBy();
     }
-
+    function show_alert(message) {
+        setAlertMessage({message:message})
+        setIsSuccessPopup(true)
+    }
 
     useEffect(() => {
         if (cur && pageno == 1) {
@@ -63,20 +70,27 @@ export default function Modal({ modal, hide, visible, data, cur }) {
         }
     }
     async function check(form_data) {
-        console.log(form_data,data,cur)
-        let params = {
-            "comment_id": cur,
-            "report_type":form_data.report,
-            "report":form_data.report,
-            "new":1,
-            "update":1,
-            // "report_id":"ss"
+        console.log(localStorage.apikey)
+        if(localStorage.apikey &&  localStorage.apikey!= 'undefined'){
+            let params = {
+                "comment_id": cur,
+                "report_type":form_data.report,
+                "report":form_data.report,
+                "new":1,
+                "update":1,
+                // "report_id":"ss"
+                }
+            let resp = await report(params)
+            if (resp){
+                hide(resp)
             }
-        let resp = await report(params)
-        hide(resp)
-        
+        }else{
+            show_alert("Need To sign In To Report This Comment")
+        }
     }
-
+    const closeModal = () => {
+        setIsSuccessPopup(false)
+    }
     async function loadMore() {
         // console.log('pagination')
         setPageno(pageno + 1);
@@ -179,7 +193,7 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                                     <input className='primary_button px-[10px] cursor-pointer' type="Submit" />
                                     </div>
                                 </form>
-                             
+                                { isSuccessPopup &&  <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"}/>  }                         
                             </Rodal> : 
                             null
             }

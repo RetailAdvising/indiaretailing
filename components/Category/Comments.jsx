@@ -79,8 +79,10 @@ export default function Comments({ data, isLast, load, cmt }) {
   const hideReport = (resp_message) => {
     console.log(resp_message);
     setVisible(false)
-    setAlertMessage(resp_message)
-    setIsSuccessPopup(true)
+    if (resp_message && resp_message.message){
+        setAlertMessage(resp_message)
+        setIsSuccessPopup(true)
+    }
   }
   function hide() {
     setVisible(false)
@@ -116,9 +118,9 @@ export default function Comments({ data, isLast, load, cmt }) {
                                     {/* <p className='sub_title'>Share</p>
                                             <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
                                 </div>
-                                    <div>
+                                   { localStorage.apikey && <div>
                                        <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={()=>report(comment)}/>
-                                   </div>
+                                   </div>}
                               </div>
                                   {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message)=>hideReport(resp_message)} data={reportComment} cur={selecedComment.name}/>}
                                  { isSuccessPopup &&  <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"}/>  }                         

@@ -50,10 +50,10 @@ export default function Content({ res, i }) {
 
     return (
         <>
-            <div className='flex gap-4 items-center'>
+            <div className='flex lg:gap-4 items-center md:gap-[10px]'>
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
                 <p className='flex items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} /><span className='text-[12px] md:text-[11px] gray-text'>{res.views} Views</span></p>
-                <p className='flex  items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px]' src={'/shares.svg'} /><span className='text-[12px] md:text-[12px] gray-text'>3 Shares</span></p>
+                <p className='flex  items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px]' src={'/shares.svg'} /><span className='text-[11px] md:text-[12px] gray-text'>3 Shares</span></p>
                 <p className='flex items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} /><span className='text-[12px] md:text-[11px] gray-text'>{res.read_time} Minutes </span></p>
             </div>
             <h1 className='mega_title lg:text-4xl md:text-[18px] md:leading-[29.23px] my-4'>{res.title}</h1>
@@ -110,7 +110,7 @@ export default function Content({ res, i }) {
                     </div> */}
                     {icons && <Dropdowns share={true} width={'w-[170px]'} data={icons} />}
 
-                    {setings && <Dropdowns setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[150px]'} data={setings} />}
+                    {setings && <Dropdowns setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px]'} data={setings} />}
                 </div>
             </div>
 

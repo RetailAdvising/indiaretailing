@@ -180,10 +180,10 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                 </div>
             </div> */}
 
-            <div className={`lg:py-[10px] ${i == 0 ? 'lg:p-5 bg-[#F8F9FA]' : i == 5 ? 'bg-[#000] lg:p-[20px_40px] no_scroll' : i == 12 ? 'lg:bg-[#f1f1f1] p-5' :  'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
+            <div className={`py-[20px] ${i == 0 ? 'lg:p-5 bg-[#F8F9FA]' : i == 5 ? 'bg-[#000] lg:p-[20px_40px] no_scroll' : i == 13 ? 'lg:bg-[#f1f1f1] p-5' :  'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
                 {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                     return (
-                        <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0 || i != 5) ? 'md:mb-[15px]' : ''} ${(i == 12 && !isMobile) ? 'container' : ''} `}>
+                        <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0 || i != 5) ? 'md:mb-[15px]' : ''} ${((i == 13 || i == 5) && !isMobile) ? 'container' : ''} `}>
                             {(res.components && res.components.length != 0) && res.components.map(c => {
                                 return (
                                     <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-[10px]' : ''}`}>
@@ -210,7 +210,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                                 </div>
                                                 <div className='md:my-[15px] md:hidden'><AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[280px]'} width={'w-[330px]'} /></div>
                                             </div>
-                                            <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards isHome={'/news/'} data={data.data[c.cid].data.slice(0, 5)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
+                                            <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards contentHeight={'pt-[10px]'} isHome={'/news/'} data={data.data[c.cid].data.slice(0, 5)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
                                         </>}
 
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending") && <>
@@ -277,11 +277,11 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                             } */}
                                             <Title data={{ title: c.component_title }} />
                                                 {/* //  h-[144px]  */}
-                                                <div className={`border p-[10px] rounded-[5px]`}><List check={true} titleClamp={'line-clamp-2'} isHome={'/news/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.data[c.cid].data} imgWidth={"w-full"} imgHeight={"h-[125px]"} borderRadius={"rounded-[10px]"} /></div>
+                                                <div className={`border p-[10px] rounded-[5px]`}><List contentWidth={'gap-[3px]'} line={'line-clamp-1'} check={true} titleClamp={'line-clamp-2'} isHome={'/news/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.data[c.cid].data} imgWidth={"w-full"} imgHeight={"h-[115px]"} borderRadius={"rounded-[10px]"} /></div>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Shopping Centers") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className={``}><List isHome={'/news/'} imgFlex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(35%_-_10px)]'} titleClamp={'line-clamp-2'} data={data.data[c.cid].data} check={true} fullWidth={true} imgWidth={"w-full"} imgHeight={"h-[144px] md:h-[110px]"} borderRadius={"rounded-[10px]"} /></div>
+                                            <div className={``}><List isHome={'/news/'} flex={'items-center'} imgFlex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(35%_-_10px)]'} contentWidth={'lg:flex-[0_0_calc(60%_-_10px)] lg:gap-[5px]'} titleClamp={'line-clamp-2'} data={data.data[c.cid].data} check={true} fullWidth={true} imgWidth={"w-full"} imgHeight={"h-[130px] md:h-[110px]"} borderRadius={"rounded-[10px]"} /></div>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Podcast") && <>
                                             <Title data={{ title: c.component_title }} />
@@ -289,7 +289,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Privilege Members Corner") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className={``}><Video imgClass={'h-[150px] md:h-[190px] w-full'} data={data.data[c.cid].data} /></div>
+                                            <div className={`w-[60%]`}><Video imgClass={'h-[120px] md:h-[190px] w-full'} isHome={'/video/'} data={data.data[c.cid].data} /></div>
                                         </>}
                                         {/* {(resp.component_title == "AdsBaner" && resp.component_type == "Ad4" && resp.data) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={resp.data} height={"100px"} /></>} */}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>
@@ -298,21 +298,21 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Technology") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className={'border p-[10px] rounded-[5px]'}><List isHome={'/news/'} titleClamp={'line-clamp-2'} check={true} data={data.data[c.cid].data} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} imgWidth={"w-[100px]"} imgHeight={"h-[65px]"} isBB={true} isTop={true} borderRadius={"rounded-[10px]"} /></div>
+                                            <div className={'border p-[10px] rounded-[5px]'}><List isHome={'/news/'} titleClamp={'line-clamp-2'} check={true} data={data.data[c.cid].data} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[100px]"} isBB={true} isTop={true} borderRadius={"rounded-[10px]"} /></div>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Case Studies") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className={`lg:flex no_scroll lg:gap-5`}><Cards check={true} isHome={'/categories/'} data={data.data[c.cid].data} cardClass={"h-[300px] md:h-[280px]"} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /></div>
+                                            <div className={`lg:flex no_scroll lg:gap-5`}><Cards check={true} isHome={'/categories/'} data={data.data[c.cid].data} cardClass={"h-[310px] md:h-[280px]"} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /></div>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Photo Essays") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className='photo'><MultiCarousel perView={2} isHome={'/categories/'} check={true} cardHeight={'h-[300px]'} data={data.data[c.cid].data} height={"h-[175px]"} width={'w-full'} type={'card'} /></div>
+                                            <div className='photo'><MultiCarousel perView={1} isHome={'/categories/'} check={true} cardHeight={'h-[310px]'} data={data.data[c.cid].data} height={"h-[175px]"} width={'w-full'} type={'card'} /></div>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IMAGES Group Events") && <>
                                             <Title data={{ title: c.component_title }} />
                                             {isMobile ? <div className='eventSlide'><ListSlider route={'/events/'} isEvent={true} noDots={true} auto={false} data={data.data[c.cid].data} /></div> : <div className='flex gap-5'>
                                                 <div className={`flex-[0_0_calc(30%_-_10px)]`}><ImageGroupEvents isHome={'/events/'} data={data.data[c.cid].data.slice(0, 1)} height={"h-[80%]"} width={"w-[80%]"} /></div>
-                                                <div className={`flex flex-wrap gap-[10px_20px]`}><EventList isRoute={'/events/'}  check={false} data={data.data[c.cid].data.slice(1, 7)} height={"h-[180px] object-contain rounded-[0px]"} width={"w-full"} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} isHome={true} imageBackground={"#f7f7f7"} /></div>
+                                                <div className={`flex flex-wrap gap-[20px]`}><EventList isRoute={'/events/'}  check={false} data={data.data[c.cid].data.slice(1, 7)} height={"h-[150px] rounded-[0px]"} width={"w-full"} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} isHome={true}  /></div>
                                             </div>}
                                         </>}
                                         {/* {(resp.component_title == "Card" && resp.component_type == "card3" && resp.data) && <>
@@ -321,7 +321,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         </>} */}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Reconnect") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className={`lg:flex lg:gap-5 no_scroll`}><Cards check={true} isHome={'/categories/'} flex={'flex-[0_0_calc(25%_-_20px)] md:flex-[0_0_calc(70%_-_10px)]'} data={data.data[c.cid].data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[200px]"} width={"w-full"} isBorder={true} /></div>
+                                            <div className={`lg:flex lg:gap-5 no_scroll`}><Cards  check={true} isHome={'/categories/'} flex={'flex-[0_0_calc(25%_-_20px)] md:flex-[0_0_calc(70%_-_10px)]'} cardClass={'h-[290px]'} data={data.data[c.cid].data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[160px]"} width={"w-full"} isBorder={true} /></div>
                                         </>}
                                         {(c.cid  && c.component_title == "Image" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{ad_image: '/ads_bike.png'}} /></div>}
 

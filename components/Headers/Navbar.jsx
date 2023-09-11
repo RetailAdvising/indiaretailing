@@ -98,8 +98,8 @@ export default function Navbar({heading,isLanding}) {
                                         return (
                                         <span key={index} className={`nav-item ${index === activeIndex ? 'active' : ''}`} onClick={() => handleItemClick(index)}>
                                             <div className='cursor-pointer justify-center p-[10px_8px] flex gap-[5px] items-center' onClick={() => router.push(item.redirect_url)}>
-                                                    <div className='h-[3px] w-[3px] rounded-full bg-red'></div>
-                                                    <p >{item.menu_name}</p>
+                                                    <div className='h-[4px] w-[4px] rounded-full bg-red'></div>
+                                                    <p className='text-[14px]'>{item.menu_name}</p>
                                             </div>
                                         </span>
                                         )

@@ -101,7 +101,7 @@
                     {
                         "menu_label": "Video",
                         "redirect_url": "/video",
-                        "icon": "/Navbar/newsletter.svg",
+                        "icon": "/Navbar/video.svg",
                         "is_mega_menu": 0,
                         "no_of_column": 0,
                         "child_menu": []

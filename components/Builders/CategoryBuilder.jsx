@@ -326,7 +326,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
           {/* Slider */}
           {(data.latest_news ) && <div className={`${styles.slider_parent} latestNews_slider p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
-            <MultiCarousel perView={5} noPlay={true} data={data.latest_news} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} check={true}/>
+            <MultiCarousel isHome={'/news/'} perView={5} noPlay={true} data={data.latest_news} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} check={true}/>
           </div>}
         </div>}
 
