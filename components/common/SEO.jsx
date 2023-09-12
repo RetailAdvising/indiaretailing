@@ -23,6 +23,7 @@ export default function SEO({ title = "India Reatiling",
                 <Head>
                     <title key="title">{`${title} – ${siteName}`}</title>
                     <meta name="description" content={description} />
+                    <meta name="theme-color" content="#e21b22" />
                     <meta key="og_type" property="og:type" content={ogType} />
                     <meta key="og_title" property="og:title" content={title} />
                     <meta key="og_description" property="og:description" content={description} />

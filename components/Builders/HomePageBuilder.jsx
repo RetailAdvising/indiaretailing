@@ -183,7 +183,8 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
             <div className={`py-[20px] ${i == 0 ? 'lg:p-5 bg-[#F8F9FA]' : i == 5 ? 'bg-[#000] lg:p-[20px_40px] no_scroll' : i == 13 ? 'lg:bg-[#f1f1f1] p-5' :  'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
                 {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                     return (
-                        <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0 || i != 5) ? 'md:mb-[15px]' : ''} ${((i == 13 || i == 5) && !isMobile) ? 'container' : ''} `}>
+                        // || i == 5
+                        <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0 || i != 5) ? 'md:mb-[15px]' : ''} ${((i == 13 ) && !isMobile) ? 'container' : ''} `}>
                             {(res.components && res.components.length != 0) && res.components.map(c => {
                                 return (
                                     <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-[10px]' : ''}`}>
