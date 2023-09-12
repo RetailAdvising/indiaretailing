@@ -9,10 +9,10 @@ import { domain } from '@/libs/config/siteConfig'
 //         image: '/ads_baner.png'
 //     }
 // }
-const DEFAULT_OG_IMAGE = '/indiaretail.png'
+const DEFAULT_OG_IMAGE = '/indiaretail_new.png'
 export default function SEO({ title = "India Reatiling",
     description = "This is IndiaRetailing and its about news and articles based on the popular site.",
-    siteName = "https://indiaretail.vercel.app/",
+    siteName = "Indiaretail",
     canonical = 'https://indiaretail.vercel.app/',
     ogImage = DEFAULT_OG_IMAGE,
     ogType = "website",

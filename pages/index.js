@@ -55,7 +55,7 @@ export default function Home({ data, ads }) {
     <>
       {/*  isLast={index == value.length - 1} */}
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads ? ads : null}>
-      <SEO/>
+      <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'}/>
         {(value && value.length != 0) && value.map((res, index) => {
           return (
             <HomePageBuilder key={index} i={index} data={res} loadMore={() => setPageNo(p => p + 1)} />
