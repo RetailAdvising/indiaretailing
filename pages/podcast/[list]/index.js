@@ -2,6 +2,7 @@ import React from 'react';
 import RootLayout from '@/layouts/RootLayout'
 import { getList , getAds } from '@/libs/api'
 import HomePodcast from '@/components/Podcast/HomePodcast';
+import SEO from '@/components/common/SEO'
 
 export default function PodcastList(data, ads_data) {
     console.log(data)

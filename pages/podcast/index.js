@@ -3,6 +3,7 @@ import RootLayout from '@/layouts/RootLayout'
 // import PageData from '@/libs/Podcast'
 import HomePodcast from '@/components/Podcast/HomePodcast'
 import { podcastLanding, getAds } from '@/libs/api'
+import SEO from '@/components/common/SEO'
 
 export default function Podcast({ data, ads_data }) {
 
@@ -22,6 +23,7 @@ export default function Podcast({ data, ads_data }) {
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head="">
+            <SEO title={'Podcast'} siteName={'India Reatiling'} description={'Podcast'}/>
                 {(data && data) && data.map((res, index) => {
                     return (
                         <HomePodcast key={index} data={res} />

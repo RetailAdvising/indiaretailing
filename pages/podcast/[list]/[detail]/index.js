@@ -2,6 +2,8 @@ import React from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import AudioPlayer from '@/components/Podcast/AudioPlayer';
 import { podcast_details,getAds } from '@/libs/api'
+import SEO from '@/components/common/SEO'
+import { check_Image } from '@/libs/common';
 
 export default function PodcastDetail(data, ads_data) {
 
@@ -9,6 +11,7 @@ export default function PodcastDetail(data, ads_data) {
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null} head={data.data.title}>
+            <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Reatiling'} ogType={data.data.meta_keywords} description={data.data.meta_description}/>
                 <div className={`flex p-[20px_30px] md:p-[10px] justify-between flex-wrap gap-[25px] container`}>
                     {
                         <div className="w-full">
