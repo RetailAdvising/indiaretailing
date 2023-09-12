@@ -9,16 +9,28 @@ import List from '@/components/common/List'
 import Title from '@/components/common/Title'
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import SEO from '@/components/common/SEO'
+import Video from '../../../../components/Video/Video';
 
 export default function Videos() {
 
     const router = useRouter();
     let [isMobile, setIsmobile] = useState();
     let [videoDetail, setVideoDetail] = useState();
+    const [validator, setValidator] = useState(false)
     const [prev, setPrev] = useState('')
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
 
     useEffect(() => {
+        if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
+            const data = JSON.parse(localStorage['roles']);
+            if (data && data.length != 0) {
+                data.map(res => {
+                    if (res.role == 'Member') {
+                        setValidator(!validator);
+                    }
+                })
+            }
+        }
         if (router.query) {
             get_video_details()
             checkIsMobile();
@@ -58,7 +70,7 @@ export default function Videos() {
     }
 
     return (
-        <RootLayout>
+        <RootLayout isLanding={true} head={'Detail'}>
             {videoDetail && <SEO title={videoDetail.message.meta_title ? videoDetail.message.meta_title : videoDetail.message.title} ogImage={check_Image(videoDetail.message.video_image)} siteName={'India Reatiling'} ogType={videoDetail.message.meta_keywords ? videoDetail.message.meta_keywords : videoDetail.message.title} description={videoDetail.message.meta_description ? videoDetail.message.meta_description : videoDetail.message.title} />}
             {videoDetail &&
                 <div className='flex gap-[30px] container lg:py-[20px] md:flex-col md:p-[10px]'>
@@ -67,12 +79,12 @@ export default function Videos() {
 
                         <div className='flex items-center gap-[10px] mb-[10px]'>
                             <div className='flex items-center gap-[10px]'>
-                                <Image className={``} src={'/views.svg'} height={10} width={15} alt={'share'} />
-                                <span className='text-[15px] gray_color'>{videoDetail.message.noof_views} Views</span>
+                                <Image className={`h-[15px] w-[15px] object-contain`} src={'/views.svg'} height={10} width={15} alt={'share'} />
+                                <span className='text-[12px] gray_color'>{videoDetail.message.noof_views} Views</span>
                             </div>
                             <div className='flex items-center gap-[10px]'>
-                                <Image className={``} src={'/share.svg'} height={10} width={15} alt={'share'} />
-                                <span className='text-[15px] gray_color'>4 Shares</span>
+                                <Image className={`h-[15px] w-[15px] object-contain`} src={'/share.svg'} height={10} width={15} alt={'share'} />
+                                <span className='text-[12px] gray_color'>4 Shares</span>
                             </div>
                         </div>
 
@@ -109,8 +121,16 @@ export default function Videos() {
                             </div>
                         </div>
 
-                        <div className='lg:h-[430px] md:h-[220px] my-[10px]'>
-                            <iframe
+                        <div className={`${validator ? 'lg:h-[430px] md:h-[220px]' : ''} my-[10px]`}>
+                            {!validator ? <>
+                                <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
+                                <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'>
+                                    <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This video is for Premium Members you  have to buy Membership to Unlock</h6>
+                                    <div className='flex gap-[20px] justify-center pt-[0px]'>
+                                        <button className='primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
+                                    </div>
+                                </div>
+                            </> : <iframe
                                 className={`h-full w-full`}
                                 title={videoDetail.message.title ? videoDetail.message.title : ''}
                                 src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
@@ -119,7 +139,7 @@ export default function Videos() {
                                 frameBorder="2"
                                 loading="lazy"
                             // allowfullscreen="allowfullscreen"
-                            ></iframe>
+                            ></iframe>}
 
                             {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
                         </div>
@@ -136,11 +156,11 @@ export default function Videos() {
                     <div className="lg:flex-[0_0_calc(30%_-_0px)] lg:pt-[40px]">
 
 
-                        {videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0 &&
+                        {videoDetail.related_videos && videoDetail.related_videos.length != 0 &&
                             <>
-                                <Title data={videoDetail.other_category} seeMore={false} />
+                                <Title data={{ title: 'Related Videos' }} seeMore={false} />
                                 <div className='border p-[10px] rounded-[5px]'>
-                                    <List imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.other_category.data.slice(0, 3)} borderRadius={'rounded-[5px]'} />
+                                    <List imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                                 </div>
                             </>
                         }
@@ -154,7 +174,18 @@ export default function Videos() {
                       </div> */}
                     </div>
                 </div>
+
+
             }
+            {(videoDetail && videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0) && <div className='container py-[20px] md:p-[15px]'>
+                <div>
+                    <Title data={videoDetail.other_category} />
+                </div>
+                <div className='lg:grid grid-cols-4 lg:gap-5 no_scroll'>
+                    <Video data={videoDetail.other_category.data} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} />
+
+                </div>
+            </div>}
         </RootLayout>
     )
 }

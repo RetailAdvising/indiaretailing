@@ -8,7 +8,7 @@ export default function List({ data,border_b, flex, height, width, imgWidth, isL
     <>
       {data.map((res, index) => {
         return (
-          <div className={`flex gap-[10px] ${border_b ? border_b : null} ${flex}`} onClick={() => router.push(`/${router.asPath.split('/')[1] +'/' + category + '/' + res.route}`)} key={index}>
+          <div className={`flex cursor-pointer gap-[10px] ${border_b ? border_b : null} ${flex}`} onClick={() => router.push(`/${router.asPath.split('/')[1] +'/' + category + '/' + res.route}`)} key={index}>
             <div className={`${imgWidth}`}>
               <Image className={`${height} ${width}  ${boxShadow && 'rounded-[5px]'}`} src={check ? check_Image(res.product_image) : res.image} height={210} width={162} alt={res.title}></Image>
             </div>

@@ -25,7 +25,7 @@ export default function Videos({ data, ads }) {
 
 
         </div> : <>Loading</>}
-        <Tabs />
+        {/* <Tabs /> */}
       </RootLayout>
     </>
   )

@@ -105,6 +105,14 @@
                         "is_mega_menu": 0,
                         "no_of_column": 0,
                         "child_menu": []
+                    },
+                    {
+                        "menu_label": "Podcast",
+                        "redirect_url": "/podcast",
+                        "icon": "/Navbar/Podcasts.svg",
+                        "is_mega_menu": 0,
+                        "no_of_column": 0,
+                        "child_menu": []
                     }
                 ]
             },

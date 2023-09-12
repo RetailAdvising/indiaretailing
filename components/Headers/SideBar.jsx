@@ -98,13 +98,13 @@ export default function SideBar({ data, close, navbar }) {
                     {data.header.items.map(res => {
                         return (
                             <div key={res.section_name}>
-                                {res.section_name == 'Header Menu' && res.menus && <ul className={`flex flex-col items-start gap-20px px-2`}>
+                                {res.section_name == 'Header Menu' && res.menus && <ul>
                                     {res.menus.map(item => {
                                         return (
                                             // ${nav1 == item.redirect_url ? header.activeMenu : ''}
-                                            <div key={item.menu_label} className='flex gap-[10px]'>
-                                                <Image src={item.icon} className='h-[20px] w-[20px]' height={40} width={40} alt={item.menu_label} />
-                                                <Link href={item.redirect_url} onClick={close} className={`${header.listKey} font-semibold pb-[20px]  navigation_c `} >
+                                            <div key={item.menu_label} className='flex gap-[10px] items-center py-[10px]'>
+                                                <Image src={item.icon} className='h-[20px] w-[20px]' style={{objectFit:'contain'}} height={40} width={40} alt={item.menu_label} />
+                                                <Link href={item.redirect_url} onClick={close} className={`${header.listKey} font-semibold  navigation_c `} >
                                                     {item.menu_label}
                                                 </Link>
                                             </div>

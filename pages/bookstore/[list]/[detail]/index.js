@@ -436,7 +436,7 @@ const  getCarts = async (type) => {
                     <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
                       {icons && icons.map((res, index) => {
                         return (
-                          <div key={index} className='hover:bg-[#FDF5F5] p-[0 10px] rounded'>
+                          <div key={index} className='hover:bg-[#FDF5F5] p-[0_8px] rounded'>
                             {res.name == 'Linkedin' && <LinkedinShareButton url={router.asPath} className='flex items-center gap-[10px]'>
                               <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                               <p>{res.name}</p>
@@ -465,8 +465,8 @@ const  getCarts = async (type) => {
                 {/* flex-[0_0_calc(100%_-_10px)] */}
                 <div className={`md:h-[430px] md:p-[0px_10px_10x_10px]`}>
                   {(data.images && data.images.length != 0) ? 
-                    <Image className={`w-full lg:h-[665px] md:h-[425px] object-contain`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
-                    <Image className={`w-full lg:h-[665px] md:h-[425px] object-contain`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />}
+                    <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
+                    <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />}
                 </div>
                 <div className='text-center pt-[15px]'>
                   <button className={`w-full h-[40px] border`}>Preview</button>

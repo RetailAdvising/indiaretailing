@@ -213,7 +213,7 @@ export default function Header({ checkout }) {
 
 
                         <div className=''>
-                            <Image style={{ objectFit: 'cover' }} className='m-auto' height={66} priority width={200} alt='' onClick={() => router.push('/')} src={'/indiaretail.png'}></Image>
+                            <Image style={{ objectFit: 'cover' }} className='m-auto cursor-pointer' height={66} priority width={200} alt='' onClick={() => router.push('/')} src={'/indiaretail.png'}></Image>
                         </div>
                         {!valid ? <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
                             <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
@@ -221,9 +221,9 @@ export default function Header({ checkout }) {
                         </div> :
                             <div className='flex justify-end'>
                                 <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
-                                    <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  ${member ? 'h-[40px] w-[40px]' : 'h-[25px] w-[25px]'}`} height={30} width={30} alt='profile' />
+                                    <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
                                     <div>
-                                        {localStorage['full_name'] && <p className='cursor-pointer capitalize font-semibold'>{localStorage['full_name']}</p>}
+                                        {localStorage['full_name'] && <p className='cursor-pointer text-[14px] font-[500] capitalize'>{localStorage['full_name']}</p>}
                                     </div>
                                     {/* <div>
                                         <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />

@@ -16,10 +16,12 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     <>
       {/* <SEO /> */}
       {!checkout && <div className="md:hidden"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
+      <div className='relative'>
       <Header checkout={checkout} />
       {!checkout && <Navbar isLanding={isLanding} heading={head} />}
       <main >{children}</main>
       <MainFooter />
+      </div>
     </>
   )
 }

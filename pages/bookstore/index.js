@@ -75,7 +75,7 @@ export default function Bookstore({ data,resp,ads_data }) {
               <div className={`flex-[0_0_calc(100%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
                 <Title data={data[0]}  seeMore={true} />
                 {/* [270px] w-[181px] */}
-                <div className={`grid gap-[35px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'h-[365px] mouse'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 10)} boxShadow={true} /></div>
+                <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'h-[300px] mouse'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 10)} boxShadow={true} /></div>
               </div>
               {/* <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}><AdsBaner data={val.section_2.col_2} /></div> */}
             </div>
@@ -96,7 +96,7 @@ export default function Bookstore({ data,resp,ads_data }) {
           </div>}
 
           { data[3] && <div className='' style={{ background: '#fbfbfd' }}>
-            <div className={`flex-[0_0_calc(100%_-_10px)] container md:p-[15px] lg:py-8`}>
+            <div className={`flex-[0_0_calc(100%_-_10px)] m-[40px_auto] container md:p-[15px] lg:py-8`}>
               <Title data={data[3]} />
               <div className={`flex gap-[15px] flex-wrap `}><Card category={data[3].category_name} object_fit={'object-contain'} padding={true} isBorder={true} check={true} isLanding={true} height={isMobile ? 'h-[160px]' : 'h-[280px]'} flex={'flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data[3].products} /></div>
             </div>

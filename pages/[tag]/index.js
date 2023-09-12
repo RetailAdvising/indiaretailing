@@ -15,7 +15,6 @@ export default function Tags({ res }) {
 
     useEffect(() => {
         if (res && res.data && res.data.length != 0) {
-            console.log(res)
             setData(res.data)
         }
 
@@ -54,9 +53,11 @@ export default function Tags({ res }) {
     const checkRoute = (data) => {
         console.log(data);
         if (data.doctype == 'Articles') {
-            router.push('/categories/' + data.route)
+            router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
         } else if (data.doctype == 'News') {
             router.push('/news/' + data.route)
+        } else if (data.doctype == 'Community Event') {
+            router.push('/events/' + data.route)
         }
     }
 
@@ -80,14 +81,12 @@ export default function Tags({ res }) {
                                 )
                             })}
                         </div>
-
-
-
-
-
-
-
-                        : nodata ? <></> : <>No Data Found...</>}
+                        : nodata ? <></> : <div className='grid place-content-center'>
+                            <div>
+                                <Image src={'/empty_states/no-article.svg'} className='' height={200} width={300} alt={'no data'} />
+                            </div>
+                            <h6 className='text-[16px] font-semibold text-center pt-[15px]'>No Article Found...</h6>
+                        </div>}
                 </div>
                 <div className='more' ref={cardref}>
 
