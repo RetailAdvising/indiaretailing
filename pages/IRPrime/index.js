@@ -2,12 +2,14 @@ import RootLayout from '@/layouts/RootLayout'
 import React from 'react'
 import { primeLanding,getAds } from '@/libs/api'
 import ExclusiveBuilder from '@/components/Builders/ExclusiveBuilder'
+import SEO from '@/components/common/SEO'
 
 
 export default function IRPrime({ data , ads }) {
     return (
         <>
             <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'IR Prime'}>
+            <SEO title={'IR Prime'} siteName={'India Reatiling'} description={'IR Prime'}/>
                 {(data && data.message && data.message.length != 0) && <ExclusiveBuilder data={data} />}
             </RootLayout>
 

@@ -131,9 +131,9 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                             <SignUp hide={hide} isModal={true} />
                         </Rodal>
                         : modal == 'comments' ? <Rodal visible={visible} animation='slideRight' onClose={hide}>
-                            <div className={`flex justify-between h-[60px]`}>
-                                <h6 className='text-[18px] font-semibold'>All Comments</h6>
-                                <div className='dropdowns w-[130px] cursor-pointer pr-[40px]'>
+                            <div className={`flex justify-between py-[20px] px-[15px]  bg-[red]`}>
+                                <h6 className='text-[18px] font-semibold text-[#fff]'>All Comments</h6>
+                                {/* <div className='dropdowns w-[130px] cursor-pointer pr-[40px]'>
                                     <div className='flex items-center gap-[5px]' onClick={sortBy}>
                                         <Image src={'/categories/sort-by.svg'} height={20} width={30} alt="sortBy" className='' />
                                         <p className={`dropdowns transition-all delay-500`} >Sort by</p>
@@ -145,13 +145,16 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                                                 <p key={index} onClick={() => setValues(res)} className={`dropdown-item p-[5px_10px] w-full ${res.name == sortbyVal ? 'activeSort' : ''}`}>{res.name}</p>
                                             )
                                         })}
-                                        {/* <p className={`dropdown-item p-[5px_10px] w-full`}>Oldest</p> */}
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className='flex justify-between gap-[10px]'>
-                                <input id='addCmt' type='text' onClick={checkValid} placeholder='Add a comment...' className='border-none border_bottom w-full text-[14px]' />
-                                <Image src={'/categories/send-arrow.svg'} className='cursor-pointer' onClick={() => sendMsg('addCmt')} height={20} width={20} alt='send' />
+                                <div className='flex w-full border '>
+                                <textarea id='addCmt' type='text' row={2} onClick={checkValid} placeholder='Add a comment...' className='flex-1 border-none  w-full text-[15px] p-[5px]' />
+                                <div className='flex-[0_0_30px] relative'>
+                                <Image src={'/categories/send-arrow.svg'} className='cursor-pointer absolute bottom-[10px]' onClick={() => sendMsg('addCmt')} height={22} width={22} alt='send' />
+                                </div>
+                                </div>   
                             </div>
                             {(comments && comments.length != 0 && !noData) ?
                                 <div className='commentPopup '>

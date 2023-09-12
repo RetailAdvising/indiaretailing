@@ -4,6 +4,9 @@ import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 
 import RootLayout from '@/layouts/RootLayout';
 import { useRouter } from 'next/router';
+import SEO from '@/components/common/SEO'
+import { check_Image } from '@/libs/common';
+
 // Redux
 // import { useDispatch, useSelector } from 'react-redux'
 // import setPagination from 'redux/actions/paginationAction';
@@ -55,6 +58,7 @@ export default function CategoryDetail({ data, ads }) {
   return (
     <>
       <RootLayout isLanding={true} head={''} homeAd={(ads) ? ads : null}>
+      <SEO title={data.meta_title ? data.meta_title : data.title} ogImage={check_Image(data.image)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.title} description={data.meta_description ? data.meta_description : data.title}/>
         {/* {data && <div> */}
         {/* setPage={(data) => setPagination(data)} pagination={pagination} */}
         {(values && values.length != 0) ? <>

@@ -7,7 +7,9 @@ import Card from '@/components/Bookstore/Card'
 import AdsBaner from '@/components/Baners/AdsBaner'
 import List from '@/components/Bookstore/List'
 import { booksLanding, getCategories, getAds } from '@/libs/api'
-import { checkMobile } from '@/libs/api';
+import { checkMobile } from '@/libs/api'
+import SEO from '@/components/common/SEO'
+
 // import BreadCrumb from '@/components/common/BreadCrumb';
 
 export default function Bookstore({ data,resp,ads_data }) {
@@ -52,6 +54,7 @@ export default function Bookstore({ data,resp,ads_data }) {
   return (
     <>
       <RootLayout homeAd={ads_data ? ads_data : null}>
+      <SEO title={'Bookstore'} siteName={'India Reatiling'} description={'Bookstore'}/>
 
       {/* {!isMobile && <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>} */}
 

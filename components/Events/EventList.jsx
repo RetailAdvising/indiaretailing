@@ -42,7 +42,7 @@ export default function EventList({ data, flex, height, width, imageBackground,c
                             <Image style={{ background: imageBackground}} height={100} width={200} alt={res.title} src={!check ? check_Image(res.thumbnail_path) : res.image} className={`${height} ${width} ${isHome ? '' : 'rounded-[10px]'}`} />
                         </div>
                         <div className={`flex flex-col ${isHome ? 'p-[10px] justify-between gap-[3px]' : 'leading-[2] px-[10px] min-h-[185px]'} `}>
-                            <h4 className={`font-semibold ${isHome ? 'text-[14px]' : 'text-[16px] py-[10px]'}  text-[#39364F] `}>{res.title} </h4>
+                            <h4 className={`font-semibold ${isHome ? 'text-[14px] ' : 'text-[16px] py-[10px]'} line-clamp-2 text-[#39364F] `}>{res.title} </h4>
                             <p className={`sub_title line-clamp-2`}>{res.description}</p>
                             {/* <p className={`sub_title pt-[5px]`}>{res.end}</p> */}
                             <div className={`flex gap-[10px] items-center ${isHome ? '' : 'pt-[10px]'} `}>

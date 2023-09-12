@@ -5,6 +5,8 @@ import RootLayout from '@/layouts/RootLayout';
 import EventList from '@/components/Events/EventList';
 import Title from '@/components/common/Title';
 import EventCards from '@/components/Events/EventCards';
+import SEO from '@/components/common/SEO'
+import { check_Image } from '@/libs/common';
 
 export default function EventDetails({ values }) {
     const router = useRouter();
@@ -81,9 +83,11 @@ export default function EventDetails({ values }) {
     return (
         <>
             <RootLayout isLanding={false} head={values.title}>
-                <div className='p-[30px_0px] md:p-[15px] container'>
+            {values && <SEO title={values.title} siteName={'India Reatiling'}/>}
+            {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Reatiling'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
+                <div className='p-[30px_0px] md:p-[15px] container '>
                     <div className='flex md:hidden justify-between items-center'>
-                        <div>
+                        <div className='mt-[20px]'>
                             <Title data={values} />
                         </div>
                         {/* <div>
@@ -111,7 +115,7 @@ export default function EventDetails({ values }) {
 
                     </div>
                     {/*  ${!isChecked ? 'grid-cols-2 md:grid-cols-1' : 'grid-cols-4 md:grid-cols-2'} */}
-                    <div className={`grid grid-cols-4 md:grid-cols-2 md:gap-[10px] gap-[20px]`}>
+                    <div className={`grid grid-cols-4 md:grid-cols-2 md:gap-[10px] gap-[20px] mb-[20px]`}>
                         {/* {data && <EventList data={data.message} />} */}
                         {(data) && <>
                             {/* {!isChecked ? <EventList data={data} height={'h-[200px]'} width={'w-full'} />

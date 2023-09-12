@@ -4,18 +4,21 @@ import { video_list_with_categoies, getAds } from '@/libs/api'
 import Video from '@/components/Video/Video'
 import Title from '@/components/common/Title'
 import Tabs from '@/components/Landing/Tabs'
+import SEO from '@/components/common/SEO'
+
 export default function Videos({ data, ads }) {
   console.log(data)
   console.log(ads)
   return (
     <>
       <RootLayout isLanding={true} head={'IR Prime Videos'}>
+      <SEO title={'IR Prime Videos'} siteName={'India Reatiling'} description={'IR Prime Videos'}/>
         {(data && data.length != 0) ? <div className='container lg:p-[30px_20px] md:p-[15px]'>
           {data.map((res, index) => {
             return (
               <div key={index} className='pb-[20px]'>
                 <Title data={res} seeMore={true} />
-                <div className={`lg:grid grid-cols-4 no_scroll lg:gap-[15px]`}><Video data={res.videos} flex={'md:flex-[0_0_calc(50%_-_10px)] md:h-full'} imgClass={'h-[150px] md:h-[110px] w-full'} /></div>
+                <div className={`lg:grid grid-cols-4 no_scroll lg:gap-[15px]`}><Video data={res.videos} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} /></div>
               </div>
             )
           })}

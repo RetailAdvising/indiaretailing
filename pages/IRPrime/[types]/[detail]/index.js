@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react'
 import { articlesDetail,getAds } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
+import SEO from '@/components/common/SEO'
+import { check_Image } from '@/libs/common';
+
 export default function Details() {
   const router = useRouter();
   const [values, setValues] = useState([])
@@ -30,6 +33,7 @@ export default function Details() {
 
       }
     }
+    // console.log('sad'+val)
   }
 
   const ads = async () => {
@@ -77,6 +81,7 @@ export default function Details() {
   return (
     <>
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement :null} head={''}>
+      { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (

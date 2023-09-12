@@ -309,7 +309,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IMAGES Group Events") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            {isMobile ? <div className='eventSlide'><ListSlider route={'/events/'} isEvent={true} noDots={true} auto={false} data={data.data[c.cid].data} /></div> : <div className='flex gap-5'>
+                                            {isMobile ? <div className='eventSlide'><ListSlider route={'/events/'} isEvent={true} noDots={true} auto={false} data={data.data[c.cid].data} /></div> : <div className='flex gap-5 lg:pb-[30px]'>
                                                 <div className={`flex-[0_0_calc(30%_-_10px)]`}><ImageGroupEvents isHome={'/events/'} data={data.data[c.cid].data.slice(0, 1)} height={"h-[80%]"} width={"w-[80%]"} /></div>
                                                 <div className={`flex flex-wrap gap-[20px]`}><EventList isRoute={'/events/'}  check={false} data={data.data[c.cid].data.slice(1, 7)} height={"h-[150px] rounded-[0px]"} width={"w-full"} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} isHome={true}  /></div>
                                             </div>}

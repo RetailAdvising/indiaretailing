@@ -5,6 +5,7 @@ import { getAds, getCategoryList, checkMobile } from '@/libs/api';
 import SectionBox from '@/components/Category/SectionBox';
 import MultiCarousel from '@/components/Sliders/MultiCarousel';
 import Title from '@/components/common/Title';
+import SEO from '@/components/common/SEO'
 
 export default function Categories({ data, ads }) {
     const [isMobile, setIsMobile] = useState()
@@ -23,6 +24,7 @@ export default function Categories({ data, ads }) {
     return (
         <>
             <RootLayout homeAd={ads ? ads : null} head={'Categories'} isLanding={true}>
+            <SEO title={'Categories'} siteName={'India Reatiling'} description={'Categories'}/>
                 <div className={`lg:p-[30px_0px] md:p-[15px]  ${isMobile ? '' : 'container'}`}>
                     {!isMobile && <Title data={{ title: 'Categories' }} font={'20px'} />}
                     {data && data.map((res, index) => {

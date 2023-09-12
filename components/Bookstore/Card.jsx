@@ -12,9 +12,9 @@ export default function Card({ data,height, category, padding ,check, flex,objec
         return (
           <div key={index} onClick={() => router.push(`${isLanding ? '/'+router.asPath.split('/')[1]+'/'+ category + '/' + res.route : '/'+router.asPath.split('/')[1]+'/'+ router.asPath.split('/')[3] + '/' + res.route}`)} className={`${flex} ${isBorder && 'border p-[10px] rounded-[5px]'}`}>
             <div className={`${padding ? 'p-[10px]' : null}`}>
-              <Image className={` ${object_fit ? object_fit : 'object-cover'} ${imgClass ? imgClass : (height ? height : 'h-[300px] w-full')} ${boxShadow && 'shadow-2xl rounded-[5px]'}`} src={check ? check_Image(res.product_image) : res.image} height={200} width={300} alt={res.title ? res.title : 's'}></Image>
+              <Image className={` ${object_fit ? object_fit : 'object-cover'} ${imgClass ? imgClass : (height ? height : 'h-[300px] w-full')} ${boxShadow && 'rounded-[5px]'}`} src={check ? check_Image(res.product_image) : res.image} height={250} width={365} alt={res.title ? res.title : 's'}></Image>
             </div>
-            <p className={`pt-[10px] line-clamp-2 text-[16px] md:text-[13px] leading-normal font-[500]`}>{res.item_title}</p>
+            <h6 className={`pt-[10px] line-clamp-2 text-[16px] md:text-[14px] leading-normal font-[500] text-center`}>{res.item_title}</h6>
             
           </div>
         )

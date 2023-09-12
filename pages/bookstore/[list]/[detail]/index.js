@@ -13,6 +13,8 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import LoaderButton from '@/components/common/LoaderButton';
 import styles from '@/styles/checkout.module.scss';
 import AlertUi from '@/components/common/AlertUi';
+import SEO from '@/components/common/SEO'
+
 // import BreadCrumb from '@/components/common/BreadCrumb';
 // import Razorpay from 'razorpay';
 
@@ -402,7 +404,7 @@ const  getCarts = async (type) => {
   return (
     <>
       <RootLayout>
-
+      { value && <SEO title={value.meta_title ? value.meta_title : value.item_title} ogImage={check_Image(value.image)} siteName={'India Reatiling'} ogType={value.meta_keywords ? value.meta_keywords : value.item_title} description={value.meta_description ? value.meta_description : value.item_title}/>}
       {/* <div className='md:hidden'>
         <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>
       </div> */}

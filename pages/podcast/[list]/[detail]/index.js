@@ -11,7 +11,7 @@ export default function PodcastDetail(data, ads_data) {
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null} head={data.data.title}>
-            <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Reatiling'} ogType={data.data.meta_keywords} description={data.data.meta_description}/>
+            <SEO title={data.data.meta_title ? data.data.meta_title : data.data.title} ogImage={check_Image(data.data.image)} siteName={'India Reatiling'} ogType={data.data.meta_keywords ? data.data.meta_keywords : data.data.title } description={data.data.meta_description ? data.data.meta_description : data.data.title }/>
                 <div className={`flex p-[20px_30px] md:p-[10px] justify-between flex-wrap gap-[25px] container`}>
                     {
                         <div className="w-full">

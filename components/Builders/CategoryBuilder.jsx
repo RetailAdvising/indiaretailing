@@ -190,10 +190,10 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             </p>
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'prime-article'}`} />
 
-            {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22]'>
-              <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='cursor-pointer mr-3'/>This story is for Premium Members you  have to buy Membership to Unlock</h6>
+            {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'>
+              <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain'/>This story is for Premium Members you  have to buy Membership to Unlock</h6>
               <div className='flex gap-[20px] justify-center pt-[0px]'>
-                <button className='primary_btn p-[6px_8px] text-[13px]' onClick={() => router.push('/membership')}>Subscribe</button>
+                <button className='primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1'/>Subscribe</button>
                 {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
                 <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button> */}
               </div>
@@ -250,12 +250,12 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                 })}
               </div>}
 
-              {(data.comments && data.disable_comments != 1) && <>
+              {(data.comments && data.disable_comments != 1) && data.doctype == 'Articles' && <>
                 <div className={`${!isMobile && 'border_bottom'} py-1.5 ${styles.profile_div}`}>
                   <h6 id={`cmt${i}`} className='font-semibold'>Comments</h6>
                 </div>
 
-                {(data.comments && data.comments.length != 0) &&
+                {(data.comments && data.comments.length != 0) && data.doctype == 'Articles' && 
                   <div style={{ background: "#efefef" }} className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  mt-3  `}>
                     {data.comments.map((res, index) => {
                       return (
@@ -265,7 +265,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                   </div>
                 }
               </>}
-              {data.disable_comments != 1 &&
+              {data.disable_comments != 1 && data.doctype == 'Articles' && 
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
                     {(data.comments && data.comments.length != 0) && <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>Read all comments</button>}
@@ -279,7 +279,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
               }
 
-              {(!showComment && data) && <>
+              {(!showComment && data && data.doctype == 'Articles') && <>
                 <div className='popright'>
                   <Modal visible={true} modal={'comments'} cur={data} hide={sideDrawerClosedHandler} />
                   {/* scrolling="no" */}

@@ -6,11 +6,11 @@ export default function Title({ data, textClass, seeMore,font,noPadding,isVid,se
   const router = useRouter()
 
   async function goTo(data){
-    if(isVid){
-      router.push(`/video/${data.route}`)
-    }else{
+    // if(isVid){
+    //   router.push(`/video/${data.route}`)
+    // }else{
       router.push(`/${router.asPath.split('/')[1]}/${data.route}`)
-    }
+    // }
   }
   return (
     <>

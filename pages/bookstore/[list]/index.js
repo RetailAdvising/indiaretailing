@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 // import BreadCrumb from '@/components/common/BreadCrumb';
 
 export default function BookstoreList({ value }) {
-
     const router = useRouter();
     let [data, setData] = useState([]);
     let cardref = useRef();

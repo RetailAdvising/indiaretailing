@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { domain } from "./config/siteConfig"
 
 const methodUrl = `https://${domain}/api/method/`;
@@ -414,9 +413,19 @@ export async function deleteCartItems(data){
     return await postMethod(api,data)
 }
 
+export async function news_list(data){
+    let api = domainUrl + 'news_list'
+    return await postMethod(api,data)
+}
+
 //podcast
 export async function podcastLanding(data){
     let api = domainUrl + 'podcast_list_with_categoies';
+    return await postMethod(api,data)
+}
+
+export async function podcast_list(data){
+    let api = domainUrl + 'podcast_list';
     return await postMethod(api,data)
 }
 
@@ -515,6 +524,11 @@ export async function update_user_password(data){
 // Videos
 export async function video_list_with_categoies(data){
     let api = domainUrl + 'video_list_with_categoies'
+    return await postMethod(api,data)
+}
+
+export async function video_list(data){
+    let api = domainUrl + 'video_list'
     return await postMethod(api,data)
 }
 

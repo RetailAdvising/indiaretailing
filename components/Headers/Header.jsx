@@ -191,7 +191,7 @@ export default function Header({ checkout }) {
                                             {searchValue && <div onClick={() => { setSearchResult([]), clearSearch('search') }} className='cursor-pointer flex items-center justify-center px-[10px] h-[45px]'><Image height={20} priority width={20} alt='search' src={'/cart/close.svg'} className="h-[24]"></Image></div>}
                                             <div onClick={() => { navigateSearchScreen('search') }} className='border-l-[1px] p-[10px] cursor-pointer border-l-slate-100 flex items-center justify-center'><Image style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} className=""></Image></div>
                                         </div>
-                                        <div className={`${searchResult && searchResult.length == 0 ? 'min-h-[250px] flex items-center justify-center' : null} bg-white border overflow-auto scrollbar-hide max-h-[250px] mt-[2px] rounded-[10px]`}>
+                                        <div className={`${searchResult && searchResult.length == 0 ? 'min-h-[275px] flex items-center justify-center' : null} bg-white border overflow-auto scrollbar-hide max-h-[275px] mt-[2px] rounded-[10px]`}>
                                             {searchResult && searchResult.length == 0 ? <EmptySection searchValue={searchValue} /> :
                                                 searchResult.map((res, index) => {
                                                     return (
@@ -246,10 +246,10 @@ const EmptySection = (searchValue) => {
     return (
         <>
             <div className='flex flex-col items-center justify-center'>
-                <div className='h-[75px]'>
-                    <Image className='h-[60px]' height={66} priority width={200} alt='' src={searchValue ? '/empty_states/no-news.svg' : '/empty_states/no-comment.svg'}></Image>
+                <div className='h-[140px]'>
+                    <Image className='h-full w-full' height={66} priority width={200} alt='' src={searchValue ? '/empty_states/no-news.svg' : '/empty_states/no-comment.svg'}></Image>
                 </div>
-                <h6 className='text-[15px] font-semibold py-[10px]'>{searchValue ? 'No new found' : 'Enter the text to search a latest news'}</h6>
+                <h6 className='text-[15px] font-semibold py-[10px]'>{searchValue ? 'No article found' : 'Enter the text to search a latest news'}</h6>
             </div>
         </>
     )

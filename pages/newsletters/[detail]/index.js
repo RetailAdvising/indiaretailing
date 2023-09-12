@@ -9,6 +9,7 @@ import AlertPopup from '@/components/common/AlertPopup';
 import { getList, newsDetail } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
+import SEO from '@/components/common/SEO'
 
 export default function NewsLists({ data }) {
   const tabs = [{ name: 'Current edition' }, { name: 'All Newsletter' }]
@@ -54,6 +55,7 @@ export default function NewsLists({ data }) {
   return (
     <>
       <RootLayout isLanding={false} head={'Newsletters'}>
+      <SEO title={data.meta_title ? data.meta_title : data.custom_title} ogImage={check_Image(data.custom_image_)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.custom_title } description={data.meta_description ? data.meta_description : data.custom_title }/>
         {<div className='container p-[30px_0px] md:p-[15px]'>
           <label className='themeSwitcherTwo w-full  border_bottom shadow-card relative inline-flex cursor-pointer select-none'>
             <input type='checkbox' className='sr-only' checked={isChecked} onChange={handleCheckboxChange}/>

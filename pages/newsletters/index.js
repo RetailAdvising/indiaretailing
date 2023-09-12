@@ -7,6 +7,7 @@ import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import Subscribe from '@/components/Landing/Subscribe';
 import { newsLanding, checkMobile, getAds } from '@/libs/api';
+import SEO from '@/components/common/SEO'
 
 export default function newsletter({ data, ads }) {
 
@@ -28,6 +29,7 @@ export default function newsletter({ data, ads }) {
   return (
     <>
       <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'}>
+      <SEO title={'Newsletters'} siteName={'India Reatiling'} description={'Newsletters'}/>
         {(data) && <div className='container p-[30px_0px] md:p-[15px]'>
           <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
           <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>

@@ -7,6 +7,8 @@ import List from '@/components/common/List';
 import Cards from '@/components/common/Cards';
 import { getList,checkMobile,check_Image,getAds } from '@/libs/api';
 import { useRouter } from 'next/router';
+import SEO from '@/components/common/SEO'
+
 export default function CategoryType({ values , ads }) {
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -77,6 +79,7 @@ export default function CategoryType({ values , ads }) {
     return (
         <>
             <RootLayout isLanding={false} homeAd={ads ? ads : null} head={router.query.types}>
+            <SEO title={router.query.types} siteName={'India Reatiling'} ogType={router.query.types } description={router.query.types }/>
                 <div className={`${isMobile ? 'md:p-[15px]' : 'container'}`} id='root' >
                     {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap lg:p-[30px_0px]  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
@@ -93,7 +96,7 @@ export default function CategoryType({ values , ads }) {
                                 )
                             })}</div>
                         </div>
-                        <div className={`lg:flex-[0_0_calc(35%_-_10px)] lg:pt-[35px] md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
+                        <div className={`lg:flex-[0_0_calc(35%_-_10px)] lg:pt-[45px] md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
                             <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List contentWidth={'flex-[0_0_calc(65%_-_10px)]'} imgWidth={'w-full'} line={'line-clamp-1'} imgHeight={'h-[80px]'} check={true} data={data.slice(0, 4)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}

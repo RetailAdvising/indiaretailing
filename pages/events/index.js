@@ -4,6 +4,8 @@ import Title from '@/components/common/Title'
 import Sliders from '@/components/Sliders/index'
 import EventCards from '@/components/Events/EventCards'
 import { getCategoryList, sliders, getAds } from '@/libs/api'
+import SEO from '@/components/common/SEO'
+
 export default function Events({ data, slider_data, ads_data }) {
     // console.log(ads_data)  
     const [pageData, setPageData] = useState([])
@@ -32,10 +34,11 @@ export default function Events({ data, slider_data, ads_data }) {
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head={'Events'}>
+            <SEO title={'Events'} siteName={'India Reatiling'} description={'Events'}/>
                 <div className="container zero-gap">
                     {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-auto w-full'} event={true} data={slider_data} perView={1} className='gap-0' />}
                 </div>
-                <div className='gap-[20px] container justify-between flex-wrap p-[30px_0px] md:p-[15px] lg:flex'>
+                <div className='gap-[20px] container justify-between flex-wrap p-[30px_0px] md:p-[15px] lg:flex mb-[20px]'>
                     {(pageData && pageData.length != 0) && pageData.map((resp, index) => {
                         return (
                             <div key={index} className={`flex flex-col md:flex-[0_0_calc(100%_-_0px)] flex-[0_0_calc(100%_-_15px)] ${index != 0 ? 'md:pt-[15px]' : ''}`}>

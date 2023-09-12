@@ -126,11 +126,7 @@
   }
 }
 
-.leaders{
-  .react-multi-carousel-item{
-    width: 289px !important;
-  }
-}
+
 
 
 
@@ -948,6 +944,13 @@ input {
     }
   }
 
+  .leaders{
+    .react-multi-carousel-item{
+      // width: 289px !important;
+      width: 214px !important;
+    }
+  }
+
   .research{
     .react-multi-carousel-item{
       // width: 163px !important;
@@ -1026,12 +1029,19 @@ input {
     .rodal {
       .rodal-dialog {
         // left: 876px;
+        padding: 0;
         left: 65%;
         height: calc(100vh - 0px) !important;
-      }
+    }
+    .rodal-close{
+      color: #fff;
+      top: 25px;
+    }
+    .rodal-close:before ,.rodal-close:after{
+      background: #fff;
     }
   }
-
+  }
   // .title {
   //   font-size: $font-14;
   //   font-weight: 600;
@@ -1696,4 +1706,16 @@ button:focus{
 }
 .success .rodal-dialog{
   max-height: 150px!important;
+}
+textarea {
+  resize: none;
+}
+input:focus, textarea:focus, select:focus{
+  outline: #e21b22;
+}
+
+.innertag{
+  p,span,a{
+    font-size: 13px !important;
+  }
 }

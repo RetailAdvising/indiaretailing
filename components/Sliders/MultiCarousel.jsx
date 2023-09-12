@@ -50,16 +50,16 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                     autoPlay={(noPlay || !none) ? false : true}
                     arrows={(noPlay && !isMobile && !none) ? true : false}
                     autoPlaySpeed={2000}
-                    containerClass="container-with-dots"
+                    // containerClass="container-with-dots"
                     dotListClass="dots"
                     infinite
-                    pauseOnHover
+                    // pauseOnHover
                     responsive={responsive}
-                    shouldResetAutoplay
+                    // shouldResetAutoplay
                     showDots={(!isMobile || !none) ? true : false}
                     renderDotsOutside={!isMobile ? false : true}
                     // sliderClass=""
-                    slidesToSlide={1}
+                    slidesToSlide={perView ? perView : 1}
                     swipeable
                 >
                     {/* {type != 'profile' && <div className=''> */}
@@ -95,7 +95,7 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                     // containerClass="container-with-dots"
                     dotListClass="dots"
                     infinite
-                    pauseOnHover
+                    // pauseOnHover
                     responsive={responsive}
                     // shouldResetAutoplay
                     showDots={(isMobile || none) ? true : false}
@@ -108,7 +108,7 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                         return (
                             <Link key={index} href={isHome ? isHome + res.route : '/' + router.asPath.split('/')[1] + '/' + res.route}>
 
-                                <div className={`border rounded-[5px] ${cardHeight ? cardHeight : 'h-[330px]'}`} >
+                                <div className={`border rounded-[10px] ${cardHeight ? cardHeight : 'h-[330px]'}`} >
                                     <div>
                                         <Image src={check ? check_Image(res.thumbnail_image) : res.image} className={`${height} ${width}`} height={150} width={300} alt={"image"} />
                                     </div>

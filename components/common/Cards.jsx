@@ -40,7 +40,7 @@ export default function Cards({ searchNavigation, noPrimaryText, data, isHome=un
               <Image height={100} width={200} className={` ${height} ${width} ${borderRadius} ${styles.card_img} ${border_none ? 'rounded-[5px]' : 'rounded-[10px]'} `} src={check ? check_Image(res.thumbnail_image || res.image || res.product_image) : res.image} alt={"cards"} />
             </div>
             <div className={`${styles.content} ${isBorder && 'p-[10px] '} ${contentHeight}  flex mobile-flex  justify-between flex-col`}>
-              {((res.primary_text && res.secondary_text) && !noPrimaryText) && <p className='flex mobile-flex gap-2 '><span className='primary_text fnt_13'>{res.primary_text || res.type}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span> <span className='secondary_text'>{res.secondary_text}</span></p>}
+              {((res.primary_text && res.secondary_text) && !noPrimaryText) && <p className='flex mobile-flex gap-2 line-clamp-1'><span className='primary_text fnt_13'>{res.primary_text || res.type}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span> <span className='secondary_text'>{res.secondary_text}</span></p>}
               {(!res.primary_text && res.type) && <p className='flex mobile-flex gap-2 '><span className='primary_text fnt_13'>{res.type}</span></p>}
 
               {res.title && <h4 className={`card-title  line-clamp-2 ${isHome ? '' : 'mt-2'} `}>{res.title ? res.title : ''}</h4>}
