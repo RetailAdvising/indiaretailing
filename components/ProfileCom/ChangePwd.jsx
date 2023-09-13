@@ -92,14 +92,14 @@ export default function ChangePwd({ customerInfo }) {
         
                 <div className={`flex flex-col py-[10px] relative`}>
                     <label className={`text-[14px] font-semibold`} htmlFor='password'>Old Password</label>
-                    <input placeholder='Old Password' type={`${show.show_1 ? 'text' : 'password'}`} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px]`} {...register('old_password', { required: { value: true, message: 'Old Password is required' } })} />
+                    <input placeholder='Old Password' type={`${show.show_1 ? 'text' : 'password'}`} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px] text-[14px]`} {...register('old_password', { required: { value: true, message: 'Old Password is required' } })} />
                     <Image onClick={() => updateShow(1)} className={`absolute  right-[10px] h-[23px] w-[20px] ${errors.old_password?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={show.show_1 ? '/login/showPass.svg' : '/login/hidePass.svg'} height={15} width={15} alt={"pass"} />
                     {errors.old_password && <p className={`${styles.danger}`}>{errors.old_password.message}</p>}
                 </div>
 
                 <div className={`flex flex-col py-[10px] relative`}>
                     <label className={`text-[14px] font-semibold`} htmlFor='new_password'>New Password</label>
-                    <input placeholder='New Password'  type={`${show.show_2 ? 'text' : 'password'}`} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px]`} {...register('new_password', { required: { value: true, message: 'New Password is required' } })} />
+                    <input placeholder='New Password'  type={`${show.show_2 ? 'text' : 'password'}`} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px] text-[14px]`} {...register('new_password', { required: { value: true, message: 'New Password is required' } })} />
                     <Image onClick={() => updateShow(2)} className={`absolute  right-[10px] h-[23px] w-[20px] ${errors.new_password?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={show.show_2 ? '/login/showPass.svg' : '/login/hidePass.svg'} height={15} width={15} alt={"pass"} />
                     {errors.new_password && <p className={`${styles.danger}`}>{errors.new_password.message}</p>}
                 </div>
@@ -107,7 +107,7 @@ export default function ChangePwd({ customerInfo }) {
 
                 <div className={`flex flex-col py-[10px] relative`}>
                     <label className={`text-[14px] font-semibold`} htmlFor='confirm_password'>Confirm Password</label>
-                    <input placeholder='Confirm Password'  type={`${show.show_3 ? 'text' : 'password'}`} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px]`} {...register('confirm_password', { required: { value: true, message: 'Confirm Password is required' } })} />
+                    <input placeholder='Confirm Password'  type={`${show.show_3 ? 'text' : 'password'}`} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px] text-[14px]`} {...register('confirm_password', { required: { value: true, message: 'Confirm Password is required' } })} />
                     <Image onClick={() => updateShow(3)} className={`absolute  right-[10px] h-[23px] w-[20px] ${errors.confirm_password?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={show.show_3 ? '/login/showPass.svg' : '/login/hidePass.svg'} height={15} width={15} alt={"pass"} />
                     {errors.confirm_password && <p className={`${styles.danger}`}>{errors.confirm_password.message}</p>}
                 </div>

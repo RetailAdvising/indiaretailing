@@ -141,11 +141,12 @@
 html,
 body {
   overflow-x: hidden;
+  padding: 0!important;
   // font-family: 'Poppins', sans-serif !important;
   p,
   span {
-    font-size: $font-16;
-    color: $secondary-color;
+    font-size: $font-14;
+    // color: $secondary-color;
     // line-height: 28px;
   }
 
@@ -644,10 +645,16 @@ input {
     }
   }
 
+  .placeholder{
+    .card{
+      flex: 0 0 calc(80.333% - 10px) !important;
+    }
+
+  } 
 
   .photo{
     .react-multi-carousel-item{
-      width: 178px !important;
+      width: 350px !important;
     }
     .dots{
       // bottom: 65px !important;
@@ -1643,7 +1650,7 @@ button:focus{
 
 @media only screen and (min-width: 768px) and (max-width: 1280px) {
   .container{
-    padding: 0px 15px !important;
+    padding: 10px 15px !important;
   }
   .navigation_c{
     font-size: 14px;
@@ -1725,3 +1732,28 @@ input:focus, textarea:focus, select:focus{
     font-size: 13px !important;
   }
 }
+
+// top nav bar
+.active_nav{
+  color: $primary-color;
+  border-bottom: 2px solid;
+  font-weight: 600;
+}
+
+// header Anim
+// $nav-height: 90px;
+// #header {
+//   height: $nav-height;
+//   position: sticky; // important
+//   left: 0; // important
+//   transition: top 0.5s ease-in-out;
+//   width: 100%;
+//   background-color: #fff;
+//   z-index: 10;
+//   a {
+//     color:white;
+//     margin: 0 10px;
+//   }
+// }
+// .nav-down{  top:0; } // scroll direction toggles
+// .nav-up {	top: -$nav-height;	}

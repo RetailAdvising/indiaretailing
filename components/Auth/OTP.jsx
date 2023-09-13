@@ -18,6 +18,7 @@ export default function OTP({ setotp, isModal, hide }) {
     // },[otp])
 
     async function sent_otp(data) {
+
         if (data) {
             let datas = {
                 mobile_no: data.mobile
@@ -65,13 +66,22 @@ export default function OTP({ setotp, isModal, hide }) {
     }
 
     async function check(data) {
-        console.log(data)
+        // console.log(data)
         data.otp ? verifyOtp(data) : sent_otp(data)
     }
+
     async function closeModal() {
-        setIsSuccessPopup(false)
-      
+        setIsSuccessPopup(false) 
     }
+
+    function resendOtp(){
+        let mobile_no = document.getElementById('mobile_no').value
+        sent_otp({mobile : mobile_no})
+    }
+
+    // function verify(data){
+    //  let element = document.getElementById(data).value
+    // }
 
     return (
         <>
@@ -81,18 +91,19 @@ export default function OTP({ setotp, isModal, hide }) {
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
+
                     <form onSubmit={handleSubmit((data) => check(data))} autoComplete='off'>
                         {
                             <>
                                 <div className={`flex flex-col py-5 relative`}>
                                     <label className={`${styles.label} text-[#808D9E]`} htmlFor='mobile' >Mobile Number</label>
-                                    <input type='number' className={`${styles.input} `} {...register('mobile', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } })} />
+                                    <input id='mobile_no' type='number' className={`${styles.input} `} {...register('mobile', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } })} />
                                     <Image className={`absolute  right-[10px] h-[27px] w-[22px] ${errors.mobile ?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/mobile.svg'} height={15} width={15} alt={"pass"} />
                                     {errors ?.mobile && <p className={`${styles.danger}`}>{errors.mobile.message}</p>}
                                 </div> 
                                 {otp && <div className={`flex flex-col pt-[10px] pb-4 relative`}>
                                         <label className={`text-[#808D9E]`} htmlFor='password'>OTP</label>
-                                        <input type={`${show ? 'text' : 'number'}`} className={`${styles.input} `} {...register('otp', { required: { value: true, message: 'OTP is required' } })} />
+                                        <input id='otp_input' type={`${show ? 'text' : 'number'}`} className={`${styles.input} `} {...register('otp', { required: { value: true, message: 'OTP is required' } })} />
                                         {/* <Image onClick={() => setShow(!show)} className={`absolute  right-[10px] h-[23px] w-[20px] ${errors.otp ?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={show ? '/login/showPass.svg' : '/login/hidePass.svg'} height={15} width={15} alt={"pass"} /> */}
                                         {errors.otp && <p className={`${styles.danger}`}>{errors.otp.message}</p>}
                                     </div> }
@@ -108,6 +119,7 @@ export default function OTP({ setotp, isModal, hide }) {
                         </div> */}
                         {
                             <>
+                                {otp && <p onClick={()=>resendOtp()}  className='text-[12px] text-end pb-[15px] cursor-pointer hover:underline text-black'>Resend Otp</p>}
                                 {
                                     otp ?
                                         <button type="submit" className={`${styles.loginBtn} cursor-pointer`}>Verify OTP</button> : <button type="submit" className={`${styles.loginBtn} cursor-pointer`}>Send OTP</button>
@@ -116,7 +128,7 @@ export default function OTP({ setotp, isModal, hide }) {
                         }
                         {/* {wrong && <p>Please check you email or password</p>} */}
                     </form>
-                    <p className='pt-[10px]'>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>create an account</span></p>
+                    <p className='pt-[10px]'>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>Create an account</span></p>
                     <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div>
 
                     {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}

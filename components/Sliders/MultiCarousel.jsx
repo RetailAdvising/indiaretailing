@@ -51,13 +51,13 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                     arrows={(noPlay && !isMobile && !none) ? true : false}
                     autoPlaySpeed={2000}
                     // containerClass="container-with-dots"
-                    dotListClass="dots"
+                    // dotListClass="dots"
                     infinite
                     // pauseOnHover
                     responsive={responsive}
                     // shouldResetAutoplay
-                    showDots={(!isMobile || !none) ? true : false}
-                    renderDotsOutside={!isMobile ? false : true}
+                    // showDots={(!isMobile || !none) ? true : false}
+                    // renderDotsOutside={!isMobile ? false : true}
                     // sliderClass=""
                     slidesToSlide={perView ? perView : 1}
                     swipeable
@@ -93,13 +93,13 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                     arrows={(isMobile || none) ? false : true}
                     autoPlaySpeed={2000}
                     // containerClass="container-with-dots"
-                    dotListClass="dots"
+                    // dotListClass="dots"
                     infinite
                     // pauseOnHover
                     responsive={responsive}
                     // shouldResetAutoplay
-                    showDots={(isMobile || none) ? true : false}
-                    renderDotsOutside={false}
+                    // showDots={(isMobile || none) ? true : false}
+                    // renderDotsOutside={false}
                     // sliderClass=""
                     slidesToSlide={5}
                     swipeable>

@@ -5,61 +5,8 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Example({ categories, setTabs, tab, }) {
-    // let [categories] = useState({
-    //     Recent: [
-    //         {
-    //             id: 1,
-    //             title: 'Does drinking coffee make you smarter?',
-    //             date: '5h ago',
-    //             commentCount: 5,
-    //             shareCount: 2,
-    //         },
-    //         {
-    //             id: 2,
-    //             title: "So you've bought coffee... now what?",
-    //             date: '2h ago',
-    //             commentCount: 3,
-    //             shareCount: 2,
-    //         },
-    //     ],
-    //     Popular: [
-    //         {
-    //             id: 1,
-    //             title: 'Is tech making coffee better or worse?',
-    //             date: 'Jan 7',
-    //             commentCount: 29,
-    //             shareCount: 16,
-    //         },
-    //         {
-    //             id: 2,
-    //             title: 'The most innovative things happening in coffee',
-    //             date: 'Mar 19',
-    //             commentCount: 24,
-    //             shareCount: 12,
-    //         },
-    //     ],
-    //     Trending: [
-    //         {
-    //             id: 1,
-    //             title: 'Ask Me Anything: 10 answers to your questions about coffee',
-    //             date: '2d ago',
-    //             commentCount: 9,
-    //             shareCount: 5,
-    //         },
-    //         {
-    //             id: 2,
-    //             title: "The worst advice we've ever heard about coffee",
-    //             date: '4d ago',
-    //             commentCount: 1,
-    //             shareCount: 2,
-    //         },
-    //     ],
-    // })
-
-
-    console.log(categories)
-
+export default function Tabs({ categories, setTabs, tab }) {
+console.log(tab)
     return (
         <>
             {/* <div className="w-full max-w-md px-2 py-16 sm:px-0">
@@ -130,14 +77,12 @@ export default function Example({ categories, setTabs, tab, }) {
 
             <div className='flex items-center'>
                 {/* <p onClick={() => setTabs(categories)} className={`${tab == categories ? 'text-red font-semibold border-b-[1px] border-red' : ''}`}>{categories}</p> */}
-                {categories && categories.length != 0 && <div className='flex items-center'>
+                {categories && categories.length != 0 && <div className='flex items-center gap-5'>
                     {categories.map((res, i) => {
                         return (
-                            <h6 className={`${tab == res ? 'text-red font-semibold' : ''}`} key={i} onClick={() => setTabs(res)}>{res}</h6>
+                            <h6 className={`${tab == res.route ? 'text-red font-semibold border-b' : ''} cursor-pointer text-[18px]`} key={i} onClick={() => setTabs(res.route)}>{res.name}</h6>
                         )
                     })}
-
-
                 </div>}
             </div>
 

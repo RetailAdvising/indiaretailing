@@ -3,20 +3,24 @@ import RootLayout from '@/layouts/RootLayout'
 import { useRouter } from 'next/router';
 import Image from 'next/image'
 import { getTagsList, check_Image } from '@/libs/api'
-
+import Tabs from '@/components/Landing/Tabs'
 export default function Tags({ res }) {
-
-    const [data, setData] = useState([])
+    const categories = [{ name: 'All', route: 'all' }, { name: 'News', route: 'news_list' }, { name: 'Articles', route: 'article_list' }, { name: 'Events', route: 'event_list' }]
+    const [resp_data, setData] = useState()
     const [nodata, setNodata] = useState(false);
+    const [activatedData, setActivatedData] = useState([])
+    const [tabs, setTabs] = useState(undefined)
     let cardref = useRef(null);
     let page_no = 1
     let no_product = false;
     const router = useRouter();
 
     useEffect(() => {
-        // if (res && res.data && res.data.length != 0) {
-        //     setData(res.data)
-        // }
+        if (res && res.data) {
+            setData(res.data)
+            setTabs('all')
+            setActivatedData([...res.data['news_list'], ...res.data['event_list'], ...res.data['article_list']]);
+        }
         console.log(res)
 
         const intersectionObserver = new IntersectionObserver(entries => {
@@ -62,13 +66,36 @@ export default function Tags({ res }) {
         }
     }
 
+
+    const getTabs = (data) => {
+        setTabs(data);
+
+        if (categories) {
+            categories.map((res, i) => {
+                if (res.route == data) {
+                    data == 'all' ? setActivatedData([...resp_data['news_list'], ...resp_data['event_list'], ...resp_data['article_list']]) : setActivatedData(resp_data[data])
+                    // if(data == 'all'){
+                    //     console.log(resp_data)
+                    //     const datas = [...resp_data['news_list'],...resp_data['event_list'],...resp_data['article_list']];
+                    //     console.log(datas);
+                    //     setActivatedData(datas)
+                    // }else{
+                    //     setActivatedData(resp_data[data])
+                    // }
+                }
+            })
+        }
+
+    }
+
     return (
         <>
             <RootLayout>
                 <div className={`container p-[30px_0px] md:p-[15px]`}>
-                    {/* {(data && data.length != 0 && !nodata) ?
-                        <div className={`lg:grid lg:grid-cols-4 lg:gap-5 no_scroll`}>
-                            {data.map((res, index) => {
+                   {tabs && <Tabs categories={categories} tab={tabs} setTabs={(data) => getTabs(data)} />}
+                    {(activatedData && activatedData.length != 0 && !nodata) ?
+                        <div className={`lg:grid m-[20px_0] md:m-[15px_0] lg:grid-cols-4 lg:gap-5 no_scroll`}>
+                            {activatedData.map((res, index) => {
                                 return (
                                     <div key={index} onClick={() => checkRoute(res)} className={`border h-[310px] cursor-pointer rounded-[10px]`}>
                                         <div>
@@ -87,7 +114,7 @@ export default function Tags({ res }) {
                                 <Image src={'/empty_states/no-article.svg'} className='' height={200} width={300} alt={'no data'} />
                             </div>
                             <h6 className='text-[16px] font-semibold text-center pt-[15px]'>No Article Found...</h6>
-                        </div>} */}
+                        </div>}
                 </div>
                 <div className='more' ref={cardref}>
 

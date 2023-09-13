@@ -134,7 +134,7 @@ export default function Membership() {
   
       setMemberShipDetails(memberShipDetails);
       show();
-      console.log(memberShipDetails);
+      // console.log(memberShipDetails);
     }else{
       setVisible_(!visible_);
       setModal('login')
@@ -178,17 +178,19 @@ export default function Membership() {
       "remarks":"paid",
       "transaction_id":response.razorpay_payment_id,
       "order_id":order_id,
-      "payment_method_name":"Razor Pay"
+      "payment_method_name":"Razor Pay",
+      'subscription_type': 'member'
     }
     const resp = await make_payment_entry(params);
     if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
     //  setAlertMsg({message:'Subscription created successfully'});
-     setEnableModal(true);
+      localStorage['roles'] = 'member'
+      setEnableModal(true);
     }
   }
 
  const load_razorpay = async (amount,description,order_id) => { 
-  console.log(razorpay_settings.api_key)
+  // console.log(razorpay_settings.api_key)
     let r_pay_color ='#e21b22';
     const app_name = 'India Retail';
     var options = {
@@ -234,7 +236,7 @@ export default function Membership() {
   return (
       <RootLayout>
 
-      { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+       { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
         {visible &&
             <ConfirmationScreen membershipDetails={memberShipDetails} visible={visible} hide={(obj)=> hide(obj)} startPlan={(membership,index)=> startPlan(membership,index)} btnState={btnState} handleClick={handleClick}/>

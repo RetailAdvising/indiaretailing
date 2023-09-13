@@ -1,6 +1,6 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, {useEffect, useState } from 'react'
-import { checkMobile, get_customer_info, stored_customer_info } from '@/libs/api';
+import { checkMobile, get_customer_info, stored_customer_info, get_razorpay_settings, make_payment_entry } from '@/libs/api';
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common'
 import Image from 'next/image'
@@ -30,11 +30,14 @@ export default function profile({my_account}) {
   let [localValue, setLocalValue] = useState(undefined);
   const [alertUi,setAlertUi] = useState(false)
   const [alertMsg, setAlertMsg] = useState({})
+  const [razorpay_settings, setRazorpay_settings] = useState({}) ;
+  const [enableModal,setEnableModal] = useState(false)
 
   const router = useRouter();
 
   
   useEffect(() => {
+    get_razor_pay_values();
     let localValue = stored_customer_info()
     setLocalValue(localValue);
 
@@ -62,6 +65,11 @@ export default function profile({my_account}) {
       router.push('/profile?my_account='+ data.route);
     }
 
+  }
+
+  async function get_razor_pay_values(){
+    let razorpay = await get_razorpay_settings();
+    setRazorpay_settings(razorpay);
   }
 
   const  checkIsMobile = async () => {
@@ -97,11 +105,75 @@ export default function profile({my_account}) {
 
   function closeModal(value) {
     setAlertUi(false);
+    setEnableModal(false);
     if(value == 'Yes'){
       localStorage.clear();
       router.push('/login'); 
     }
   }
+
+  const payNow = (obj) =>{
+    console.log(obj);
+    // load_razorpay(obj.checked_plans.total_amount,obj.checked_plans.name,obj.name)
+  }
+ 
+  function payment_error_callback(error){
+   setAlertMsg({message: 'Payment failed'});
+   setEnableModal(true);
+ }
+ 
+ async function payment_Success_callback(response,amount,order_id){
+   let params = {
+     "customer_id": localStorage['customer_id'],
+     "payment_method": "PAY-M00001",
+     "amount":amount,
+     "remarks":"paid",
+     "transaction_id":response.razorpay_payment_id,
+     "order_id":order_id,
+     "payment_method_name":"Razor Pay"
+   }
+   const resp = await make_payment_entry(params);
+   if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
+    setAlertMsg({message:'Payment successfully received'});
+    setEnableModal(true);
+   }
+ }
+ 
+ const load_razorpay = async (amount,description,order_id) => { 
+ // console.log(razorpay_settings.api_key)
+   let r_pay_color ='#e21b22';
+   const app_name = 'India Retail';
+   var options = {
+     "key": razorpay_settings.api_key,
+     "amount": (amount * 100).toString(),
+     "currency": "INR",
+     "name": app_name,
+     "description": "Payment for" + description,
+     "image": (razorpay_settings.site_logo ? check_Image(razorpay_settings.site_logo) : null),
+     "prefill": { "name": localStorage['full_name'],"email": localStorage['userid']},
+     "theme": { "color": r_pay_color },
+     "modal": { "backdropclose": false, "ondismiss": () => { payment_error_callback(description)} },
+     "handler" : async (response, error) => {
+       if(response){
+         payment_Success_callback(response,amount,order_id)
+         // response.razorpay_payment_id
+       } else if(error){
+         payment_error_callback(error)
+       }
+ 
+     }
+   };
+ 
+   const script = document.createElement('script');
+   script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+   script.async = true;
+   script.onload = () => {const rzp = new window.Razorpay(options); rzp.open();};
+   document.body.appendChild(script);
+   return () => {
+     document.body.removeChild(script);
+   };
+ 
+ }
 
 
   return(
@@ -111,6 +183,9 @@ export default function profile({my_account}) {
        {alertUi && 
             <AlertUi isOpen={alertUi} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} /> 
        }
+
+    { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+
 
         <div className='border-t-[1px] border-t-slate-200'>
 
@@ -157,7 +232,7 @@ export default function profile({my_account}) {
                   <div>
                    <h6 className='flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[1px] border-b-slate-200'>My Subscription</h6>
                    <div className=''>
-                     <SubscribtionsPlan />
+                     <SubscribtionsPlan payNow={(obj)=>payNow(obj)}/>
                    </div>  
                   </div> 
                   }

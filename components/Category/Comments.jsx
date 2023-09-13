@@ -64,7 +64,7 @@ export default function Comments({ data, isLast, load, cmt }) {
         }
          let resp = await getList(param)
          if(resp.message) setReporComment(resp.message)
-         console.log(reportComment);
+        //  console.log(reportComment);
          setSelecedComment(cur_command)
          show()
     }

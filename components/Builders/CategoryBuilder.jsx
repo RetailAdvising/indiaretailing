@@ -185,9 +185,11 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
       <div ref={cardref}>
         <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
+           
             <p>
               <Content i={i} res={data} />
             </p>
+            
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'prime-article'}`} />
 
             {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'>

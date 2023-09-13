@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common';
 import Image from 'next/image'
 import {  get_customer_plan_based_subscritpions, getColor } from '@/libs/api';
+import NoProductFound from '@/components/common/NoProductFound';
 
-
-export default function SubscribtionsPlan({ customerInfo }) {
+export default function SubscribtionsPlan({ payNow }) {
   
   const router = useRouter();
   const [planList,setPlanList] = useState([])
@@ -37,7 +37,6 @@ const formatter = new Intl.NumberFormat('en-US', {
     return new Date(dateString).toLocaleDateString(undefined, options);
  };
 
-
   return(
     <>
  <div className='md:hidden px-[20px] items-center grid grid-cols-6 h-[50px] bg-slate-100'>
@@ -51,7 +50,9 @@ const formatter = new Intl.NumberFormat('en-US', {
 
       </div>
 
-      {planList && planList.length != 0 &&
+      {planList && planList.length == 0 ? 
+         <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-article.svg'} heading={'No Subscription Found'}/>
+        :
          planList.map((res,index)=>{
             return(
               <div className='border-b-[5px] py-[10px] border-b-slate-100 last:border-b-[0px]'>
@@ -61,6 +62,7 @@ const formatter = new Intl.NumberFormat('en-US', {
                     <h6 className='text-[14px]'>{formatDate(res.current_end_date)}</h6>
                     <h6 className='text-[14px]'>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
                     <div className='flex items-center gap-[5px]'><div style={{background:res.status ? getColor(res.status)  : '#ddd'}} className={`h-[10px] w-[10px] rounded-[50%]`}></div><h6 className='text-[14px]'>{res.status}</h6></div>
+                    {res.status == 'Unpaid' && <div className=''><button onClick={()=>{payNow(res)}} className='bg-black text-white w-max p-[5px_25px] text-[13px] rounded-[5px]'>Pay</button> </div>}
                </div>
 
                <div className='lg:hidden flex flex-wrap p-[10px] cursor-pointer items-center '>
@@ -68,7 +70,8 @@ const formatter = new Intl.NumberFormat('en-US', {
                     <div className='md:flex-[0_0_calc(30%_-_0px)] justify-end flex items-center gap-[5px]'><div style={{background:res.status ? getColor(res.status)  : '#ddd'}} className={`h-[6px] w-[6px] rounded-[50%]`}></div><h6 className='text-[12px]'>{res.status}</h6></div>
                     <h6 className='md:flex-[0_0_calc(50%_-_0px)] py-[2px] text-[12px] gray_color'>{res.sub_plans[0].plan_info.billing_interval_count + ' ' + res.sub_plans[0].plan_info.billing_interval}</h6>
                     <h6 className='md:flex-[0_0_calc(50%_-_0px)] text-end text-[12px] gray_color'>{formatDate(res.current_end_date)}</h6>
-                    <h6 className='text-[12px] '>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
+                    <h6 className='text-[12px] md:flex-[0_0_calc(50%_-_0px)]'>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
+                    {res.status == 'Unpaid' && <div className='md:flex-[0_0_calc(50%_-_0px)] flex items-center justify-end'><button onClick={()=>{payNow(res)}} className='bg-black text-white w-max p-[5px_25px] text-[13px] rounded-[5px]'>Pay</button> </div>}
                </div>
 
                {res.sub_plans[0].plan_features && res.sub_plans[0].plan_features.length != 0 &&

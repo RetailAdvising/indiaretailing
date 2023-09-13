@@ -15,7 +15,7 @@ export default function IRPrime({ data }) {
                                 <Image src={'/IR.svg'} height={30} width={35} className={``} alt={"IR Prime"}></Image>
                             </div>
                             <p className={`flex flex-col`}>
-                                <span className={`text-sm font-semibold`}>IR Prime</span><span className={`text-[13px] hashtags`}>Top 3  stories of the day</span>
+                                <h6 className={`text-sm font-semibold`}>IR Prime</h6><span className={`text-[13px] hashtags`}>Top 3  stories of the day</span>
                             </p>
                         </div>
                         <div>

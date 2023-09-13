@@ -24,6 +24,7 @@ export default function newsletter({ data, ads }) {
     let isMobile = await checkMobile();
     setIsMobile(isMobile);
   }
+  
 
 
   return (

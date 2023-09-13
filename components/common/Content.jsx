@@ -56,8 +56,8 @@ export default function Content({ res, i }) {
                 <p className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='text-[11px] md:text-[12px] gray-text'>3 Shares</span></p>
                 <p className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[11px] gray-text'>{res.read_time} Minutes </span></p>
             </div>
-            <h1 className='mega_title lg:text-4xl md:text-[18px] md:leading-[29.23px] my-4'>{res.title}</h1>
-            <div className={`flex items-center justify-between ${styles.profile_div}`}>
+            <h1 className='mega_title lg:text-4xl md:text-[18px] md:leading-[29.23px] my-4 md:mb-[5px]'>{res.title}</h1>
+            <div className={`flex items-center justify-between ${styles.profile_div} md:hidden`}>
                 <div className='flex gap-3 items-center'>
                     <Image className='rounded-full object-contain' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <p className='flex flex-col'>
@@ -113,7 +113,7 @@ export default function Content({ res, i }) {
                     {setings && <Dropdowns setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
-
+            <h6 className="font-semibold lg:hidden text-[11px] ">{res.publisher}<span className='text-gray text-[11px] gray-text'> / {res.creation}</span></h6>
             {/* <p className='py-3 text-[18px] md:hidden'>{res.title}</p> */}
             <Image src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} priority={true} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
             <p className='py-3 '>{res.blog_intro}</p>

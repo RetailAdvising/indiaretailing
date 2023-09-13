@@ -13,7 +13,7 @@ export default function Videos({ data, ads }) {
     <>
       <RootLayout isLanding={true} head={'IR Prime Videos'}>
       <SEO title={'IR Prime Videos'} siteName={'India Reatiling'} description={'IR Prime Videos'}/>
-        {(data && data.length != 0) ? <div className='container lg:p-[30px_20px] md:p-[15px]'>
+        {(data && data.length != 0) ? <div className='container lg:p-[30px_0px] md:p-[15px]'>
           {data.map((res, index) => {
             return (
               <div key={index} className='pb-[20px]'>

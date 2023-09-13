@@ -89,7 +89,7 @@ export default function Videos() {
                             </div>
                         </div>
 
-                        <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] md:pb-[10px]`}>
+                        <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] md:pb-[10px] md:pl-0`}>
                             <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
                             {icons && <div className={``}><Dropdowns data={icons} share={true} /></div>}
                             {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'> */}
@@ -126,17 +126,17 @@ export default function Videos() {
                         <div className={`${validator ? 'lg:h-[430px] md:h-[220px]' : ''} my-[10px]`}>
                             {!validator ? <>
                                 <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
-                                <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'>
-                                    <div className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'>
+                                <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6 flex justify-between md:block'>
+                                    <div className='text-center text-[20px] md:text-[16px] font-semibold text-[white] flex md:pb-2'>
                                         <Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />
-                                        <div className='text-center   pb-[15px] '>
-                                            <h6 className='text-[20px] text-[white] md:text-[16px] font-semibold'>Prime Video</h6>
-                                            <p className='text-[14px] text-[white] md:text-[13px]'>This video is for Premium Members you  have to buy Membership to Unlock</p>
+                                        <div className='text-center'>
+                                            <h6 className='text-[20px] text-[white] md:text-[16px] font-semibold text-left'>Prime Video</h6>
+                                            <p className='text-[14px] text-[white] md:text-[13px] md:text-left font-normal'>This video is for Premium Members you  have to buy Membership to Unlock</p>
                                         </div>
 
                                     </div>
                                     <div className='flex gap-[20px] justify-center pt-[0px]'>
-                                        <button className='primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
+                                        <button className='m-auto primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
                                     </div>
                                 </div>
                             </> : <iframe

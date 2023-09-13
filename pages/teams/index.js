@@ -10,7 +10,7 @@ export default function Teams() {
         <div className='container pt-9 pb-9 md:p-[15px]'>
             <div className="grid-cols-2 md:grid-cols-1 gap-4 md:gap-2 grid">
                 <div className="col-span-1">
-                    <h2 className='font-bold text-3xl pt-6 text-left'>{data.title}</h2>
+                    <h2 className='font-bold text-3xl md:text-2xl pt-6 text-left'>{data.title}</h2>
                     <p className='sub_title text-left pt-3'>{data.subtitle}</p>
                 </div>
             <div className="col-span-1 text-center m-auto">
@@ -32,7 +32,7 @@ export default function Teams() {
                         </div>
                     </div>
                     <div className="col-span-1 m-auto basis-2/4 md:basis-full">
-                            <h2 className='font-bold text-3xl pt-6 text-left'>{teams.title}</h2>
+                            <h2 className='font-bold text-3xl md:text-2xl pt-6 text-left'>{teams.title}</h2>
                             <h6 className='font-medium text-left pt-1 text-[16px] text-[gray-dark1]'>{teams.designation}</h6>
                             <p className='sub_title  text-left pt-3'>{teams.content}</p>
                     </div>

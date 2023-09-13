@@ -63,7 +63,7 @@ export default function ListSlider({ data, auto, noDots, route = undefined, isEv
                             </div>
                             <div className={`flex-[0_0_calc(68%_-_10px)]`}>
                                 {(res.primary_text && res.secondary_text) && <p className='flex items-center '><span className='primary_text pr-[10px] ' style={{ fontSize: '11px' }}>{res.primary_text}</span> <span className='h-[13px] w-[2px] bg-[#6f6f6f]'></span> <span className='secondary_text pl-[10px]' style={{ fontSize: '11px' }}>{res.secondary_text}</span></p>}
-                                <p className={`${isEvent ? 'line-clamp-1' : 'line-clamp-2'} pt-1 text-[13px] font-semibold`}>{res.title}</p>
+                                <h6 className={`${isEvent ? 'line-clamp-1' : 'line-clamp-2'} pt-1 text-[13px] font-semibold`}>{res.title}</h6>
                                 <p className="text-[11px] pt-1">{res.publisher}</p>
                                 {isEvent && <>
                                     <p className="line-clamp-2 sub_title">{res.description}</p>

@@ -4,6 +4,7 @@ import { check_Image } from '@/libs/common';
 import Image from 'next/image'
 import { get_customer_order_list, getColor } from '@/libs/api';
 import OrderDetail from '@/components/ProfileCom/OrderDetail';
+import NoProductFound from '@/components/common/NoProductFound';
 
 export default function Orders() {
   
@@ -83,7 +84,9 @@ export default function Orders() {
        <h6 className='text-[15px] font-semibold'>Payment Status</h6>
       </div>
 
-      {orderInfo && orderInfo.length != 0 &&
+      {orderInfo && orderInfo.length == 0 ?
+        <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-article.svg'} heading={'No Orders Found'}/>
+        :
          orderInfo.map((res,index)=>{
             return(
                <>

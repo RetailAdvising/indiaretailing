@@ -31,25 +31,25 @@ export default function Editprofile({ customerInfo }) {
             <form onSubmit={handleSubmit((data) => signup(data))} autoComplete='off'>
                 <div className={`flex flex-col py-[10px] relative`}>
                     <label className={`text-[14px] font-semibold`} htmlFor='first_name' >First Name</label>
-                    <input placeholder='First Name' defaultValue={customerInfo.first_name ? customerInfo.first_name : ''} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px]`} {...register('first_name', { required: { value: true, message: 'Full Name is required' } },)} />
+                    <input placeholder='First Name' defaultValue={customerInfo.first_name ? customerInfo.first_name : ''} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px] text-[14px]`} {...register('first_name', { required: { value: true, message: 'Full Name is required' } },)} />
                     {errors?.first_name && <p className={`${styles.danger}`}>{errors.first_name.message}</p>}
                 </div>
 
                 <div className={`flex flex-col pb-[10px] relative`}>
                     <label className={`text-[14px] font-semibold`} htmlFor='first_name' >Last Name</label>
-                    <input placeholder='Last Name' defaultValue={customerInfo.last_name ? customerInfo.last_name : ''} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px]`} {...register('last_name')} />   
+                    <input placeholder='Last Name' defaultValue={customerInfo.last_name ? customerInfo.last_name : ''} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px] text-[14px]`} {...register('last_name')} />   
                 </div>
 
                 <div className={`flex flex-col pb-[10px] relative`}>
                     <label className={`text-[14px] font-semibold`} htmlFor='mobile' >Mobile Number</label>
-                    <input readOnly  placeholder='Mobile Number' defaultValue={customerInfo.phone ? customerInfo.phone : ''} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px]`} {...register('phone')} />
+                    <input readOnly  placeholder='Mobile Number' defaultValue={customerInfo.phone ? customerInfo.phone : ''} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px] text-[14px]`} {...register('phone')} />
                     {/* { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } } */}
                     {/* {errors?.phone && <p className={`${styles.danger}`}>{errors.phone.message}</p>} */}
                 </div>
 
                 <div className={`flex flex-col pb-[10px] relative`}>
                     <label className={`text-[14px] font-semibold`} htmlFor='email' >Email</label>
-                    <input readOnly  defaultValue={customerInfo.email ? customerInfo.email : ''} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px]`} {...register('email')} />
+                    <input readOnly  defaultValue={customerInfo.email ? customerInfo.email : ''} className={`h-[40px] rounded-[5px] gray_color px-[10px] mt-[5px] text-[14px]`} {...register('email')} />
                     {/* , { required: { value: true, message: 'Email is required' }, pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: "Please enter a valid email" } }, */}
                     {/* {errors?.email && <p className={`${styles.danger}`}>{errors.email.message}</p>} */}
                 </div>

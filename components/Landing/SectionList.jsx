@@ -10,7 +10,7 @@ export default function SectionList({ data }) {
           <Link key={index} href={'/news/'+res.route}>
             <div className={`flex justify-between gap-[10px] mb-[20px] ${index != data.length - 1 && 'border_bottom'} items-center pb-[20px]`}>
               <div className={`flex flex-[0_0_calc(95%_-_10px)] w-full gap-[10px]`}>
-                <div className={`flex-[0_0_calc(30%_-_10px)]`}>
+                <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(35%_-_10px)]`}>
                   <Image className={`rounded-[5px] h-[90px] w-full`} src={check_Image(res.thumbnail_image)} height={50} width={150} alt={"image"} ></Image>
                 </div>
                 <div className='grid'>

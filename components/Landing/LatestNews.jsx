@@ -25,7 +25,7 @@ export default function LatestNews({ data, height, width, isList }) {
           <Link key={index} href={'/news/' + res.route}>
             <div className={`pb-[10px] ${!res.image && ((index != data.length - 1 || index == 1)) && 'border_bottom'}`}>
               {(res.thumbnail_image && index < 2) && <Image priority src={check_Image(res.thumbnail_image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />}
-              {res.title && <p className={`my-[10px] line-clamp-1 title `}>{res.title}</p>}
+              {res.title && <h6 className={`my-[10px] line-clamp-1 title `}>{res.title}</h6>}
               {(res.blog_intro && index >= 2) && <p className={`${!res.image && 'mb-[10px]'} sub_title line-clamp-2`}>{res.blog_intro}</p>}
             </div>
           </Link>
@@ -41,7 +41,7 @@ export default function LatestNews({ data, height, width, isList }) {
                     <Image priority src={check_Image(res.thumbnail_image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />
                   </div>
                   <div className='px-[10px]'>
-                    <p className={`my-[10px] line-clamp-1 title `}>{res.title}</p>
+                    <h6 className={`my-[10px] line-clamp-1 title `}>{res.title}</h6>
                   </div>
                 </Link>
               )
@@ -51,7 +51,7 @@ export default function LatestNews({ data, height, width, isList }) {
           {(data && isMobile && isList) && data.map((res, i) => {
             return (
               <div key={i} onClick={() => router.push('/news/' + res.route)} className={`${i == 0 ? 'border_top border_bottom' : 'mb-[15px]'}`}>
-                {res.title && <p className={`my-[10px] line-clamp-1 title `}>{res.title}</p>}
+                {res.title && <h6 className={`my-[10px] line-clamp-1 title `}>{res.title}</h6>}
                 {(res.blog_intro) && <p className={`${!res.image && 'mb-[10px]'} sub_title line-clamp-2`}>{res.blog_intro}</p>}
 
               </div>
