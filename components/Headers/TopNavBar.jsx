@@ -59,8 +59,8 @@ export default function TopNavBar({nav_data}) {
     return (
         <>
           <ul className='flex items-center gap-[15px] overflow-auto px-[15px] no_scroll' style={{borderBottom:'1px solid #ddd'}}>
-            {navData.map(nav=>{
-                return(<li className={`py-[8px] cursor-pointer text-[14px] font-medium whitespace-pre ${nav.active && 'active_nav'}`}
+            {navData.map((nav,index)=>{
+                return(<li key={index} className={`py-[8px] cursor-pointer text-[14px] font-medium whitespace-pre ${nav.active && 'active_nav'}`}
                 onClick={()=>changeNav(nav)}>
                    {nav.menu_label}
                 </li>)

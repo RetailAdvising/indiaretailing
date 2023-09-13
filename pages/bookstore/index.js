@@ -6,13 +6,13 @@ import Title from '@/components/common/Title'
 import Card from '@/components/Bookstore/Card'
 import AdsBaner from '@/components/Baners/AdsBaner'
 import List from '@/components/Bookstore/List'
-import { booksLanding, getCategories, getAds } from '@/libs/api'
+import { booksLanding, getCategories, getAds, sliders } from '@/libs/api'
 import { checkMobile } from '@/libs/api'
 import SEO from '@/components/common/SEO'
 
 // import BreadCrumb from '@/components/common/BreadCrumb';
 
-export default function Bookstore({ data,resp,ads_data }) {
+export default function Bookstore({ data,resp,ads_data, slider_data }) {
 
 
   // const images = [
@@ -24,6 +24,7 @@ export default function Bookstore({ data,resp,ads_data }) {
 
   // console.log(data);
   // console.log(resp);
+  console.log(slider_data);
   let [isMobile, setIsmobile] = useState();
   let [breadCrumbs,setBreadCrumbs] = useState([
     {name:'Home',route:'/'},
@@ -31,6 +32,9 @@ export default function Bookstore({ data,resp,ads_data }) {
   ])
 
   useEffect(()=>{
+    slider_data.map((res)=> {
+      res.web_image ? res.image = res.web_image : res.image = ''
+    })
     checkIsMobile();
     window.addEventListener('resize',checkIsMobile)
     return () => {
@@ -58,11 +62,11 @@ export default function Bookstore({ data,resp,ads_data }) {
 
       {/* {!isMobile && <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>} */}
 
-
+        
         {(data && data.length != 0) && <>
-
-
-
+          <div className="container zero-gap">
+              {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-auto w-full'} event={true} data={slider_data} perView={1} className='gap-0' />}
+          </div>
           {/* {(resp.recent_products && resp.recent_products.length != 0) && 
           <div className='pt-[10px] container' style={{ background: "#f0f0f0" }}>
             <Sliders data={resp.recent_products} perView={1} imgClass={'h-[400px] w-full'} />
@@ -164,8 +168,17 @@ export async function getStaticProps() {
   const res_ads = await getAds(ads_params);
   const ads_data = res_ads.message;
   
+  
+  let slider_params = {
+    page: 'Product',
+    fields: ['name', 'title', 'web_image', 'mobile_image', 'mobile_app_image']
+  }
+  const res = await sliders(slider_params)
+  const slider_data = res.message
+
+  
   return {
-    props: { data,resp, ads_data }, revalidate: 50,
+    props: { data,resp, ads_data, slider_data}, revalidate: 50,
   }
 
 }

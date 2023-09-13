@@ -49,6 +49,7 @@
 
     .hashtags {
       font-size: $font-12;
+      font-weight:600;
       // color: $secondary-color;
       color: #121212;
     }
@@ -85,6 +86,7 @@
 
     .hashtags {
       font-size: $font-11;
+      font-weight:600;
       // color: $secondary-color;
       color: #121212;
     }
@@ -811,24 +813,32 @@ input {
         // left: 876px;
         left: 0% !important;
         height: calc(90vh - 0px) !important;
+        padding: 0!important;
+      }
+      .rodal-close{
+        color: #fff;
+        top: 25px;
+      }
+      .rodal-close:before ,.rodal-close:after{
+        background: #fff;
       }
     }
   }
 
   .primary_text {
     color: $primary-color;
-    font-weight: 600;
+    font-weight: 800;
     text-transform: uppercase;
-    font-size: $font-10;
-    letter-spacing: 0.5px;
+    font-size: $font-11;
+    letter-spacing: 0.2px;
   }
 
   .secondary_text {
     color: $secondary-color;
-    font-size: $font-10;
+    font-size: $font-11;
     text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
   }
 
   .alert-popup {
@@ -1072,17 +1082,17 @@ input {
 
   .primary_text {
     color: $primary-color;
-    font-weight: 600;
+    font-weight: 800;
     text-transform: uppercase;
-    font-size: $font-10;
+    font-size: $font-11;
     letter-spacing: 0.5px;
   }
 
   .secondary_text {
     color: $secondary-color;
-    font-size: $font-10;
+    font-size: $font-11;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 800;
     letter-spacing: 0.5px;
   }
 
@@ -1741,19 +1751,20 @@ input:focus, textarea:focus, select:focus{
 }
 
 // header Anim
-// $nav-height: 90px;
-// #header {
-//   height: $nav-height;
-//   position: sticky; // important
-//   left: 0; // important
-//   transition: top 0.5s ease-in-out;
-//   width: 100%;
-//   background-color: #fff;
-//   z-index: 10;
-//   a {
-//     color:white;
-//     margin: 0 10px;
-//   }
-// }
-// .nav-down{  top:0; } // scroll direction toggles
-// .nav-up {	top: -$nav-height;	}
+$nav-height: 95px;
+#header {
+ 
+  // position: abs;
+  height: $nav-height;
+   // important
+  transition: top 0.3s ease-in-out;
+  width: 100%;
+  background-color: #fff;
+  z-index: 10;
+  a {
+    color:white;
+    margin: 0 10px;
+  }
+}
+.nav-down{  top:0; position: absolute;} // scroll direction toggles
+.nav-up {	top: -$nav-height;	}

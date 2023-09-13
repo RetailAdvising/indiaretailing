@@ -6,7 +6,7 @@ import Title from '@/components/common/Title';
 import NewsCard from '@/components/Newsletter/NewsCard';
 import Tabs from '@/components/common/Tabs';
 import AlertPopup from '@/components/common/AlertPopup';
-import { getList, newsDetail } from '@/libs/api';
+import { get_all_newsletter, newsDetail } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -21,6 +21,8 @@ export default function NewsLists({ data }) {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked)
   }
+
+  console.log(data)
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -40,13 +42,12 @@ export default function NewsLists({ data }) {
   // All News
   const allNews = async () => {
     let param = {
-      doctype: "Newsletter",
-      fields: ["custom_title", "name", "custom_image_", "route"],
+      newsletter_id: await router.query.detail,
       page_no: page_no,
       page_size: 10,
     }
 
-    const resp = await getList(param);
+    const resp = await get_all_newsletter(param);
     if (resp.message && resp.message.length != 0) {
       setAllNewsLetter(resp.message)
     }
@@ -55,10 +56,10 @@ export default function NewsLists({ data }) {
   return (
     <>
       <RootLayout isLanding={false} head={'Newsletters'}>
-      <SEO title={data.meta_title ? data.meta_title : data.custom_title} ogImage={check_Image(data.custom_image_)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.custom_title } description={data.meta_description ? data.meta_description : data.custom_title }/>
+        <SEO title={data.meta_title ? data.meta_title : data.custom_title} ogImage={check_Image(data.custom_image_)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.custom_title} description={data.meta_description ? data.meta_description : data.custom_title} />
         {<div className='container p-[30px_0px] md:p-[15px]'>
           <label className='themeSwitcherTwo w-full  border_bottom shadow-card relative inline-flex cursor-pointer select-none'>
-            <input type='checkbox' className='sr-only' checked={isChecked} onChange={handleCheckboxChange}/>
+            <input type='checkbox' className='sr-only' checked={isChecked} onChange={handleCheckboxChange} />
             <span
               className={`flex capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-semibold text-[#111111] ${!isChecked ? 'tabActive' : ''
                 }`}>
@@ -72,15 +73,16 @@ export default function NewsLists({ data }) {
           </label>
 
           {!isChecked ? <>
-            {data && <div className={`flex pt-[20px] md:pt-[0px] flex-wrap justify-between gap-5`}>
+            {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] flex-wrap justify-between gap-5`}>
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_0px)]`}>
-                <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.custom_title}</h6>
-                <p className='sub_title py-3 md:hidden'>{data.custom_description}</p>
+                <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.article_detail.title}</h6>
+                <p className='sub_title py-3 md:hidden'>{data.article_detail.subject}</p>
+                <p className='sub_title py-3 md:hidden'>{data.article_detail.blog_intro}</p>
                 <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] h-[35px] w-[100px]'>subscribe</button>
               </div>
               <div className={`flex-[0_0_calc(45%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
-                <Image className={`h-[380px] w-full`} src={check_Image(data.custom_image_)} height={300} width={500} alt={data.custom_title} />
-                <p className='sub_title py-3 lg:hidden'>{data.custom_description}</p>
+                <Image className={`h-[380px] w-full`} src={check_Image(data.article_detail.image)} height={300} width={500} alt={data.custom_title} />
+                <p className='sub_title py-3 lg:hidden'>{data.article_detail.blog_intro}</p>
                 <div className='w-full text-center lg:hidden'>
                   <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn  my-3 text-[14px] h-[35px] w-[50%]'>subscribe</button>
                 </div>
@@ -113,9 +115,9 @@ export default function NewsLists({ data }) {
 export async function getServerSideProps({ params }) {
   let Id = params?.detail;
   let param = {
-    newsletter: Id,
-    another_category: "Fashion & Lifestyle",
-    newsletter_fields: ["custom_title", "custom_image_", "route", "name", "custom_category"]
+    route: 'newsletters/' + Id,
+    // another_category: "Fashion & Lifestyle",
+    // newsletter_fields: ["custom_title", "custom_image_", "route", "name", "custom_category"]
   }
 
   const resp = await newsDetail(param);

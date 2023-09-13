@@ -50,12 +50,19 @@ export default function Content({ res, i }) {
 
     return (
         <>
-            <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between'>
+            <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden'>
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
-                <p className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto'/><span className='text-[12px] md:text-[11px] gray-text'>{res.views} Views</span></p>
-                <p className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='text-[11px] md:text-[12px] gray-text'>3 Shares</span></p>
-                <p className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[11px] gray-text'>{res.read_time} Minutes </span></p>
+                <p className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto'/><span className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</span></p>
+                <p className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></p>
+                <p className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></p>
             </div>
+            <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between lg:hidden'>
+                {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
+                <p className='flex items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto'/><div className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</div></p>
+                <p className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><div className='md:text-[10px] text-[12px] gray-text'>3 Shares</div></p>
+                <p className='flex items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><div className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </div></p>
+            </div>
+
             <h1 className='mega_title lg:text-4xl md:text-[18px] md:leading-[29.23px] my-4 md:mb-[5px]'>{res.title}</h1>
             <div className={`flex items-center justify-between ${styles.profile_div} md:hidden`}>
                 <div className='flex gap-3 items-center'>

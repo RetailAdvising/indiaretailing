@@ -181,11 +181,11 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                 </div>
             </div> */}
 
-            <div className={`py-[20px] ${i == 0 ? 'lg:p-5 bg-[#F8F9FA]' : i == 5 ? 'bg-[#000] lg:p-[20px_40px] no_scroll' : i == 13 ? 'lg:bg-[#f1f1f1] p-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
+            <div className={`py-[20px] ${i == 0 ? 'lg:p-5 bg-[#F8F9FA]' : i == 5 ? 'bg-[#000] lg:p-[20px_40px] no_scroll' : i == 14 ? 'lg:bg-[#f1f1f1] p-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
                 {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                     return (
                         // || i == 5
-                        <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0 || i != 5) ? 'md:mb-[15px]' : ''} ${((i == 13) && !isMobile) ? 'container' : ''} `}>
+                        <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0 || i != 5) ? 'md:mb-[15px]' : ''} ${((i == 14) && !isMobile) ? 'container' : ''} `}>
                             {(res.components && res.components.length != 0) && res.components.map(c => {
                                 return (
                                     <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-[10px]' : ''}`}>
@@ -225,7 +225,9 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Leaders Ink") && <>
                                             <Title data={{ title: c.component_title }} />
                                             {data.data[c.cid].data &&
-                                                <div className='none leaders'><MultiCarousel isHome={'/categories/'} perView={3} check={true} none={true} data={data.data[c.cid].data} cardHeight={'h-[310px]'} card_width={"285px !important"} height={"h-[185px]"} width={"w-full"} type={'profile'} /></div>}
+                                                <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/categories/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>}
+
+                                                 {/* <div className='none leaders'><MultiCarousel isHome={'/categories/'} perView={3} check={true} none={true} data={data.data[c.cid].data} cardHeight={'h-[310px]'} card_width={"285px !important"} height={"h-[185px]"} width={"w-full"} type={'profile'} /></div>} */}
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Research") && <>
                                             <Title data={{ title: c.component_title }} />
@@ -285,15 +287,15 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Shopping Centers") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className={``}><List isHome={'/news/'} flex={'items-center'} imgFlex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(35%_-_10px)]'} contentWidth={'lg:flex-[0_0_calc(60%_-_10px)] lg:gap-[5px]'} titleClamp={'line-clamp-2'} data={data.data[c.cid].data} check={true} fullWidth={true} imgWidth={"w-full"} imgHeight={"h-[130px] md:h-[110px]"} borderRadius={"rounded-[10px]"} /></div>
+                                            <div className={``}><List isHome={'/news/'} flex={'items-center lg:mb-[8px] lg:gap-5'} imgFlex={'flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(35%_-_10px)]'} contentWidth={'lg:flex-[0_0_calc(60%_-_10px)] lg:gap-[5px]'} titleClamp={'line-clamp-2'} data={data.data[c.cid].data} check={true} fullWidth={true} imgWidth={"w-full"} imgHeight={"h-[130px] md:h-[110px]"} borderRadius={"rounded-[5px]"} /></div>
                                         </>}
-                                        {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Podcast") && <>
+                                        {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Podcast") && <div className={`border p-[10px] rounded-[5px]`}>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className={`mb-[20px]`}><List isHome={'/podcast/'} data={data.data[c.cid].data} imgWidth={"w-[60px] md:w-[75px]"} imgHeight={"h-[50px] md:h-[65px]"} check={true} isBB={true} borderRadius={"rounded-[10px]"} /></div>
-                                        </>}
+                                            <List descLine={'line-clamp-2'} isHome={'/podcast/'} isDesc={true} data={data.data[c.cid].data.slice(0,2)} imgWidth={"w-full md:w-[75px]"} imgFlex={'lg:flex-[0_0_calc(27%_-_10px)]'} imgHeight={"h-[80px] md:h-[65px]"} check={true} isBB={true} borderRadius={"rounded-[6px]"} />
+                                        </div>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Privilege Members Corner") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className={`w-[60%]`}><Video imgClass={'h-[120px] md:h-[190px] w-full'} isHome={'/video/'} data={data.data[c.cid].data} /></div>
+                                            <><Video imgClass={'h-[210px] md:h-[190px] w-full'} isHome={'/video/'} data={data.data[c.cid].data} /></>
                                         </>}
                                         {/* {(resp.component_title == "AdsBaner" && resp.component_type == "Ad4" && resp.data) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={resp.data} height={"100px"} /></>} */}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>

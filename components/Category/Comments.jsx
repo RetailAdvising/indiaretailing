@@ -4,7 +4,7 @@ import { like,dislike,getList } from '@/libs/api';
 import Modal from '../common/Modal';
 import AlertUi from '../common/AlertUi';
 
-export default function Comments({ data, isLast, load, cmt }) {
+export default function Comments({ data, isLast, load, cmt , store_comments, comments}) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
     const [reportComment, setReporComment] = useState()
@@ -14,7 +14,6 @@ export default function Comments({ data, isLast, load, cmt }) {
 
     function showInputs(index) {
         setInput({ index: index, show: true });
-        console.log(input)
     }
     
     const cardref = useRef(null)
@@ -37,7 +36,16 @@ export default function Comments({ data, isLast, load, cmt }) {
             like: comm.is_liked == 1 ?  'No' :'Yes'
         }
         const resp = await like(param);
-        if(resp.status == 'Success') setComment(resp.message)
+        if(resp.status == 'Success') {
+            setComment(resp.message);
+            if(comments){
+                let index = comments.comments.findIndex(res=>{return res.name == resp.message.name})
+                if(index >= 0){
+                    comments['comments'][index] = resp.message
+                    store_comments(comments);
+                }
+            }
+        }
         // setComment({...comm,likes:(comm.is_liked && comm.is_liked == 1) ? comm.likes - 1:comm.likes + 1
         //     ,is_liked:(comm.is_liked && comm.is_liked == 1) ? 0 : 1})  ;
         //     if(comm.is_disliked ==1 && comm.is_liked == 0) dislikeCmt(comm);
@@ -49,7 +57,19 @@ export default function Comments({ data, isLast, load, cmt }) {
             dislike: comm.is_disliked == 1 ?  'No' :'Yes'
         }
         const resp = await dislike(param);
-        if(resp.status == 'success') setComment(resp.message)
+        if(resp.status == 'success'){
+            setComment(resp.message);
+            console.log(comments)
+            if(comments.comments){
+                let index = comments.comments.findIndex(res=>{return res.name == resp.message.name})
+                if(index >= 0){
+                    comments['comments'][index] = resp.message
+                    store_comments(comments);
+                }
+            }
+          
+
+        }
         // setComment({...comm,dislikes:(comm.is_disliked && comm.is_disliked == 1) ? comm.dislikes - 1:comm.dislikes + 1,
         //     is_disliked:(comm.is_disliked && comm.is_disliked == 1) ? 0 : 1});
         //     console.log(comment);
@@ -113,8 +133,8 @@ export default function Comments({ data, isLast, load, cmt }) {
                             <div className='py-2 sub_title' dangerouslySetInnerHTML={{ __html: comment.content }} />
                             <div className='flex justify-between items-center py-[5px]'>
                                 <div className='flex gap-3'>
-                                    <p className='flex gap-2 items-center sub_title'><span>{comment.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => likeCmt(comment)} src={(comment.is_liked && comment.is_liked == 1) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
-                                    <p className='flex gap-2 items-center sub_title'><span>{comment.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => dislikeCmt(comment)} src={(comment.is_disliked && comment.is_disliked == 1) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
+                                    <p className='flex gap-2 items-center sub_title'><span>{comment.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => likeCmt(comment)} src={((comment.is_liked && comment.is_liked == 1) || (comment.likes && comment.likes == 1)) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
+                                    <p className='flex gap-2 items-center sub_title'><span>{comment.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => dislikeCmt(comment)} src={((comment.is_disliked && comment.is_disliked == 1) || (comment.dislikes && comment.dislikes == 1)) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
                                     {/* <p className='sub_title'>Share</p>
                                             <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
                                 </div>

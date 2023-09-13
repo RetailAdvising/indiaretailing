@@ -66,7 +66,7 @@ export default function SideBar({ data, close, navbar }) {
         <>
             {(data.header && data.header.items.length != 0 && navbar) && <div id='side' ref={ref} className={`bg-[#fff] w-[80%] h-screen relative`}>
                 {/* <div className=''> */}
-                {valid ? <div className='flex items-center gap-[10px] border_bottom pb-[15px]'>
+                {valid ? <div className='flex items-center gap-[10px] border_bottom p-[15px]'>
                     <Image className='h-[40px] w-[40px]' src={'/profit.svg'} height={17} width={17} alt={'profile'} />
                     <div>
                         {localStorage && <p className='text-[14px] font-semibold'>{localStorage['userid']}</p>}
@@ -117,7 +117,7 @@ export default function SideBar({ data, close, navbar }) {
                     }
                 </div>
 
-                {valid ? <div className='absolute bottom-[10px] w-[90%]'>
+                {valid ? <div className='absolute bottom-[10px] w-[90%]  left-[15px]'>
                     <div className='flex justify-between items-center'>
                         <div className='flex items-center gap-[10px] w-[50%] cursor-pointer' onClick={() => logout()}>
                             <Image className='h-[22px] w-[20px]' src={'/Navbar/Logout.svg'} height={20} width={20} alt={'logout'}></Image>

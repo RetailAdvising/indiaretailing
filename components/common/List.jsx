@@ -15,7 +15,7 @@ import Link from 'next/link'
 //   })
   
   
-export default function List({ imgFlex,hash_bg, contentWidth,primary_pb, line, data,titleClamp ,check, isTop, isReverse, borderRadius, imgHeight, imgWidth, isBB, flex, fullWidth, noWidth, tittleOnly, isHome = undefined,isDesc }) {
+export default function List({ imgFlex,hash_bg, contentWidth,primary_pb, line, data,titleClamp ,check, isTop, isReverse, borderRadius, imgHeight, imgWidth, isBB, flex, fullWidth, noWidth, tittleOnly, isHome = undefined,isDesc,descLine }) {
     const router = useRouter();
     return (
         <>
@@ -34,7 +34,7 @@ export default function List({ imgFlex,hash_bg, contentWidth,primary_pb, line, d
                             {res.title && <h6 className={`title  pt-[5px] ${titleClamp ? titleClamp : 'line-clamp-1'}`}>{res.title ? res.title : ''}</h6>}
                             {((res.sub_title || res.blog_intro) && !tittleOnly) && <p className={`sub_title pt-[5px] ${line ? line : 'line-clamp-2'}`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
                             {((res.hashtags || res.publisher) && !tittleOnly) && <p className={`hashtags  ${hash_bg ? hash_bg : 'pt-[5px]'} font-[500]`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}
-                            {(isDesc && res.description)&& <div className={`sub_title innertag pt-[5px] line-clamp-1`} dangerouslySetInnerHTML={{ __html: res.description }} />}
+                            {(isDesc && res.description)&& <div className={`${descLine ? descLine : ''} sub_title innertag pt-[5px] line-clamp-1`} dangerouslySetInnerHTML={{ __html: res.description }} />}
                         </div>
                     </div>
                 )

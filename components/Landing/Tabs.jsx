@@ -85,15 +85,6 @@ console.log(tab)
                     })}
                 </div>}
             </div>
-
-
-
-
-
-
-
-
-
         </>
     )
 }

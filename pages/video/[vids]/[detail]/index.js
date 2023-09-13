@@ -124,7 +124,7 @@ export default function Videos() {
                         </div>
 
                         <div className={`${validator ? 'lg:h-[430px] md:h-[220px]' : ''} my-[10px]`}>
-                            {!validator ? <>
+                            {(!validator && videoDetail.message.ir_prime == 1) ? <>
                                 <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
                                 <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6 flex justify-between md:block'>
                                     <div className='text-center text-[20px] md:text-[16px] font-semibold text-[white] flex md:pb-2'>

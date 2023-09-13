@@ -51,7 +51,7 @@ const formatter = new Intl.NumberFormat('en-US', {
       </div>
 
       {planList && planList.length == 0 ? 
-         <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-article.svg'} heading={'No Subscription Found'}/>
+         <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-subscriptions.svg'} heading={'No Subscription Found'}/>
         :
          planList.map((res,index)=>{
             return(

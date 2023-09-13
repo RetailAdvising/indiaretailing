@@ -43,7 +43,7 @@ export default function SignUp({ isModal, hide }) {
         <>
             <div className='flex container p-[20px] justify-center gap-[60px] '>
                 <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px]'} flex-col flex justify-center`}>
-                    {!isModal && <div className='absolute top-0 cursor-pointer left-[10px]'>
+                    {!isModal && <div className='top-0 cursor-pointer left-[10px]'>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Sign Up</h6>

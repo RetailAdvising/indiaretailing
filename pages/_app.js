@@ -62,7 +62,7 @@ export default function App({ Component, pageProps }) {
       <ErrorBoundary > 
         <Provider store={store}>
           {/* { loading ? <p>loading...</p> */}
-          <main className={` ${inter.className} `}>
+          <main className={` ${inter.className} md:h-[100vh] md:overflow-auto`} id='scroll_div'>
             <Component {...pageProps} />
           </main>
         </Provider>

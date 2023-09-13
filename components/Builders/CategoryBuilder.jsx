@@ -18,8 +18,12 @@ import { useRouter } from 'next/router'
 export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
+  // const [data, setdatas] = useState(datas);
+
   const [validator, setValidator] = useState(false)
   const router = useRouter();
+  const [updateCmts, setupdateCmts] = useState(-1)
+
   // console.log(router)
   // let validate;
 
@@ -58,7 +62,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
   // }, [])
 
-  console.log(data)
+  // console.log(data);
 
 
   useEffect(() => {
@@ -81,7 +85,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
       return () => window.removeEventListener('load', onPageLoad);
     }
 
-  }, [])
+  }, [updateCmts])
 
   const cardref = useRef(null)
   useEffect(() => {
@@ -178,6 +182,12 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   }
 
 
+  function store_comments(data){
+    data = data;
+    setdatas(data)
+    setupdateCmts( updateCmts + 1)
+  }
+
 
   return (
     <>
@@ -265,8 +275,10 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                       )
                     })}
                   </div>
-                }
-              </>}
+                 }
+              </>
+              }
+
               {data.disable_comments != 1 && data.doctype == 'Articles' && 
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
@@ -283,7 +295,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
               {(!showComment && data && data.doctype == 'Articles') && <>
                 <div className='popright'>
-                  <Modal visible={true} modal={'comments'} cur={data} hide={sideDrawerClosedHandler} />
+                  <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur)=>store_comments(cur)} hide={sideDrawerClosedHandler} />
                   {/* scrolling="no" */}
                   {/* <iframe className='w-full ' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092358111637737472" height="696" width="504" frameborder="0" allowfullscreen="false" title="Embedded post"></iframe> */}
                   {/* <iframe className='w-full' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}

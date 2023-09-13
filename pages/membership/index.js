@@ -184,7 +184,10 @@ export default function Membership() {
     const resp = await make_payment_entry(params);
     if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
     //  setAlertMsg({message:'Subscription created successfully'});
-      localStorage['roles'] = 'member'
+      if(localStorage['roles']){
+        let get_values = JSON.parse(localStorage['roles']);
+        get_values.push({role:'Member'})
+      }
       setEnableModal(true);
     }
   }

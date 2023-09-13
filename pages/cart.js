@@ -83,7 +83,9 @@ export default function cart() {
             getCarts('');
             setload(false)
         }else{
-            setload(false)
+            setload(false);
+            setAlertMsg({message:resp.message.message ? resp.message.message : 'Something went wrong try again later'});
+            setEnableModal_1(true);
         }
       }
       
@@ -102,6 +104,8 @@ export default function cart() {
 
 
   const [enableModal,setEnableModal] = useState(false)
+  const [enableModal_1,setEnableModal_1] = useState(false)
+
   const [alertMsg, setAlertMsg] = useState({})
 
     async function dltCart(data,index) {
@@ -111,6 +115,7 @@ export default function cart() {
 
     async function closeModal(value){
         setEnableModal(false);
+        setEnableModal_1(false);
         setload(false);
             if(value == 'Yes'){
               let param = { name: alertMsg.name }
@@ -138,6 +143,9 @@ export default function cart() {
             {enableModal && 
               <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} /> 
             }
+
+           { enableModal_1 &&   <AlertUi isOpen={enableModal_1} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+
 
                 <div className={`${isMobile ? null : 'container'} lg:p-[30px]`}>
                     {! isMobile && <Title data={{ title: 'Shopping Cart' }} /> }

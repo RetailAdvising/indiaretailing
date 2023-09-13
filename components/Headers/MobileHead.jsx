@@ -12,49 +12,29 @@ export default function MobileHead({ isLanding=false, Heading }) {
         const timeout = setTimeout(() => {
           setIsVisible(true);
     }, 2000);
-    // show_header()
+    show_header()
         // Clear the timeout if the component unmounts before the 2 seconds
         return () => clearTimeout(timeout);
        
     }, []);
    const show_header= () =>{
+    var lastScrollTop = 0;
+    var element = document.getElementById('scroll_div')
+    var main = document.getElementById('main')
+    var header = document.getElementById('header')
+    element.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
+       var st = element.scrollTop // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+       if(st < 100){
+        main.className = 'mt-[95px]'
+       }
+       else if (st > lastScrollTop) {
+        header.className = 'nav-up'
 
-	    // Hide Header on on scroll down
-      var didScroll;
-      var lastScrollTop = 0;
-      var delta = 5;
-      var navbarHeight = document.getElementById('header')
-	   console.log(navbarHeight);
-      window.scroll(function(event){
-        didScroll = true;
-      });
-
-      setInterval(function() { // wait for it... wait for it... wait for it
-        if (didScroll) {
-          hasScrolled();
-          didScroll = false;
-        }
-      }, 200);
-
-      function hasScrolled() {
-            var scrolltop = winow.scrollTop();
-            console.log(scrolltop);
-            // Make sure they scroll more than delta
-            if(Math.abs(lastScrollTop - scrolltop) <= delta)	return;
-            // If they scrolled down and are past the navbar, add class .nav-up.
-            // This is necessary so you never see what is "behind" the navbar.
-            if (scrolltop > lastScrollTop && scrolltop > navbarHeight){
-              // On scroll down we add nav-up
-              document.getElementById('header').removeClass('nav-down').addClass('nav-up');
-            } else {
-              // On scroll up we add nav-down
-              if(scrolltop + $(window).height() < $(document).height()) {
-                document.getElementById('header').removeClass('nav-up').addClass('nav-down');
-              }
-            }
-
-            lastScrollTop = scrolltop;
-      }
+       } else if (st < lastScrollTop && st > 100) {
+        header.className = 'nav-down'
+       } // else was horizontal scroll
+       lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    }, false);
     }
     const [navbar, setNavbar] = useState(false);
     const router = useRouter()
@@ -78,8 +58,8 @@ export default function MobileHead({ isLanding=false, Heading }) {
     return (
         <>
             {<div  className={`fixed sidebar ${navbar ? 'sideActive' : ''} `} ><div className={`${isVisible ? 'visible' : ''}`}></div><SideBar data={nav} navbar={navbar} close={() => close()} /></div>}
-            {/* <div  id="header" className='nav-down'> */}
-            <div className='flex border_bottom items-center justify-between sticky top-[0px] p-[5px_15px] h-[55px]' >
+            <div  id="header" className=''>
+                <div className='flex border_bottom items-center justify-between p-[5px_15px]' >
                 <div className='flex gap-[15px] items-center'>
                     <div >
                     <Image onClick={() => isLanding ? showSidebar() : window.history.back()} className={`${isLanding ? 'w-[20px]' : 'w-[9px]'} mouse`} src={isLanding ? '/menu.svg' : '/back.svg'} height={14} width={15} layout="fixed" alt="Edit" />
@@ -89,9 +69,8 @@ export default function MobileHead({ isLanding=false, Heading }) {
                 </div>
                 <Image className='lg:hidden md:h-[20px] cursor-pointer' onClick={() => router.push("/search?searchText=")} style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} ></Image>
             </div>
-            {nav && <TopNavBar nav_data={nav}/>}
-            {/* </div> */}
-
+             <TopNavBar nav_data={nav}/>
+            </div>
         </>
     )
 }

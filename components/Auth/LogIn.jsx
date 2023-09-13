@@ -82,7 +82,7 @@ export default function LogIn({ isModal, hide }) {
                         <button type="submit" className={`${styles.loginBtn}`}>Log In</button>
                         {wrong && <p className='text-center pt-[5px] text-[#ff1010] font-semibold'>Please check your email or password</p>}
                     </form>
-                    <p className='pt-[10px] '>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>create an account</span></p>
+                    <p className='pt-[10px] '>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>Create an account</span></p>
                     <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div>
 
                     {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}

@@ -20,8 +20,8 @@ export default function EventDetail({ data }) {
     return (
         <>
             {data && <div className={`p-[30px_0px] md:p-[15px] container`}>
-                <div className=''>
-                    <Image height={200} width={400} priority src={check_Image(data.message.image_path ? data.message.image_path : data.message.thumbnail_path)} className={`lg:h-[450px] md:object-contain w-full`} alt={data.message.title} />
+                <div className='h-[465px] py-[5px] bg-[#f1f1f130]'>
+                    <Image height={200} width={400} priority src={check_Image(data.message.image_path ? data.message.image_path : data.message.thumbnail_path)} className={`lg:h-[450px] object-contain w-full`} alt={data.message.title} />
                 </div>
                 <div className={`lg:flex md:flex-wrap gap-[20px] pb-[20px] pt-[30px] md:pt-[10px]`}>
                     <div className={`flex-[0_0_calc(75%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] p-[10px] border rounded-[5px]`}>

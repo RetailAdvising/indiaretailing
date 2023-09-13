@@ -15,6 +15,7 @@ export default function Header({ checkout }) {
 
     const profile = [{ name: 'Logout', icon: '/Navbar/Logout.svg' }, { name: 'Profile', icon: '/login/profile-01.svg', route: '/profile?my_account=edit-profile', mob_route: '/profile?my_account=' }]
     const [valid, setValid] = useState(false);
+    const [loader, setLoader] = useState(false);
     const [member, setMember] = useState(false);
     const [sort, setSort] = useState(false);
     const ref = useRef(null);
@@ -29,6 +30,8 @@ export default function Header({ checkout }) {
             roleMember();
         }
 
+        setLoader(true);
+
         const handleClickOutside = (event) => {
             let el = document.getElementById('dropdown1')?.classList;
             let classs = (el && el != null) && Array.from(el);
@@ -37,6 +40,7 @@ export default function Header({ checkout }) {
                 el.remove('dropdown-menu-active')
             }
         };
+
         document.addEventListener('click', handleClickOutside, true);
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
@@ -215,23 +219,28 @@ export default function Header({ checkout }) {
                         <div className=''>
                             <Image style={{ objectFit: 'cover' }} className='m-auto cursor-pointer' height={66} priority width={200} alt='' onClick={() => router.push('/')} src={'/indiaretail.png'}></Image>
                         </div>
-                        {!valid ? <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
-                            <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
-                            <button type='button' onClick={() => router.push('/login')} className={`${styles.btn_sig}`}>{head.btn2}</button>
-                        </div> :
-                            <div className='flex justify-end'>
-                                <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
-                                    <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
-                                    <div>
-                                        {localStorage['full_name'] && <p className='cursor-pointer text-[14px] font-[500] capitalize'>{localStorage['full_name']}</p>}
+                        {loader && 
+                        <>
+                         {!valid ? 
+                            <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
+                                <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
+                                <button type='button' onClick={() => router.push('/login')} className={`${styles.btn_sig}`}>{head.btn2}</button>
+                            </div> 
+                            :  
+                             <div className='flex justify-end'>
+                                    <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
+                                        <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
+                                        <div>
+                                            {localStorage['full_name'] && <p className='cursor-pointer text-[14px] font-[500] capitalize'>{localStorage['full_name']}</p>}
+                                        </div>
+                                        {/* <div>
+                                            <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
+                                        </div> */}
                                     </div>
-                                    {/* <div>
-                                        <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
-                                    </div> */}
-                                </div>
-
-                            </div>
-
+    
+                             </div>
+                            }
+                        </>
                         }
                     </div>
                 </div>

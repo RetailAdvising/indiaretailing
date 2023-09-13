@@ -11,7 +11,7 @@ import Image from 'next/image';
 import { addComment, commentList,report } from '@/libs/api'
 import { useRouter } from 'next/router';
 import AlertUi from './AlertUi';
-export default function Modal({ modal, hide, visible, data, cur }) {
+export default function Modal({ modal, hide, visible, data, cur, store_comments }) {
     const [sort, setSort] = useState(false);
     const [sortbyVal, setSortByVal] = useState('Newest');
     const [pageno, setPageno] = useState(1);
@@ -110,9 +110,15 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                 resp.message["dislikes"] = 0
                 setComments(c => [...c, resp.message])
                 element.value = '';
+                let array  = []
+                array.push(resp['message']);
+                cur.comments = [...comments, ...array];
+                store_comments(cur);
             }
         }
     }
+
+
 
 
     return (
@@ -149,19 +155,19 @@ export default function Modal({ modal, hide, visible, data, cur }) {
                                 </div> */}
                             </div>
                             <div className='flex justify-between gap-[10px]'>
-                                <div className='flex w-full border '>
-                                <textarea id='addCmt' type='text' row={2} onClick={checkValid} placeholder='Add a comment...' className='flex-1 border-none  w-full text-[15px] p-[5px]' />
+                             <div className='flex w-full border '>
+                                  <textarea id='addCmt' type='text' row={2} onClick={checkValid} placeholder='Add a comment...' className='flex-1 border-none  w-full text-[15px] p-[5px]' />
                                 <div className='flex-[0_0_30px] relative'>
-                                <Image src={'/categories/send-arrow.svg'} className='cursor-pointer absolute bottom-[10px]' onClick={() => sendMsg('addCmt')} height={22} width={22} alt='send' />
+                                  <Image src={'/categories/send-arrow.svg'} className='cursor-pointer absolute bottom-[10px]' onClick={() => sendMsg('addCmt')} height={22} width={22} alt='send' />
                                 </div>
-                                </div>   
+                             </div>   
                             </div>
                             {(comments && comments.length != 0 && !noData) ?
                                 <div className='commentPopup '>
                                     {comments.map((res, index) => {
                                         return (
                                             // isLast={index == comments.length - 1}
-                                            <Comments load={loadMore} key={index}  data={res} />
+                                            <Comments load={loadMore} key={index} store_comments={(cur)=>store_comments(cur)} comments={cur} data={res} />
                                         )
                                     })}
                                 </div>

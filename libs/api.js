@@ -463,6 +463,11 @@ export async function newsDetail(data){
     return await postMethod(api,data)
 }
 
+export async function get_all_newsletter(data){
+    let api = domainUrl + 'get_all_newsletter';
+    return await postMethod(api,data)
+}
+
 export async function newsSubscribe(data){
     let api = domainUrl + 'subscribe_newsletter';
     return await postMethod(api,data)

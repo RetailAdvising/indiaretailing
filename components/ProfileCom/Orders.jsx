@@ -85,7 +85,7 @@ export default function Orders() {
       </div>
 
       {orderInfo && orderInfo.length == 0 ?
-        <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-article.svg'} heading={'No Orders Found'}/>
+        <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-orders.svg'} heading={'No Orders Found'}/>
         :
          orderInfo.map((res,index)=>{
             return(

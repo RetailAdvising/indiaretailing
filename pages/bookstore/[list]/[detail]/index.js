@@ -65,6 +65,7 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
+        // console.log(value)
         let routPath = router.asPath.split('/')
         if(routPath && routPath.length != 0){
           routPath.map((res,i)=>{
@@ -273,6 +274,10 @@ async function insert_cart(dataValue,type){
       getCarts('');
       setLoader(false);
   }else if(resp.message && resp.message.status == 'Failed'){
+    setLoader(false);
+    setAlertMsg({message:resp.message.message});
+    setEnableModal(true);
+  }else{
     setLoader(false)
   }
 }
@@ -293,7 +298,9 @@ async function update_cart(dataValue,type){
       getCarts('');
       setLoader(false)
   }else{
-     setLoader(false)
+     setLoader(false);
+     setAlertMsg({message:resp.message.message ? resp.message.message : 'Something went wrong try again later'});
+     setEnableModal(true);
   }
 }
 
