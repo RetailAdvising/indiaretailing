@@ -170,7 +170,7 @@ export default function Header({ checkout }) {
         <>
             {head &&
                 <div className={``}>
-                    <div className='container relative p-[0px] md:hidden grid grid-cols-3 items-center justify-between'>
+                    <div className='container relative p-[0px] md:hidden grid grid-cols-3 items-center justify-between my-[20px]'>
                         {/* <div> */}
 
                         <div onClick={searchFn} className={`flex items-center `}>
