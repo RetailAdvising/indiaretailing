@@ -99,7 +99,7 @@ export default function profile({my_account}) {
     setAlertUi(false);
     if(value == 'Yes'){
       localStorage.clear();
-      router.push('/login')
+      router.push('/login'); 
     }
   }
 

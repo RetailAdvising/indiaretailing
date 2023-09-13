@@ -10,19 +10,19 @@ export default function MainFooter() {
                 <div className='container md:flex-wrap flex gap-11 p-[30px_0px] md:p-[15px]'>
                     {footer.footer.section_1 && <div className={`flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
                             <Image src={footer.footer.section_1.image} height={66} width={200} alt={"image"} />
-                            <h6 className='font-medium pb-1'>{footer.footer.section_1.addresstitle}</h6>
-                            <p className='address font-normal'>{footer.footer.section_1.address}</p>
+                            <h6 className='font-medium pb-1 text-[15px]'>{footer.footer.section_1.addresstitle}</h6>
+                            <p className='address font-normal text-[14px]'>{footer.footer.section_1.address}</p>
 
-                            <h6 className='font-medium pb-1 pt-2'>{footer.footer.section_1.addresstitle1}</h6>
-                            <p className='address font-normal'>{footer.footer.section_1.address1}</p>
+                            <h6 className='font-medium pb-1 pt-2 text-[15px]'>{footer.footer.section_1.addresstitle1}</h6>
+                            <p className='address font-normal text-[14px]'>{footer.footer.section_1.address1}</p>
 
                             <span className='flex flex-row mt-2.5 gray-text'>
                                 <Image src={footer.footer.section_1.phoneicon} height={18} width={18} alt={"image"} className='mr-2 m-0.5' />
-                                <a href={`tel:${footer.footer.section_1.phonenumber}`} className='hover:text-[red]'>{footer.footer.section_1.phonenumber}</a>
+                                <a href={`tel:${footer.footer.section_1.phonenumber}`} className='hover:text-[red] text-[14px]'>{footer.footer.section_1.phonenumber}</a>
                             </span>
                             <span className='flex flex-row mt-2.5 gray-text'>
                                 <Image src={footer.footer.section_1.mailicon} height={18} width={18} alt={"image"} className='mr-2 m-0.5' />
-                                <a href={`mailto:${footer.footer.section_1.mail}`} className='hover:text-[red]'>{footer.footer.section_1.mail}</a>
+                                <a href={`mailto:${footer.footer.section_1.mail}`} className='hover:text-[red] text-[14px]'>{footer.footer.section_1.mail}</a>
                             </span>
                             <h6 className='text-[16px] font-semibold pb-[10px] pt-[20px]'>Our Social Media</h6>
                             <div className='flex items-center gap-[15px] py-[10px]'>

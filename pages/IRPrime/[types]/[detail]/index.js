@@ -46,8 +46,10 @@ export default function Details() {
 
 
   useEffect(() => {
-    articleDetail();
-    ads();
+    if(typeof window !== 'undefined'){
+      articleDetail();
+      ads();
+    }
   }, [router])
 
 

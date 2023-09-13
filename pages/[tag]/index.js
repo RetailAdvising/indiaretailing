@@ -14,9 +14,10 @@ export default function Tags({ res }) {
     const router = useRouter();
 
     useEffect(() => {
-        if (res && res.data && res.data.length != 0) {
-            setData(res.data)
-        }
+        // if (res && res.data && res.data.length != 0) {
+        //     setData(res.data)
+        // }
+        console.log(res)
 
         const intersectionObserver = new IntersectionObserver(entries => {
             if (entries[0].intersectionRatio <= 0) return;
@@ -65,7 +66,7 @@ export default function Tags({ res }) {
         <>
             <RootLayout>
                 <div className={`container p-[30px_0px] md:p-[15px]`}>
-                    {(data && data.length != 0 && !nodata) ?
+                    {/* {(data && data.length != 0 && !nodata) ?
                         <div className={`lg:grid lg:grid-cols-4 lg:gap-5 no_scroll`}>
                             {data.map((res, index) => {
                                 return (
@@ -86,7 +87,7 @@ export default function Tags({ res }) {
                                 <Image src={'/empty_states/no-article.svg'} className='' height={200} width={300} alt={'no data'} />
                             </div>
                             <h6 className='text-[16px] font-semibold text-center pt-[15px]'>No Article Found...</h6>
-                        </div>}
+                        </div>} */}
                 </div>
                 <div className='more' ref={cardref}>
 
@@ -105,9 +106,9 @@ export async function getServerSideProps({ params }) {
     }
     const resp = await getTagsList(param);
     let res = resp;
-    if (res.status != "success") {
-        res.data = []
-    }
+    // if (res.status != "success") {
+    //     res.data = []
+    // }
 
     return {
         props: { res }

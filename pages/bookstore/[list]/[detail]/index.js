@@ -61,50 +61,52 @@ export default function Bookstoredetail({ value, res }) {
 
 
   useEffect(() => {
-    getCarts('');
-    get_razor_pay_values();
-    if (value) {
-      let routPath = router.asPath.split('/')
-      if(routPath && routPath.length != 0){
-        routPath.map((res,i)=>{
-          if(i > 0){
-            setBreadCrumbs((d)=> d = [...d,{name:res,route:'/'+ res}]);
-          }
-        })
-      }
-      if(value.vendor_price_list && value.vendor_price_list.length != 0){     
-        if(value.has_variants == 1){
-            value.price = value.vendor_price_list[0].default_variant.product_price;
-            value.attribute_ids = value.vendor_price_list[0].default_variant.attribute_id;
-            value.business = value.vendor_price_list[0].business;
-            value.attribute = value.vendor_price_list[0].default_variant.variant_text;
-        } else{
-          value.price = value.vendor_price_list[0].product_price;
-          value.attribute_ids = value.vendor_price_list[0].attribute_id ? value.vendor_price_list[0].attribute_id : '';
-          value.business = value.vendor_price_list[0].business;
-          value.attribute =  value.vendor_price_list[0].variant_text ? value.vendor_price_list[0].variant_text : '';
+    if(typeof window !== 'undefined'){
+      getCarts('');
+      get_razor_pay_values();
+      if (value) {
+        let routPath = router.asPath.split('/')
+        if(routPath && routPath.length != 0){
+          routPath.map((res,i)=>{
+            if(i > 0){
+              setBreadCrumbs((d)=> d = [...d,{name:res,route:'/'+ res}]);
+            }
+          })
         }
+        if(value.vendor_price_list && value.vendor_price_list.length != 0){     
+          if(value.has_variants == 1){
+              value.price = value.vendor_price_list[0].default_variant.product_price;
+              value.attribute_ids = value.vendor_price_list[0].default_variant.attribute_id;
+              value.business = value.vendor_price_list[0].business;
+              value.attribute = value.vendor_price_list[0].default_variant.variant_text;
+          } else{
+            value.price = value.vendor_price_list[0].product_price;
+            value.attribute_ids = value.vendor_price_list[0].attribute_id ? value.vendor_price_list[0].attribute_id : '';
+            value.business = value.vendor_price_list[0].business;
+            value.attribute =  value.vendor_price_list[0].variant_text ? value.vendor_price_list[0].variant_text : '';
+          }
+        }
+        setData(value);
       }
-      setData(value);
-    }
-
-    if (res && res.length != 0) {
-       setPlans(content_type)
-    }
-
-
-    const handleClickOutside = (event) => {
-      let el = document.getElementById('dropdown').classList;
-      let classs = Array.from(el);
-      let out = classs.find(res => res == 'dropdown-menu-active');
-      if (ref.current && !ref.current.contains(event.target) && out) {
-        el.remove('dropdown-menu-active')
+  
+      if (res && res.length != 0) {
+         setPlans(content_type)
       }
-    };
-    document.addEventListener('click', handleClickOutside, true);
-    return () => {
-      document.removeEventListener('click', handleClickOutside, true);
-    };
+  
+  
+      const handleClickOutside = (event) => {
+        let el = document.getElementById('dropdown').classList;
+        let classs = Array.from(el);
+        let out = classs.find(res => res == 'dropdown-menu-active');
+        if (ref.current && !ref.current.contains(event.target) && out) {
+          el.remove('dropdown-menu-active')
+        }
+      };
+      document.addEventListener('click', handleClickOutside, true);
+      return () => {
+        document.removeEventListener('click', handleClickOutside, true);
+      };
+    }
 
   }, [router.query])
 
@@ -417,8 +419,8 @@ const  getCarts = async (type) => {
             <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex flex-col md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               {/* flex-[0_0_calc(100%_-_10px)] */}
               <div className={``}>
-                {(data.images && data.images.length != 0) ? <Image className={`w-full h-[665px]`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
-                  <Image className={`w-full h-[665px]`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />}
+                {(data.images && data.images.length != 0) ? <Image className={`w-full h-[500px]`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
+                  <Image className={`w-full h-[500px]`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />}
               </div>
               <div className='text-center pt-[15px]'>
                 <button className={`w-full h-[40px] border`}>Preview</button>
@@ -431,7 +433,7 @@ const  getCarts = async (type) => {
               <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
                 <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{data.item_title}</h6>
                 <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
-                  <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} />
+                  <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500 lg:pt-[6px]`} src={'/share.svg'} height={10} width={15} alt={'share'} />
                   {/* {sort && */}
                     <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
                       {icons && icons.map((res, index) => {
@@ -507,13 +509,13 @@ const  getCarts = async (type) => {
               
 
               {/* p-[20px] lg:m-[0_auto]*/ }
-              {(subs && subs.length != 0) && <div className={`grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[30px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
+              {(subs && subs.length != 0) && <div className={`grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[10px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
 
                 {subs.map((item, index) => {
                   return (
                     <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(subs, item, index)} key={index}>
                       <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.plan_name}</p>
-                      <p className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.total_amount)}</p>
+                      <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.total_amount)}</h6>
                       {item.features && item.features.map((f, index) => {
                         return (<p key={index} style={{fontWeight:'400'}} className='lg:text-[10px] sub_title md:text-[10px]'>{f.features}</p>)
                       })}
@@ -552,9 +554,9 @@ const  getCarts = async (type) => {
                 </div>
               }
               <div className='grid grid-cols-3 md:p-[0_10px_10px_10px] md:gap-[5px] lg:gap-[10px] lg:pt-[10px]'>
-                <div className='flex cursor-pointer items-center gap-[10px]'><p><Image height={15} className='h-full lg:w-[30px] md:w-[20px]' width={15} alt={''} src={'/bookstore/digital.svg'} /></p><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title'> Digital Subscription</span></div>
-                <div className='flex cursor-pointer items-center gap-[10px]'><p><Image height={15} className='h-full lg:w-[30px] md:w-[20px]' width={15} alt={''} src={'/bookstore/cancel.svg'} /></p><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title'> Cancel Anytime</span></div>
-                <div className='flex cursor-pointer items-center gap-[10px]'><p><Image height={15} className='h-full lg:w-[30px] md:w-[20px]' width={15} alt={''} src={'/bookstore/payment.svg'} /></p><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title'> Secure Payment</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><p><Image height={15} className='h-full lg:w-[30px] md:w-[24px] md:m-auto' width={15} alt={''} src={'/bookstore/digital.svg'} /></p><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Digital Subscription</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><p><Image height={15} className='h-full lg:w-[30px] md:w-[24px] md:m-auto' width={15} alt={''} src={'/bookstore/cancel.svg'} /></p><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Cancel Anytime</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><p><Image height={15} className='h-full lg:w-[30px] md:w-[24px] md:m-auto' width={15} alt={''} src={'/bookstore/payment.svg'} /></p><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Secure Payment</span></div>
               </div>
 
             </div>

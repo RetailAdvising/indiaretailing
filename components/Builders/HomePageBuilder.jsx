@@ -306,7 +306,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Photo Essays") && <>
                                             <Title data={{ title: c.component_title }} />
-                                            <div className='photo'><MultiCarousel perView={1} isHome={'/categories/'} check={true} cardHeight={'h-[310px]'} data={data.data[c.cid].data} height={"h-[175px]"} width={'w-full'} type={'card'} /></div>
+                                            <div className='photo'><MultiCarousel  isHome={'/categories/'} check={true} cardHeight={'h-[310px]'} data={data.data[c.cid].data} height={"h-[175px]"} width={'w-full'} perView={2} noPlay={true} none={true} type={'card'} /></div>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IMAGES Group Events") && <>
                                             <Title data={{ title: c.component_title }} />

@@ -54,7 +54,7 @@ export default function ExclusiveBuilder({ data }) {
                     :
                     <div className='w-full lg:h-[640px] md:pt-[20px] lg:pb-5 flex-[0_0_calc(25%_-_10px)] md:basis-full'>
                         <Title data={data.sec1} />
-                        <div className={`border lg:h-[605px] p-[10px] rounded-[5px]`}><List check={true} tittleOnly={true} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isBB={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[75px] md:h-[110px]'} data={data.sec1.data.slice(0, 5)} borderRadius={'rounded-[5px]'} isTop={true} /></div>
+                        <div className={`border lg:h-[595px] p-[10px] rounded-[5px]`}><List check={true} tittleOnly={true} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isBB={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[70px] md:h-[110px]'} data={data.sec1.data.slice(0, 5)} borderRadius={'rounded-[5px]'} isTop={true} /></div>
                     </div>
                 }
             </div>

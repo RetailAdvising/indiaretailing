@@ -1,9 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import nav from '@/libs/header'
 import SideBar from './SideBar';
 import { useRouter } from 'next/router';
 export default function MobileHead({ isLanding=false, Heading }) {
+
+    const [isVisible, setIsVisible] = useState(false);
+    useEffect(() => {
+        // After 2 seconds, set the isVisible state to true
+        const timeout = setTimeout(() => {
+          setIsVisible(true);
+    }, 2000);
+        // Clear the timeout if the component unmounts before the 2 seconds
+        return () => clearTimeout(timeout);
+    }, []);
+
     const [navbar, setNavbar] = useState(false);
     const router = useRouter()
 
@@ -25,7 +36,7 @@ export default function MobileHead({ isLanding=false, Heading }) {
 
     return (
         <>
-            {<div  className={`fixed sidebar ${navbar ? 'sideActive' : ''} `} ><SideBar data={nav} navbar={navbar} close={() => close()} /></div>}
+            {<div  className={`fixed sidebar ${navbar ? 'sideActive' : ''} `} ><div className={`${isVisible ? 'visible' : ''}`}></div><SideBar data={nav} navbar={navbar} close={() => close()} /></div>}
             <div className='flex border_bottom items-center h-[55px]  p-[0px_15px] justify-between sticky top-[0px]'>
                 <Image onClick={() => isLanding ? showSidebar() : window.history.back()} className='h-[16px] mouse' src={isLanding ? '/menu.svg' : '/back.svg'} height={14} width={15} layout="fixed" alt="Edit" />
                 {Heading == '' ? <Image style={{ objectFit: 'contain' }} onClick={() => router.push('/')} className='h-[50px] w-full' height={76.23} priority width={284.65} alt='' src={'/indiaretail.png'}></Image> : <h6 className='text-[16px] font-semibold tex-black capitalize'>{Heading}</h6>}

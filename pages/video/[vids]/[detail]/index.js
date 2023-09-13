@@ -10,6 +10,7 @@ import Title from '@/components/common/Title'
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import SEO from '@/components/common/SEO'
 import Video from '../../../../components/Video/Video';
+import Dropdowns from '../../../../components/common/Dropdowns';
 
 export default function Videos() {
 
@@ -26,7 +27,7 @@ export default function Videos() {
             if (data && data.length != 0) {
                 data.map(res => {
                     if (res.role == 'Member') {
-                        setValidator(!validator);
+                        setValidator(true);
                     }
                 })
             }
@@ -88,12 +89,13 @@ export default function Videos() {
                             </div>
                         </div>
 
-                        <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
+                        <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] md:pb-[10px]`}>
                             <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
-                            <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
-                                <Image onClick={share} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} />
-                                {/* {sort && */}
-                                <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
+                            {icons && <div className={``}><Dropdowns data={icons} share={true} /></div>}
+                            {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'> */}
+                            {/* <Image onClick={share} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} /> */}
+                            {/* {sort && */}
+                            {/* <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
                                     {icons && icons.map((res, index) => {
                                         return (
                                             <div key={index}>
@@ -116,16 +118,23 @@ export default function Videos() {
                                             </div>
                                         )
                                     })}
-                                </div>
-                                {/* } */}
-                            </div>
+                                </div> */}
+                            {/* } */}
+                            {/* </div> */}
                         </div>
 
                         <div className={`${validator ? 'lg:h-[430px] md:h-[220px]' : ''} my-[10px]`}>
                             {!validator ? <>
                                 <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
                                 <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'>
-                                    <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This video is for Premium Members you  have to buy Membership to Unlock</h6>
+                                    <div className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'>
+                                        <Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />
+                                        <div className='text-center   pb-[15px] '>
+                                            <h6 className='text-[20px] text-[white] md:text-[16px] font-semibold'>Prime Video</h6>
+                                            <p className='text-[14px] text-[white] md:text-[13px]'>This video is for Premium Members you  have to buy Membership to Unlock</p>
+                                        </div>
+
+                                    </div>
                                     <div className='flex gap-[20px] justify-center pt-[0px]'>
                                         <button className='primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
                                     </div>

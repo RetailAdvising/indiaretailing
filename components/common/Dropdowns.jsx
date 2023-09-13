@@ -11,18 +11,45 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
     const settings = async (data) => {
         if (data.name == 'more stories') {
             router.push('/' + router.asPath.split('/')[1] + '/' + router.query.types)
-        } else if (data.name == 'copy link') {
-            console.log('/' + router.asPath.split('/')[1] + '/' + res.route)
-            let str = '/' + router.asPath.split('/')[1] + '/' + res.route
+        } else if (data.name == 'Copy Link') {
+            console.log('https://indiaretail.vercel.app' + router.asPath)
+            let str = 'https://indiaretail.vercel.app' + router.asPath
             await navigator?.clipboard?.writeText(str)
+            // copyToClipboard(str);
         } else {
             let el = document.getElementById(element)
             el.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
         }
     }
 
+    // async function copyToClipboard(text) {
+    //     if (!navigator.clipboard) {
+    //       console.error('undefined navigator.clipboard');
+    //       return;
+    //     }
+    //     await navigator?.clipboard?.writeText(text).then(function() {
+    //       console.log('Async: Copying to clipboard was successful!');
+    //     }, function(err) {
+    //       console.error('Async: Could not copy text: ', err);
+    //     });
+    //   }
+      
+    //   function getCurrentURL() {
+    //       $parameters.URL = window.location.href.split('?')[0];
+      
+    //       var params = window.location.href.split('?')[1];
+    //       $parameters.Parameters = params ? params : '';
+          
+    //       return $parameters.URL;
+    //   }
+      
+    //   var currentURL = getCurrentURL();
+      
+    
+
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
+        console.log(router)
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
@@ -47,7 +74,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
 
     return (
         <>
-        {/* ${share ? 'w-[17px]' : type == 'head' ? 'w-[auto]' : 'w-[8px]'} */}
+            {/* ${share ? 'w-[17px]' : type == 'head' ? 'w-[auto]' : 'w-[8px]'} */}
             <Popover className={`relative `}>
                 {({ open }) => (
                     <>
@@ -88,19 +115,19 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                             {data && data.map((res, index) => {
                                                 return (
                                                     <div key={index} className=' p-[10px] rounded'>
-                                                        {res.name == 'Linkedin' && <LinkedinShareButton url={router.asPath} className='flex items-center gap-[10px]'>
+                                                        {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + router.asPath} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                             <p className={'text-[14px]'}>{res.name}</p>
                                                         </LinkedinShareButton>}
-                                                        {res.name == 'Facebook' && <FacebookShareButton url={router.asPath} className='flex items-center gap-[10px]'>
+                                                        {res.name == 'Facebook' && <FacebookShareButton url={'https://indiaretail.vercel.app/' + router.asPath} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                             <p className={'text-[14px]'}>{res.name}</p>
                                                         </FacebookShareButton>}
-                                                        {res.name == 'Twitter' && <TwitterShareButton url={router.asPath} className='flex items-center gap-[10px]'>
+                                                        {res.name == 'Twitter' && <TwitterShareButton url={'https://indiaretail.vercel.app/' + router.asPath} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                             <p className={'text-[14px]'}>{res.name}</p>
                                                         </TwitterShareButton>}
-                                                        {res.name == 'Whatsapp' && <WhatsappShareButton url={router.asPath} className='flex items-center gap-[10px]'>
+                                                        {res.name == 'Whatsapp' && <WhatsappShareButton url={'https://indiaretail.vercel.app/' + router.asPath} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                             <p className={'text-[14px]'}>{res.name}</p>
                                                         </WhatsappShareButton>}

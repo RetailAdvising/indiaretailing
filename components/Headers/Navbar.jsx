@@ -61,7 +61,7 @@ export default function Navbar({heading,isLanding}) {
             {/* {<div className={` lg:hidden sidebar ${navbar ? 'sideActive' : ''} `} ><SideBar data={nav} close={() => close()} /></div>} */}
             {/* onClick={showSidebar} */}
             {(nav.header && nav.header.items.length != 0 && !isMobile) ? <div className={`border_top sticky_header ${(router.asPath == '' || router.asPath == '/') ? 'lg:p-[15px_30px]' : 'lg:p-[15px_30px]'} ${navbar ? '' : 'md:p-[0_20px]'} ${header.navHead} md:h-[55px]`}>
-                <div className={`${navbar ? '' : 'container'}  flex flex-wrap items-center justify-between`}>
+                <div className={`${navbar ? '' : 'container'} flex flex-wrap items-center justify-between`}>
                     {nav.header.items.map(res => {
                         return (
                             <div key={res.section_name} className={`${(res.section_name == 'Header Logo' || res.section_name == 'Header Profile Info') ? 'flex-[0_0_calc(20%_-_10px)]' : (res.section_name == 'Header Category Info') ? 'lg:flex-[0_0_calc(100%_-_10px)] container pt-[10px]' : 'flex-[0_0_calc(60%_-_10px)]'}`}>

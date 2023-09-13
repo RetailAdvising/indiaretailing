@@ -64,7 +64,7 @@ export default function SideBar({ data, close, navbar }) {
 
     return (
         <>
-            {(data.header && data.header.items.length != 0 && navbar) && <div id='side' ref={ref} className={`p-[20px] bg-[#fff] w-[80%] h-screen relative`}>
+            {(data.header && data.header.items.length != 0 && navbar) && <div id='side' ref={ref} className={`bg-[#fff] w-[80%] h-screen relative`}>
                 {/* <div className=''> */}
                 {valid ? <div className='flex items-center gap-[10px] border_bottom pb-[15px]'>
                     <Image className='h-[40px] w-[40px]' src={'/profit.svg'} height={17} width={17} alt={'profile'} />
@@ -76,7 +76,7 @@ export default function SideBar({ data, close, navbar }) {
                     </div>
 
                 </div> : 
-                    <div className='flex gap-[10px] border_bottom pb-[15px] items-center'>
+                    <div className='flex gap-[10px] border_bottom p-[15px] items-center'>
                     <div style={{flex:'0 0 40px'}}>
                     <Image  src={'/profit.svg'}  height={40} width={40} alt={'profile'} />
                     </div>
@@ -94,7 +94,7 @@ export default function SideBar({ data, close, navbar }) {
                 </div>}
 
                 {/* </div> */}
-                <div className='pt-[15px]'>
+                <div className='p-[10px_15px]'>
                     {data.header.items.map(res => {
                         return (
                             <div key={res.section_name}>

@@ -4,7 +4,10 @@ import AudioPlayer from '@/components/Podcast/AudioPlayer';
 import { podcast_details, getAds, podcast_list } from '@/libs/api'
 import SEO from '@/components/common/SEO'
 import { check_Image } from '@/libs/common';
-// import Title from '../common/Title'
+import Title from '@/components/common/Title'
+import Cards from '@/components/common/Cards'
+import List from '@/components/common/List'
+
 
 export default function PodcastDetail({ data, ads_data }) {
     // const {data,ads_data} = data
@@ -17,12 +20,24 @@ export default function PodcastDetail({ data, ads_data }) {
                     {
                         <div className="w-full">
                             <AudioPlayer data={data.message} />
-                            {/* <Title data={data.other_category.category_name} seeMore={false} /> */}
-                            {/* <div className={`flex gap-[10px] justify-between no_scroll lg:flex-wrap`}>
-                                <Cards data={data.other_category.category_name.data} check={true} border_none={true} height={'h-[190px]'} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(50%_-_10px)]'} />
-                            </div> */}
                         </div>
                     }
+                    <>
+                        {
+                            <div className="flex w-full">
+                                <div className="w-[75%] md:w-full lg:pr-[10px]">
+                                    <Title data={{ title: 'Related Podcasts' }} seeMore={false} />
+                                    <div className={`flex gap-[20px] justify-between no_scroll lg:flex-wrap md:flex-wrap md:gap-[10px]`}>
+                                        <Cards data={data.related_podcasts} check={true} border_none={true} height={'h-[220px]'} width={'w-[80%]'} flex={'flex-[0_0_calc(33.33%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} />
+                                    </div>
+                                </div>
+                                <div className="w-[25%] p-[10px] border md:hidden">
+                                    <Title data={data.other_category} seeMore={false} />
+                                    <List data={data.other_category.data} check={true} />
+                                </div>
+                            </div>
+                        }
+                    </>
                 </div>
             </RootLayout>}
 
@@ -39,7 +54,8 @@ export async function getServerSideProps({ params }) {
     let Id = await params ?.detail;
     let list_Id = await params ?.list;
     let param = {
-        route: list_Id + '/' + Id
+        route: list_Id + '/' + Id,
+        fields: ['name', 'title', 'sound', 'image', 'category', 'description', 'route'],
     }
     let value = await podcast_details(param);
     let data = value;

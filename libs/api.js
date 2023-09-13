@@ -8,21 +8,21 @@ const ecomUrlV2 = `ecommerce_business_store.ecommerce_business_store.v2.`;
 const subscription = `subscription.subscription.api.`;
 const app_name = 'India Retail';
 
-let apikey;
-let secret;
+// let apikey;
+// let secret;
 let razorpay_settings;
 let r_pay_color ='#e21b22';
 
 // const router = useRouter();
 
 
-if (typeof window !== 'undefined') {
-    // Perform localStorage action
-    // apikey = localStorage['apikey'] ? localStorage['apikey'] : "955e1e58eaa8a8e";
-    // secret = localStorage['secret'] ? localStorage['secret'] : "6b5ba30c64e937e";
-    apikey = localStorage['apikey'] ? localStorage['apikey'] : undefined;
-    secret = localStorage['secret'] ? localStorage['secret'] : undefined;
-}
+// if (typeof window !== 'undefined') {
+//     // Perform localStorage action
+//     // apikey = localStorage['apikey'] ? localStorage['apikey'] : "955e1e58eaa8a8e";
+//     // secret = localStorage['secret'] ? localStorage['secret'] : "6b5ba30c64e937e";
+//     apikey = localStorage['apikey'] ? localStorage['apikey'] : undefined;
+//     secret = localStorage['secret'] ? localStorage['secret'] : undefined;
+// }
 
 export const checkMobile = () => {
     if (window.innerWidth < 767) {
@@ -193,6 +193,15 @@ export async function createSubscription(order_id) {
 
 
 export async function postMethod(api, payload) {
+    let apikey;
+    let secret;
+    if (typeof window !== 'undefined') {
+        // Perform localStorage action
+        // apikey = localStorage['apikey'] ? localStorage['apikey'] : "955e1e58eaa8a8e";
+        // secret = localStorage['secret'] ? localStorage['secret'] : "6b5ba30c64e937e";
+        apikey = localStorage['apikey'] ? localStorage['apikey'] : undefined;
+        secret = localStorage['secret'] ? localStorage['secret'] : undefined;
+    }
     const myHead = new Headers((apikey && secret) ? { "Authorization": 'token ' + apikey + ':' + secret, "Content-Type": "application/json" } : { "Content-Type": "application/json" })
     // const myHead = new Headers()
     // myHead.append('Content-Type', 'application/json');
@@ -204,6 +213,15 @@ export async function postMethod(api, payload) {
 }
 
 export async function GET(api) {
+    let apikey;
+    let secret;
+    if (typeof window !== 'undefined') {
+        // Perform localStorage action
+        // apikey = localStorage['apikey'] ? localStorage['apikey'] : "955e1e58eaa8a8e";
+        // secret = localStorage['secret'] ? localStorage['secret'] : "6b5ba30c64e937e";
+        apikey = localStorage['apikey'] ? localStorage['apikey'] : undefined;
+        secret = localStorage['secret'] ? localStorage['secret'] : undefined;
+    }
     const myHead = new Headers((apikey && secret) ? { "Authorization": 'token ' + apikey + ':' + secret, "Content-Type": "application/json" } : { "Content-Type": "application/json" })
     // const myHead = new Headers()
     // myHead.append('Content-Type', 'application/json');

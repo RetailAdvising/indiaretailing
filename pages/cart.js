@@ -41,12 +41,14 @@ export default function cart() {
     // }
 
     useEffect(() => {
-        getCarts('loader');
-        checkIsMobile();
-        window.addEventListener('resize',checkIsMobile)
-        return () => {
-          window.removeEventListener('resize', checkIsMobile);
-        };
+        if(typeof window !== 'undefined'){
+            getCarts('loader');
+            checkIsMobile();
+            window.addEventListener('resize',checkIsMobile)
+            return () => {
+              window.removeEventListener('resize', checkIsMobile);
+            };
+        }
 
     },[])
 
