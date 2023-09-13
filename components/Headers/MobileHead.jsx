@@ -79,7 +79,7 @@ export default function MobileHead({ isLanding=false, Heading }) {
         <>
             {<div  className={`fixed sidebar ${navbar ? 'sideActive' : ''} `} ><div className={`${isVisible ? 'visible' : ''}`}></div><SideBar data={nav} navbar={navbar} close={() => close()} /></div>}
             {/* <div  id="header" className='nav-down'> */}
-            <div className='flex border_bottom items-center justify-between sticky top-[0px] p-[5px_15px] ' >
+            <div className='flex border_bottom items-center justify-between sticky top-[0px] p-[5px_15px] h-[55px]' >
                 <div className='flex gap-[15px] items-center'>
                     <div >
                     <Image onClick={() => isLanding ? showSidebar() : window.history.back()} className={`${isLanding ? 'w-[20px]' : 'w-[9px]'} mouse`} src={isLanding ? '/menu.svg' : '/back.svg'} height={14} width={15} layout="fixed" alt="Edit" />
