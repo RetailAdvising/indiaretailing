@@ -94,10 +94,10 @@ export default function Tags({ res }) {
                 <div className={`container p-[30px_0px] md:p-[15px]`}>
                    {tabs && <Tabs categories={categories} tab={tabs} setTabs={(data) => getTabs(data)} />}
                     {(activatedData && activatedData.length != 0 && !nodata) ?
-                        <div className={`lg:grid m-[20px_0] md:m-[15px_0] lg:grid-cols-4 lg:gap-5 no_scroll`}>
+                        <div className={`lg:grid m-[20px_0] md:m-[15px_0] lg:grid-cols-5 lg:gap-5 no_scroll`}>
                             {activatedData.map((res, index) => {
                                 return (
-                                    <div key={index} onClick={() => checkRoute(res)} className={`border h-[310px] cursor-pointer rounded-[10px]`}>
+                                    <div key={index} onClick={() => checkRoute(res)} className={`border md:flex-[0_0_calc(70%_-_10px)] h-[310px] cursor-pointer rounded-[10px]`}>
                                         <div>
                                             <Image src={check_Image(res.thumbnail_image)} height={500} width={800} className={`w-full h-[200px] rounded-[10px_10px_0_0]`} alt={res.title ? res.title : index} />
                                         </div>
