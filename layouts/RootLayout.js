@@ -2,10 +2,10 @@ import AdsBaner from '@/components/Baners/AdsBaner'
 import MainFooter from '@/components/Footer/MainFooter'
 import Header from '@/components/Headers/Header'
 import Navbar from '@/components/Headers/Navbar'
+import BottomTabs from '@/components/common/BottomTabs'
 import SEO from '@/components/common/SEO'
 import React from 'react'
 // import '@/styles/globals.scss'
-
 export default function RootLayout({ children, checkout, isLanding, head, homeAd, data }) {
   // console.log(data.footer_content)
   const styles = {
@@ -21,6 +21,9 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       {!checkout && <Navbar isLanding={isLanding} heading={head} />}
       <main id='main'>{children}</main>
       <MainFooter />
+      <div className='lg:hidden'>
+      <BottomTabs />
+      </div>
       </div>
     </>
   )
