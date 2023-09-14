@@ -5,12 +5,14 @@ import Image from 'next/image';
 import { logIn } from '@/libs/api';
 import { useRouter } from 'next/router';
 import OTP from './OTP';
+// import GoogleLogin from './GoogleLogin';
 // import { GoogleLogin } from 'react-google-login';
 // import NextAuth from 'next-auth';
 // import Providers from 'next-auth/providers';
 // import { signIn, useSession } from 'next-auth/react';
 
 // import { LoginSocialGoogle } from 'reactjs-social-login';
+// import { GoogleLoginButton } from "reactjs-social-login";
 
 import { useDispatch, useSelector } from 'react-redux';
 import setUser from 'redux/actions/userAction';
@@ -28,6 +30,21 @@ export default function LogIn({ isModal, hide }) {
     const user = useSelector(s => s.user);
     const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors } } = useForm();
+    // const [ islogin, setislogin] = useState(false)
+    // const GoogleLoginButton = ({ onSuccess, onError }) => {
+    //     const responseGoogle = (response) => {
+    //         if (response && response.profileObj) {
+    //         onSuccess(response.profileObj);
+    //         } else {
+    //         onError("Google authentication failed.");
+    //         }
+    //     };
+
+    // useEffect(() => {
+    //     if (typeof window !== "undefined") {
+    //         setislogin(true);
+    //     }
+    // }, []);
 
     async function login(data) {
         if (data) {
@@ -55,10 +72,28 @@ export default function LogIn({ isModal, hide }) {
 
     }
 
-    const responseGoogle = (response) => {
-        console.log(response);
-        // Handle the response from Google here (e.g., send it to your server for authentication).
+    const handleSuccess = (response) => {
+        console.log("Google authentication success:", response);
+        // Handle successful authentication here
       };
+    
+      const handleFailure = (error) => {
+        console.error("Google authentication error:", error);
+        // Handle authentication failure here
+      };
+
+    // const responseGoogle = (response) => {
+    //     if (response && response.profileObj) {
+    //     onSuccess(response.profileObj);
+    //     } else {
+    //     onError("Google authentication failed.");
+    //     }
+    // };
+
+    // const responseGoogle = (response) => {
+    //     console.log(response);
+    //     // Handle the response from Google here (e.g., send it to your server for authentication).
+    //   };
 
     async function go_to_home() {
         isModal ? hide() : router.push('/')
@@ -106,10 +141,11 @@ export default function LogIn({ isModal, hide }) {
                         <Image height={20} width={20} alt='google' src={'/login/Login-OTP.svg'} />
                         <p>Login With OTP</p>
                     </div>
-                    {/* <div onClick={() => signIn('google')} className='flex gap-[10px] mb-[18px] h-[45px] rounded-[5px] border cursor-pointer items-center justify-center '>
+                    <div onClick={() => signIn('google')} className='flex gap-[10px] mb-[18px] h-[45px] rounded-[5px] border cursor-pointer items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/google-login.svg'} />
                         <p>Continue with Google</p>
-                    </div> */}
+                        {/* { islogin && <GoogleLogin onSuccess={handleSuccess} onFailure={handleFailure} />} */}
+                    </div>
                     {/* <>{
                         <GoogleLogin
                             clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com"
@@ -120,6 +156,7 @@ export default function LogIn({ isModal, hide }) {
                         />
                         }
                     </> */}
+                    
                     <div className='flex gap-[10px] items-center h-[45px] rounded-[5px] cursor-pointer justify-center border'>
                         <Image height={20} width={20} alt='apple' src={'/Apple-login.svg'} />
                         <p>Continue with Apple</p>

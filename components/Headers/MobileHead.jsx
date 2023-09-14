@@ -21,17 +21,25 @@ export default function MobileHead({ isLanding=false, Heading }) {
     var lastScrollTop = 0;
     var element = document.getElementById('scroll_div')
     var main = document.getElementById('main')
+    var tabs = document.getElementById('tabs')
     var header = document.getElementById('header')
+    element.scrollTop = 0
+    header.className = 'nav-down'
     element.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
        var st = element.scrollTop // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+       console.log(st);
        if(st < 100){
-        main.className = 'mt-[95px]'
+        header.className = 'nav-down'
+        element.classList.add('mt-[95px]')
        }
        else if (st > lastScrollTop) {
         header.className = 'nav-up'
-
+        element.classList.remove('mt-[95px]')
+        tabs.className = 'tabs-up'
        } else if (st < lastScrollTop && st > 100) {
         header.className = 'nav-down'
+        element.classList.remove('mt-[95px]')
+        tabs.className = 'tabs-down'
        } // else was horizontal scroll
        lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
     }, false);

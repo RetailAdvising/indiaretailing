@@ -9,7 +9,7 @@ export default function ImageGroupEvents({ data, height, width, isHome = undefin
                 return (
                     <Link key={index} href={isHome ? isHome + res.route : null}>
                         <div className={`imageGroup h-full`} >
-                            <div className={`imageContainer h-[75%]`}>
+                            <div className={`imageContainer h-[80%]`}>
                                 <Image className={`image ${height} ${width}`} src={check_Image(res.thumbnail_path)} height={100} width={200} alt={res.title} />
                             </div>
                             <div className={`pt-[10px]`}>

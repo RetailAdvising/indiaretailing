@@ -33,6 +33,9 @@ export default function profile({my_account}) {
   const [razorpay_settings, setRazorpay_settings] = useState({}) ;
   const [enableModal,setEnableModal] = useState(false)
 
+  const [index,setIndex] = useState(-1)
+
+
   const router = useRouter();
 
   
@@ -104,17 +107,19 @@ export default function profile({my_account}) {
   }
 
   function closeModal(value) {
-    setAlertUi(false);
     setEnableModal(false);
-    if(value == 'Yes'){
+    if(value == 'Yes' && alertUi){
+      setAlertUi(false);
       localStorage.clear();
       router.push('/login'); 
+    }else{
+      setAlertUi(false);
     }
   }
 
   const payNow = (obj) =>{
-    console.log(obj);
-    // load_razorpay(obj.checked_plans.total_amount,obj.checked_plans.name,obj.name)
+    // setIndex(index + 1);
+    load_razorpay(obj.sub_plans[0].plan_info.price,obj.subscription_plan,obj.sub_plans[0].order_info.name,obj)
   }
  
   function payment_error_callback(error){
@@ -122,24 +127,49 @@ export default function profile({my_account}) {
    setEnableModal(true);
  }
  
- async function payment_Success_callback(response,amount,order_id){
-   let params = {
-     "customer_id": localStorage['customer_id'],
-     "payment_method": "PAY-M00001",
-     "amount":amount,
-     "remarks":"paid",
-     "transaction_id":response.razorpay_payment_id,
-     "order_id":order_id,
-     "payment_method_name":"Razor Pay"
-   }
+ async function payment_Success_callback(response,amount,order_id,obj){
+  let params;
+
+  if(obj.items && obj.items.length == 0){
+    params = {
+      "customer_id": localStorage['customer_id'],
+      "payment_method": "PAY-M00001",
+      "amount": amount,
+      "remarks": "paid",
+      "transaction_id": response.razorpay_payment_id,
+      "order_id": order_id,
+      "payment_method_name": "Razor Pay",
+      "subscription_type": "member"
+    }
+  }else{
+    params = {
+      "customer_id": localStorage['customer_id'],
+      "payment_method": "PAY-M00001",
+      "amount":amount,
+      "remarks":"paid",
+      "transaction_id":response.razorpay_payment_id,
+      "order_id":order_id,
+      "payment_method_name":"Razor Pay"
+    }
+  }
+
    const resp = await make_payment_entry(params);
    if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
     setAlertMsg({message:'Payment successfully received'});
     setEnableModal(true);
+    obj.status = 'Active';
+    setIndex(index + 1);
+
+    if(localStorage['roles'] && obj.items && obj.items.length == 0){
+      let get_values = JSON.parse(localStorage['roles']);
+      get_values.push({role:'Member'})
+      localStorage['roles'] = JSON.stringify(get_values)
+    }
+    
    }
  }
  
- const load_razorpay = async (amount,description,order_id) => { 
+ const load_razorpay = async (amount,description,order_id,obj) => { 
  // console.log(razorpay_settings.api_key)
    let r_pay_color ='#e21b22';
    const app_name = 'India Retail';
@@ -155,7 +185,7 @@ export default function profile({my_account}) {
      "modal": { "backdropclose": false, "ondismiss": () => { payment_error_callback(description)} },
      "handler" : async (response, error) => {
        if(response){
-         payment_Success_callback(response,amount,order_id)
+         payment_Success_callback(response,amount,order_id,obj)
          // response.razorpay_payment_id
        } else if(error){
          payment_error_callback(error)
@@ -184,7 +214,7 @@ export default function profile({my_account}) {
             <AlertUi isOpen={alertUi} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} /> 
        }
 
-    { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+       { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
 
         <div className='border-t-[1px] border-t-slate-200'>
@@ -232,7 +262,7 @@ export default function profile({my_account}) {
                   <div>
                    <h6 className='flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[1px] border-b-slate-200'>My Subscription</h6>
                    <div className=''>
-                     <SubscribtionsPlan payNow={(obj)=>payNow(obj)}/>
+                     <SubscribtionsPlan index={index} payNow={(obj)=>payNow(obj)}/>
                    </div>  
                   </div> 
                   }

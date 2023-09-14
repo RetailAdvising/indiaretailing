@@ -10,12 +10,13 @@ import { HomePage, getAds } from '../libs/api';
 import { useEffect, useState } from 'react';
 import SEO from '@/components/common/SEO'
 
-export default function Home({ data, ads }) {
+export default function Home({ data }) {
 
   const [pageNo, setPageNo] = useState(0);
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(7);
   const [value, setValue] = useState([])
+  const [adv, setAdv] = useState()
 
 
 
@@ -41,6 +42,15 @@ export default function Home({ data, ads }) {
       // console.log(ads)
     }
 
+    const ads = async () => {
+      let params = { doctype: 'Web Page Builder', page_type: 'Home' }
+      const res = await getAds(params);
+      const ads = res.message;
+      setAdv(ads)
+    }
+
+    ads()
+
     // data()
     // if (pageNo > 0) {
     //   // console.log('Load more')
@@ -50,12 +60,12 @@ export default function Home({ data, ads }) {
     // }
   }, [])
   console.log(data)
-
+    
   return (
     <>
       {/*  isLast={index == value.length - 1} */}
-      <RootLayout data={data} isLanding={true} head={''} homeAd={ads ? ads : null}>
-      <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'}/>
+      <RootLayout data={data} isLanding={true} head={''} homeAd={adv ? adv : null}>
+        <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
         {(value && value.length != 0) && value.map((res, index) => {
           return (
             <HomePageBuilder key={index} i={index} data={res} loadMore={() => setPageNo(p => p + 1)} />
@@ -76,12 +86,10 @@ export async function getStaticProps() {
   const resp = await HomePage(param);
   const data = await resp.message;
 
-  let params = { doctype: 'Web Page Builder', page_type: 'Home' }
-  const res = await getAds(params);
-  const ads = res.message;
+
 
   return {
-    props: { data, ads }, revalidate: 10
+    props: { data }, revalidate: 10
   }
 
 }

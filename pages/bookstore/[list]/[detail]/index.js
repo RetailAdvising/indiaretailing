@@ -13,8 +13,10 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import LoaderButton from '@/components/common/LoaderButton';
 import styles from '@/styles/checkout.module.scss';
 import AlertUi from '@/components/common/AlertUi';
-import SEO from '@/components/common/SEO'
+import SEO from '@/components/common/SEO';
 
+// import PageFlip from 'react-pageflip';
+// import { Document, Page } from 'react-pdf';
 // import BreadCrumb from '@/components/common/BreadCrumb';
 // import Razorpay from 'razorpay';
 
@@ -22,6 +24,7 @@ export default function Bookstoredetail({ value, res }) {
 
   const [subs, setSubs] = useState();
   const [indexs, setIndex] = useState(-1);
+  const [imageIndex, setIndexImage] = useState(-1);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState();
@@ -65,7 +68,8 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        // console.log(value)
+        console.log(value);
+        check_main_image(value)
         let routPath = router.asPath.split('/')
         if(routPath && routPath.length != 0){
           routPath.map((res,i)=>{
@@ -136,6 +140,31 @@ export default function Bookstoredetail({ value, res }) {
 
   }
 
+  function check_main_image(value){
+    if(value.images && value.images.length != 0){
+     let image = value.images.find(res=>{ return res.is_primary == 1})
+     if(image){
+       value.selected_image = image.detail_image
+     }else{
+      value.selected_image = value.images[0].detail_image
+     }
+    }
+  }
+
+  function changeMainImage(index,value){
+     value.images.map((res,i)=>{ 
+       if(index == i){
+        value.selected_image = res.detail_image;
+        res.is_primary = 1
+       }else{
+        res.is_primary = 0
+       }
+     })
+     setIndexImage(imageIndex + 1);
+  }
+    
+
+
   async function get_razor_pay_values(){
     let razorpay = await get_razorpay_settings();
     setRazorpay_settings(razorpay);
@@ -147,7 +176,8 @@ export default function Bookstoredetail({ value, res }) {
         "subscription_plan": checked_plans.plan_name,
         "item":data['name'],
         "subscription_type":"item",
-        "content_type":content_type
+        "content_type":content_type,
+        "price":data['price'],
     }
     const resp = await insert_member_subscription(params);
     setLoader(false);
@@ -213,7 +243,6 @@ export default function Bookstoredetail({ value, res }) {
            payment_error_callback(error)
            console.log(error)
         }
-
       }
     };
 
@@ -404,7 +433,13 @@ const  getCarts = async (type) => {
       // setPlans(content_type)
     }
   }
+  const [preview_screen,setPreview_screen] = useState(false)
 
+  async function preview(){
+    setPreview_screen(true);
+    // const pdfUrl = 'https://shop.indiaretailing.com/wp-content/uploads/2016/04/Sample_16-pgs_Trend-Talk_2016.pdf'; // Replace with your PDF URL
+    // window.open(pdfUrl, '_blank');
+  }
 
   async function closeModal(value){
     setEnableModal(false);
@@ -423,15 +458,39 @@ const  getCarts = async (type) => {
         {!data ?  <Skeleton /> :
           (data && Object.keys(data).length != 0) && <div className='container'>
           <div className={`flex justify-between flex-wrap gap-[15px] py-8`}>
-            <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex flex-col md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
-              {/* flex-[0_0_calc(100%_-_10px)] */}
-              <div className={``}>
-                {(data.images && data.images.length != 0) ? <Image className={`w-full h-[500px]`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
-                  <Image className={`w-full h-[500px]`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />}
+            <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
+             
+             <div className={`mr-[10px]`}>
+              {(data.images && data.images.length != 0) &&
+               data.images.map((res,index)=>{
+                return (
+                 <div onMouseEnter={()=>changeMainImage(index,data)} key={index} className={`${res.is_primary == 1 ? 'border-black' : null} h-[100px] w-[100px] cursor-pointer mb-[10px] border rounded-[5px] p-[5px] flex-items-center justify-center`}>
+                   <Image className={`h-[90px] object-contain`} src={check_Image(res.detail_thumbnail)} height={90} width={90} alt={data.item_title} />
+                 </div>
+                )
+              })
+              }
+             </div> 
+
+             <div className='w-full'>
+              <div className={`bg-[#f1f1f14f] py-[5px]`}>
+                <Image className={`w-full h-[465px] object-contain`} src={check_Image(data.selected_image)} height={200} width={300} alt={data.item_title} />
+               </div>
+               <div className='text-center pt-[15px]'>
+                <button onClick={()=>preview()} className={`w-full h-[40px] border`}>Preview</button>
+               </div>
+             </div>
+
+              {/* <div className={``}>
+                {(data.images && data.images.length != 0) ? 
+                  <Image className={`w-full h-[500px]`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
+                  <Image className={`w-full h-[500px]`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />
+                }
               </div>
               <div className='text-center pt-[15px]'>
-                <button className={`w-full h-[40px] border`}>Preview</button>
-              </div>
+                <button onClick={()=>preview()} className={`w-full h-[40px] border`}>Preview</button>
+              </div> */}
+
             </div>
 
 
@@ -473,26 +532,28 @@ const  getCarts = async (type) => {
               <div className={`flex md:p-[0_10px_10px_10px] lg:hidden flex-col`}>
                 {/* flex-[0_0_calc(100%_-_10px)] */}
                 <div className={`md:h-[430px] md:p-[0px_10px_10x_10px]`}>
+                  {/* <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />} */}
                   {(data.images && data.images.length != 0) ? 
                     <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
-                    <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />}
+                    <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />
+                  }
                 </div>
                 <div className='text-center pt-[15px]'>
                   <button className={`w-full h-[40px] border`}>Preview</button>
                 </div>
               </div>
 
-              <div className={`flex md:p-[10px] items-center pt-[10px] gap-5`}>
+              <div className={`flex md:p-[0px_10px_10px_10px] items-center pt-[2px] gap-5`}>
                 {/* <p className={`p-[5px_12px] border rounded-[10px] cursor-pointer`}>PDF</p> */}
                 <p className={`text-[20px] text-red font-semibold`}>{formatter.format(data.price)}</p>
               </div>
 
               {data.vendor_price_list && data.vendor_price_list[0] && data.vendor_price_list[0].variants && data.vendor_price_list[0].variants.length != 0 &&
-                 <div className='flex gap-[10px] lg:m-[18px_0px_0_0px] md:m-[18px_10px_0_10px] items-center'>
+                 <div className='flex gap-[10px] lg:m-[12px_0px_0_0px] md:m-[0] items-center'>
                     {data.vendor_price_list[0].variants.map((vendor,index)=>{
                       return(
                         // && (indexs < 0)
-                        <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == vendor.attribute_id ) ? 'active_border' : null} h-[45px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_8px] `}>
+                        <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == vendor.attribute_id ) ? 'active_border' : null} lg:h-[45px] md:h-[40px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_8px] `}>
                           <input className={styles.input_radio} checked={data.attribute_ids == vendor.attribute_id} type="radio"/>
                           <p className='text-[12px]'>{vendor.variant_text}</p>
                         </div>
@@ -516,54 +577,59 @@ const  getCarts = async (type) => {
               
 
               {/* p-[20px] lg:m-[0_auto]*/ }
-              {(subs && subs.length != 0) && <div className={`grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[10px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
+              {(subs && subs.length != 0) && 
+              
+              <><div className={`md:hidden grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[10px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
 
-                {subs.map((item, index) => {
-                  return (
-                    <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(subs, item, index)} key={index}>
-                      <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.plan_name}</p>
-                      <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.total_amount)}</h6>
-                      {item.features && item.features.map((f, index) => {
-                        return (<p key={index} style={{fontWeight:'400'}} className='lg:text-[10px] sub_title md:text-[10px]'>{f.features}</p>)
+                    {subs.map((item, index) => {
+                      return (
+                        <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(subs, item, index)} key={index}>
+                          <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.plan_name}</p>
+                          <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.total_amount)}</h6>
+                          {item.features && item.features.map((f, index) => {
+                            return (<p key={index} style={{ fontWeight: '400' }} className='lg:text-[10px] sub_title md:text-[10px]'>{f.features}</p>);
+                          })}
+                          {/* <p className='text-[14px]'>{res.issues}</p> */}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className={`lg:hidden p-[12px_0_4px_0]`}>
+
+                      {subs.map((item, index) => {
+                        return (
+                        <div key={index} onClick={() => handleSubs(subs, item, index)} className={`flex cursor-pointer gap-[5px] pb-[4px] last:pb-[0px] items-center`}>
+                          <input className={styles.input_radio} checked={index == indexs} type="radio"/>
+                          <p className='text-[12px]'>{item.plan_name}</p>
+                          <p className='text-[12px] font-semibold'>({formatter.format(item.total_amount)})</p>
+                        </div>
+                        );
                       })}
-                      {/* <p className='text-[14px]'>{res.issues}</p> */}
-                    </div>
-                  )
-                })}
-              </div>}
+                  </div>
+                </>
+              
+              }
 
-              <div className={`md:p-[10px] lg:w-[570px] text-center md:p-[10px_0_30px_0] lg:p-[20px_0_40px_0] border_bottom mb-[20px]`}>
-
-                {/* (value.quantity == 0 || indexs >= 0) &&  */}
-
-                <LoaderButton loader={loader} width={'lg:w-[250px] md:w-[85%]'} image_left={indexs >= 0 ? '/bookstore/subscribe.svg' :'/bookstore/cart.svg'} button_name={indexs >= 0 ? 'Subscribe' : 'Add to Cart'} buttonClick={addToCart} />
-               
-
-                {/* {(value.quantity > 0 && indexs < 0) &&
-                 <div className='flex items-center justify-between p-[10px] border border-slate-100 rounded-[5px] h-[30px] w-[85px] gap-[10px]'>
-                  <Image onClick={() => loader ? null : updateCart(value, 'dec')} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/_.svg'} height={20} width={20} alt='minus' />
-                  {loader ? <div class="animate-spin rounded-full h-[15px] w-[15px] border-l-2 border-t-2 border-black"></div> : <p className='font-semibold'>{value.quantity}</p>}
-                  <Image onClick={() => loader ? null :  updateCart(value, 'inc')} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/+.svg'} height={20} width={20} alt='plus' />
-                 </div>
-                }  */}
-                
-
+              <div className='border_bottom mb-[20px]'>
+               <div className={`md:p-[10px] lg:w-[570px] text-center md:p-[10px_0_30px_0] lg:p-[0px_0_20px_0]`}>
+                <LoaderButton loader={loader} cssclass={'lg:w-[250px] md:w-[100%] md:h-[40px] m-0'}image_left={indexs >= 0 ? '/bookstore/subscribe.svg' :'/bookstore/cart.svg'} button_name={indexs >= 0 ? 'Subscribe' : 'Add to Cart'} buttonClick={addToCart} />
+               </div>
               </div>
 
               <Modal modal={modal} show={show} visible={visible} hide={hide} />
 
               {data.full_description &&
-                <div className='px-[10px] border_bottom pb-[10px] mb-[10px]'>
+                <div className='px-[10px] border_bottom pb-[20px] mb-[20px]'>
                   <h6 className='pb-[10px] font-semibold'>This Issue</h6>
                   {/* <div className='line-clamp-[10]' dangerouslySetInnerHTML={{__html:data.full_description}} ></div> */}
                   <div className='line-clamp-[8]' dangerouslySetInnerHTML={{ __html: data.full_description }} />
                   {/* <p className='font-semibold'>Read More...</p> */}
                 </div>
               }
-              <div className='grid grid-cols-3 md:p-[0_10px_10px_10px] md:gap-[5px] lg:gap-[10px] lg:pt-[10px]'>
-                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><p><Image height={15} className='h-full lg:w-[30px] md:w-[24px] md:m-auto' width={15} alt={''} src={'/bookstore/digital.svg'} /></p><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Digital Subscription</span></div>
-                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><p><Image height={15} className='h-full lg:w-[30px] md:w-[24px] md:m-auto' width={15} alt={''} src={'/bookstore/cancel.svg'} /></p><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Cancel Anytime</span></div>
-                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><p><Image height={15} className='h-full lg:w-[30px] md:w-[24px] md:m-auto' width={15} alt={''} src={'/bookstore/payment.svg'} /></p><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Secure Payment</span></div>
+              <div className='grid grid-cols-3 md:p-[0_10px_10px_10px] md:gap-[5px] lg:gap-[8px]'>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[24px] md:m-auto' width={25} alt={''} src={'/bookstore/digital.svg'} /></span><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Digital Subscription</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[24px] md:m-auto' width={25} alt={''} src={'/bookstore/cancel.svg'} /></span><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Cancel Anytime</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[24px] md:m-auto' width={25} alt={''} src={'/bookstore/payment.svg'} /></span><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Secure Payment</span></div>
               </div>
 
             </div>

@@ -63,7 +63,7 @@ export default function search({searchTxt}) {
       if(value){
         let params = {search_txt:value, page_no: page_no, page_length: 10}
         const resp = await search_product(params);
-        console.log(resp);
+        // console.log(resp);
          if(resp && resp.status == 'success'){
            if(resp.data.length != 0){ 
             setSearchResult((d) => d = page_no == 1 ? resp.data : [...d, ...resp.data]);

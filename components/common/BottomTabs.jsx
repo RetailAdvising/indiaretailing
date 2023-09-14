@@ -54,15 +54,17 @@ export default function BottomTabs() {
         router.push(nav.redirect_url)
       }
     return ( <>
-         <ul id='tabs' className='flex items-baseline justify-between  bg-[#fff] px-[15px] py-[6px] fixed bottom-0 left-0 right-0' style={{borderTop:'1px solid #ddd'}}>
+    <div id='tabs'>
+    <ul  className='flex items-baseline w-full   bg-[#fff] py-[6px]' style={{borderTop:'1px solid #ddd'}}>
             {tabs.map((nav,index)=>{
-                return(<li key={index} className={`flex flex-col gap-[10px] justify-between cursor-pointer text-[14px] font-medium whitespace-pre text-[#858585] ${nav.active && 'active_nav'}`}
+                return(<li key={index} className={`flex flex-col flex-[0_0_20%] gap-[10px] justify-between cursor-pointer text-[14px] font-medium whitespace-pre text-[#858585] ${nav.active && 'active_nav'}`}
                     onClick={()=>changeNav(nav)} style={{border:'none'}}>
-                    <Image src={nav.active == true ? nav.active_icon : nav.icon} width={16} height={16} className=" m-auto"/>
-                  <p className="text-[12px] ">{nav.menu_label}</p> 
+                    <Image alt={nav.menu_label} src={nav.active == true ? nav.active_icon : nav.icon} width={16} height={16} className=" m-auto"/>
+                  <p className="text-[12px] text-center">{nav.menu_label}</p> 
                 </li>)
             })}   
           </ul>
+    </div>
     </> );
 }
 

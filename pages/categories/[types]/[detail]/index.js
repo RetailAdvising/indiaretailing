@@ -11,7 +11,7 @@ import { check_Image } from '@/libs/common';
 // import { useDispatch, useSelector } from 'react-redux'
 // import setPagination from 'redux/actions/paginationAction';
 
-export default function CategoryDetail({ data, ads }) {
+export default function CategoryDetail({ data }) {
   // Store
   // const pagination = useSelector(s => s.pagination);
   // const dispatch = useDispatch();
@@ -20,16 +20,27 @@ export default function CategoryDetail({ data, ads }) {
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);
+  const [ads, setAds] = useState();
   // let pagination = false;
   // let prev = router.query.detail;
 
   useEffect(() => {
     if (data) {
+      console.log(data)
       let val = [data]
       setValues(val)
+      getAd()
     }
     setPrev(router.query.types + '/' + router.query.detail)
   }, [router.query])
+
+  const getAd = async () => {
+    let paras = { doctype: 'Articles', page_type: 'Detail' }
+    const resp = await getAds(paras);
+    const ads = resp.message;
+    setAds(ads)
+  }
+
 
 
   async function loadMore() {
@@ -57,8 +68,8 @@ export default function CategoryDetail({ data, ads }) {
 
   return (
     <>
-      <RootLayout isLanding={true} head={''} homeAd={(ads) ? ads : null}>
-      <SEO title={data.meta_title ? data.meta_title : data.title} ogImage={check_Image(data.image)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.title} description={data.meta_description ? data.meta_description : data.title}/>
+      <RootLayout isLanding={true} head={''} homeAd={ads ? ads : null}>
+        <SEO title={data.meta_title ? data.meta_title : data.title} ogImage={check_Image(data.image)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.title} description={data.meta_description ? data.meta_description : data.title} />
         {/* {data && <div> */}
         {/* setPage={(data) => setPagination(data)} pagination={pagination} */}
         {(values && values.length != 0) ? <>
@@ -212,11 +223,9 @@ export async function getServerSideProps({ params }) {
   let value = await articlesDetail(param);
   let data = value.message;
 
-  let paras = { doctype: 'Articles', page_type: 'Detail' }
-  const resp = await getAds(paras);
-  const ads = resp.message;
+
 
   return {
-    props: { data, ads }
+    props: { data }
   }
 }

@@ -181,7 +181,7 @@ export default function cart() {
                                              <p className='text-[16px] font-semibold'>{res.product_name}</p>
                                              {res.attribute_description && <p className='text-[12px] gray_color'>{res.attribute_description}</p>}
                                            </div> 
-                                            <p className='lg:flex-[0_0_calc(20%_-_10px)] lg:mx-[5px] md:hidden text-[15px] font-semibold'>Rs {res.price}</p>
+                                            <p className='lg:flex-[0_0_calc(20%_-_10px)] lg:mx-[5px] md:hidden text-[15px] font-semibold'>{formatter.format(res.price)}</p>
 
                                             <div className='lg:flex-[0_0_calc(40%_-_0px)] lg:justify-around lg:flex lg:items-center md:flex md:flex-row-reverse py-[6px] w-full md:justify-between'>
                                                 <div className='flex items-center justify-between p-[10px] border border-slate-100 rounded-[5px] h-[30px] w-[85px] gap-[10px]'>
@@ -190,7 +190,7 @@ export default function cart() {
                                                     {/* {(load && index == indexs) ? <Image src={'/cart/loading.gif'} className='h-[75px] w-[40px]' height={40} width={40} alt='loading' /> : <p className='font-semibold'>{res.quantity}</p>} */}
                                                     <Image onClick={() => (load) ? null :  updateCart(res, 'inc', index)} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/+.svg'} height={20} width={20} alt='plus' />
                                                 </div>
-                                                <p className='text-center font-semibold text-[15px]'>Rs {isMobile ? res.price : res.total}</p> 
+                                                <p className='text-center font-semibold text-[15px]'>{isMobile ? formatter.format(res.price) : formatter.format(res.total)}</p> 
                                             </div>    
                                             
                                         </div>    

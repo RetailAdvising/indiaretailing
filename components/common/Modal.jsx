@@ -137,7 +137,7 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
                             <SignUp hide={hide} isModal={true} />
                         </Rodal>
                         : modal == 'comments' ? <Rodal visible={visible} animation='slideRight' onClose={hide}>
-                            <div className={`flex justify-between py-[20px] px-[15px]  bg-[red]`}>
+                            <div className={`flex justify-between py-[20px] px-[15px]  bg-[#e21b22]`}>
                                 <h6 className='text-[18px] font-semibold text-[#fff]'>All Comments</h6>
                                 {/* <div className='dropdowns w-[130px] cursor-pointer pr-[40px]'>
                                     <div className='flex items-center gap-[5px]' onClick={sortBy}>
@@ -158,7 +158,7 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
                              <div className='flex w-full border '>
                                   <textarea id='addCmt' type='text' row={2} onClick={checkValid} placeholder='Add a comment...' className='flex-1 border-none  w-full text-[15px] p-[5px]' />
                                 <div className='flex-[0_0_30px] relative'>
-                                  <Image src={'/categories/send-arrow.svg'} className='cursor-pointer absolute bottom-[10px]' onClick={() => sendMsg('addCmt')} height={22} width={22} alt='send' />
+                                  <Image src={'/categories/send-arrow.svg'} className='cursor-pointer absolute top-0 m-auto bottom-0' onClick={() => sendMsg('addCmt')} height={22} width={22} alt='send' />
                                 </div>
                              </div>   
                             </div>

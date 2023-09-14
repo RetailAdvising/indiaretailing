@@ -17,7 +17,7 @@ export default function Membership() {
   const [modal, setModal] = useState('login')
   const [razorpay_settings, setRazorpay_settings] = useState({}) ;
   let [isMobile, setIsmobile] = useState();
-
+  let [subscribed_plans_length,setSubscribed_plans_length] = useState(0);
 
 
   useEffect(() => {
@@ -67,6 +67,35 @@ export default function Membership() {
       if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
 
           let datas = resp.message.message;
+          
+          let subscribed_plans = resp.message.subscribed_plans ? resp.message.subscribed_plans : []
+          subscribed_plans_length = subscribed_plans.length;
+          setSubscribed_plans_length(subscribed_plans_length);
+          if(subscribed_plans.length != 0){
+            datas.map(res=>{
+             let check_plan = subscribed_plans.find(r=>{ return r.subscription_plan == res.plan_name})
+             if(check_plan){
+              res.isActive = true;
+             }
+            })
+          }
+
+          if(btnState && subscribed_plans.length != 0){
+            let monthly_plans = resp.message.subscribed_plans.filter(res=>{return res.billing_interval == 'Month'})
+            if(monthly_plans.length == 0){
+              btnState = btnState =! btnState
+              setbtnState(btnState);
+              getMembershipData()
+            }
+          }
+
+
+          // if(btnState && resp.message.subscribed_plans && resp.message.subscribed_plans[0] && resp.message.subscribed_plans[0].billing_interval && resp.message.subscribed_plans[0].billing_interval != 'Month'){
+          //   btnState = btnState =! btnState
+          //   setbtnState(btnState);
+          //   getMembershipData()
+          // }
+
           setMemberShipDetails(datas);
 
           if(datas.length > 3){
@@ -184,10 +213,13 @@ export default function Membership() {
     const resp = await make_payment_entry(params);
     if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
     //  setAlertMsg({message:'Subscription created successfully'});
+      
       if(localStorage['roles']){
         let get_values = JSON.parse(localStorage['roles']);
         get_values.push({role:'Member'})
+        localStorage['roles'] = JSON.stringify(get_values)
       }
+
       setEnableModal(true);
     }
   }
@@ -269,7 +301,7 @@ export default function Membership() {
               <div id={'scroll_div'} className="lg:flex lg:p-[10px] gap-6 md:p-[15px] overflow-auto scrollbar-hide ">
               {memberShipDetails.map((membership,index) => {
               return(
-                  <div key={index} className="md:mb-[20px] flex-[0_0_calc(33.333%_-_16px)] member-card lg:p-8 md:p-[15px] bg-white rounded-2xl active_member_ship relative">
+                  <div key={index} className={`${membership.isActive ? 'cur_member_ship' : ''} ${subscribed_plans_length == 0 ? 'active_member_ship' : ''} md:mb-[20px] flex-[0_0_calc(33.333%_-_16px)] member-card lg:p-8 md:p-[15px] bg-white rounded-2xl relative`}>
                       <h3 className='text-2xl font-bold'>{membership.plan_name}</h3>
                                         
                       {/* <div className='flex items-center gap-[3px] my-[2px] rounded-[35px] w-max p-[5px_8px] member-button'>
@@ -292,7 +324,7 @@ export default function Membership() {
                           )
                         })}
                       </ul>
-                      <button onClick={()=> startPlan(membership,index)} className="absolute bottom-[30px] md:bottom-[15px] w-[calc(100%_-_60px)] bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl font-medium member-button member-button_"> Start your free Pro trial </button>
+                      <button disabled={subscribed_plans_length == 0 ? false : true} onClick={()=>startPlan(membership,index)} className="absolute bottom-[30px] md:bottom-[15px] w-[calc(100%_-_60px)] bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl font-medium member-button member-button_"> {membership.isActive ? 'Subscribed Plan' : 'Start your free Pro trial'} </button>
                   </div>
                   )
                 })}

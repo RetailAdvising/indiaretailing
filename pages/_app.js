@@ -66,7 +66,7 @@ const [tabHeight,setTabHeight] = useState(0)
       <ErrorBoundary > 
         <Provider store={store}>
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
-          <main className={` ${inter.className} md:max-h-[87vh] md:overflow-auto`} id='scroll_div' >
+          <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
             <Component {...pageProps} />
           </main>
         </Provider>

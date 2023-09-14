@@ -122,8 +122,8 @@ export default function Comments({ data, isLast, load, cmt , store_comments, com
         <>
                             
         {comment && 
-                    <div ref={cardref} className={`transition-all ease-in delay-500 duration-500 rounded-lg ${cmt ? 'p-[10px]' : ''}`}>
-                    <div className={`flex gap-3 p10 ${!isLast ? 'border_bottom' : ''}`}>
+                    <div ref={cardref} className={`transition-all ease-in delay-500 duration-500 last:border-0 ${cmt ? 'p-[10px]' : ''}  ${!isLast ? 'border_bottom' : ''}`}>
+                    <div className={`flex gap-3 p10`}>
                         <div>
                             <Image className='rounded-full object-contain' src={'/profit.svg'} height={48} width={48} alt={comment.name} />
                         </div>

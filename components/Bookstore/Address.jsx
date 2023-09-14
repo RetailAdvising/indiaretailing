@@ -132,7 +132,7 @@ export default function Address({hide,edit_address,modal}) {
     <form className={`${modal ? 'pt-[20px]' : null}`} onSubmit={handleSubmit(onSubmit)}>
 
 
-    {selectedValues && selectedValues['country'] ?
+    {/* {selectedValues && selectedValues['country'] ?
       <Controller
           name="country"
           control={control}
@@ -170,7 +170,33 @@ export default function Address({hide,edit_address,modal}) {
               }}
             />}
         />
-    }
+      } */}
+
+        <Controller
+          name="country"
+          control={control}
+          render={({ field }) => (
+            <Select
+              className={`${styles.custom_input} w-full`}
+              placeholder="Country"
+              {...field}
+              defaultValue={
+                selectedValues && selectedValues['country']
+                  ? { value: selectedValues['country'], label: selectedValues['country'] }
+                  : null
+              }
+              options={countryList}
+              styles={{
+                control: (provided) => ({
+                  ...provided,
+                  border: 'none',
+                  height: '43px',
+                }),
+                // Other style overrides
+              }}
+            />
+          )}
+        />
 
         <div className={`box_ flex gap-[10px]`}>
         <div className={`${styles.flex_2} `}>
@@ -197,49 +223,31 @@ export default function Address({hide,edit_address,modal}) {
         </div>
 
         <div className={`${styles.flex_3} `}>
-        {selectedValues && selectedValues['state'] ? 
-          <Controller
-            name="state"
-            control={control}
-            render={({ field }) => 
-              <Select className={`${styles.custom_input} w-full`} placeholder='State'
-              {...field} 
-              value={(selectedValues && selectedValues['state']) ? selectedValues['state'] : '' } // Set the value directly
-              options={stateList} 
+        <Controller
+          name="state"
+          control={control}
+          render={({ field }) => (
+            <Select
+              className={`${styles.custom_input} w-full`}
+              placeholder="State"
+              {...field}
+              defaultValue={
+                selectedValues && selectedValues['state']
+                  ? { value: selectedValues['state'], label: selectedValues['state'] }
+                  : null
+              }
+              options={stateList}
               styles={{
-              control: (provided) => ({
-              ...provided,
-              border: 'none', // Set border to none
-              height: '43px'
-              }),
-              // Other style overrides
+                control: (provided) => ({
+                  ...provided,
+                  border: 'none',
+                  height: '43px',
+                }),
+                // Other style overrides
               }}
-            />}
-           /> :
-           <Controller
-           name="state"
-           control={control}
-           render={({ field }) => 
-             <Select className={`${styles.custom_input} w-full`} placeholder='State'
-             {...field} 
-            //  value={(selectedValues && selectedValues['state']) ? selectedValues['state'] : '' } // Set the value directly
-
-             // value={field} // Set the value directly
-             // onChange={(selectedOption) => {
-             //   field.onChange(selectedOption?.value || ''); // Set the value using field.onChange
-             // }}
-             options={stateList} 
-             styles={{
-             control: (provided) => ({
-             ...provided,
-             border: 'none', // Set border to none
-             height: '43px'
-             }),
-             // Other style overrides
-             }}
-           />}
-          />
-            }
+            />
+          )}
+        />
         </div>
 
 

@@ -52,24 +52,24 @@ export default function Content({ res, i }) {
         <>
             <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden'>
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
-                <p className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto'/><span className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</span></p>
-                <p className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></p>
-                <p className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></p>
+                <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</span></div>
+                <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div>
+                <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
             </div>
             <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between lg:hidden'>
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
-                <p className='flex items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto'/><div className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</div></p>
-                <p className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><div className='md:text-[10px] text-[12px] gray-text'>3 Shares</div></p>
-                <p className='flex items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><div className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </div></p>
+                <div className='flex items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><p className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</p></div>
+                <div className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><p className='md:text-[10px] text-[12px] gray-text'>3 Shares</p></div>
+                <div className='flex items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><p className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </p></div>
             </div>
 
             <h1 className='mega_title lg:text-4xl md:text-[18px] md:leading-[29.23px] my-4 md:mb-[5px]'>{res.title}</h1>
             <div className={`flex items-center justify-between ${styles.profile_div} md:hidden`}>
                 <div className='flex gap-3 items-center'>
                     <Image className='rounded-full object-contain' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
-                    <p className='flex flex-col'>
-                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{res.creation}</span>
-                    </p>
+                    <div className='flex flex-col'>
+                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{res.modified}</span>
+                    </div>
                 </div>
 
                 <div className='flex items-center gap-[15px]'>

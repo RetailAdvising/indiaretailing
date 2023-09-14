@@ -8,7 +8,7 @@ import Title from '../common/Title'
 import MultiCarousel from '../Sliders/MultiCarousel'
 import categories from '@/libs/categories'
 import Modal from '../common/Modal'
-import { check_Image,checkMobile } from '@/libs/api'
+import { check_Image, checkMobile } from '@/libs/api'
 import Comments from '../Category/Comments'
 
 // Social Share
@@ -24,7 +24,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   const router = useRouter();
   const [updateCmts, setupdateCmts] = useState(-1)
 
-  // console.log(router)
+  console.log(ads)
   // let validate;
 
   const socials = [
@@ -66,6 +66,12 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
 
   useEffect(() => {
+    // if(data && i){
+    //   if(i == 1){}
+    //   // i == 1 ? setPrev([data]) : setPrev(d => d = [...d, ...[data]])
+    //   console.log(data)
+    //   console.log(i)
+    // }
     if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
       const data = JSON.parse(localStorage['roles']);
       if (data && data.length != 0) {
@@ -100,6 +106,27 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
     observer.observe(cardref.current);
   }, [isLast])
 
+  // const more = useRef(null)
+  // useEffect(() => {
+  //   if (!more?.current) return;
+  //   const intersectionObserver = new IntersectionObserver(([entries]) => {
+  //     if (entries.isIntersecting) {
+  //       console.log(prev, 'route')
+  //       console.log(entries, 'route')
+  //       intersectionObserver.unobserve(entries.target)
+  //     }
+  //     // if (!no_product) {
+  //     //     page_no > 1 ? get_list() : null
+  //     //     page_no = page_no + 1
+  //     // }
+  //   });
+  //   intersectionObserver.observe(more.current);
+
+  //   // return () => {
+  //   //     more?.current && intersectionObserver.unobserve(more?.current)
+  //   // }
+  // }, [])
+
   // Modal Popup
   const [modal, setModal] = useState('')
 
@@ -122,6 +149,8 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
       }
     }
   }
+
+
 
   function onPageLoad() {
     if ((data && data.article_sections && data.article_sections.length != 0)) {
@@ -182,30 +211,30 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   }
 
 
-  function store_comments(data){
+  function store_comments(data) {
     data = data;
     setdatas(data)
-    setupdateCmts( updateCmts + 1)
+    setupdateCmts(updateCmts + 1)
   }
 
 
   return (
     <>
-                            
+
       <div ref={cardref}>
         <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
-           
+
             <p>
               <Content i={i} res={data} />
             </p>
-            
+
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'prime-article'}`} />
 
             {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'>
-              <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain'/>This story is for Premium Members you  have to buy Membership to Unlock</h6>
+              <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This story is for Premium Members you  have to buy Membership to Unlock</h6>
               <div className='flex gap-[20px] justify-center pt-[0px]'>
-                <button className='primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1'/>Subscribe</button>
+                <button className='primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
                 {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
                 <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button> */}
               </div>
@@ -267,7 +296,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                   <h6 id={`cmt${i}`} className='font-semibold'>Comments</h6>
                 </div>
 
-                {(data.comments && data.comments.length != 0) && data.doctype == 'Articles' && 
+                {(data.comments && data.comments.length != 0) && data.doctype == 'Articles' &&
                   <div style={{ background: "#efefef" }} className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  mt-3  `}>
                     {data.comments.map((res, index) => {
                       return (
@@ -275,11 +304,11 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                       )
                     })}
                   </div>
-                 }
+                }
               </>
               }
 
-              {data.disable_comments != 1 && data.doctype == 'Articles' && 
+              {data.disable_comments != 1 && data.doctype == 'Articles' &&
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
                     {(data.comments && data.comments.length != 0) && <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>Read all comments</button>}
@@ -295,7 +324,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
               {(!showComment && data && data.doctype == 'Articles') && <>
                 <div className='popright'>
-                  <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur)=>store_comments(cur)} hide={sideDrawerClosedHandler} />
+                  <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur) => store_comments(cur)} hide={sideDrawerClosedHandler} />
                   {/* scrolling="no" */}
                   {/* <iframe className='w-full ' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092358111637737472" height="696" width="504" frameborder="0" allowfullscreen="false" title="Embedded post"></iframe> */}
                   {/* <iframe className='w-full' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}
@@ -311,7 +340,10 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             </div>}
 
             <div className='py-3'>
-              <AdsBaner text={"Advertisement"} data={{ ad_image: '/ads_baner.png' }} height={'260px'} width={'300px'} />
+              {(data.banner_ad && data.banner_ad.ad_list && data.banner_ad.ad_list.length != 0 && data.banner_ad.ad_list[0]) ?
+                <AdsBaner data={data.banner_ad.ad_list[0]} height={'260px'} width={'300px'} />
+                : (ads && ads.right && ads.right.length != 0 && ads.right[0] ) ? <AdsBaner data={ads.right[0]} height={'260px'} width={'300px'} /> : <></>
+              }
             </div>
 
             {/* {(ads && )} */}
@@ -339,13 +371,13 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
               <AdsBaner data={res.baner_img3} text={"Advertisement"} height={'220px'} width={'275px'} />
             </div> */}
           </div>
-        </div> 
+        </div>
 
         {data.latest_news && <div className={`${isMobile ? '' : 'container'}  ${styles.section_3}`}>
           {/* Slider */}
-          {(data.latest_news ) && <div className={`${styles.slider_parent} latestNews_slider p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
+          {(data.latest_news) && <div className={`${styles.slider_parent} latestNews_slider p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
-            <MultiCarousel isHome={'/news/'} perView={5} noPlay={true} data={data.latest_news} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} check={true}/>
+            <MultiCarousel isHome={'/news/'} perView={5} noPlay={true} data={data.latest_news} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} check={true} />
           </div>}
         </div>}
 

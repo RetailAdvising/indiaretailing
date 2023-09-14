@@ -1,9 +1,9 @@
 import React, { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 
-export default function TopNavBar({nav_data}) {
+export default function TopNavBar({ nav_data }) {
     const router = useRouter()
-    const [navData,SetNavData] = useState( [
+    const [navData, SetNavData] = useState([
         {
             "menu_label": "Home",
             "redirect_url": "/",
@@ -42,30 +42,30 @@ export default function TopNavBar({nav_data}) {
             "icon": "/Navbar/Podcasts.svg",
         }
     ])
-    useEffect(()=>{
-        console.log(router);
+    useEffect(() => {
+        // console.log(router);
         let route = router.route.split('/')
-        let redirect_url = route[1] ? '/'+route[1] : '/'
-        console.log(redirect_url);
-        navData.map(nd=>{
-            nd.active = nd.redirect_url == redirect_url ? true :false
+        let redirect_url = route[1] ? '/' + route[1] : '/'
+        // console.log(redirect_url);
+        navData.map(nd => {
+            nd.active = nd.redirect_url == redirect_url ? true : false
             // SetNavData(navData)
         })
-     },[])
-  const changeNav = (nav) =>{
-    router.push(nav.redirect_url)
-    console.log(navData);
-  }
+    }, [])
+    const changeNav = (nav) => {
+        router.push(nav.redirect_url)
+        // console.log(navData);
+    }
     return (
         <>
-          <ul className='flex items-center gap-[15px] overflow-auto px-[15px] no_scroll' style={{borderBottom:'1px solid #ddd'}}>
-            {navData.map((nav,index)=>{
-                return(<li key={index} className={`py-[8px] cursor-pointer text-[14px] font-medium whitespace-pre ${nav.active && 'active_nav'}`}
-                onClick={()=>changeNav(nav)}>
-                   {nav.menu_label}
-                </li>)
-            })}   
-          </ul>
+            <ul className='flex items-center gap-[15px] overflow-auto px-[15px] no_scroll' style={{ borderBottom: '1px solid #ddd' }}>
+                {navData.map((nav, index) => {
+                    return (<li key={index} className={`py-[8px] cursor-pointer text-[14px] font-medium whitespace-pre ${nav.active && 'active_nav'}`}
+                        onClick={() => changeNav(nav)}>
+                        {nav.menu_label}
+                    </li>)
+                })}
+            </ul>
         </>
     )
 }

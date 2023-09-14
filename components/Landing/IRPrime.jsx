@@ -27,7 +27,7 @@ export default function IRPrime({ data }) {
                             <Link key={index} href={'/IRPrime/' + res.route}>
                                 <div className={`flex items-center gap-[10px] ${index != data.length - 1 && 'border_bottom_white'} py-[10px]`}>
                                     <div className='flex-[0_0_calc(25%_-_10px)]'>
-                                        <Image className='h-[65px] rounded-[5px] w-full' src={check_Image(res.thumbnail_image)} alt={res.title} height={50} width={70} />
+                                        <Image className='h-[60px] rounded-[5px] w-full' src={check_Image(res.thumbnail_image)} alt={res.title} height={50} width={70} />
                                     </div>
                                     <p className={`text-sm font-400 line-clamp-2`}>{res.title}</p>
                                 </div>
