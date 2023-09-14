@@ -45,6 +45,17 @@ export default function Header({ checkout }) {
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
         };
+
+        // const node = document.getElementById("search");
+        // node.addEventListener("keyup", function(event) {
+        //     if (event.key === "Enter") {
+
+        //         console.log(event)
+        //         // Do work
+        //     }
+        // });
+       
+
     }, [])
 
 
@@ -55,7 +66,7 @@ export default function Header({ checkout }) {
     // }
 
     const roleMember = () => {
-        console.log(localStorage['roles']);
+        // console.log(localStorage['roles']);
         if (localStorage['roles'] && localStorage['roles'] != 'undefined') {
             const data = JSON.parse(localStorage['roles']);
             if (data && data.length != 0) {
@@ -97,7 +108,6 @@ export default function Header({ checkout }) {
 
     async function searchText(eve) {
         let value = eve.target.value;
-
         if (value) {
             let params = {
                 search_txt: value
@@ -112,7 +122,14 @@ export default function Header({ checkout }) {
             setSearchResult([]);
             setSearchValue(undefined)
         }
+    }
 
+    async function handleKeyDown(event) {
+        // console.log(event)
+        if (event.key === 'Enter') {
+            navigateSearchScreen('search')
+            // console.log(event)
+        }
     }
 
     function searchFn() {
@@ -191,7 +208,7 @@ export default function Header({ checkout }) {
                                     <div className='w-[60%] m-[0_auto] relative bg-white '>
                                         <div onClick={() => { setEnableSearch(false) }} className='cursor-pointer absolute right-[-60px] px-[10px] h-[45px]'><Image height={20} priority width={20} alt='search' src={'/cart/close.svg'} className="h-[30px]"></Image></div>
                                         <div className={`flex border rounded-[10px]`}>
-                                            <input id='search' className={'border-[0px] p-[10px] w-full rounded-[10px]'} onChange={searchText} type="text" placeholder='Search here...' name="search"></input>
+                                            <input id='search' className={'border-[0px] p-[10px] w-full rounded-[10px]'} onChange={searchText} onKeyDown={handleKeyDown} type="text" placeholder='Search here...' name="search"></input>
                                             {searchValue && <div onClick={() => { setSearchResult([]), clearSearch('search') }} className='cursor-pointer flex items-center justify-center px-[10px] h-[45px]'><Image height={20} priority width={20} alt='search' src={'/cart/close.svg'} className="h-[24]"></Image></div>}
                                             <div onClick={() => { navigateSearchScreen('search') }} className='border-l-[1px] p-[10px] cursor-pointer border-l-slate-100 flex items-center justify-center'><Image style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} className=""></Image></div>
                                         </div>

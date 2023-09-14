@@ -71,11 +71,11 @@ export default function Navbar({heading,isLanding}) {
 
                                 {(res.section_name == 'Header Menu' && res.menus) && <>
                                     <ul className={`flex items-center justify-center  md:pb-0 md:hidden md:mt-0 ${navbar ? 'md:hidden' : 'md:hidden'
-                                        } lg:gap-[20px] xl:gap-[30px]`}>
+                                        } lg:gap-[20px] xl:gap-[25px]`}>
                                         {res.menus.map(item => {
                                             return (
                                                 // ${nav1 == item.redirect_url ? header.activeMenu : ''}
-                                                <Link href={item.redirect_url} className={`${header.listKey} font-semibold navigation_c lg1:text-[13px] tracking-wide ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''}`} key={item.menu_label}>
+                                                <Link href={item.redirect_url} className={`${header.listKey} font-semibold navigation_c lg:text-[14px] tracking-wide ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''}`} key={item.menu_label}>
                                                     {item.menu_label}
                                                 </Link>
                                             )
@@ -99,7 +99,7 @@ export default function Navbar({heading,isLanding}) {
                                         <span key={index} className={`nav-item ${index === activeIndex ? 'active' : ''}`} onClick={() => handleItemClick(index)}>
                                             <div className='cursor-pointer justify-center p-[10px_8px] flex gap-[5px] items-center' onClick={() => router.push(item.redirect_url)}>
                                                     <div className='h-[4px] w-[4px] rounded-full bg-red'></div>
-                                                    <p className='text-[14px]'>{item.menu_name}</p>
+                                                    <p className='text-[13px]'>{item.menu_name}</p>
                                             </div>
                                         </span>
                                         )

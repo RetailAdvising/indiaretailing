@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { logIn } from '@/libs/api';
 import { useRouter } from 'next/router';
 import OTP from './OTP';
+import { GoogleLogin } from 'react-google-login';
+
 // import { LoginSocialGoogle } from 'reactjs-social-login';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,6 +45,11 @@ export default function LogIn({ isModal, hide }) {
     async function loginGoogle(){
 
     }
+
+    const responseGoogle = (response) => {
+        console.log(response);
+        // Handle the response from Google here (e.g., send it to your server for authentication).
+      };
 
     async function go_to_home() {
         isModal ? hide() : router.push('/')
@@ -90,10 +97,20 @@ export default function LogIn({ isModal, hide }) {
                         <Image height={20} width={20} alt='google' src={'/login/Login-OTP.svg'} />
                         <p>Login With OTP</p>
                     </div>
-                    <div onClick={() => loginGoogle()} className='flex gap-[10px] mb-[18px] h-[45px] rounded-[5px] border cursor-pointer items-center justify-center '>
+                    {/* <div onClick={() => loginGoogle()} className='flex gap-[10px] mb-[18px] h-[45px] rounded-[5px] border cursor-pointer items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/google-login.svg'} />
                         <p>Continue with Google</p>
-                    </div>
+                    </div> */}
+                    <>{
+                        <GoogleLogin
+                            clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                        />
+                        }
+                    </>
                     <div className='flex gap-[10px] items-center h-[45px] rounded-[5px] cursor-pointer justify-center border'>
                         <Image height={20} width={20} alt='apple' src={'/Apple-login.svg'} />
                         <p>Continue with Apple</p>
