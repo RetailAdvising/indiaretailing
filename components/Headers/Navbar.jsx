@@ -60,7 +60,7 @@ export default function Navbar({heading,isLanding}) {
             {/* sticky_header */}
             {/* {<div className={` lg:hidden sidebar ${navbar ? 'sideActive' : ''} `} ><SideBar data={nav} close={() => close()} /></div>} */}
             {/* onClick={showSidebar} */}
-            {(nav.header && nav.header.items.length != 0 ) && <div className={`border_top sticky_header md:hidden ${(router.asPath == '' || router.asPath == '/') ? 'lg:p-[15px_30px]' : 'lg:p-[15px_30px]'} ${navbar ? '' : 'md:p-[0_20px]'} ${header.navHead} md:h-[55px]`}>
+            {(nav.header && nav.header.items.length != 0 ) && <div className={` sticky_header md:hidden ${(router.asPath == '' || router.asPath == '/') ? 'lg:p-[15px_30px]' : 'lg:p-[15px_30px]'} ${navbar ? '' : 'md:p-[0_20px]'} ${header.navHead} md:h-[55px]`}>
                 <div className={`${navbar ? '' : 'container'} flex flex-wrap items-center justify-between`}>
                     {nav.header.items.map(res => {
                         return (

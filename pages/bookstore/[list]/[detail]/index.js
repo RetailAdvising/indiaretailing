@@ -457,7 +457,7 @@ const  getCarts = async (type) => {
         
         {!data ?  <Skeleton /> :
           (data && Object.keys(data).length != 0) && <div className='container'>
-          <div className={`flex justify-between flex-wrap gap-[15px] py-8`}>
+          <div className={`flex justify-between flex-wrap gap-[15px] py-0`}>
             <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
              
              <div className={`mr-[10px]`}>
@@ -529,7 +529,7 @@ const  getCarts = async (type) => {
                 </div>
               </div>
 
-              <div className={`flex md:p-[0_10px_10px_10px] lg:hidden flex-col`}>
+              <div className={`flex md:p-[0_0px_15px_0px] lg:hidden flex-col`}>
                 {/* flex-[0_0_calc(100%_-_10px)] */}
                 <div className={`md:h-[430px] md:p-[0px_10px_10x_10px]`}>
                   {/* <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />} */}
@@ -543,9 +543,9 @@ const  getCarts = async (type) => {
                 </div>
               </div>
 
-              <div className={`flex md:p-[0px_10px_10px_10px] items-center pt-[2px] gap-5`}>
+              <div className={`flex md:p-[0px_0px_15px_5px] items-center pt-[2px] gap-5`}>
                 {/* <p className={`p-[5px_12px] border rounded-[10px] cursor-pointer`}>PDF</p> */}
-                <p className={`text-[20px] text-red font-semibold`}>{formatter.format(data.price)}</p>
+                <p className={`md:text-[16px] lg:text-[20px] text-red font-semibold`}>{formatter.format(data.price)}</p>
               </div>
 
               {data.vendor_price_list && data.vendor_price_list[0] && data.vendor_price_list[0].variants && data.vendor_price_list[0].variants.length != 0 &&
@@ -575,6 +575,8 @@ const  getCarts = async (type) => {
                     }
               </div>  */}
               
+              <h6 className={`md:text-[16px] line-clamp-2 lg:text-[18px] lg:p-[20px_0px_0px_0px] font-semibold`}>Subscription Plans</h6>
+
 
               {/* p-[20px] lg:m-[0_auto]*/ }
               {(subs && subs.length != 0) && 
@@ -594,14 +596,14 @@ const  getCarts = async (type) => {
                       );
                     })}
                   </div>
-                  <div className={`lg:hidden p-[12px_0_4px_0]`}>
+                  <div className={`lg:hidden p-[16px_0_8px_0]`}>
 
                       {subs.map((item, index) => {
                         return (
-                        <div key={index} onClick={() => handleSubs(subs, item, index)} className={`flex cursor-pointer gap-[5px] pb-[4px] last:pb-[0px] items-center`}>
+                        <div key={index} onClick={() => handleSubs(subs, item, index)} className={`flex cursor-pointer gap-[5px] pb-[7px] last:pb-[0px] items-center`}>
                           <input className={styles.input_radio} checked={index == indexs} type="radio"/>
-                          <p className='text-[12px]'>{item.plan_name}</p>
-                          <p className='text-[12px] font-semibold'>({formatter.format(item.total_amount)})</p>
+                          <p className='text-[13px]'>{item.plan_name}</p>
+                          <p className='text-[13px] font-semibold'>({formatter.format(item.total_amount)})</p>
                         </div>
                         );
                       })}
@@ -611,7 +613,7 @@ const  getCarts = async (type) => {
               }
 
               <div className='border_bottom mb-[20px]'>
-               <div className={`md:p-[10px] lg:w-[570px] text-center md:p-[10px_0_30px_0] lg:p-[0px_0_20px_0]`}>
+               <div className={`md:p-[10px] lg:w-[570px] text-center md:p-[10px_0_20px_0] lg:p-[0px_0_20px_0]`}>
                 <LoaderButton loader={loader} cssclass={'lg:w-[250px] md:w-[100%] md:h-[40px] m-0'}image_left={indexs >= 0 ? '/bookstore/subscribe.svg' :'/bookstore/cart.svg'} button_name={indexs >= 0 ? 'Subscribe' : 'Add to Cart'} buttonClick={addToCart} />
                </div>
               </div>
@@ -626,10 +628,10 @@ const  getCarts = async (type) => {
                   {/* <p className='font-semibold'>Read More...</p> */}
                 </div>
               }
-              <div className='grid grid-cols-3 md:p-[0_10px_10px_10px] md:gap-[5px] lg:gap-[8px]'>
-                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[24px] md:m-auto' width={25} alt={''} src={'/bookstore/digital.svg'} /></span><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Digital Subscription</span></div>
-                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[24px] md:m-auto' width={25} alt={''} src={'/bookstore/cancel.svg'} /></span><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Cancel Anytime</span></div>
-                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[24px] md:m-auto' width={25} alt={''} src={'/bookstore/payment.svg'} /></span><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Secure Payment</span></div>
+              <div className='grid grid-cols-3 md:p-[0_0px_10px_0px] md:gap-[5px] lg:gap-[8px]'>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[16px] md:m-auto' width={25} alt={''} src={'/bookstore/digital.svg'} /></span><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Digital Subscription</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[16px] md:m-auto' width={25} alt={''} src={'/bookstore/cancel.svg'} /></span><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Cancel Anytime</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[16px] md:m-auto' width={25} alt={''} src={'/bookstore/payment.svg'} /></span><span style={{fontWeight:'600'}} className='md:text-[12px] sub_title md:text-center'> Secure Payment</span></div>
               </div>
 
             </div>
@@ -699,7 +701,7 @@ export async function getServerSideProps({ params }) {
 const Skeleton = () => {
   return (
     <>
-        <div class="container lg:py-8 md:p-[10px] flex lg:gap-[30px] md:flex-col animate-pulse">
+        <div class="container lg:py-0 md:p-[10px] flex lg:gap-[30px] md:flex-col animate-pulse">
 
           <div class="lg:flex-[0_0_calc(40%_-_10px)]">
             <div className='h-[455px] lg:w-[510px] bg-slate-100 rounded'></div>

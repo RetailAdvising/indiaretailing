@@ -4,9 +4,11 @@ import RootLayout from '@/layouts/RootLayout';
 import { getAds, getCategoryList, checkMobile } from '@/libs/api';
 import SectionBox from '@/components/Category/SectionBox';
 import MultiCarousel from '@/components/Sliders/MultiCarousel';
+
 import Title from '@/components/common/Title';
 import SEO from '@/components/common/SEO'
 import CardCarousel from '../../components/Sliders/CardCarousel';
+import CustomSlider from '@/components/Sliders/CustomSlider';
 
 export default function Categories({ data, ads }) {
     const [isMobile, setIsMobile] = useState()
@@ -30,10 +32,13 @@ export default function Categories({ data, ads }) {
                     {!isMobile && <Title data={{ title: 'Categories' }} font={'20px'} />}
                     {data && data.map((res, index) => {
                         return (
-                            <div key={index} className={`flex md:mb-[10px] ${index == 0 ? 'lg:mb-[25px]' : 'lg:my-[25px]'} md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>
-                                <div className={`lg:w-[calc(25%_-_10px)] md:w-[calc(100%_-_0px)] xl:w-[calc(20%_-_10px)] `}><SectionBox data={res} /></div>
+                            <div key={index} className={`flex md:mb-[10px]  ${index == 0 ? 'lg:mb-[25px]' : 'lg:my-[25px]'} md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>
+                                <div className={`lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)] `}><SectionBox data={res} /></div>
                                 {/* <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(100%_-_0px)] xl:w-[calc(80%_-_10px)] md:p-[10px]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[200px]'} islanding={true} noPlay={false} check={true} height={'lg:h-[185px] md:h-[140px]'} perView={4} width={'w-full'} data={res.events} /></div> */}
-                                <div className='lg:w-[calc(75%_-_10px)] overflow-auto scrollbar-hide gap-[15px] flex md:p-[10px]'><CardCarousel data={res.events} cardClass={'lg:h-[280px] md:h-[220px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>
+                                 <div className='lg:w-[calc(80%_-_10px)]  md:p-[10px]'>
+                                    {/* <CardCarousel data={res.events} cardClass={'lg:h-[280px] md:h-[220px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
+                                    <CustomSlider data={res.events} cardClass={'lg:h-[280px] md:h-[220px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} />
+                                    </div>
                             </div>
                         )
                     })}

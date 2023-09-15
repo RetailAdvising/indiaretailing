@@ -1,10 +1,11 @@
 import '@/styles/globals.scss'
 import store from '../redux/store'
-import { Rubik,Inter,Roboto } from 'next/font/google'
+import { Inter,Roboto } from 'next/font/google'
 import { useDispatch, useSelector, Provider } from 'react-redux'
 // import userAction from 'redux/actions/userAction'
 import ErrorBoundary from '@/components/Exception/ErrorBoundary'
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
 
 const inter = Inter({
   weight: ["200","300","400","500","600",'700'],
@@ -63,6 +64,9 @@ const [tabHeight,setTabHeight] = useState(0)
   // }
   return (
     <>
+     <Head>
+     <link href="https://admin.99tax.com/files/default-theme.css" rel="stylesheet"/>
+       </Head>
       <ErrorBoundary > 
         <Provider store={store}>
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}

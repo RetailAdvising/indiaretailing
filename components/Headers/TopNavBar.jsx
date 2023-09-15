@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 export default function TopNavBar({ nav_data }) {
     const router = useRouter()
+    const [activeNav, setActiveNav] = useState()
     const [navData, SetNavData] = useState([
         {
             "menu_label": "Home",
@@ -49,18 +50,26 @@ export default function TopNavBar({ nav_data }) {
         // console.log(redirect_url);
         navData.map(nd => {
             nd.active = nd.redirect_url == redirect_url ? true : false
+            if(nd.redirect_url == redirect_url) nav_to_view(nd.menu_label)
             // SetNavData(navData)
         })
     }, [])
+    const nav_to_view = (menu_label) => {
+    var top_nav_bar = document.getElementById('top_nav_bar')
+    var active_nav = document.getElementById(menu_label)
+    console.log(active_nav,menu_label);
+    active_nav.scrollIntoView(true);
+    }
     const changeNav = (nav) => {
-        router.push(nav.redirect_url)
+        // router.push(nav.redirect_url)
+        window.location.href= nav.redirect_url;
         // console.log(navData);
     }
     return (
         <>
-            <ul className='flex items-center gap-[15px] overflow-auto px-[15px] no_scroll' style={{ borderBottom: '1px solid #ddd' }}>
+            <ul id='top_nav_bar' className='flex items-center gap-[15px] overflow-auto px-[15px] no_scroll' style={{ borderBottom: '1px solid #ddd' }}>
                 {navData.map((nav, index) => {
-                    return (<li key={index} className={`py-[8px] cursor-pointer text-[14px] font-medium whitespace-pre ${nav.active && 'active_nav'}`}
+                    return (<li key={index} id={nav.menu_label} className={`py-[8px] cursor-pointer text-[14px] font-medium whitespace-pre ${nav.active && 'active_nav'}`}
                         onClick={() => changeNav(nav)}>
                         {nav.menu_label}
                     </li>)

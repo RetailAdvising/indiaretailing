@@ -54,7 +54,7 @@ export default function Header({ checkout }) {
         //         // Do work
         //     }
         // });
-       
+
 
     }, [])
 
@@ -133,19 +133,20 @@ export default function Header({ checkout }) {
     }
 
     function searchFn() {
-        const inputElement = document.getElementById('myInput');
+        router.push('/search?searchText=');
+        // const inputElement = document.getElementById('myInput');
 
-        if (inputElement) {
-            inputElement.blur();
-            setEnableSearch(true);
+        // if (inputElement) {
+        //     inputElement.blur();
+        //     setEnableSearch(true);
 
 
-            let element = document.getElementById('search');
-            if (element) {
-                element.focus();
-            }
+        //     let element = document.getElementById('search');
+        //     if (element) {
+        //         element.focus();
+        //     }
 
-        }
+        // }
     }
 
     const clearSearch = (data) => {
@@ -190,13 +191,14 @@ export default function Header({ checkout }) {
     return (
         <>
             {head &&
-                <div className={``}>
+                <div className={`border_bottom`}>
                     <div className='container relative p-[0px] md:hidden grid grid-cols-3 items-center justify-between my-[20px]'>
                         {/* <div> */}
 
-                        <div onClick={searchFn} className={`flex items-center `}>
-                            <Image style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} className="pr-2"></Image>
-                            <input id="myInput" className={styles.input1} type="text" placeholder='Search here...' name="search"></input>
+                        <div onClick={searchFn} className={`flex items-center cursor-pointer gap-[2px] search_hover`}>
+                            <Image style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} className="h-[18px]"></Image>
+                            <p className='text-[14px]'>Search</p>
+                            {/* <input id="myInput" className={styles.input1} type="text" placeholder='Search here...' name="search"></input> */}
                         </div>
 
                         {enableSearch &&
@@ -236,28 +238,28 @@ export default function Header({ checkout }) {
                         <div className=''>
                             <Image style={{ objectFit: 'cover' }} className='m-auto cursor-pointer' height={66} priority width={200} alt='' onClick={() => router.push('/')} src={'/indiaretail.png'}></Image>
                         </div>
-                        {loader && 
-                        <>
-                         {!valid ? 
-                            <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
-                                <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
-                                <button type='button' onClick={() => router.push('/login')} className={`${styles.btn_sig}`}>{head.btn2}</button>
-                            </div> 
-                            :  
-                             <div className='flex justify-end'>
-                                    <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
-                                        <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
-                                        <div>
-                                            {localStorage['full_name'] && <p className='cursor-pointer text-[14px] font-[500] capitalize'>{localStorage['full_name']}</p>}
-                                        </div>
-                                        {/* <div>
+                        {loader &&
+                            <>
+                                {!valid ?
+                                    <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
+                                        <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
+                                        <button type='button' onClick={() => router.push('/login')} className={`${styles.btn_sig}`}>{head.btn2}</button>
+                                    </div>
+                                    :
+                                    <div className='flex justify-end'>
+                                        <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
+                                            <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
+                                            <div>
+                                                {localStorage['full_name'] && <p className='cursor-pointer text-[14px] font-[500] capitalize'>{localStorage['full_name']}</p>}
+                                            </div>
+                                            {/* <div>
                                             <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
                                         </div> */}
+                                        </div>
+
                                     </div>
-    
-                             </div>
-                            }
-                        </>
+                                }
+                            </>
                         }
                     </div>
                 </div>

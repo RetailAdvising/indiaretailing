@@ -217,7 +217,7 @@ export default function profile({my_account}) {
        { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
 
-        <div className='border-t-[1px] border-t-slate-200'>
+        <div className=''>
 
           {((tab == '' || !isMobile) && localValue) &&
             <div className='lg:hidden p-[15px_5px] flex items-center gap-10px'>
@@ -226,10 +226,10 @@ export default function profile({my_account}) {
             </div>
           }
 
-          <div className='container min-h-[350px] w-full flex gap-[10px]'>
+          <div className='ml-[25px] min-h-[350px] w-full flex gap-[10px]'>
               {(tab == '' || !isMobile) && <div className={'p-[10px_20px_20px_0] lg:flex-[0_0_calc(25%_-_10px)]'}><Myprofile profileInfo={profileInfo} navigateToProfile={navigateToProfile} /></div>}
               
-              {tab && tab != '' && <div  className={'md:w-full lg:flex-[0_0_calc(75%_-_0px)] pb-[20px] border-l-[1px] border-l-slate-200 '}>
+              {tab && tab != '' && <div  className={'min-h-[calc(100vh_-_70px)] md:w-full lg:flex-[0_0_calc(75%_-_0px)] pb-[20px] border-l-[1px] border-l-slate-200 '}>
                 
                  {tab == 'edit-profile' && 
                  <div>

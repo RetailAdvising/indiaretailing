@@ -371,7 +371,7 @@ export default function checkout() {
           <AlertUi isOpen={addressDelete} closeModal={(value) => address_closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} />
         }
 
-        <div className='border-t-[1px] border-slate-200 lg:pt-[25px]'>
+        <div className='lg:pt-[25px]'>
           <div className={`flex ${styles.container_} md:gap-8px lg:gap-[20px] md:flex-col py-[10px] container`}>
 
             <div className={`${styles.box_1}`}>

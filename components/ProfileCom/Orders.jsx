@@ -10,6 +10,7 @@ export default function Orders() {
   
     const [orderInfo,setOrderInfo] = useState([]);
     const [orderId,setorderId] = useState([]);
+    let [Skeleton,setSkeleton] = useState(true);
 
     let cardref = useRef();
     let page_no = 1
@@ -40,8 +41,10 @@ export default function Orders() {
         let data = { page_length: 15, page_no: page_no};
         const resp = await get_customer_order_list(data);
           if (resp && resp.message && resp.message.length != 0) {
+            setSkeleton(false);
             setOrderInfo((d)=> d = [...d,...resp.message]);
           }else{
+            setSkeleton(false);
             no_product = true;
             page_no == 1 ? setOrderInfo([]) : null
           }
@@ -84,10 +87,12 @@ export default function Orders() {
        <h6 className='text-[15px] font-semibold'>Payment Status</h6>
       </div>
 
-      {orderInfo && orderInfo.length == 0 ?
-        <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-orders.svg'} heading={'No Orders Found'}/>
-        :
-         orderInfo.map((res,index)=>{
+       {!Skeleton  &&
+        <>
+        { orderInfo && orderInfo.length == 0 ?
+         <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-orders.svg'} heading={'No Orders Found'}/>
+         :
+          orderInfo.map((res,index)=>{
             return(
                <>
                 <div onClick={()=>{setorderId(res.name),setVisible(true)}} className='md:hidden px-[20px] cursor-pointer items-center grid grid-cols-6 h-[50px] border-b-[1px] border-b-slate-100 last-child:border-b[0px]'>
@@ -110,9 +115,36 @@ export default function Orders() {
               </>
                
             )
-         })
-
+          })
+        }
+        </>
       }
+
+      {Skeleton &&
+               [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((res,index)=>{
+                  return(
+                    <>
+                    <div className='animate-pulse md:hidden px-[20px] items-center grid grid-cols-6 h-[50px]'>
+                      <div className='h-[20px] w-[80%] bg-slate-200 rounded'></div>
+                      <div className='h-[20px] w-[75%] bg-slate-200 rounded'></div>
+                      <div className='h-[20px] w-[60%] bg-slate-200 rounded'></div>
+                      <div className='h-[20px] w-[85%] bg-slate-200 rounded'></div>
+                      <div className='h-[20px] w-[70%] bg-slate-200 rounded'></div>
+                      <div className='h-[20px] w-[75%] bg-slate-200 rounded'></div>
+                    </div>
+                    <div className='animate-pulse lg:hidden gap-[10px] flex flex-wrap p-[10px] cursor-pointer items-center border-b-[1px] border-b-slate-100 last-child:border-b[0px]'>
+                        <h6 className='md:flex-[0_0_calc(50%_-_5px)] h-[20px] w-[80%] bg-slate-200 rounded'></h6>
+                        <h6 className='md:flex-[0_0_calc(50%_-_5px)] h-[20px] w-[80%] bg-slate-200 rounded'></h6>
+                        <h6 className='md:flex-[0_0_calc(50%_-_5px)] py-[2px] h-[20px] w-[80%] bg-slate-200 rounded'> </h6>
+                        <h6 className='md:flex-[0_0_calc(50%_-_5px)] py-[2px] text-end h-[20px] w-[80%] bg-slate-200 rounded'></h6>
+                        <div className='h-[20px] w-[80%] bg-slate-200 rounded'></div>
+                      </div>
+                      </>
+                  )
+                })
+      }
+
+           
 
      <div className='more' ref={cardref}></div>
 

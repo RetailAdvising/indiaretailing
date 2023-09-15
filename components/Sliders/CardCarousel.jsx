@@ -12,7 +12,7 @@ export default function CardCarousel({ data, cardClass, imgClass, isHome = undef
                     // <div >
                     <Link key={index} className={`${cardClass} border rounded-[10px]`} href={isHome ? isHome + res.route : '/' + router.asPath.split('/')[1] + '/' + res.route}>
                         <div className={``}>
-                            <Image className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image)} height={200} width={300} alt={index + 'image'} />
+                            <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image)} height={200} width={300} alt={index + 'image'} />
                         </div>
                         <div className={` flex flex-col justify-between p-[10px]`}>
                             {(res.primary_text && res.secondary_text) && <p className='flex gap-2 items-center'><span className={`text-red leading-normal tracking-wider !text-[10px] ${styles.primary_text}`}>{res.primary_text}</span> <span class="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>}

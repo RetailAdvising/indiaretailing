@@ -14,7 +14,6 @@ export default function Tags({ res }) {
     let page_no = 1
     let no_product = false;
     const router = useRouter();
-
     useEffect(() => {
         if (res && res.data) {
             setData(res.data)
@@ -92,7 +91,11 @@ export default function Tags({ res }) {
         <>
             <RootLayout>
                 <div className={`container p-[30px_0px] md:p-[15px]`}>
-                   {tabs && <Tabs categories={categories} tab={tabs} setTabs={(data) => getTabs(data)} />}
+                <div class="flex flex-row">
+                    <div class="basis-1/4">
+                        {tabs && <Tabs customClass="page2-style" categories={categories} tab={tabs} setTabs={(data) => getTabs(data)}/>}
+                    </div>
+                    <div class="basis-3/4">
                     {(activatedData && activatedData.length != 0 && !nodata) ?
                         <div className={`lg:grid m-[20px_0] md:m-[15px_0] lg:grid-cols-5 lg:gap-5 no_scroll`}>
                             {activatedData.map((res, index) => {
@@ -115,6 +118,8 @@ export default function Tags({ res }) {
                             </div>
                             <h6 className='text-[16px] font-semibold text-center pt-[15px]'>No Article Found...</h6>
                         </div>}
+                    </div>
+                </div>
                 </div>
                 <div className='more' ref={cardref}>
 

@@ -5,7 +5,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Tabs({ categories, setTabs, tab }) {
+export default function Tabs({ categories, setTabs, tab  }) {
 console.log(tab)
     return (
         <>

@@ -10,7 +10,7 @@ import { HomePage, getAds } from '../libs/api';
 import { useEffect, useState } from 'react';
 import SEO from '@/components/common/SEO'
 
-export default function Home({ data }) {
+export default function Home({ data,ads }) {
 
   const [pageNo, setPageNo] = useState(0);
   const [start, setStart] = useState(0);
@@ -42,14 +42,14 @@ export default function Home({ data }) {
       // console.log(ads)
     }
 
-    const ads = async () => {
-      let params = { doctype: 'Web Page Builder', page_type: 'Home' }
-      const res = await getAds(params);
-      const ads = res.message;
-      setAdv(ads)
-    }
+    // const ads = async () => {
+    //   let params = { doctype: 'Web Page Builder', page_type: 'Home' }
+    //   const res = await getAds(params);
+    //   const ads = res.message;
+    //   setAdv(ads)
+    // }
 
-    ads()
+    // ads()
 
     // data()
     // if (pageNo > 0) {
@@ -64,13 +64,14 @@ export default function Home({ data }) {
   return (
     <>
       {/*  isLast={index == value.length - 1} */}
-      <RootLayout data={data} isLanding={true} head={''} homeAd={adv ? adv : null}>
+      <RootLayout data={data} isLanding={true} head={''} homeAd={ads ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
         {(value && value.length != 0) && value.map((res, index) => {
           return (
             <HomePageBuilder key={index} i={index} data={res} loadMore={() => setPageNo(p => p + 1)} />
           )
         })}
+        { value.length == 0 && <div>Please Wait</div> }
       </RootLayout>
     </>
   )
@@ -86,10 +87,13 @@ export async function getStaticProps() {
   const resp = await HomePage(param);
   const data = await resp.message;
 
+  let params = { doctype: 'Web Page Builder', page_type: 'Home' }
+  const res = await getAds(params);
+  const ads = res.message;
 
 
   return {
-    props: { data }, revalidate: 10
+    props: { data,ads }, revalidate: 10
   }
 
 }

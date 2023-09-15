@@ -10,9 +10,22 @@
             "image":"/teams/Rasul.png",
             "social":[
                 {
-                "instagram":"https://www.instagram.com/",
-                "x":"https://twitter.com/",
-                "linkedin":"https://in.linkedin.com/"
+                    "id": 1,
+                    "name": "Instagram",
+                    "iconlink": "/teams/instagram.svg",
+                    "url": "https://www.instagram.com/"
+                },
+                {
+                    "id": 2,
+                    "name": "x",
+                    "iconlink": "/teams/x.svg",
+                    "url": "https://twitter.com"
+                },
+                {
+                    "id": 3,
+                    "name": "linkedin",
+                    "iconlink": "/teams/linkdin.svg",
+                    "url": "https://in.linkedin.com/"
                 }
             ]
         },
@@ -23,9 +36,22 @@
             "image":"/teams/Shiv-Joshi.png",
             "social":[
                 {
-                "instagram":"https://www.instagram.com/",
-                "x":"https://twitter.com/",
-                "linkedin":"https://in.linkedin.com/"
+                    "id": 1,
+                    "name": "Instagram",
+                    "iconlink": "/teams/instagram.svg",
+                    "url": "https://www.instagram.com/"
+                },
+                {
+                    "id": 2,
+                    "name": "x",
+                    "iconlink": "/teams/x.svg",
+                    "url": "https://twitter.com"
+                },
+                {
+                    "id": 3,
+                    "name": "linkedin",
+                    "iconlink": "/teams/linkdin.svg",
+                    "url": "https://in.linkedin.com/"
                 }
             ]
         },
@@ -36,9 +62,22 @@
             "image":"/teams/Vishakha-Rawat.png",
             "social":[
                 {
-                "instagram":"https://www.instagram.com/",
-                "x":"https://twitter.com/",
-                "linkedin":"https://in.linkedin.com/"
+                    "id": 1,
+                    "name": "Instagram",
+                    "iconlink": "/teams/instagram.svg",
+                    "url": "https://www.instagram.com/"
+                },
+                {
+                    "id": 2,
+                    "name": "x",
+                    "iconlink": "/teams/x.svg",
+                    "url": "https://twitter.com"
+                },
+                {
+                    "id": 3,
+                    "name": "linkedin",
+                    "iconlink": "/teams/linkdin.svg",
+                    "url": "https://in.linkedin.com/"
                 }
             ]
         },
@@ -49,9 +88,22 @@
             "image":"/teams/Arunima-Sarin.png",
             "social":[
                 {
-                "instagram":"https://www.instagram.com/",
-                "x":"https://twitter.com/",
-                "linkedin":"https://in.linkedin.com/"
+                    "id": 1,
+                    "name": "Instagram",
+                    "iconlink": "/teams/instagram.svg",
+                    "url": "https://www.instagram.com/"
+                },
+                {
+                    "id": 2,
+                    "name": "x",
+                    "iconlink": "/teams/x.svg",
+                    "url": "https://twitter.com"
+                },
+                {
+                    "id": 3,
+                    "name": "linkedin",
+                    "iconlink": "/teams/linkdin.svg",
+                    "url": "https://in.linkedin.com/"
                 }
             ]
         },
@@ -62,9 +114,22 @@
             "image":"/teams/Sanya-Arora.png",
             "social":[
                 {
-                "instagram":"https://www.instagram.com/",
-                "x":"https://twitter.com/",
-                "linkedin":"https://in.linkedin.com/"
+                    "id": 1,
+                    "name": "Instagram",
+                    "iconlink": "/teams/instagram.svg",
+                    "url": "https://www.instagram.com/"
+                },
+                {
+                    "id": 2,
+                    "name": "x",
+                    "iconlink": "/teams/x.svg",
+                    "url": "https://twitter.com"
+                },
+                {
+                    "id": 3,
+                    "name": "linkedin",
+                    "iconlink": "/teams/linkdin.svg",
+                    "url": "https://in.linkedin.com/"
                 }
             ]
         },
@@ -75,9 +140,22 @@
             "image":"/teams/Nehal-Gautam.png",
             "social":[
                 {
-                "instagram":"https://www.instagram.com/",
-                "x":"https://twitter.com/",
-                "linkedin":"https://in.linkedin.com/"
+                    "id": 1,
+                    "name": "Instagram",
+                    "iconlink": "/teams/instagram.svg",
+                    "url": "https://www.instagram.com/"
+                },
+                {
+                    "id": 2,
+                    "name": "x",
+                    "iconlink": "/teams/x.svg",
+                    "url": "https://twitter.com"
+                },
+                {
+                    "id": 3,
+                    "name": "linkedin",
+                    "iconlink": "/teams/linkdin.svg",
+                    "url": "https://in.linkedin.com/"
                 }
             ]
         },
@@ -88,9 +166,22 @@
             "image":"/teams/Anagha-Ratna.png",
             "social":[
                 {
-                "instagram":"https://www.instagram.com/",
-                "x":"https://twitter.com/",
-                "linkedin":"https://in.linkedin.com/"
+                    "id": 1,
+                    "name": "Instagram",
+                    "iconlink": "/teams/instagram.svg",
+                    "url": "https://www.instagram.com/"
+                },
+                {
+                    "id": 2,
+                    "name": "x",
+                    "iconlink": "/teams/x.svg",
+                    "url": "https://twitter.com"
+                },
+                {
+                    "id": 3,
+                    "name": "linkedin",
+                    "iconlink": "/teams/linkdin.svg",
+                    "url": "https://in.linkedin.com/"
                 }
             ]
         }

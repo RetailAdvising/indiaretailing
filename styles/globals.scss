@@ -5,7 +5,7 @@
 @import './Variables.module.scss';
 
 @layer components {
-  .primary_btn{
+  .primary_btn {
     background: $primary-color;
     border-radius: 3px;
     color: $white-color;
@@ -16,28 +16,31 @@
     // border-radius: 5px;
   }
 
-  .border_top{
+  .border_top {
     border-top: 1px solid $border-color;
   }
 
 
   @screen lg {
+
     // Top 3 Stories
     // py-5
     // p-[15px_0px]
-    .top3{
-      @apply flex gap-[15px] bg-[#F8F9FA] 
+    .top3 {
+      @apply flex gap-[15px] bg-[#F8F9FA]
     }
-    .top_title{
+
+    .top_title {
       @apply text-[14px] font-medium leading-[17.62px] line-clamp-2
     }
-    .top_primary_text{
+
+    .top_primary_text {
       @apply text-[12px] uppercase font-semibold text-[#e21b22] line-clamp-1
     }
 
     .title {
       @apply text-[14px] font-semibold leading-[18.62px] line-clamp-2;
-      
+
     }
 
     .sub_title {
@@ -50,32 +53,36 @@
 
     .hashtags {
       font-size: $font-12;
-      font-weight:600;
+      font-weight: 600;
       // color: $secondary-color;
       color: #121212;
     }
   }
 
   @screen md {
-     // Top 3 Stories
-    .top3{
-      @apply flex  overflow-auto bg-[#F8F9FA] py-[10px];
+
+    // Top 3 Stories
+    .top3 {
+      @apply flex overflow-auto bg-[#F8F9FA] py-[10px];
+
       &::-webkit-scrollbar {
         display: none;
       }
     }
-    .top_title{
+
+    .top_title {
       @apply text-[11px] font-medium leading-[17.62px] line-clamp-2
     }
-    .top_primary_text{
+
+    .top_primary_text {
       @apply text-[12px] uppercase font-semibold text-[#e21b22] line-clamp-1
     }
 
 
     .title {
       @apply text-[13px] font-semibold leading-[1.7]
-      
     }
+
     .sub_title {
       font-size: $font-12;
       font-weight: 400;
@@ -87,13 +94,14 @@
 
     .hashtags {
       font-size: $font-11;
-      font-weight:600;
+      font-weight: 600;
       // color: $secondary-color;
       color: #121212;
     }
 
     .no_scroll {
       @apply flex gap-[15px] overflow-auto;
+
       &::-webkit-scrollbar {
         display: none;
       }
@@ -101,30 +109,30 @@
   }
 }
 
-.flex_70{
+.flex_70 {
   flex: 0 0 calc(70% - 10px);
   width: calc(70% - 15px);
 }
 
-.flex_30{
+.flex_30 {
   flex: 0 0 calc(30% - 10px);
   width: calc(30% - 15px);
 }
 
-.flex-33{
+.flex-33 {
   flex: 0 0 calc(33.333% - 15px);
   width: calc(33.333% - 15px);
 }
 
-.flex-40{
+.flex-40 {
   flex: 0 0 calc(40% - 15px);
   width: calc(40% - 15px);
 }
 
 
 
-.none{
-  .dots{
+.none {
+  .dots {
     bottom: 30px !important;
   }
 }
@@ -137,14 +145,14 @@
 
 
 
-.gray_color{
+.gray_color {
   color: $secondary-color;
 }
 
 html,
 body {
   overflow-x: hidden;
-  padding: 0!important;
+  padding: 0 !important;
   // font-family: 'Poppins', sans-serif !important;
   p,
   span {
@@ -300,6 +308,12 @@ h6 {
   z-index: 10;
 }
 
+.search_hover:hover{
+  img,p{
+    color: $primary-color;
+  }
+}
+
 .primary_color {
   color: $primary-color;
 }
@@ -396,7 +410,7 @@ h6 {
 
 
 .member-card {
-border: 1px solid #fff;
+  border: 1px solid #fff;
   box-shadow: 0px 4.904330253601074px 29.425983428955078px 0px rgba(0, 0, 0, 0.06), 0px 3.923464298248291px 9.808660507202148px 0px rgba(0, 0, 0, 0.02), 0px 0.9808660745620728px 3.923464298248291px 0px rgba(0, 0, 0, 0.03);
 }
 
@@ -637,37 +651,38 @@ input {
     width: 100%;
   }
 
-  .eventSlide{
-    .react-multi-carousel-item{
+  .eventSlide {
+    .react-multi-carousel-item {
       width: 353px !important;
     }
   }
 
-  .latestNews_slider{
-    .dots{
+  .latestNews_slider {
+    .dots {
       bottom: unset !important;
     }
   }
 
-  .placeholder{
-    .card{
+  .placeholder {
+    .card {
       flex: 0 0 calc(80.333% - 10px) !important;
     }
 
-  } 
+  }
 
-  .photo{
-    .react-multi-carousel-item{
+  .photo {
+    .react-multi-carousel-item {
       width: 350px !important;
     }
-    .dots{
+
+    .dots {
       // bottom: 65px !important;
       display: none !important;
     }
   }
 
-  .research{
-    .react-multi-carousel-item{
+  .research {
+    .react-multi-carousel-item {
       // width: 163px !important;
       width: 354px !important;
     }
@@ -678,44 +693,49 @@ input {
   //     bottom: 30px !important;
   //   }F
   // }
-  
-  .leaders{
-    .react-multi-carousel-list{
+
+  .leaders {
+    .react-multi-carousel-list {
       height: 350px !important;
     }
-    .react-multi-carousel-item{
+
+    .react-multi-carousel-item {
       width: 288px !important;
     }
 
-    .dots{
+    .dots {
       bottom: 0px !important;
     }
   }
-  
 
-  
+
+
   // .photo{
   //   .react-multi-carousel-item{
   //     width: 178px !important;
   //   }
   // }
-  
 
-  .flex_70,.flex_30,.flex-33,.flex-40,.flex-20{
+
+  .flex_70,
+  .flex_30,
+  .flex-33,
+  .flex-40,
+  .flex-20 {
     flex: 0 0 calc(100% - 10px);
     width: calc(100% - 0px);
   }
-  
+
   // .flex_30{
   //   flex: 0 0 calc(30% - 15px);
   //   width: calc(30% - 15px);
   // }
-  
+
   // .flex-33{
   //   flex: 0 0 calc(33.333% - 15px);
   //   width: calc(33.333% - 15px);
   // }
-  
+
   // .flex-40{
   //   flex: 0 0 calc(40% - 15px);
   //   width: calc(40% - 15px);
@@ -815,13 +835,16 @@ input {
         // left: 876px;
         left: 0% !important;
         height: calc(90vh - 0px) !important;
-        padding: 0!important;
+        padding: 0 !important;
       }
-      .rodal-close{
+
+      .rodal-close {
         color: #fff;
         top: 25px;
       }
-      .rodal-close:before ,.rodal-close:after{
+
+      .rodal-close:before,
+      .rodal-close:after {
         background: #fff;
       }
     }
@@ -940,38 +963,39 @@ input {
 
 @media screen and (min-width:768px) {
 
-  .benefitcard{
-    .content_{
-     min-height: 104px;
+  .benefitcard {
+    .content_ {
+      min-height: 104px;
     }
   }
 
-  .flex-20{
+  .flex-20 {
     flex: 0 0 calc(20% - 15px);
     width: calc(20% - 15px);
     padding: 40px 0;
   }
 
-  .photo{
-    .react-multi-carousel-item{
+  .photo {
+    .react-multi-carousel-item {
       // width: 178px !important;
       width: 242px !important;
     }
-    .dots{
+
+    .dots {
       bottom: 30px !important;
       // bottom: 45px !important;
     }
   }
 
-  .leaders{
-    .react-multi-carousel-item{
+  .leaders {
+    .react-multi-carousel-item {
       // width: 289px !important;
       width: 214px !important;
     }
   }
 
-  .research{
-    .react-multi-carousel-item{
+  .research {
+    .react-multi-carousel-item {
       // width: 163px !important;
       width: 221px !important;
     }
@@ -1031,7 +1055,8 @@ input {
     .react-multi-carousel-item {
       width: 250px !important;
     }
-    .dots{
+
+    .dots {
       bottom: 5px !important;
     }
   }
@@ -1040,7 +1065,8 @@ input {
     gap: 10px !important;
     min-height: 370px !important;
   }
-  .zero-gap  .react-multi-carousel-track{
+
+  .zero-gap .react-multi-carousel-track {
     gap: 0px !important;
   }
 
@@ -1051,16 +1077,20 @@ input {
         padding: 0;
         left: 65%;
         height: calc(100vh - 0px) !important;
-    }
-    .rodal-close{
-      color: #fff;
-      top: 25px;
-    }
-    .rodal-close:before ,.rodal-close:after{
-      background: #fff;
+      }
+
+      .rodal-close {
+        color: #fff;
+        top: 25px;
+      }
+
+      .rodal-close:before,
+      .rodal-close:after {
+        background: #fff;
+      }
     }
   }
-  }
+
   // .title {
   //   font-size: $font-14;
   //   font-weight: 600;
@@ -1164,14 +1194,15 @@ input {
   }
 }
 
-.popBtn:focus{
+.popBtn:focus {
   outline: none !important;
 }
-.popBtn{
+
+.popBtn {
   width: 8px;
 }
 
-button:focus{
+button:focus {
   outline: none !important;
 }
 
@@ -1363,7 +1394,8 @@ button:focus{
   //   background: #111111;
   // }
 }
-.visible{
+
+.visible {
   background: rgba(0, 0, 0, 0.4);
   position: fixed;
   z-index: 0;
@@ -1434,8 +1466,9 @@ button:focus{
   }
 
 }
-.prime-article:after{
-  background-image: linear-gradient(180deg,hsla(0,0%,100%,0) -7%,#fff);
+
+.prime-article:after {
+  background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0) -7%, #fff);
   bottom: 0;
   content: "";
   height: 40%;
@@ -1546,11 +1579,12 @@ button:focus{
     // div {
     //   flex: 0 0 calc(80% - 5px);
 
-      .img {
-        height: 180px;
-        width: 100%;
-        border-radius: 10px 10px 0 0 ;
-      }
+    .img {
+      height: 180px;
+      width: 100%;
+      border-radius: 10px 10px 0 0;
+    }
+
     // }
   }
 }
@@ -1646,7 +1680,8 @@ button:focus{
   box-shadow: none !important;
   /* Remove any box shadow */
 }
-.nav-item.active{
+
+.nav-item.active {
   color: #e21b22 !important;
 }
 
@@ -1661,130 +1696,189 @@ button:focus{
 
 
 @media only screen and (min-width: 768px) and (max-width: 1280px) {
-  .container{
+  .container {
     padding: 10px 15px !important;
   }
-  .navigation_c{
+
+  .navigation_c {
     font-size: 14px;
   }
 }
 
-.active_member_ship:hover,.cur_member_ship{
-  border:1px solid $primary-color !important;
+.active_member_ship:hover,
+.cur_member_ship {
+  border: 1px solid $primary-color !important;
+
   .member-button_ {
-   background: $primary-color !important;
-   color: #fff;
- }
+    background: $primary-color !important;
+    color: #fff;
+  }
 }
 
-.scrollbar-hide::-webkit-scrollbar{
+.scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
-.hiding{
+.hiding {
   display: none
 }
 
-.confirmMembership{
-  .rodal-dialog{
+.confirmMembership {
+  .rodal-dialog {
     padding: 0 !important;
   }
+
   .rodal-close {
     top: 11px !important;
     right: 16px;
-    width:14px !important;
+    width: 14px !important;
     height: 14px !important;
   }
 }
 
-.order_detail{
-  .rodal-dialog{
+.order_detail {
+  .rodal-dialog {
     padding: 0 !important;
   }
+
   .rodal-close {
-    top: 11px !important;
+    top: 19px !important;
     right: 16px;
-    width:14px !important;
+    width: 14px !important;
     height: 14px !important;
   }
 }
 
-@media screen and (max-width: 768px){
-  .order_detail{
-    .rodal-dialog{
+@media screen and (max-width: 768px) {
+  .order_detail {
+    .rodal-dialog {
       width: 100% !important;
     }
   }
+
   .react-multi-carousel-dot-list {
-   display: none !important;
+    display: none !important;
   }
-  .zero-gap  .react-multi-carousel-track{
+
+  .zero-gap .react-multi-carousel-track {
     gap: 0px !important;
   }
 }
 
-.mouse{
+.mouse {
   cursor: pointer;
 }
-.comment .rodal-dialog{
-  max-height: 450px!important;
+
+.comment .rodal-dialog {
+  max-height: 450px !important;
 }
-.success .rodal-dialog{
-  max-height: 150px!important;
+
+.success .rodal-dialog {
+  max-height: 150px !important;
 }
+
 textarea {
   resize: none;
 }
-input:focus, textarea:focus, select:focus{
+
+input:focus,
+textarea:focus,
+select:focus {
   outline: #e21b22;
 }
 
-.innertag{
-  p,span,a{
+.innertag {
+
+  p,
+  span,
+  a {
     font-size: 13px !important;
+    line-height: 1.4;
   }
 }
 
 // top nav bar
-.active_nav{
+.active_nav {
   color: $primary-color;
   border-bottom: 2px solid;
   font-weight: 600;
 }
 
 // header Anim
-$nav-height: 95px;
+$nav-height: 100px;
+
 #header {
- 
+
   // position: abs;
   height: $nav-height;
-   // important
+  // important
   transition: top 0.3s ease-in-out;
   width: 100%;
   background-color: #fff;
   z-index: 10;
+
   a {
-    color:white;
+    color: white;
     margin: 0 10px;
   }
 }
-.nav-down{  top:0; position: absolute;} // scroll direction toggles
-.nav-up {	top: -$nav-height;	 position: absolute;}
+
+.nav-down {
+  top: 0;
+  position: absolute;
+}
+
+// scroll direction toggles
+.nav-up {
+  top: -$nav-height;
+  position: absolute;
+}
 
 // bottom Nav
 $nav-height: 55px;
+
 #tabs {
   position: fixed;
-   // important
+  // important
   height: $nav-height;
   transition: bottom 0.3s ease-in-out;
   width: 100%;
   background-color: #fff;
   z-index: 10;
+
   a {
-    color:white;
+    color: white;
     margin: 0 10px;
   }
 }
-.tabs-down{  bottom:0; position: absolute;} // scroll direction toggles
-.tabs-up {	bottom: -$nav-height;	}
+
+.tabs-down {
+  bottom: 0;
+  position: absolute;
+}
+
+// scroll direction toggles
+.tabs-up {
+  bottom: -$nav-height;
+}
+
+.test{
+  color: $red;
+  background-color: $red;
+}
+
+/* Customize the audio element's scrollbar */
+/* Track (the background of the scrollbar) */
+audio::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Change this to your desired background color */
+}
+
+/* Handle (the thumb or the draggable part of the scrollbar) */
+audio::-webkit-scrollbar-thumb {
+  background-color: rgb(245, 24, 24); /* Change this to your desired thumb color */
+}
+
+/* Handle on hover */
+audio::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Change this to your desired thumb color on hover */
+}

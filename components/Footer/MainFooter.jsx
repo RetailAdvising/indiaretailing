@@ -45,7 +45,7 @@ export default function MainFooter() {
                         {footer.footer.section_2.child_data.map((res, index) => {
                             return (
                                 <div key={index} className={`list_div leading-[2.5]`}>
-                                    <h6 className='text-[15px] font-semibold'>{res.title}</h6>
+                                    <h6 className='text-[15px] font-semibold mb-3'>{res.title}</h6>
                                     {(res.footerlinks && res.footerlinks.length != 0) && res.footerlinks.map((item, index) => {
                                         return (
                                             <a href={item.link} key={index}><p className='sub_title pb-2 hover:text-[red]'>{item.footerlink}</p></a>

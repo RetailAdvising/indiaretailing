@@ -12,14 +12,14 @@ export default function IRPrime({ data }) {
                     <div className={`flex justify-between cursor-pointer items-center pb-[5px] border_bottom_white`} >
                         <div className={`flex gap-2`}>
                             <div className={``}>
-                                <Image src={'/IR.svg'} height={30} width={35} className={``} alt={"IR Prime"}></Image>
+                                <Image src={'/IR.svg'} objectFit='contain' height={30} width={35} className={``} alt={"IR Prime"}></Image>
                             </div>
                             <p className={`flex flex-col`}>
-                                <h6 className={`text-sm font-semibold`}>IR Prime</h6><span className={`text-[13px] hashtags`}>Top 3  stories of the day</span>
+                                <h6 className={`text-sm font-semibold`}>IR Prime</h6><span className={`text-[11px] font-[400] text-[#757575]`}>Top 3  stories of the day</span>
                             </p>
                         </div>
                         <div>
-                            <p onClick={() => router.push('/IRPrime')} className={`text-[13px] bg-white rounded-full w-[60px] text-center p-[2px] button_text_color`}>See All</p>
+                            <p onClick={() => router.push('/IRPrime')} className={`text-[13px] bg-white rounded-full w-[60px] text-center p-[2px] button_text_color md:text-[12px] md:rounded-[50%]`}>See All</p>
                         </div>
                     </div>
                     {data.map((res, index) => {
@@ -27,7 +27,7 @@ export default function IRPrime({ data }) {
                             <Link key={index} href={'/IRPrime/' + res.route}>
                                 <div className={`flex items-center gap-[10px] ${index != data.length - 1 && 'border_bottom_white'} py-[10px]`}>
                                     <div className='flex-[0_0_calc(25%_-_10px)]'>
-                                        <Image className='h-[60px] rounded-[5px] w-full' src={check_Image(res.thumbnail_image)} alt={res.title} height={50} width={70} />
+                                        <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className='h-[60px] rounded-[5px] w-full' src={check_Image(res.thumbnail_image)} alt={res.title} height={50} width={70} />
                                     </div>
                                     <p className={`text-sm font-400 line-clamp-2`}>{res.title}</p>
                                 </div>

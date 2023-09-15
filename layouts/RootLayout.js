@@ -9,6 +9,7 @@ import React from 'react'
 // import '@/styles/globals.scss'
 export default function RootLayout({ children, checkout, isLanding, head, homeAd, data }) {
   // console.log(data.footer_content)
+  
   const styles = {
     display: 'flex',
     justifyContent: 'center'
@@ -21,8 +22,10 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       <div>
       <Header checkout={checkout} />
       {!checkout && <Navbar isLanding={isLanding} heading={head} />}
-      <main id='main'>{children}</main>
-      <MainFooter />
+      <main id='main' style={{minHeight:'650px'}}>
+        {children}
+        </main>
+      {!checkout && <MainFooter /> }
       <div className='lg:hidden' >
       <BottomTabs />
       </div>
@@ -30,4 +33,3 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     </>
   )
 }
-  
