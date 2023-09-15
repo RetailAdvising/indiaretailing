@@ -4,16 +4,35 @@ import styles from '@/styles/newsLetter.module.scss'
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common';
 import AlertPopup from '../common/AlertPopup';
+import SubscribeNews from './SubscribeNews';
 
 export default function NewsList({ data }) {
   const router = useRouter();
   const [showAlert, setShowAlert] = useState(false);
   const [news, setNews] = useState()
 
-  async function showPopup(data) {
+  async function showPopup(obj,index) {
     // console.log(data);
-    setNews(data)
+    data.map((res,i)=>{
+      if(i == index){
+        res.selected = 1;
+      }else{
+        res.selected = 0;
+      }
+    })
+    setNews(obj);
     setShowAlert(true);
+    show();
+  }
+
+  const [visible, setVisible] = useState(false)
+
+  function show() {
+    setVisible(true);
+  }
+ 
+  function hide(obj) {
+    setVisible(false);
   }
 
   return (
@@ -30,18 +49,22 @@ export default function NewsList({ data }) {
               <p className={`text-[14px] md:text-[12px] line-clamp-2`}>{res.custom_title}</p>
               <div className='flex lg:hidden items-center md:gap-[10px] gap-[20px]'>
                 <p className='cursor-pointer text-[14px] md:text-[12px] font-semibold' onClick={() => router.push(`/${res.route}`)}>Preview</p>
-                <p className='flex cursor-pointer justify-center items-center seeMore' onClick={() => showPopup(res)}><span className='capitalize text-[11px] text-[#e21b22] font-semibold'>Sign Up</span> <Image className='img h-[14px] object-contain' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></p>
+                <p className='flex cursor-pointer justify-center items-center seeMore' onClick={() => {showPopup(res, index)}}><span className='capitalize text-[11px] text-[#e21b22] font-semibold'>Sign Up</span> <Image className='img h-[14px] object-contain' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></p>
               </div>
             </div>
             {/* justify-between */}
             <div className='flex md:hidden items-center gap-[10px] flex-[0_0_calc(25%_-_10px)]'>
               <p className='cursor-pointer flex-[0_0_calc(50%_-_10px)]' onClick={() => router.push(`/${res.route}`)}>Preview</p>
-              <p className='flex cursor-pointer justify-center items-center seeMore' onClick={() => showPopup(res)}><span className='primary_text '>Sign Up</span> <Image className='img' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></p>
+              <p className='flex cursor-pointer justify-center items-center seeMore' onClick={() => {showPopup(res, index)}}><span className='primary_text '>Sign Up</span> <Image className='img' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></p>
             </div>
           </div>
         )
       })}
-      {(showAlert && news) && <AlertPopup data={news} show={() => setShowAlert(false)} />}
+
+      {/* {(showAlert && news) && <AlertPopup data={news} show={() => setShowAlert(false)} />} */}
+
+      {visible && <SubscribeNews data={data} visible={visible} hide={(obj)=> hide(obj)} />}
+
     </>
   )
 }

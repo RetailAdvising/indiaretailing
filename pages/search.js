@@ -128,6 +128,29 @@ export default function search({searchTxt}) {
       }
     }
 
+    
+    const navigateDetail = (data) => {
+      // router.push('/login')
+      let route = ''
+      if (data.type == 'Articles') {
+          route = data.ir_prime == '1' ? '/IRPrime/' + data.route : '/categories/' + data.route
+      } else if (data.type == 'Product') {
+          route = '/bookstore/' + data.route
+      } else if (data.type == 'News') {
+          route = '/news/' + data.route
+      } else if (data.type == 'Podcast') {
+          route = '/podcast/' + data.route
+      } else if (data.type == 'Video') {
+          route = '/ir/' + data.route
+      } else if (data.type == 'Newsletter') {
+          route = '/newsletters/' + data.route
+      }
+
+      if (route) {
+          router.push(route);
+      }
+  }
+
     return (
       <>
         <RootLayout checkout={isMobile ? false : true}>

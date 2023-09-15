@@ -16,7 +16,7 @@ export default function AdsBaner({ data, height, Class, style, width, homeAd, })
         (homeAd && homeAd.header && homeAd.header.length != 0) ? <>
           {homeAd.header[0] && <div style={style} className={`${Class}`}>
             {/* {(homeAd.header[0].title && homeAd.header[0].title != null) && <p className='fnt_12 text-center'>{homeAd.header[0].title ? homeAd.header[0].title : ''}</p>} */}
-            <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur'  onClick={() => window.open(homeAd.header[0].banner_link, '_blank')} src={check_Image(homeAd.header[0].banner_image)} height={250} className={`${height ? height : 'h-[250px]'} ${width ? width : 'w-full'} object-contain cursor-pointer`} width={970} alt='ad' />
+            <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur'  onClick={() => window.open(homeAd.header[0].banner_link, '_blank')} src={check_Image(homeAd.header[0].banner_image)} height={250}  className={`${height ? height : 'h-[250px]'} ${width ? width : 'w-[970px]'} object-contain cursor-pointer`} width={970} alt='ad' />
           </div>}
         </> : null
       }

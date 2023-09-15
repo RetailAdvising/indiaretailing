@@ -8,7 +8,7 @@ export default function TopStories({ data }) {
         <>
             {data && data.map((res, index) => {
                 return (
-                    <Link key={index} href={'/categories/' + res.route} className='flex-[0_0_calc(30%_-_10px)] flex gap-[10px]  items-center h-[100px] px-[10px]  rounded-[5px] bg-white  md:h-[90px] md:flex-[0_0_calc(80%_-_10px)]'>
+                    <Link key={index} href={'/categories/' + res.route} className='flex-[0_0_calc(30%_-_10px)] flex gap-[10px]  items-center h-[100px] px-[10px]  rounded-[5px] bg-white  md:h-[90px] md:flex-[0_0_calc(85%_-_10px)]'>
                         {/* <div  className={`flex gap-[10px]  items-center h-[100px] px-[10px]  rounded-[5px] bg-white  md:h-[80px]  md:flex-[0_0_calc(90%_-_10px)] ${index == data.length - 1 ? 'md:mx-[15px]' : index == 0 ? '' : 'md:ml-[15px]'}`}> */}
                         {/* <div > */}
                         <Link href={'/categories/' + res.route} className='flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(35%_-_10px)]'>

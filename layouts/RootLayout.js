@@ -22,7 +22,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       <div>
       <Header checkout={checkout} />
       {!checkout && <Navbar isLanding={isLanding} heading={head} />}
-      <main id='main' style={{minHeight:'650px'}}>
+      <main id='main'> 
         {children}
         </main>
       {!checkout && <MainFooter /> }

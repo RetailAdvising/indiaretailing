@@ -79,7 +79,7 @@ export default function Bookstore({ data,resp,ads_data, slider_data }) {
               <div className={`flex-[0_0_calc(100%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
                 <Title data={data[0]}  seeMore={true} />
                 {/* [270px] w-[181px] */}
-                <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'h-[300px] mouse'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 10)} boxShadow={true} /></div>
+                <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={data[0].category_name} check={true} isLanding={true} data={data[0].products.slice(0, 10)} boxShadow={true} /></div>
               </div>
               {/* <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}><AdsBaner data={val.section_2.col_2} /></div> */}
             </div>
@@ -90,7 +90,7 @@ export default function Bookstore({ data,resp,ads_data, slider_data }) {
           {(data[1] && data[2]) && <div className='container md:p-[10px_15px_10px_15px] pt-[2rem] pb-[6rem] md:flex-wrap md:flex-col flex justify-between gap-[15px]'>
             <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
               <Title data={data[1]}  seeMore={true} />
-              <div className={`flex lg:gap-[15px] h-full rounded-[5px] flex-wrap border p-[15px]`}><List category={data[1].category_name} check={true} isLanding={true} boxShadow={true} imgWidth={'flex-[0_0_calc(40%_-_10px)]'} height={isMobile ? 'h-[180px]' : 'h-[210px]'} width={'w-full'} data={data[1].products.slice(0, 4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] lg:h-[220px] md:h-[190px] object-contain'} /></div>
+              <div className={`flex lg:gap-[15px] h-full rounded-[5px] flex-wrap border p-[15px]`}><List  category={data[1].category_name} check={true} isLanding={true} boxShadow={true} imgWidth={'flex-[0_0_calc(40%_-_10px)]'} imgWidth1={'md:w-[60%]'} height={isMobile ? 'h-[150px]' : 'h-[210px]'} width={'w-full'} data={data[1].products.slice(0, 4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] lg:h-[220px] md:h-[160px] object-contain'} /></div>
             </div>
 
             <div className={`flex-[0_0_calc(30%_-_10px)] md:pt-[10px] md:flex-[0_0_calc(100%_-_10px)]`}>

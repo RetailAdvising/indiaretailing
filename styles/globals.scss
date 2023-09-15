@@ -1458,8 +1458,11 @@ button:focus {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  position: relative;
+  gap: 10px;
+  padding:10px;
+  border-radius: 5px;
+  margin: 10px 0 0 0;
+  // position: relative;
 
   .ql-editor {
     width: 100% !important;
@@ -1721,6 +1724,23 @@ button:focus {
 
 .hiding {
   display: none
+}
+
+.NewsLetterSub {
+  .rodal-dialog {
+    padding: 0 !important;
+    height: 86vh !important;
+  }
+
+  .rodal-close {
+    top: 15px !important;
+    right: 15px;
+    width: 14px !important;
+    height: 14px !important;
+    background: #fff;
+    padding: 5px;
+    z-index: 99;
+  }
 }
 
 .confirmMembership {

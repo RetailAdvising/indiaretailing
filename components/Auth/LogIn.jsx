@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
@@ -16,6 +16,29 @@ import OTP from './OTP';
 
 import { useDispatch, useSelector } from 'react-redux';
 import setUser from 'redux/actions/userAction';
+
+// import {
+//     LoginSocialGoogle,
+//     LoginSocialFacebook,
+//     LoginSocialLinkedin,
+//     LoginSocialTwitter,
+//     LoginSocialApple,
+// } from 'reactjs-social-login';
+
+// import {
+//     FacebookLoginButton,
+//     GoogleLoginButton,
+//     GithubLoginButton,
+//     AmazonLoginButton,
+//     InstagramLoginButton,
+//     LinkedInLoginButton,
+//     MicrosoftLoginButton,
+//     TwitterLoginButton,
+//     AppleLoginButton,
+// } from 'react-social-login-buttons';
+
+// const REDIRECT_URI =
+//     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
 export default function LogIn({ isModal, hide }) {
     // providers: [
     //     Providers.Google({
@@ -68,19 +91,19 @@ export default function LogIn({ isModal, hide }) {
         }
     }
 
-    async function loginGoogle(){
+    // async function loginGoogle(){
 
-    }
+    // }
 
-    const handleSuccess = (response) => {
-        console.log("Google authentication success:", response);
-        // Handle successful authentication here
-      };
-    
-      const handleFailure = (error) => {
-        console.error("Google authentication error:", error);
-        // Handle authentication failure here
-      };
+    // const handleSuccess = (response) => {
+    //     console.log("Google authentication success:", response);
+    //     // Handle successful authentication here
+    //   };
+
+    //   const handleFailure = (error) => {
+    //     console.error("Google authentication error:", error);
+    //     // Handle authentication failure here
+    //   };
 
     // const responseGoogle = (response) => {
     //     if (response && response.profileObj) {
@@ -99,6 +122,11 @@ export default function LogIn({ isModal, hide }) {
         isModal ? hide() : router.push('/')
     }
 
+    // const [provider, setProvider] = useState('');
+    // const [profile, setProfile] = useState();
+    // const onLoginStart = useCallback(() => {
+    //     alert('login start');
+    // }, []);
     return (
         <>
             {!otp ? <div className='flex container p-[20px] justify-center gap-[60px] '>
@@ -146,6 +174,44 @@ export default function LogIn({ isModal, hide }) {
                         <p>Continue with Google</p>
                         {/* { islogin && <GoogleLogin onSuccess={handleSuccess} onFailure={handleFailure} />} */}
                     </div>
+
+                    {/* <LoginSocialGoogle
+                        client_id={'630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com'}
+                        onLoginStart={onLoginStart}
+                        redirect_uri={REDIRECT_URI}
+                        scope="openid profile email"
+                        discoveryDocs="claims_supported"
+                        access_type="offline"
+                        onResolve={({ provider, data }) => {
+                            // setProvider(provider);
+                            // setProfile(data);
+                            console.log(provider)
+                            console.log(data)
+                        }}
+                        onReject={err => {
+                            console.log(err);
+                        }}
+                    >
+                        <GoogleLoginButton />
+                    </LoginSocialGoogle>
+
+                    <LoginSocialApple
+                        client_id={process.env.REACT_APP_APPLE_ID || ''}
+                        scope={'name email'}
+                        redirect_uri={REDIRECT_URI}
+                        onLoginStart={onLoginStart}
+                        onResolve={({ provider, data }) => {
+                            // setProvider(provider);
+                            // setProfile(data);
+                            console.log(provider)
+                            console.log(data)
+                        }}
+                        onReject={err => {
+                            console.log(err);
+                        }}
+                    >
+                        <AppleLoginButton />
+                    </LoginSocialApple> */}
                     {/* <>{
                         <GoogleLogin
                             clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com"
@@ -156,7 +222,7 @@ export default function LogIn({ isModal, hide }) {
                         />
                         }
                     </> */}
-                    
+
                     <div className='flex gap-[10px] items-center h-[45px] rounded-[5px] cursor-pointer justify-center border'>
                         <Image height={20} width={20} alt='apple' src={'/Apple-login.svg'} />
                         <p>Continue with Apple</p>

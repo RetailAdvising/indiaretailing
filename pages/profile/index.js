@@ -226,8 +226,15 @@ export default function profile({my_account}) {
             </div>
           }
 
-          <div className='ml-[25px] min-h-[350px] w-full flex gap-[10px]'>
-              {(tab == '' || !isMobile) && <div className={'p-[10px_20px_20px_0] lg:flex-[0_0_calc(25%_-_10px)]'}><Myprofile profileInfo={profileInfo} navigateToProfile={navigateToProfile} /></div>}
+          <div className='min-h-[350px] w-full flex'>
+              {(tab == '' || !isMobile) && 
+              // p-[10px_20px_20px_0]
+              <div className={'lg:flex-[0_0_calc(25%_-_0px)]'}>
+
+                <h6 className='md:hidden flex items-center p-[0_25px] text-[16px] font-semibold h-[50px] border-b-[1px] border-b-slate-200'>Account Settings</h6>
+
+                 <Myprofile profileInfo={profileInfo} navigateToProfile={navigateToProfile} />
+                </div>}
               
               {tab && tab != '' && <div  className={'min-h-[calc(100vh_-_70px)] md:w-full lg:flex-[0_0_calc(75%_-_0px)] pb-[20px] border-l-[1px] border-l-slate-200 '}>
                 

@@ -12,6 +12,8 @@ import CustomSlider from '@/components/Sliders/CustomSlider';
 
 export default function Categories({ data, ads }) {
     const [isMobile, setIsMobile] = useState()
+    const [activeNav, setActiveNav] = useState()
+
     useEffect(() => {
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
@@ -28,16 +30,17 @@ export default function Categories({ data, ads }) {
         <>
             <RootLayout homeAd={ads ? ads : null} head={'Categories'} isLanding={true}>
             <SEO title={'Categories'} siteName={'India Reatiling'} description={'Categories'}/>
-                <div className={`lg:p-[30px_0px] md:p-[15px]  ${isMobile ? '' : 'container'}`}>
+                <div className={` md:p-[15px]  ${isMobile ? '' : 'container'}`}>
                     {!isMobile && <Title data={{ title: 'Categories' }} font={'20px'} />}
                     {data && data.map((res, index) => {
                         return (
-                            <div key={index} className={`flex md:mb-[10px]  ${index == 0 ? 'lg:mb-[25px]' : 'lg:my-[25px]'} md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>
+                            <div key={index} className={`flex md:block md:mb-[10px]  ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>
                                 <div className={`lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)] `}><SectionBox data={res} /></div>
                                 {/* <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(100%_-_0px)] xl:w-[calc(80%_-_10px)] md:p-[10px]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[200px]'} islanding={true} noPlay={false} check={true} height={'lg:h-[185px] md:h-[140px]'} perView={4} width={'w-full'} data={res.events} /></div> */}
                                  <div className='lg:w-[calc(80%_-_10px)]  md:p-[10px]'>
                                     {/* <CardCarousel data={res.events} cardClass={'lg:h-[280px] md:h-[220px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                                    <CustomSlider data={res.events} cardClass={'lg:h-[280px] md:h-[220px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} />
+                                    <CustomSlider data={res.events} cardClass={'lg:h-[280px] md:h-[220px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} 
+                                    slider_id={"slider_id"+index} slider_child_id={"slider_child_id"+index}/>
                                     </div>
                             </div>
                         )

@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 
 export default function TopNavBar({ nav_data }) {
     const router = useRouter()
-    const [activeNav, setActiveNav] = useState()
     const [navData, SetNavData] = useState([
         {
             "menu_label": "Home",
