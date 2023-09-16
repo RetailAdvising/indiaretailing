@@ -192,7 +192,7 @@ export default function Header({ checkout }) {
         <>
             {head &&
                 <div className={`border_bottom`}>
-                    <div className='container relative p-[0px] md:hidden grid grid-cols-3 items-center justify-between my-[20px]'>
+                    <div className='container relative p-[0px] md:hidden grid grid-cols-3 items-center justify-between lg:my-[20px]'>
                         {/* <div> */}
 
                         <div onClick={searchFn} className={`flex items-center cursor-pointer gap-[2px] search_hover`}>
