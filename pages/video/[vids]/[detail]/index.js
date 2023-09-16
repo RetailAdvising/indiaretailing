@@ -57,7 +57,7 @@ export default function Videos() {
         let res = await video_details(data);
         if (res && res.status == "Success") {
             setVideoDetail(res)
-            console.log(res)
+            // console.log(res)
         }
         // setCartItems(cart_items);
     }

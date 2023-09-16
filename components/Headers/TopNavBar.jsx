@@ -54,14 +54,17 @@ export default function TopNavBar({ nav_data }) {
         })
     }, [])
     const nav_to_view = (menu_label) => {
-    var top_nav_bar = document.getElementById('top_nav_bar')
-    var active_nav = document.getElementById(menu_label)
-    console.log(active_nav,menu_label);
-    active_nav.scrollIntoView(true);
+     var active_nav = document.getElementById(menu_label)
+    // console.log(active_nav,menu_label);
+    console.log(';;;;;',active_nav); 
+    setTimeout(()=>{
+        active_nav.scrollIntoView({ behavior: 'smooth', block: 'center',inline: "nearest" });
+    },300)
+    
     }
     const changeNav = (nav) => {
-        // router.push(nav.redirect_url)
-        window.location.href= nav.redirect_url;
+        router.push(nav.redirect_url)
+        // window.location.href= nav.redirect_url;
         // console.log(navData);
     }
     return (

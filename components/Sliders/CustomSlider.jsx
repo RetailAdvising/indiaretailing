@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { check_Image } from '../../libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-export default function CustomSlider({ data, cardClass, imgClass,slider_id,slider_child_id,type }) {
+export default function CustomSlider({ data, cardClass, imgClass,slider_id,slider_child_id,type,route }) {
     const router = useRouter()
   
     const sctollTo = (direction) => {
@@ -30,7 +30,7 @@ export default function CustomSlider({ data, cardClass, imgClass,slider_id,slide
             >
                 {data && data.map((res, index) => {
                     return (
-                        <Link key={index} className={`${cardClass} border rounded-[10px] overfow-hidden`} href={'/' + router.asPath.split('/')[1] + '/' + res.route}>
+                        <Link key={index} className={`${cardClass} border rounded-[10px] overfow-hidden`} href={route ? route + res.route : '/' + router.asPath.split('/')[1] + '/' + res.route}>
                             <div className={``} >
                                 <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image)} height={200} width={300} alt={index + 'image'} />
                             </div>

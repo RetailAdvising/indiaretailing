@@ -41,14 +41,14 @@ export default function BottomTabs() {
         },
     ])
     useEffect(()=>{
-        console.log(router);
+        // console.log(router);
         let route = router.route.split('/')
         let redirect_url = route[1] ? '/'+route[1] : '/'
         tabs.map(nd=>{
             nd.active = nd.redirect_url == redirect_url ? true :false
             // SetNavData(navData)
         })
-        console.log(tabs);
+        // console.log(tabs);
      },[])
      const changeNav = (nav) =>{
         router.push(nav.redirect_url)

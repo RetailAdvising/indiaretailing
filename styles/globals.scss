@@ -156,7 +156,7 @@ body {
   // font-family: 'Poppins', sans-serif !important;
   p,
   span {
-    font-size: $font-14;
+    font-size: $font-15;
     // color: $secondary-color;
     // line-height: 28px;
   }
@@ -1454,14 +1454,17 @@ button:focus {
 
 .contents {
   /* Add your content styling here */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding:10px;
-  border-radius: 5px;
-  margin: 10px 0 0 0;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // gap: 10px;
+  // padding:10px;
+  // border-radius: 5px;
+  // margin: 10px 0 0 0;
+  line-height: 1.74;
+  font-size: $font-15;
+  color: $secondary-color;
   // position: relative;
 
   .ql-editor {

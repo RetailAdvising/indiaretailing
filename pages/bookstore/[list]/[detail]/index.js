@@ -14,6 +14,7 @@ import LoaderButton from '@/components/common/LoaderButton';
 import styles from '@/styles/checkout.module.scss';
 import AlertUi from '@/components/common/AlertUi';
 import SEO from '@/components/common/SEO';
+import Sliders from '@/components/Sliders/index'
 
 // import PageFlip from 'react-pageflip';
 // import { Document, Page } from 'react-pdf';
@@ -401,8 +402,8 @@ const  getCarts = async (type) => {
     }
     
     if(e.variant_text){
-      let data_1 = e.variant_text.includes("PDF");
-      let data_2 = e.variant_text.includes("PRINT");
+      let data_1 = e.variant_text.toUpperCase().includes("PDF");
+      let data_2 = e.variant_text.toUpperCase().includes("PRINT");
       if(data_1 || data_2){
         content_type = data_1 ? 'PDF' : 'PRINT';
         setPlans(content_type)
@@ -457,7 +458,7 @@ const  getCarts = async (type) => {
         
         {!data ?  <Skeleton /> :
           (data && Object.keys(data).length != 0) && <div className='container'>
-          <div className={`flex justify-between flex-wrap gap-[15px] py-0`}>
+          <div className={`lg:flex justify-between flex-wrap gap-[15px] py-0`}>
             <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
              
              <div className={`mr-[10px]`}>
@@ -471,6 +472,8 @@ const  getCarts = async (type) => {
               })
               }
              </div> 
+
+             
 
              <div className='w-full'>
               <div className={`bg-[#f1f1f14f] py-[5px]`}>
@@ -529,14 +532,17 @@ const  getCarts = async (type) => {
                 </div>
               </div>
 
-              <div className={`flex md:p-[0_0px_15px_0px] lg:hidden flex-col`}>
+              <div className={`lg:flex md:p-[5px_0px_15px_0px] lg:hidden flex-col`}>
                 {/* flex-[0_0_calc(100%_-_10px)] */}
-                <div className={`md:h-[430px] md:p-[0px_10px_10x_10px]`}>
-                  {/* <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />} */}
+                {/* <div className={`md:h-[430px] md:p-[0px_10px_10x_10px]`}>
                   {(data.images && data.images.length != 0) ? 
                     <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
                     <Image className={`w-full lg:h-[500px] md:h-[425px] object-contain`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />
                   }
+                </div> */}
+
+               <div className="zero-gap">
+                 {data.images && data.images.length != 0 && <Sliders imgClass={'h-[330px] w-full'} event={true} data={data.images} perView={1} className='gap-0' />}
                 </div>
                 <div className='text-center pt-[15px]'>
                   <button className={`w-full h-[40px] border`}>Preview</button>

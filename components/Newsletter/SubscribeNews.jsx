@@ -10,21 +10,21 @@ import 'rodal/lib/rodal.css';
 export default function SubscribeNews({ data, visible, hide }) {
   return (
     <div className='NewsLetterSub'>
-     <Rodal visible={visible} onClose={()=>{hide(undefined)}}>
-       <NewsLetterSub data={data} />
+     <Rodal visible={visible} onClose={(obj)=>{hide(obj)}}>
+       <NewsLetterSub data={data} hide={(obj)=>{hide(obj)}}/>
      </Rodal>
     </div>
   )
 }
 
-const NewsLetterSub = ({data}) => {
+const NewsLetterSub = ({data,hide}) => {
 
     let [news,setNews] = useState(data);
     let [indexNews,setIndexNews] = useState(-1);
 
     
     useEffect(() => {
-
+     
     },[]) 
    
    function selectNewLetter(array,index) {
@@ -35,7 +35,7 @@ const NewsLetterSub = ({data}) => {
         })
      setNews(array);
      setIndexNews(indexNews + 1);
-
+     console.log(array)
    }
 
    
@@ -60,14 +60,14 @@ const NewsLetterSub = ({data}) => {
                     {/* <h6 className='text-[12px] pt-[2px] gray_color'>{res.custom_title} </h6> */}
                   </div>
                 </div>
-                <span className='h-[20px] w-[20px]'><Image className={`h-[18px] object-contain`} src={res.selected == 1 ? '/profile/edit.svg' : ''} height={18} width={18} alt={''} /></span> 
+                <span className='h-[20px] w-[20px]'><Image className={`h-[18px] object-contain`} src={res.selected == 1 ? '/newsletter/tick.svg' : '/newsletter/plus.svg'} height={18} width={18} alt={''} /></span> 
               </div>  
             )
             })}
           </div>
 
          <div>
-          <AlertPopup></AlertPopup>
+          <AlertPopup news={news} hide={hide}></AlertPopup>
          </div>
 
        </div>

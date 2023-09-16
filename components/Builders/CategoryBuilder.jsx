@@ -14,6 +14,7 @@ import Comments from '../Category/Comments'
 // Social Share
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { useRouter } from 'next/router'
+import CustomSlider from '../Sliders/CustomSlider'
 
 export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads }) {
   const styles = {}
@@ -213,7 +214,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
   function store_comments(data) {
     data = data;
-    setdatas(data)
+    // setdatas(data)
     setupdateCmts(updateCmts + 1)
   }
 
@@ -238,6 +239,23 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                 {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
                 <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button> */}
               </div>
+            </div>}
+
+            {(isPrime && !validator && data.ir_prime == 1) && <div>
+              <div className={`flex items-center gap-[10px] `}>
+                <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
+                <p className='text-red font-semibold'>IR Prime</p>
+              </div>
+
+              {/* <div> */}
+              <h6 className='text-[16px] font-semibold pt-[10px]'>Its a Premium Content,Simply buy Membership to Unlock</h6>
+              <p className='text-[14px] font-[400] pt-[10px]'>50,000+ articles IRPrime is the only subscription you need</p>
+              {/* </div> */}
+
+              <div className=''>
+                <button className='primary_button h-[35px] p-[5px_10px]'>Subscribe to IR Prime</button>
+              </div>
+
             </div>}
 
             <Modal modal={modal} show={show} visible={visible} hide={hide} />
@@ -311,8 +329,8 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
               {data.disable_comments != 1 && data.doctype == 'Articles' &&
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
-                    {(data.comments && data.comments.length != 0) && <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>Read all comments</button>}
-                    <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>{(data.comments && data.comments.length != 0) ? 'View all comments' : 'Post a comment'}</button>
+                    {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
                   </div> : <div className={`mt-[10px] flex justify-center`}>
                     <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
                   </div>}
@@ -342,7 +360,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             <div className='py-3'>
               {(data.banner_ad && data.banner_ad.ad_list && data.banner_ad.ad_list.length != 0 && data.banner_ad.ad_list[0]) ?
                 <AdsBaner data={data.banner_ad.ad_list[0]} height={'260px'} width={'300px'} />
-                : (ads && ads.right && ads.right.length != 0 && ads.right[0] ) ? <AdsBaner data={ads.right[0]} height={'260px'} width={'300px'} /> : <></>
+                : (ads && ads.right && ads.right.length != 0 && ads.right[0]) ? <AdsBaner data={ads.right[0]} height={'260px'} width={'300px'} /> : <></>
               }
             </div>
 
@@ -375,9 +393,10 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
         {data.latest_news && <div className={`${isMobile ? '' : 'container'}  ${styles.section_3}`}>
           {/* Slider */}
-          {(data.latest_news) && <div className={`${styles.slider_parent} latestNews_slider p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
+          {(data.latest_news) && <div className={`${styles.slider_parent} latestNews_slider lg:mb-[15px] p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
-            <MultiCarousel isHome={'/news/'} perView={5} noPlay={true} data={data.latest_news} height={"h-[190px] md:h-[160px]"} width={'w-full'} type={'card'} check={true} />
+            <CustomSlider data={data.latest_news} cardClass={'flex-[0_0_calc(20%_-_16px)] md:flex-[0_0_calc(70%_-_10px)]'} route={'/news/'} imgClass={'h-[190px] md:h-[160px] w-full'} />
+            {/* <MultiCarousel isHome={'/news/'} perView={5} noPlay={true}  height={""} width={'w-full'} type={'card'} check={true} /> */}
           </div>}
         </div>}
 

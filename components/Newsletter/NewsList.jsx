@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common';
 import AlertPopup from '../common/AlertPopup';
 import SubscribeNews from './SubscribeNews';
+import AlertUi from '@/components/common/AlertUi';
 
 export default function NewsList({ data }) {
   const router = useRouter();
@@ -13,16 +14,26 @@ export default function NewsList({ data }) {
 
   async function showPopup(obj,index) {
     // console.log(data);
-    data.map((res,i)=>{
-      if(i == index){
-        res.selected = 1;
-      }else{
-        res.selected = 0;
-      }
-    })
-    setNews(obj);
-    setShowAlert(true);
-    show();
+
+    let get_check = data.filter(res=>{ return res.selected == 1})
+
+    if(get_check.length == data.length){
+      setAlertMsg({message:'Already you have subscribed all the Newsletters'});
+      setEnableModal(true);
+    }else{
+      data.map((res,i)=>{
+        if(i == index){
+          res.selected = 1;
+        }else{
+          res.selected = 0;
+        }
+      })
+      setNews(obj);
+      setShowAlert(true);
+      show();
+    }
+
+
   }
 
   const [visible, setVisible] = useState(false)
@@ -30,13 +41,33 @@ export default function NewsList({ data }) {
   function show() {
     setVisible(true);
   }
+
+  const [enableModal,setEnableModal] = useState(false)
+  const [alertMsg, setAlertMsg] = useState({})
+
+  async function closeModal(value){
+      setEnableModal(false);
+  }
  
   function hide(obj) {
     setVisible(false);
+    if(obj.status == 'Success'){
+      setAlertMsg({message:'Newsletters subscribed successfully'});
+      setEnableModal(true);
+    }
   }
+
+
+
 
   return (
     <>
+
+    
+      {enableModal && 
+              <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'ok'} alertMsg={alertMsg} /> 
+      }
+
       {data && data.map((res, index) => {
         return (
           <div className={`flex gap-[10px] cursor-pointer justify-between ${index != data.length - 1 ? 'pb-[20px]' : ''}`} key={index}>

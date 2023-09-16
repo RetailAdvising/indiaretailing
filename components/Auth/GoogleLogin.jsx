@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { GoogleLoginButton } from "reactjs-social-login";
+import { LoginSocialGoogle } from "reactjs-social-login";
 
 const GoogleLogin = ({ onSuccess, onFailure }) => {
   useEffect(() => {
@@ -7,17 +7,17 @@ const GoogleLogin = ({ onSuccess, onFailure }) => {
     const clientId = "630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com";
     if (typeof window !== "undefined") {
       // Accessing window object is safe here
-      GoogleLoginButton.init(clientId);
+      LoginSocialGoogle.init(clientId);
     }
   }, []);
 
   return (
-    <GoogleLoginButton
+    <LoginSocialGoogle
       onSuccess={onSuccess}
       onFailure={onFailure}
     >
       Login with Google
-    </GoogleLoginButton>
+    </LoginSocialGoogle>
   );
 };
 

@@ -2,7 +2,7 @@ import RootLayout from '@/layouts/RootLayout'
 import React, { useEffect, useState } from 'react'
 import Title from '@/components/common/Title'
 import Cards from '@/components/common/Cards'
-import { getList, getAds } from '@/libs/api'
+import { getList, getAds,news_list } from '@/libs/api'
 import { useRouter } from 'next/router'
 import List from '@/components/common/List'
 export default function News({data}) {
@@ -37,8 +37,8 @@ export default function News({data}) {
                         {/* ${!isChecked ? 'grid grid-cols-2' : 'grid grid-cols-4'} */}
                         {(data) && <>
                             
-                            <div className={`grid grid-cols-4 md:grid-cols-2 lg:gap-5`}>
-                                <Cards cardClass={"h-[360px]"} check={true} noPrimaryText={false} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} isBorder={true} data={data} />
+                            <div className={`grid grid-cols-4 md:grid-cols-1 lg:gap-5 md:gap-[15px]`}>
+                                <Cards cardClass={"h-[345px] md:h-[335px]"} check={true} noPrimaryText={false} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} isBorder={true} data={data} />
                             </div>
                         </>}
                     </>

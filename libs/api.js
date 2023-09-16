@@ -84,9 +84,11 @@ export async function get_razorpay_settings() {
 
 export function getColor(value){
   if(value == 'Paid' || value == 'success' || value == 'Active'){
-    return '#02b290'
-  }else if(value == 'Pending' || value == 'Cancelled' || value == 'Unpaid'){
+    return '#037D00'
+  }else if(value == 'Pending' || value == 'Cancelled'){
     return '#ff0000a3'
+  }else if(value == 'Unpaid'){
+    return '#E1590D'
   }else if(value == 'Shipped' || value == 'Placed'){
     return '#e0d9cec2'
   }else if(value == 'Order Delivered'){

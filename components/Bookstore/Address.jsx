@@ -208,8 +208,8 @@ export default function Address({hide,edit_address,modal}) {
         {errors.last_name && <p className={`${style.danger}`}>{errors.last_name.message}</p>}
         </div>
         </div>
-
-        <Controller name="company" control={control} rules={{ required: 'Company is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Company (Optional)" id="company" {...field} />)} />
+        {/* rules={{ required: 'Company is required' }}  */}
+        <Controller name="company" control={control} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Company (Optional)" id="company" {...field} />)} />
         {errors.company && <p className={`${style.danger}`}>{errors.company.message}</p>}
 
         <Controller name="address" control={control} rules={{ required: 'Address is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Address" id="address" {...field} />)} />

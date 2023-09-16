@@ -15,11 +15,12 @@ export default function profile({my_account}) {
 
   
   let profileDetail = [
-    {'title':'Edit Profile',icon:'/Profile/edit.svg',route:'edit-profile'},
-    {'title':'Orders',icon:'/Profile/orders.svg',route:'orders'},
+    {'title':'My Profile',icon:'/Profile/edit.svg',route:'edit-profile'},
+    {'title':'My Orders',icon:'/Profile/orders.svg',route:'orders'},
+    {'title':'Membership',icon:'/Profile/subscription.svg',route:'membership'},
+    {'title':'Subscription',icon:'/Profile/membership.svg',route:'subscription'},
     // {'title':'Newsletter',icon:'/Profile/newsletter.svg',route:'newsletter'},
     {'title':'Change Password',icon:'/Profile/edit.svg',route:'change-password'},
-    {'title':'Subscription',icon:'/Profile/subscription.svg',route:'subscription'},
     {'title':'Logout',icon:'/Profile/logout.svg',route:'logout'},
   ]
   
@@ -229,18 +230,20 @@ export default function profile({my_account}) {
           <div className='min-h-[350px] w-full flex'>
               {(tab == '' || !isMobile) && 
               // p-[10px_20px_20px_0]
-              <div className={'lg:flex-[0_0_calc(25%_-_0px)]'}>
+              <div className={'lg:flex-[0_0_calc(20%_-_0px)]'}>
 
-                <h6 className='md:hidden flex items-center p-[0_25px] text-[16px] font-semibold h-[50px] border-b-[1px] border-b-slate-200'>Account Settings</h6>
+                <h6 className='md:hidden flex items-center p-[0_25px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>Account Settings</h6>
 
                  <Myprofile profileInfo={profileInfo} navigateToProfile={navigateToProfile} />
                 </div>}
               
-              {tab && tab != '' && <div  className={'min-h-[calc(100vh_-_70px)] md:w-full lg:flex-[0_0_calc(75%_-_0px)] pb-[20px] border-l-[1px] border-l-slate-200 '}>
-                
+              {tab && tab != '' && 
+              <div  className={'min-h-[calc(100vh_-_70px)] md:w-full lg:flex-[0_0_calc(80%_-_0px)] pb-[20px] border-l-[1px] border-l-slate-200 '}>
+                <div className='border rounded-[5px] m-[20px] pb-[20px]'>
+
                  {tab == 'edit-profile' && 
                  <div>
-                   <h6 className='flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[1px] border-b-slate-200 mb-[10px]'>Personal Information</h6>
+                   <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200 mb-[10px]'>Personal Information</h6>
                    <div className='px-[20px]'>
                     {customerInfo && <Editprofile customerInfo={customerInfo} />}
                    </div>  
@@ -249,7 +252,7 @@ export default function profile({my_account}) {
 
                  {tab == 'orders' && 
                  <div>
-                   <h6 className='flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[1px] border-b-slate-200'>Orders List</h6>
+                   <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>Orders List</h6>
                    <div className=''>
                      <Orders />
                    </div>  
@@ -258,7 +261,7 @@ export default function profile({my_account}) {
 
                 {tab == 'change-password' && 
                  <div>
-                   <h6 className='flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[1px] border-b-slate-200 mb-[10px]'>Change Password</h6>
+                   <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200 mb-[10px]'>Change Password</h6>
                    <div className='px-[20px]'>
                      <ChangePwd  />
                    </div>  
@@ -267,13 +270,22 @@ export default function profile({my_account}) {
 
                  {tab == 'subscription' && 
                   <div>
-                   <h6 className='flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[1px] border-b-slate-200'>My Subscription</h6>
+                   <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>My Subscription</h6>
                    <div className=''>
-                     <SubscribtionsPlan index={index} payNow={(obj)=>payNow(obj)}/>
+                     <SubscribtionsPlan type='items' index={index} payNow={(obj)=>payNow(obj)}/>
                    </div>  
                   </div> 
                   }
 
+                  {tab == 'membership' && 
+                  <div>
+                   <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>My Membership</h6>
+                   <div className=''>
+                     <SubscribtionsPlan type='member' index={index} payNow={(obj)=>payNow(obj)}/>
+                   </div>  
+                  </div> 
+                  }
+                </div>
                </div> 
               } 
           </div>

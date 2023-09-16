@@ -9,7 +9,7 @@ export default function Title({ data, textClass, seeMore, font, noPadding, isVid
     if (isVid) {
       router.push(route)
     } else if (route) {
-      router.push(route + data.route)
+      router.push(route)
     }
     else {
       router.push(`/${router.asPath.split('/')[1]}/${data.route}`)

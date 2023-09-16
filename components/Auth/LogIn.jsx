@@ -20,20 +20,12 @@ import setUser from 'redux/actions/userAction';
 // import {
 //     LoginSocialGoogle,
 //     LoginSocialFacebook,
-//     LoginSocialLinkedin,
-//     LoginSocialTwitter,
 //     LoginSocialApple,
 // } from 'reactjs-social-login';
 
 // import {
 //     FacebookLoginButton,
 //     GoogleLoginButton,
-//     GithubLoginButton,
-//     AmazonLoginButton,
-//     InstagramLoginButton,
-//     LinkedInLoginButton,
-//     MicrosoftLoginButton,
-//     TwitterLoginButton,
 //     AppleLoginButton,
 // } from 'react-social-login-buttons';
 
@@ -193,9 +185,12 @@ export default function LogIn({ isModal, hide }) {
                         }}
                     >
                         <GoogleLoginButton />
-                    </LoginSocialGoogle>
+                    </LoginSocialGoogle> */}
 
-                    <LoginSocialApple
+            
+                    
+
+                    {/* <LoginSocialApple
                         client_id={process.env.REACT_APP_APPLE_ID || ''}
                         scope={'name email'}
                         redirect_uri={REDIRECT_URI}

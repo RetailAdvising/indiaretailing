@@ -78,7 +78,7 @@ export default function Orders() {
           <OrderDetail order_id={orderId} visible={visible} hide={(obj)=> hide(obj)} />
     }
 
-      <div className='md:hidden px-[20px] items-center grid grid-cols-6 h-[50px] bg-slate-100'>
+      <div className='md:hidden px-[20px] items-center grid grid-cols-6 h-[50px]'>
        <h6 className='text-[15px] font-semibold'>#Order Id</h6>
        <h6 className='text-[15px] font-semibold'>Order Date</h6>
        <h6 className='text-[15px] font-semibold'>Status</h6>

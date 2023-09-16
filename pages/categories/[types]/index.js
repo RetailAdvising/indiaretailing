@@ -81,7 +81,7 @@ export default function CategoryType({ values , ads }) {
             <RootLayout isLanding={false} homeAd={ads ? ads : null} head={router.query.types}>
             <SEO title={router.query.types} siteName={'India Reatiling'} ogType={router.query.types } description={router.query.types }/>
                 <div className={`${isMobile ? 'md:p-[15px]' : 'container'}`} id='root' >
-                    {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap lg:p-[30px_0px]  lg:gap-[20px]`}>
+                    {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
                             {!isMobile && <Title data={{ title: router.query.types }} />}
                             <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px] cursor-pointer`}>{data.slice(0, 1).map((res, index) => {

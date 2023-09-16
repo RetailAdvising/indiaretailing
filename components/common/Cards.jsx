@@ -39,9 +39,9 @@ export default function Cards({ searchNavigation, noPrimaryText, data, isHome=un
               {/* layout="fill" sizes="(min-width: 60em) 24vw, (min-width: 28em) 45vw, 100vw"  objectFit="cover" */}
               <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' height={100} width={200} className={` ${height} ${width} ${borderRadius} ${styles.card_img} ${border_none ? 'rounded-[5px]' : 'rounded-[10px]'} `} src={check ? check_Image(res.thumbnail_image || res.image || res.product_image) : res.image} alt={"cards"} />
             </div>
-            <div className={`${styles.content} ${isBorder && 'p-[10px] '} ${contentHeight}  flex mobile-flex  justify-between flex-col`}>
-              {((res.primary_text && res.secondary_text) && !noPrimaryText) && <p className='flex mobile-flex gap-2 line-clamp-1'><span className='primary_text fnt_13 line-clamp-1'>{res.primary_text || res.type}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span> <span className='secondary_text line-clamp-1'>{res.secondary_text}</span></p>}
-              {(!res.primary_text && res.type) && <p className='flex mobile-flex gap-2 '><span className='primary_text fnt_13'>{res.type}</span></p>}
+            <div className={`${styles.content} ${isBorder && 'p-[10px] '} ${contentHeight}  flex  justify-between flex-col`}>
+              {((res.primary_text && res.secondary_text) && !noPrimaryText) && <p className='flex  gap-2 line-clamp-1 items-center'><span className='primary_text fnt_13 line-clamp-1'>{res.primary_text || res.type}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span> <span className='secondary_text line-clamp-1'>{res.secondary_text}</span></p>}
+              {(!res.primary_text && res.type) && <p className='flex gap-2 '><span className='primary_text fnt_13'>{res.type}</span></p>}
 
               {res.title && <h4 className={`card-title  line-clamp-2 ${isHome ? '' : 'mt-2'} `}>{res.title ? res.title : ''}</h4>}
               {(res.sub_title || res.blog_intro) && <p className='sub_title pt-1 line-clamp-2'>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
