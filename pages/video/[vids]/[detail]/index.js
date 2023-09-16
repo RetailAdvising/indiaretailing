@@ -11,8 +11,8 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import SEO from '@/components/common/SEO'
 import Video from '../../../../components/Video/Video';
 import Dropdowns from '../../../../components/common/Dropdowns';
-import { Helmet } from 'react-helmet-async';
-
+// import { Helmet } from 'react-helmet-async';
+import Head from 'next/head'
 export default function Videos() {
 
     const router = useRouter();
@@ -43,26 +43,25 @@ export default function Videos() {
 
         }
 
-        Helmet.canUseDOM && Helmet.renderStatic(); // Render Helmet content on the client-side
-        Helmet.rewind(); // 
+         
     }, [router.query])
 
-    function updateMetaInfo(res) {
-        console.log(res)
-        const newTitle = res.message.meta_title ? res.message.meta_title : res.message.title
-        const newDescription = 'New page description goes here';
-        const newKeywords = 'keyword1, keyword2, keyword3';
+    // function updateMetaInfo(res) {
+    //     console.log(res)
+    //     const newTitle = res.message.meta_title ? res.message.meta_title : res.message.title
+    //     const newDescription = 'New page description goes here';
+    //     const newKeywords = 'keyword1, keyword2, keyword3';
       
-        // Update meta information using Helmet
-        return (
-          <Helmet>
-            {/* <title key="title">{newTitle}</title> */}
-            <title>{newTitle}</title>
-            <meta name="description" content={newDescription} />
-            <meta name="keywords" content={newKeywords} />
-          </Helmet>
-        );
-      }
+    //     // Update meta information using Helmet
+    //     return (
+    //       <Helmet>
+    //         <title key="title">{newTitle}</title>
+    //         {/* <title>{newTitle}</title> */}
+    //         <meta name="description" content={newDescription} />
+    //         <meta name="keywords" content={newKeywords} />
+    //       </Helmet>
+    //     );
+    //   }
       
 
     const checkIsMobile = async () => {
@@ -78,7 +77,9 @@ export default function Videos() {
         }
         let res = await video_details(data);
         if (res && res.status == "Success") {
-            updateMetaInfo(res);
+            // Helmet.canUseDOM && Helmet.renderStatic(); // Render Helmet content on the client-side
+            // Helmet.rewind(); //
+            // updateMetaInfo(res);
             setVideoDetail(res)
             // console.log(res)
         }
@@ -95,7 +96,13 @@ export default function Videos() {
 
     return (
         <RootLayout isLanding={true} head={'Detail'}>
-            {videoDetail && <SEO title={videoDetail.message.meta_title ? videoDetail.message.meta_title : videoDetail.message.title} ogImage={check_Image(videoDetail.message.video_image)} siteName={'India Reatiling'} ogType={videoDetail.message.meta_keywords ? videoDetail.message.meta_keywords : videoDetail.message.title} description={videoDetail.message.meta_description ? videoDetail.message.meta_description : videoDetail.message.title} />}
+        {videoDetail && <Head>
+            <title key="title">{videoDetail.message.meta_title ? videoDetail.message.meta_title : videoDetail.message.title}</title>
+            {/* <title>{newTitle}</title> */}
+            {/* <meta name="description" content={newDescription} />
+            <meta name="keywords" content={newKeywords} /> */}
+          </Head>}
+            {/* {videoDetail && <SEO title={videoDetail.message.meta_title ? videoDetail.message.meta_title : videoDetail.message.title} ogImage={check_Image(videoDetail.message.video_image)} siteName={'India Reatiling'} ogType={videoDetail.message.meta_keywords ? videoDetail.message.meta_keywords : videoDetail.message.title} description={videoDetail.message.meta_description ? videoDetail.message.meta_description : videoDetail.message.title} />} */}
             {videoDetail ? <> 
             {videoDetail &&
                 <div className='flex gap-[30px] container lg:py-[20px] md:flex-col md:p-[10px]'>
