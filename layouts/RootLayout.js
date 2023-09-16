@@ -21,13 +21,16 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   }
   useEffect(()=>{
     setBreadCrumbs(router.asPath.split('/'))
-    console.log(router,breadCrumbs);
+    var element = document.getElementById('ads')
+    element.className = ''
   },[])
     
   return (
     <>
       {/* <SEO /> */}
-      {!checkout && <div className="md:hidden"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
+      <div className='hidden' id='ads'>
+      {!checkout && <div className="md:hidden "><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
+      </div>
       {/* <PdfViewer/> */}
       <div>
       <Header checkout={checkout} />
