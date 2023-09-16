@@ -235,7 +235,7 @@ export async function GET(api) {
 }
 
 export async function HomePage(data){
-    let api = 'go1_cms.go1_cms.api.get_page_content';
+    let api = 'go1_cms.go1_cms.api.get_page_content_with_pagination';
     return await postMethod(api,data)
 }
 

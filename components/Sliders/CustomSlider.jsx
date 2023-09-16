@@ -26,7 +26,7 @@ export default function CustomSlider({ data, cardClass, imgClass,slider_id,slide
         {/* drop-shadow-md */}
             <Image alt="forward" src={'/less_than.svg'} width={35} height={35}></Image>
          </div>
-            <div id={slider_child_id} className='overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] justify-between scrollbar-hide gap-[20px] flex md:p-[0px]' 
+            <div id={slider_child_id} className='overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] justify-between scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px]' 
             >
                 {data && data.map((res, index) => {
                     return (

@@ -105,8 +105,9 @@ export default function SideBar({ data, close, navbar }) {
                                             <div key={item.menu_label} className='flex gap-[10px] items-center py-[10px]'>
                                                 <Image src={item.icon} className='h-[20px] w-[20px]' style={{objectFit:'contain'}} height={40} width={40} alt={item.menu_label} />
                                                 <Link href={item.redirect_url} onClick={close} className={`${header.listKey} font-semibold  navigation_c `} >
-                                                    {item.menu_label}
+                                                   {item.menu_label}
                                                 </Link>
+                                                <Image src='/rightArrow.svg' className='h-[20px] w-[20px] absolute right-2' style={{objectFit:'contain'}} height={40} width={40} alt='arrow' />
                                             </div>
                                         )
                                     })}

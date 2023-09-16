@@ -6,13 +6,13 @@ import { useRouter } from 'next/router';
 import { send_otp, verify_otp } from '@/libs/api'
 import AlertUi from '../common/AlertUi';
 
-export default function OTP({ setotp, isModal, hide }) {
+export default function OTP({ setotp, isModal, hide, auth }) {
     const router = useRouter();
     const [show, setShow] = useState(false)
     const [otp, set_otp] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [isSuccessPopup,setIsSuccessPopup] =  useState(false)
-    const [alertMessage,setAlertMessage] =  useState("")
+    const [isSuccessPopup, setIsSuccessPopup] = useState(false)
+    const [alertMessage, setAlertMessage] = useState("")
     // useEffect(()=>{
 
     // },[otp])
@@ -27,13 +27,13 @@ export default function OTP({ setotp, isModal, hide }) {
             // console.log(val)
             if (val.message.status == 'Success') {
                 set_otp(true)
-                setAlertMessage({message:"Otp Sent Successfully"})
+                setAlertMessage({ message: "Otp Sent Successfully" })
                 setIsSuccessPopup(true)
                 // OTP sent successfully.
 
             } else {
                 // setWrong(!wrong);
-                setAlertMessage({message:"Otp Sent Failed"})
+                setAlertMessage({ message: "Otp Sent Failed" })
                 setIsSuccessPopup(true)
             }
         }
@@ -58,7 +58,7 @@ export default function OTP({ setotp, isModal, hide }) {
                     localStorage['roles'] = JSON.stringify(val.message.roles)
                     router.push('/')
                 }
-            }else{
+            } else {
                 setAlertMessage(val.message)
                 setIsSuccessPopup(true)
             }
@@ -71,12 +71,12 @@ export default function OTP({ setotp, isModal, hide }) {
     }
 
     async function closeModal() {
-        setIsSuccessPopup(false) 
+        setIsSuccessPopup(false)
     }
 
-    function resendOtp(){
+    function resendOtp() {
         let mobile_no = document.getElementById('mobile_no').value
-        sent_otp({mobile : mobile_no})
+        sent_otp({ mobile: mobile_no })
     }
 
     // function verify(data){
@@ -85,11 +85,16 @@ export default function OTP({ setotp, isModal, hide }) {
 
     return (
         <>
-            <div className='flex container p-[20px] justify-center gap-[60px] '>
-                <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px]'} flex-col flex justify-center`}>
-                    {!isModal && <div className=' cursor-pointer '>
+            <div className='flex container p-[20px] h-full gap-[20px] '>
+                <div className={` ${(isModal) ? 'flex-[0_0_calc(100%_-_10px)]' : auth ? 'flex-[0_0_calc(60%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px] flex-col justify-center'}  flex `}>
+                    {/* {!isModal && <div className=' cursor-pointer '> 
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
+                    </div>} */}
+                    {(!isModal && auth) && <div className='flex-[0_0_calc(100%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
+                        <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`h-full w-full object-contain `} />
                     </div>}
+                </div>
+                <div className='flex-[0_0_calc(40%_-_10px)]'>
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
 
                     <form onSubmit={handleSubmit((data) => check(data))} autoComplete='off'>
@@ -97,16 +102,16 @@ export default function OTP({ setotp, isModal, hide }) {
                             <>
                                 <div className={`flex flex-col py-5 relative`}>
                                     <label className={`${styles.label} text-[#808D9E]`} htmlFor='mobile' >Mobile Number</label>
-                                    <input id='mobile_no' type='number' className={`${styles.input} `} {...register('mobile', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } })} />
-                                    <Image className={`absolute  right-[10px] h-[27px] w-[22px] ${errors.mobile ?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/mobile.svg'} height={15} width={15} alt={"pass"} />
-                                    {errors ?.mobile && <p className={`${styles.danger}`}>{errors.mobile.message}</p>}
-                                </div> 
+                                    <input id='mobile_no' type='number' className={`${styles.input}  p-[5px_10px] rounded-[5px] h-[45px] `} style={{border:'1px solid #EEEE'}} {...register('mobile', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } })} />
+                                    <Image className={`absolute  right-[10px] h-[27px] w-[22px] ${errors.mobile?.message ? 'bottom-[50px]' : 'bottom-[30px]'} object-contain mt-[5px]`} src={'/login/mobile.svg'} height={15} width={15} alt={"pass"} />
+                                    {errors?.mobile && <p className={`${styles.danger}`}>{errors.mobile.message}</p>}
+                                </div>
                                 {otp && <div className={`flex flex-col pt-[10px] pb-4 relative`}>
-                                        <label className={`text-[#808D9E]`} htmlFor='password'>OTP</label>
-                                        <input id='otp_input' type={`${show ? 'text' : 'number'}`} className={`${styles.input} `} {...register('otp', { required: { value: true, message: 'OTP is required' } })} />
-                                        {/* <Image onClick={() => setShow(!show)} className={`absolute  right-[10px] h-[23px] w-[20px] ${errors.otp ?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={show ? '/login/showPass.svg' : '/login/hidePass.svg'} height={15} width={15} alt={"pass"} /> */}
-                                        {errors.otp && <p className={`${styles.danger}`}>{errors.otp.message}</p>}
-                                    </div> }
+                                    <label className={`text-[#808D9E]`} htmlFor='password'>OTP</label>
+                                    <input id='otp_input' type={`${show ? 'text' : 'number'}`} className={`${styles.input} `} {...register('otp', { required: { value: true, message: 'OTP is required' } })} />
+                                    {/* <Image onClick={() => setShow(!show)} className={`absolute  right-[10px] h-[23px] w-[20px] ${errors.otp ?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={show ? '/login/showPass.svg' : '/login/hidePass.svg'} height={15} width={15} alt={"pass"} /> */}
+                                    {errors.otp && <p className={`${styles.danger}`}>{errors.otp.message}</p>}
+                                </div>}
                             </>}
 
                         {/* <div className={`flex items-center justify-between gap-[50px] pb-5`}>
@@ -119,7 +124,7 @@ export default function OTP({ setotp, isModal, hide }) {
                         </div> */}
                         {
                             <>
-                                {otp && <p onClick={()=>resendOtp()}  className='text-[12px] text-end pb-[15px] cursor-pointer hover:underline text-black'>Resend Otp</p>}
+                                {otp && <p onClick={() => resendOtp()} className='text-[12px] text-end pb-[15px] cursor-pointer hover:underline text-black'>Resend Otp</p>}
                                 {
                                     otp ?
                                         <button type="submit" className={`${styles.loginBtn} cursor-pointer`}>Verify OTP</button> : <button type="submit" className={`${styles.loginBtn} cursor-pointer`}>Send OTP</button>
@@ -145,10 +150,8 @@ export default function OTP({ setotp, isModal, hide }) {
                         <p>Continue with Apple</p>
                     </div>
                 </div>
-                {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
-                    <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`h-full w-full`} />
-                </div>}
-                { isSuccessPopup &&  <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"}/>  }                         
+
+                {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
 
             </div>
         </>

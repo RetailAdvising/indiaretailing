@@ -24,28 +24,28 @@ import { checkMobile } from '@/libs/api'
 // import Tabs from '../Landing/Tabs'
 // import CardCarousel from '../Sliders/CardCarousel'
 
-const List = dynamic(()=> import('../common/List'))
-const Cards = dynamic(()=> import('../common/Cards'))
-const CardCarousel = dynamic(()=> import('../Sliders/CardCarousel'))
-const ImageGroupEvents = dynamic(()=> import('../Landing/ImageGroupEvents'))
-const EventList = dynamic(()=> import('../Events/EventList'))
-const ListSlider = dynamic(()=> import('../Sliders/ListSlider'))
+const List = dynamic(() => import('../common/List'))
+const Cards = dynamic(() => import('../common/Cards'))
+const CardCarousel = dynamic(() => import('../Sliders/CardCarousel'))
+const ImageGroupEvents = dynamic(() => import('../Landing/ImageGroupEvents'))
+const EventList = dynamic(() => import('../Events/EventList'))
+const ListSlider = dynamic(() => import('../Sliders/ListSlider'))
 export default function HomePageBuilder({ data, isLast, loadMore, i }) {
-    const cardref = useRef()
-    // useEffect(() => {
-    //     if (!cardref?.current) return;
-    //     const observer = new IntersectionObserver(([entry]) => {
-    //         if (isLast && entry.isIntersecting) {
-    //             // newLimit();
-    //             loadMore()
-    //             // console.log(entry)
-    //             observer.unobserve(entry.target);
-    //         }
-    //     });
+    const cardref = useRef(null)
+    useEffect(() => {
+        // console.log(data)
+        if (!cardref?.current) return;
+        const observer = new IntersectionObserver(([entry]) => {
+            if (isLast && entry.isIntersecting) {
+                // newLimit();
+                loadMore()
+                // console.log(entry)
+                observer.unobserve(entry.target);
+            }
+        });
 
-    //     observer.observe(cardref.current);
-    // }, [isLast]);
-    // // console.log(data)
+        observer.observe(cardref.current);
+    }, [isLast]);
     // // console.log(data.layout_json)
     // console.log(JSON.parse(data.layout_json))
 
@@ -67,11 +67,11 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
 
     return (
         <>
-            <div className={`py-[20px] ${i == 0 ? 'lg:p-5 bg-[#F8F9FA]' : i == 1 ? 'border_bottom container' : i == 5 ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll' : i == 14 ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
+            <div ref={cardref} className={`py-[20px] ${i == 0 ? 'lg:p-5 bg-[#F8F9FA]' : i == 1 ? 'border_bottom container' : i == 5 ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll' : i == 14 ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
                 {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                     return (
                         // || i == 5
-                        <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0) ? 'md:mb-[15px]' : ''}  ${((i == 14) && !isMobile) ? 'container' : ''} `}>
+                        <div  key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0) ? 'md:mb-[15px]' : ''}  ${((i == 14) && !isMobile) ? 'container' : ''} `}>
                             {(res.components && res.components.length != 0) && res.components.map(c => {
                                 return (
                                     <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-5' : ''}`}>
@@ -93,7 +93,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                                 <div className='lg:flex flex-wrap justify-between flex-[0_0_calc(70%_-_10px)]'>
                                                     <div className='flex-[0_0_calc(55%_-_10px)]'><ImageContainer data={data.data[c.cid].data[0]} height={'h-[250px]'} width={'w-[500px]'} /></div>
                                                     <div className={`${isMobile ? '' : 'border_right border_left px-[20px] h-[250px] flex-[0_0_calc(45%_-_10px)]'}`}><BulletList data={data.data[c.cid].data.slice(0, 5)} /></div>
-                                                    <div className={` flex border-t border-[#000] pt-[15px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(0, 3)} /></div>
+                                                    <div className={` flex border-t border-[#AAAAAA] pt-[15px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(0, 3)} /></div>
                                                 </div>
                                                 <div className='md:my-[15px] md:hidden'><AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} /></div>
                                             </div>
@@ -109,15 +109,15 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         </>}
 
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Leaders Ink") && <>
-                                            <Title data={{ title: c.component_title }}  />
+                                            <Title data={{ title: c.component_title }} />
                                             {data.data[c.cid].data &&
                                                 <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/categories/'} data={data.data[c.cid].data} cardClass={'h-[320px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>}
 
                                             {/* <div className='none leaders'><MultiCarousel isHome={'/categories/'} perView={3} check={true} none={true} data={data.data[c.cid].data} cardHeight={'h-[310px]'} card_width={"285px !important"} height={"h-[185px]"} width={"w-full"} type={'profile'} /></div>} */}
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Research") && <>
-                                        {/* route={'/categories/'} seeMore={true} */}
-                                            <Title data={{ title: c.component_title }}  />
+                                            {/* route={'/categories/'} seeMore={true} */}
+                                            <Title data={{ title: c.component_title }} />
                                             {data.data[c.cid].data && isMobile ? <div className='mb-[10px] research'><ListSlider route={'/categories/'} noDots={true} auto={false} data={data.data[c.cid].data} /></div> :
                                                 <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/categories/'} data={data.data[c.cid].data} cardClass={'lg:h-[320px] md:h-[220px] flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>
 
@@ -186,7 +186,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                                         </>}
                                         {/* {(resp.component_title == "AdsBaner" && resp.component_type == "Ad4" && resp.data) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={resp.data} height={"100px"} /></>} */}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>
-                                            <Title data={{ title: c.component_title }} route={c.component_title == "Supply Chain" ? '/news/supply-chain' : c.component_title == "Marketing" ? '/news/marketting' : null} seeMore={true}  />
+                                            <Title data={{ title: c.component_title }} route={c.component_title == "Supply Chain" ? '/news/supply-chain' : c.component_title == "Marketing" ? '/news/marketting' : null} seeMore={true} />
                                             <><List isHome={'/news/'} mb={true} data={data.data[c.cid].data} titleClamp={'line-clamp-2'} line={'line-clamp-1 md:line-clamp-1'} hash_bg={'pt-[5px] md:pt-[5px]'} check={true} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[125px]"} borderRadius={"rounded-[10px]"} /></>
                                         </>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Technology") && <>

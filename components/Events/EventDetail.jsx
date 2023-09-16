@@ -20,7 +20,7 @@ export default function EventDetail({ data }) {
     return (
         <>
             {data && <div className={`p-[30px_0px] md:p-[15px] container`}>
-                <div className='h-[465px] py-[5px] bg-[#f1f1f130]'>
+                <div className=' py-[5px] bg-[#f1f1f130]'>
                     <Image height={200} width={400} priority src={check_Image(data.message.image_path ? data.message.image_path : data.message.thumbnail_path)} className={`lg:h-[450px] object-contain w-full`} alt={data.message.title} />
                 </div>
                 <div className={`lg:flex md:flex-wrap gap-[20px] pb-[20px] pt-[30px] md:pt-[10px]`}>
@@ -67,7 +67,7 @@ export default function EventDetail({ data }) {
                     {/* Col-2 */}
                     <div className='lg:flex  flex-col flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] gap-[20px] items-center'>
                         <div className='flex md:my-[20px] w-full md:justify-between lg:flex-col gap-[10px]'>
-                            <button type='button' className={`primary_button h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={redirectTo} >Registration Now</button>
+                            <button type='button' className={`primary_button h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={redirectTo} >Register Now</button>
                             <button type='button' className={`primary_outline h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={redirectTo}>More Details</button>
                         </div>
                         {data && <AdsBaner data={{ ad_image: '/ads_baner.png' }} />}

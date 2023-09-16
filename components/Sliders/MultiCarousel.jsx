@@ -72,7 +72,7 @@ export default function MultiCarousel({ islanding, isHome = undefined, cardHeigh
                                         <Image src={check ? check_Image(res.thumbnail_image) : res.image} className={`${height} ${width}`} height={150} width={300} alt={"image"} />
                                     </div>
                                     <div className={`${styles.card_content} flex flex-col justify-between`}>
-                                        {(res.primary_text && res.secondary_text) && <p className='flex gap-2 items-center'><span className={`text-red leading-normal tracking-wider !text-[10px] ${styles.primary_text}`}>{res.primary_text}</span> <span class="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className={`${styles.secondary_text}`}>{res.secondary_text}</span></p>}
+                                        {(res.primary_text && res.secondary_text) && <p className='flex gap-2 items-center'><span className={`text-[#e21b22] leading-normal tracking-wider !text-[10px] ${styles.primary_text}`}>{res.primary_text}</span> <span class="h-[10px] w-[1px] bg-[#6f6f6f] leading-normal"></span> <span className={`${styles.secondary_text} !text-[10px] leading-normal tracking-wider !text-[10px]`}>{res.secondary_text}</span></p>}
                                         <h4 className={`title line-clamp-2`}>{res.title ? res.title : ''}</h4>
                                         <p className={`sub_title mt-[6px] line-clamp-2`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>
                                         <p className='hashtags pt-1'>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>

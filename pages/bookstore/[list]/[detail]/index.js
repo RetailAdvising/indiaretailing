@@ -26,6 +26,7 @@ export default function Bookstoredetail({ value, res }) {
   const [subs, setSubs] = useState();
   const [indexs, setIndex] = useState(-1);
   const [imageIndex, setIndexImage] = useState(-1);
+  const [Onetime, setOnetime] = useState(-1);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState();
@@ -69,7 +70,8 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        console.log(value);
+        // console.log(value);
+        // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
         if(routPath && routPath.length != 0){
@@ -122,7 +124,7 @@ export default function Bookstoredetail({ value, res }) {
 
       let val = subs.find(res => res.active == true)
 
-      if (val) {
+      if (val && val.item__type != "Onetime Purchase") {
         insert_subscription(val)
       } else {
         data['count'] = 1;
@@ -223,7 +225,7 @@ export default function Bookstoredetail({ value, res }) {
   }
 
  const load_razorpay = async (amount,description,order_id) => { 
-  console.log(razorpay_settings.api_key)
+  // console.log(razorpay_settings.api_key)
     let r_pay_color ='#e21b22';
     const app_name = 'India Retail';
     var options = {
@@ -394,6 +396,7 @@ const  getCarts = async (type) => {
 
     if(subs && subs.length != 0){
       setIndex(-1);
+      setOnetime(-1)
       subs.map((res)=>{
         res['active'] = false
       }) 
@@ -413,7 +416,8 @@ const  getCarts = async (type) => {
   };
 
   function setPlans(val){
-    let data = res.filter((res)=>{ return (res.item__type && res.item__type == val) })
+    let data = res.filter((res)=>{ return (res.item__type && (res.item__type == val || res.item__type == 'Onetime Purchase')) })
+    // console.log(data)
     setSubs(data)
   }
 
@@ -424,22 +428,33 @@ const  getCarts = async (type) => {
         if (index == i) {
           res['active'] =! res['active'];
           res['active'] ? setIndex(i) : setIndex(-1);
+
+          if(res.item__type == "Onetime Purchase"){
+            res['active'] ? setOnetime(i) : setOnetime(-1);
+          }else{
+            setOnetime(-1)
+          }
+
         }else{
           res['active'] = false;
         }
       })
 
-    setSubs(data)
-
-      // setPlans(content_type)
+      setSubs(data)
     }
   }
   const [preview_screen,setPreview_screen] = useState(false)
 
-  async function preview(){
+  async function preview(pdfUrl){
     setPreview_screen(true);
-    // const pdfUrl = 'https://shop.indiaretailing.com/wp-content/uploads/2016/04/Sample_16-pgs_Trend-Talk_2016.pdf'; // Replace with your PDF URL
-    // window.open(pdfUrl, '_blank');
+    // console.log(pdfUrl);
+
+   if(pdfUrl){
+    pdfUrl = check_Image(pdfUrl)
+    // console.log(pdfUrl)
+    window.open(pdfUrl, '_blank');
+   }
+
   }
 
   async function closeModal(value){
@@ -459,9 +474,10 @@ const  getCarts = async (type) => {
         {!data ?  <Skeleton /> :
           (data && Object.keys(data).length != 0) && <div className='container'>
           <div className={`lg:flex justify-between flex-wrap gap-[15px] py-0`}>
-            <div className={`flex-[0_0_calc(40%_-_10px)] md:p-[10px] md:hidden flex md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
+            <div className={`flex-[0_0_calc(40%_-_10px)]  md:p-[10px] md:hidden flex md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
              
-             <div className={`mr-[10px]`}>
+             <div className='flex sticky top-[15px] bottom-0 z-1 h-[450px] bg-white'>
+              <div className={`mr-[10px]`}>
               {(data.images && data.images.length != 0) &&
                data.images.map((res,index)=>{
                 return (
@@ -471,29 +487,17 @@ const  getCarts = async (type) => {
                 )
               })
               }
-             </div> 
+              </div> 
 
-             
-
-             <div className='w-full'>
+              <div className='w-full'>
               <div className={`bg-[#f1f1f14f] py-[5px]`}>
                 <Image className={`w-full h-[465px] object-contain`} src={check_Image(data.selected_image)} height={200} width={300} alt={data.item_title} />
                </div>
                <div className='text-center pt-[15px]'>
-                <button onClick={()=>preview()} className={`w-full h-[40px] border`}>Preview</button>
+                <button onClick={()=>preview(data.custom_product_preview)} className={`w-full h-[40px] border`}>Preview</button>
                </div>
-             </div>
-
-              {/* <div className={``}>
-                {(data.images && data.images.length != 0) ? 
-                  <Image className={`w-full h-[500px]`} src={check_Image((data.images[1] && data.images[1].detail_image) ? data.images[1].detail_image : data.images[0].detail_image)} height={200} width={300} alt={data.item_title} /> :
-                  <Image className={`w-full h-[500px]`} src={check_Image(data.image)} height={200} width={300} alt={data.item_title} />
-                }
+              </div>  
               </div>
-              <div className='text-center pt-[15px]'>
-                <button onClick={()=>preview()} className={`w-full h-[40px] border`}>Preview</button>
-              </div> */}
-
             </div>
 
 
@@ -545,7 +549,7 @@ const  getCarts = async (type) => {
                  {data.images && data.images.length != 0 && <Sliders imgClass={'h-[330px] w-full'} event={true} data={data.images} perView={1} className='gap-0' />}
                 </div>
                 <div className='text-center pt-[15px]'>
-                  <button className={`w-full h-[40px] border`}>Preview</button>
+                  <button onClick={()=>preview(data.custom_product_preview)} className={`w-full h-[40px] border`}>Preview</button>
                 </div>
               </div>
 
@@ -555,7 +559,7 @@ const  getCarts = async (type) => {
               </div>
 
               {data.vendor_price_list && data.vendor_price_list[0] && data.vendor_price_list[0].variants && data.vendor_price_list[0].variants.length != 0 &&
-                 <div className='flex gap-[10px] lg:m-[12px_0px_0_0px] md:m-[0] items-center'>
+                 <div className='flex gap-[10px] lg:m-[12px_0px_0_0px] md:m-[0] md:pb-[12px] items-center'>
                     {data.vendor_price_list[0].variants.map((vendor,index)=>{
                       return(
                         // && (indexs < 0)
@@ -620,7 +624,7 @@ const  getCarts = async (type) => {
 
               <div className='border_bottom mb-[20px]'>
                <div className={`md:p-[10px] lg:w-[570px] text-center md:p-[10px_0_20px_0] lg:p-[0px_0_20px_0]`}>
-                <LoaderButton loader={loader} cssclass={'lg:w-[250px] md:w-[100%] md:h-[40px] m-0'}image_left={indexs >= 0 ? '/bookstore/subscribe.svg' :'/bookstore/cart.svg'} button_name={indexs >= 0 ? 'Subscribe' : 'Add to Cart'} buttonClick={addToCart} />
+                <LoaderButton loader={loader} cssclass={'lg:w-[250px] md:w-[100%] md:h-[40px] m-0'} image_left={(indexs >= 0 && Onetime < 0)  ? '/bookstore/subscribe.svg' : (Onetime >= 0 ? '/bookstore/cart.svg' : '/bookstore/cart.svg')} button_name={(indexs >= 0 && Onetime < 0) ? 'Subscribe' : (Onetime >= 0 ? 'Buy Now' : 'Add to Cart')} buttonClick={addToCart} />
                </div>
               </div>
 
@@ -646,22 +650,22 @@ const  getCarts = async (type) => {
 
           {/* Section - 2 */}
 
-          {data.related_products && <div className={`p-[30px]`}>
+          {data.related_products && <div className={`lg:p-[30px] md:p-[15px]`}>
             <Title data={{ title: 'Previous Issues' }} seeMore={true} />
-            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.related_products.slice(0, 5)} boxShadow={true} /></div>
+            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={router.query.list} check={true} data={data.related_products.slice(0, 5)} boxShadow={true} /></div>
           </div>}
 
           {/* Section - 3 */}
 
-          {data.related_products && <div className={`p-[30px] flex-wrap flex gap-[20px] justify-between`}>
+          {/* {data.related_products && <div className={`p-[30px] flex-wrap flex gap-[20px] justify-between`}>
             <div className='flex-[0_0_calc(70%_-_20px)] md:flex-[0_0_calc(100%_-_10px)]'>
               <Title data={{ title: 'Other Magazines' }} seeMore={true} />
-              <div className={`flex gap-[20px] flex-wrap `}><Card category={router.query.list} flex={'flex-[0_0_calc(25%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data.related_products.slice(0, 4)} check={true} boxShadow={true} /></div>
+              <div className={`flex gap-[20px] flex-wrap `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={router.query.list} flex={'flex-[0_0_calc(25%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} data={data.related_products.slice(0, 4)} check={true} boxShadow={true} /></div>
             </div>
             <div className='flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
               <AdsBaner data={val.section_3.col_2} />
             </div>
-          </div>}
+          </div>} */}
 
           {/* Section - 4 */}
 
@@ -686,6 +690,7 @@ export async function getServerSideProps({ params }) {
     "route": Id,
     // "customer": ""
   }
+
   let resp = await getProductDetail(param);
   let value = resp.message;
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import { checkMobile } from '@/libs/api';
-import { video_details } from '@/libs/api';
+import { video_details,getAds } from '@/libs/api';
 import { useRouter } from 'next/router';
 import { check_Image } from '@/libs/common'
 import Image from 'next/image';
@@ -11,10 +11,9 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import SEO from '@/components/common/SEO'
 import Video from '../../../../components/Video/Video';
 import Dropdowns from '../../../../components/common/Dropdowns';
-// import { Helmet } from 'react-helmet-async';
-import Head from 'next/head'
-export default function Videos() {
 
+export default function Videos(meta_info, ads_data) {
+    // console.log(meta_info)
     const router = useRouter();
     let [isMobile, setIsmobile] = useState();
     let [videoDetail, setVideoDetail] = useState();
@@ -40,29 +39,8 @@ export default function Videos() {
             return () => {
                 window.removeEventListener('resize', checkIsMobile);
             };
-
         }
-
-         
     }, [router.query])
-
-    // function updateMetaInfo(res) {
-    //     console.log(res)
-    //     const newTitle = res.message.meta_title ? res.message.meta_title : res.message.title
-    //     const newDescription = 'New page description goes here';
-    //     const newKeywords = 'keyword1, keyword2, keyword3';
-      
-    //     // Update meta information using Helmet
-    //     return (
-    //       <Helmet>
-    //         <title key="title">{newTitle}</title>
-    //         {/* <title>{newTitle}</title> */}
-    //         <meta name="description" content={newDescription} />
-    //         <meta name="keywords" content={newKeywords} />
-    //       </Helmet>
-    //     );
-    //   }
-      
 
     const checkIsMobile = async () => {
         isMobile = await checkMobile();
@@ -77,13 +55,8 @@ export default function Videos() {
         }
         let res = await video_details(data);
         if (res && res.status == "Success") {
-            // Helmet.canUseDOM && Helmet.renderStatic(); // Render Helmet content on the client-side
-            // Helmet.rewind(); //
-            // updateMetaInfo(res);
             setVideoDetail(res)
-            // console.log(res)
         }
-        // setCartItems(cart_items);
     }
 
     const [sort, setSort] = useState(false);
@@ -95,38 +68,32 @@ export default function Videos() {
     }
 
     return (
-        <RootLayout isLanding={true} head={'Detail'}>
-        {videoDetail && <Head>
-            <title key="title">{videoDetail.message.meta_title ? videoDetail.message.meta_title : videoDetail.message.title}</title>
-            {/* <title>{newTitle}</title> */}
-            {/* <meta name="description" content={newDescription} />
-            <meta name="keywords" content={newKeywords} /> */}
-          </Head>}
-            {/* {videoDetail && <SEO title={videoDetail.message.meta_title ? videoDetail.message.meta_title : videoDetail.message.title} ogImage={check_Image(videoDetail.message.video_image)} siteName={'India Reatiling'} ogType={videoDetail.message.meta_keywords ? videoDetail.message.meta_keywords : videoDetail.message.title} description={videoDetail.message.meta_description ? videoDetail.message.meta_description : videoDetail.message.title} />} */}
-            {videoDetail ? <> 
-            {videoDetail &&
-                <div className='flex gap-[30px] container lg:py-[20px] md:flex-col md:p-[10px]'>
-                    <div className="lg:flex-[0_0_calc(70%_-_30px)]">
-                        {/* <h6 className='text-[20px] line-clamp-2 font-semibold'>{videoDetail.message.title}</h6> */}
+        <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head={'Detail'}>
+            {meta_info && <SEO title={meta_info.meta_info.meta_title ? meta_info.meta_info.meta_title : meta_info.meta_info.title} ogImage={check_Image(meta_info.meta_info.video_image)} siteName={'India Reatiling'} ogType={meta_info.meta_info.meta_keywords ? meta_info.meta_info.meta_keywords : meta_info.meta_info.title} description={meta_info.meta_info.meta_description ? meta_info.meta_info.meta_description : meta_info.meta_info.title} />}
+            {videoDetail ? <>
+                {videoDetail &&
+                    <div className='flex gap-[30px] container lg:py-[20px] md:flex-col md:p-[10px]'>
+                        <div className="lg:flex-[0_0_calc(70%_-_30px)]">
+                            {/* <h6 className='text-[20px] line-clamp-2 font-semibold'>{videoDetail.message.title}</h6> */}
 
-                        <div className='flex items-center gap-[10px] mb-[10px]'>
-                            <div className='flex items-center gap-[10px]'>
-                                <Image className={`h-[15px] w-[15px] object-contain`} src={'/views.svg'} height={10} width={15} alt={'share'} />
-                                <span className='text-[12px] gray_color'>{videoDetail.message.noof_views} Views</span>
+                            <div className='flex items-center gap-[10px] mb-[10px]'>
+                                <div className='flex items-center gap-[10px]'>
+                                    <Image className={`h-[15px] w-[15px] object-contain`} src={'/views.svg'} height={10} width={15} alt={'share'} />
+                                    <span className='text-[12px] gray_color'>{videoDetail.message.noof_views} Views</span>
+                                </div>
+                                <div className='flex items-center gap-[10px]'>
+                                    <Image className={`h-[15px] w-[15px] object-contain`} src={'/share.svg'} height={10} width={15} alt={'share'} />
+                                    <span className='text-[12px] gray_color'>4 Shares</span>
+                                </div>
                             </div>
-                            <div className='flex items-center gap-[10px]'>
-                                <Image className={`h-[15px] w-[15px] object-contain`} src={'/share.svg'} height={10} width={15} alt={'share'} />
-                                <span className='text-[12px] gray_color'>4 Shares</span>
-                            </div>
-                        </div>
 
-                        <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] md:pb-[10px] md:pl-0`}>
-                            <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
-                            {icons && <div className={``}><Dropdowns data={icons} share={true} /></div>}
-                            {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'> */}
-                            {/* <Image onClick={share} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} /> */}
-                            {/* {sort && */}
-                            {/* <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
+                            <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] md:pb-[10px] md:pl-0`}>
+                                <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
+                                {icons && <div className={``}><Dropdowns data={icons} share={true} /></div>}
+                                {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'> */}
+                                {/* <Image onClick={share} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} /> */}
+                                {/* {sort && */}
+                                {/* <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
                                     {icons && icons.map((res, index) => {
                                         return (
                                             <div key={index}>
@@ -150,83 +117,83 @@ export default function Videos() {
                                         )
                                     })}
                                 </div> */}
-                            {/* } */}
-                            {/* </div> */}
-                        </div>
+                                {/* } */}
+                                {/* </div> */}
+                            </div>
 
-                        <div className={`${validator ? 'lg:h-[430px] md:h-[220px]' : ''} my-[10px]`}>
-                            {(!validator && videoDetail.message.ir_prime == 1) ? <>
-                                <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
-                                <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6 flex justify-between md:block'>
-                                    <div className='text-center text-[20px] md:text-[16px] font-semibold text-[white] flex md:pb-2'>
-                                        <Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />
-                                        <div className='text-center'>
-                                            <h6 className='text-[20px] text-[white] md:text-[16px] font-semibold text-left'>Prime Video</h6>
-                                            <p className='text-[14px] text-[white] md:text-[13px] md:text-left font-normal'>This video is for Premium Members you  have to buy Membership to Unlock</p>
+                            <div className={`${validator ? 'lg:h-[430px] md:h-[220px]' : ''} my-[10px]`}>
+                                {(!validator && videoDetail.message.ir_prime == 1) ? <>
+                                    <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
+                                    <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6 flex justify-between md:block'>
+                                        <div className='text-center text-[20px] md:text-[16px] font-semibold text-[white] flex md:pb-2'>
+                                            <Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />
+                                            <div className='text-center'>
+                                                <h6 className='text-[20px] text-[white] md:text-[16px] font-semibold text-left'>Prime Video</h6>
+                                                <p className='text-[14px] text-[white] md:text-[13px] md:text-left font-normal'>This video is for Premium Members you  have to buy Membership to Unlock</p>
+                                            </div>
+
                                         </div>
-
+                                        <div className='flex gap-[20px] justify-center pt-[0px]'>
+                                            <button className='m-auto primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
+                                        </div>
                                     </div>
-                                    <div className='flex gap-[20px] justify-center pt-[0px]'>
-                                        <button className='m-auto primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
-                                    </div>
-                                </div>
-                            </> : <iframe
-                                className={`h-full w-full`}
-                                title={videoDetail.message.title ? videoDetail.message.title : ''}
-                                src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
-                                // width={res.width}
-                                // height={res.height}
-                                frameBorder="2"
-                                loading="lazy"
-                            // allowfullscreen="allowfullscreen"
-                            ></iframe>}
+                                </> : <iframe
+                                    className={`h-full w-full`}
+                                    title={videoDetail.message.title ? videoDetail.message.title : ''}
+                                    src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
+                                    // width={res.width}
+                                    // height={res.height}
+                                    frameBorder="2"
+                                    loading="lazy"
+                                // allowfullscreen="allowfullscreen"
+                                ></iframe>}
 
-                            {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
-                        </div>
+                                {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
+                            </div>
 
-                        <div className='gray_color  mb-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
+                            <div className='gray_color  mb-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
 
 
-                        {/* {videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0 && 
+                            {/* {videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0 && 
                         <div className=''><Title data={videoDetail.other_category} seeMore={false} /><List fullWidth={true} check={true} isBB={true} isDesc={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[100px] md:h-[85px]'} data={videoDetail.other_category.data.slice(0,3)} borderRadius={'rounded-[5px]'} /></div>
                      } */}
 
-                    </div>
-
-                    <div className="lg:flex-[0_0_calc(30%_-_0px)] lg:pt-[40px]">
-
-
-                        {videoDetail.related_videos && videoDetail.related_videos.length != 0 &&
-                            <>
-                                <Title data={{ title: 'Related Videos' }} seeMore={false} />
-                                <div className='border p-[10px] rounded-[5px]'>
-                                    <List imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
-                                </div>
-                            </>
-                        }
-
-                        <div className='h-[260px] mt-[10px]'>
-                            <Image className='h-[250px] w-[300px]' src={'/ads_baner.png'} height={250} width={300} layout="fixed" alt={''} />
                         </div>
 
-                        {/* <div className='h-[600px] mt-[30px] mb-[10px]'>
+                        <div className="lg:flex-[0_0_calc(30%_-_0px)] lg:pt-[40px]">
+
+
+                            {videoDetail.related_videos && videoDetail.related_videos.length != 0 &&
+                                <>
+                                    <Title data={{ title: 'Related Videos' }} seeMore={false} />
+                                    <div className='border p-[10px] rounded-[5px]'>
+                                        <List imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
+                                    </div>
+                                </>
+                            }
+
+                            <div className='h-[260px] mt-[10px]'>
+                                <Image className='h-[250px] w-[300px]' src={'/ads_baner.png'} height={250} width={300} layout="fixed" alt={''} />
+                            </div>
+
+                            {/* <div className='h-[600px] mt-[30px] mb-[10px]'>
                         <Image className='h-[600px] w-[300px]' src={'/ads_music.png'} height={600} width={300} layout="fixed" alt={''} />
                       </div> */}
+                        </div>
                     </div>
-                </div>
 
 
-            }
-            {(videoDetail && videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0) && <div className='container py-[20px] md:p-[15px]'>
-                <div>
-                    <Title data={videoDetail.other_category} />
-                </div>
-                <div className='lg:grid grid-cols-4 lg:gap-5 no_scroll'>
-                    <Video data={videoDetail.other_category.data} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} />
+                }
+                {(videoDetail && videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0) && <div className='container py-[20px] md:p-[15px]'>
+                    <div>
+                        <Title data={videoDetail.other_category} />
+                    </div>
+                    <div className='lg:grid grid-cols-4 lg:gap-5 no_scroll'>
+                        <Video data={videoDetail.other_category.data} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} />
 
-                </div>
-            </div>}
-            </> :<Skeleton/>}
+                    </div>
+                </div>}
+            </> : <Skeleton />}
         </RootLayout>
     )
 }
@@ -352,4 +319,21 @@ const Skeleton = () => {
             </div>
         </>
     )
+}
+
+
+export async function getServerSideProps({ params }) {
+    let id = await params ?.vids + '/' + await params ?.detail;
+    let data = {
+        "route": id, fields: ["name", "route", "title", "video_image", 'description']
+    }
+    let res = await video_details(data);
+    let meta_info = res.message;
+
+    let ads_params = { doctype: 'Video', page_type: 'Detail' }
+    const res_ads = await getAds(ads_params);
+    const ads_data = res_ads.message;
+    return {
+        props: { meta_info, ads_data }
+    }
 }

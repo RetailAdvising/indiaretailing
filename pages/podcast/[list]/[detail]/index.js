@@ -11,7 +11,7 @@ import List from '@/components/common/List'
 
 export default function PodcastDetail({ data, ads_data }) {
     // const {data,ads_data} = data
-    console.log(data);
+    // console.log(data);
     return (
         <>
             {data && <RootLayout homeAd={ads_data ? ads_data : null} head={data.message.title}>

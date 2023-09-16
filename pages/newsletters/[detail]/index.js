@@ -11,6 +11,8 @@ import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import NewsList from '@/components/Newsletter/NewsList';
+import SubscribeNews from '@/components/Newsletter/SubscribeNews';
+
 import AlertUi from '@/components/common/AlertUi';
 
 export default function NewsLists({ data, news, Id }) {
@@ -27,10 +29,28 @@ export default function NewsLists({ data, news, Id }) {
   const [showAlert, setShowAlert] = useState(false);
   const [enableModal,setEnableModal] = useState(false)
   const [alertMsg, setAlertMsg] = useState({})
+  const [visible, setVisible] = useState(false)
+
+  function show() {
+    setVisible(true);
+  }
 
   async function closeModal(value){
       setEnableModal(false);
   }
+ 
+  function hide(obj) {
+    setVisible(false);
+    if(obj.status == 'Success'){
+      setAlertMsg({message:'Newsletters subscribed successfully'});
+      setEnableModal(true);
+    }
+  }
+
+  async function closeModal(value){
+      setEnableModal(false);
+  }
+
   const handleButtonClick = () => {
     
     let get_check = news.filter(res=>{ return res.selected == 1})
@@ -46,7 +66,7 @@ export default function NewsLists({ data, news, Id }) {
           res.selected = 0;
         }
       })
-      setShowAlert(true);
+      setVisible(true);
     }
   };
 
@@ -68,11 +88,6 @@ export default function NewsLists({ data, news, Id }) {
       setAllNewsLetter(resp.message)
     }
   }
-
- 
- 
- 
-
 
   return (
     <>
@@ -126,8 +141,9 @@ export default function NewsLists({ data, news, Id }) {
             </div>}
 
             {/* {showAlert && <AlertPopup data={data} show={() => setShowAlert(false)} />} */}
-            {showAlert && <NewsList data={data} />}
+            {/* {showAlert && <NewsList data={news} />} */}
 
+            {visible && <SubscribeNews data={news} visible={visible}  hide={(obj)=> hide(obj)} />}
             
           </> : <>
             {(allNewsLetter && allNewsLetter.length != 0) && <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] md:gap-[10px] pt-[20px] md:pt-[15px]'>

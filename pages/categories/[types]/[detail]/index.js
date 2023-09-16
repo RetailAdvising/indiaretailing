@@ -23,16 +23,39 @@ export default function CategoryDetail({ data }) {
   const [ads, setAds] = useState();
   // let pagination = false;
   // let prev = router.query.detail;
-
+  let boxElList = ''
   useEffect(() => {
     if (data) {
-      console.log(data)
       let val = [data]
       setValues(val)
       getAd()
     }
+    // call_observer()
     setPrev(router.query.types + '/' + router.query.detail)
   }, [router.query])
+
+
+  // const call_observer = async () => {
+    
+  //   const observer = new IntersectionObserver(entries => {
+  //     entries.forEach((entry,ind) => {
+  //       if (entry.intersectionRatio > 0) {
+  //         console.log(ind,'visible');
+  //         console.log(router );
+  //         console.log(values[ind]);
+  //         // Element is visible
+  //       } else {
+  //         // Element is not visible
+  //         console.log(ind,'not visible');
+  //       }
+  //     });
+  //   });
+  //    boxElList = document.querySelectorAll(".box");
+  //   console.log(boxElList);
+  //   boxElList.forEach((el) => {
+  //    observer.observe(el);
+  //  }); 
+  // }
 
   const getAd = async () => {
     let paras = { doctype: 'Articles', page_type: 'Detail' }
@@ -40,6 +63,7 @@ export default function CategoryDetail({ data }) {
     const ads = resp.message;
     setAds(ads)
   }
+
 
 
 
@@ -63,6 +87,10 @@ export default function CategoryDetail({ data }) {
         setPagination(!pagination)
       }
     }
+    // setTimeout(()=>{
+    //   console.log('time');
+    //     call_observer()
+    //   },500)
   }
 
 
@@ -75,7 +103,7 @@ export default function CategoryDetail({ data }) {
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
-              <div key={index}>
+              <div key={index} className={'box'}>
                 <CategoryBuilder isLast={index == values.length - 1} ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
               </div>
             )

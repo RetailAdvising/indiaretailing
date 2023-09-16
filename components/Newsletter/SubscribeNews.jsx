@@ -7,12 +7,19 @@ import AlertPopup from '../common/AlertPopup';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-export default function SubscribeNews({ data, visible, hide }) {
+export default function SubscribeNews({ data, visible, hide,no_modal }) {
+
+  useEffect(() => {
+     
+  },[]) 
+
   return (
     <div className='NewsLetterSub'>
-     <Rodal visible={visible} onClose={(obj)=>{hide(obj)}}>
+    {!no_modal && <Rodal visible={visible} onClose={(obj)=>{hide(obj)}}>
        <NewsLetterSub data={data} hide={(obj)=>{hide(obj)}}/>
      </Rodal>
+    }
+    {no_modal && <NewsLetterSub data={data} hide={(obj)=>{hide(obj)}}/>}
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common'
 import Dropdowns from '../common/Dropdowns';
 import { search_product, checkMobile } from '@/libs/api';
+import AuthModal from '../Auth/AuthModal';
 
 export default function Header({ checkout }) {
     const router = useRouter();
@@ -188,6 +189,19 @@ export default function Header({ checkout }) {
         }
     }
 
+
+    // Modal Popup
+    const [modal, setModal] = useState('')
+
+    const [visible, setVisible] = useState(false)
+    function show() {
+        setVisible(true);
+    }
+
+    function hide() {
+        setVisible(false)
+    }
+
     return (
         <>
             {head &&
@@ -243,7 +257,7 @@ export default function Header({ checkout }) {
                                 {!valid ?
                                     <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
                                         <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
-                                        <button type='button' onClick={() => router.push('/login')} className={`${styles.btn_sig}`}>{head.btn2}</button>
+                                        <button type='button' onClick={show} className={`${styles.btn_sig}`}>{head.btn2}</button>
                                     </div>
                                     :
                                     <div className='flex justify-end'>
@@ -264,6 +278,9 @@ export default function Header({ checkout }) {
                     </div>
                 </div>
             }
+
+            {visible && <div className='authModal'><AuthModal modal={modal} show={show} visible={visible} hide={hide} /></div>}
+
 
         </>
     )

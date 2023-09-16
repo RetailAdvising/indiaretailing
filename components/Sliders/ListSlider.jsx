@@ -44,11 +44,12 @@ export default function ListSlider({ data, auto, noDots, route = undefined, isEv
                 autoPlay={auto ? true : false}
                 arrows={false}
                 autoPlaySpeed={2000}
-                infinite
+
                 pauseOnHover
                 responsive={responsive}
-                slidesToSlide={1}
-                swipeable
+                slidesToSlide={6}
+                swipeable={false}
+                infinite={true}
             // centerMode={true}
             // itemClass="carousel-item-padding-40-px"
             // containerClass="carousel-container"

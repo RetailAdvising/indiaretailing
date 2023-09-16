@@ -56,7 +56,7 @@ const formatter = new Intl.NumberFormat('en-US', {
       {!Skeleton  &&
        <>
        {planList && planList.length == 0 ? 
-         <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-subscriptions.svg'} heading={'No Subscription Found'}/>
+         <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-subscriptions.svg'} heading={type == 'member'  ? 'No Membership Found' : 'No Subscription Found'} button={type == 'member' ? true : false} btnName={'Go to membership'} route={'/membership'}/>
         :
          planList.map((res,index)=>{
             return(

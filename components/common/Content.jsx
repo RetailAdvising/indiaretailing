@@ -64,8 +64,8 @@ export default function Content({ res, i }) {
             
 
             <div className={`flex items-center justify-between ${styles.profile_div} md:hidden`}>
-                <div className='flex gap-6 items-center'>
-                    <Image className='rounded-full object-contain' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                <div className='flex gap-4 items-center'>
+                    <Image className='rounded-full object-cover w-[48px] h-[48px]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <div className='flex flex-col'>
                         <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{res.modified}</span>
                     </div>
@@ -126,7 +126,7 @@ export default function Content({ res, i }) {
                 </div>
             </div>
             <div className='flex gap-3'>
-                <Image className='rounded-full object-contain lg:hidden' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                <Image className='rounded-full object-cover lg:hidden w-[40] h-[40]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                 <div className='block'>
                     <h6 className="font-semibold lg:hidden text-[12px]">{res.publisher}</h6>
                     <span className='lg:hidden text-gray text-[11px] gray-text'>{res.creation}</span>
@@ -140,7 +140,7 @@ export default function Content({ res, i }) {
                     </div>
             {/* <p className='py-3 text-[18px] md:hidden'>{res.title}</p> */}
             <Image src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} priority={true} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
-            <p className='py-3 !leading-[1.74] text-[#666] text-[15px]'>{res.blog_intro}</p>
+            <p className='py-3 !leading-[1.74] !text-[15px] !text-justify'>{res.blog_intro}</p>
         </>
     )
 }

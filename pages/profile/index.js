@@ -1,6 +1,6 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, {useEffect, useState } from 'react'
-import { checkMobile, get_customer_info, stored_customer_info, get_razorpay_settings, make_payment_entry } from '@/libs/api';
+import { checkMobile, get_customer_info, newsLanding, stored_customer_info, get_razorpay_settings, make_payment_entry } from '@/libs/api';
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common'
 import Image from 'next/image'
@@ -10,16 +10,17 @@ import Orders from '@/components/ProfileCom/Orders';
 import ChangePwd from '@/components/ProfileCom/ChangePwd';
 import SubscribtionsPlan from '@/components/ProfileCom/SubscribtionsPlan';
 import AlertUi from '@/components/common/AlertUi';
+import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 
 export default function profile({my_account}) {  
 
   
   let profileDetail = [
-    {'title':'My Profile',icon:'/Profile/edit.svg',route:'edit-profile'},
+    {'title':'My Profile',icon:'/Profile/profile.svg',route:'edit-profile'},
     {'title':'My Orders',icon:'/Profile/orders.svg',route:'orders'},
-    {'title':'Membership',icon:'/Profile/subscription.svg',route:'membership'},
-    {'title':'Subscription',icon:'/Profile/membership.svg',route:'subscription'},
-    // {'title':'Newsletter',icon:'/Profile/newsletter.svg',route:'newsletter'},
+    {'title':'Membership',icon:'/Profile/membership.svg',route:'membership'},
+    {'title':'Subscription',icon:'/Profile/subscription.svg',route:'subscription'},
+    {'title':'Newsletter',icon:'/Profile/newsletter.svg',route:'newsletter'},
     {'title':'Change Password',icon:'/Profile/edit.svg',route:'change-password'},
     {'title':'Logout',icon:'/Profile/logout.svg',route:'logout'},
   ]
@@ -27,6 +28,8 @@ export default function profile({my_account}) {
   let [isMobile, setIsmobile] = useState();
   let [tab, setTab] = useState('');
   const [customerInfo,setCustomerInfo] = useState();
+  const [news,setNews] = useState();
+
   const [profileInfo,setProfileInfo] = useState(profileDetail);
   let [localValue, setLocalValue] = useState(undefined);
   const [alertUi,setAlertUi] = useState(false)
@@ -95,6 +98,8 @@ export default function profile({my_account}) {
 
     if(my_account == 'edit-profile'){
       customer_info()
+    }else if(my_account == 'newsletter'){
+      newsLanding_info()
     }
   }
 
@@ -107,7 +112,31 @@ export default function profile({my_account}) {
         }
   }
 
+  async function newsLanding_info(){
+    let arg = {
+      fields: ['custom_day', 'name', 'custom_category', 'custom_description', 'custom_image_', 'custom_title', 'route']
+    }
+  
+    let value = await newsLanding(arg);
+    let news = value.message;
+    setNews(news)
+  }
+
+
   function closeModal(value) {
+    console.log(value);
+    setEnableModal(false);
+    if(value == 'Yes' && alertUi){
+      setAlertUi(false);
+      localStorage.clear();
+      router.push('/login'); 
+    }else{
+      setAlertUi(false);
+    }
+  }
+  
+  function logout(value) {
+    console.log(value);
     setEnableModal(false);
     if(value == 'Yes' && alertUi){
       setAlertUi(false);
@@ -206,13 +235,32 @@ export default function profile({my_account}) {
  
  }
 
+ const [showAlert, setShowAlert] = useState(false);
+ const [visible, setVisible] = useState(false)
+
+ function show() {
+   setVisible(true);
+ }
+
+ async function closeModal(value){
+     setEnableModal(false);
+ }
+
+ function hide(obj) {
+   setVisible(false);
+   if(obj.status == 'Success'){
+     setAlertMsg({message:'Newsletters subscribed successfully'});
+     setEnableModal(true);
+   }
+ }
+
 
   return(
     <>
        <RootLayout checkout={isMobile ? false : true}>
 
        {alertUi && 
-            <AlertUi isOpen={alertUi} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} /> 
+            <AlertUi isOpen={alertUi} closeModal={(value)=>logout(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} /> 
        }
 
        { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
@@ -222,7 +270,7 @@ export default function profile({my_account}) {
 
           {((tab == '' || !isMobile) && localValue) &&
             <div className='lg:hidden p-[15px_5px] flex items-center gap-10px'>
-              <div class="flex items-center h-[75px]"><Image className='h-[70px] object-contain' height={100} width={100} src={'/Navbar/profile.svg'}></Image></div>
+              <div class="flex items-center h-[75px]"><Image className='h-[65px] object-contain' height={100} width={100} src={'/Navbar/profile.svg'}></Image></div>
                <h6 className='text-[15px] font-semibold'>{localValue.cust_name}</h6>
             </div>
           }
@@ -239,7 +287,7 @@ export default function profile({my_account}) {
               
               {tab && tab != '' && 
               <div  className={'min-h-[calc(100vh_-_70px)] md:w-full lg:flex-[0_0_calc(80%_-_0px)] pb-[20px] border-l-[1px] border-l-slate-200 '}>
-                <div className='border rounded-[5px] m-[20px] pb-[20px]'>
+                <div className='border rounded-[5px] lg:m-[20px] md:m-[10px] pb-[20px]'>
 
                  {tab == 'edit-profile' && 
                  <div>
@@ -282,6 +330,15 @@ export default function profile({my_account}) {
                    <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>My Membership</h6>
                    <div className=''>
                      <SubscribtionsPlan type='member' index={index} payNow={(obj)=>payNow(obj)}/>
+                   </div>  
+                  </div> 
+                  }
+
+                  {tab == 'newsletter' && 
+                  <div>
+                   <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>News Letter</h6>
+                   <div className=''>
+                     {news &&  <SubscribeNews data={news} no_modal={true} hide={(obj)=> hide(obj)}/>}
                    </div>  
                   </div> 
                   }

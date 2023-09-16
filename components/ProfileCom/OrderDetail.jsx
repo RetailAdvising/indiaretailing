@@ -41,7 +41,8 @@ export default function OrderDetail({hide,visible,order_id}) {
 
   return (
     <div className='order_detail'>
-      <Rodal visible={visible} animation='slideUp' onClose={()=>{hide(undefined)}}>
+      {/* animation='slideUp' */}
+      <Rodal visible={visible} onClose={()=>{hide(undefined)}}>
        {Skeleton ? <SkeletonLoader /> : 
        <div className='flex flex-col h-[100%]'>
           <div className='header h-[55px] border-b-[1px] border-b-slate-100 flex items-center px-[10px]'>

@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-import { getTagsList, check_Image } from '@/libs/api'
+import { getTagsList, check_Image, getList } from '@/libs/api'
+import TrendingBox from '/components/Landing/TrendingBox'
 import Tabs from '@/components/Landing/Tabs'
 
 
@@ -12,6 +13,7 @@ export default function Tags({ res }) {
     const [nodata, setNodata] = useState(false);
     const [activatedData, setActivatedData] = useState([])
     const [tabs, setTabs] = useState(undefined)
+    const [tag, setTag] = useState([])
     let cardref = useRef(null);
     let page_no = 1
     let no_product = false;
@@ -23,6 +25,7 @@ export default function Tags({ res }) {
             setActivatedData([...res.data['news_list'], ...res.data['event_list'], ...res.data['article_list']]);
         }
         console.log(res)
+        getTags();
 
         const intersectionObserver = new IntersectionObserver(entries => {
             if (entries[0].intersectionRatio <= 0) return;
@@ -53,6 +56,23 @@ export default function Tags({ res }) {
                 no_product = true;
                 setNodata(!nodata)
             }
+        }
+    }
+
+    const getTags = async () => {
+        let param = {
+            doctype: 'Tag',
+            fields: ['name', 'custom_route'],
+            page_no: 1,
+            page_size: 25
+        }
+
+        const resp = await getList(param);
+        if (resp.message && resp.message.length != 0) {
+            // console.log(resp)
+            setTag(resp.message)
+        } else {
+            setTag([]);
         }
     }
 
@@ -97,41 +117,43 @@ export default function Tags({ res }) {
                         <div class="lg:basis-1/4 md:hidden border-solid	border-[#e2e2e2] border-r-[1px]">
                             <div className='py-6'>
                                 {tabs && <Tabs categories={categories} tab={tabs} setTabs={(data) => getTabs(data)} />}
+                                 <TrendingBox />
+                           
                             </div>
                         </div>
                         <div class="lg:hidden md:basis-full">
                             {tabs && <Tabs categories={categories} tab={tabs} setTabs={(data) => getTabs(data)} />}
                         </div>
                         <div class="lg:basis-2/4 md:basis-full">
-                        <div className='py-6 md:py-2'>
-                            {(activatedData && activatedData.length != 0 && !nodata) ?
-                                <div className={`lg:grid md:m-[15px_0] lg:grid-cols-1 lg:gap-5`}>
-                                    {activatedData.map((res, index) => {
-                                        return (
-                                            <div key={index} onClick={() => checkRoute(res)} className={`border md:flex-[0_0_calc(70%_-_10px)] cursor-pointer rounded-[10px] md:mb-[15px]`}>
-                                                <div>
-                                                    <Image src={check_Image(res.thumbnail_image)} height={500} width={800} className={`w-full h-[320px] rounded-[10px_10px_0_0]`} alt={res.title ? res.title : index} />
+                            <div className='py-6 md:py-2'>
+                                {(activatedData && activatedData.length != 0 && !nodata) ?
+                                    <div className={`lg:grid md:m-[15px_0] lg:grid-cols-1 lg:gap-5`}>
+                                        {activatedData.map((res, index) => {
+                                            return (
+                                                <div key={index} onClick={() => checkRoute(res)} className={`border md:flex-[0_0_calc(70%_-_10px)] cursor-pointer rounded-[10px] md:mb-[15px]`}>
+                                                    <div>
+                                                        <Image src={check_Image(res.thumbnail_image)} height={500} width={800} className={`w-full h-[320px] rounded-[10px_10px_0_0]`} alt={res.title ? res.title : index} />
+                                                    </div>
+                                                    <div className='p-[10px]'>
+                                                        <h6 className={`title line-clamp-2`}>{res.title}</h6>
+                                                        <p className={`sub_title line-clamp-2 pt-[5px]`}>{res.blog_intro}</p>
+                                                    </div>
                                                 </div>
-                                                <div className='p-[10px]'>
-                                                    <h6 className={`title line-clamp-2`}>{res.title}</h6>
-                                                    <p className={`sub_title line-clamp-2 pt-[5px]`}>{res.blog_intro}</p>
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                                : nodata ? <></> : <div className='grid place-content-center'>
-                                    <div>
-                                        <Image src={'/empty_states/no-article.svg'} className='' height={200} width={300} alt={'no data'} />
+                                            )
+                                        })}
                                     </div>
-                                    <h6 className='text-[16px] font-semibold text-center pt-[15px]'>No Article Found...</h6>
-                                </div>}
-                        </div>
+                                    : nodata ? <></> : <div className='grid place-content-center'>
+                                        <div>
+                                            <Image src={'/empty_states/no-article.svg'} className='' height={200} width={300} alt={'no data'} />
+                                        </div>
+                                        <h6 className='text-[16px] font-semibold text-center pt-[15px]'>No Article Found...</h6>
+                                    </div>}
+                            </div>
                         </div>
                         <div class="lg:basis-1/4 md:hidden">
-                                    
+
                         </div>
-                        
+
                     </div>
                 </div>
                 <div className='more' ref={cardref}>

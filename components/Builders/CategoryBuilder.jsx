@@ -25,7 +25,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   const router = useRouter();
   const [updateCmts, setupdateCmts] = useState(-1)
 
-  console.log(ads)
+  // console.log(ads)
   // let validate;
 
   const socials = [
@@ -232,28 +232,28 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
             <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'prime-article'}`} />
 
-            {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'>
-              <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This story is for Premium Members you  have to buy Membership to Unlock</h6>
+            {/* {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'> */}
+              {/* <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This story is for Premium Members you  have to buy Membership to Unlock</h6>
               <div className='flex gap-[20px] justify-center pt-[0px]'>
-                <button className='primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
+                <button className='primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button> */}
                 {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
                 <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button> */}
-              </div>
-            </div>}
+              {/* </div>
+            </div>} */}
 
-            {(isPrime && !validator && data.ir_prime == 1) && <div>
+            {(isPrime && !validator && data.ir_prime == 1) && <div className='grid place-content-center max-w-[400px] p-[30px_20px_0_20px] md:p-[20px] m-[0_auto]'>
               <div className={`flex items-center gap-[10px] `}>
                 <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
                 <p className='text-red font-semibold'>IR Prime</p>
               </div>
 
               {/* <div> */}
-              <h6 className='text-[16px] font-semibold pt-[10px]'>Its a Premium Content,Simply buy Membership to Unlock</h6>
-              <p className='text-[14px] font-[400] pt-[10px]'>50,000+ articles IRPrime is the only subscription you need</p>
+              <h6 className='text-[32px] font-[600] leading-[40px] md:text-[17px] md:leading-[22px] pt-[10px]'>Its a Premium Content,Simply buy Membership to Unlock</h6>
+              <p className='text-[14px] font-[400] text-gray pt-[10px] leading-[20px] md:leading-[16px] md:pt-[15px]'>50,000+ articles IRPrime is the only subscription you need</p>
               {/* </div> */}
 
-              <div className=''>
-                <button className='primary_button h-[35px] p-[5px_10px]'>Subscribe to IR Prime</button>
+              <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
+                <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[50%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px',textTransform:'unset' }}>Subscribe to IR Prime</button>
               </div>
 
             </div>}
@@ -395,7 +395,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
           {/* Slider */}
           {(data.latest_news) && <div className={`${styles.slider_parent} latestNews_slider lg:mb-[15px] p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
-            <CustomSlider data={data.latest_news} cardClass={'flex-[0_0_calc(20%_-_16px)] md:flex-[0_0_calc(70%_-_10px)]'} route={'/news/'} imgClass={'h-[190px] md:h-[160px] w-full'} />
+            <CustomSlider slider_id={"category_builder"+i} slider_child_id={'category_builder_child'+i} data={data.latest_news} cardClass={'flex-[0_0_calc(20%_-_16px)] md:flex-[0_0_calc(70%_-_10px)]'} route={'/news/'} imgClass={'h-[190px] md:h-[160px] w-full'} />
             {/* <MultiCarousel isHome={'/news/'} perView={5} noPlay={true}  height={""} width={'w-full'} type={'card'} check={true} /> */}
           </div>}
         </div>}

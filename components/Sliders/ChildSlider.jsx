@@ -32,7 +32,7 @@ export default function ChildSlider({ data, type, rows,colsPerView, cols, per_vi
                     slidesToScroll: 1,
                     infinite: true,
                     rows: 1,
-                    slidesPerRow: 1,
+                    slidesPerRow: 6,
                     dots: true
                 }
             },
@@ -40,7 +40,7 @@ export default function ChildSlider({ data, type, rows,colsPerView, cols, per_vi
                 breakpoint: 600,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2,
+                    slidesToScroll: 6,
                     initialSlide: 2,
                     // dots: true,
                     infinite: true,
@@ -50,7 +50,7 @@ export default function ChildSlider({ data, type, rows,colsPerView, cols, per_vi
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2,
+                    slidesToScroll: 6,
                     // dots: true,
                     infinite: true,
                 }

@@ -33,10 +33,10 @@ export default function BottomTabs() {
 
         },
         {
-            "menu_label": "Newsletter",
-            "redirect_url": "/newsletters",
-            "icon": "/tabs_icon/newsletter.svg",
-            "active_icon": "/tabs_icon/newsletter_active.svg",
+            "menu_label": "Trending",
+            "redirect_url": "/fs",
+            "icon": "/tabs_icon/trending.svg",
+            "active_icon": "/tabs_icon/trending_active.svg",
 
         },
     ])

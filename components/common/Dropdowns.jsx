@@ -12,7 +12,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
         if (data.name == 'more stories') {
             router.push('/' + router.asPath.split('/')[1] + '/' + router.query.types)
         } else if (data.name == 'Copy Link') {
-            console.log('https://indiaretail.vercel.app' + router.asPath)
+            // console.log('https://indiaretail.vercel.app' + router.asPath)
             let str = 'https://indiaretail.vercel.app' + router.asPath
             await navigator?.clipboard?.writeText(str)
             // copyToClipboard(str);
@@ -49,7 +49,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
-        console.log(router)
+        // console.log(router)
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Title from '@/components/common/Title'
 import Sliders from '@/components/Sliders/index'
 import EventCards from '@/components/Events/EventCards'
-import { getCategoryList, sliders, getAds } from '@/libs/api'
+import { getCategoryList, sliders, getAds, checkMobile } from '@/libs/api'
 import SEO from '@/components/common/SEO'
 
 export default function Events({ data, slider_data, ads_data }) {
@@ -11,10 +11,13 @@ export default function Events({ data, slider_data, ads_data }) {
     const [pageData, setPageData] = useState([])
     const [isLast, setIsLast] = useState([])
     const cardref = useRef()
+    const [isMobile, setIsMobile] = useState()
     useEffect(() => {
-        slider_data.map((res)=> {
-            res.web_image ? res.image = res.web_image : res.image = ''
-        })
+        checkIsMobile();
+        // slider_data.map((res)=> {
+        //     !isMobile && res.web_image ? res.image = res.web_image : res.image = ''
+        //     isMobile && res.mobile_image ? res.image = res.mobile_image : res.image = ''
+        // })
         if (data) {
             setPageData(data)
         }
@@ -31,12 +34,26 @@ export default function Events({ data, slider_data, ads_data }) {
         observer.observe(cardref.current);
     }, [isLast, pageData]);
 
+    const checkIsMobile = async () => {
+        let isMobile = await checkMobile();
+        setIsMobile(isMobile);
+        slider_data && slider_data.map((res)=> {
+            !isMobile ?res.web_image ? res.image = res.web_image : res.image = '' : ''
+            isMobile ? res.mobile_image ? res.image = res.mobile_image : res.image = '' :''
+        })
+        window.addEventListener('resize', checkIsMobile)
+        return () => {
+            window.removeEventListener('resize', checkIsMobile);
+        };
+    }
+
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head={'Events'}>
             <SEO title={'Events'} siteName={'India Reatiling'} description={'Events'}/>
-                <div className="container zero-gap !mt-6">
-                    {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-auto w-full'} event={true} data={slider_data} perView={1} className='gap-0' />}
+            {/* !mt-6 */}
+                <div className="container zero-gap ">
+                    {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-[220px] w-full'} event={true} data={slider_data} perView={1} className='gap-0' />}
                 </div>
                 <div className='gap-[20px] container justify-between flex-wrap p-[30px_0px] md:p-[15px] lg:flex mb-[20px]'>
                     {(pageData && pageData.length != 0) && pageData.map((resp, index) => {

@@ -10,13 +10,15 @@ import { HomePage, getAds } from '../libs/api';
 import { useEffect, useState } from 'react';
 import SEO from '@/components/common/SEO'
 
-export default function Home({ data,ads }) {
+export default function Home({ data, ads }) {
 
-  const [pageNo, setPageNo] = useState(0);
+  const [pageNo, setPageNo] = useState(1);
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(7);
   const [value, setValue] = useState([])
-  const [adv, setAdv] = useState()
+  const [adv, setAdv] = useState();
+  const [pagination, setPagination] = useState(false)
+  let page_no = 1;
 
 
 
@@ -52,15 +54,38 @@ export default function Home({ data,ads }) {
     // ads()
 
     // data()
-    // if (pageNo > 0) {
+    // if (pageNo > 1) {
+
     //   // console.log('Load more')
     //   // console.log('start',start)
     //   // console.log('end',end)
-    //   setEnd(end + 2)
+    //   // setEnd(end + 2)
+    //   getPageData()
     // }
   }, [])
-  console.log(data)
-    
+  // console.log(data)
+
+  const getPageData = async () => {
+    // console.log('load...',)
+    // page_no += 1;
+    // setPageNo(p => p = pageNo + 1)
+    // if (pageNo > 1) {
+    //   const param = {
+    //     // "application_type": "mobile",
+    //     "route": "home",
+    //     page_no: pageNo,
+    //     page_size: 3
+    //   }
+    //   const resp = await HomePage(param);
+    //   if (resp.message && resp.message.page_content && resp.message.page_content.length != 0) {
+    //     setValue(d => d = [...d, ...resp.message.page_content])
+    //     console.log(resp.message.page_content)
+    //   } else {
+
+    //   }
+    // }
+  }
+
   return (
     <>
       {/*  isLast={index == value.length - 1} */}
@@ -68,10 +93,9 @@ export default function Home({ data,ads }) {
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
         {(value && value.length != 0) && value.map((res, index) => {
           return (
-            <HomePageBuilder key={index} i={index} data={res} loadMore={() => setPageNo(p => p + 1)} />
+            <HomePageBuilder key={index} isLast={index == value.length - 1} i={index} data={res} loadMore={() => getPageData()} />
           )
         })}
-        { value.length == 0 && <div>Please Wait</div> }
       </RootLayout>
     </>
   )
@@ -82,7 +106,9 @@ export async function getStaticProps() {
   // page_content
   const param = {
     // "application_type": "mobile",
-    "route": "home"
+    "route": "home",
+    page_no: 1,
+    page_size: 20
   }
   const resp = await HomePage(param);
   const data = await resp.message;
@@ -93,7 +119,7 @@ export async function getStaticProps() {
 
 
   return {
-    props: { data,ads }, revalidate: 10
+    props: { data, ads }, revalidate: 10
   }
 
 }
