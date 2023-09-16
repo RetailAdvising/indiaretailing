@@ -65,7 +65,7 @@ const [tabHeight,setTabHeight] = useState(0)
   return (
     <>
      <Head>
-     <link href="https://admin.99tax.com/files/default-theme.css" rel="stylesheet"/>
+     {/* <link href="https://indiaretailing.go1cms/files/default-theme.css" rel="stylesheet"/> */}
        </Head>
       <ErrorBoundary > 
         <Provider store={store}>
