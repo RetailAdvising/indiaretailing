@@ -11,6 +11,10 @@ import Image from 'next/image';
 import { addComment, commentList,report } from '@/libs/api'
 import { useRouter } from 'next/router';
 import AlertUi from './AlertUi';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Modal({ modal, hide, visible, data, cur, store_comments }) {
     const [sort, setSort] = useState(false);
     const [sortbyVal, setSortByVal] = useState('Newest');
@@ -103,17 +107,19 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
             let param = { article: cur.name, comment: element.value };
             let resp = await addComment(param);
             if (resp.message) {
-                console.log(resp.message);
-                resp.message["is_liked"] = 0
-                resp.message["likes"] = 0
-                resp.message["is_disliked"] = 0
-                resp.message["dislikes"] = 0
-                setComments(c => [...c, resp.message])
                 element.value = '';
-                let array  = []
-                array.push(resp['message']);
-                cur.comments = [...comments, ...array];
-                store_comments(cur);
+                toast.success("The comment will appear once it's been approved by IndiaRetailing");
+                // console.log(resp.message);
+                // resp.message["is_liked"] = 0
+                // resp.message["likes"] = 0
+                // resp.message["is_disliked"] = 0
+                // resp.message["dislikes"] = 0
+                // setComments(c => [...c, resp.message])
+                
+                // let array  = []
+                // array.push(resp['message']);
+                // cur.comments = [...comments, ...array];
+                // store_comments(cur);
             }
         }
     }
@@ -123,6 +129,9 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
 
     return (
         <>
+             {/* <div> */}
+                <ToastContainer position={'bottom-right'} autoClose={2000}  />
+            {/* </div> */}
             {/* {show ? <div >
                 <h6 >Hello modal</h6>
             </div> : null} */}

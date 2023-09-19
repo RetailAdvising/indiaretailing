@@ -15,6 +15,9 @@ import { useDispatch, useSelector, Provider } from 'react-redux'
 import customerInfoAction from 'redux/actions/customerInfoAction'
 import alertAction from 'redux/actions/alertAction'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function checkout() {
 
 
@@ -205,8 +208,9 @@ export default function checkout() {
     }
     else{
       setLoader(false);
-      setAlertMsg({ message: resp.message.message });  
-      alert_dispatch(alertAction(true))
+      toast.error(resp.message.message);
+      // setAlertMsg({ message: resp.message.message });  
+      // alert_dispatch(alertAction(true))
     }
 
   }
@@ -369,6 +373,7 @@ export default function checkout() {
   return (
     <>
       <RootLayout checkout={isMobile ? false : true}>
+      <ToastContainer position={'bottom-right'} autoClose={2000}  />
         {alert.isOpen &&
           <AlertUi isOpen={alert.isOpen} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />
         }

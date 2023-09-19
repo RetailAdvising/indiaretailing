@@ -15,7 +15,8 @@ export default function Address({hide,edit_address,modal}) {
       state : ((edit_address && edit_address.state) ? edit_address.state : ''), 
       city:((edit_address && edit_address.city) ? edit_address.city : ''),
       country:((edit_address && edit_address.country) ? edit_address.country : ''),
-      company:((edit_address && edit_address.company) ? edit_address.company : ''), 
+      company:((edit_address && edit_address.company) ? edit_address.company : ''),
+      gst_no:((edit_address && edit_address.gst_no) ? edit_address.gst_no : ''), 
       phone:((edit_address && edit_address.phone) ? edit_address.phone : ''),
       pincode:((edit_address && edit_address.zipcode) ? edit_address.zipcode : ''),
       address:((edit_address && edit_address.address) ? edit_address.address : '')
@@ -77,7 +78,7 @@ export default function Address({hide,edit_address,modal}) {
   async function address_insert(data) {
     const resp = await insert_address(data);
     if(resp && resp.message){
-      console.log(resp.message);
+      // console.log(resp.message);
       reset();
       hide(resp.message);
       // customerInfo.address.push(resp.message);
@@ -88,7 +89,7 @@ export default function Address({hide,edit_address,modal}) {
   async function address_update(data) {
     const resp = await update_address(data);
     if(resp && resp.message){
-      console.log(resp.message);
+      // console.log(resp.message);
       reset();
       hide(resp.message);
       // customerInfo.address.push(resp.message);
@@ -97,7 +98,7 @@ export default function Address({hide,edit_address,modal}) {
   }
 
   const setFormsValue = (selectedOption,field) =>{
-    console.log(selectedOption,field);
+    // console.log(selectedOption,field);
     field.name = selectedOption.value;
     field.value = selectedOption.value;
   }
@@ -210,6 +211,9 @@ export default function Address({hide,edit_address,modal}) {
         </div>
         {/* rules={{ required: 'Company is required' }}  */}
         <Controller name="company" control={control} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Company (Optional)" id="company" {...field} />)} />
+        {errors.company && <p className={`${style.danger}`}>{errors.company.message}</p>}
+
+        <Controller name="gst_no" control={control} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="GST No (Optional)" id="gst_no" {...field} />)} />
         {errors.company && <p className={`${style.danger}`}>{errors.company.message}</p>}
 
         <Controller name="address" control={control} rules={{ required: 'Address is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Address" id="address" {...field} />)} />

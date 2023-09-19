@@ -44,7 +44,7 @@ export default function newsletter({ data, ads }) {
                   <AdsBaner data={value.col_2} />
                 </div>
                 <div>
-                  <Subscribe height={'h-[162px]'} width={'w-full'} data={value.col_2.data} />
+                  <Subscribe height={'h-[162px]'} width={'w-full'} data={data} />
                 </div>
               </div>
             }

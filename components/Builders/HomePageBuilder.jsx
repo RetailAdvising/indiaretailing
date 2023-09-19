@@ -11,7 +11,7 @@ import BulletList from '../Landing/BulletList'
 import TrendingBox from '../Landing/TrendingBox'
 import Title from '../common/Title'
 import Video from '../Video/Video'
-import { checkMobile } from '@/libs/api'
+import { checkMobile,newsLanding } from '@/libs/api'
 // import ListSlider from '../Sliders/ListSlider'
 // import ImageGroupEvents from '../Landing/ImageGroupEvents'
 // import EventList from '../Events/EventList'
@@ -30,11 +30,14 @@ const CardCarousel = dynamic(() => import('../Sliders/CardCarousel'))
 const ImageGroupEvents = dynamic(() => import('../Landing/ImageGroupEvents'))
 const EventList = dynamic(() => import('../Events/EventList'))
 const ListSlider = dynamic(() => import('../Sliders/ListSlider'))
+
+
 export default function HomePageBuilder({ data, isLast, loadMore, i ,val}) {
     const cardref = useRef(null);
     const [page_no, setPage_no] = useState(1);
+    const [news,setNews] = useState([])
     useEffect(() => {
-        console.log(val)
+        getNewsLetters();
         if (!cardref?.current) return;
         const observer = new IntersectionObserver(([entry]) => {
             if (isLast && entry.isIntersecting) {
@@ -51,7 +54,16 @@ export default function HomePageBuilder({ data, isLast, loadMore, i ,val}) {
     // // console.log(data.layout_json)
     // console.log(JSON.parse(data.layout_json))
 
-
+const getNewsLetters = async () =>{
+    let param = {
+        fields: ['custom_day', 'name', 'custom_category', 'custom_description', 'custom_image_', 'custom_title', 'route']
+      }
+      let value = await newsLanding(param);
+      let data = value.message;
+      if(data && data.length != 0){
+        setNews(data)
+      }
+}
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
         checkIsMobile();
@@ -88,7 +100,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i ,val}) {
                                         </div>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Advertisement") && <AdsBaner data={data.data[c.cid].data[0]} height={'h-[250px]'} />}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
-                                        {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive" && !isMobile) && <Subscribe height={"h-[162px]"} width={"w-full"} />}
+                                        {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive" && !isMobile) && <Subscribe height={"h-[162px]"} data={news} width={"w-full"} />}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Web specials") && <>
                                             <div className='lg:w-[calc(70%_-_10px)]'><Title data={{ title: c.component_title }} /></div>
                                             <div className={`lg:flex gap-5`}>

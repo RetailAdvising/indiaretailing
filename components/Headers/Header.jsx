@@ -6,13 +6,16 @@ import { check_Image } from '@/libs/common'
 import Dropdowns from '../common/Dropdowns';
 import { search_product, checkMobile } from '@/libs/api';
 import AuthModal from '../Auth/AuthModal';
-
+import { useSelector } from 'react-redux'
 export default function Header({ checkout }) {
     const router = useRouter();
     const head = {
         btn1: 'Subscribe',
         btn2: 'Sign in',
     }
+
+    const user = useSelector(s => s.user);
+
 
     const profile = [{ name: 'Logout', icon: '/Navbar/Logout.svg' }, { name: 'Profile', icon: '/login/profile-01.svg', route: '/profile?my_account=edit-profile', mob_route: '/profile?my_account=' }]
     const [valid, setValid] = useState(false);
@@ -26,6 +29,7 @@ export default function Header({ checkout }) {
     const [searchResult, setSearchResult] = useState([])
     const [searchValue, setSearchValue] = useState(undefined)
     useEffect(() => {
+        console.log(user)
         if (typeof window !== 'undefined') {
             localStorage['apikey'] ? setValid(!valid) : null;
             roleMember();
@@ -57,7 +61,7 @@ export default function Header({ checkout }) {
         // });
 
 
-    }, [])
+    }, [user])
 
 
     // const profileMenu = () => {
@@ -82,6 +86,7 @@ export default function Header({ checkout }) {
 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
+        console.log(user)
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
@@ -264,7 +269,7 @@ export default function Header({ checkout }) {
                                         <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
                                             <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
                                             <div>
-                                                {localStorage['full_name'] && <p className='cursor-pointer text-[14px] font-[500] capitalize'>{localStorage['full_name']}</p>}
+                                                {(user && user.message.user_id) && <p className='cursor-pointer text-[14px] font-[500]'>{user.message.user_id}</p>}
                                             </div>
                                             {/* <div>
                                             <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />

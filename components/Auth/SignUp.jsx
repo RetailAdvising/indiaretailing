@@ -5,7 +5,8 @@ import Image from 'next/image';
 import { signUp, logIn, checkMobile } from '@/libs/api';
 import { useRouter } from 'next/router';
 import LogIn from './LogIn';
-
+import { useDispatch } from 'react-redux';
+import setUser from 'redux/actions/userAction';
 export default function SignUp({ isModal, hide,auth }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter()
@@ -27,7 +28,9 @@ export default function SignUp({ isModal, hide,auth }) {
         setIsMobile(isMobile);
     }
 
-    
+    const dispatch = useDispatch();
+
+
     async function signup(data) {
         if (data) {
             const resp = await signUp(data)
@@ -45,6 +48,7 @@ export default function SignUp({ isModal, hide,auth }) {
                     localStorage['customer_id'] = val.message.customer_id;
                     localStorage['roles'] = JSON.stringify(val.message.roles)
                     localStorage['full_name'] = val.full_name;
+                    dispatch(setUser(val))
                     (isModal || !isMobile) ? hide() : router.push('/')
                 } else {
                     setWrong(!wrong);
@@ -61,7 +65,7 @@ export default function SignUp({ isModal, hide,auth }) {
 
     return (
         <>
-            {(auth && modal != 'login') ? <div className='flex container p-[20px]  gap-5 justify-between h-full '>
+            {(auth && modal != 'login') || isMobile ? <div className='flex container p-[20px]  gap-5 justify-between h-full '>
                 {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full h-full object-contain`} />
                 </div>}
@@ -70,8 +74,11 @@ export default function SignUp({ isModal, hide,auth }) {
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>} */}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Sign Up</h6>
+                    {isMobile && <div className=' cursor-pointer'>
+                        <Image className='w-full h-[70%] object-contain' onClick={() => router.push('/')} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
+                    </div>}
                     <form onSubmit={handleSubmit((data) => signup(data))} autoComplete='off'>
-                        <div className='flex items-center justify-between  py-5 gap-[10px]'>
+                        <div className='flex items-center justify-between pb-[10px] gap-[10px]'>
                             <div className={`flex flex-col relative`}>
                                 <label className={`${styles.label} text-[#808D9E]`} htmlFor='first_name' >First Name</label>
                                 <input className={`${styles.input} ${styles.input1}`} {...register('first_name', { required: { value: true, message: 'Full Name is required' } },)} />
@@ -84,13 +91,13 @@ export default function SignUp({ isModal, hide,auth }) {
                                 {/* <Image className={`absolute  right-[10px] h-[20px] w-[24px] bottom-[25px]`} src={'/login/profile-01.svg'} height={15} width={15} alt={"pass"} /> */}
                             </div>
                         </div>
-                        <div className={`flex flex-col pb-5 relative`}>
+                        <div className={`flex flex-col pb-[10px] relative`}>
                             <label className={`${styles.label} text-[#808D9E]`} htmlFor='mobile' >Mobile Number</label>
                             <input className={`${styles.input} ${styles.input1}`} {...register('phone', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } },)} />
                             {/* <Image className={`absolute  right-[10px] h-[27px] w-[22px] ${errors.phone?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/mobile.svg'} height={15} width={15} alt={"pass"} /> */}
                             {errors?.phone && <p className={`${styles.danger}`}>{errors.phone.message}</p>}
                         </div>
-                        <div className={`flex flex-col pb-5 relative`}>
+                        <div className={`flex flex-col pb-[10px] relative`}>
                             <label className={`${styles.label} text-[#808D9E]`} htmlFor='email' >Email</label>
                             <input className={`${styles.input} ${styles.input1}`} {...register('email', { required: { value: true, message: 'Email is required' }, pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: "Please enter a valid email" } },)} />
                             {/* <Image className={`absolute  right-[10px] h-[20px] w-[25px] ${errors.email?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/email.svg'} height={15} width={15} alt={"pass"} /> */}
@@ -138,7 +145,7 @@ export default function SignUp({ isModal, hide,auth }) {
                     </div> */}
                 </div>
 
-            </div> : <><LogIn auth={true} /></>}
+            </div> : <><LogIn auth={auth} /></>}
         </>
     )
 }

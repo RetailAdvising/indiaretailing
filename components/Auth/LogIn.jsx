@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import { logIn,checkMobile } from '@/libs/api';
+import { logIn, checkMobile } from '@/libs/api';
 import { useRouter } from 'next/router';
 import OTP from './OTP';
 import SignUp from './SignUp';
@@ -16,7 +16,7 @@ import Forget from './Forget'
 // import { LoginSocialGoogle } from 'reactjs-social-login';
 // import { GoogleLoginButton } from "reactjs-social-login";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
 
 // import {
@@ -45,7 +45,6 @@ export default function LogIn({ isModal, hide, auth }) {
     const [otp, setOtp] = useState(false)
     const [modal, setModal] = useState('')
     const router = useRouter();
-    const user = useSelector(s => s.user);
     const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors } } = useForm();
     // const [ islogin, setislogin] = useState(false)
@@ -86,7 +85,7 @@ export default function LogIn({ isModal, hide, auth }) {
                 localStorage['customer_id'] = val.message.customer_id;
                 localStorage['full_name'] = val.full_name;
                 localStorage['roles'] = JSON.stringify(val.message.roles)
-                dispatch(setUser(val.message));
+                dispatch(setUser(val));
                 (isModal || !isMobile) ? hide() : router.push('/')
             } else {
                 setWrong(!wrong);
@@ -123,7 +122,7 @@ export default function LogIn({ isModal, hide, auth }) {
     //     // Handle the response from Google here (e.g., send it to your server for authentication).
     //   };
 
-    async function go_to_home() {
+    function go_to_home() {
         isModal ? hide() : router.push('/')
     }
 
@@ -143,6 +142,9 @@ export default function LogIn({ isModal, hide, auth }) {
                         <Image onClick={() => go_to_home()} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>} */}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
+                    {isMobile && <div className=' cursor-pointer'>
+                        <Image className='w-full h-[70%] object-contain' onClick={() => router.push('/')} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
+                    </div>}
                     <form onSubmit={handleSubmit((data) => login(data))} autoComplete='off'>
                         <div className={`flex flex-col py-5 relative`}>
                             <label className={`${styles.label} text-[#808D9E]`} htmlFor='email' >Email or Username</label>
@@ -198,7 +200,7 @@ export default function LogIn({ isModal, hide, auth }) {
                         </div>
                     </div>
 
-                    <div onClick={() => setOtp(!otp)} className='flex gap-[10px]  w-[75%] m-[0_auto] h-[45px] cursor-pointer rounded-[5px] border items-center justify-center '>
+                    <div onClick={() => setOtp(!otp)} className='flex gap-[10px]  w-[75%] md:w-full m-[0_auto] h-[45px] cursor-pointer rounded-[5px] border items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/login/Login-OTP.svg'} />
                         <p className='text-[#808D9E] font-[500]'>Login With OTP</p>
                     </div>

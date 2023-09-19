@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 import { send_otp, verify_otp,checkMobile } from '@/libs/api'
 import AlertUi from '../common/AlertUi';
 import SignUp from './SignUp';
-
+import { useDispatch, useSelector } from 'react-redux';
+import setUser from 'redux/actions/userAction';
 export default function OTP({ setotp, isModal, hide, auth }) {
     const router = useRouter();
     const [show, setShow] = useState(false)
@@ -55,6 +56,9 @@ export default function OTP({ setotp, isModal, hide, auth }) {
         setIsMobile(isMobile);
     }
 
+    const user = useSelector(s => s.user);
+    const dispatch = useDispatch();
+
     async function verifyOtp(data) {
         if (data) {
             console.log(data)
@@ -71,7 +75,8 @@ export default function OTP({ setotp, isModal, hide, auth }) {
                     localStorage['userid'] = val.message.customer_email;
                     localStorage['customer_id'] = val.message.customer_id;
                     localStorage['full_name'] = val.message.customer_name;
-                    localStorage['roles'] = JSON.stringify(val.message.roles)
+                    localStorage['roles'] = JSON.stringify(val.message.roles);
+                    dispatch(setUser(val))
                     isMobile ? router.push('/') : hide();
                 }
             } else {
@@ -101,17 +106,20 @@ export default function OTP({ setotp, isModal, hide, auth }) {
 
     return (
         <>
-            {(auth && modal != 'signup') ? <div className='flex container p-[20px] h-full gap-[20px] '>
-                <div className={` ${(isModal) ? 'flex-[0_0_calc(100%_-_10px)]' : auth ? 'flex-[0_0_calc(60%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px] flex-col justify-center'}  flex `}>
+            {(auth && modal != 'signup') || isMobile ? <div className='flex container md:justify-center md:p-[15px] p-[20px] h-full gap-[20px] '>
+                {!isMobile && <div className={` ${(isModal) ? 'flex-[0_0_calc(100%_-_10px)]' : auth ? 'flex-[0_0_calc(60%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px] flex-col justify-center'}  flex `}>
                     {/* {!isModal && <div className=' cursor-pointer '> 
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>} */}
                     {(!isModal && auth) && <div className='flex-[0_0_calc(100%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                         <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`h-full w-full object-contain `} />
                     </div>}
-                </div>
+                </div>}
                 <div className='flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
+                    {isMobile && <div className=' cursor-pointer'>
+                        <Image className='w-full h-[70%] object-contain' onClick={() => router.push('/')} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
+                    </div>}
                     <form onSubmit={handleSubmit((data) => check(data))} autoComplete='off'>
                         {
                             <>
