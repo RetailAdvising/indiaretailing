@@ -4,43 +4,43 @@
     "books":[
         {
             "title":"Store Design & Interiors",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/book1.svg"
         },
         {
             "title":"Malls in India",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/Malls-in-India.jpg"
         },
         {
             "title":"Images Business of Fashion Report",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/Images-Business-of-Fashion-Report.jpg"
         },
         {
             "title":"India D2C Yearbook",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/India-D2C-Yearbook.jpg"
         },
         {
             "title":"Evolve",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/book1.svg"
         },
         {
             "title":"Shopping Centre Next",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/Shopping-Centre-Next.jpg"
         },
         {
             "title":"India Food Report",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/book1.svg"
         },
         {
             "title":"India Retail Report",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/book1.svg"
         },
         {
             "title":"India Phygital Index",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/book1.svg"
         },
         {
             "title":"Retail Icons of India",
-            "image":"/about/book1.svg"
+            "image":"/bookstore/book1.svg"
         }
     ]
 }

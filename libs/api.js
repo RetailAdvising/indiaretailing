@@ -55,6 +55,7 @@ export async function getCartItem(){
 export function stored_customer_info(){
     let users = {}
     users.cust_email = localStorage['userid'] ? localStorage['userid'] : undefined;
+    users.user_id = localStorage['userid'] ? localStorage['userid'] : undefined;
     users.cust_name = localStorage['full_name'] ? localStorage['full_name'] : undefined;
     users.customer_id = localStorage['customer_id'] ? localStorage['customer_id'] : undefined;
     return users;

@@ -30,10 +30,10 @@ export default function ExclusiveBuilder({ data }) {
         <>
             <div className={`lg:flex lg:flex-wrap lg:gap-[15px] lg:p-[30px_0px] ${isMobile ? 'p-[15px] ' : 'container'}`}>
                 {/* lg:h-[685px] */}
-                {(data.message && data.message.length != 0) && <div className={`lg:h-[640px] ${isMobile ? '' : 'border p-[10px]'} rounded-[5px]  flex-[0_0_calc(42%_-_10px)] md:basis-full`}>
+                {(data.message && data.message.length != 0) && <div className={`lg:h-[640px] ${isMobile ? '' : 'border p-5 md:p-[10px]'} rounded-[5px]  flex-[0_0_calc(42%_-_10px)] md:basis-full`}>
                     {data.message.slice(0, 1).map((res, index) => {
                         return (
-                            <div key={index} onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} className={`mb-[10px] cursor-pointer pb-[10px] ${(index == 0 && !isMobile) ? 'border_bottom' : ''}`}>
+                            <div key={index} onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} className={`md:mb-[10px] mb-5 pb-5 cursor-pointer md:pb-[10px] ${(index == 0 && !isMobile) ? 'border_bottom' : ''}`}>
                                 <h6 className={`${index == 0 ? 'lg:text-[18px] md:text-[17px] font-semibold' : ''}`}>{res.title}</h6>
                                 <Image className={`${index == 0 ? 'h-[350px] md:h-[320px] w-full mt-[10px] rounded-[5px]' : ''}`} src={check_Image(res.thumbnail_image)} height={250} width={300} alt={res.title} />
                                 <p className={`flex items-center ${index == 0 ? 'pt-[10px]' : ''}`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
@@ -45,8 +45,8 @@ export default function ExclusiveBuilder({ data }) {
                 </div>}
 
 
-                <div className={`overflow-auto customScroll rounded-[5px] flex-[0_0_calc(33%_-_10px)] md:basis-full border p-[10px] lg:h-[640px]`}>
-                    <List hash_bg={'pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-1 md:line-clamp-2'} line={'line-clamp-2 md:hidden'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} check={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[80px] md:h-full'} data={(isMobile ? data.message.slice(2, 5) : data.message.slice(2, data.message.length - 1))} borderRadius={'rounded-[5px]'} isReverse={true} />
+                <div className={`overflow-auto customScroll rounded-[5px] flex-[0_0_calc(33%_-_10px)] md:basis-full border p-5 md:p-[10px] lg:h-[640px]`}>
+                    <List hash_bg={'pt-[10px]'} primary_pb={'lg:pb-[5px]'} isMp={true} titleClamp={'line-clamp-2 md:line-clamp-2'} line={'line-clamp-1 md:hidden'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} check={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[105px] md:h-full'} data={(isMobile ? data.message.slice(2, 5) : data.message.slice(2, data.message.length - 1))} borderRadius={'rounded-[5px]'} isReverse={true} />
                 </div>
 
                 {(data.sec1 && data.sec1.data && data.sec1.data.length != 0) &&
@@ -58,7 +58,7 @@ export default function ExclusiveBuilder({ data }) {
                     :
                     <div className='w-full lg:h-[640px] md:pt-[20px] lg:pb-5 flex-[0_0_calc(25%_-_10px)] md:basis-full'>
                         <Title data={data.sec1} />
-                        <div className={`border lg:h-[595px] p-[10px] rounded-[5px]`}><List check={true} tittleOnly={true} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isBB={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[70px] md:h-[110px]'} data={data.sec1.data.slice(0, 5)} borderRadius={'rounded-[5px]'} isTop={true} /></div>
+                        <div className={`border lg:h-[595px] p-[10px] rounded-[5px]`}><List isMp={true} titleClamp={'md:line-clamp-2 line-clamp-3'} check={true} tittleOnly={true} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isBB={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[85px] md:h-[110px]'} data={data.sec1.data.slice(0, 4)} borderRadius={'rounded-[5px]'} isTop={true} /></div>
                     </div>
                 }
             </div>
@@ -74,7 +74,7 @@ export default function ExclusiveBuilder({ data }) {
                     <Title data={{ title: 'IR Prime Leaders Ink' }} />
                     <div className='primeSlide'>
                         {/* <MultiCarousel cardHeight={'h-[280px]'} type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} /> */}
-                        <CustomSlider cardClass={'lg:h-[280px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
+                        <CustomSlider cardClass={'lg:h-[300px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
                             slider_id={"slider_id" + 0} slider_child_id={"slider_child_id" + 0} data={val.section_2.col_1.data} />
                     </div>
                 </div>

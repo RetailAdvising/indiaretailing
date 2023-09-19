@@ -7,12 +7,16 @@ import { useRouter } from 'next/router';
 import LogIn from './LogIn';
 import { useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
-export default function SignUp({ isModal, hide,auth }) {
+// import AlertUi from '../common/AlertUi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+export default function SignUp({ isModal, hide, auth }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter()
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(-1);
     const [wrong, setWrong] = useState(false);
-    const [modal,setModal] = useState('');
+    const [modal, setModal] = useState('');
+    const [show_pass,setShowPass] = useState('')
 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
@@ -30,41 +34,81 @@ export default function SignUp({ isModal, hide,auth }) {
 
     const dispatch = useDispatch();
 
+    // const [alertMsg, setAlertMsg] = useState('')
+    // const [isOpen, setIsOpen] = useState(false)
+    const notify = () => toast.error('Password and Confirm Password not matched');
 
     async function signup(data) {
         if (data) {
-            const resp = await signUp(data)
-            console.log(resp)
-            if (resp.message.status == 'Success') {
-                let datas = {
-                    usr: data.email,
-                    pwd: data.new_password
-                }
-                const val = await logIn(datas);
-                if (val.message.status == 'Success') {
-                    localStorage['apikey'] = val.message.api_key
-                    localStorage['secret'] = val.message.api_secret
-                    localStorage['userid'] = val.message.user_id;
-                    localStorage['customer_id'] = val.message.customer_id;
-                    localStorage['roles'] = JSON.stringify(val.message.roles)
-                    localStorage['full_name'] = val.full_name;
-                    dispatch(setUser(val))
-                    (isModal || !isMobile) ? hide() : router.push('/')
+           
+            if (data.new_password === data.confirm_password) {
+                delete data.confirm_password
+                // alert('perfect')
+                const resp = await signUp(data)
+                // console.log(resp)
+                if (resp.message.status == 'Success') {
+                    let datas = {
+                        usr: data.email,
+                        pwd: data.new_password
+                    }
+                    const val = await logIn(datas);
+                    if (val.message.status == 'Success') {
+                        localStorage['apikey'] = val.message.api_key
+                        localStorage['secret'] = val.message.api_secret
+                        localStorage['userid'] = val.message.user_id;
+                        localStorage['customer_id'] = val.message.customer_id;
+                        localStorage['roles'] = JSON.stringify(val.message.roles)
+                        localStorage['full_name'] = val.full_name;
+                        dispatch(setUser(val))
+                            (isModal || !isMobile) ? hide() : router.push('/')
+                    } else {
+                        setWrong(!wrong);
+                    }
+
+                    // isModal ? hide() : router.push('/')
                 } else {
+                    // alert(resp.message.message)
                     setWrong(!wrong);
                 }
-
-                // isModal ? hide() : router.push('/')
             } else {
-                // alert(resp.message.message)
-                setWrong(!wrong);
+                console.log(data);
+                // alert('check password')
+                notify();
+                // setIsOpen(true)
+                // setAlertMsg({ message: 'Password and Confirm Password not matched' })
             }
+            //
         }
     }
 
 
+    function closeModal(value) {
+        // alert_dispatch(alertAction(false))
+
+        // if (alertMsg && alertMsg.navigate) {
+        //   setAlertMsg({});
+        //   router.push('/bookstore');
+        // } else if ('Yes') {
+
+        // }
+
+    }
+
+    const hide_and_show = (data) =>{
+        if(data == 'new'){
+            setShowPass(data);
+            setShow(1)
+        }else{
+            setShowPass(data);
+            setShow(2)
+        }
+    }
+
     return (
         <>
+            {/* {isOpen && <AlertUi isOpen={isOpen} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />} */}
+            <ToastContainer position="top-right" />
+
             {(auth && modal != 'login') || isMobile ? <div className='flex container p-[20px]  gap-5 justify-between h-full '>
                 {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full h-full object-contain`} />
@@ -79,13 +123,13 @@ export default function SignUp({ isModal, hide,auth }) {
                     </div>}
                     <form onSubmit={handleSubmit((data) => signup(data))} autoComplete='off'>
                         <div className='flex items-center justify-between pb-[10px] gap-[10px]'>
-                            <div className={`flex flex-col relative`}>
+                            <div className={`flex flex-col relative flex-[0_0_calc(50%_-_10px)]`}>
                                 <label className={`${styles.label} text-[#808D9E]`} htmlFor='first_name' >First Name</label>
                                 <input className={`${styles.input} ${styles.input1}`} {...register('first_name', { required: { value: true, message: 'Full Name is required' } },)} />
                                 {/* <Image className={`absolute  right-[10px] h-[20px] w-[24px] ${errors.first_name?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/profile-01.svg'} height={15} width={15} alt={"pass"} /> */}
                                 {errors?.first_name && <p className={`${styles.danger}`}>{errors.first_name.message}</p>}
                             </div>
-                            <div className={`flex flex-col relative`}>
+                            <div className={`flex flex-col relative flex-[0_0_calc(50%_-_10px)]`}>
                                 <label className={`${styles.label} text-[#808D9E]`} htmlFor='first_name' >Last Name</label>
                                 <input className={`${styles.input} ${styles.input1}`} {...register('last_name')} />
                                 {/* <Image className={`absolute  right-[10px] h-[20px] w-[24px] bottom-[25px]`} src={'/login/profile-01.svg'} height={15} width={15} alt={"pass"} /> */}
@@ -103,12 +147,19 @@ export default function SignUp({ isModal, hide,auth }) {
                             {/* <Image className={`absolute  right-[10px] h-[20px] w-[25px] ${errors.email?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/email.svg'} height={15} width={15} alt={"pass"} /> */}
                             {errors?.email && <p className={`${styles.danger}`}>{errors.email.message}</p>}
                         </div>
-                        <div className={`flex flex-col pt-[10px] pb-4 relative`}>
+                        <div className={`flex flex-col pb-[10px] relative`}>
                             <label className={`text-[#808D9E]`} htmlFor='password'>Password</label>
-                            <input type={`${show ? 'text' : 'password'}`} className={`${styles.input} ${styles.input1}`} {...register('new_password', { required: { value: true, message: 'Password is required' } })} />
-                            {/* <Image onClick={() => setShow(!show)} className={`absolute  right-[10px] h-[23px] w-[20px] ${errors.new_password?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={show ? '/login/showPass.svg' : '/login/hidePass.svg'} height={15} width={15} alt={"pass"} /> */}
+                            <input type={`${(show_pass == 'new' && show == 1) ? 'text' : 'password'}`} className={`${styles.input} ${styles.input1}`} {...register('new_password', { required: { value: true, message: 'Password is required' } })} />
+                            <Image onClick={() => hide_and_show('new')} className={`absolute cursor-pointer object-contain right-[10px] h-[23px] w-[20px] ${errors.new_password?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={( show_pass == 'new' && show == 1) ? '/login/eye_open.svg' : '/login/eye_close.svg'} height={15} width={15} alt={"pass"} />
                             {/* <button onClick={()=> setShow(!show)}>show</button> */}
                             {errors.new_password && <p className={`${styles.danger}`}>{errors.new_password.message}</p>}
+                        </div>
+                        <div className={`flex flex-col pb-[15px]  relative`}>
+                            <label className={`text-[#808D9E]`} htmlFor='password'>Confirm Password</label>
+                            <input type={`${(show_pass == 'confirm' && show == 2) ? 'text' : 'password'}`} className={`${styles.input} ${styles.input1}`} {...register('confirm_password', { required: { value: true, message: 'Confirm Password is required' } })} />
+                            <Image onClick={() => hide_and_show('confirm')} className={`absolute object-contain cursor-pointer right-[10px] h-[23px] w-[20px] ${errors.new_password?.message ? 'bottom-[45px]' : 'bottom-[20px]'}`} src={( show_pass == 'confirm' && show == 2) ? '/login/eye_open.svg' : '/login/eye_close.svg'} height={15} width={15} alt={"pass"} />
+                            {/* <button onClick={()=> setShow(!show)}>show</button> */}
+                            {errors.confirm_password && <p className={`${styles.danger}`}>{errors.confirm_password.message}</p>}
                         </div>
 
                         <button type="submit" className={`${styles.loginBtn}`}>Signup</button>

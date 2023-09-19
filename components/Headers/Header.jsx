@@ -4,9 +4,12 @@ import styles from '@/styles/Header.module.scss'
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common'
 import Dropdowns from '../common/Dropdowns';
-import { search_product, checkMobile } from '@/libs/api';
+import { search_product, checkMobile, stored_customer_info } from '@/libs/api';
 import AuthModal from '../Auth/AuthModal';
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux';
+// import setUser from 'redux/actions/userAction';
+
+// import {setUser} from '@/redux/actions/userAction'
 export default function Header({ checkout }) {
     const router = useRouter();
     const head = {
@@ -15,13 +18,14 @@ export default function Header({ checkout }) {
     }
 
     const user = useSelector(s => s.user);
+    // const dispatch = useDispatch()
 
 
     const profile = [{ name: 'Logout', icon: '/Navbar/Logout.svg' }, { name: 'Profile', icon: '/login/profile-01.svg', route: '/profile?my_account=edit-profile', mob_route: '/profile?my_account=' }]
     const [valid, setValid] = useState(false);
     const [loader, setLoader] = useState(false);
-    const [member, setMember] = useState(false);
-    const [sort, setSort] = useState(false);
+    // const [member, setMember] = useState(false);
+    // const [sort, setSort] = useState(false);
     const ref = useRef(null);
 
     // Search
@@ -30,9 +34,13 @@ export default function Header({ checkout }) {
     const [searchValue, setSearchValue] = useState(undefined)
     useEffect(() => {
         console.log(user)
+
         if (typeof window !== 'undefined') {
+            let data = stored_customer_info();
+            // console.log(data)
+            // dispatch(setUser(s => s['message']['user_id'] = data.user_id))
             localStorage['apikey'] ? setValid(!valid) : null;
-            roleMember();
+            // roleMember();
         }
 
         setLoader(true);
@@ -70,19 +78,19 @@ export default function Header({ checkout }) {
     //     sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
     // }
 
-    const roleMember = () => {
-        // console.log(localStorage['roles']);
-        if (localStorage['roles'] && localStorage['roles'] != 'undefined') {
-            const data = JSON.parse(localStorage['roles']);
-            if (data && data.length != 0) {
-                data.map(res => {
-                    if (res.role == 'Member') {
-                        setMember(!member)
-                    }
-                })
-            }
-        }
-    }
+    // const roleMember = () => {
+    //     // console.log(localStorage['roles']);
+    //     if (localStorage['roles'] && localStorage['roles'] != 'undefined') {
+    //         const data = JSON.parse(localStorage['roles']);
+    //         if (data && data.length != 0) {
+    //             data.map(res => {
+    //                 if (res.role == 'Member') {
+    //                     setMember(!member)
+    //                 }
+    //             })
+    //         }
+    //     }
+    // }
 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
@@ -269,7 +277,7 @@ export default function Header({ checkout }) {
                                         <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
                                             <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
                                             <div>
-                                                {(user && user.message.user_id) && <p className='cursor-pointer text-[14px] font-[500]'>{user.message.user_id}</p>}
+                                                {((user) || (localStorage && localStorage['userid'])) && <p className='cursor-pointer text-[14px] font-[500]'>{localStorage['userid']}</p>}
                                             </div>
                                             {/* <div>
                                             <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />

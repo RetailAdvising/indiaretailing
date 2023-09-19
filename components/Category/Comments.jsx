@@ -51,7 +51,7 @@ export default function Comments({ data, isLast, load, cmt , store_comments, com
         //     if(comm.is_disliked ==1 && comm.is_liked == 0) dislikeCmt(comm);
     }
     const dislikeCmt = async (comm) => {
-        console.log(comment);
+        // console.log(comment);
         let param = {
             name: comm.name,
             dislike: comm.is_disliked == 1 ?  'No' :'Yes'
