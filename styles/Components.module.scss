@@ -40,6 +40,13 @@
         outline: none;
     }
 }
+
+.input1{
+    border: 1px solid $border-color !important;
+    border-radius: 5px;
+    height: 45px;
+    margin-top: 5px;
+}
 .danger{
     color: $primary-color;
     font-weight: 600;

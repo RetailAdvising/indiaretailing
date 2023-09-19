@@ -129,7 +129,7 @@ export default function profile({my_account}) {
     if(value == 'Yes' && alertUi){
       setAlertUi(false);
       localStorage.clear();
-      router.push('/login'); 
+      router.push('/'); 
     }else{
       setAlertUi(false);
     }
@@ -141,7 +141,7 @@ export default function profile({my_account}) {
     if(value == 'Yes' && alertUi){
       setAlertUi(false);
       localStorage.clear();
-      router.push('/login'); 
+      router.push('/'); 
     }else{
       setAlertUi(false);
     }

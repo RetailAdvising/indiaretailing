@@ -1,31 +1,33 @@
-import { forget_password } from '@/libs/api';
-import Image from 'next/image'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
-import styles from '@/styles/Components.module.scss'
-import { useRouter } from 'next/router';
+// import { forget_password } from '@/libs/api';
+// import Image from 'next/image'
+// import React, { useState } from 'react'
+// import { useForm } from 'react-hook-form';
+// import styles from '@/styles/Components.module.scss'
+// import { useRouter } from 'next/router';
+import Forget from '@/components/Auth/Forget';
 export default function forget() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const router = useRouter();
-    const [wrong,setWrong] = useState(false)
-    async function forgetPass(data) {
-        if (data) {
-            // console.log(data);
-            const resp = await forget_password(data);
-            console.log(resp);
-            if(resp.status == "Success"){
-                alert('Password reset instructions have been sent to your email');
-                setTimeout(() => {
-                    router.push('/login')
-                }, 500);
-            }else{
-                setWrong(!wrong)
-            }
-        }
-    }
+    // const { register, handleSubmit, formState: { errors } } = useForm();
+    // const router = useRouter();
+    // const [wrong,setWrong] = useState(false)
+    // async function forgetPass(data) {
+    //     if (data) {
+    //         // console.log(data);
+    //         const resp = await forget_password(data);
+    //         console.log(resp);
+    //         if(resp.status == "Success"){
+    //             alert('Password reset instructions have been sent to your email');
+    //             setTimeout(() => {
+    //                 router.push('/login')
+    //             }, 500);
+    //         }else{
+    //             setWrong(!wrong)
+    //         }
+    //     }
+    // }
     return (
         <>
-            <div className='flex container md:flex-wrap justify-between p-[30px] '>
+        <Forget />
+            {/* <div className='flex container md:flex-wrap justify-between p-[30px] '>
                 <div className='flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
                     <div className=' cursor-pointer '>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
@@ -50,7 +52,7 @@ export default function forget() {
                 <div className='flex-[0_0_calc(60%_-_10px)] md:hidden md:flex-[0_0_calc(100%_-_10px)] bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full`} />
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

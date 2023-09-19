@@ -13,11 +13,7 @@ import SEO from '@/components/common/SEO'
 export default function Home({ data, ads }) {
 
   const [pageNo, setPageNo] = useState(1);
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(7);
   const [value, setValue] = useState([])
-  const [adv, setAdv] = useState();
-  const [pagination, setPagination] = useState(false)
   let page_no = 1;
 
 
@@ -56,7 +52,7 @@ export default function Home({ data, ads }) {
     // data()
     // if (pageNo > 1) {
 
-    //   // console.log('Load more')
+    //   console.log('Load more', pageNo)
     //   // console.log('start',start)
     //   // console.log('end',end)
     //   // setEnd(end + 2)
@@ -65,25 +61,28 @@ export default function Home({ data, ads }) {
   }, [])
   // console.log(data)
 
+  const load = () => {
+    setPageNo(p => p += 1);
+    getPageData();
+  }
+
   const getPageData = async () => {
     // console.log('load...',)
-    // page_no += 1;
-    // setPageNo(p => p = pageNo + 1)
-    // if (pageNo > 1) {
-    //   const param = {
-    //     // "application_type": "mobile",
-    //     "route": "home",
-    //     page_no: pageNo,
-    //     page_size: 3
-    //   }
-    //   const resp = await HomePage(param);
-    //   if (resp.message && resp.message.page_content && resp.message.page_content.length != 0) {
-    //     setValue(d => d = [...d, ...resp.message.page_content])
-    //     console.log(resp.message.page_content)
-    //   } else {
+    if (pageNo > 1) {
+      const param = {
+        // "application_type": "mobile",
+        "route": "home",
+        page_no: pageNo,
+        page_size: 4
+      }
+      const resp = await HomePage(param);
+      if (resp.message && resp.message.page_content && resp.message.page_content.length != 0) {
+        setValue(d => d = [...d, ...resp.message.page_content])
+        console.log(resp.message.page_content)
+      } else {
 
-    //   }
-    // }
+      }
+    }
   }
 
   return (
@@ -93,7 +92,7 @@ export default function Home({ data, ads }) {
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
         {(value && value.length != 0) && value.map((res, index) => {
           return (
-            <HomePageBuilder key={index} isLast={index == value.length - 1} i={index} data={res} loadMore={() => getPageData()} />
+            <HomePageBuilder key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
           )
         })}
       </RootLayout>

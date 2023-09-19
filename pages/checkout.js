@@ -197,10 +197,16 @@ export default function checkout() {
     }
 
     const resp = await insertOrder(orderdata);
+    console.log(resp)
     if (resp && resp.message && resp.message.status == true) {
       let data = resp.message
       setLoader(false);
       load_razorpay(data.order.outstanding_amount, 'Order', data.order.name);
+    }
+    else{
+      setLoader(false);
+      setAlertMsg({ message: resp.message.message });  
+      alert_dispatch(alertAction(true))
     }
 
   }

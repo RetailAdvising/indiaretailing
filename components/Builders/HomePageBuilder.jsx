@@ -30,14 +30,16 @@ const CardCarousel = dynamic(() => import('../Sliders/CardCarousel'))
 const ImageGroupEvents = dynamic(() => import('../Landing/ImageGroupEvents'))
 const EventList = dynamic(() => import('../Events/EventList'))
 const ListSlider = dynamic(() => import('../Sliders/ListSlider'))
-export default function HomePageBuilder({ data, isLast, loadMore, i }) {
-    const cardref = useRef(null)
+export default function HomePageBuilder({ data, isLast, loadMore, i ,val}) {
+    const cardref = useRef(null);
+    const [page_no, setPage_no] = useState(1);
     useEffect(() => {
-        // console.log(data)
+        console.log(val)
         if (!cardref?.current) return;
         const observer = new IntersectionObserver(([entry]) => {
             if (isLast && entry.isIntersecting) {
                 // newLimit();
+                // setPage_no(p => p += 1);
                 loadMore()
                 // console.log(entry)
                 observer.unobserve(entry.target);
@@ -71,7 +73,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i }) {
                 {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                     return (
                         // || i == 5
-                        <div  key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0) ? 'md:mb-[15px]' : ''}  ${((i == 14) && !isMobile) ? 'container' : ''} `}>
+                        <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0) ? 'md:mb-[15px]' : ''}  ${((i == 14) && !isMobile) ? 'container' : ''} `}>
                             {(res.components && res.components.length != 0) && res.components.map(c => {
                                 return (
                                     <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-5' : ''}`}>

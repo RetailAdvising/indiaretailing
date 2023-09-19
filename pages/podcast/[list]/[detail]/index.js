@@ -27,8 +27,8 @@ export default function PodcastDetail({ data, ads_data }) {
                             <div className="flex w-full">
                                 <div className="w-[75%] md:w-full lg:pr-[10px]">
                                     <Title data={{ title: 'Related Podcasts' }} seeMore={false} />
-                                    <div className={`flex gap-[20px] justify-between no_scroll lg:flex-wrap md:flex-wrap md:gap-[10px]`}>
-                                        <Cards data={data.related_podcasts} check={true} border_none={true} height={'h-[220px]'} width={'w-[80%] md:w-[100%]'} flex={'flex-[0_0_calc(33.33%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} />
+                                    <div className={`flex gap-[10px] justify-between no_scroll lg:flex-wrap md:flex-wrap md:gap-[10px]`}>
+                                        <Cards data={data.related_podcasts} check={true} border_none={true} height={'h-[220px]'} width={'w-[100%]'} flex={'flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(50%_-_10px)]'} />
                                     </div>
                                 </div>
                                 <div className="w-[25%] p-[10px] border md:hidden">

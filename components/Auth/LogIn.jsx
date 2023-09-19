@@ -1,10 +1,12 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import { logIn } from '@/libs/api';
+import { logIn,checkMobile } from '@/libs/api';
 import { useRouter } from 'next/router';
 import OTP from './OTP';
+import SignUp from './SignUp';
+import Forget from './Forget'
 // import GoogleLogin from './GoogleLogin';
 // import { GoogleLogin } from 'react-google-login';
 // import NextAuth from 'next-auth';
@@ -41,6 +43,7 @@ export default function LogIn({ isModal, hide, auth }) {
     const [show, setShow] = useState(false)
     const [wrong, setWrong] = useState(false)
     const [otp, setOtp] = useState(false)
+    const [modal, setModal] = useState('')
     const router = useRouter();
     const user = useSelector(s => s.user);
     const dispatch = useDispatch();
@@ -55,11 +58,19 @@ export default function LogIn({ isModal, hide, auth }) {
     //         }
     //     };
 
-    // useEffect(() => {
-    //     if (typeof window !== "undefined") {
-    //         setislogin(true);
-    //     }
-    // }, []);
+    const [isMobile, setIsMobile] = useState()
+    useEffect(() => {
+        checkIsMobile();
+        window.addEventListener('resize', checkIsMobile)
+        return () => {
+            window.removeEventListener('resize', checkIsMobile);
+        };
+    }, [])
+
+    const checkIsMobile = async () => {
+        let isMobile = await checkMobile();
+        setIsMobile(isMobile);
+    }
 
     async function login(data) {
         if (data) {
@@ -76,12 +87,14 @@ export default function LogIn({ isModal, hide, auth }) {
                 localStorage['full_name'] = val.full_name;
                 localStorage['roles'] = JSON.stringify(val.message.roles)
                 dispatch(setUser(val.message));
-                isModal ? hide() : router.push('/')
+                (isModal || !isMobile) ? hide() : router.push('/')
             } else {
                 setWrong(!wrong);
             }
         }
     }
+
+
 
     // async function loginGoogle(){
 
@@ -121,7 +134,7 @@ export default function LogIn({ isModal, hide, auth }) {
     // }, []);
     return (
         <>
-            {!otp ? <div className='flex container h-full p-[20px] justify-center gap-[20px] '>
+            {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='flex container h-full p-[20px] justify-center gap-[20px] '>
                 {(!isModal || auth) && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border h-full rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`w-full ${auth ? 'h-full object-contain' : ''}`} />
                 </div>}
@@ -157,12 +170,12 @@ export default function LogIn({ isModal, hide, auth }) {
                                 {/* <span className={`${styles.checkmark}`}></span> */}
                                 <span className='text-[14px]'>Remember Me</span>
                             </div>
-                            <p className='text-blue-500 font-semibold text-[14px] cursor-pointer' onClick={() => router.push('/forget   ')}>Forget Password</p>
+                            <p className='text-blue-500 font-semibold text-[14px] cursor-pointer' onClick={() => auth ? setModal('forget') : router.push('/forget')}>Forget Password</p>
                         </div>
                         <button type="submit" className={`${styles.loginBtn} `}>Log In</button>
                         {wrong && <p className='text-center pt-[5px] text-[#ff1010] font-semibold'>Please check your email or password</p>}
                     </form>
-                    <p className='pt-[10px] '>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>Create an account</span></p>
+                    <p className='pt-[10px] '>Not registered yet? <span onClick={() => auth ? setModal('signup') : router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>Create an account</span></p>
                     <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div>
 
                     {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}
@@ -183,16 +196,15 @@ export default function LogIn({ isModal, hide, auth }) {
                             <Image height={20} className='h-[30px] w-[30px] object-contain' width={20} alt='apple' src={'/login/fb-01.svg'} />
                             {/* <p>Continue with Facebook</p> */}
                         </div>
-
                     </div>
-                    
+
                     <div onClick={() => setOtp(!otp)} className='flex gap-[10px]  w-[75%] m-[0_auto] h-[45px] cursor-pointer rounded-[5px] border items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/login/Login-OTP.svg'} />
                         <p className='text-[#808D9E] font-[500]'>Login With OTP</p>
                     </div>
                 </div>
 
-            </div> : <OTP hide={hide} auth={auth} isModal={isModal} setotp={() => setOtp(!otp)} />
+            </div> : (modal == 'signup' && !otp) ? <><SignUp auth={auth} /></> : (modal == 'forget' && !otp) ? <><Forget auth={auth} /></> : <OTP hide={hide} auth={auth} isModal={isModal} setotp={() => setOtp(!otp)} />
             }
 
 

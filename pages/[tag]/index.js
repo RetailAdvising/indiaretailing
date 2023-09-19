@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout'
-import { useRouter } from 'next/router';
 import Image from 'next/image'
 import { getTagsList, check_Image, getList } from '@/libs/api'
 import TrendingBox from '/components/Landing/TrendingBox'
@@ -17,7 +16,7 @@ export default function Tags({ res }) {
     let cardref = useRef(null);
     let page_no = 1
     let no_product = false;
-    const router = useRouter();
+    
     useEffect(() => {
         if (res && res.data) {
             setData(res.data)

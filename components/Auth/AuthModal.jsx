@@ -5,7 +5,7 @@ export default function AuthModal({visible,hide,modal,show}) {
     return (
         <>
             <Rodal visible={visible} animation='slideUp' onClose={hide}>
-                <LogIn isModal={false} auth={true} />
+                <LogIn isModal={false} hide={hide} auth={true} />
             </Rodal>
         </>
     )

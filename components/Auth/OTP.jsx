@@ -3,13 +3,15 @@ import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { send_otp, verify_otp } from '@/libs/api'
+import { send_otp, verify_otp,checkMobile } from '@/libs/api'
 import AlertUi from '../common/AlertUi';
+import SignUp from './SignUp';
 
 export default function OTP({ setotp, isModal, hide, auth }) {
     const router = useRouter();
     const [show, setShow] = useState(false)
-    const [otp, set_otp] = useState(false)
+    const [otp, set_otp] = useState(false);
+    const [modal, setModal] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [isSuccessPopup, setIsSuccessPopup] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
@@ -39,6 +41,20 @@ export default function OTP({ setotp, isModal, hide, auth }) {
         }
     }
 
+    const [isMobile, setIsMobile] = useState()
+    useEffect(() => {
+        checkIsMobile();
+        window.addEventListener('resize', checkIsMobile)
+        return () => {
+            window.removeEventListener('resize', checkIsMobile);
+        };
+    }, [])
+
+    const checkIsMobile = async () => {
+        let isMobile = await checkMobile();
+        setIsMobile(isMobile);
+    }
+
     async function verifyOtp(data) {
         if (data) {
             console.log(data)
@@ -56,7 +72,7 @@ export default function OTP({ setotp, isModal, hide, auth }) {
                     localStorage['customer_id'] = val.message.customer_id;
                     localStorage['full_name'] = val.message.customer_name;
                     localStorage['roles'] = JSON.stringify(val.message.roles)
-                    router.push('/')
+                    isMobile ? router.push('/') : hide();
                 }
             } else {
                 setAlertMessage(val.message)
@@ -85,7 +101,7 @@ export default function OTP({ setotp, isModal, hide, auth }) {
 
     return (
         <>
-            <div className='flex container p-[20px] h-full gap-[20px] '>
+            {(auth && modal != 'signup') ? <div className='flex container p-[20px] h-full gap-[20px] '>
                 <div className={` ${(isModal) ? 'flex-[0_0_calc(100%_-_10px)]' : auth ? 'flex-[0_0_calc(60%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px] flex-col justify-center'}  flex `}>
                     {/* {!isModal && <div className=' cursor-pointer '> 
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
@@ -94,15 +110,14 @@ export default function OTP({ setotp, isModal, hide, auth }) {
                         <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`h-full w-full object-contain `} />
                     </div>}
                 </div>
-                <div className='flex-[0_0_calc(40%_-_10px)]'>
+                <div className='flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
-
                     <form onSubmit={handleSubmit((data) => check(data))} autoComplete='off'>
                         {
                             <>
                                 <div className={`flex flex-col py-5 relative`}>
                                     <label className={`${styles.label} text-[#808D9E]`} htmlFor='mobile' >Mobile Number</label>
-                                    <input id='mobile_no' type='number' className={`${styles.input}  p-[5px_10px] rounded-[5px] h-[45px] `} style={{border:'1px solid #EEEE'}} {...register('mobile', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } })} />
+                                    <input id='mobile_no' type='number' className={`${styles.input}  p-[5px_10px] rounded-[5px] h-[45px] `} style={{ border: '1px solid #EEEE' }} {...register('mobile', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } })} />
                                     <Image className={`absolute  right-[10px] h-[27px] w-[22px] ${errors.mobile?.message ? 'bottom-[50px]' : 'bottom-[30px]'} object-contain mt-[5px]`} src={'/login/mobile.svg'} height={15} width={15} alt={"pass"} />
                                     {errors?.mobile && <p className={`${styles.danger}`}>{errors.mobile.message}</p>}
                                 </div>
@@ -133,7 +148,7 @@ export default function OTP({ setotp, isModal, hide, auth }) {
                         }
                         {/* {wrong && <p>Please check you email or password</p>} */}
                     </form>
-                    <p className='pt-[10px]'>Not registered yet? <span onClick={() => router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>Create an account</span></p>
+                    <p className='pt-[10px]'>Not registered yet? <span onClick={() => auth ? setModal('signup') : router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer'>Create an account</span></p>
                     <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div>
 
                     {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}
@@ -153,7 +168,7 @@ export default function OTP({ setotp, isModal, hide, auth }) {
 
                 {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
 
-            </div>
+            </div> : <><SignUp auth={true} /></>}
         </>
     )
 }
