@@ -25,33 +25,36 @@ export default function CategoryDetail({ data }) {
   // let prev = router.query.detail;
   let boxElList = ''
   useEffect(() => {
+    // window.addEventListener("scroll", function(){
+    //   // call_observer()
+    // })
+    // console.log('reloaded');
     if (data) {
       let val = [data]
+      // console.log(data)
       setValues(val)
       getAd()
     }
     // call_observer()
     setPrev(router.query.types + '/' + router.query.detail)
   }, [router.query])
-
+  // router.query
 
   // const call_observer = async () => {
-    
+  
   //   const observer = new IntersectionObserver(entries => {
   //     entries.forEach((entry,ind) => {
   //       if (entry.intersectionRatio > 0) {
   //         console.log(ind,'visible');
-  //         console.log(router );
-  //         console.log(values[ind]);
-  //         // Element is visible
+  //         console.log('pushed',values);
+  //         if (values && values.length>0)  router.replace({pathname:'/categories' + '/' + values[ind]["route"]});
   //       } else {
   //         // Element is not visible
   //         console.log(ind,'not visible');
   //       }
   //     });
   //   });
-  //    boxElList = document.querySelectorAll(".box");
-  //   console.log(boxElList);
+  //   boxElList = document.querySelectorAll(".box");
   //   boxElList.forEach((el) => {
   //    observer.observe(el);
   //  }); 
@@ -103,7 +106,7 @@ export default function CategoryDetail({ data }) {
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
-              <div key={index} className={'box'}>
+              <div key={index} className='box'>
                 <CategoryBuilder isLast={index == values.length - 1} ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
               </div>
             )

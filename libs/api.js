@@ -240,6 +240,11 @@ export async function HomePage(data){
     return await postMethod(api,data)
 }
 
+export async function websiteSettings(data){
+    let api = 'go1_cms.go1_cms.api.get_all_website_settings';
+    return await postMethod(api,data)
+}
+
 export async function getTagsList(data){
     const api = domainUrl + 'get_article_news_by_tag';
     return await postMethod(api,data)
@@ -456,7 +461,18 @@ export async function podcast_details(data){
 }
 
 // Newsletter
-export async function newsLanding(data){
+export async function newsLanding(){
+
+    let data = {
+      fields: ['custom_day', 'name', 'custom_category', 'custom_description', 'custom_image_', 'custom_title', 'route']
+    }
+
+    let value = stored_customer_info()
+    
+    if(value && value.user_id){
+     data.email = value.user_id
+    }
+
     let api = domainUrl + 'newsletter_list_with_categories';
     return await postMethod(api,data)
 }

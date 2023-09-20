@@ -113,11 +113,7 @@ export default function profile({my_account}) {
   }
 
   async function newsLanding_info(){
-    let arg = {
-      fields: ['custom_day', 'name', 'custom_category', 'custom_description', 'custom_image_', 'custom_title', 'route']
-    }
-  
-    let value = await newsLanding(arg);
+    let value = await newsLanding();
     let news = value.message;
     setNews(news)
   }

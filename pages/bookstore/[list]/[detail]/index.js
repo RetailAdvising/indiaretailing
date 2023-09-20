@@ -70,8 +70,8 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        // console.log(value);
-        // console.log(res);
+        console.log(value);
+        console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
         if(routPath && routPath.length != 0){
@@ -84,11 +84,13 @@ export default function Bookstoredetail({ value, res }) {
         if(value.vendor_price_list && value.vendor_price_list.length != 0){     
           if(value.has_variants == 1){
               value.price = value.vendor_price_list[0].default_variant.product_price;
+              value.old_price = value.vendor_price_list[0].default_variant.old_price;
               value.attribute_ids = value.vendor_price_list[0].default_variant.attribute_id;
               value.business = value.vendor_price_list[0].business;
               value.attribute = value.vendor_price_list[0].default_variant.variant_text;
           } else{
             value.price = value.vendor_price_list[0].product_price;
+            value.old_price = value.vendor_price_list[0].old_price;
             value.attribute_ids = value.vendor_price_list[0].attribute_id ? value.vendor_price_list[0].attribute_id : '';
             value.business = value.vendor_price_list[0].business;
             value.attribute =  value.vendor_price_list[0].variant_text ? value.vendor_price_list[0].variant_text : '';
@@ -391,6 +393,8 @@ const  getCarts = async (type) => {
     data.attribute_ids = e.attribute_id;
     data.attribute = e.variant_text ;
     data.price = e.product_price;
+    data.old_price = e.old_price;
+
     setData(data);
     getCarts('');
 
@@ -504,7 +508,7 @@ const  getCarts = async (type) => {
             {/* p-[20px] flex flex-col justify-between*/}
             <div className={` flex-[0_0_calc(60%_-_10px)] md:p-[10px] lg:p-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
-                <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{data.item_title}</h6>
+                <h6 className={`md:text-[16px] line-clamp-2 leading-[2] lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{data.item_title}</h6>
                 <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
                   <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500 lg:pt-[6px]`} src={'/share.svg'} height={10} width={15} alt={'share'} />
                   {/* {sort && */}
@@ -555,6 +559,7 @@ const  getCarts = async (type) => {
 
               <div className={`flex md:p-[0px_0px_15px_5px] items-center pt-[2px] gap-5`}>
                 {/* <p className={`p-[5px_12px] border rounded-[10px] cursor-pointer`}>PDF</p> */}
+                <p className={`md:text-[14px] lg:text-[18px] line-through gray_color`}>{formatter.format(data.old_price)}</p>
                 <p className={`md:text-[16px] lg:text-[20px] text-red font-semibold`}>{formatter.format(data.price)}</p>
               </div>
 
@@ -650,7 +655,7 @@ const  getCarts = async (type) => {
 
           {/* Section - 2 */}
 
-          {data.related_products && <div className={`lg:p-[30px] md:p-[15px]`}>
+          {data.related_products && data.related_products.length != 0 && <div className={`lg:p-[30px] md:p-[15px]`}>
             <Title data={{ title: 'Previous Issues' }} seeMore={true} />
             <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={router.query.list} check={true} data={data.related_products.slice(0, 5)} boxShadow={true} /></div>
           </div>}

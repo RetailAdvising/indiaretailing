@@ -15,7 +15,7 @@ import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 
 import AlertUi from '@/components/common/AlertUi';
 
-export default function NewsLists({ data, news, Id }) {
+export default function NewsLists({ data, Id }) {
   const tabs = [{ name: 'Current edition' }, { name: 'All Newsletter' }]
   const [isChecked, setIsChecked] = useState(false);
   const [allNewsLetter, setAllNewsLetter] = useState([])
@@ -73,12 +73,14 @@ export default function NewsLists({ data, news, Id }) {
 
   useEffect(() => {
     allNews();
+    newsLanding_info();
   }, [router.query])
 
   // All News
   const allNews = async () => {
     let param = {
-      newsletter_id: await router.query.detail,
+      route:'newsletters/'+ await router.query.detail,
+      // newsletter_id: await router.query.detail,
       page_no: page_no,
       page_size: 10,
     }
@@ -87,6 +89,14 @@ export default function NewsLists({ data, news, Id }) {
     if (resp.message && resp.message.length != 0) {
       setAllNewsLetter(resp.message)
     }
+  }
+
+  const [news,setData] = useState();
+
+  async function newsLanding_info(){
+    let value = await newsLanding();
+    let news = value.message;
+    setData(news)
   }
 
   return (
@@ -169,14 +179,20 @@ export async function getServerSideProps({ params }) {
   const data = resp.message;
 
 
-  let arg = {
-    fields: ['custom_day', 'name', 'custom_category', 'custom_description', 'custom_image_', 'custom_title', 'route']
-  }
+  // let arg = {
+  //   fields: ['custom_day', 'name', 'custom_category', 'custom_description', 'custom_image_', 'custom_title', 'route']
+  // }
 
-  let value = await newsLanding(arg);
-  let news = value.message;
+  // if(localStorage['userid'] && localStorage['userid'] != ''){
+  //   arg.email = localStorage['userid']
+  // }
+
+  // let value = await newsLanding(arg);
+
+  // let value = await newsLanding();
+  // let news = value.message;
 
   return {
-    props: { data, news, Id }
+    props: { data, Id }
   }
 }

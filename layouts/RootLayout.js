@@ -9,19 +9,28 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { websiteSettings } from '@/libs/api'
 // import '@/styles/globals.scss'
 export default function RootLayout({ children, checkout, isLanding, head, homeAd, data }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
+  const [headerData, setHeaderData] = useState([]);
+  const [footerData, setFooterData] = useState([]);
 
   const router = useRouter();
   const styles = {
     display: 'flex',
     justifyContent: 'center'
   }
-  useEffect(()=>{
+  useEffect(async()=>{
     setBreadCrumbs(router.asPath.split('/'))
     let ads = document.getElementById('ads')
+    // let websiteData = await websiteSettings()
+    // console.log(websiteData);
+    // if(websiteData){
+    //   setHeaderData(websiteData.header_template)
+    //   setFooterData(websiteData.footer_template)
+    // } 
     // ads.classList.remove('hidden')
   },[])
     
@@ -70,6 +79,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       <main id='main'> 
         {children}
        </main>
+       {!checkout && <div className="md:hidden mb-[10px]"><AdsBaner footerAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
       {!checkout && <MainFooter /> }
       <div className='lg:hidden' >
       <BottomTabs />

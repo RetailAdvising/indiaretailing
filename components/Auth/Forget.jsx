@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import { useRouter } from 'next/router';
 import LogIn from './LogIn'
-const Forget = ({ auth }) => {
+const Forget = ({ auth,hide }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter();
     const [wrong, setWrong] = useState(false);
@@ -41,7 +41,7 @@ const Forget = ({ auth }) => {
     }
     return (
         <>
-            {(modal != 'login' && auth) ? <div className='flex h-full container md:flex-wrap justify-between p-[30px] '>
+            {(modal != 'login' && auth) || isMobile ? <div className='flex h-full container md:flex-wrap justify-between p-[30px] '>
                 <div className='flex-[0_0_calc(60%_-_10px)] md:hidden md:flex-[0_0_calc(100%_-_10px)] bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full`} />
                 </div>

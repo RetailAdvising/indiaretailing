@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import { insert_doc } from '@/libs/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Editprofile({ customerInfo }) {
   
@@ -14,7 +16,7 @@ export default function Editprofile({ customerInfo }) {
 
   async function signup(data) {
           if(data){
-            console.log(data);
+            // console.log(data);
             updateProfile(data)
           } 
   }
@@ -22,11 +24,13 @@ export default function Editprofile({ customerInfo }) {
   async function updateProfile(values){
     let data = { "doctype":"Customers", name:customerInfo['name'] , first_name :values.first_name, last_name :values.last_name}
     const res = await insert_doc(data);
-    console.log(res)
+    toast.success('Customer updated successfully.');
+    // console.log(res)
   }  
 
   return (
     <>
+    <ToastContainer position={'bottom-right'} autoClose={2000} />
       <div className={`flex-col flex justify-center lg:w-[50%]`}>
             <form onSubmit={handleSubmit((data) => signup(data))} autoComplete='off'>
                 <div className={`flex flex-col py-[10px] relative`}>

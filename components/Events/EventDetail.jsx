@@ -17,6 +17,12 @@ export default function EventDetail({ data }) {
             window.open(data.message.link, '_blank')
         }
     }
+
+    const viewMoreLink = () => {
+        if (data.message && data.message.view_more_link) {
+            window.open(data.message.view_more_link, '_blank')
+        }
+    }
     return (
         <>
             {data && <div className={`p-[30px_0px] md:p-[15px] container`}>
@@ -68,7 +74,7 @@ export default function EventDetail({ data }) {
                     <div className='lg:flex  flex-col flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] gap-[20px] items-center'>
                         <div className='flex md:my-[20px] w-full md:justify-between lg:flex-col gap-[10px]'>
                             <button type='button' className={`primary_button h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={redirectTo} >Register Now</button>
-                            <button type='button' className={`primary_outline h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={redirectTo}>More Details</button>
+                            <button type='button' className={`primary_outline h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={viewMoreLink}>More Details</button>
                         </div>
                         {data && <AdsBaner data={{ ad_image: '/ads_baner.png' }} />}
                     </div>

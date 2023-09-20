@@ -21,6 +21,7 @@ async function get_sub_plans(){
     const resp = await get_customer_plan_based_subscritpions(data);
     // console.log(resp);
       if (resp && resp.message && resp.message.length != 0) {
+        resp.message = type == 'member' ? [resp.message[0]] : resp.message
         setPlanList((d)=> d = [...d,...resp.message]);
         setSkeleton(false);
       }else{
@@ -40,6 +41,21 @@ const formatter = new Intl.NumberFormat('en-US', {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
  };
+
+ function getDaysCount(end){
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(today.getDate()).padStart(2, '0');
+  let start = `${year}-${month}-${day}`;
+  let date1 = new Date(start);  
+  let date2 = new Date(end);  
+
+  var time_difference = date2.getTime() - date1.getTime();  
+  var days_difference = time_difference / (1000 * 60 * 60 * 24);  
+  return days_difference;
+ }
 
   return(
     <>
@@ -77,14 +93,40 @@ const formatter = new Intl.NumberFormat('en-US', {
                     <div className='flex-[0_0_calc(10%_-_0px)]'><button onClick={()=>{res.status == 'Unpaid' ? payNow(res) : null}} className={`${res.status == 'Unpaid' ? 'primary_btn text-white' : 'bg-[#F6F6F6] text-black'}  w-max p-[5px_25px] text-[13.5px] rounded-[5px]`}>Pay</button> </div>
                </div>
 
-               <div className='lg:hidden flex flex-wrap p-[10px] cursor-pointer items-center '>
+               {type != 'member' && 
+                <div className='lg:hidden flex flex-wrap p-[10px] cursor-pointer items-center '>
                     <h6 className='md:flex-[0_0_calc(70%_-_0px)] text-[14px] font-semibold'>{res.subscription_plan}</h6>
                     <div className='md:flex-[0_0_calc(30%_-_0px)] justify-end flex items-center gap-[5px]'><div style={{background:res.status ? getColor(res.status)  : '#ddd'}} className={`h-[6px] w-[6px] rounded-[50%]`}></div><h6 className='text-[12px]'>{res.status}</h6></div>
                     <h6 className='md:flex-[0_0_calc(50%_-_0px)] py-[2px] text-[12px] gray_color'>{res.sub_plans[0].plan_info.billing_interval_count + ' ' + res.sub_plans[0].plan_info.billing_interval}</h6>
                     <h6 className='md:flex-[0_0_calc(50%_-_0px)] text-end text-[12px] gray_color'>{formatDate(res.current_end_date)}</h6>
                     <h6 className='text-[12px] md:flex-[0_0_calc(50%_-_0px)]'>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
                     {res.status == 'Unpaid' && <div className='md:flex-[0_0_calc(50%_-_0px)] flex items-center justify-end'><button onClick={()=>{payNow(res)}} className='bg-black text-white w-max p-[5px_25px] text-[13px] rounded-[5px]'>Pay</button> </div>}
-               </div>
+                </div>
+              }
+
+             {type == 'member' && 
+                <div className='lg:hidden flex flex-wrap p-[10px] cursor-pointer items-center justify-center'>
+                  <div className='h-[110px] w-full flex items-center justify-center'>
+                    <Image className={`h-[110px] object-contain`} src={'/membership/trophy.svg'} height={150} width={150} alt={''} />
+                  </div>
+                  <h6 className='text-[15px] font-semibold'>{getDaysCount(res.current_end_date)} Days Left</h6>
+                  <p className='text-center text-[14px] gray_color'>{'Your ' + res.subscription_plan + ' plan will expire on ' + formatDate(res.current_end_date)}</p>
+                  <h6 className='text-[15px] font-semibold border rounded-[5px] mt-[5px] p-[8px_10px]'>Plan Features</h6>
+           
+                  <ul className='py-[20px]'>
+                        {res.sub_plans[0].plan_features.map((items, index) => {
+                          return (
+                            <li key={index} className='text-xs leading-6 d__flex gap-0.5'>
+                              <Image src="/tick1.svg" alt="Tick" width={18} height={18} className='m-2 w-4 h-4' />{items.features}</li>
+                          )
+                        })}
+                      </ul>
+
+                  <div className='w-full'><button onClick={()=>{res.status == 'Unpaid' ? payNow(res) : null}} className={`${res.status == 'Unpaid' ? 'primary_btn text-white' : 'bg-[#F6F6F6] text-black'}  p-[5px_25px] text-[13.5px] h-[38px] w-full rounded-[5px]`}>Pay Now</button> </div>
+                  <div className='w-full'><button onClick={()=>{router.push('/membership')}} className={`mt-[10px] text-[#e21b22] border border-[#e21b22] p-[5px_25px] text-[13.5px] h-[38px] w-full rounded-[5px]`}>Choose Plan</button> </div>
+
+                </div>
+              }  
 
               </div> 
             )

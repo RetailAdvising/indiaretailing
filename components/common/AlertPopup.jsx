@@ -12,7 +12,7 @@ export default function AlertPopup({ message, show, data, news, hide, email = un
         let element = document.getElementById('email');
         if (element && localStorage['userid']) {
             element.value = localStorage['userid'] ? localStorage['userid'] : '';
-            // setDisable(true);
+            setDisable(true);
         }
     }, [])
 

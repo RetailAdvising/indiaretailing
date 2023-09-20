@@ -8,6 +8,9 @@ import AlertUi from '../common/AlertUi';
 import SignUp from './SignUp';
 import { useDispatch, useSelector } from 'react-redux';
 import setUser from 'redux/actions/userAction';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function OTP({ setotp, isModal, hide, auth }) {
     const router = useRouter();
     const [show, setShow] = useState(false)
@@ -30,14 +33,17 @@ export default function OTP({ setotp, isModal, hide, auth }) {
             // console.log(val)
             if (val.message.status == 'Success') {
                 set_otp(true)
-                setAlertMessage({ message: "Otp Sent Successfully" })
-                setIsSuccessPopup(true)
+                toast.success("Otp Sent Successfully");
+                // setAlertMessage({ message: "Otp Sent Successfully" })
+                // setIsSuccessPopup(true)
                 // OTP sent successfully.
 
             } else {
+                toast.error("Otp Sent Failed");
+
                 // setWrong(!wrong);
-                setAlertMessage({ message: "Otp Sent Failed" })
-                setIsSuccessPopup(true)
+                // setAlertMessage({ message: "Otp Sent Failed" })
+                // setIsSuccessPopup(true)
             }
         }
     }
@@ -80,8 +86,9 @@ export default function OTP({ setotp, isModal, hide, auth }) {
                     isMobile ? router.push('/') : hide();
                 }
             } else {
-                setAlertMessage(val.message)
-                setIsSuccessPopup(true)
+                toast.error(val.message.message);
+                // setAlertMessage(val.message)
+                // setIsSuccessPopup(true)
             }
         }
     }
@@ -106,6 +113,7 @@ export default function OTP({ setotp, isModal, hide, auth }) {
 
     return (
         <>
+            {otp && <ToastContainer position={'bottom-right'} autoClose={2000}  />}
             {(auth && modal != 'signup') || isMobile ? <div className='flex container md:justify-center md:p-[15px] p-[20px] h-full gap-[20px] '>
                 {!isMobile && <div className={` ${(isModal) ? 'flex-[0_0_calc(100%_-_10px)]' : auth ? 'flex-[0_0_calc(60%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px] flex-col justify-center'}  flex `}>
                     {/* {!isModal && <div className=' cursor-pointer '> 
@@ -162,7 +170,7 @@ export default function OTP({ setotp, isModal, hide, auth }) {
                     {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}
                     <div onClick={() => setotp()} className='flex cursor-pointer gap-[10px] my-[18px] h-[45px] rounded-[5px] border items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/login/Mail.svg'} />
-                        <p>Login With Mail</p>
+                        <p>Continue With Mail</p>
                     </div>
                     <div className='flex gap-[10px] mb-[18px] cursor-pointer h-[45px] rounded-[5px] border items-center justify-center '>
                         <Image height={20} width={20} alt='google' src={'/google-login.svg'} />

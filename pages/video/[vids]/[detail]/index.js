@@ -138,7 +138,7 @@ export default function Videos(meta_info, ads_data) {
                                         </div>
                                     </div>
                                 </> : <iframe
-                                    className={`h-full w-full`}
+                                    className={`h-[80vh] w-full`}
                                     title={videoDetail.message.title ? videoDetail.message.title : ''}
                                     src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
                                     // width={res.width}

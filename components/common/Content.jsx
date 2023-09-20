@@ -6,6 +6,7 @@ import { check_Image } from '@/libs/api'
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { useRouter } from 'next/router'
 import Dropdowns from './Dropdowns'
+import format from 'date-fns/format'
 
 export default function Content({ res, i }) {
     const router = useRouter()
@@ -45,6 +46,18 @@ export default function Content({ res, i }) {
         sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
     }
 
+    const dateFormat = (data) => {
+        if (data && data != null) {
+            const formattedDate = format(new Date(data), "iii, d LLL yyyy , kk : m");
+            // setDate(formattedDate)
+            // console.log(data)
+            // console.log(formattedDate)
+            return formattedDate
+        } else {
+            return data
+        }
+    }
+
 
 
 
@@ -53,6 +66,12 @@ export default function Content({ res, i }) {
 
             <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden'>
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
+                <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden'>
+                    {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
+                    <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</span></div>
+                    <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div>
+                    <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
+                </div>
             </div>
             <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between lg:hidden'>
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
@@ -67,9 +86,9 @@ export default function Content({ res, i }) {
                 <div className='flex gap-4 items-center'>
                     <Image className='rounded-full object-cover w-[48px] h-[48px]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <div className='flex flex-col'>
-                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{res.modified}</span>
+                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{dateFormat(res.modified)}</span>
                     </div>
-                    <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden'>
+                    <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between lg:hidden'>
                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                         <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</span></div>
                         <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div>
@@ -129,7 +148,7 @@ export default function Content({ res, i }) {
                 <Image className='rounded-full object-cover lg:hidden w-[40] h-[40]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                 <div className='block'>
                     <h6 className="font-semibold lg:hidden text-[12px]">{res.publisher}</h6>
-                    <span className='lg:hidden text-gray text-[11px] gray-text'>{res.creation}</span>
+                    <span className='lg:hidden text-gray text-[11px] gray-text'>{dateFormat(res.creation)}</span>
                 </div>
             </div>
             <div className='flex lg:gap-4 items-center md:gap-[10px] lg:hidden mt-2'>

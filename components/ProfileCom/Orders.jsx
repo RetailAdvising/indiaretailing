@@ -70,6 +70,13 @@ export default function Orders() {
 
  function hide(obj) {
    setVisible(false);
+   if(orderId && orderInfo && orderInfo.length != 0){
+    orderInfo.map(res=>{
+      if(res.name == orderId){
+         res.payment_status = 'Paid';
+      }
+    })
+   }
  }
 
   return (

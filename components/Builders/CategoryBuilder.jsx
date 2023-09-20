@@ -15,7 +15,7 @@ import Comments from '../Category/Comments'
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { useRouter } from 'next/router'
 import CustomSlider from '../Sliders/CustomSlider'
-
+import AuthModal from '../Auth/AuthModal';
 export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
@@ -167,8 +167,8 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                 <Image class=${'img'} src='${check_Image(item.thumbnail_image)}' height={40} width={50} alt='image' />
               </div>
               <div class='p-[10px]'>
-              <p class='line-clamp-2 title'>${item.title}</p>            
-              <p class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : ''}</p>            
+              <h6 class='line-clamp-2 title'>${item.title}</h6>            
+              <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : ''}</span>            
               </div>
             </div>`
         })
@@ -188,12 +188,32 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
     document.body.style.overflow = 'unset';
   }
 
+  const [isLogin,setIsLogin] = useState(false);
+  const [loginModal,setLoginModal] = useState(false)
   // FUNCTION TO HANDLE OPEN ACTION ON SIDEDRAWER/MODAL
   const showSidebar = () => {
-    setshowComment(!showComment);
-    // Disables Background Scrolling whilst the SideDrawer/Modal is open
-    if (typeof window != 'undefined' && window.document) {
-      document.body.style.overflow = 'hidden';
+    if(data.comments && data.comments.length != 0){
+      setshowComment(!showComment);
+      // Disables Background Scrolling whilst the SideDrawer/Modal is open
+      if (typeof window != 'undefined' && window.document) {
+        document.body.style.overflow = 'hidden';
+      }
+    }else if(data.comments && data.comments.length == 0){
+      if(localStorage && !localStorage['apikey']){
+        setIsLogin(true);
+        setLoginModal(true)
+      }else{
+        setshowComment(!showComment);
+      }
+    }
+  }
+
+  const hideModal = () =>{
+    setLoginModal(false)
+    console.log('close')
+    if(localStorage && localStorage['apikey']){
+      setshowComment(!showComment);
+      show()
     }
   }
 
@@ -219,6 +239,8 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
   }
 
 
+
+
   return (
     <>
 
@@ -230,15 +252,17 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
               <Content i={i} res={data} />
             </p>
 
-            <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'prime-article'}`} />
-
+            <div className='relative'>
+              <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'prime-article'}`} />
+              {(isPrime && !validator && data.ir_prime == 1) && <div className='prime-article-after'></div>}
+            </div>
             {/* {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'> */}
-              {/* <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This story is for Premium Members you  have to buy Membership to Unlock</h6>
+            {/* <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This story is for Premium Members you  have to buy Membership to Unlock</h6>
               <div className='flex gap-[20px] justify-center pt-[0px]'>
                 <button className='primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button> */}
-                {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
+            {/* <button className='primary_btn h-[40px] w-[15%]' onClick={() => logInModal('login')}>LogIn</button>
                 <button className='border  h-[40px] w-[15%]' onClick={() => logInModal('signup')}>SignUp</button> */}
-              {/* </div>
+            {/* </div>
             </div>} */}
 
             {(isPrime && !validator && data.ir_prime == 1) && <div className='grid place-content-center max-w-[400px] p-[30px_20px_0_20px] md:p-[20px] m-[0_auto]'>
@@ -253,7 +277,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
               {/* </div> */}
 
               <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
-                <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[50%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px',textTransform:'unset' }}>Subscribe to IR Prime</button>
+                <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[50%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
               </div>
 
             </div>}
@@ -334,20 +358,18 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                   </div> : <div className={`mt-[10px] flex justify-center`}>
                     <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
                   </div>}
-
-
                 </>
 
               }
 
-              {(!showComment && data && data.doctype == 'Articles') && <>
+              {(!showComment && data && data.doctype == 'Articles') ? <>
                 <div className='popright'>
                   <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur) => store_comments(cur)} hide={sideDrawerClosedHandler} />
                   {/* scrolling="no" */}
                   {/* <iframe className='w-full ' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092358111637737472" height="696" width="504" frameborder="0" allowfullscreen="false" title="Embedded post"></iframe> */}
                   {/* <iframe className='w-full' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}
                 </div>
-              </>}
+              </> : (showComment && data && data.doctype == 'Articles' && isLogin && loginModal) ? <div className='authModal'><AuthModal visible={loginModal} hide={hideModal} /></div> : null}
             </div>}
           </div>
 
@@ -395,7 +417,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
           {/* Slider */}
           {(data.latest_news) && <div className={`${styles.slider_parent} latestNews_slider lg:mb-[15px] p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
-            <CustomSlider slider_id={"category_builder"+i} slider_child_id={'category_builder_child'+i} data={data.latest_news} cardClass={'flex-[0_0_calc(20%_-_16px)] md:flex-[0_0_calc(70%_-_10px)]'} route={'/news/'} imgClass={'h-[190px] md:h-[160px] w-full'} />
+            <CustomSlider slider_id={"category_builder" + i} slider_child_id={'category_builder_child' + i} data={data.latest_news} cardClass={'flex-[0_0_calc(20%_-_16px)] md:flex-[0_0_calc(70%_-_10px)]'} route={'/news/'} imgClass={'h-[190px] md:h-[160px] w-full'} />
             {/* <MultiCarousel isHome={'/news/'} perView={5} noPlay={true}  height={""} width={'w-full'} type={'card'} check={true} /> */}
           </div>}
         </div>}

@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common';
-export default function List({ data,border_b, flex, height, width, imgWidth, imgWidth1, isLanding, boxShadow, check, category }) {
+export default function List({ data,border_b,line_clamp, flex, height, width, imgWidth, imgWidth1, isLanding, boxShadow, check, category }) {
   const router = useRouter();
   return (
     <>
@@ -15,7 +15,7 @@ export default function List({ data,border_b, flex, height, width, imgWidth, img
             <div className={`${imgWidth1 ? imgWidth1 : ''} flex flex-col items-start gap-[10px] justify-center`}>
               {res.primary_text && <p className={`flex items-center`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#121212]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>}
               <h6 className='line-clamp-2 font-semibold'>{res.item_title}</h6>
-              {res.short_description && <p className={`w-full sub_title line-clamp-2`}>{res.short_description}</p>}
+              {res.short_description && <p className={`w-full sub_title line-clamp-${line_clamp ? line_clamp : '2'}`}>{res.short_description}</p>}
               {/* <button className={`primary_btn p-[5px] text-[13px]`}>select options</button> */}
             </div>
           </div>

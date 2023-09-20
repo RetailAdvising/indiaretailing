@@ -37,19 +37,20 @@ export default function Subscribe({ data, height, width }) {
     setVisible(true);
   }
 
-  const notify = () => toast("Newsletters subscribed successfully");
+  // const notify = () => toast("Newsletters subscribed successfully");
 
   function hide(obj) {
     setVisible(false);
     if (obj.status == 'Success') {
-      notify();
+      // toast.success("Newsletters subscribed successfully");
+      // notify();
       // setAlertMsg({message:''});
       // setEnableModal(true);
     }
   }
   return (
     <>
-      <ToastContainer position="top-right" />
+      {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> */}
       <div className={`flex items-center h-[180px] justify-center flex-col rounded bg-[#fbfbfd]`} >
         <div className={`relative`}>
           <p className={`absolute top-[35px] right-[120px] font-semibold text-[20px]`}>Subscribe</p>

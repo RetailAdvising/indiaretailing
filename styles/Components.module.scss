@@ -44,14 +44,15 @@
 .input1{
     border: 1px solid $border-color !important;
     border-radius: 5px;
-    height: 45px;
+    // height: 45px;
+    height: 40px;
     margin-top: 5px;
 }
 .danger{
     color: $primary-color;
     font-weight: 600;
     padding-top: 5px;
-    font-size: 12px;
+    font-size: 11px;
 }
 .checkBox{
     height: 17px;
@@ -72,13 +73,24 @@
     color: $white-color;
     width: 100%;
     padding: 10px;
-    font-size: 16px;
+    font-size: 15px;
     border-radius: 5px;
 }
 
 .label{
-    font-size: 14px;
+    font-size: 12px;
 }
+
+.input1::-webkit-outer-spin-button,
+.input1::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// /* Firefox */
+// input[type=number] {
+//   -moz-appearance: textfield;
+// }
 // .checkBox{
 //     position: absolute;
 //     opacity: 0;
