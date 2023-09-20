@@ -70,8 +70,8 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        console.log(value);
-        console.log(res);
+        // console.log(value);
+        // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
         if(routPath && routPath.length != 0){
@@ -246,7 +246,7 @@ export default function Bookstoredetail({ value, res }) {
           // response.razorpay_payment_id
         } else if(error){
            payment_error_callback(error)
-           console.log(error)
+           console.log(error);
         }
       }
     };

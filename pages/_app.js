@@ -22,7 +22,7 @@ const [tabHeight,setTabHeight] = useState(0)
   useEffect(() => {
     let tabs = document.getElementById('tabs')
     setTabHeight(tabs && tabs.clientHeight)
-  })
+  },[])
 
   // const router = useRouter();
   // const [loading, setLoading] = useState(false);
