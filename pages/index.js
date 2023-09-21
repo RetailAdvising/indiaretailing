@@ -76,20 +76,19 @@ export default function Home({ data, ads }) {
   }
 
   const load = () => {
-    setPageNo(pageNo + 1);
+    // setPageNo(p => p += 1);
     // console.log(page_no)
-    console.log(pageNo)
-    // page_no += 1;
-    getPageData(pageNo);
+    // page_no += 1
+    getPageData();
   }
 
-  const getPageData = async (page_no) => {
+  const getPageData = async () => {
     // console.log('load...',)
-    if (page_no > 1) {
+    if (pageNo > 1) {
       const param = {
         // "application_type": "mobile",
         "route": "home",
-        page_no: page_no,
+        page_no: pageNo,
         page_size: 4
       }
       const resp = await HomePage(param);
@@ -124,7 +123,7 @@ export async function getStaticProps() {
     // "application_type": "mobile",
     "route": "home",
     page_no: 1,
-    page_size: 4
+    page_size: 20
   }
   const resp = await HomePage(param);
   const data = await resp.message;
