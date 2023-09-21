@@ -35,7 +35,6 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   },[])
      const get_website_settings = async() => {
      let websiteData = await websiteSettings()
-      console.log(websiteData);
     if(websiteData){
       setHeaderData(websiteData.message.header_template)
       setFooterData(websiteData.message.footer_template)

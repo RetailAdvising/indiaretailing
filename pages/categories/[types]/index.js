@@ -5,18 +5,19 @@ import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
 import List from '@/components/common/List';
 import Cards from '@/components/common/Cards';
-import { getList,checkMobile,check_Image,getAds } from '@/libs/api';
+import { getList, checkMobile, check_Image, getAds } from '@/libs/api';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 
-export default function CategoryType({ values , ads }) {
+export default function CategoryType({ values, ads }) {
     const router = useRouter();
     const [data, setData] = useState([]);
- 
+
     let apiCall = false;
     let page_no = 1;
 
     useEffect(() => {
+        console.log(values);
         if (values) {
             setData(values)
         }
@@ -78,7 +79,7 @@ export default function CategoryType({ values , ads }) {
     return (
         <>
             <RootLayout isLanding={false} homeAd={ads ? ads : null} head={router.query.types}>
-            <SEO title={router.query.types} siteName={'India Reatiling'} ogType={router.query.types } description={router.query.types }/>
+                <SEO title={router.query.types} siteName={'India Reatiling'} ogType={router.query.types} description={router.query.types} />
                 <div className={`${isMobile ? 'md:p-[15px]' : 'container'}`} id='root' >
                     {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
@@ -90,18 +91,24 @@ export default function CategoryType({ values , ads }) {
                                         <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.thumbnail_image)} height={250} width={300} alt={res.title} />
                                         <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
                                         <p className={`sub_title line-clamp-2 pt-[10px]`}>{res.blog_intro}</p>
-                                        <p className={`hashtags pt-[5px]`}>{res.publisher}</p>
+                                        {/* <p className={`hashtags pt-[5px]`}>{res.publisher}</p> */}
+                                        <p className={`light_text pt-[10px] flex gap-[5px]`}>{((res.tags && res.tags.length != 0)) && res.tags.map((tag, index_no) => {
+                                            return (
+                                                <span key={index_no} className='text-[12px]'>#{tag.tag}</span>
+                                            )
+                                        })
+                                        }</p>
                                     </div>
                                 )
                             })}</div>
                         </div>
                         <div className={`lg:flex-[0_0_calc(35%_-_10px)] lg:pt-[45px] md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
-                            <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List primary_pb={'mb-[10px]'} hash_bg={'mt-[10px]'} contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-1 md:line-clamp-2 leading-none'} imgWidth={'w-full'}  line={'line-clamp-1 md:hidden'} imgHeight={'h-[90px]'} check={true} data={data.slice(0, 4)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
+                            <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List primary_pb={'mb-[10px]'} hash_bg={'mt-[10px]'} contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-1 md:line-clamp-2 leading-none'} imgWidth={'w-full'} line={'line-clamp-1 md:hidden'} imgHeight={'h-[90px]'} check={true} data={data.slice(0, 4)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}
                     <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:py-8 md:gap-[10px] lg:gap-[20px]`}>
                         {/* contentHeight={'h-[175px]'} */}
-                        <Cards cardClass={"lg:h-[310px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data} />
+                        <Cards cardClass={"lg:h-[315px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data} />
                     </div>
                 </div>
             </RootLayout>
@@ -131,6 +138,6 @@ export async function getServerSideProps({ params }) {
     const ads = resp.message;
 
     return {
-        props: { values , ads }
+        props: { values, ads }
     }
 }

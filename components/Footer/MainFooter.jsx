@@ -63,7 +63,7 @@ export default function MainFooter({footerData}) {
 
             <div className='footer lg:mt-[30px]'>
 
-            {footerData && <div className={` container flex md:block gap-[20px] py-[20px] md:px-[30px] `}>{console.log(footerData)}
+            {footerData && <div className={` container flex md:block gap-[20px] py-[20px] md:px-[30px] `}>
               {footerData.items && footerData.items.map(footer_item=>{
                 return(
                     <>

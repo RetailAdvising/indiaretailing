@@ -15,6 +15,7 @@ export default function Categories({ data, ads }) {
     const [activeNav, setActiveNav] = useState()
 
     useEffect(() => {
+        // console.log(data);
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {

@@ -144,14 +144,22 @@ export default function Content({ res, i }) {
                     {setings && <Dropdowns setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
-            <div className='flex gap-3'>
-                <Image className='rounded-full object-cover lg:hidden w-[40] h-[40]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
-                <div className='block'>
-                    <h6 className="font-semibold lg:hidden text-[12px]">{res.publisher}</h6>
-                    <span className='lg:hidden text-gray text-[11px] gray-text'>{dateFormat(res.creation)}</span>
+            <div className='flex gap-3 justify-between'>
+                <div className='flex gap-[15px] items-center'>
+                    <Image className='rounded-full object-contain lg:hidden w-[40] h-[40]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                    <div className='block'>
+                        <h6 className="font-semibold lg:hidden text-[12px]">{res.publisher}</h6>
+                        <span className='lg:hidden text-gray text-[11px] gray-text'>{dateFormat(res.creation)}</span>
+                    </div>
+                </div>
+                <div className='lg:hidden flex gap-[15px]'>
+                    {icons && <Dropdowns share={true} width={'w-[170px]'} data={icons} />}
+
+                    {setings && <Dropdowns setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[130px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
-            <div className='flex lg:gap-4 items-center md:gap-[10px] lg:hidden mt-2'>
+
+            <div className='flex lg:gap-4 items-center md:gap-[10px] lg:hidden my-[10px]'>
                 {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                 <div className='flex items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><p className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</p></div>
                 <div className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><p className='md:text-[10px] text-[12px] gray-text'>3 Shares</p></div>

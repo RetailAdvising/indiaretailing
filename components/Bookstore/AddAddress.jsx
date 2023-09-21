@@ -118,8 +118,8 @@ export default function AddAddress() {
           </div>  
         </div>  
        ))} 
-       <div onClick={() => show()} className={`${styles.address_sec} border-slate-100 lg:border flex lg:flex-[0_0_calc(50%_-_5px)]  lg:rounded-[5px] md:border-b md:border-slate-100 cursor-pointer overflow-auto p-[10px_20px] gap-[5px]`}>
-         Add new billing address
+       <div onClick={() => show()} className={`${styles.address_sec} hover:border-[#e21b22] border-slate-100 border-solid border-[1px] flex items-center lg:flex-[0_0_calc(50%_-_5px)] lg:rounded-[5px] cursor-pointer p-[10px_20px] gap-[5px]`}>
+         <h6 className='text-[15px] hover:text-[#e21b22]'>Add new billing address</h6>
        </div>
       </div>
 

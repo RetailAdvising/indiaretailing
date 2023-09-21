@@ -254,7 +254,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
             <div className='relative'>
               <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'prime-article'}`} />
-              {(isPrime && !validator && data.ir_prime == 1) && <div className='prime-article-after'></div>}
+              {/* {(isPrime && !validator && data.ir_prime == 1) && <div className='prime-article-after'></div>} */}
             </div>
             {/* {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'> */}
             {/* <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This story is for Premium Members you  have to buy Membership to Unlock</h6>
