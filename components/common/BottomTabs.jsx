@@ -34,7 +34,7 @@ export default function BottomTabs() {
         },
         {
             "menu_label": "Trending",
-            "redirect_url": "/fs",
+            "redirect_url": "/tag?id=",
             "icon": "/tabs_icon/trending.svg",
             "active_icon": "/tabs_icon/trending_active.svg",
 
@@ -42,7 +42,7 @@ export default function BottomTabs() {
     ])
     useEffect(()=>{
         // console.log(router);
-        let route = router.route.split('/')
+        let route = router.asPath.split('/')
         let redirect_url = route[1] ? '/'+route[1] : '/'
         tabs.map(nd=>{
             nd.active = nd.redirect_url == redirect_url ? true :false

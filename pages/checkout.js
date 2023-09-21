@@ -36,7 +36,10 @@ export default function checkout() {
   const dispatch = useDispatch()
 
   let [localValue, setLocalValue] = useState(undefined);
+  let [loadSpinner, setLoadSpinner] = useState(false);
 
+
+  let orders_Id;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -154,8 +157,10 @@ export default function checkout() {
     alert_dispatch(alertAction(false))
 
     if (alertMsg && alertMsg.navigate) {
-      setAlertMsg({});
-      router.push('/bookstore');
+      console.log(alertMsg)
+      // setAlertMsg({});
+      // router.push('/bookstore');
+      router.push('/thankyou?order_id=' + alertMsg.order_id);
     } else if ('Yes') {
 
     }
@@ -170,12 +175,15 @@ export default function checkout() {
       setLoader(false);
       await setAlertMsg({ message: 'Please select Billing address' });
       alert_dispatch(alertAction(true))
+     toast.error('Please select Billing address');
+
       // openModal();
       // dispatch(openDialog('OPEN_DIALOG'))
     } else if (currentIndex < 0) {
       setLoader(false);
       await setAlertMsg({ message: 'Please select Payment Method' });
       alert_dispatch(alertAction(true))
+       toast.error('Please select Payment Method');
       // openModal()
     } else {
       pay(check_address)
@@ -204,6 +212,7 @@ export default function checkout() {
     if (resp && resp.message && resp.message.status == true) {
       let data = resp.message
       setLoader(false);
+      orders_Id = data.order.name
       load_razorpay(data.order.outstanding_amount, 'Order', data.order.name);
     }
     else{
@@ -215,8 +224,11 @@ export default function checkout() {
 
   }
 
-  function payment_error_callback(error) {
-    setAlertMsg({ message: 'Payment failed' });
+  function payment_error_callback(error,order_id) {
+    setAlertMsg({ message: 'Payment failed', navigate: true,order_id:order_id});
+    alert_dispatch(alertAction(true))
+    toast.error('Payment failed');
+    router.push('/thankyou?order_id=' + order_id);
     // setEnableModal(true);
   }
 
@@ -227,9 +239,14 @@ export default function checkout() {
     }
     const resp = await update_order_status(params);
     if (resp && resp.message && resp.message.status && resp.message.status == true) {
-      setAlertMsg({ message: 'Order inserted successfully', navigate: true });
-      alert_dispatch(alertAction(true))
+      setLoadSpinner(false);
+      setAlertMsg({ message: 'Order inserted successfully', navigate: true,order_id:order_id });
+      alert_dispatch(alertAction(true));
+      toast.success('Order inserted successfully');
+      router.push('/thankyou?order_id=' + order_id);
       // setEnableModal(true);
+    }else{
+      setLoadSpinner(false);
     }
   }
 
@@ -246,13 +263,14 @@ export default function checkout() {
       "image": (razorpay_settings.site_logo ? check_Image(razorpay_settings.site_logo) : null),
       "prefill": { "name": localStorage['full_name'], "email": localStorage['userid'] },
       "theme": { "color": r_pay_color },
-      "modal": { "backdropclose": false, "ondismiss": () => { payment_error_callback(description) } },
+      "modal": { "backdropclose": false, "ondismiss": () => { payment_error_callback(description,order_id) } },
       "handler": async (response, error) => {
         if (response) {
+          setLoadSpinner(true);
           payment_Success_callback(response, amount, order_id)
           // response.razorpay_payment_id
         } else if (error) {
-          payment_error_callback(error)
+          payment_error_callback(error,order_id)
         }
 
       }
@@ -370,13 +388,17 @@ export default function checkout() {
     }
   }
 
+
+
   return (
     <>
-      <RootLayout checkout={isMobile ? false : true}>
-      <ToastContainer position={'bottom-right'} autoClose={2000}  />
-        {alert.isOpen &&
+       {loadSpinner && <Backdrop />}
+       <RootLayout checkout={isMobile ? false : true}>
+        <ToastContainer position={'bottom-right'} autoClose={2000}  />
+
+        {/* {alert.isOpen &&
           <AlertUi isOpen={alert.isOpen} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />
-        }
+        } */}
 
         {addressDelete &&
           <AlertUi isOpen={addressDelete} closeModal={(value) => address_closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} />
@@ -493,7 +515,7 @@ export default function checkout() {
                     <div className="w-3/4">
                       <h6 style={{ fontWeight: '600' }} className='font-semibold sub_title line-clamp-2 text-[15px]'>{res.item}</h6>
                       {res.attribute_description && <p className='text-[12px] gray_color'>{res.attribute_description}</p>}
-                      <h6 className='font-semibold pt-[5px] text-[15px]'>Rs {res.price}</h6>
+                      <h6 className='font-semibold pt-[5px] text-[15px]'>{formatter.format(res.price)}</h6>
                     </div>
                   </div>
                 ))}
@@ -538,12 +560,26 @@ export default function checkout() {
             </div>
 
           </div>
+
+  
+
         </div>
 
 
 
-      </RootLayout>
+       </RootLayout>
     </>
+  )
+}
+
+const Backdrop = () => {
+  return (
+    <div className='backdrop'>
+       <div className="h-[100%] flex flex-col gap-[10px] items-center  justify-center">
+         <div class="animate-spin rounded-full h-[40px] w-[40px] border-l-2 border-t-2 border-black"></div>
+          <span className='text-[15px]'>Loading...</span>
+       </div>
+    </div>
   )
 }
 

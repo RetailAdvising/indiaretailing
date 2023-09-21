@@ -64,13 +64,15 @@ export default function Bookstoredetail({ value, res }) {
     }
   }
 
+  // console.log('val',value)
+
 
   useEffect(() => {
     if(typeof window !== 'undefined'){
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        // console.log(value);
+        console.log(value);
         // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
@@ -100,7 +102,8 @@ export default function Bookstoredetail({ value, res }) {
       }
   
       if (res && res.length != 0) {
-         setPlans(content_type)
+        setOnetimeAsDefault();
+        setPlans(content_type);
       }
   
   
@@ -189,13 +192,14 @@ export default function Bookstoredetail({ value, res }) {
     if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
     // console.log(resp.message.data[0].document_name)
     load_razorpay(checked_plans.total_amount,checked_plans.plan_name,resp.message.data[0].document_name)
-      if(subs && subs.length != 0){
-          setIndex(-1);
-          subs.map((res)=>{
-            res['active'] = false
-          }) 
-          setSubs(subs);
-       }
+
+      // if(subs && subs.length != 0){
+      //     setIndex(-1);
+      //     subs.map((res)=>{
+      //       res['active'] = false
+      //     }) 
+      //     setSubs(subs);
+      //  }
 
 
     }else{
@@ -388,7 +392,12 @@ const  getCarts = async (type) => {
   //   setPlans(content_type)
   // };
 
+ const setOnetimeAsDefault = () =>{
+  res.map((e,i)=>{if(e.item__type == "Onetime Purchase"){ handleSubs(res,e,i) }})
+ } 
+
   const selectMethod = (e,index) =>{
+    setOnetimeAsDefault();
     setVariantsIndex(index);
     data.attribute_ids = e.attribute_id;
     data.attribute = e.variant_text ;
@@ -399,8 +408,8 @@ const  getCarts = async (type) => {
     getCarts('');
 
     if(subs && subs.length != 0){
-      setIndex(-1);
-      setOnetime(-1)
+      // setIndex(-1);
+      // setOnetime(-1)
       subs.map((res)=>{
         res['active'] = false
       }) 
@@ -430,7 +439,8 @@ const  getCarts = async (type) => {
     if (data) {
       data.map((res, index) => {
         if (index == i) {
-          res['active'] =! res['active'];
+          // res['active'] =! res['active'];
+          res['active'] = true
           res['active'] ? setIndex(i) : setIndex(-1);
 
           if(res.item__type == "Onetime Purchase"){
@@ -498,7 +508,7 @@ const  getCarts = async (type) => {
                 <Image className={`w-full h-[465px] object-contain`} src={check_Image(data.selected_image)} height={200} width={300} alt={data.item_title} />
                </div>
                <div className='text-center pt-[15px]'>
-                <button onClick={()=>preview(data.custom_product_preview)} className={`w-full h-[40px] border`}>Preview</button>
+                      <button onClick={() => preview(data.custom_product_preview)} className={`w-full h-[40px] border`}>Preview</button>
                </div>
               </div>  
               </div>
@@ -508,7 +518,7 @@ const  getCarts = async (type) => {
             {/* p-[20px] flex flex-col justify-between*/}
             <div className={` flex-[0_0_calc(60%_-_10px)] md:p-[10px] lg:p-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
-                <h6 className={`md:text-[16px] line-clamp-2 leading-[2] lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{data.item_title}</h6>
+                <h6 className={`lg:min-h-[60px] md:text-[16px] line-clamp-2 leading-[1.5] lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{data.item_title}</h6>
                 <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
                   <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500 lg:pt-[6px]`} src={'/share.svg'} height={10} width={15} alt={'share'} />
                   {/* {sort && */}
@@ -557,10 +567,10 @@ const  getCarts = async (type) => {
                 </div>
               </div>
 
-              <div className={`flex md:p-[0px_0px_15px_5px] items-center pt-[2px] gap-5`}>
+              <div className={`flex md:p-[0px_0px_15px_5px] items-center lg:pt-[25px] md:pt-[2px] gap-5`}>
                 {/* <p className={`p-[5px_12px] border rounded-[10px] cursor-pointer`}>PDF</p> */}
-                <p className={`md:text-[14px] lg:text-[18px] line-through gray_color`}>{formatter.format(data.old_price)}</p>
                 <p className={`md:text-[16px] lg:text-[20px] text-red font-semibold`}>{formatter.format(data.price)}</p>
+                {(data.old_price != 0)  && <p className={`md:text-[12px] lg:text-[16px] line-through gray_color`}>{formatter.format(data.old_price)}</p>}
               </div>
 
               {data.vendor_price_list && data.vendor_price_list[0] && data.vendor_price_list[0].variants && data.vendor_price_list[0].variants.length != 0 &&
@@ -568,9 +578,9 @@ const  getCarts = async (type) => {
                     {data.vendor_price_list[0].variants.map((vendor,index)=>{
                       return(
                         // && (indexs < 0)
-                        <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == vendor.attribute_id ) ? 'active_border' : null} lg:h-[45px] md:h-[40px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_8px] `}>
+                        <div key={index} onClick={() => selectMethod(vendor,index)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == vendor.attribute_id ) ? 'active_border' : null} lg:h-[45px] md:h-[40px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_12px] `}>
                           <input className={styles.input_radio} checked={data.attribute_ids == vendor.attribute_id} type="radio"/>
-                          <p className='text-[12px]'>{vendor.variant_text}</p>
+                          <p className='text-[12px]'>{vendor.variant_label_}</p>
                         </div>
                       )
                       }) 
@@ -705,6 +715,7 @@ export async function getServerSideProps({ params }) {
   let res =[]
   if (subscription && subscription.message && subscription.message.status && subscription.message.status == 'success') {
       res = subscription.message.message;
+   
   } 
 
   return {

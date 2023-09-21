@@ -15,8 +15,8 @@ export default function Address({hide,edit_address,modal}) {
       state : ((edit_address && edit_address.state) ? edit_address.state : ''), 
       city:((edit_address && edit_address.city) ? edit_address.city : ''),
       country:((edit_address && edit_address.country) ? edit_address.country : ''),
-      company:((edit_address && edit_address.company) ? edit_address.company : ''),
-      gst_no:((edit_address && edit_address.gst_no) ? edit_address.gst_no : ''), 
+      custom_company_name:((edit_address && edit_address.custom_company_name) ? edit_address.custom_company_name : ''),
+      custom_gst_no:((edit_address && edit_address.custom_gst_no) ? edit_address.custom_gst_no : ''), 
       phone:((edit_address && edit_address.phone) ? edit_address.phone : ''),
       pincode:((edit_address && edit_address.zipcode) ? edit_address.zipcode : ''),
       address:((edit_address && edit_address.address) ? edit_address.address : '')
@@ -67,6 +67,7 @@ export default function Address({hide,edit_address,modal}) {
     data.state = data.state.value;
     data.customer = localStorage['customer_id']
     // hide(data);
+
     if(edit_address && edit_address.name){
       data.name = edit_address.name;
       address_update(data)
@@ -130,7 +131,7 @@ export default function Address({hide,edit_address,modal}) {
 
   return (
     <>
-    <form className={`${modal ? 'pt-[20px]' : null}`} onSubmit={handleSubmit(onSubmit)}>
+    <form className={`${modal ? 'px-[20px]' : null}`} onSubmit={handleSubmit(onSubmit)}>
 
 
     {/* {selectedValues && selectedValues['country'] ?
@@ -209,24 +210,24 @@ export default function Address({hide,edit_address,modal}) {
         {errors.last_name && <p className={`${style.danger}`}>{errors.last_name.message}</p>}
         </div>
         </div>
-        {/* rules={{ required: 'Company is required' }}  */}
-        <Controller name="company" control={control} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Company (Optional)" id="company" {...field} />)} />
-        {errors.company && <p className={`${style.danger}`}>{errors.company.message}</p>}
+        {/* rules={{ required: 'custom_company_name is required' }}  */}
+        <Controller name="custom_company_name" control={control} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Company (Optional)" id="custom_company_name" {...field} />)} />
+        {errors.custom_company_name && <p className={`${style.danger}`}>{errors.custom_company_name.message}</p>}
 
-        <Controller name="gst_no" control={control} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="GST No (Optional)" id="gst_no" {...field} />)} />
+        <Controller name="custom_gst_no" control={control} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="GST No (Optional)" id="custom_gst_no" {...field} />)} />
         {errors.company && <p className={`${style.danger}`}>{errors.company.message}</p>}
 
         <Controller name="address" control={control} rules={{ required: 'Address is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Address" id="address" {...field} />)} />
         {errors.address && <p className={`${style.danger}`}>{errors.address.message}</p>}
 
 
-        <div className={`box_ flex gap-[10px]`}>
-        <div className={`${styles.flex_3} `}>
+        <div className={`box_ flex gap-[10px] flex-wrap md:gap-y-[0px]`}>
+        <div className={`${styles.flex_3} md:flex-[0_0_100%]`}>
         <Controller name="city" control={control} rules={{ required: 'City is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="City" id="city" {...field} />)} />
         {errors.city && <p className={`${style.danger}`}>{errors.city.message}</p>}
         </div>
 
-        <div className={`${styles.flex_3} `}>
+        <div className={`${styles.flex_3} md:flex-[0_0_calc(50%_-_5px)] `}>
         <Controller
           name="state"
           control={control}
@@ -255,7 +256,7 @@ export default function Address({hide,edit_address,modal}) {
         </div>
 
 
-        <div className={`${styles.flex_3} `}>
+        <div className={`${styles.flex_3} md:flex-[0_0_calc(50%_-_5px)]`}>
         <Controller name="pincode" control={control} rules={{ validate: validateZipCode }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Zip code" id="pincode" {...field} />)} />
         {errors.pincode && <p className={`${style.danger}`}>{errors.pincode.message}</p>}
         </div>
@@ -266,7 +267,7 @@ export default function Address({hide,edit_address,modal}) {
         {errors.phone && <p className={`${style.danger}`}>{errors.phone.message}</p>}
 
         <div class="flex mb-[15px] justify-center items-center">
-        <button className={`primary_btn text-[14px] h-[40px] w-[50%]`} type="submit" >{(edit_address && edit_address.name) ? 'Update' : 'Save'}</button>
+          <button className={`primary_btn text-[14px] h-[40px] w-[50%]`} type="submit" >{(edit_address && edit_address.name) ? 'Update' : 'Save'}</button>
         </div>
 
     </form>  

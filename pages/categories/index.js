@@ -39,7 +39,7 @@ export default function Categories({ data, ads }) {
                                 {/* <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(100%_-_0px)] xl:w-[calc(80%_-_10px)] md:p-[10px]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[200px]'} islanding={true} noPlay={false} check={true} height={'lg:h-[185px] md:h-[140px]'} perView={4} width={'w-full'} data={res.events} /></div> */}
                                  <div className='lg:w-[calc(80%_-_10px)]  md:p-[10px]'>
                                     {/* <CardCarousel data={res.events} cardClass={'lg:h-[280px] md:h-[220px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                                    <CustomSlider data={res.events} cardClass={'lg:h-[280px]  md:h-[220px]  flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(45%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} 
+                                    <CustomSlider data={res.events} cardClass={'lg:h-[280px]  md:h-[220px]  flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} 
                                     slider_id={"slider_id"+index} slider_child_id={"slider_child_id"+index}/>
                                     </div>
                             </div>
@@ -54,7 +54,7 @@ export default function Categories({ data, ads }) {
 
 export async function getStaticProps() {
     let params = {
-        "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title", "thumbnail_image", "articles_category", "route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description", "route"], "page_no": 1, "records": 6, "category_count": 7
+        "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title", "thumbnail_image", "articles_category", "route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description", "route"], "page_no": 1, "records": 10, "category_count": 7
     }
     const res = await getCategoryList(params);
     const data = res.message;

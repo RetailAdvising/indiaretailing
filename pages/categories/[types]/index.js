@@ -16,7 +16,6 @@ export default function CategoryType({ values , ads }) {
     let apiCall = false;
     let page_no = 1;
 
-    console.log(router);
     useEffect(() => {
         if (values) {
             setData(values)
@@ -97,7 +96,7 @@ export default function CategoryType({ values , ads }) {
                             })}</div>
                         </div>
                         <div className={`lg:flex-[0_0_calc(35%_-_10px)] lg:pt-[45px] md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
-                            <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-1 md:line-clamp-2'} imgWidth={'w-full'}  line={'line-clamp-1 md:hidden'} imgHeight={'h-[80px]'} check={true} data={data.slice(0, 4)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
+                            <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List primary_pb={'mb-[10px]'} hash_bg={'mt-[10px]'} contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-1 md:line-clamp-2 leading-none'} imgWidth={'w-full'}  line={'line-clamp-1 md:hidden'} imgHeight={'h-[90px]'} check={true} data={data.slice(0, 4)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}
                     <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:py-8 md:gap-[10px] lg:gap-[20px]`}>

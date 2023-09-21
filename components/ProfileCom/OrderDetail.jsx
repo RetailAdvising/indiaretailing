@@ -238,8 +238,8 @@ const Notify = ({orderInfo,load_razorpay}) => {
   return (
     <div className={`md:flex-col md:gap-[10px] md:items-end flex items-center justify-between border ${orderInfo.payment_status == 'Paid' ? 'border-[#046306] bg-[url("/thankyou/Success-bg.jpg")]' : 'border-[#c90905] bg-[url("/thankyou/Failure-bg.jpg")]' }   bg-cover bg-bottom bg-no-repeat m-[10px] p-[10px] rounded-[5px] min-h-[82px]`}>
       
-    <div className='flex items-center'>
-     <div className='h-[60px] w-[60px] rounded-[50%] mr-[8px] bg-[#fff] flex items-center justify-center'><Image className='h-[28px] w-[30px]' src={orderInfo.payment_status == 'Paid' ? "/thankyou/Success.svg" : "/thankyou/Failure.svg"} alt="Tick" width={18} height={18} /></div>
+    <div className='flex lg:w-[80%] items-center'>
+     <div className='md:h-[60px] md:w-[60px] lg:h-[50px] lg:w-[50px] rounded-[50%] mr-[8px] bg-[#fff] flex items-center justify-center'><Image className='h-[28px] w-[30px]' src={orderInfo.payment_status == 'Paid' ? "/thankyou/Success.svg" : "/thankyou/Failure.svg"} alt="Tick" width={18} height={18} /></div>
      <div className='w-full'>
       <h6 className={`text-[15px] font-semibold ${orderInfo.payment_status == 'Paid' ? 'text-[#046306]' : 'text-[#c90905]' }`}>{orderInfo.payment_status == 'Paid' ? 'Your order placed successfully' : 'Your Payment Failed'}</h6>
       <p className={`text-[14px] ${orderInfo.payment_status == 'Paid' ? 'text-[#046306]' : 'text-[#c90905]' }`}>{orderInfo.payment_status == 'Paid' ? "Thank you for your purchase. Your order number is " + orderInfo.name : "Sorry, We're not able to process your payment. Please try again"}</p>
@@ -258,7 +258,7 @@ const SkeletonLoader = () => {
   return (
    <div className="h-[100%] flex flex-col gap-[10px] items-center  justify-center">
      <div class="animate-spin rounded-full h-[40px] w-[40px] border-l-2 border-t-2 border-black"></div>
-    <span className='text-[15px] gray_color'>Loading...</span>
+     <span className='text-[15px] gray_color'>Loading...</span>
    </div>
   )
 }

@@ -6,7 +6,7 @@ function classNames(...classes) {
 }
 
 export default function Tabs({ categories, setTabs, tab  }) {
-console.log(tab)
+// console.log(tab)
     return (
         <>
             {/* <div className="w-full max-w-md px-2 py-16 sm:px-0">
@@ -75,16 +75,16 @@ console.log(tab)
         </div>
          */}
 
-            <div className='flex items-center !block'>
+            <>
                 {/* <p onClick={() => setTabs(categories)} className={`${tab == categories ? 'text-red font-semibold border-b-[1px] border-red' : ''}`}>{categories}</p> */}
                 {categories && categories.length != 0 && <div className='lg:block md:flex items-center gap-5 md:overflow-auto'>
                     {categories.map((res, i) => {
                         return (
-                            <h6 className={`${tab == res.route ? 'font-semibold' : ''} lg:hover:bg-slate-100 rounded-[10px] cursor-pointer text-[18px] md:text-[14px] p-[12px_15px] md:p-[0px_5px] mr-6 md:mr-0`} key={i} onClick={() => setTabs(res.route)}>{res.name}</h6>
+                            <h6 className={`${tab == res.custom_route ? 'font-semibold bg-[#eca2a221]' : ''} lg:hover:bg-slate-100 rounded-[10px] cursor-pointer text-[16px] md:text-[14px] p-[12px_15px] md:p-[0px_5px] mr-6 md:mr-0`} key={i} onClick={() => setTabs(res.custom_route)}>{res.name}</h6>
                         )
                     })}
                 </div>}
-            </div>
+            </>
         </>
     )
 }

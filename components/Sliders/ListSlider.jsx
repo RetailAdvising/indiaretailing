@@ -47,10 +47,10 @@ export default function ListSlider({ data, auto, noDots, route = undefined, isEv
 
                 pauseOnHover
                 responsive={responsive}
-                slidesToSlide={6}
+                slidesToSlide={1}
                 swipeable={false}
                 infinite={true}
-            // centerMode={true}
+                // centerMode={true}
             // itemClass="carousel-item-padding-40-px"
             // containerClass="carousel-container"
             // showDots={true}
@@ -70,7 +70,6 @@ export default function ListSlider({ data, auto, noDots, route = undefined, isEv
                                     <p className="line-clamp-2 sub_title">{res.description}</p>
                                     <p className="text-[12px] text-[#b5b5b5]">{res.start_date}</p>
                                     <p className="primary_text">Register Now</p>
-
                                 </>}
                             </div>
                         </div>

@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common';
 import Image from 'next/image'
-import { get_customer_order_list, getColor } from '@/libs/api';
+import { get_customer_order_list, getColor, get_order_info } from '@/libs/api';
 import OrderDetail from '@/components/ProfileCom/OrderDetail';
 import NoProductFound from '@/components/common/NoProductFound';
 
@@ -71,13 +71,23 @@ export default function Orders() {
  function hide(obj) {
    setVisible(false);
    if(orderId && orderInfo && orderInfo.length != 0){
-    orderInfo.map(res=>{
+      orderInfo.map(res=>{
       if(res.name == orderId){
-         res.payment_status = 'Paid';
+        order_detail(orderId,res,orderInfo)
       }
     })
    }
  }
+
+ async function order_detail(order_id,obj,orderInfo){
+  let data = { order_id: order_id};
+  const resp = await get_order_info(data);
+    if (resp && resp.message && resp.message.info) {
+        let payment_status = resp.message.info
+        obj.payment_status = resp.message.info['payment_status']
+        setOrderInfo(orderInfo)
+    }
+  }
 
   return (
     <>

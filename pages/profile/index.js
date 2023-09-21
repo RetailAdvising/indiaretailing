@@ -11,6 +11,7 @@ import ChangePwd from '@/components/ProfileCom/ChangePwd';
 import SubscribtionsPlan from '@/components/ProfileCom/SubscribtionsPlan';
 import AlertUi from '@/components/common/AlertUi';
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
+import AddAddress from '@/components/Bookstore/AddAddress';
 
 export default function profile({my_account}) {  
 
@@ -18,6 +19,7 @@ export default function profile({my_account}) {
   let profileDetail = [
     {'title':'My Profile',icon:'/Profile/profile.svg',route:'edit-profile'},
     {'title':'My Orders',icon:'/Profile/orders.svg',route:'orders'},
+    {'title':'My Address',icon:'/Profile/orders.svg',route:'my-address'},
     {'title':'Membership',icon:'/Profile/membership.svg',route:'membership'},
     {'title':'Subscription',icon:'/Profile/subscription.svg',route:'subscription'},
     {'title':'Newsletter',icon:'/Profile/newsletter.svg',route:'newsletter'},
@@ -64,7 +66,7 @@ export default function profile({my_account}) {
   },[router.query])  
 
   const navigateToProfile = (data) =>{
-
+    setCustomerInfo(undefined);
     if(data.route == 'logout') {
       setAlertUi(true);
       setAlertMsg({message:'Are you sure do you want to logout ?'});
@@ -245,7 +247,7 @@ export default function profile({my_account}) {
  function hide(obj) {
    setVisible(false);
    if(obj.status == 'Success'){
-     setAlertMsg({message:'Newsletters subscribed successfully'});
+     setAlertMsg({message:'You have successfully subscribed to our newsletter'});
      setEnableModal(true);
    }
  }
@@ -274,7 +276,7 @@ export default function profile({my_account}) {
           <div className='min-h-[350px] w-full flex'>
               {(tab == '' || !isMobile) && 
               // p-[10px_20px_20px_0]
-              <div className={'lg:flex-[0_0_calc(20%_-_0px)]'}>
+              <div className={'lg:flex-[0_0_calc(20%_-_0px)] md:w-full'}>
 
                 <h6 className='md:hidden flex items-center p-[0_25px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>Account Settings</h6>
 
@@ -335,6 +337,15 @@ export default function profile({my_account}) {
                    <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>News Letter</h6>
                    <div className=''>
                      {news &&  <SubscribeNews data={news} no_modal={true} hide={(obj)=> hide(obj)}/>}
+                   </div>  
+                  </div> 
+                  }
+
+                  {tab == 'my-address' && 
+                  <div>
+                   <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>My Address</h6>
+                   <div className=''>
+                      <AddAddress />
                    </div>  
                   </div> 
                   }

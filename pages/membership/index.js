@@ -18,7 +18,7 @@ export default function Membership() {
   const [razorpay_settings, setRazorpay_settings] = useState({});
   let [isMobile, setIsmobile] = useState();
   let [subscribed_plans_length, setSubscribed_plans_length] = useState(0);
-
+  let [isActive,setIsActive] = useState(-1)
 
   useEffect(() => {
     getMembershipLanding()
@@ -69,15 +69,19 @@ export default function Membership() {
       let datas = resp.message.message;
 
       let subscribed_plans = resp.message.subscribed_plans ? resp.message.subscribed_plans : []
-      subscribed_plans_length = subscribed_plans.length;
-      setSubscribed_plans_length(subscribed_plans_length);
+  
+
       if (subscribed_plans.length != 0) {
-        datas.map(res => {
-          let check_plan = subscribed_plans.find(r => { return r.subscription_plan == res.plan_name })
-          if (check_plan) {
-            res.isActive = true;
-          }
-        })
+         datas.map((res,i) => {
+          // let check_plan = subscribed_plans.find(r => { return r.subscription_plan == res.plan_name })
+
+           if (subscribed_plans[0].subscription_plan == res.plan_name && subscribed_plans[0].status ==  "Active") {
+              // res.isActive = true;
+              setIsActive(i);
+              setSubscribed_plans_length(subscribed_plans.length);
+           }
+         })
+
       }
 
       // if (btnState && subscribed_plans.length != 0) {
@@ -154,7 +158,7 @@ export default function Membership() {
   function startPlan(obj, index) {
     if (localStorage['apikey']) {
       obj.selected = true;
-
+      isActive = index;
       memberShipDetails.map((res, i) => {
         if (i != index) {
           res.selected = false;
@@ -188,8 +192,8 @@ export default function Membership() {
       setAlertMsg(obj);
       // setEnableModal(true);
     } else {
-      setAlertMsg(obj);
-      setEnableModal(true);
+      // setAlertMsg(obj);
+      // setEnableModal(true);
     }
   }
 
@@ -223,6 +227,8 @@ export default function Membership() {
         get_values.push({ role: 'Member' })
         localStorage['roles'] = JSON.stringify(get_values)
       }
+      setIsActive(isActive);
+      setSubscribed_plans_length(1);
 
       setEnableModal(true);
     }
@@ -270,6 +276,12 @@ export default function Membership() {
     setEnableModal(false);
   }
 
+  async function selected_plan() {
+     if(subscribed_plans_length > 0){
+      setAlertMsg({ message: "Already you have one membership plan.So, you can't pick an other plans" });
+      setEnableModal(true);
+     }
+  }
 
 
   return (
@@ -305,7 +317,8 @@ export default function Membership() {
               <div id={'scroll_div'} className="lg:flex lg:p-[10px] gap-6 md:p-[15px] overflow-auto scrollbar-hide ">
                 {memberShipDetails.map((membership, index) => {
                   return (
-                    <div key={index} className={`${membership.isActive ? 'cur_member_ship' : ''} ${subscribed_plans_length > 0 ? 'active_member_ship' : ''} md:mb-[20px] flex-[0_0_calc(33.333%_-_16px)] member-card lg:p-8 md:p-[15px] bg-white rounded-2xl relative`}>
+                    // ${subscribed_plans_length > 0 ? 'active_member_ship' : ''} 
+                    <div onClick={()=>selected_plan()} key={index} className={`${isActive == index ? 'cur_member_ship' : ''} ${subscribed_plans_length == 0 ? 'active_member_ship' : ''} md:mb-[20px] flex-[0_0_calc(33.333%_-_16px)] member-card lg:p-8 md:p-[15px] bg-white rounded-2xl relative`}>
                       <h3 className='text-2xl font-bold'>{membership.plan_name}</h3>
 
                       {/* <div className='flex items-center gap-[3px] my-[2px] rounded-[35px] w-max p-[5px_8px] member-button'>
@@ -328,7 +341,7 @@ export default function Membership() {
                           )
                         })}
                       </ul>
-                      <button disabled={subscribed_plans_length > 0 ? false : true} onClick={() => startPlan(membership, index)} className="absolute bottom-[30px] md:bottom-[15px] w-[calc(100%_-_60px)] bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl font-medium member-button member-button_"> {membership.isActive ? 'Subscribed Plan' : 'Start your free Pro trial'} </button>
+                      <button disabled={subscribed_plans_length == 0 ? false : true} onClick={() => startPlan(membership, index)} className="absolute bottom-[30px] md:bottom-[15px] w-[calc(100%_-_60px)] bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl font-medium member-button member-button_"> {isActive == index ? 'Subscribed Plan' : 'Start your free Pro trial'} </button>
                     </div>
                   )
                 })}

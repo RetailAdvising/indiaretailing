@@ -72,6 +72,7 @@ export default function NewsLists({ data, Id }) {
 
 
   useEffect(() => {
+    console.log('ddd',data)
     allNews();
     newsLanding_info();
   }, [router.query])
@@ -128,26 +129,26 @@ export default function NewsLists({ data, Id }) {
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_0px)]`}>
                 <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.article_detail.title}</h6>
                 <p className='sub_title py-3 md:hidden'>{data.article_detail.subject}</p>
-                <p className='sub_title py-3 md:hidden'>{data.article_detail.blog_intro}</p>
+                <p className='sub_title py-3 md:hidden'>{data.article_detail.description}</p>
                 <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] h-[35px] w-[100px]'>subscribe</button>
               </div>
               <div className={`flex-[0_0_calc(45%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
                 <Image className={`h-[380px] w-full`} src={check_Image(data.article_detail.image)} height={300} width={500} alt={data.custom_title} />
-                <p className='sub_title py-3 lg:hidden'>{data.article_detail.blog_intro}</p>
+                <p className='sub_title py-3 lg:hidden'>{data.article_detail.description}</p>
                 <div className='w-full text-center lg:hidden'>
                   <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn  my-3 text-[14px] h-[35px] w-[50%]'>subscribe</button>
                 </div>
               </div>
             </div>}
 
-            {(data.related_newsletters && data.related_newsletters.length != 0) && <div className='p-[30px_0] md:p-[15px_0]'>
+            {(data.more_articles && data.more_articles.length != 0) && <div className='p-[30px_0] md:p-[15px_0]'>
               <Title data={{ title: "More articles from the newsletter" }} />
-              <div className='lg:grid grid-cols-4 no_scroll lg:gap-5'><NewsCard data={data.related_newsletters} imgClass={'h-[240px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[310px] md:h-[246px] md:flex-[0_0_calc(50%_-_10px)]'} /></div>
+              <div className='lg:grid grid-cols-4 no_scroll lg:gap-5'><NewsCard data={data.more_articles} imgClass={'h-[215px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[310px] md:h-[280px] md:flex-[0_0_calc(50%_-_10px)]'} /></div>
             </div>}
 
             {(data.other_newsletters && data.other_newsletters.length != 0) && <div className='p-[30px_0]'>
               <Title data={{ title: "Read other Newsletters" }} />
-              <div className='lg:grid grid-cols-4 no_scroll lg:gap-5'><NewsCard data={data.other_newsletters} imgClass={'h-[340px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[246px] md:flex-[0_0_calc(50%_-_10px)]'} /></div>
+              <div className='lg:grid grid-cols-4 no_scroll lg:gap-5'><NewsCard data={data.other_newsletters} imgClass={'h-[315px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[280px] md:flex-[0_0_calc(50%_-_10px)]'} /></div>
             </div>}
 
             {/* {showAlert && <AlertPopup data={data} show={() => setShowAlert(false)} />} */}
@@ -157,7 +158,7 @@ export default function NewsLists({ data, Id }) {
             
           </> : <>
             {(allNewsLetter && allNewsLetter.length != 0) && <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] md:gap-[10px] pt-[20px] md:pt-[15px]'>
-              <NewsCard load={() => handleCheckboxChange()} pagination={true} data={allNewsLetter} imgClass={'h-[340px] md:h-[200px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[270px]'} />
+              <NewsCard load={() => handleCheckboxChange()} pagination={true} data={allNewsLetter} imgClass={'h-[315px] md:h-[200px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[300px]'} />
             </div>}
           </>}
         </div>}

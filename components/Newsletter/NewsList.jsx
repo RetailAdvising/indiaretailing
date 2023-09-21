@@ -52,7 +52,7 @@ export default function NewsList({ data }) {
   function hide(obj) {
     setVisible(false);
     if(obj.status == 'Success'){
-      setAlertMsg({message:'Newsletters subscribed successfully'});
+      setAlertMsg({message:'You have successfully subscribed to our newsletter'});
       setEnableModal(true);
     }
   }

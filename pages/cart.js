@@ -178,7 +178,7 @@ export default function cart() {
                                         <div className='lg:flex-[0_0_calc(80%_-_20px)] md:flex-[0_0_calc(70%_-_20px)] lg:flex mx-[10px]'>
 
                                            <div className='lg:flex-[0_0_calc(40%_-_0px)]'>
-                                             <p className='text-[16px] font-semibold'>{res.product_name}</p>
+                                             <p className='text-[16px] line-clamp-2 font-semibold'>{res.product_name}</p>
                                              {res.attribute_description && <p className='text-[12px] gray_color'>{res.attribute_description}</p>}
                                            </div> 
                                             <p className='lg:flex-[0_0_calc(20%_-_10px)] lg:mx-[5px] md:hidden text-[15px] font-semibold'>{formatter.format(res.price)}</p>

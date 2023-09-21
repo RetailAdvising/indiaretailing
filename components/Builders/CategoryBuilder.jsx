@@ -277,7 +277,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
               {/* </div> */}
 
               <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
-                <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[50%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
+                <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[60%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
               </div>
 
             </div>}
@@ -374,9 +374,9 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
           </div>
 
           <div className='w_30 md:hidden'>
-            {(data.related_articles && data.related_articles.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px]'>
+            {(data.related_articles && data.related_articles.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px_15px_15px]'>
               <Title data={{ title: 'Related Stories' }} />
-              <List tittleOnly={true} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.related_articles} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
+              <List tittleOnly={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.related_articles} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
             </div>}
 
             <div className='py-3'>
@@ -388,13 +388,13 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
 
             {/* {(ads && )} */}
 
-            {(data.must_read && data.must_read.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px]'>
+            {(data.must_read && data.must_read.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px_15px_15px]'>
               <Title data={{ title: 'Must Read' }} />
-              <List tittleOnly={true} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.must_read} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
+              <List tittleOnly={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.must_read} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
             </div>}
-            {(data.other_category3 && data.other_category3.data && data.other_category3.data.length != 0) && <div className='border rounded-[5px] p-[10px]'>
+            {(data.other_category3 && data.other_category3.data && data.other_category3.data.length != 0) && <div className='border rounded-[5px] p-[10px_15px_15px]'>
               <Title data={data.other_category3} />
-              <List isTop={true} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={data.other_category3.data} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
+              <List isTop={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={data.other_category3.data} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
             </div>}
 
             <div className='py-3'>
@@ -402,9 +402,9 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             </div>
 
 
-            {(data.other_category2 && data.other_category2.data && data.other_category2.data.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px]'>
+            {(data.other_category2 && data.other_category2.data && data.other_category2.data.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px_15px_15px]'>
               <Title data={data.other_category2} />
-              <List isTop={true} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={data.other_category2.data} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
+              <List isTop={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={data.other_category2.data} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
             </div>}
 
             {/* <div className='py-3'>

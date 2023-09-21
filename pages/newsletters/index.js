@@ -6,17 +6,24 @@ import value from '@/libs/newsletter';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import Subscribe from '@/components/Landing/Subscribe';
-import { newsLanding, checkMobile, getAds } from '@/libs/api';
+import { newsLanding, checkMobile, getAds, stored_customer_info } from '@/libs/api';
+import SubscribeNews from '@/components/Newsletter/SubscribeNews';
+import AlertUi from '@/components/common/AlertUi';
 import SEO from '@/components/common/SEO'
 
 export default function newsletter({ ads }) {
 
   const [isMobile, setIsMobile] = useState();
   let [data,setData] = useState();
+  let [localValue, setLocalValue] = useState(undefined);
+  let [skeleton, setSkeleton] = useState(true);
+
 
   useEffect(() => {
     newsLanding_info();
     checkIsMobile();
+    let localValue = stored_customer_info()
+    setLocalValue(localValue);
     window.addEventListener('resize', checkIsMobile)
     return () => {
       window.removeEventListener('resize', checkIsMobile);
@@ -27,18 +34,37 @@ export default function newsletter({ ads }) {
     let isMobile = await checkMobile();
     setIsMobile(isMobile);
   }
-  
+
+  const [alertMsg, setAlertMsg] = useState({})
+  const [enableModal,setEnableModal] = useState(false)
+
   async function newsLanding_info(){
     let value = await newsLanding();
     let news = value.message;
-    setData(news)
+    setData(news);
+    setSkeleton(false);
   }
 
+  function hide(obj) {
+    if(obj.status == 'Success'){
+      setAlertMsg({message:'You have successfully subscribed to our newsletter'});
+      setEnableModal(true);
+    }
+  }
+ 
+  async function closeModal(value){
+    setEnableModal(false);
+  }
 
   return (
     <>
+
+     { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+
       <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'}>
-      <SEO title={'Newsletters'} siteName={'India Reatiling'} description={'Newsletters'}/>
+      {!skeleton && localValue && !localValue['cust_name'] && 
+       <>
+        <SEO title={'Newsletters'} siteName={'India Reatiling'} description={'Newsletters'}/>
         {(data) && <div className='container p-[30px_0px] md:p-[15px]'>
           <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
           <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
@@ -61,6 +87,11 @@ export default function newsletter({ ads }) {
 
 
         </div>}
+        </>
+       }
+       {!skeleton && localValue && localValue['cust_name'] && 
+         <SubscribeNews cssClass={'lg:w-[50%] lg:m-[0_auto] md:pb-[15px]'} data={data} no_modal={true} hide={(obj)=> hide(obj)}/>
+       }
       </RootLayout>
     </>
   )

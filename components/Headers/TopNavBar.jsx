@@ -43,10 +43,8 @@ export default function TopNavBar({ nav_data }) {
         }
     ])
     useEffect(() => {
-        // console.log(router);
         let route = router.route.split('/')
         let redirect_url = route[1] ? '/' + route[1] : '/'
-        // console.log(redirect_url);
         navData.map(nd => {
             nd.active = nd.redirect_url == redirect_url ? true : false
             if(nd.redirect_url == redirect_url) nav_to_view(nd.menu_label)
@@ -55,8 +53,6 @@ export default function TopNavBar({ nav_data }) {
     }, [])
     const nav_to_view = (menu_label) => {
      var active_nav = document.getElementById(menu_label)
-    // console.log(active_nav,menu_label);
-    console.log(';;;;;',active_nav); 
     setTimeout(()=>{
         active_nav.scrollIntoView({ behavior: 'smooth', block: 'center',inline: "nearest" });
     },300)
@@ -64,8 +60,6 @@ export default function TopNavBar({ nav_data }) {
     }
     const changeNav = (nav) => {
         router.push(nav.redirect_url)
-        // window.location.href= nav.redirect_url;
-        // console.log(navData);
     }
     return (
         <>

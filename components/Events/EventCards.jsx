@@ -15,7 +15,7 @@ export default function EventCards({ data, flex,height,width,card }) {
                             <Image src={check_Image(res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : null)} className={`rounded-[10px_10px_0_0] ${height} ${width}`}  height={100} width={200} alt={res.title} />
                         </div>
                         <div className={`flex flex-col p-[10px] h-full justify-between `}>
-                            <h4 className={`event-title font-semibold  line-clamp-2`}>{res.title} </h4>
+                            <h4 className={`event-title font-semibold  line-clamp-1`}>{res.title} </h4>
                             <p className={`sub_title lg:pt-[5px] line-clamp-2`}>{res.description}</p>
                             {/* <p className={`sub_title pt-[5px]`}>{res.end}</p> */}
                             <div className={`flex gap-[5px] items-center lg:pt-[5px]`}>

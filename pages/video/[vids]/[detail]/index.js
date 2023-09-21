@@ -121,7 +121,7 @@ export default function Videos(meta_info, ads_data) {
                                 {/* </div> */}
                             </div>
 
-                            <div className={`${validator ? 'lg:h-[430px] md:h-[220px]' : ''} my-[10px]`}>
+                            <div className={`${validator ? 'lg:h-[80vh] md:h-[220px]' : ''} my-[10px]`}>
                                 {(!validator && videoDetail.message.ir_prime == 1) ? <>
                                     <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
                                     <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6 flex justify-between md:block'>
@@ -138,7 +138,7 @@ export default function Videos(meta_info, ads_data) {
                                         </div>
                                     </div>
                                 </> : <iframe
-                                    className={`h-[80vh] w-full`}
+                                    className={`lg:h-[80vh] md:h-[30vh] w-full`}
                                     title={videoDetail.message.title ? videoDetail.message.title : ''}
                                     src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
                                     // width={res.width}

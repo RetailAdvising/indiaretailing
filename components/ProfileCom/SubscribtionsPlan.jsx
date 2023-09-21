@@ -94,14 +94,27 @@ const formatter = new Intl.NumberFormat('en-US', {
                </div>
 
                {type != 'member' && 
+
                 <div className='lg:hidden flex flex-wrap p-[10px] cursor-pointer items-center '>
-                    <h6 className='md:flex-[0_0_calc(70%_-_0px)] text-[14px] font-semibold'>{res.subscription_plan}</h6>
-                    <div className='md:flex-[0_0_calc(30%_-_0px)] justify-end flex items-center gap-[5px]'><div style={{background:res.status ? getColor(res.status)  : '#ddd'}} className={`h-[6px] w-[6px] rounded-[50%]`}></div><h6 className='text-[12px]'>{res.status}</h6></div>
-                    <h6 className='md:flex-[0_0_calc(50%_-_0px)] py-[2px] text-[12px] gray_color'>{res.sub_plans[0].plan_info.billing_interval_count + ' ' + res.sub_plans[0].plan_info.billing_interval}</h6>
-                    <h6 className='md:flex-[0_0_calc(50%_-_0px)] text-end text-[12px] gray_color'>{formatDate(res.current_end_date)}</h6>
-                    <h6 className='text-[12px] md:flex-[0_0_calc(50%_-_0px)]'>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
-                    {res.status == 'Unpaid' && <div className='md:flex-[0_0_calc(50%_-_0px)] flex items-center justify-end'><button onClick={()=>{payNow(res)}} className='bg-black text-white w-max p-[5px_25px] text-[13px] rounded-[5px]'>Pay</button> </div>}
+                   <div className={'flex-[0_0_calc(75%_-_5px)]'}>
+                     <h6 className='text-[14px] font-semibold'>{res.subscription_plan}</h6>
+                     {res.items && res.items.length != 0 && <span className='text-[12px] gray_color'>{res.items[0].item_name}  <span className='text-[12px] font-semibold'>{res.items[0].type ? (' - ' + res.items[0].type) : ''}</span></span>}
+                     <h6 className='text-[12px] gray_color'>Expiry on {' ' + formatDate(res.current_end_date)}</h6>
+                     <div className='flex items-center gap-[5px]'><div style={{background:res.status ? getColor(res.status)  : '#ddd'}} className={`h-[6px] w-[6px] rounded-[50%]`}></div><h6 style={{color:res.status ? getColor(res.status)  : '#ddd'}} className='text-[12px]'>{res.status}</h6></div>
+                   </div>
+                   <div className={'flex-[0_0_calc(25%_-_5px)]'}>
+                     <h6 className='text-[14px] font-semibold mb-[7px]'>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
+                     {res.status == 'Unpaid' && <div className='flex items-center justify-end'><button onClick={()=>{payNow(res)}} className='primary_btn w-max p-[5px_25px] text-[13px] rounded-[5px]'>Pay</button> </div>}
+                   </div>
                 </div>
+                // <div className='lg:hidden flex flex-wrap p-[10px] cursor-pointer items-center '>
+                //     <h6 className='md:flex-[0_0_calc(70%_-_0px)] text-[14px] font-semibold'>{res.subscription_plan}</h6>
+                //     <div className='md:flex-[0_0_calc(30%_-_0px)] justify-end flex items-center gap-[5px]'><div style={{background:res.status ? getColor(res.status)  : '#ddd'}} className={`h-[6px] w-[6px] rounded-[50%]`}></div><h6 className='text-[12px]'>{res.status}</h6></div>
+                //     <h6 className='md:flex-[0_0_calc(50%_-_0px)] py-[2px] text-[12px] gray_color'>{res.sub_plans[0].plan_info.billing_interval_count + ' ' + res.sub_plans[0].plan_info.billing_interval}</h6>
+                //     <h6 className='md:flex-[0_0_calc(50%_-_0px)] text-end text-[12px] gray_color'>{formatDate(res.current_end_date)}</h6>
+                //     <h6 className='text-[12px] md:flex-[0_0_calc(50%_-_0px)]'>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
+                //     {res.status == 'Unpaid' && <div className='md:flex-[0_0_calc(50%_-_0px)] flex items-center justify-end'><button onClick={()=>{payNow(res)}} className='primary_btn w-max p-[5px_25px] text-[13px] rounded-[5px]'>Pay</button> </div>}
+                // </div>
               }
 
              {type == 'member' && 
@@ -122,7 +135,7 @@ const formatter = new Intl.NumberFormat('en-US', {
                         })}
                       </ul>
 
-                  <div className='w-full'><button onClick={()=>{res.status == 'Unpaid' ? payNow(res) : null}} className={`${res.status == 'Unpaid' ? 'primary_btn text-white' : 'bg-[#F6F6F6] text-black'}  p-[5px_25px] text-[13.5px] h-[38px] w-full rounded-[5px]`}>Pay Now</button> </div>
+                  {res.status == 'Unpaid' && <div className='w-full'><button onClick={()=>{res.status == 'Unpaid' ? payNow(res) : null}} className={`${res.status == 'Unpaid' ? 'primary_btn text-white' : 'bg-[#F6F6F6] text-black'}  p-[5px_25px] text-[13.5px] h-[38px] w-full rounded-[5px]`}>Pay Now</button> </div>}
                   <div className='w-full'><button onClick={()=>{router.push('/membership')}} className={`mt-[10px] text-[#e21b22] border border-[#e21b22] p-[5px_25px] text-[13.5px] h-[38px] w-full rounded-[5px]`}>Choose Plan</button> </div>
 
                 </div>

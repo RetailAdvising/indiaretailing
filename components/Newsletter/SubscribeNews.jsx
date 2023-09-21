@@ -7,7 +7,7 @@ import AlertPopup from '../common/AlertPopup';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-export default function SubscribeNews({ data, visible, hide, no_modal, email = undefined }) {
+export default function SubscribeNews({ data, visible, hide, no_modal, email = undefined,cssClass }) {
 
   // useEffect(() => {
 
@@ -16,15 +16,15 @@ export default function SubscribeNews({ data, visible, hide, no_modal, email = u
   return (
     <div className='NewsLetterSub'>
       {!no_modal && <Rodal visible={visible} onClose={(obj) => { hide(obj) }}>
-        <NewsLetterSub email={email} data={data} hide={(obj) => { hide(obj) }} />
+        <NewsLetterSub cssClass={cssClass} email={email} data={data} hide={(obj) => { hide(obj) }} />
       </Rodal>
       }
-      {no_modal && <NewsLetterSub data={data} hide={(obj) => { hide(obj) }} />}
+      {no_modal && <NewsLetterSub cssClass={cssClass} data={data} hide={(obj) => { hide(obj) }} />}
     </div>
   )
 }
 
-const NewsLetterSub = ({ data, hide,email }) => {
+const NewsLetterSub = ({ data, hide,email,cssClass }) => {
 
   let [news, setNews] = useState(data);
   let [indexNews, setIndexNews] = useState(-1);
@@ -48,7 +48,7 @@ const NewsLetterSub = ({ data, hide,email }) => {
 
   return (
     <>
-      <div className='flex flex-col h-[100%] '>
+      <div className={`${cssClass} flex flex-col h-[100%]`}>
 
         {/* border-b-[1px] border-b-slate-100  h-[55px] px-[10px] */}
         <div className='header p-[35px_30px_15px_30px]'>

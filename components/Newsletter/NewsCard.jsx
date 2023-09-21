@@ -11,11 +11,11 @@ export default function NewsCard({data,imgClass,imgFlex,cardClass,pagination,loa
       return(
         <div key={index} onClick={()=> {router.push('/'+ res.route); pagination ? load() : null}} className={`border cursor-pointer rounded-[10px] ${cardClass}`}>
           <div className={`${imgFlex}`}> 
-            <Image className={`${imgClass}`} src={check_Image(res.custom_image_)} height={100} width={200} alt={res.title} />
+            <Image className={`${imgClass}`} src={check_Image(res.image)} height={100} width={200} alt={res.title} />
           </div>
           <div className={`p-[10px]`}>
-           {res.primary_text && <p className={`primary_text line-clamp-1`}>{res.primary_text}</p>}
-            {res.custom_title && <p className={`line-clamp-2`}>{res.custom_title}</p>}
+           {res.title && <p className={`line-clamp-2 title`}>{res.title}</p>}
+            {res.title && <p className={`${res.title ? 'line-clamp-1' : 'line-clamp-2'} sub_title pt-[10px]`}>{res.title}</p>}
           </div>
         </div>
       )

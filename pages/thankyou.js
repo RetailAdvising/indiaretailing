@@ -15,7 +15,10 @@ export default function thankyou({order_id}) {
    return(
     <>
       <RootLayout>
-       {order_id && <OrderDetail loadPage={true} order_id={order_id} />}
+       <div className='container lg:shadow-[0_0_5px_#f1f1f1] lg:p-[10px] rounded-[5px]'>
+        {order_id && <OrderDetail loadPage={true} order_id={order_id} />}
+       </div>  
+
        {/* <div className='h-[calc(100vh_-_280px)] flex items-center'>
         <div className='shadow-[0_0_5px_#ddd] flex items-center justify-center flex-col gap-[10px] rounded-[5px] w-[400px] m-[0_auto] ' >
 

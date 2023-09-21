@@ -48,7 +48,6 @@ export default function NewsDetails() {
     if (pagination) {
       let value = await articleNewsDetail(param);
       let data = value.message;
-      // console.log(data)
       if (data && data.status == "Success") {
         setPrev(data.route)
         let val = [data]

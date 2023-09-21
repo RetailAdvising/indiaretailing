@@ -36,12 +36,13 @@ export default function LatestNews({ data, height, width, isList }) {
           {(data && isMobile && !isList) &&
             data.slice(0, 2).map((res, i) => {
               return (
-                <Link key={i} href={'/news/' + res.route} className='flex-[0_0_calc(80%_-_10px)] border rounded-[10px] h-[250px]'>
+                <Link key={i} href={'/news/' + res.route} className='flex-[0_0_calc(70%_-_10px)] border rounded-[10px] h-[280px]'>
                   <div>
-                    <Image priority src={check_Image(res.thumbnail_image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />
+                    <Image priority src={check_Image(res.thumbnail_image)} className={`rounded-[5px_5px_0_0] ${height} ${width}`} width={400} height={200} alt={res.title} />
                   </div>
                   <div className='px-[10px]'>
-                    <h6 className={`my-[10px] line-clamp-1 title `}>{res.title}</h6>
+                    <h6 className={`my-[10px] line-clamp-2 title `}>{res.title}</h6>
+                    {res.publisher && <p className='light_text'>{res.publisher}</p>}
                   </div>
                 </Link>
               )

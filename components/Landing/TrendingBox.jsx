@@ -17,7 +17,7 @@ export default function TrendingBox({ data, icons, parentElement }) {
     <>
       {data && data.map((res, index) => {
         return (
-          <div className={`trendingList cursor-pointer`} onClick={() => router.push('/' + res.custom_route)} key={index}>
+          <div className={`trendingList cursor-pointer`} onClick={() => router.push('/tag?id=' + res.custom_route)} key={index}>
             <p className={`text-[14px]`} >{res.name}</p>
           </div>
         )
