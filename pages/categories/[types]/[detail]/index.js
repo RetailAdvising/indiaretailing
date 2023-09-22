@@ -11,7 +11,7 @@ import { check_Image } from '@/libs/common';
 // import { useDispatch, useSelector } from 'react-redux'
 // import setPagination from 'redux/actions/paginationAction';
 
-export default function CategoryDetail({ data }) {
+export default function CategoryDetail({ data,value }) {
   // Store
   // const pagination = useSelector(s => s.pagination);
   // const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default function CategoryDetail({ data }) {
     //   data._user_tags = tags
     // }
 
-    console.log('reloaded',data);
+    console.log('reloaded', data);
 
 
     if (data) {
@@ -50,7 +50,7 @@ export default function CategoryDetail({ data }) {
   // router.query
 
   // const call_observer = async () => {
-  
+
   //   const observer = new IntersectionObserver(entries => {
   //     entries.forEach((entry,ind) => {
   //       if (entry.intersectionRatio > 0) {
@@ -118,7 +118,7 @@ export default function CategoryDetail({ data }) {
           {values.map((res, index) => {
             return (
               <div key={index} className='box'>
-                <CategoryBuilder isLast={index == values.length - 1} ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
+                <CategoryBuilder isLast={index == values.length - 1} placeholder={(value.place_holders_ads && value.place_holders_ads.length != 0) ? value.place_holders_ads : []} ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
               </div>
             )
           })}
@@ -266,6 +266,6 @@ export async function getServerSideProps({ params }) {
   let data = value.message;
 
   return {
-    props: { data }
+    props: { data, value }
   }
 }
