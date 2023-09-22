@@ -1096,6 +1096,14 @@ input {
     }
   }
 
+  .report_cmt_popup{
+    .rodal-dialog {
+        left: 5% !important;
+        width: 380px !important;
+        padding: 10px !important;
+      }
+  }
+
   // .title {
   //   font-size: $font-14;
   //   font-weight: 600;
@@ -1113,9 +1121,11 @@ input {
 
   .rodal-dialog {
     height: 95vh !important;
-    // width: 50% !important;
     width: 35% !important;
   }
+
+
+
 
   .authModal{
     .rodal-dialog{
@@ -2014,4 +2024,12 @@ div#wave {
 	30% {
 		transform: translateY(-15px);
 	}
+}
+
+.addressActive{
+  border-color: $primary-color;
+  h6{
+    color: $primary-color;
+    font-weight: 500;
+  }
 }

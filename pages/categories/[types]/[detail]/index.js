@@ -28,7 +28,16 @@ export default function CategoryDetail({ data }) {
     // window.addEventListener("scroll", function(){
     //   // call_observer()
     // })
-    // console.log('reloaded');
+
+    // if(data && data._user_tags){
+    //   let tags = data._user_tags.split(',');
+    //   tags.splice(0,1);
+    //   data._user_tags = tags
+    // }
+
+    console.log('reloaded',data);
+
+
     if (data) {
       let val = [data]
       // console.log(data)
@@ -76,16 +85,18 @@ export default function CategoryDetail({ data }) {
       "category": router.query.types,
       "next": 1
     }
-
-
     if (pagination) {
       let value = await articlesDetail(param);
       let data = value.message;
       if (data && data.status == "Success") {
+
         setPrev(data.route)
         // router.replace(`/categories/${router.query.types}/${data.name}`)
         let val = [data]
-        setValues(d => d = [...d, ...val])
+        setValues(d => d = [...d, ...val]);
+
+        // router.replace('/' + prev);
+
       } else {
         setPagination(!pagination)
       }
@@ -253,8 +264,6 @@ export async function getServerSideProps({ params }) {
   }
   let value = await articlesDetail(param);
   let data = value.message;
-
-
 
   return {
     props: { data }

@@ -40,7 +40,7 @@ const ImageGroupEvents = dynamic(() => import('@/components/Landing/ImageGroupEv
 const EventList = dynamic(() => import('@/components/Events/EventList'))
 const ListSlider = dynamic(() => import('@/components/Sliders/ListSlider'))
 export default function Home({ data, ads }) {
-
+  console.log(data);
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false)
@@ -187,11 +187,11 @@ export default function Home({ data, ads }) {
                             <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards contentHeight={'pt-[10px]'} isHome={'/news/'} data={data.data[c.cid].data.slice(0, 5)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
                           </>}
 
-                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending") && <>
+                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending" && !isMobile) && <>
                             <Title data={{ title: c.component_title }} />
                             <div className='lg:flex justify-between items-center gap-[10px]'>
                               <div className={`flex gap-[10px] overflow-auto trending`}><TrendingBox data={data.data[c.cid].data} /></div>
-                              {!isMobile && <div className={`flex gap-[10px] flex-[0_0_calc(7%_-_10px)] justify-end`}><TrendingBox icons={true} parentElement={'trending'} /></div>}
+                              <div className={`flex gap-[10px] flex-[0_0_calc(7%_-_10px)] justify-end`}><TrendingBox icons={true} parentElement={'trending'} /></div>
                             </div>
                           </>}
 

@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 
-export default function TopNavBar({ nav_data }) {
+export default function TopNavBar({ nav_data,getActiveTab,activeTab }) {
     const router = useRouter()
     const [navData, SetNavData] = useState([
         {
@@ -43,6 +43,7 @@ export default function TopNavBar({ nav_data }) {
         }
     ])
     useEffect(() => {
+        if(!activeTab){
         let route = router.route.split('/')
         let redirect_url = route[1] ? '/' + route[1] : '/'
         navData.map(nd => {
@@ -50,7 +51,15 @@ export default function TopNavBar({ nav_data }) {
             if(nd.redirect_url == redirect_url) nav_to_view(nd.menu_label)
             // SetNavData(navData)
         })
-    }, [])
+        }else{
+            navData.map(nd => {
+                nd.active = nd.redirect_url == activeTab.redirect_url ? true : false
+                if(nd.redirect_url == activeTab.redirect_url) nav_to_view(nd.menu_label)
+                // SetNavData(navData)
+            })
+        }
+
+    }, [activeTab])
     const nav_to_view = (menu_label) => {
      var active_nav = document.getElementById(menu_label)
     setTimeout(()=>{
@@ -60,6 +69,7 @@ export default function TopNavBar({ nav_data }) {
     }
     const changeNav = (nav) => {
         router.push(nav.redirect_url)
+        getActiveTab(nav)
     }
     return (
         <>

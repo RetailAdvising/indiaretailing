@@ -122,8 +122,24 @@ export default function Videos(meta_info, ads_data) {
                             </div>
 
                             <div className={`${validator ? 'lg:h-[80vh] md:h-[220px]' : ''} my-[10px]`}>
-                                {(!validator && videoDetail.message.ir_prime == 1) ? <>
+                                {(!validator && videoDetail.message.ir_prime == 1) ?
+                                 <>
+
                                     <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
+                                    <div className='grid place-content-center max-w-[400px] p-[30px_20px_20px_20px] md:p-[20px] m-[0_auto]'>
+                                        <div className={`flex items-center gap-[10px] `}>
+                                        <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
+                                        <p className='text-red font-semibold'>Prime Video</p>
+                                        </div>
+                                        <h6 className='text-[32px] font-[600] leading-[40px] md:text-[17px] md:leading-[22px] pt-[10px]'>Its a Premium Content,Simply buy Membership to Unlock</h6>
+                                        <p className='text-[14px] font-[400] text-gray pt-[10px] leading-[20px] md:leading-[16px] md:pt-[15px]'>50,000+ articles Prime Video is the only subscription you need</p>
+
+                                        <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
+                                        <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[60%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to Prime Video</button>
+                                        </div>
+
+                                    </div>
+                                    {/* <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
                                     <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6 flex justify-between md:block'>
                                         <div className='text-center text-[20px] md:text-[16px] font-semibold text-[white] flex md:pb-2'>
                                             <Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />
@@ -136,8 +152,9 @@ export default function Videos(meta_info, ads_data) {
                                         <div className='flex gap-[20px] justify-center pt-[0px]'>
                                             <button className='m-auto primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
                                         </div>
-                                    </div>
-                                </> : <iframe
+                                    </div> */}
+                                  </> 
+                                : <iframe
                                     className={`lg:h-[80vh] md:h-[30vh] w-full`}
                                     title={videoDetail.message.title ? videoDetail.message.title : ''}
                                     src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}

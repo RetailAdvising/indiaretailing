@@ -16,7 +16,7 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import { useRouter } from 'next/router'
 import CustomSlider from '../Sliders/CustomSlider'
 import AuthModal from '../Auth/AuthModal';
-export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads }) {
+export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, placeholder }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -188,30 +188,30 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
     document.body.style.overflow = 'unset';
   }
 
-  const [isLogin,setIsLogin] = useState(false);
-  const [loginModal,setLoginModal] = useState(false)
+  const [isLogin, setIsLogin] = useState(false);
+  const [loginModal, setLoginModal] = useState(false)
   // FUNCTION TO HANDLE OPEN ACTION ON SIDEDRAWER/MODAL
   const showSidebar = () => {
-    if(data.comments && data.comments.length != 0){
+    if (data.comments && data.comments.length != 0) {
       setshowComment(!showComment);
       // Disables Background Scrolling whilst the SideDrawer/Modal is open
       if (typeof window != 'undefined' && window.document) {
         document.body.style.overflow = 'hidden';
       }
-    }else if(data.comments && data.comments.length == 0){
-      if(localStorage && !localStorage['apikey']){
+    } else if (data.comments && data.comments.length == 0) {
+      if (localStorage && !localStorage['apikey']) {
         setIsLogin(true);
         setLoginModal(true)
-      }else{
+      } else {
         setshowComment(!showComment);
       }
     }
   }
 
-  const hideModal = () =>{
+  const hideModal = () => {
     setLoginModal(false)
     console.log('close')
-    if(localStorage && localStorage['apikey']){
+    if (localStorage && localStorage['apikey']) {
       setshowComment(!showComment);
       show()
     }
@@ -265,22 +265,24 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             {/* </div>
             </div>} */}
 
-            {(isPrime && !validator && data.ir_prime == 1) && <div className='grid place-content-center max-w-[400px] p-[30px_20px_0_20px] md:p-[20px] m-[0_auto]'>
-              <div className={`flex items-center gap-[10px] `}>
-                <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
-                <p className='text-red font-semibold'>IR Prime</p>
+            {(isPrime && !validator && data.ir_prime == 1) &&
+              <div className='grid place-content-center max-w-[400px] p-[30px_20px_0_20px] md:p-[20px] m-[0_auto]'>
+                <div className={`flex items-center gap-[10px] `}>
+                  <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
+                  <p className='text-red font-semibold'>IR Prime</p>
+                </div>
+
+                {/* <div> */}
+                <h6 className='text-[32px] font-[600] leading-[40px] md:text-[17px] md:leading-[22px] pt-[10px]'>Its a Premium Content,Simply buy Membership to Unlock</h6>
+                <p className='text-[14px] font-[400] text-gray pt-[10px] leading-[20px] md:leading-[16px] md:pt-[15px]'>50,000+ articles IRPrime is the only subscription you need</p>
+                {/* </div> */}
+
+                <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
+                  <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[60%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
+                </div>
+
               </div>
-
-              {/* <div> */}
-              <h6 className='text-[32px] font-[600] leading-[40px] md:text-[17px] md:leading-[22px] pt-[10px]'>Its a Premium Content,Simply buy Membership to Unlock</h6>
-              <p className='text-[14px] font-[400] text-gray pt-[10px] leading-[20px] md:leading-[16px] md:pt-[15px]'>50,000+ articles IRPrime is the only subscription you need</p>
-              {/* </div> */}
-
-              <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
-                <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[60%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
-              </div>
-
-            </div>}
+            }
 
             <Modal modal={modal} show={show} visible={visible} hide={hide} />
 
@@ -292,6 +294,19 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
             </div> */}
 
             {/* Comments */}
+
+            {data._user_tags && typeof (data._user_tags) != 'string' && data._user_tags.length != 0 &&
+              <div className='flex items-center flex-wrap'>
+                <h6 className='w-max text-[13px] text-[#fff] bg-[#e21b22] border rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>Tags</h6>
+                {data._user_tags.map((res, index) => {
+                  return (
+                    <h6 key={index} className='w-max capitalize text-[13px] text-[#000] bg-[#f1f1f1]  rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>{res}</h6>
+                  )
+                })
+                }
+              </div>
+            }
+
             {<div className='lg:py-12'>
               {!isMobile && <div className={`flex flex-row justify-between`}>
                 {/* <p className="gray-text">Previous Post</p> */}
@@ -342,7 +357,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
                   <div style={{ background: "#efefef" }} className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  mt-3  `}>
                     {data.comments.map((res, index) => {
                       return (
-                        <Comments cmt={true} data={res} key={index} />
+                        <Comments cmt={true} data={res} key={index} hide_comment={hide} />
                       )
                     })}
                   </div>
@@ -353,7 +368,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
               {data.disable_comments != 1 && data.doctype == 'Articles' &&
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
-                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:w-[45%] flex `}>{(data.comments && data.comments.length != 0) ? 'View all comments' : 'Post a comment'}</button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex `}>{(data.comments && data.comments.length != 0) ? 'View all comments' : 'Add Comment'}</button>
                     {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
                   </div> : <div className={`mt-[10px] flex justify-center`}>
                     <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
@@ -374,6 +389,19 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads })
           </div>
 
           <div className='w_30 md:hidden'>
+
+            {/* {(placeholder && placeholder.length != 0) ?
+              placeholder.map((resp, index) => {
+                return (
+                  <div key={index}>
+                    {(resp.placeholder_type == 'banner_ad' && resp.data && resp.data.length != 0) && <AdsBaner data={resp.data[0]} height={'260px'} width={'300px'} />}
+                    {(resp.placeholder_type == 'google_ad' && resp.data && resp.data.length != 0) && <AdsBaner data={resp.data[0]} height={'260px'} width={'300px'} />}
+                    {(resp.placeholder_type == 'list' && resp.data && resp.data.length != 0) && <List data={resp.data} tittleOnly={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'}  imgHeight={'h-[85px]'} imgWidth={'w-full'}  />}
+                  </div>
+                )
+              })
+              : <>
+              </>} */}
             {(data.related_articles && data.related_articles.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px_15px_15px]'>
               <Title data={{ title: 'Related Stories' }} />
               <List tittleOnly={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.related_articles} imgHeight={'h-[85px]'} imgWidth={'w-full'} />

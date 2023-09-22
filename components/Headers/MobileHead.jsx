@@ -6,7 +6,7 @@ import TopNavBar from './TopNavBar';
 import { useRouter } from 'next/router';
 import {  checkMobile } from '@/libs/api';
 
-export default function MobileHead({ isLanding=false, Heading }) {
+export default function MobileHead({ isLanding=true, Heading, checkout,getActiveTab,activeTab }) {
     const [isMobile, setIsMobile] = useState()
     const [isVisible, setIsVisible] = useState(false);
     
@@ -47,7 +47,7 @@ export default function MobileHead({ isLanding=false, Heading }) {
     element.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
        var st = element.scrollTop // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
        if(st < 100){
-        console.log(st);
+        // console.log(st);
         header.className = 'nav-down'
         element.classList.add('mt-[95px]')
         tabs.className = 'tabs-down'
@@ -86,6 +86,8 @@ export default function MobileHead({ isLanding=false, Heading }) {
     return (
         <>
             {<div  className={`fixed sidebar ${navbar ? 'sideActive' : ''} `} ><div className={`${isVisible ? 'visible' : ''}`}></div><SideBar data={nav} navbar={navbar} close={() => close()} /></div>}
+            {navbar && <Backdrop />}
+           
             <div  id="header" className=''>
                 <div className='flex border_bottom items-center justify-between p-[5px_15px] min-h-[60px]' >
                 <div className='flex gap-[15px] items-center'>
@@ -97,8 +99,16 @@ export default function MobileHead({ isLanding=false, Heading }) {
                 </div>
                 <Image className='lg:hidden md:h-[20px] cursor-pointer' onClick={() => router.push("/search?searchText=")} style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} ></Image>
             </div>
-             <TopNavBar nav_data={nav}/>
+            <TopNavBar nav_data={nav} getActiveTab={getActiveTab} activeTab={activeTab}/>
             </div>
         </>
     )
 }
+
+const Backdrop = () => {
+    return (
+      <div className='backdrop'>
+         <div className="h-[100%] flex flex-col gap-[10px] items-center  justify-center"></div>
+      </div>
+    )
+  }

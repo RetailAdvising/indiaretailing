@@ -12,7 +12,7 @@ import Video from '../Video/Video'
 
 export default function ExclusiveBuilder({ data }) {
     const router = useRouter();
-    console.log(data)
+    // console.log(data)
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
         checkIsMobile();
@@ -42,7 +42,7 @@ export default function ExclusiveBuilder({ data }) {
                             </div>
                         )
                     })}
-                    {!isMobile && <List check={true} imgWidth={'w-full'} isBB={false} imgHeight={'h-[90px]'} data={data.message.slice(1, 2)} borderRadius={'rounded-[10px]'} isReverse={true} />}
+                    {!isMobile && <List check={true} line={'line-clamp-1'} imgWidth={'w-full'} isBB={false} imgHeight={'h-[90px]'} data={data.message.slice(1, 2)} borderRadius={'rounded-[10px]'} isReverse={true} />}
                 </div>}
 
 
@@ -53,7 +53,7 @@ export default function ExclusiveBuilder({ data }) {
                 {(data.sec1 && data.sec1.data && data.sec1.data.length != 0) &&
                     isMobile ? <div className='beautySlide pt-[20px]'><Title noPadding={true} data={data.sec1} />
                     {/* <ListSlider data={data.sec1.data.slice(0, 5)} auto={false} /> */}
-                    <CustomSlider cardClass={' w-[100%]'}
+                    <CustomSlider cardClass={'flex-[0_0_85%]'}
                         slider_id={"slider" + 10} slider_child_id={"slider_child" + 10} data={data.sec1.data.slice(0, 5)} type='beautySlide' />
                 </div>
                     :
@@ -75,7 +75,7 @@ export default function ExclusiveBuilder({ data }) {
                     <Title data={{ title: 'IR Prime Leaders Ink' }} />
                     <div className='primeSlide'>
                         {/* <MultiCarousel cardHeight={'h-[280px]'} type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} /> */}
-                        <CustomSlider cardClass={'lg:h-[300px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
+                        <CustomSlider cardClass={'lg:h-[300px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
                             slider_id={"slider_id" + 0} slider_child_id={"slider_child_id" + 0} data={val.section_2.col_1.data} />
                     </div>
                 </div>

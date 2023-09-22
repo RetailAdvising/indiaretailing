@@ -1,5 +1,4 @@
 import { domain } from "./config/siteConfig"
-
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
 const domainUrl = `india_retailing.india_retailing.api.`;
@@ -193,7 +192,10 @@ export async function createSubscription(order_id) {
     console.log(resp);
 }
 
-
+export async function trending(event,tag,router) {
+    event.stopPropagation();
+    router.push("/tag/"+tag.custom_route)
+}
 
 export async function postMethod(api, payload) {
     let apikey;

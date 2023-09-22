@@ -6,7 +6,9 @@ import { useDispatch, useSelector, Provider } from 'react-redux'
 import ErrorBoundary from '@/components/Exception/ErrorBoundary'
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-
+import { websiteSettings } from '@/libs/api'
+import MobileHead from '@/components/Headers/MobileHead'
+import BottomTabs from '@/components/common/BottomTabs'
 const inter = Inter({
   weight: ["200","300","400","500","600",'700'],
   display: "block",
@@ -19,11 +21,26 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }) {
 const [tabHeight,setTabHeight] = useState(0)
+const [activeTab,setActiveTab] = useState(0)
   useEffect(() => {
     let tabs = document.getElementById('tabs')
     setTabHeight(tabs && tabs.clientHeight)
+    get_website_settings()
   },[])
 
+  const get_website_settings = async () => {
+    let websiteData = await websiteSettings()
+    if (websiteData) {
+      pageProps["headerData"] = websiteData.message.header_template 
+      pageProps["footerData"] = websiteData.message.footer_template 
+    }
+  }
+
+  const getActiveTab = (tab_data) =>{
+    console.log(tab_data);
+    setActiveTab(tab_data)
+
+  }
   // const router = useRouter();
   // const [loading, setLoading] = useState(false);
 
@@ -68,10 +85,14 @@ const [tabHeight,setTabHeight] = useState(0)
      {/* <link href="https://indiaretailing.go1cms/files/default-theme.css" rel="stylesheet"/> */}
        </Head>
       <ErrorBoundary > 
-        <Provider store={store}>
+        <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
+          <div className='lg:hidden'><MobileHead getActiveTab = {getActiveTab} activeTab={activeTab}/></div>
             <Component {...pageProps} />
+            <div className='lg:hidden'>
+            <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab}/>
+           </div>
           </main>
         </Provider>
       </ErrorBoundary>

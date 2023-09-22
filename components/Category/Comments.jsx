@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { like,dislike,getList } from '@/libs/api';
 import Modal from '../common/Modal';
 import AlertUi from '../common/AlertUi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Comments({ data, isLast, load, cmt , store_comments, comments}) {
     const [input, setInput] = useState({ index: -1, show: false })
@@ -92,18 +94,23 @@ export default function Comments({ data, isLast, load, cmt , store_comments, com
   // Modal Popup
   const [modal, setModal] = useState('')
   const [visible, setVisible] = useState(false)
+
   function show() {
     setVisible(true);
     setModal('report')
   }
+
   const hideReport = (resp_message) => {
     console.log(resp_message);
     setVisible(false)
+
     if (resp_message && resp_message.message){
-        setAlertMessage(resp_message)
-        setIsSuccessPopup(true)
+        toast.success(resp_message.message);
+        // setAlertMessage(resp_message)
+        // setIsSuccessPopup(true)
     }
   }
+
   function hide() {
     setVisible(false)
     if (localStorage['roles']) {
@@ -120,7 +127,7 @@ export default function Comments({ data, isLast, load, cmt , store_comments, com
   }
     return (
         <>
-                            
+        <ToastContainer position={'bottom-right'} autoClose={2000}  />                 
         {comment && 
                     <div ref={cardref} className={`transition-all ease-in delay-500 duration-500 last:border-0 ${cmt ? 'p-[10px]' : ''}  ${!isLast ? 'border_bottom' : ''}`}>
                     <div className={`flex gap-3 p10`}>
@@ -144,11 +151,11 @@ export default function Comments({ data, isLast, load, cmt , store_comments, com
                               </div>
                                   {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message)=>hideReport(resp_message)} data={reportComment} cur={selecedComment.name}/>}
                                  { isSuccessPopup &&  <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"}/>  }                         
-                            {/* {(input.index == index && input.show) &&
+                              {/* {(input.index == index && input.show) &&
                                         <div>
                                             <input type='text' />
                                         </div>
-                            } */}
+                              } */}
                         </div>
                     </div>
                 </div>

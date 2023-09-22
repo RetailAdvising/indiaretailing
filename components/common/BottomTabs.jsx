@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from 'next/link'
-export default function BottomTabs() {
+export default function BottomTabs({activeTab,getActiveTab}) {
     const router = useRouter()
     const [tabs,setTabs] = useState([
         {
@@ -34,24 +34,33 @@ export default function BottomTabs() {
         },
         {
             "menu_label": "Trending",
-            "redirect_url": "/tag?id=",
+            "redirect_url": "/tag",
             "icon": "/tabs_icon/trending.svg",
             "active_icon": "/tabs_icon/trending_active.svg",
 
         },
     ])
     useEffect(()=>{
-        // console.log(router);
-        let route = router.asPath.split('/')
-        let redirect_url = route[1] ? '/'+route[1] : '/'
-        tabs.map(nd=>{
-            nd.active = nd.redirect_url == redirect_url ? true :false
-            // SetNavData(navData)
-        })
-        // console.log(tabs);
-     },[])
+        console.log(activeTab);
+        if(!activeTab){
+            let route = router.asPath.split('/')
+            let redirect_url = route[1] ? '/'+route[1] : '/'
+            tabs.map(nd=>{
+                nd.active = nd.redirect_url == redirect_url ? true :false
+            })
+        }else{
+            tabs.map(nd=>{
+                nd.active = nd.menu_label == activeTab.menu_label ? true :false
+            })
+        }
+     },[activeTab])
+
      const changeNav = (nav) =>{
         router.push(nav.redirect_url)
+        setTimeout(() => {
+            getActiveTab(nav)
+        }, 1000);
+       
       }
     return ( <>
     <div id='tabs'>

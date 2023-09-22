@@ -64,16 +64,24 @@ export default function SideBar({ data, close, navbar }) {
 
     return (
         <>
-            {(data.header && data.header.items.length != 0 && navbar) && <div id='side' ref={ref} className={`bg-[#fff] w-[80%] h-screen relative`}>
+            {(data.header && data.header.items.length != 0 && navbar) && <div id='side' ref={ref} className={`bg-[#fff] w-[75%] h-full relative `}>
                 {/* <div className=''> */}
                 {valid ? <div className='flex items-center gap-[10px] border_bottom p-[15px]'>
                     <Image className='h-[40px] w-[40px]' src={'/profit.svg'} height={17} width={17} alt={'profile'} />
                     <div>
-                        {localStorage && <p className='text-[14px] font-semibold'>{localStorage['userid']}</p>}
+                        {localStorage && <p className='text-[15px] font-semibold'>{localStorage['full_name']}</p>}
+                        {member && 
+                          <div className='flex items-center gap-[8px]'>
+                             <h6 className='text-[14px]'>Premium</h6>
+                             <Image className='h-[15px] w-[15px]' src={'/Navbar/premium.svg'} height={20} width={20} alt='premium' />
+                          </div>  
+                         }
+
+                        {/* {localStorage && <p className='text-[14px] font-semibold'>{localStorage['userid']}</p>} */}
                     </div>
-                    <div className={`w-full flex justify-end`}>
+                    {/* <div className={`w-full flex justify-end`}>
                         <Image height={30} width={30} alt='hide' onClick={close} src={'/hide.svg'} />
-                    </div>
+                    </div> */}
 
                 </div> : 
                     <div className='flex gap-[10px] border_bottom p-[15px] items-center'>
@@ -94,7 +102,7 @@ export default function SideBar({ data, close, navbar }) {
                 </div>}
 
                 {/* </div> */}
-                <div className='p-[10px_15px]'>
+                <div className=''>
                     {data.header.items.map(res => {
                         return (
                             <div key={res.section_name}>
@@ -102,15 +110,19 @@ export default function SideBar({ data, close, navbar }) {
                                     {res.menus.map(item => {
                                         return (
                                             // ${nav1 == item.redirect_url ? header.activeMenu : ''}
-                                            <div key={item.menu_label} className='flex gap-[10px] items-center py-[10px]'>
-                                                <Image src={item.icon} className='h-[20px] w-[20px]' style={{objectFit:'contain'}} height={40} width={40} alt={item.menu_label} />
-                                                <Link href={item.redirect_url} onClick={close} className={`${header.listKey} font-semibold  navigation_c `} >
+                                            <Link href={item.redirect_url} onClick={close}  key={item.menu_label} className='flex gap-[13px] items-center p-[10px_10px_10px_20px]'>
+                                                <Image src={item.icon} className='h-[17px] w-[17px]' style={{objectFit:'contain'}} height={40} width={40} alt={item.menu_label} />
+                                                <h6 className={`${header.listKey} font-medium text-[14px] navigation_c `} >
                                                    {item.menu_label}
-                                                </Link>
-                                                <Image src='/rightArrow.svg' className='h-[20px] w-[20px] absolute right-2' style={{objectFit:'contain'}} height={40} width={40} alt='arrow' />
-                                            </div>
+                                                </h6>
+                                                {/* <Image src='/rightArrow.svg' className='h-[20px] w-[20px] absolute right-2' style={{objectFit:'contain'}} height={40} width={40} alt='arrow' /> */}
+                                            </Link>
                                         )
                                     })}
+                                <div className='flex items-center gap-[13px] p-[10px_10px_10px_20px]' onClick={() => logout()}>
+                                  <Image className='h-[17px] w-[16px]' src={'/Navbar/Logout.svg'} height={20} width={20} alt={'logout'}></Image>
+                                  <button className=' text-[14px] font-medium cursor-pointer '>Logout</button>
+                               </div>
                                 </ul>}
                             </div>
                         )
@@ -119,16 +131,17 @@ export default function SideBar({ data, close, navbar }) {
                 </div>
 
                 {valid ? <div className='absolute bottom-[10px] w-[90%]  left-[15px]'>
-                    <div className='flex justify-between items-center'>
-                        <div className='flex items-center gap-[10px] w-[50%] cursor-pointer' onClick={() => logout()}>
+                    <div className='justify-between items-center'>
+                        {/* <div className='flex items-center gap-[10px] w-[50%] cursor-pointer' onClick={() => logout()}>
                             <Image className='h-[22px] w-[20px]' src={'/Navbar/Logout.svg'} height={20} width={20} alt={'logout'}></Image>
                             <button className=' text-[14px] cursor-pointer '>Logout</button>
-                        </div>
-                        {!member && <div className='flex w-[50%] cursor-pointer justify-end'>
-                            <div className='flex bg-[#e21b22] rounded-[5px] p-[8px_15px] gap-[5px] items-center justify-end '>
+                        </div> */}
+                        {!member && <div className='flex flex-col gap-[10px] items-center cursor-pointer justify-end'>
+                            <div onClick={() => route('subscribe')} className='flex w-max bg-[#e21b22] rounded-[5px] p-[8px_15px] gap-[5px] items-center justify-end '>
                                 <Image className='h-[18px] w-[18px]' src={'/Navbar/premium.svg'} height={20} width={20} alt='premium' />
-                                <p onClick={() => route('subscribe')} className='text-[#fff] text-[14px] cursor-pointer '>Subscribe</p>
+                                <p  className='text-[#fff] text-[14px] cursor-pointer '>Subscribe</p>
                             </div>
+                            <p className='text-[14px] text-center'>50,000+ articles, <span onClick={() => route('subscribe')} className='text-[14px] font-semibold primary_color'>IR Prime </span>is the only subscription you need </p>
                         </div>}
                     </div>
 

@@ -9,10 +9,10 @@ import SignUp from './SignUp';
 import Forget from './Forget'
 // import GoogleLogin from './GoogleLogin';
 // import { GoogleLogin } from 'react-google-login';
-import NextAuth from 'next-auth';
+// import NextAuth from 'next-auth';
 // import Providers from 'next-auth/providers';
 // import GoogleProvider from "next-auth/providers/google"
-import Google from "next-auth/providers/google"
+// import Google from "next-auth/providers/google"
 import { signIn } from 'next-auth/react';
 
 // import { signIn, useSession } from 'next-auth/react';
@@ -38,13 +38,13 @@ import setUser from 'redux/actions/userAction';
 // const REDIRECT_URI =
 //     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
 export default function LogIn({ isModal, hide, auth }) {
-    const config = {
-    providers: [
-        Google({
-          clientId: "630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com",
-          clientSecret: "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",
-        }),
-    ]}
+    // const config = {
+    // providers: [
+    //     Google({
+    //       clientId: "630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com",
+    //       clientSecret: "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",
+    //     }),
+    // ]}
     const [show, setShow] = useState(false)
     const [wrong, setWrong] = useState(false)
     const [otp, setOtp] = useState(false)

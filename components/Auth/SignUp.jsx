@@ -59,8 +59,8 @@ export default function SignUp({ isModal, hide, auth }) {
                         localStorage['customer_id'] = val.message.customer_id;
                         localStorage['roles'] = JSON.stringify(val.message.roles)
                         localStorage['full_name'] = val.full_name;
-                        // dispatch(setUser(val))
-                        (isModal || !isMobile) ? hide() : router.push('/')
+                        dispatch(setUser(val))
+                        isModal || !isMobile ? hide() : router.push('/')
                     } else {
                         setWrong(!wrong);
                     }
@@ -68,7 +68,7 @@ export default function SignUp({ isModal, hide, auth }) {
                     // isModal ? hide() : router.push('/')
                 } else {
                     // console.log(resp.message["message:"])
-                    toast.error(resp.message["message:"]);
+                    toast.error(resp.message["message"]);
                     // alert(resp.message.message)
                     // setWrong(!wrong);
                 }

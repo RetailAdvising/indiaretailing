@@ -16,7 +16,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
             let str = 'https://indiaretail.vercel.app' + router.asPath
             await navigator?.clipboard?.writeText(str)
             // copyToClipboard(str);
-        } else if(data.name == 'Comment'){
+        } else if (data.name == 'Comment') {
             let el = document.getElementById(element)
             el?.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
         }
@@ -86,7 +86,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                             {/* <span>{btn_name}</span> */}
                             <div className='flex gap-[10px] items-center'>
                                 {/*  */}
-                                <Image src={share ? '/share.svg' : img} height={share ? 18 : 5.5} width={share ? 18 : 5.5} alt='img' className={`object-contain`} />
+                                <Image src={share ? '/share1.svg' : img} height={share ? 18 : 5.5} width={share ? 18 : 5.5} alt='img' className={`object-contain ${share ? 'h-[15px] w-[15px]' : ''}`} />
                                 {(localStorage['full_name'] && type == 'head') && <p className='text-[14px] font-semibold'>{localStorage['full_name']}</p>}
                             </div>
                         </Popover.Button>
@@ -99,7 +99,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1"
                         >
-                            <Popover.Panel className="absolute md:left-[-55px] z-[99] mt-3 bg-white -translate-x-1/2 transform  ">
+                            <Popover.Panel className={`absolute md:left-[-55px] z-[99] rounded-[10px] mt-3 bg-white -translate-x-1/2 transform ${type == 'tag' ? 'left-[-60px]' : ''}`}>
                                 <div className={`overflow-hidden ${width} shadow-lg`}>
                                     <div className=" p-4">
                                         {!share ? <>
@@ -107,7 +107,8 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                 return (
                                                     <div onClick={() => setting ? settings(res) : type == 'head' ? myAccounts(res) : null} className={`cursor-pointer ${res.icon ? 'flex items-center gap-[10px] pb-[10px]' : ''}`} key={index}>
                                                         {res.icon && <Image className='object-contain' src={res.icon} height={20} alt={res.name} width={20} />}
-                                                        {(router.asPath.split('/')[1] == 'news' && res.name != 'Comment') && <p className={`${(index != data.length - 1 && !res.icon) ? 'pb-[15px]' : ''} text-[14px]`}>{res.name}</p>}
+                                                        {/* {(router.asPath.split('/')[1] == 'news' && res.name != 'Comment')  ? <p className={`${(index != data.length - 1 && !res.icon) ? 'pb-[15px]' : ''} text-[14px]`}>{res.name}</p> : (router.asPath.split('/')[1] != 'news' && res.name == 'Comment') ? <p className={`${(index != data.length - 1 && !res.icon) ? 'pb-[15px]' : ''} text-[14px]`}>{res.name}</p> : null} */}
+                                                        <p className={`${(index != data.length - 1 && !res.icon) ? 'pb-[15px]' : ''} text-[14px] ${(router.asPath.split('/')[1] == 'news' && res.name == 'Comment') ? 'hidden' : ''}`}>{res.name}</p>
                                                     </div>
                                                 )
                                             })}

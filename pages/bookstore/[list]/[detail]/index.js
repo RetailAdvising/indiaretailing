@@ -15,7 +15,7 @@ import styles from '@/styles/checkout.module.scss';
 import AlertUi from '@/components/common/AlertUi';
 import SEO from '@/components/common/SEO';
 import Sliders from '@/components/Sliders/index'
-
+import Dropdowns from '@/components/common/Dropdowns'
 // import PageFlip from 'react-pageflip';
 // import { Document, Page } from 'react-pdf';
 // import BreadCrumb from '@/components/common/BreadCrumb';
@@ -64,7 +64,7 @@ export default function Bookstoredetail({ value, res }) {
     }
   }
 
-  // console.log('val',value)
+  console.log('val',value)
 
 
   useEffect(() => {
@@ -107,18 +107,18 @@ export default function Bookstoredetail({ value, res }) {
       }
   
   
-      const handleClickOutside = (event) => {
-        let el = document.getElementById('dropdown').classList;
-        let classs = Array.from(el);
-        let out = classs.find(res => res == 'dropdown-menu-active');
-        if (ref.current && !ref.current.contains(event.target) && out) {
-          el.remove('dropdown-menu-active')
-        }
-      };
-      document.addEventListener('click', handleClickOutside, true);
-      return () => {
-        document.removeEventListener('click', handleClickOutside, true);
-      };
+      // const handleClickOutside = (event) => {
+      //   let el = document.getElementById('dropdown').classList;
+      //   let classs = Array.from(el);
+      //   let out = classs.find(res => res == 'dropdown-menu-active');
+      //   if (ref.current && !ref.current.contains(event.target) && out) {
+      //     el.remove('dropdown-menu-active')
+      //   }
+      // };
+      // document.addEventListener('click', handleClickOutside, true);
+      // return () => {
+      //   document.removeEventListener('click', handleClickOutside, true);
+      // };
     }
 
   }, [router.query])
@@ -268,11 +268,11 @@ export default function Bookstoredetail({ value, res }) {
 
   const [sort, setSort] = useState(false);
 
-  async function share() {
-    await setSort(!sort);
-    let element = document.getElementById('dropdown');
-    sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
-  }
+  // async function share() {
+  //   await setSort(!sort);
+  //   let element = document.getElementById('dropdown');
+  //   sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
+  // }
 
 
   const updateCart = async (dataValue, type) => {
@@ -519,10 +519,12 @@ const  getCarts = async (type) => {
             <div className={` flex-[0_0_calc(60%_-_10px)] md:p-[10px] lg:p-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
                 <h6 className={`lg:min-h-[60px] md:text-[16px] line-clamp-2 leading-[1.5] lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{data.item_title}</h6>
-                <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
-                  <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500 lg:pt-[6px]`} src={'/share.svg'} height={10} width={15} alt={'share'} />
+                {icons && <Dropdowns share={true} width={'w-[170px]'} data={icons} />}
+
+                {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
+                  <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500 lg:pt-[6px]`} src={'/share.svg'} height={10} width={15} alt={'share'} /> */}
                   {/* {sort && */}
-                    <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
+                    {/* <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
                       {icons && icons.map((res, index) => {
                         return (
                           <div key={index} className='hover:bg-[#FDF5F5] p-[0_8px] rounded'>
@@ -545,9 +547,11 @@ const  getCarts = async (type) => {
                           </div>
                         )
                       })}
-                    </div>
+
+
+                    </div> */}
                   {/* } */}
-                </div>
+                {/* </div> */}
               </div>
 
               <div className={`lg:flex md:p-[5px_0px_15px_0px] lg:hidden flex-col`}>
@@ -666,7 +670,7 @@ const  getCarts = async (type) => {
           {/* Section - 2 */}
 
           {data.related_products && data.related_products.length != 0 && <div className={`lg:p-[30px] md:p-[15px]`}>
-            <Title data={{ title: 'Previous Issues' }} seeMore={true} />
+            <Title data={{ title: 'Previous Issues' }} seeMore={true} route={'/bookstore/'+router.asPath.split('/')[2]} />
             <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={router.query.list} check={true} data={data.related_products.slice(0, 5)} boxShadow={true} /></div>
           </div>}
 

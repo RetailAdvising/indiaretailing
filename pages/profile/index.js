@@ -19,7 +19,7 @@ export default function profile({my_account}) {
   let profileDetail = [
     {'title':'My Profile',icon:'/Profile/profile.svg',route:'edit-profile'},
     {'title':'My Orders',icon:'/Profile/orders.svg',route:'orders'},
-    {'title':'My Address',icon:'/Profile/orders.svg',route:'my-address'},
+    {'title':'My Address',icon:'/Profile/My-Address.svg',route:'my-address'},
     {'title':'Membership',icon:'/Profile/membership.svg',route:'membership'},
     {'title':'Subscription',icon:'/Profile/subscription.svg',route:'subscription'},
     {'title':'Newsletter',icon:'/Profile/newsletter.svg',route:'newsletter'},

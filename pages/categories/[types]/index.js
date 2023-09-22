@@ -5,10 +5,9 @@ import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
 import List from '@/components/common/List';
 import Cards from '@/components/common/Cards';
-import { getList, checkMobile, check_Image, getAds } from '@/libs/api';
+import { getList, checkMobile, check_Image, getAds, trending } from '@/libs/api';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
-
 export default function CategoryType({ values, ads }) {
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -93,9 +92,9 @@ export default function CategoryType({ values, ads }) {
                                         <p className={`sub_title line-clamp-2 pt-[10px]`}>{res.blog_intro}</p>
                                         {/* <p className={`hashtags pt-[5px]`}>{res.publisher}</p> */}
                                         <p className={`light_text pt-[10px] flex gap-[5px]`}>{((res.tags && res.tags.length != 0)) && res.tags.map((tag, index_no) => {
-                                            return (
-                                                <span key={index_no} className='text-[12px]'>#{tag.tag}</span>
-                                            )
+                                            if(index_no < 2){return (
+                                                <span onClick={($event)=>trending($event,tag)} key={index_no} className='text-[12px]'>#{tag.tag}</span>
+                                            )}
                                         })
                                         }</p>
                                     </div>

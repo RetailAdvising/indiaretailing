@@ -86,7 +86,7 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
                 }
             let resp = await report(params)
             if (resp){
-                hide(resp)
+                hide(resp);
             }
         }else{
             show_alert("Need To sign In To Report This Comment")
@@ -128,7 +128,7 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
 
 
     return (
-        <>
+        <div className={`${modal == 'report' ? 'report_cmt_popup' : ''}`}>
              {/* <div> */}
                 <ToastContainer position={'bottom-right'} autoClose={2000}  />
             {/* </div> */}
@@ -215,7 +215,7 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
                             </Rodal> : 
                             null
             }
-        </>
+        </div>
     )
 }
 

@@ -12,7 +12,7 @@ export default function Faq({data}) {
   const toggle = (index) => {
     for (let i = 0; i < data.data.length; i++) {
       if (index == i) {
-        setSelcted(i)
+        seclected == index ? setSelcted(-1) : setSelcted(i)
       }
     }
   }

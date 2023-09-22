@@ -22,10 +22,19 @@ export default function NewsDetails() {
       let value = await articleNewsDetail(param);
       let data = await value.message;
       if(data.status == "Success"){
+
         let val = [data]
+
+        
+       if(val && val[0] && val[0]._user_tags){
+        let tags = val[0]._user_tags.split(',');
+        tags.splice(0,1);
+        val[0]._user_tags = tags
+       }
+
         // setValues(d => [...d, ...val])
-        setValues(val)
-        setPrev(router.query.types + '/' + router.query.detail)
+      setValues(val)
+      setPrev(router.query.types + '/' + router.query.detail)
 
       }
     }
@@ -39,23 +48,30 @@ export default function NewsDetails() {
 
 
   async function loadMore() {
-    let param = {
-      "route": prev,
-      "category": router.query?.types,
-      "next": 1,
-    }
+    // let param = {
+    //   "route": prev,
+    //   "category": router.query?.types,
+    //   "next": 1,
+    // }
 
-    if (pagination) {
-      let value = await articleNewsDetail(param);
-      let data = value.message;
-      if (data && data.status == "Success") {
-        setPrev(data.route)
-        let val = [data]
-        setValues(d => d = [...d, ...val])
-      } else {
-        setPagination(!pagination)
-      }
-    }
+    // if (pagination) {
+    //   let value = await articleNewsDetail(param);
+    //   let data = value.message;
+    //   if (data && data.status == "Success") {
+    //     setPrev(data.route)
+    //     let val = [data]
+
+    //     if(val && val[0] && val[0]._user_tags){
+    //       let tags = val[0]._user_tags.split(',');
+    //       tags.splice(0,1);
+    //       val[0]._user_tags = tags
+    //     }
+
+    //     setValues(d => d = [...d, ...val])
+    //   } else {
+    //     setPagination(!pagination)
+    //   }
+    // }
   }
 
   // const getAdsList = async () => {

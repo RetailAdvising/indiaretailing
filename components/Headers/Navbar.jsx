@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import setRoutes from 'redux/actions/routesAction'
 import { checkMobile } from '@/libs/api';
 import format from 'date-fns/format'
-import MobileHead from './MobileHead'
-export default function Navbar({heading,isLanding}) {
+import MobileHead from './MobileHead';
+
+export default function Navbar({ heading, isLanding, checkout }) {
     const router = useRouter();
     const route = useSelector(state => state.routes)
     const dispatch = useDispatch();
@@ -18,16 +19,16 @@ export default function Navbar({heading,isLanding}) {
     const [date, setDate] = useState(undefined)
 
 
-    const [activeIndex, setActiveIndex] = useState(false);
+    // const [activeIndex, setActiveIndex] = useState(false);
 
-    const handleItemClick = (index) => {
-    // Toggle the active state for the clicked item
-    if (index === activeIndex) {
-        setActiveIndex(null); // Remove active class if clicked item is already active
-      } else {
-        setActiveIndex(index); // Add active class to the clicked item
-      }
-    };
+    // const handleItemClick = (index) => {
+    // // Toggle the active state for the clicked item
+    // if (index === activeIndex) {
+    //     setActiveIndex(null); // Remove active class if clicked item is already active
+    //   } else {
+    //     setActiveIndex(index); // Add active class to the clicked item
+    //   }
+    // };
 
     // console.log(subnavrouter);
 
@@ -39,20 +40,20 @@ export default function Navbar({heading,isLanding}) {
         const formattedDate = format(new Date(), "iiii, d MMMM yyyy");
         setDate(formattedDate)
         // console.log(formattedDate); 
-    }, [router.query, route])
+    }, [])
 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
-      checkIsMobile();
-      window.addEventListener('resize', checkIsMobile)
-      return () => {
-        window.removeEventListener('resize', checkIsMobile);
-      };
+        checkIsMobile();
+        window.addEventListener('resize', checkIsMobile)
+        return () => {
+            window.removeEventListener('resize', checkIsMobile);
+        };
     }, [])
-  
+
     const checkIsMobile = async () => {
-      let isMobile = await checkMobile();
-      setIsMobile(isMobile);
+        let isMobile = await checkMobile();
+        setIsMobile(isMobile);
     }
 
     return (
@@ -60,7 +61,7 @@ export default function Navbar({heading,isLanding}) {
             {/* sticky_header */}
             {/* {<div className={` lg:hidden sidebar ${navbar ? 'sideActive' : ''} `} ><SideBar data={nav} close={() => close()} /></div>} */}
             {/* onClick={showSidebar} */}
-            {(nav.header && nav.header.items.length != 0 ) && <div className={` sticky_header md:hidden ${(router.asPath == '' || router.asPath == '/') ? 'lg:p-[10px_30px]' : 'lg:p-[15px_30px]'} ${navbar ? '' : 'md:p-[0_20px]'} ${header.navHead} md:h-[55px]`}>
+            {!checkout && (nav.header && nav.header.items.length != 0) && <div className={`${router.asPath.split('/')[1] == 'tag' ? 'sticky_header' : ''}  md:hidden ${(router.asPath == '' || router.asPath == '/') ? 'lg:p-[10px_30px]' : 'lg:p-[15px_30px]'} ${navbar ? '' : 'md:p-[0_20px]'} ${header.navHead} md:h-[55px]`}>
                 <div className={`${navbar ? '' : 'container'} flex flex-wrap items-center justify-between`}>
                     {nav.header.items.map(res => {
                         return (
@@ -70,7 +71,7 @@ export default function Navbar({heading,isLanding}) {
                                 </div>}
 
                                 {(res.section_name == 'Header Menu' && res.menus) && <>
-                                    <ul className={`flex items-center justify-center  md:pb-0 md:hidden md:mt-0 ${navbar ? 'md:hidden' : 'md:hidden'
+                                    <div className={`flex items-center justify-center  md:pb-0 md:hidden md:mt-0 ${navbar ? 'md:hidden' : 'md:hidden'
                                         } lg:gap-[20px] xl:gap-[25px]`}>
                                         {res.menus.map(item => {
                                             return (
@@ -80,7 +81,7 @@ export default function Navbar({heading,isLanding}) {
                                                 </Link>
                                             )
                                         })}
-                                    </ul>
+                                    </div>
 
                                     <div className='lg:hidden'>
                                         <Image style={{ objectFit: 'contain' }} className='h-[60px] w-full' height={76.23} priority width={284.65} alt='' src={'/indiaretail.png'}></Image>
@@ -88,7 +89,7 @@ export default function Navbar({heading,isLanding}) {
 
                                 </>}
                                 {res.section_name == 'Header Profile Info' && <div className={`text-end items-center ${date && 'lg:flex lg:items-center lg:gap-[5px] lg:justify-end'} md:float-right ${navbar ? 'md:pr-[20px]' : ''}`}>
-                                <Image src={'/Navbar/Date-and-time-01.svg'} className='md:hidden lg1:hidden' height={20} width={20} alt={'weather'} />
+                                    {/* <Image src={'/Navbar/Date-and-time-01.svg'} className='md:hidden lg1:hidden' height={20} width={20} alt={'weather'} /> */}
                                     {date && <> <p className='md:hidden text-[#66161] text-[12px] lg1:text-[10px]'>{date ? date : ''}</p></>}
                                     <Image className='lg:hidden' style={{ objectFit: 'contain' }} height={50} priority width={24} alt='search' src={'/search.svg'} ></Image>
                                 </div>}
@@ -96,12 +97,13 @@ export default function Navbar({heading,isLanding}) {
                                 {res.section_name == 'Header Category Info' && <div className='flex justify-center items-center md:hidden'>
                                     {res.menus.map((item, index) => {
                                         return (
-                                        <span key={index} className={`nav-item ${index === activeIndex ? 'active' : ''}`} onClick={() => handleItemClick(index)}>
-                                            <div className='cursor-pointer justify-center p-[10px_8px] flex gap-[5px] items-center' onClick={() => router.push(item.redirect_url)}>
-                                                    <div className='h-[4px] w-[4px] rounded-full bg-red'></div>
-                                                    <p className='text-[13px]'>{item.menu_name}</p>
-                                            </div>
-                                        </span>
+                                            // onClick={() => router.push(item.redirect_url)}
+                                            // <div key={index} className={`nav-item ${index === activeIndex ? 'active' : ''}`} onClick={() => handleItemClick(index)}>
+                                            <Link key={index} href={item.redirect_url} className={`${'/' + router.asPath == item.redirect_url ? 'active' : ''} justify-center p-[10px_8px] flex gap-[5px] items-center`} >
+                                                <div className='h-[4px] w-[4px] rounded-full bg-red'></div>
+                                                <p className='text-[13px]'>{item.menu_name}</p>
+                                            </Link>
+                                            // </div>
                                         )
                                     })}
                                 </div>}
@@ -109,11 +111,11 @@ export default function Navbar({heading,isLanding}) {
                         )
                     })
                     }
-                </div> 
-            </div>  }
-            {}
-        { <div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={heading} /></div>}
-     
+                </div>
+            </div>}
+            { }
+            {/* {<div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={heading} checkout={checkout} /></div>} */}
+
         </>
     )
 }
