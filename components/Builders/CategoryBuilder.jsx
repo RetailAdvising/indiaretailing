@@ -278,7 +278,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, p
                 {/* </div> */}
 
                 <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
-                  <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[60%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
+                  <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-max' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
                 </div>
 
               </div>

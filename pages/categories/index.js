@@ -32,7 +32,7 @@ export default function Categories({ data, ads }) {
             <RootLayout homeAd={ads ? ads : null} head={'Categories'} isLanding={true}>
             <SEO title={'Categories'} siteName={'India Reatiling'} description={'Categories'}/>
                 <div className={` md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
-                    {!isMobile && <Title data={{ title: 'Categories' }} font={'20px'} />}
+                    <Title data={{ title: 'Categories' }} font={'20px'}  className='md:hidden' title_class='md:hidden'/>       
                     {data && data.map((res, index) => {
                         return (
                             <div key={index} className={`flex md:block md:mb-[10px] lg:mr-[15px] ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>

@@ -1894,7 +1894,10 @@ select:focus {
   border-bottom: 2px solid;
   font-weight: 600;
 }
-
+.nav{
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+}
 // header Anim
 $nav-height: 100px;
 
@@ -2032,4 +2035,8 @@ div#wave {
     color: $primary-color;
     font-weight: 500;
   }
+}
+
+li, div, p, span{
+  -webkit-tap-highlight-color: transparent;
 }

@@ -24,6 +24,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     display: 'flex',
     justifyContent: 'center'
   }
+
   useEffect(() => {
     if (typeof window != 'undefined' && router) {
       setBreadCrumbs(router.asPath.split('/'))
@@ -33,6 +34,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     get_website_settings()
     // ads.classList.remove('hidden')
   }, [])
+
   const get_website_settings = async () => {
     let websiteData = await websiteSettings()
     if (websiteData) {
@@ -40,6 +42,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       setFooterData(websiteData.message.footer_template)
     }
   }
+  
   return (
     <>
       {/* <SEO /> */}

@@ -135,7 +135,7 @@ export default function Videos(meta_info, ads_data) {
                                         <p className='text-[14px] font-[400] text-gray pt-[10px] leading-[20px] md:leading-[16px] md:pt-[15px]'>50,000+ articles Prime Video is the only subscription you need</p>
 
                                         <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
-                                        <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-[60%]' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to Prime Video</button>
+                                        <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-max' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to Prime Video</button>
                                         </div>
 
                                     </div>

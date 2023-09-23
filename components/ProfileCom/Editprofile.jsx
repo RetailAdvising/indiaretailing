@@ -24,7 +24,7 @@ export default function Editprofile({ customerInfo }) {
   async function updateProfile(values){
     let data = { "doctype":"Customers", name:customerInfo['name'] , first_name :values.first_name, last_name :values.last_name}
     const res = await insert_doc(data);
-    toast.success('Customer updated successfully.');
+    toast.success('Profile updated successfully.');
     // console.log(res)
   }  
 

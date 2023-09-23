@@ -67,14 +67,6 @@
                         "child_menu": []
                     },
                     {
-                        "menu_label": "My Account",
-                        "redirect_url": "/profile?my_account=",
-                        "icon": "/Navbar/account.svg",
-                        "is_mega_menu": 0,
-                        "no_of_column": 0,
-                        "child_menu": []
-                    },
-                    {
                         "menu_label": "IR Prime",
                         "redirect_url": "/IRPrime",
                         "icon": "/Navbar/IR-prime.svg",

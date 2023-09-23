@@ -9,6 +9,7 @@ import Head from 'next/head'
 import { websiteSettings } from '@/libs/api'
 import MobileHead from '@/components/Headers/MobileHead'
 import BottomTabs from '@/components/common/BottomTabs'
+import Header from '@/components/Headers/Header'
 const inter = Inter({
   weight: ["200","300","400","500","600",'700'],
   display: "block",
@@ -89,6 +90,7 @@ const [activeTab,setActiveTab] = useState(0)
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
           <div className='lg:hidden'><MobileHead getActiveTab = {getActiveTab} activeTab={activeTab}/></div>
+          {/* <Header/> */}
             <Component {...pageProps} />
             <div className='lg:hidden'>
             <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab}/>

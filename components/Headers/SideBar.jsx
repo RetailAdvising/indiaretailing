@@ -32,7 +32,6 @@ export default function SideBar({ data, close, navbar }) {
     }, [])
 
 
-
     const route = async (type) => {
         if (type == 'login') {
             router.push('/login');
@@ -47,7 +46,10 @@ export default function SideBar({ data, close, navbar }) {
         localStorage.clear();
         router.push('/login')
     }
-
+    const myAccount = () => {
+       router.push('/profile?my_account=')
+       close()
+    }
     const roleMember = () => {
         if(localStorage['roles']){
             const data = JSON.parse(localStorage['roles']);
@@ -66,7 +68,7 @@ export default function SideBar({ data, close, navbar }) {
         <>
             {(data.header && data.header.items.length != 0 && navbar) && <div id='side' ref={ref} className={`bg-[#fff] w-[75%] h-full relative `}>
                 {/* <div className=''> */}
-                {valid ? <div className='flex items-center gap-[10px] border_bottom p-[15px]'>
+                {valid ? <div className='flex items-center gap-[10px] border_bottom p-[15px]' onClick={myAccount}>
                     <Image className='h-[40px] w-[40px]' src={'/profit.svg'} height={17} width={17} alt={'profile'} />
                     <div>
                         {localStorage && <p className='text-[15px] font-semibold'>{localStorage['full_name']}</p>}
@@ -84,12 +86,12 @@ export default function SideBar({ data, close, navbar }) {
                     </div> */}
 
                 </div> : 
-                    <div className='flex gap-[10px] border_bottom p-[15px] items-center'>
+                    <div className='flex gap-[10px] border_bottom p-[15px] items-center' onClick={myAccount}>
                     <div style={{flex:'0 0 40px'}}>
                     <Image  src={'/profit.svg'}  height={40} width={40} alt={'profile'} />
                     </div>
                     <div className='w-full'>
-                        <p className='text-[18px] font-semibold' style={{color:'#000'}}>Welcome! to IndiaRetailing</p>
+                        <p className='text-[18px] font-semibold' style={{color:'#000'}} >Welcome! to IndiaRetailing</p>
                         {/* <div className='w-[90%]'>
                             <button style={{ height: '30px', width: '150px', textTransform: 'uppercase', fontSize: '13px', padding: '5px 15px' }} className='uppercase primary_button' onClick={() => router.push('/login')}>Sign in</button>
                         </div> */}

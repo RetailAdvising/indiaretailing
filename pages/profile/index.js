@@ -38,6 +38,8 @@ export default function profile({my_account}) {
   const [alertMsg, setAlertMsg] = useState({})
   const [razorpay_settings, setRazorpay_settings] = useState({}) ;
   const [enableModal,setEnableModal] = useState(false)
+  const [isLoad,setIsload] = useState(false)
+
 
   const [index,setIndex] = useState(-1)
 
@@ -46,23 +48,29 @@ export default function profile({my_account}) {
 
   
   useEffect(() => {
-    get_razor_pay_values();
-    let localValue = stored_customer_info()
-    setLocalValue(localValue);
-
-    if(my_account && my_account != ''){
-      tab = my_account;
-      setTab(tab);
-      getInfo(my_account);
+    if(localStorage['customer_id']){
+      setIsload(true);
+      get_razor_pay_values();
+      let localValue = stored_customer_info()
+      setLocalValue(localValue);
+  
+      if(my_account && my_account != ''){
+        tab = my_account;
+        setTab(tab);
+        getInfo(my_account);
+      }else{
+        setTab('');
+      }
+  
+      checkIsMobile();
+      window.addEventListener('resize',checkIsMobile)
+      return () => {
+        window.removeEventListener('resize', checkIsMobile);
+      };
     }else{
-      setTab('');
+      router.push('/');
     }
 
-    checkIsMobile();
-    window.addEventListener('resize',checkIsMobile)
-    return () => {
-      window.removeEventListener('resize', checkIsMobile);
-    };
   },[router.query])  
 
   const navigateToProfile = (data) =>{
@@ -253,9 +261,11 @@ export default function profile({my_account}) {
  }
 
 
+
   return(
+
     <>
-       <RootLayout checkout={isMobile ? false : true}>
+        <RootLayout checkout={isMobile ? false : true}>
 
        {alertUi && 
             <AlertUi isOpen={alertUi} closeModal={(value)=>logout(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} /> 
@@ -264,7 +274,7 @@ export default function profile({my_account}) {
        { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
 
-        <div className=''>
+       {!isLoad ? <Backdrop/> : <div className=''>
 
           {((tab == '' || !isMobile) && localValue) &&
             <div className='lg:hidden p-[15px_5px] flex items-center gap-10px'>
@@ -354,10 +364,24 @@ export default function profile({my_account}) {
               } 
           </div>
         </div>
-       </RootLayout>
+       }
+        </RootLayout>
+     
     </>
   )
 }
+
+const Backdrop = () => {
+  return (
+    <div className='backdrop'>
+       <div className="h-[100%] flex flex-col gap-[10px] items-center  justify-center">
+         <div class="animate-spin rounded-full h-[40px] w-[40px] border-l-2 border-t-2 border-black"></div>
+          <span className='text-[15px]'>Loading...</span>
+       </div>
+    </div>
+  )
+}
+
 
 export async function getServerSideProps({ query }) {
   let my_account = query.my_account

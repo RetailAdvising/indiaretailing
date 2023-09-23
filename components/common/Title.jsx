@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export default function Title({ data, textClass, seeMore, font, noPadding, isVid, see, route }) {
+export default function Title({ data, textClass, seeMore, font, noPadding, isVid, see, route, title_class }) {
   const router = useRouter()
 
   async function goTo(data) {
@@ -18,7 +18,7 @@ export default function Title({ data, textClass, seeMore, font, noPadding, isVid
   return (
     <>
       {data &&
-        <div className={`title_div ${noPadding ? '' : 'pb-3'} flex justify-between`}>
+        <div className={`title_div ${noPadding ? '' : 'pb-3'} flex justify-between ${title_class ? title_class : ''}`}>
           <div className='cursor-pointer'>
             <h6 style={{ fontSize: font }} className={`title text-[18px] ${textClass}`}>{data.title ? data.title : data.category_name ? data.category_name : ''}</h6>
             <div className='line mt-1'></div>

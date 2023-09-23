@@ -9,7 +9,7 @@ import {  checkMobile } from '@/libs/api';
 export default function MobileHead({ isLanding=true, Heading, checkout,getActiveTab,activeTab }) {
     const [isMobile, setIsMobile] = useState()
     const [isVisible, setIsVisible] = useState(false);
-    
+    const router = useRouter()
     useEffect(() => {
         // After 2 seconds, set the isVisible state to true
         const timeout = setTimeout(() => {
@@ -18,7 +18,7 @@ export default function MobileHead({ isLanding=true, Heading, checkout,getActive
       if(isMobile) show_header()
         // Clear the timeout if the component unmounts before the 2 seconds
         return () => clearTimeout(timeout);
-    }, [isMobile]);
+    }, [isMobile,router.query]);
 
     useEffect(()=>{
         checkIsMobile();
@@ -36,7 +36,7 @@ export default function MobileHead({ isLanding=true, Heading, checkout,getActive
    const show_header= () =>{
     var lastScrollTop = 0;
     var element = document.getElementById('scroll_div')
-    var main = document.getElementById('main')
+    // var main = document.getElementById('main')
     var tabs = document.getElementById('tabs')
     var header = document.getElementById('header')
     element.scrollTop = 0
@@ -45,7 +45,7 @@ export default function MobileHead({ isLanding=true, Heading, checkout,getActive
     tabs.className = 'tabs-down'
     
     element.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
-       var st = element.scrollTop // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+        var st = element.scrollTop // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
        if(st < 100){
         // console.log(st);
         header.className = 'nav-down'
@@ -65,7 +65,7 @@ export default function MobileHead({ isLanding=true, Heading, checkout,getActive
     }, false);
     }
     const [navbar, setNavbar] = useState(false);
-    const router = useRouter()
+
 
     const showSidebar = () => {
         setNavbar(!navbar)
