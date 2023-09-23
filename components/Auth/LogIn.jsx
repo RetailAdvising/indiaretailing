@@ -9,6 +9,8 @@ import SignUp from './SignUp';
 import Forget from './Forget'
 // import GoogleLogin from './GoogleLogin';
 import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
+
 // import NextAuth from 'next-auth';
 // import Providers from 'next-auth/providers';
 // import GoogleProvider from "next-auth/providers/google"
@@ -104,15 +106,38 @@ export default function LogIn({ isModal, hide, auth }) {
 
     // }
 
-    const handleSuccess = (response) => {
-        console.log("Google authentication success:", response);
-        // Handle successful authentication here
+    // const handleSuccess = (response) => {
+    //     console.log("Google authentication success:", response);
+    //     // Handle successful authentication here
+    //   };
+
+    //   const handleFailure = (error) => {
+    //     console.error("Google authentication error:", error);
+    //     // Handle authentication failure here
+    //   };
+
+    const responseGoogle = (response) => {
+        if (response.error === 'popup_closed_by_user') {
+          // Handle the error (e.g., display a message to the user)
+          console.error('Google login popup closed by the user.');
+        } else {
+          // Handle successful login
+          console.log('Google login successful:', response);
+        }
       };
 
-      const handleFailure = (error) => {
-        console.error("Google authentication error:", error);
-        // Handle authentication failure here
-      };
+
+    //   const FacebookLoginButton = () => {
+        const responseFacebook = (response) => {
+          if (response.status === 'connected') {
+            // The user is logged in and authorized your app
+            console.log('Logged in and authorized:', response);
+          } else {
+            // The user is not logged in or did not authorize your app
+            console.log('Not logged in or not authorized:', response);
+          }
+        };
+    // };
 
     // const responseGoogle = (response) => {
     //     if (response && response.profileObj) {
@@ -191,7 +216,7 @@ export default function LogIn({ isModal, hide, auth }) {
                         <div className='flex h-[50px] w-[75px] rounded-[10px] border cursor-pointer items-center justify-center '>
                             {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='google' src={'/google-login.svg'} /> */}
                             {/* <p>Continue with Google</p> onClick={() => signIn('google')} */}
-                            { <GoogleLogin buttonText="" clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com" onSuccess={handleSuccess} onFailure={handleFailure} />}
+                            { <GoogleLogin buttonText="" clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} />}
                         </div>
 
                         <div className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
@@ -200,8 +225,19 @@ export default function LogIn({ isModal, hide, auth }) {
                         </div>
 
                         <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
-                            <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/login/fb-01.svg'} />
+                            {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/login/fb-01.svg'} /> */}
                             {/* <p>Continue with Facebook</p> */}
+                            {
+                                 <FacebookLogin
+                                 textButton=""
+                                 cssClass="my-facebook-button-class"
+                                 icon="fa-facebook"
+                                 appId="1395750980977164"
+                                 autoLoad={false} // Set to true if you want auto-login on page load
+                                 fields="name,email,picture"
+                                 callback={responseFacebook}
+                               />
+                            }
                         </div>
                     </div>
 
