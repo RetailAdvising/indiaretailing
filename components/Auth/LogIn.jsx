@@ -8,7 +8,7 @@ import OTP from './OTP';
 import SignUp from './SignUp';
 import Forget from './Forget'
 // import GoogleLogin from './GoogleLogin';
-// import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 // import NextAuth from 'next-auth';
 // import Providers from 'next-auth/providers';
 // import GoogleProvider from "next-auth/providers/google"
@@ -104,15 +104,15 @@ export default function LogIn({ isModal, hide, auth }) {
 
     // }
 
-    // const handleSuccess = (response) => {
-    //     console.log("Google authentication success:", response);
-    //     // Handle successful authentication here
-    //   };
+    const handleSuccess = (response) => {
+        console.log("Google authentication success:", response);
+        // Handle successful authentication here
+      };
 
-    //   const handleFailure = (error) => {
-    //     console.error("Google authentication error:", error);
-    //     // Handle authentication failure here
-    //   };
+      const handleFailure = (error) => {
+        console.error("Google authentication error:", error);
+        // Handle authentication failure here
+      };
 
     // const responseGoogle = (response) => {
     //     if (response && response.profileObj) {
@@ -188,10 +188,10 @@ export default function LogIn({ isModal, hide, auth }) {
                     {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}
 
                     <div className='flex gap-[15px] m-[18px_auto] lg:w-[75%] items-center justify-center'>
-                        <div onClick={() => signIn('google')} className='flex h-[50px] w-[75px] rounded-[10px] border cursor-pointer items-center justify-center '>
-                            <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='google' src={'/google-login.svg'} />
-                            {/* <p>Continue with Google</p> */}
-                            {/* { islogin && <GoogleLogin onSuccess={handleSuccess} onFailure={handleFailure} />} */}
+                        <div className='flex h-[50px] w-[75px] rounded-[10px] border cursor-pointer items-center justify-center '>
+                            {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='google' src={'/google-login.svg'} /> */}
+                            {/* <p>Continue with Google</p> onClick={() => signIn('google')} */}
+                            { <GoogleLogin buttonText="" clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com" onSuccess={handleSuccess} onFailure={handleFailure} />}
                         </div>
 
                         <div className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
