@@ -10,6 +10,7 @@ import { newsLanding, checkMobile, getAds, stored_customer_info } from '@/libs/a
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import AlertUi from '@/components/common/AlertUi';
 import SEO from '@/components/common/SEO'
+import { useSelector,useDispatch } from 'react-redux';
 
 export default function newsletter({ ads }) {
 
@@ -17,9 +18,11 @@ export default function newsletter({ ads }) {
   let [data,setData] = useState();
   let [localValue, setLocalValue] = useState(undefined);
   let [skeleton, setSkeleton] = useState(true);
+  const user = useSelector(s => s.user);
 
 
   useEffect(() => {
+    setSkeleton(true);
     newsLanding_info();
     checkIsMobile();
     let localValue = stored_customer_info()
@@ -28,7 +31,7 @@ export default function newsletter({ ads }) {
     return () => {
       window.removeEventListener('resize', checkIsMobile);
     };
-  }, [])
+  }, [user])
 
   const checkIsMobile = async () => {
     let isMobile = await checkMobile();
@@ -62,10 +65,10 @@ export default function newsletter({ ads }) {
      { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
       <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'}>
-      {!skeleton && localValue && !localValue['cust_name'] && 
-       <>
+      {/* {!skeleton && localValue && !localValue['cust_name'] &&  */}
+       <div className='lg:min-h-[250px]'>
         <SEO title={'Newsletters'} siteName={'India Reatiling'} description={'Newsletters'}/>
-        {(data) && <div className='container p-[30px_0px] md:p-[15px]'>
+        {(data) && <div className='container p-[30px_0px] md:p-[15px] '>
           <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
           <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
             <div className={`flex-[0_0_calc(70%_-_0px)] md:flex-[0_0_calc(100%_-_0px)] ${isMobile ? '' : 'border p-[20px] rounded-[5px]'} `}>
@@ -87,11 +90,11 @@ export default function newsletter({ ads }) {
 
 
         </div>}
-        </>
-       }
+        </div>
+       {/* }
        {!skeleton && localValue && localValue['cust_name'] && 
          <SubscribeNews cssClass={'lg:w-[50%] lg:m-[0_auto] md:pb-[15px]'} data={data} no_modal={true} hide={(obj)=> hide(obj)}/>
-       }
+       } */}
       </RootLayout>
     </>
   )

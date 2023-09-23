@@ -71,21 +71,22 @@ export default function NewsList({ data }) {
       {data && data.map((res, index) => {
         return (
           <div className={`flex gap-[10px] cursor-pointer justify-between ${index != data.length - 1 ? 'pb-[20px]' : ''}`} key={index}>
-            <div  onClick={() => router.push(`/${res.route}`)} className={`cursor-pointer flex gap-[10px] lg:flex-[0_0_calc(15%_-_10px)] md:flex-[0_0_calc(35%_-_5px)]`}>
-              <Image className={`lg:h-[90px] md:h-full w-full rounded-[3px] `} src={check_Image(res.custom_image_)} height={100} width={200} alt={res.custom_day} />
+            {/* flex-[0_0_calc(15%_-_10px)] */}
+            <div  onClick={() => router.push(`/${res.route}`)} className={`cursor-pointer flex gap-[10px] lg:w-[110px] md:flex-[0_0_calc(35%_-_5px)]`}>
+              <Image className={`lg:h-[93px] md:h-full w-full rounded-[6px] `} src={check_Image(res.custom_image_)} height={100} width={200} alt={res.custom_day} />
             </div>
             <div  onClick={() => router.push(`/${res.route}`)} className={`lg:leading-[1.7] md:gap-[5px] md:flex-[0_0_calc(65%_-_5px)] lg:flex-[0_0_calc(60%_-_10px)]`}>
               <p className={`text-[#818181] leading-[17.62px] lg:text-[13px] md:text-[11px]`}>{res.custom_day}</p>
-              <h6 className={`line-clamp-1 font-semibold text-[16px] md:text-[14px]`}>{res.custom_category}</h6>
+              <h6 className={`line-clamp-1 font-semibold text-[17px] md:text-[14px]`}>{res.custom_category}</h6>
               <p className={`text-[14px] md:text-[12px] line-clamp-2`}>{res.custom_title}</p>
               <div className='flex lg:hidden items-center md:gap-[10px] gap-[20px]'>
-                <p className='cursor-pointer text-[14px] md:text-[12px] font-semibold' onClick={() => router.push(`/${res.route}`)}>Preview</p>
+                {/* <p className='cursor-pointer text-[14px] md:text-[12px] font-semibold' onClick={() => router.push(`/${res.route}`)}>Preview</p> */}
                 <p className='flex cursor-pointer justify-center items-center seeMore' onClick={() => {showPopup(res, index)}}><span className='capitalize text-[11px] text-[#e21b22] font-semibold'>Sign Up</span> <Image className='img h-[14px] object-contain' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></p>
               </div>
             </div>
             {/* justify-between */}
-            <div className='flex md:hidden items-center gap-[10px] flex-[0_0_calc(25%_-_10px)]'>
-              <p className='cursor-pointer flex-[0_0_calc(50%_-_10px)]' onClick={() => router.push(`/${res.route}`)}>Preview</p>
+            <div className='flex md:hidden items-center justify-end gap-[10px] flex-[0_0_calc(25%_-_10px)]'>
+              {/* <p className='cursor-pointer flex-[0_0_calc(50%_-_10px)]' onClick={() => router.push(`/${res.route}`)}>Preview</p> */}
               <p className='flex cursor-pointer justify-center items-center seeMore' onClick={() => {showPopup(res, index)}}><span className='primary_text '>Sign Up</span> <Image className='img' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></p>
             </div>
           </div>

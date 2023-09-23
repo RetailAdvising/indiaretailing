@@ -894,6 +894,7 @@ input {
       display: none;
     }
   }
+ 
 
   .categorySlide {
     .react-multi-carousel-item {
@@ -1378,9 +1379,12 @@ button:focus {
     max-width: 1300px !important;
     margin: auto;
     width: 100%;
+   
   }
 
-
+  #main .container{
+    padding-top: 0px !important;
+  }
 }
 
 .activeBorder {
@@ -1780,7 +1784,7 @@ strong{
 
 .NewsLetterSub {
   .rodal-dialog {
-    padding: 0 !important;
+    padding: 0 0 20px 0 !important;
     height: 86vh !important;
   }
 
@@ -2039,4 +2043,34 @@ div#wave {
 
 li, div, p, span{
   -webkit-tap-highlight-color: transparent;
+}
+.comment_box{
+  height: 38px;
+  border: 1px solid #ddd;
+  margin: auto 10px;
+  border-radius: 20px;
+  padding-inline: 15px;
+}
+
+.ads_line:before{
+    content:" ";
+    display: block;
+    height: 2px;
+    width: 10px;
+    position: absolute;
+    top: 50%;
+    left: 134px;
+    background: #0000009c;
+}
+
+.ads_line:after{
+  content:" ";
+  height: 2px;
+  width: 10px;
+  background: red;
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 134px;
+  background:#0000009c;
 }

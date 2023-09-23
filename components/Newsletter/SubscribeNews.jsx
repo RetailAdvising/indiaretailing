@@ -60,14 +60,14 @@ const NewsLetterSub = ({ data, hide,email,cssClass }) => {
           {news && news.map((res, index) => {
             return (
               <div key={index} onClick={() => { selectNewLetter(news, index) }} className='flex items-center justify-between border-0 rounded-[10px] border-slate-100 hover:bg-[#f1f1f159] mb-[10px] cursor-pointer pr-[10px]'>
-                <div className={`flex items-center w-full p-[0px] gap-[5px]`} >
-                  <span className='h-[65px] w-[65px] flex items-center justify-center p-[5px] rounded-[50%]'><Image className={`h-[50px] rounded-[50%] object-cover`} src={check_Image(res.custom_image_)} height={150} width={150} alt={''} /></span>
-                  <div className='w-full'>
+                <div className={`flex w-[93%] items-center w-full p-[0px] gap-[5px]`} >
+                  <span className='h-[65px] w-[65px] flex items-center justify-center p-[5px] rounded-[50%]'><Image className={`h-[50px] w-[50px] rounded-[50%] object-cover`} src={check_Image(res.custom_image_)} height={150} width={150} alt={''} /></span>
+                  <div className='w-[85%'>
                     <h6 className='text-[14px] font-semibold'>{res.custom_category} <span className='text-[12px] gray_color'>({res.custom_day})</span></h6>
                     {/* <h6 className='text-[12px] pt-[2px] gray_color'>{res.custom_title} </h6> */}
                   </div>
                 </div>
-                <span className='h-[20px] w-[20px]'><Image className={`h-[18px] object-contain`} src={res.selected == 1 ? '/newsletter/tick.svg' : '/newsletter/plus.svg'} height={18} width={18} alt={''} /></span>
+                <span className='h-[20px] w-[7%]'><Image className={`h-[18px] object-contain`} src={res.selected == 1 ? '/newsletter/tick.svg' : '/newsletter/plus.svg'} height={18} width={18} alt={''} /></span>
               </div>
             )
           })}

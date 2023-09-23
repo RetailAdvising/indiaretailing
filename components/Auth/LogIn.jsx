@@ -71,6 +71,26 @@ export default function LogIn({ isModal, hide, auth }) {
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
+
+        // window.fbAsyncInit = function () {
+        //     window.FB.init({
+        //       appId: '1395750980977164',
+        //       xfbml: true,
+        //       version: 'v11.0',
+        //     });
+        //   };
+      
+        //   // Load the Facebook SDK asynchronously
+        //   (function (d, s, id) {
+        //     var js,
+        //       fjs = d.getElementsByTagName(s)[0];
+        //     if (d.getElementById(id)) return;
+        //     js = d.createElement(s);
+        //     js.id = id;
+        //     js.src = 'https://connect.facebook.net/en_US/sdk.js';
+        //     fjs.parentNode.insertBefore(js, fjs);
+        //   })(document, 'script', 'facebook-jssdk');
+
     }, [])
 
     const checkIsMobile = async () => {

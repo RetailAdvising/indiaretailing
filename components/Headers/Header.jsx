@@ -20,7 +20,6 @@ export default function Header({ checkout }) {
     const user = useSelector(s => s.user);
     // const dispatch = useDispatch()
 
-
     const profile = [{ name: 'Logout', icon: '/Navbar/Logout.svg' }, { name: 'Profile', icon: '/login/profile-01.svg', route: '/profile?my_account=edit-profile', mob_route: '/profile?my_account=' }]
     const [valid, setValid] = useState(false);
     const [loader, setLoader] = useState(false);
@@ -223,7 +222,7 @@ export default function Header({ checkout }) {
                     <div className='container relative p-[0px] md:hidden grid grid-cols-3 items-center justify-between lg:my-[20px]'>
                         {/* <div> */}
 
-                        <div onClick={searchFn} className={`flex items-center cursor-pointer gap-[2px] search_hover px-[10px] py-[5px] rounded-lg`}>
+                        <div onClick={searchFn} className={`flex w-max items-center cursor-pointer gap-[2px] search_hover px-[10px] py-[5px] rounded-lg`}>
                             <Image style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} className="h-[18px]"></Image>
                             <p className='text-[14px]'>Search</p>
                             {/* <input id="myInput" className={styles.input1} type="text" placeholder='Search here...' name="search"></input> */}

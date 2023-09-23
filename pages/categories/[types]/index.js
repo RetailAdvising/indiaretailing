@@ -83,7 +83,7 @@ export default function CategoryType({ values, ads }) {
                 <div className={`${isMobile ? 'md:p-[15px]' : 'container'}`} id='root' >
                     {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
-                            {!isMobile && <Title data={{ title: router.query.types }} />}
+                            {/* {!isMobile && <Title data={{ title: router.query.types }} />} */}
                             <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px] cursor-pointer`}>{data.slice(0, 1).map((res, index) => {
                                 return (
                                     <div key={index} onClick={() => router.push(`/categories/${res.route}`)} className={` pb-[10px]`}>
@@ -97,7 +97,8 @@ export default function CategoryType({ values, ads }) {
                                 )
                             })}</div>
                         </div>
-                        <div className={`lg:flex-[0_0_calc(35%_-_10px)] lg:pt-[45px] md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
+                        {/* lg:pt-[45px] */}
+                        <div className={`lg:flex-[0_0_calc(35%_-_10px)]  md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
                             <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List primary_pb={'mb-[10px]'} hash_bg={'mt-[10px]'} contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-1 md:line-clamp-2 leading-none'} imgWidth={'w-full'} line={'line-clamp-1 md:hidden'} imgHeight={'h-[90px]'} check={true} data={data.slice(0, 4)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}

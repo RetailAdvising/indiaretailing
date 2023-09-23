@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import NewsList from '@/components/Newsletter/NewsList';
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
-
+import NoProductFound from '@/components/common/NoProductFound';
 import AlertUi from '@/components/common/AlertUi';
 
 export default function NewsLists({ data, Id }) {
@@ -157,9 +157,12 @@ export default function NewsLists({ data, Id }) {
             {visible && <SubscribeNews data={news} visible={visible}  hide={(obj)=> hide(obj)} />}
             
           </> : <>
-            {(allNewsLetter && allNewsLetter.length != 0) && <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] md:gap-[10px] pt-[20px] md:pt-[15px]'>
+            {(allNewsLetter && allNewsLetter.length != 0) ?
+              <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] md:gap-[10px] pt-[20px] md:pt-[15px]'>
               <NewsCard load={() => handleCheckboxChange()} pagination={true} data={allNewsLetter} imgClass={'h-[315px] md:h-[200px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[300px]'} />
-            </div>}
+            </div>:
+             <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-newsletter.svg'} heading={'No Newsletters Found'}/>
+             }
           </>}
         </div>}
       </RootLayout>

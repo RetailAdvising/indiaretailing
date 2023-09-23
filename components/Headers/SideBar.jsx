@@ -3,18 +3,28 @@ import header from '@/styles/Header.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useSelector,useDispatch } from 'react-redux';
 
 export default function SideBar({ data, close, navbar }) {
     const router = useRouter();
     const [valid, setValid] = useState(false)
     const [member, setMember] = useState(false);
     const ref = useRef(null);
+
+    const user = useSelector(s => s.user);
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
             localStorage['apikey'] ? setValid(!valid) : null;
             roleMember()
             // let val = roleMember();
         }
+
+        if(user){
+            localStorage['apikey'] ? setValid(!valid) : null;
+            roleMember() 
+        }
+
 
         const handleClickOutside = (event) => {
             // let el = document.getElementById('side')?.classList;
@@ -29,7 +39,7 @@ export default function SideBar({ data, close, navbar }) {
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
         };
-    }, [])
+    }, [user])
 
 
     const route = async (type) => {
@@ -42,14 +52,13 @@ export default function SideBar({ data, close, navbar }) {
         }
     }
 
-    const logout = () => {
-        localStorage.clear();
-        router.push('/login')
-    }
+
+
     const myAccount = () => {
        router.push('/profile?my_account=')
        close()
     }
+    
     const roleMember = () => {
         if(localStorage['roles']){
             const data = JSON.parse(localStorage['roles']);
@@ -63,6 +72,14 @@ export default function SideBar({ data, close, navbar }) {
         }
     }
 
+    const logout = () => {
+        localStorage.clear();
+        setValid(false);
+        setMember(false);
+        close();
+        router.push('/login')
+    }
+
 
     return (
         <>
@@ -71,7 +88,9 @@ export default function SideBar({ data, close, navbar }) {
                 {valid ? <div className='flex items-center gap-[10px] border_bottom p-[15px]' onClick={myAccount}>
                     <Image className='h-[40px] w-[40px]' src={'/profit.svg'} height={17} width={17} alt={'profile'} />
                     <div>
-                        {localStorage && <p className='text-[15px] font-semibold'>{localStorage['full_name']}</p>}
+                       {((user) || (localStorage && localStorage['full_name'])) && <p className='cursor-pointer text-[14px] font-[500]'>{(user.message && user.message.full_name) ? user.message.full_name : localStorage['full_name']}</p>}
+
+                        {/* {localStorage && <p className='text-[15px] font-semibold'>{localStorage['full_name']}</p>} */}
                         {member && 
                           <div className='flex items-center gap-[8px]'>
                              <h6 className='text-[14px]'>Premium</h6>
@@ -121,10 +140,11 @@ export default function SideBar({ data, close, navbar }) {
                                             </Link>
                                         )
                                     })}
-                                <div className='flex items-center gap-[13px] p-[10px_10px_10px_20px]' onClick={() => logout()}>
+                                {valid && <div className='flex items-center gap-[13px] p-[10px_10px_10px_20px]'  onClick={() => logout()}>
                                   <Image className='h-[17px] w-[16px]' src={'/Navbar/Logout.svg'} height={20} width={20} alt={'logout'}></Image>
                                   <button className=' text-[14px] font-medium cursor-pointer '>Logout</button>
-                               </div>
+                                 </div>
+                                 }
                                 </ul>}
                             </div>
                         )
@@ -152,7 +172,7 @@ export default function SideBar({ data, close, navbar }) {
                         {!member && <div className='flex  cursor-pointer justify-center w-full'>
                             <div className='flex bg-[#e21b22] rounded-[5px] p-[8px_15px] gap-[5px] items-center justify-end px-[20px]'>
                                 {/* <Image className='h-[18px] w-[18px]' src={'/Navbar/premium.svg'} height={20} width={20} alt='premium' /> */}
-                                <p onClick={() => router.push('/login')} className='text-[#fff] text-[15px] cursor-pointer font-semibold'>Login</p>
+                                <p onClick={() => logout()}  className='text-[#fff] text-[15px] cursor-pointer font-semibold'>Login</p>
                             </div>
                           
                         </div>}

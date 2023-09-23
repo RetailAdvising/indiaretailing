@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import RootLayout from '@/layouts/RootLayout';
 import { getAds, getCategoryList, checkMobile } from '@/libs/api';
 import SectionBox from '@/components/Category/SectionBox';
@@ -29,8 +29,10 @@ export default function Categories({ data, ads }) {
     }
     return (
         <>
+
             <RootLayout homeAd={ads ? ads : null} head={'Categories'} isLanding={true}>
             <SEO title={'Categories'} siteName={'India Reatiling'} description={'Categories'}/>
+           
                 <div className={` md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
                     <Title data={{ title: 'Categories' }} font={'20px'}  className='md:hidden' title_class='md:hidden'/>       
                     {data && data.map((res, index) => {
@@ -46,8 +48,10 @@ export default function Categories({ data, ads }) {
                             </div>
                         )
                     })}
+                      {!data?.length &&  <Skeleton type=''/>}
                 </div>
             </RootLayout>
+
         </>
     )
 }

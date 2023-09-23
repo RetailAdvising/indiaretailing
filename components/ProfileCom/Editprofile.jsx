@@ -11,11 +11,12 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Editprofile({ customerInfo }) {
   
   const router = useRouter();
-
+  const [loader,setLoader] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   async function signup(data) {
           if(data){
+            setLoader(true);
             // console.log(data);
             updateProfile(data)
           } 
@@ -24,7 +25,13 @@ export default function Editprofile({ customerInfo }) {
   async function updateProfile(values){
     let data = { "doctype":"Customers", name:customerInfo['name'] , first_name :values.first_name, last_name :values.last_name}
     const res = await insert_doc(data);
-    toast.success('Profile updated successfully.');
+    if(res && res.message){
+      setLoader(false);
+      toast.success('Profile updated successfully.');
+    }else{
+      setLoader(false);
+    }
+
     // console.log(res)
   }  
 
@@ -58,9 +65,15 @@ export default function Editprofile({ customerInfo }) {
                     {/* {errors?.email && <p className={`${styles.danger}`}>{errors.email.message}</p>} */}
                 </div>
             
-                <div className='w-[60%] m-[0px_auto] mt-[10px]'>
-                   <button type="submit" className={`${styles.loginBtn}`}>Save</button>
+                <div className='w-[60%] m-[0px_auto] mt-[10px] '>
+                   <button type="submit" className={`${styles.loginBtn} flex items-center justify-center h-[40px]`}>
+                     {loader ?
+                      <div class="animate-spin rounded-full h-[15px] w-[15px] border-l-2 border-t-2 border-white"></div> :
+                     'Save'
+                     }
+                    </button>
                 </div> 
+               
 
             </form>
       </div>

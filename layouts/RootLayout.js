@@ -8,9 +8,10 @@ import SEO from '@/components/common/SEO'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { websiteSettings } from '@/libs/api'
 import MobileHead from '@/components/Headers//MobileHead';
+import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
 
 export default function RootLayout({ children, checkout, isLanding, head, homeAd, data,header_data }) {
@@ -42,7 +43,6 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       setFooterData(websiteData.message.footer_template)
     }
   }
-  
   return (
     <>
       {/* <SEO /> */}
@@ -54,7 +54,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
         <Navbar isLanding={isLanding} heading={head} checkout={checkout} />
         {/* {!checkout ? <Navbar isLanding={isLanding} heading={head} /> : <div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={head} /></div> } */}
         {(breadCrumbs && breadCrumbs.length > 1 && breadCrumbs[1] && breadCrumbs[1] != 'news' && breadCrumbs[1].split('?')[0] != 'thankyou' && breadCrumbs[1].split('?')[0] != 'profile' && breadCrumbs[1].split('?')[0] != 'search' && breadCrumbs[1].split('?')[0] != 'tag') &&
-          <div className='container flex  gap-[7px] md:hidden py-[10px]'>
+          <div className='container flex  gap-[7px] md:hidden py-[20px]'>
             {breadCrumbs.map((bc, index) => {
               let url = index == 3 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] + '/' + breadCrumbs[3] :
                 index == 2 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] :
@@ -86,10 +86,10 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
             })}
           </div>
         }
-
-        <main id='main'>
+       <main id='main'>
           {children}
         </main>
+
         {!checkout && <div className="md:hidden mb-[10px]"><AdsBaner footerAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
         {!checkout && <MainFooter footerData={footerData} />}
         {/* <div className='lg:hidden' >

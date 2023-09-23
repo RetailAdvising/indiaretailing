@@ -16,7 +16,8 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import { useRouter } from 'next/router'
 import CustomSlider from '../Sliders/CustomSlider'
 import AuthModal from '../Auth/AuthModal';
-export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, placeholder }) {
+
+export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, placeholder, user }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -73,6 +74,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, p
     //   console.log(data)
     //   console.log(i)
     // }
+    console.log(placeholder);
     if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
       const data = JSON.parse(localStorage['roles']);
       if (data && data.length != 0) {
@@ -82,7 +84,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, p
           }
         })
       }
-    }
+    } 
 
     if (document.readyState === 'complete') {
       onPageLoad();
@@ -92,9 +94,10 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, p
       return () => window.removeEventListener('load', onPageLoad);
     }
 
-  }, [updateCmts])
+  }, [updateCmts,user])
 
   const cardref = useRef(null)
+
   useEffect(() => {
     if (!cardref?.current) return;
     const observer = new IntersectionObserver(([entry]) => {
@@ -390,50 +393,59 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, p
 
           <div className='w_30 md:hidden'>
 
-            {/* {(placeholder && placeholder.length != 0) ?
+            {(placeholder && placeholder.length != 0) ?
               placeholder.map((resp, index) => {
                 return (
                   <div key={index}>
                     {(resp.placeholder_type == 'banner_ad' && resp.data && resp.data.length != 0) && <AdsBaner data={resp.data[0]} height={'260px'} width={'300px'} />}
                     {(resp.placeholder_type == 'google_ad' && resp.data && resp.data.length != 0) && <AdsBaner data={resp.data[0]} height={'260px'} width={'300px'} />}
-                    {(resp.placeholder_type == 'list' && resp.data && resp.data.length != 0) && <List data={resp.data} tittleOnly={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'}  imgHeight={'h-[85px]'} imgWidth={'w-full'}  />}
+                    {(resp.placeholder_type == 'list' && resp.data && resp.data.length != 0) && 
+                    <>
+                    <div className='border rounded-[5px] p-[10px_15px_15px]'>
+                     { console.log(resp.title)}
+              <Title data={resp.title} />
+              <List isTop={false} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={resp.data.slice(0,2)} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
+                </div>
+                    </>
+                    // <List data={resp.data.slice(0,2)} tittleOnly={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'}  imgHeight={'h-[85px]'} imgWidth={'w-full'}  />
+                    }
                   </div>
                 )
               })
               : <>
-              </>} */}
-            {(data.related_articles && data.related_articles.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px_15px_15px]'>
+              </>}
+            {/* {(data.related_articles && data.related_articles.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px_15px_15px]'>
               <Title data={{ title: 'Related Stories' }} />
               <List tittleOnly={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.related_articles} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
-            </div>}
+            </div>} */}
 
-            <div className='py-3'>
+            {/* <div className='py-3'>
               {(data.banner_ad && data.banner_ad.ad_list && data.banner_ad.ad_list.length != 0 && data.banner_ad.ad_list[0]) ?
                 <AdsBaner data={data.banner_ad.ad_list[0]} height={'260px'} width={'300px'} />
                 : (ads && ads.right && ads.right.length != 0 && ads.right[0]) ? <AdsBaner data={ads.right[0]} height={'260px'} width={'300px'} /> : <></>
               }
-            </div>
+            </div> */}
 
             {/* {(ads && )} */}
 
-            {(data.must_read && data.must_read.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px_15px_15px]'>
+            {/* {(data.must_read && data.must_read.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px_15px_15px]'>
               <Title data={{ title: 'Must Read' }} />
               <List tittleOnly={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} data={data.must_read} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
-            </div>}
-            {(data.other_category3 && data.other_category3.data && data.other_category3.data.length != 0) && <div className='border rounded-[5px] p-[10px_15px_15px]'>
+            </div>} */}
+            {/* {(data.other_category3 && data.other_category3.data && data.other_category3.data.length != 0) && <div className='border rounded-[5px] p-[10px_15px_15px]'>
               <Title data={data.other_category3} />
               <List isTop={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={data.other_category3.data} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
-            </div>}
+            </div>} */}
 
-            <div className='py-3'>
+            {/* <div className='py-3'>
               <AdsBaner text={"Advertisement"} data={{ ad_image: '/ads_music.png' }} height={'h-[600px]'} width={'w-[300px]'} />
-            </div>
+            </div> */}
 
-
+{/* 
             {(data.other_category2 && data.other_category2.data && data.other_category2.data.length != 0) && <div className='border md:border-0 rounded-[5px] p-[10px_15px_15px]'>
               <Title data={data.other_category2} />
               <List isTop={true} flex={'mb-[10px]'} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} tittleOnly={true} check={true} isBB={true} data={data.other_category2.data} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
-            </div>}
+            </div>} */}
 
             {/* <div className='py-3'>
               <AdsBaner data={res.baner_img3} text={"Advertisement"} height={'220px'} width={'275px'} />

@@ -23,12 +23,14 @@ const inter = Inter({
 export default function App({ Component, pageProps }) {
 const [tabHeight,setTabHeight] = useState(0)
 const [activeTab,setActiveTab] = useState(0)
+
+
   useEffect(() => {
     let tabs = document.getElementById('tabs')
     setTabHeight(tabs && tabs.clientHeight)
     get_website_settings()
   },[])
-
+  
   const get_website_settings = async () => {
     let websiteData = await websiteSettings()
     if (websiteData) {

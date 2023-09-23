@@ -6,6 +6,7 @@ import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import { check_Image } from '@/libs/common';
+import { useSelector,useDispatch } from 'react-redux';
 
 export default function Details() {
   const router = useRouter();
@@ -44,13 +45,14 @@ export default function Details() {
   }
 
 
+  const user = useSelector(s => s.user);
 
   useEffect(() => {
     if(typeof window !== 'undefined'){
       articleDetail();
       ads();
     }
-  }, [router])
+  }, [router,user])
 
 
   async function loadMore() {
@@ -89,7 +91,7 @@ export default function Details() {
           {values.map((res, index) => {
             return (
               <div key={index}>
-                <CategoryBuilder isPrime={true} isLast={index == values.length - 1} i={index} data={res} load={loadMore} />
+                <CategoryBuilder isPrime={true} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} />
               </div>
             )
           })}

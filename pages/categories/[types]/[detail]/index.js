@@ -29,11 +29,13 @@ export default function CategoryDetail({ data,value }) {
     //   // call_observer()
     // })
 
-    // if(data && data._user_tags){
-    //   let tags = data._user_tags.split(',');
-    //   tags.splice(0,1);
-    //   data._user_tags = tags
-    // }
+    if(data && data._user_tags && data._user_tags != ''){
+      let tags = data._user_tags.split(',');
+      tags.splice(0,1);
+      data._user_tags = tags
+    }else{
+      data._user_tags = [];
+    }
 
     console.log('reloaded', data);
 
@@ -93,6 +95,14 @@ export default function CategoryDetail({ data,value }) {
         setPrev(data.route)
         // router.replace(`/categories/${router.query.types}/${data.name}`)
         let val = [data]
+        if(val && val[0] && val[0]._user_tags && val[0]._user_tags != ''){
+          let tags = val[0]['_user_tags'].split(',');
+          tags.splice(0,1);
+          val[0]._user_tags = tags
+        }else{
+          val[0]._user_tags = [];
+        }
+        
         setValues(d => d = [...d, ...val]);
 
         // router.replace('/' + prev);
@@ -264,7 +274,6 @@ export async function getServerSideProps({ params }) {
   }
   let value = await articlesDetail(param);
   let data = value.message;
-
   return {
     props: { data, value }
   }

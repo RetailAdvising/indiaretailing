@@ -12,19 +12,19 @@ import SubscribtionsPlan from '@/components/ProfileCom/SubscribtionsPlan';
 import AlertUi from '@/components/common/AlertUi';
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import AddAddress from '@/components/Bookstore/AddAddress';
-
+import NewsList from '@/components/Newsletter/NewsList';
 export default function profile({my_account}) {  
 
   
   let profileDetail = [
-    {'title':'My Profile',icon:'/Profile/profile.svg',route:'edit-profile'},
+    {'title':'My Profile',icon:'/Navbar/account.svg',route:'edit-profile'},
     {'title':'My Orders',icon:'/Profile/orders.svg',route:'orders'},
     {'title':'My Address',icon:'/Profile/My-Address.svg',route:'my-address'},
     {'title':'Membership',icon:'/Profile/membership.svg',route:'membership'},
     {'title':'Subscription',icon:'/Profile/subscription.svg',route:'subscription'},
-    {'title':'Newsletter',icon:'/Profile/newsletter.svg',route:'newsletter'},
+    {'title':'Newsletter',icon:'/Navbar/newsletter.svg',route:'newsletter'},
     {'title':'Change Password',icon:'/Profile/edit.svg',route:'change-password'},
-    {'title':'Logout',icon:'/Profile/logout.svg',route:'logout'},
+    {'title':'Logout',icon:'/Navbar/Logout.svg',route:'logout'},
   ]
   
   let [isMobile, setIsmobile] = useState();
@@ -39,10 +39,8 @@ export default function profile({my_account}) {
   const [razorpay_settings, setRazorpay_settings] = useState({}) ;
   const [enableModal,setEnableModal] = useState(false)
   const [isLoad,setIsload] = useState(false)
-
-
   const [index,setIndex] = useState(-1)
-
+  const [member, setMember] = useState(false);
 
   const router = useRouter();
 
@@ -50,6 +48,7 @@ export default function profile({my_account}) {
   useEffect(() => {
     if(localStorage['customer_id']){
       setIsload(true);
+      roleMember()
       get_razor_pay_values();
       let localValue = stored_customer_info()
       setLocalValue(localValue);
@@ -61,7 +60,7 @@ export default function profile({my_account}) {
       }else{
         setTab('');
       }
-  
+      setCustomerInfo(undefined);
       checkIsMobile();
       window.addEventListener('resize',checkIsMobile)
       return () => {
@@ -74,7 +73,6 @@ export default function profile({my_account}) {
   },[router.query])  
 
   const navigateToProfile = (data) =>{
-    setCustomerInfo(undefined);
     if(data.route == 'logout') {
       setAlertUi(true);
       setAlertMsg({message:'Are you sure do you want to logout ?'});
@@ -83,6 +81,20 @@ export default function profile({my_account}) {
     }
 
   }
+
+  const roleMember = () => {
+    if(localStorage['roles']){
+        const data = JSON.parse(localStorage['roles']);
+        if (data && data.length != 0) {
+            data.map(res => {
+                if (res.role == 'Member') {
+                    setMember(!member)
+                }
+            })
+        }
+    }
+  }
+
 
   async function get_razor_pay_values(){
     let razorpay = await get_razorpay_settings();
@@ -277,9 +289,17 @@ export default function profile({my_account}) {
        {!isLoad ? <Backdrop/> : <div className=''>
 
           {((tab == '' || !isMobile) && localValue) &&
-            <div className='lg:hidden p-[15px_5px] flex items-center gap-10px'>
-              <div class="flex items-center h-[75px]"><Image className='h-[65px] object-contain' height={100} width={100} src={'/Navbar/profile.svg'}></Image></div>
-               <h6 className='text-[15px] font-semibold'>{localValue.cust_name}</h6>
+            <div className='lg:hidden p-[12px_5px] flex items-center gap-[10px]'>
+              <div class="flex items-center h-[75px]"><Image className='h-[56px] object-contain' height={100} width={100} src={'/Navbar/profile.svg'}></Image></div>
+              <div>
+                <h6 className='text-[15px] font-semibold'>{localValue.cust_name}</h6>
+                {member && 
+                  <div className='flex items-center gap-[8px]'>
+                      <h6 className='text-[14px]'>Premium</h6>
+                      <Image className='h-[15px] w-[15px]' src={'/Navbar/premium.svg'} height={20} width={20} alt='premium' />
+                  </div>  
+                 }
+              </div>
             </div>
           }
 
@@ -301,7 +321,7 @@ export default function profile({my_account}) {
                  <div>
                    <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200 mb-[10px]'>Personal Information</h6>
                    <div className='px-[20px]'>
-                    {customerInfo && <Editprofile customerInfo={customerInfo} />}
+                    {customerInfo ? <Editprofile customerInfo={customerInfo} /> : <Skeleton /> }
                    </div>  
                  </div> 
                  }
@@ -345,8 +365,10 @@ export default function profile({my_account}) {
                   {tab == 'newsletter' && 
                   <div>
                    <h6 className='bg-[#FBFBFB] rounded-[5px_5px_0_0] flex items-center px-[10px] text-[16px] font-semibold h-[50px] border-b-[0px] border-b-slate-200'>News Letter</h6>
-                   <div className=''>
-                     {news &&  <SubscribeNews data={news} no_modal={true} hide={(obj)=> hide(obj)}/>}
+                   <div className='p-[20px]'>
+                     {/* {news &&  <SubscribeNews data={news} no_modal={true} hide={(obj)=> hide(obj)}/>} */}
+                     {news && <NewsList data={news} />}
+
                    </div>  
                   </div> 
                   }
@@ -389,3 +411,19 @@ export async function getServerSideProps({ query }) {
    props : { my_account }
   }
 }
+
+
+const Skeleton = () => {
+  return (
+    <>
+        <div class="md:h-[calc(100vh_-_150px)] lg:w-[50%] animate-pulse">
+          {[1,2,3,4].map((res,index)=>(
+            <div key={index}  className=' py-[10px]'>
+              <div className={`h-[15px] w-[25%] bg-slate-100 rounded-[5px]`}></div>
+              <div className={`h-[40px] w-[100%] md:mb-[10px] bg-slate-100 rounded-[5px] mt-[10px]`}></div>
+            </div>
+          ))}
+          <div className={`h-[40px] w-[60%] m-[0_auto] bg-slate-100 rounded-[5px] mt-[10px]`}></div>
+        </div>
+    </>
+)}

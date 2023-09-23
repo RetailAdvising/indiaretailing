@@ -38,7 +38,7 @@ export default function List({ imgFlex, hash_bg, contentWidth, primary_pb, line,
                         </div>
                         {/* w-[280px] */}
                         <div className={`${(!fullWidth && !isReverse) && ''} ${contentWidth} flex flex-col leading-[1] ${isTop && 'pt-[25px]'}`}>
-                            {(res.primary_text && res.secondary_text && !isTop) && <p className={`flex items-center line-clamp-1 ${primary_pb}`}><span className='primary_text pr-[8px] line-clamp-1'>{res.primary_text}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span> <span className='secondary_text line-clamp-1 pl-[8px]'>{res.secondary_text}</span></p>}
+                            {(res.primary_text && res.secondary_text && !isTop) && <p className={`flex items-center line-clamp-1 ${primary_pb}`}><span className='primary_text pr-[8px] line-clamp-1 flex-[0_0_calc(50%_-_5px)]'>{res.primary_text}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f] '></span> <span className='secondary_text line-clamp-1 pl-[8px] flex-[0_0_calc(50%_-_5px)]'>{res.secondary_text}</span></p>}
                             {res.title && <h6 className={`title  pt-[5px] ${titleClamp ? titleClamp : 'line-clamp-1'}`}>{res.title ? res.title : ''}</h6>}
                             {((res.sub_title || res.blog_intro) && !tittleOnly) && <p className={`sub_title pt-[5px] ${line ? line : 'line-clamp-2'}`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
                             {/* {((res.hashtags || res.publisher) && !tittleOnly) && <p className={`hashtags  ${hash_bg ? hash_bg : 'pt-[5px]'} font-[500]`}>by {res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>} */}

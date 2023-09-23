@@ -11,6 +11,8 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import SEO from '@/components/common/SEO'
 import Video from '../../../../components/Video/Video';
 import Dropdowns from '../../../../components/common/Dropdowns';
+import { useSelector,useDispatch } from 'react-redux';
+import AdsBaner from '@/components/Baners/AdsBaner'
 
 export default function Videos(meta_info, ads_data) {
     // console.log(meta_info)
@@ -20,6 +22,8 @@ export default function Videos(meta_info, ads_data) {
     const [validator, setValidator] = useState(false)
     const [prev, setPrev] = useState('')
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
+    const user = useSelector(s => s.user);
+    let bannerImg = {ad_image:'/ads_baner.png'};
 
     useEffect(() => {
         if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
@@ -40,7 +44,7 @@ export default function Videos(meta_info, ads_data) {
                 window.removeEventListener('resize', checkIsMobile);
             };
         }
-    }, [router.query])
+    }, [router.query,user])
 
     const checkIsMobile = async () => {
         isMobile = await checkMobile();
@@ -183,15 +187,17 @@ export default function Videos(meta_info, ads_data) {
                             {videoDetail.related_videos && videoDetail.related_videos.length != 0 &&
                                 <>
                                     <Title data={{ title: 'Related Videos' }} seeMore={false} />
-                                    <div className='border p-[10px] rounded-[5px]'>
+                                    <div className='border p-[10px] rounded-[5px] mb-[10px]'>
                                         <List imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                                     </div>
                                 </>
                             }
 
-                            <div className='h-[260px] mt-[10px]'>
+                          <AdsBaner data={bannerImg} height={'h-[250px]'} />
+
+                            {/* <div className='h-[260px] mt-[10px]'>
                                 <Image className='h-[250px] w-[300px]' src={'/ads_baner.png'} height={250} width={300} layout="fixed" alt={''} />
-                            </div>
+                            </div> */}
 
                             {/* <div className='h-[600px] mt-[30px] mb-[10px]'>
                         <Image className='h-[600px] w-[300px]' src={'/ads_music.png'} height={600} width={300} layout="fixed" alt={''} />

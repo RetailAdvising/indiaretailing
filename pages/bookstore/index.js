@@ -64,7 +64,7 @@ export default function Bookstore({ data,resp,ads_data, slider_data }) {
 
         
         {(data && data.length != 0) && <>
-          <div className="container zero-gap !mt-6">
+          <div className="container zero-gap">
               {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-[200px] w-full'} event={true} data={slider_data} isMobile={isMobile} perView={1} className='gap-0' />}
           </div>
           {/* {(resp.recent_products && resp.recent_products.length != 0) && 
