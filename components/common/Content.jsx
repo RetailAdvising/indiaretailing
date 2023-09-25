@@ -148,7 +148,7 @@ export default function Content({ res, i }) {
                     <Image className='rounded-full object-contain lg:hidden w-[40] h-[40]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <div className='block'>
                         <h6 className="font-semibold lg:hidden text-[12px]">{res.publisher}</h6>
-                        <span className='lg:hidden text-gray text-[11px] gray-text'>{dateFormat(res.creation)}</span>
+                        <span className='lg:hidden text-gray text-[11px] gray-text'>{dateFormat(res.modified)}</span>
                     </div>
                 </div>
                 <div className='lg:hidden flex gap-[15px]'>

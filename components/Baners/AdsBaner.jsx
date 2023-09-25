@@ -16,7 +16,7 @@ export default function AdsBaner({ data, height, Class, style, width, homeAd,foo
           </div>  
           //  <h6 className='fnt_12 text-center ads_line relative text-[#0000009c]'>{data.title ? data.title : 'Advertisement'}</h6>
            }
-          <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' onClick={() => window.open(homeAd.header[0].banner_link, '_blank')} src={data.ad_image || check_Image(data.banner_image)} height={250} className={`${height} ${width} `} width={970} alt='ad' />
+          <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' onClick={() => window.open(data.banner_link, '_blank')} src={data.ad_image || check_Image(data.banner_image)} height={250} className={`${height} ${width} `} width={970} alt='ad' />
         </div>
       }
       {

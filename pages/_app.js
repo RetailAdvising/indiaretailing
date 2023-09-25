@@ -1,6 +1,6 @@
 import '@/styles/globals.scss'
 import store from '../redux/store'
-import { Inter,Roboto } from 'next/font/google'
+import { Inter, Roboto } from 'next/font/google'
 import { useDispatch, useSelector, Provider } from 'react-redux'
 // import userAction from 'redux/actions/userAction'
 import ErrorBoundary from '@/components/Exception/ErrorBoundary'
@@ -11,35 +11,35 @@ import MobileHead from '@/components/Headers/MobileHead'
 import BottomTabs from '@/components/common/BottomTabs'
 import Header from '@/components/Headers/Header'
 const inter = Inter({
-  weight: ["200","300","400","500","600",'700'],
+  weight: ["200", "300", "400", "500", "600", '700'],
   display: "block",
   preload: true,
   style: 'normal',
   subsets: ["latin"],
-  variable:'--font-inter'
+  variable: '--font-inter'
 })
 
 
 export default function App({ Component, pageProps }) {
-const [tabHeight,setTabHeight] = useState(0)
-const [activeTab,setActiveTab] = useState(0)
+  const [tabHeight, setTabHeight] = useState(0)
+  const [activeTab, setActiveTab] = useState(0)
 
 
   useEffect(() => {
     let tabs = document.getElementById('tabs')
     setTabHeight(tabs && tabs.clientHeight)
     get_website_settings()
-  },[])
-  
+  }, [])
+
   const get_website_settings = async () => {
     let websiteData = await websiteSettings()
     if (websiteData) {
-      pageProps["headerData"] = websiteData.message.header_template 
-      pageProps["footerData"] = websiteData.message.footer_template 
+      pageProps["headerData"] = websiteData.message.header_template
+      pageProps["footerData"] = websiteData.message.footer_template
     }
   }
 
-  const getActiveTab = (tab_data) =>{
+  const getActiveTab = (tab_data) => {
     console.log(tab_data);
     setActiveTab(tab_data)
 
@@ -84,19 +84,19 @@ const [activeTab,setActiveTab] = useState(0)
   // }
   return (
     <>
-     <Head>
-     {/* <link href="https://indiaretailing.go1cms/files/default-theme.css" rel="stylesheet"/> */}
-       </Head>
-      <ErrorBoundary > 
+      <Head>
+        {/* <link href="https://indiaretailing.go1cms/files/default-theme.css" rel="stylesheet"/> */}
+      </Head>
+      <ErrorBoundary >
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
-          <div className='lg:hidden'><MobileHead getActiveTab = {getActiveTab} activeTab={activeTab}/></div>
-          {/* <Header/> */}
+            <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
+            {/* <Header/> */}
             <Component {...pageProps} />
             <div className='lg:hidden'>
-            <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab}/>
-           </div>
+              <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
+            </div>
           </main>
         </Provider>
       </ErrorBoundary>

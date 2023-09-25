@@ -11,7 +11,7 @@ import { check_Image } from '@/libs/common';
 // import { useDispatch, useSelector } from 'react-redux'
 // import setPagination from 'redux/actions/paginationAction';
 
-export default function CategoryDetail({ data,value }) {
+export default function CategoryDetail({ data }) {
   // Store
   // const pagination = useSelector(s => s.pagination);
   // const dispatch = useDispatch();
@@ -29,20 +29,19 @@ export default function CategoryDetail({ data,value }) {
     //   // call_observer()
     // })
 
-    if(data && data._user_tags && data._user_tags != ''){
+    if (data && data._user_tags && data._user_tags != '') {
       let tags = data._user_tags.split(',');
-      tags.splice(0,1);
+      tags.splice(0, 1);
       data._user_tags = tags
-    }else{
+    } else {
       data._user_tags = [];
     }
 
-    console.log('reloaded', data);
-
+    // console.log('reloaded', data);
 
     if (data) {
       let val = [data]
-      // console.log(data)
+      console.log(data)
       setValues(val)
       getAd()
     }
@@ -95,14 +94,14 @@ export default function CategoryDetail({ data,value }) {
         setPrev(data.route)
         // router.replace(`/categories/${router.query.types}/${data.name}`)
         let val = [data]
-        if(val && val[0] && val[0]._user_tags && val[0]._user_tags != ''){
+        if (val && val[0] && val[0]._user_tags && val[0]._user_tags != '') {
           let tags = val[0]['_user_tags'].split(',');
-          tags.splice(0,1);
+          tags.splice(0, 1);
           val[0]._user_tags = tags
-        }else{
+        } else {
           val[0]._user_tags = [];
         }
-        
+
         setValues(d => d = [...d, ...val]);
 
         // router.replace('/' + prev);
@@ -128,7 +127,7 @@ export default function CategoryDetail({ data,value }) {
           {values.map((res, index) => {
             return (
               <div key={index} className='box'>
-                <CategoryBuilder isLast={index == values.length - 1} placeholder={(value.place_holders_ads && value.place_holders_ads.length != 0) ? value.place_holders_ads : []} ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
+                <CategoryBuilder isLast={index == values.length - 1}  ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
               </div>
             )
           })}
@@ -275,6 +274,6 @@ export async function getServerSideProps({ params }) {
   let value = await articlesDetail(param);
   let data = value.message;
   return {
-    props: { data, value }
+    props: { data }
   }
 }

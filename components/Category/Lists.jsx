@@ -1,0 +1,81 @@
+import React from 'react'
+import Image from 'next/image'
+import { check_Image, trending } from '@/libs/api'
+import exclusives from '@/styles/Exclusives.module.scss';
+import { useRouter } from 'next/router';
+import Link from 'next/link'
+import Tags from '../common/Tags';
+// import {Roboto} from 'next/font/google'
+
+// const roboto = Roboto({
+//     weight: ["200","300","400","500","600",'700'],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"]
+//   })
+
+
+export default function Lists({ imgFlex, hash_bg, contentWidth, primary_pb, line, data, titleClamp, isTop, isReverse, borderRadius, imgHeight, imgWidth, isBB, flex, isMp, fullWidth, noWidth, tittleOnly, isHome = undefined, isDesc, descLine, mb }) {
+    const router = useRouter();
+    const checkRoute = (data) => {
+        console.log(data);
+        if (data.doc_type == 'Articles') {
+            router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
+        } else if (data.doc_type == 'News') {
+            router.push('/news/' + data.route)
+        } else if (data.doc_type == 'Community Event') {
+            router.push('/events/' + data.route)
+        } else if (data.doc_type == 'Product') {
+            router.push('/bookstore/' + data.route)
+
+        }
+    }
+
+    return (
+        <>
+            {data && data.map((res, index) => {
+                return (
+                    // style={{flex:flex}}
+                    <div key={index} onClick={() => checkRoute(res)} className={`${flex} flex cursor-pointer gap-[15px] ${(index != data.length - 1 && !isMp) ? 'pb-[10px]' : (isMp && index != data.length - 1) ?
+                        'lg:mb-[20px] lg:pb-[20px] md:pb-[10px] md:mb-[10px]' : ''} ${mb && index != data.length - 1 ? 'lg:mb-[10px]' : ''} relative ${exclusives.card_item} ${(isReverse) ? 'flex-row-reverse items-center  mb-[10px] justify-between' : ''} ${(isReverse && index != data.length - 1) ?
+                            'border_bottom' : ''} ${(isBB && index != data.length - 1) && 'border_bottom mb-[10px]'}`}>
+                        {(res.primary_text && res.secondary_text && isTop) && <p className={`flex line-clamp-1  ${exclusives.title_top}  items-center absolute`}><span className='primary_text pr-[8px] line-clamp-1'>{res.primary_text}</span> <span className='h-[10px] w-[1px]  bg-[#6f6f6f]'></span> <span className='pl-[8px] line-clamp-1 secondary_text'>{res.secondary_text}</span></p>}
+                        {/* ${check ? '' : 'basis-1/4'} */}
+                        <div className={`${imgFlex} ${isTop && 'pt-[25px]'}`}>
+                            <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgHeight} ${imgWidth} ${borderRadius}`} src={check_Image(res.image || res.video_image || res.thumbnail_image)} height={100} width={100} alt={"image"} />
+                        </div>
+                        {/* w-[280px] */}
+                        {res.doc_type == 'Community Event' ?
+                            <div className='flex flex-col'>
+                                {res.title && <h6 className={`title  pt-[5px] ${titleClamp ? titleClamp : 'line-clamp-1'}`}>{res.title ? res.title : ''}</h6>}
+                                <div className={`flex gap-[5px] items-center lg:pt-[5px]`}>
+                                    <p className={`flex items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className='md:hidden' objectFit='contain' height={15} width={20} alt={res.title} />  <span className={`light_text`}>{res.start_date}</span></p><span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>
+                                    {res.locations && <>
+
+                                        <p className={`flex flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='md:hidden' height={15} width={20} alt={res.title} />
+                                            {res.locations.slice(0, 1).map((item, index) => {
+                                                return (
+                                                    <span key={index} className={`light_text`}>{item.event_location}</span>
+                                                )
+                                            })}
+
+                                        </p>
+                                    </>}
+                                </div>
+                            </div>
+                            : <div className={`flex flex-col leading-[1]`}>
+                                {(res.primary_text && res.secondary_text && !isTop) && <p className={`flex items-center line-clamp-1 ${primary_pb}`}><span className='primary_text pr-[8px] line-clamp-1 flex-[0_0_calc(50%_-_5px)]'>{res.primary_text}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f] '></span> <span className='secondary_text line-clamp-1 pl-[8px] flex-[0_0_calc(50%_-_5px)]'>{res.secondary_text}</span></p>}
+                                {res.title && <h6 className={`title  pt-[5px] ${titleClamp ? titleClamp : 'line-clamp-1'}`}>{res.title ? res.title : ''}</h6>}
+                                {((res.sub_title || res.blog_intro) && !tittleOnly) && <p className={`sub_title pt-[5px] ${line ? line : 'line-clamp-2'}`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
+                                {res.blog_intro && <div className={`${descLine ? descLine : ''} sub_title innertag pt-[5px] line-clamp-1`} dangerouslySetInnerHTML={{ __html: res.blog_intro }}></div>}
+
+                                {/* {((res.hashtags || res.publisher) && !tittleOnly) && <p className={`hashtags  ${hash_bg ? hash_bg : 'pt-[5px]'} font-[500]`}>by {res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>} */}
+                                <Tags tags={res.tags} />
+                            </div>}
+                    </div>
+                )
+            })}
+        </>
+    )
+}

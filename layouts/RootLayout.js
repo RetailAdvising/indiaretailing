@@ -49,7 +49,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       {!checkout && <div className="md:hidden"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
       {/* <PdfViewer/> */}
       <>
-        <Header checkout={checkout} headerData={headerData} />
+        <Header checkout={checkout}  />
         {/* {!checkout && <Navbar isLanding={isLanding} heading={head} /> } */}
         <Navbar isLanding={isLanding} heading={head} checkout={checkout} />
         {/* {!checkout ? <Navbar isLanding={isLanding} heading={head} /> : <div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={head} /></div> } */}

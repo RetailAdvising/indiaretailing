@@ -1515,7 +1515,8 @@ strong{
       font-size: $font-15;
       text-align: justify;
       line-height: 1.74 !important;
-      margin-bottom: 26px;
+      margin-bottom: 20px;
+      padding: 0!important;
     }
     strong{
       $dark-color:#111111 !important
@@ -2073,4 +2074,8 @@ li, div, p, span{
   top: 50%;
   right: 134px;
   background:#0000009c;
+}
+
+@media screen and (max-width: 1066px) {
+   
 }

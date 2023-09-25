@@ -6,7 +6,7 @@ import RootLayout from '@/layouts/RootLayout'
 // import {setRoutes} from 'redux/actions/routesAction';
 // import PageData from '@/libs/buider'
 // import HomePageBuilder from '@/components/Builders/HomePageBuilder';
-import { HomePage, getAds, newsLanding, checkMobile } from '../libs/api';
+import { HomePage, getAds, newsLanding, checkMobile, getList } from '../libs/api';
 import { useEffect, useState, useRef } from 'react';
 import SEO from '@/components/common/SEO'
 import dynamic from 'next/dynamic'
@@ -38,12 +38,14 @@ const Cards = dynamic(() => import('@/components/common/Cards'))
 const CardCarousel = dynamic(() => import('@/components/Sliders/CardCarousel'))
 const ImageGroupEvents = dynamic(() => import('@/components/Landing/ImageGroupEvents'))
 const EventList = dynamic(() => import('@/components/Events/EventList'))
-const ListSlider = dynamic(() => import('@/components/Sliders/ListSlider'))
+const ListSlider = dynamic(() => import('@/components/Sliders/ListSlider'));
+const Card = dynamic(() => import('@/components/Bookstore/Card'))
 export default function Home({ data, ads }) {
-  console.log(data);
+  // console.log(data);
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [books, setBooks] = useState([])
   let page_no = 1;
 
 
@@ -68,7 +70,8 @@ export default function Home({ data, ads }) {
       // console.log(ads)
     }
 
-    getNewsLetters()
+    getNewsLetters();
+    getBooks()
     const intersectionObserver = new IntersectionObserver(entries => {
       if (entries[0].intersectionRatio <= 0) return;
       if (!no_product) {
@@ -96,13 +99,6 @@ export default function Home({ data, ads }) {
     }
   }
 
-  // const load = async () => {
-  //   // await setPageNo(pageNo + 1);
-  //   // console.log(pageNo)
-  //   getPageData();
-  //   // page_no += 1
-
-  // }
 
   const getPageData = async () => {
     // console.log('load...',)
@@ -127,9 +123,6 @@ export default function Home({ data, ads }) {
       }
     }
 
-    // setTimeout(() => {
-    //   setLoading(false)
-    // }, 600);
   }
 
   const [isMobile, setIsMobile] = useState()
@@ -146,6 +139,24 @@ export default function Home({ data, ads }) {
     setIsMobile(isMobile);
   }
 
+  const getBooks = async () => {
+    const params = {
+      doctype: 'Product',
+      fields: ['name', 'route', 'item', 'image'],
+      page_no: 1,
+      page_size: 5
+    };
+    const resp = await getList(params);
+    console.log(resp);
+    if (resp.message && resp.message.length != 0) {
+      setBooks(resp.message)
+    } else {
+      setBooks([])
+    }
+  }
+
+
+
   return (
     <>
       {/*  isLast={index == value.length - 1} */}
@@ -154,11 +165,11 @@ export default function Home({ data, ads }) {
         {(value && value.length != 0) && value.map((data, i) => {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
-            <div key={i} className={`py-[20px] ${i == 0 ? 'lg:p-5 bg-[#F8F9FA]' : i == 1 ? 'border-b border-[#d4d8d8] container' : i == 5 ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll' : i == 14 ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
+            <div key={i} className={`py-[20px] ${data.section == 'PS-23-00094' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00105' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00120' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
               {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                 return (
                   // || i == 5
-                  <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(i != 0) ? 'md:mb-[20px]' : ''}  ${((i == 14) && !isMobile) ? 'container' : ''} `}>
+                  <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-23-00094') ? 'md:mb-[20px]' : ''}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} `}>
                     {(res.components && res.components.length != 0) && res.components.map(c => {
                       return (
                         <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-5' : ''}`}>
@@ -300,6 +311,10 @@ export default function Home({ data, ads }) {
                                         <Title data={resp.data} />
                                         <div className={`flex flex-wrap gap-5 justify-between`}><Cards data={resp.data.data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[330px]"} width={"w-full"} flex={'flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} isBorder={true} /></div>
                                     </>} */}
+                          {/* {(c.cid && books && books.length != 0 && c.component_title == "Book Store") && <>
+                            <Title data={{ title: c.component_title }} route={'/bookstore'} seeMore={true} />
+                            <div className={`lg:grid lg:gap-5 lg:grid-cols-5 no_scroll`}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} check={true} data={books} boxShadow={true} /></div>
+                          </>} */}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Reconnect") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/reconnect'} seeMore={true} />
                             <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/categories/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(85%_-_10px)]'} cardClass={'h-[310px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
