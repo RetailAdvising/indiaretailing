@@ -24,7 +24,7 @@ import FacebookLogin from 'react-facebook-login';
 
 import { useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
-
+// import { cookies } from 'next/cookies'
 // import {
 //     LoginSocialGoogle,
 //     LoginSocialFacebook,
@@ -53,7 +53,9 @@ export default function LogIn({ isModal, hide, auth }) {
     const [modal, setModal] = useState('')
     const router = useRouter();
     const dispatch = useDispatch();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    // const cookieStore = cookies();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     // const [ islogin, setislogin] = useState(false)
     // const GoogleLoginButton = ({ onSuccess, onError }) => {
     //     const responseGoogle = (response) => {
@@ -67,6 +69,11 @@ export default function LogIn({ isModal, hide, auth }) {
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
         checkIsMobile();
+        const usr = getCookie('usr')
+        const pwd = getCookie('pwd')
+        setValue('email',usr)
+        setValue('password',pwd)
+        console.log(usr,pwd)
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
@@ -79,7 +86,7 @@ export default function LogIn({ isModal, hide, auth }) {
         //       version: 'v11.0',
         //     });
         //   };
-      
+
         //   // Load the Facebook SDK asynchronously
         //   (function (d, s, id) {
         //     var js,
@@ -99,6 +106,11 @@ export default function LogIn({ isModal, hide, auth }) {
     }
 
     async function login(data) {
+        // console.log(data)
+        // cookieStore.set('usr', data.email, { secure: true, maxAge: 1 })
+        // cookieStore.set('pwd', data.password, { secure: true, maxAge: 1 });
+
+        // console.log(cookieStore.getAll())
         if (data) {
             let datas = {
                 usr: data.email,
@@ -111,13 +123,42 @@ export default function LogIn({ isModal, hide, auth }) {
                 localStorage['userid'] = val.message.user_id;
                 localStorage['customer_id'] = val.message.customer_id;
                 localStorage['full_name'] = val.full_name;
-                localStorage['roles'] = JSON.stringify(val.message.roles)
+                localStorage['roles'] = JSON.stringify(val.message.roles);
+                document.cookie = `apikey=${val.message.api_key};expires=${day.getDate() + 1};`;
+                document.cookie = `secret=${val.message.api_secret};expires=${day.getDate() + 1};`;
+                document.cookie = `userid=${val.message.user_id};expires=${day.getDate() + 1};`;
+                document.cookie = `customer_id=${val.message.customer_id};expires=${day.getDate() + 1};`;
+                document.cookie = `full_name=${val.full_name};expires=${day.getDate() + 1};`;
+                document.cookie = `roles=${val.roles};expires=${day.getDate() + 1};`;
+                if (data.remember) {
+                    const day = new Date();
+                    document.cookie = `usr=${data.email};expires=${day.getDate() + 1};`;
+                    document.cookie = `pwd=${data.password};expires=${day.getDate() + 1};`;
+                }
+                // cookieStore.set('usr', data.email, { secure: true, maxAge: 1 })
+                // cookieStore.set('pwd', data.password, { secure: true, maxAge: 1 });
                 dispatch(setUser(val));
                 (isModal || !isMobile) ? hide() : router.push('/')
             } else {
                 setWrong(!wrong);
             }
         }
+    }
+
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     }
 
 
@@ -138,25 +179,25 @@ export default function LogIn({ isModal, hide, auth }) {
 
     const responseGoogle = (response) => {
         if (response.error === 'popup_closed_by_user') {
-          // Handle the error (e.g., display a message to the user)
-          console.error('Google login popup closed by the user.');
+            // Handle the error (e.g., display a message to the user)
+            console.error('Google login popup closed by the user.');
         } else {
-          // Handle successful login
-          console.log('Google login successful:', response);
+            // Handle successful login
+            console.log('Google login successful:', response);
         }
-      };
+    };
 
 
     //   const FacebookLoginButton = () => {
-        const responseFacebook = (response) => {
-          if (response.status === 'connected') {
+    const responseFacebook = (response) => {
+        if (response.status === 'connected') {
             // The user is logged in and authorized your app
             console.log('Logged in and authorized:', response);
-          } else {
+        } else {
             // The user is not logged in or did not authorize your app
             console.log('Not logged in or not authorized:', response);
-          }
-        };
+        }
+    };
     // };
 
     // const responseGoogle = (response) => {
@@ -236,7 +277,7 @@ export default function LogIn({ isModal, hide, auth }) {
                         <div className='flex h-[50px] w-[75px] rounded-[10px] border cursor-pointer items-center justify-center '>
                             {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='google' src={'/google-login.svg'} /> */}
                             {/* <p>Continue with Google</p> onClick={() => signIn('google')} */}
-                            { <GoogleLogin buttonText="" clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} />}
+                            {<GoogleLogin buttonText="" clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} />}
                         </div>
 
                         <div className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
@@ -248,15 +289,15 @@ export default function LogIn({ isModal, hide, auth }) {
                             {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/login/fb-01.svg'} /> */}
                             {/* <p>Continue with Facebook</p> */}
                             {
-                                 <FacebookLogin
-                                 textButton=""
-                                 cssClass="my-facebook-button-class"
-                                 icon="fa-facebook"
-                                 appId="1395750980977164"
-                                 autoLoad={false} // Set to true if you want auto-login on page load
-                                 fields="name,email,picture"
-                                 callback={responseFacebook}
-                               />
+                                <FacebookLogin
+                                    textButton=""
+                                    cssClass="my-facebook-button-class"
+                                    icon="fa-facebook"
+                                    appId="1395750980977164"
+                                    autoLoad={false} // Set to true if you want auto-login on page load
+                                    fields="name,email,picture"
+                                    callback={responseFacebook}
+                                />
                             }
                         </div>
                     </div>

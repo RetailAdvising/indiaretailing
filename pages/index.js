@@ -201,8 +201,9 @@ export default function Home({ data, ads }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending" && !isMobile) && <>
                             <Title data={{ title: c.component_title }} />
                             <div className='lg:flex justify-between items-center gap-[10px]'>
+                              <div className={`flex gap-[10px] flex-[0_0_calc(4%_-_10px)] justify-end`}><TrendingBox icons={'left'} parentElement={'trending'} /></div>
                               <div className={`flex gap-[10px] overflow-auto trending`}><TrendingBox data={data.data[c.cid].data} /></div>
-                              <div className={`flex gap-[10px] flex-[0_0_calc(7%_-_10px)] justify-end`}><TrendingBox icons={true} parentElement={'trending'} /></div>
+                              <div className={`flex gap-[10px] flex-[0_0_calc(4%_-_10px)] justify-end`}><TrendingBox icons={'right'} parentElement={'trending'} /></div>
                             </div>
                           </>}
 

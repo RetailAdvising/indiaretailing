@@ -7,7 +7,7 @@ import { check_Image } from '@/libs/common'
 import Title from '../common/Title'
 import EventCards from './EventCards'
 import { useRouter } from 'next/router'
-
+import Placeholders from '../common/Placeholders'
 export default function EventDetail({ data }) {
     console.log(data)
     const router = useRouter();
@@ -76,7 +76,8 @@ export default function EventDetail({ data }) {
                             <button type='button' className={`primary_button h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={redirectTo} >Register Now</button>
                             <button type='button' className={`primary_outline h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={viewMoreLink}>More Details</button>
                         </div>
-                        {data && <AdsBaner data={{ ad_image: '/ads_baner.png' }} />}
+                        {(data.place_holders_ads && data.place_holders_ads.length != 0) && <Placeholders placeholder={data.place_holders_ads}  />}
+                        {/* {data && <AdsBaner data={{ ad_image: '/ads_baner.png' }} />} */}
                     </div>
                 </div>
 

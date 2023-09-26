@@ -12,6 +12,7 @@ export default function EventDetails({ data, ads_data }) {
     // useEffect(()=>{
 
     // },[router.query])
+    console.log(data,'detaial')
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null} isLanding={false} head={'Events'}>

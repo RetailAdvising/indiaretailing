@@ -28,7 +28,10 @@ export default function Lists({ imgFlex, hash_bg, contentWidth, primary_pb, line
             router.push('/events/' + data.route)
         } else if (data.doc_type == 'Product') {
             router.push('/bookstore/' + data.route)
-
+        } else if (data.doc_type == 'Video') {
+            router.push('/video/' + data.route)
+        }else if(data.doc_type == 'Podcast'){
+            router.push('/podcast/' + data.route)  
         }
     }
 
@@ -50,16 +53,14 @@ export default function Lists({ imgFlex, hash_bg, contentWidth, primary_pb, line
                             <div className='flex flex-col'>
                                 {res.title && <h6 className={`title  pt-[5px] ${titleClamp ? titleClamp : 'line-clamp-1'}`}>{res.title ? res.title : ''}</h6>}
                                 <div className={`flex gap-[5px] items-center lg:pt-[5px]`}>
-                                    <p className={`flex items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className='md:hidden' objectFit='contain' height={15} width={20} alt={res.title} />  <span className={`light_text`}>{res.start_date}</span></p><span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>
+                                    <p className={`flex items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className='md:hidden' objectFit='contain' height={15} width={20} alt={res.title} />  <span className={`light_text`}>{res.start_date}</span></p>{res.locations && <span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>}
                                     {res.locations && <>
-
                                         <p className={`flex flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='md:hidden' height={15} width={20} alt={res.title} />
                                             {res.locations.slice(0, 1).map((item, index) => {
                                                 return (
                                                     <span key={index} className={`light_text`}>{item.event_location}</span>
                                                 )
                                             })}
-
                                         </p>
                                     </>}
                                 </div>
