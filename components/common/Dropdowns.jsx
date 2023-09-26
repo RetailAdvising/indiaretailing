@@ -16,7 +16,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
         } else if (data.name == 'Copy Link') {
             // console.log('https://indiaretail.vercel.app' + router.asPath)
             // let str = 'https://indiaretail.vercel.app' + router.asPath
-            let str = 'https://indiaretail.vercel.app/' + link.route
+            let str = 'https://indiaretail.vercel.app/' + router.asPath.split('/')[1] + '/' + link.route
             await navigator?.clipboard?.writeText(str);
             toast.success("Link copied successfully")
             // copyToClipboard(str);
@@ -121,19 +121,19 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                             {data && data.map((res, index) => {
                                                 return (
                                                     <div key={index} className=' p-[10px] rounded'>
-                                                        {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + link.route} className='flex items-center gap-[10px]'>
+                                                        {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + router.asPath.split('/')[1] + '/' + link.route} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                             <p className={'text-[14px]'}>{res.name}</p>
                                                         </LinkedinShareButton>}
-                                                        {res.name == 'Facebook' && <FacebookShareButton url={'https://indiaretail.vercel.app/' + link.route} className='flex items-center gap-[10px]'>
+                                                        {res.name == 'Facebook' && <FacebookShareButton url={'https://indiaretail.vercel.app/' + router.asPath.split('/')[1] + '/' + link.route} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                             <p className={'text-[14px]'}>{res.name}</p>
                                                         </FacebookShareButton>}
-                                                        {res.name == 'Twitter' && <TwitterShareButton url={'https://indiaretail.vercel.app/' + link.route} className='flex items-center gap-[10px]'>
+                                                        {res.name == 'Twitter' && <TwitterShareButton url={'https://indiaretail.vercel.app/' + router.asPath.split('/')[1] + '/' + link.route} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                             <p className={'text-[14px]'}>{res.name}</p>
                                                         </TwitterShareButton>}
-                                                        {res.name == 'Whatsapp' && <WhatsappShareButton url={'https://indiaretail.vercel.app/' + link.route} className='flex items-center gap-[10px]'>
+                                                        {res.name == 'Whatsapp' && <WhatsappShareButton url={'https://indiaretail.vercel.app/' + router.asPath.split('/')[1] + '/' + link.route} className='flex items-center gap-[10px]'>
                                                             <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                             <p className={'text-[14px]'}>{res.name}</p>
                                                         </WhatsappShareButton>}
