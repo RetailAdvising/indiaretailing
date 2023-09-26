@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { useRouter } from 'next/router';
 import { checkMobile } from '@/libs/api'
+import { ToastContainer, toast } from 'react-toastify';
+
 // import { Menu } from '@headlessui/react'
 export default function Dropdowns({ data, img, width, share, setting, element, type }) {
     const router = useRouter();
@@ -14,13 +16,15 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
         } else if (data.name == 'Copy Link') {
             // console.log('https://indiaretail.vercel.app' + router.asPath)
             let str = 'https://indiaretail.vercel.app' + router.asPath
-            await navigator?.clipboard?.writeText(str)
+            await navigator?.clipboard?.writeText(str);
+            toast.success("Link copied successfully")
             // copyToClipboard(str);
         } else if (data.name == 'Comment') {
             let el = document.getElementById(element)
             el?.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
         }
     }
+
 
     // async function copyToClipboard(text) {
     //     if (!navigator.clipboard) {

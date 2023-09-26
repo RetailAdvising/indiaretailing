@@ -132,7 +132,7 @@ export default function SignUp({ isModal, hide, auth }) {
                                 {/* <Image className={`absolute  right-[10px] h-[20px] w-[24px] ${errors.first_name?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/profile-01.svg'} height={15} width={15} alt={"pass"} /> */}
                             </div>
                             <div className={`flex flex-col relative flex-[0_0_calc(50%_-_10px)]`}>
-                                <label className={`${styles.label} text-[#808D9E]`} htmlFor='first_name' >Last Name</label>
+                                <label className={`${styles.label} text-[#808D9E]`} htmlFor='last_name' >Last Name</label>
                                 <input className={`${styles.input} ${styles.input1}`} {...register('last_name')} />
                                 {/* <Image className={`absolute  right-[10px] h-[20px] w-[24px] bottom-[25px]`} src={'/login/profile-01.svg'} height={15} width={15} alt={"pass"} /> */}
                             </div>

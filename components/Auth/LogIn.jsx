@@ -71,9 +71,9 @@ export default function LogIn({ isModal, hide, auth }) {
         checkIsMobile();
         const usr = getCookie('usr')
         const pwd = getCookie('pwd')
-        setValue('email',usr)
-        setValue('password',pwd)
-        console.log(usr,pwd)
+        setValue('email', usr)
+        setValue('password', pwd)
+        console.log(usr, pwd)
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
@@ -124,17 +124,23 @@ export default function LogIn({ isModal, hide, auth }) {
                 localStorage['customer_id'] = val.message.customer_id;
                 localStorage['full_name'] = val.full_name;
                 localStorage['roles'] = JSON.stringify(val.message.roles);
-                document.cookie = `apikey=${val.message.api_key};expires=${day.getDate() + 1};`;
-                document.cookie = `secret=${val.message.api_secret};expires=${day.getDate() + 1};`;
-                document.cookie = `userid=${val.message.user_id};expires=${day.getDate() + 1};`;
-                document.cookie = `customer_id=${val.message.customer_id};expires=${day.getDate() + 1};`;
-                document.cookie = `full_name=${val.full_name};expires=${day.getDate() + 1};`;
-                document.cookie = `roles=${val.roles};expires=${day.getDate() + 1};`;
-                if (data.remember) {
-                    const day = new Date();
-                    document.cookie = `usr=${data.email};expires=${day.getDate() + 1};`;
-                    document.cookie = `pwd=${data.password};expires=${day.getDate() + 1};`;
-                }
+                setWithExpiry('api', val.message.api_key, 90)
+                // const day = new Date();
+                // document.cookie = `apikey=${val.message.api_key};expires=${day.getTime() + 10};`;
+                // document.cookie = `secret=${val.message.api_secret};expires=${day.getTime() + 10};`;
+                // document.cookie = `userid=${val.message.user_id};expires=${day.getTime() + 10};`;
+                // document.cookie = `customer_id=${val.message.customer_id};expires=${day.getTime() + 10};`;
+                // document.cookie = `full_name=${val.full_name};expires=${day.getTime() + 10};`;
+                // // document.cookie = `roles=${val.roles};expires=${day.getTime() + 10};`;
+                // if (data.remember) {
+                //     const day = new Date();
+                //     document.cookie = `usr=${data.email};expires=${day.Day() + 90};`;
+                //     document.cookie = `pwd=${data.password};expires=${day.Day() + 90};`;
+                // }
+
+                // const cook = document.cookie;
+                // console.log(cook)
+                // console.log(day.getTime() + 10)
                 // cookieStore.set('usr', data.email, { secure: true, maxAge: 1 })
                 // cookieStore.set('pwd', data.password, { secure: true, maxAge: 1 });
                 dispatch(setUser(val));
@@ -143,6 +149,22 @@ export default function LogIn({ isModal, hide, auth }) {
                 setWrong(!wrong);
             }
         }
+    }
+
+    function setWithExpiry(key, value, ttl) {
+        const now = new Date()
+
+        // `item` is an object which contains the original value
+        // as well as the time when it's supposed to expire
+        // var ninetyDaysFromToday = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
+        var ninetyDaysFromToday = new Date(now.getTime() + 1 * 24 * 60 * 60 * 1000);
+        const item = {
+            value: value,
+            expiry: ninetyDaysFromToday.toUTCString(),
+        }
+        // var today = new Date();
+        // document.cookie = "sessionTimeout=" + ninetyDaysFromToday.toUTCString() + "; path=/";
+        localStorage.setItem(key, JSON.stringify(item))
     }
 
 

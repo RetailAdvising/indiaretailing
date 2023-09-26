@@ -214,7 +214,7 @@ export default function Address({hide,edit_address,modal}) {
         <Controller name="custom_company_name" control={control} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Company (Optional)" id="custom_company_name" {...field} />)} />
         {errors.custom_company_name && <p className={`${style.danger}`}>{errors.custom_company_name.message}</p>}
 
-        <Controller name="custom_gst_no" control={control} render={({ field }) => ( <input  className={`${styles.custom_input} w-full`} type="number" placeholder="GST No (Optional)" id="custom_gst_no" {...field} />)} />
+        <Controller name="custom_gst_no" control={control} render={({ field }) => ( <input  className={`${styles.custom_input} w-full`} type="text" placeholder="GST No (Optional)" id="custom_gst_no" {...field} />)} />
         {errors.company && <p className={`${style.danger}`}>{errors.company.message}</p>}
 
         <Controller name="address" control={control} rules={{ required: 'Address is required' }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="text" placeholder="Address" id="address" {...field} />)} />
@@ -263,7 +263,7 @@ export default function Address({hide,edit_address,modal}) {
 
         </div>
 
-        <Controller name="phone" control={control} rules={{ validate: validatePhoneNumber }} render={({ field }) => ( <input className={`${styles.custom_input} w-full`} type="number" placeholder="Phone (Required" id="phone" {...field} />)} />
+        <Controller name="phone" control={control} rules={{ validate: validatePhoneNumber }} render={({ field }) => ( <input className={`${styles.custom_input} ${style.input1} w-full`} type="number" placeholder="Phone (Required" id="phone" {...field} />)} />
         {errors.phone && <p className={`${style.danger}`}>{errors.phone.message}</p>}
 
         <div class="flex mb-[15px] justify-center items-center">

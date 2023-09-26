@@ -127,6 +127,7 @@ export default function CategoryDetail({ data }) {
           {values.map((res, index) => {
             return (
               <div key={index} className='box'>
+                <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} />
                 <CategoryBuilder isLast={index == values.length - 1}  ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
               </div>
             )

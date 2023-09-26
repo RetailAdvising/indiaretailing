@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { check_Image } from '@/libs/api'
 import Link from 'next/link'
 export default function TopStories({ data }) {
-    console.log(data)
+    // console.log(data)
     return (
         <>
             {data && data.map((res, index) => {

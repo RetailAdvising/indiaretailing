@@ -1,9 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React from 'react'
 import styles from '@/styles/category.module.scss'
 import Image from 'next/image'
 import { check_Image } from '@/libs/api'
-
-import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { useRouter } from 'next/router'
 import Dropdowns from './Dropdowns'
 import format from 'date-fns/format'
@@ -13,42 +11,10 @@ export default function Content({ res, i }) {
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
     const setings = [{ name: 'More Stories' }, { name: 'Copy Link' }, { name: 'Comment' }]
 
-    const [sort, setSort] = useState(false);
-    const ref = useRef(null);
-    const setting = useRef(null);
-
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         let el = document.getElementById(`dropdown${i}`).classList;
-    //         let classs = Array.from(el);
-    //         let out = classs.find(res => res == 'dropdown-menu-active');
-    //         if (ref.current && !ref.current.contains(event.target) && out) {
-    //             el.remove('dropdown-menu-active');
-    //         }
-
-    //         let el2 = document.getElementById(`down${i}`).classList;
-    //         let class2 = Array.from(el2);
-    //         let out2 = class2.find(res => res == 'dropdown-menu-active');
-    //         if (setting.current && !setting.current.contains(event.target) && out2) {
-    //             el2.remove('dropdown-menu-active');
-    //         }
-    //     };
-    //     document.addEventListener('click', handleClickOutside, true);
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside, true);
-    //     };
-    // }, [])
-
-
-    const share = (type) => {
-        setSort(!sort);
-        let element = type == 'share' ? document.getElementById(`dropdown${i}`) : document.getElementById(`down${i}`);
-        sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
-    }
-
+    
     const dateFormat = (data) => {
         if (data && data != null) {
-            const formattedDate = format(new Date(data), "iii, d LLL yyyy , kk : m");
+            const formattedDate = format(new Date(data), "iii, d LLL yyyy , hh : mm aaa");
             // setDate(formattedDate)
             // console.log(data)
             // console.log(formattedDate)
@@ -76,10 +42,7 @@ export default function Content({ res, i }) {
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
             </div>
 
-
             <h1 className='mega_title lg:text-4xl md:text-[18px] md:leading-[29.23px] my-4 md:my-1 md:mb-[5px]'>{res.title}</h1>
-
-
 
             <div className={`flex items-center justify-between ${styles.profile_div} md:hidden`}>
                 <div className='flex gap-4 items-center'>
@@ -96,48 +59,6 @@ export default function Content({ res, i }) {
                 </div>
 
                 <div className='flex items-center gap-[15px]'>
-                    {/* <div className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '20px' }}>
-                        <Image onClick={() => share('share')} ref={ref} className={`dropdowns transition-all delay-500 md:h-[17px] md:w-[15px]`} src={'/share.svg'} height={10} width={15} alt={'share'} />
-                        <div className={`dropdown-menu p-[10px]  right-0 grid justify-center`} style={{ borderRadius: '10px', width: '150px', position: 'absolute' }} id={`dropdown${i}`}>
-                            {icons && icons.map((res, index) => {
-                                return (
-                                    <div key={index} className='hover:bg-[#FDF5F5] p-[0_10px] rounded'>
-                                        {res.name == 'Linkedin' && <LinkedinShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                            <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                            <p>{res.name}</p>
-                                        </LinkedinShareButton>}
-                                        {res.name == 'Facebook' && <FacebookShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                            <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                            <p>{res.name}</p>
-                                        </FacebookShareButton>}
-                                        {res.name == 'Twitter' && <TwitterShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                            <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                            <p>{res.name}</p>
-                                        </TwitterShareButton>}
-                                        {res.name == 'Whatsapp' && <WhatsappShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                            <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                            <p>{res.name}</p>
-                                        </WhatsappShareButton>}
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div> */}
-                    {/* <Image className='object-contain' src={'/share.svg'} height={14} width={15} alt={"image"} /> */}
-                    {/* <Image className='object-contain h-[25px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} /> */}
-                    {/* <div className='dropdowns w-[25px] relative cursor-pointer' style={{ height: '20px' }}>
-                        <Image onClick={() => share('settings')} ref={setting} className='object-contain md:h-[20px] md:w-[19px] h-[20px] w-[20px]' src={'/setting.svg'} height={14} width={15} alt={'setting'} />
-                        <div className={`dropdown-menu p-[10px_0_10px_0] right-0 grid justify-center`} style={{ borderRadius: '10px', width: '190px', position: 'absolute' }} id={`down${i}`}>
-                            {setings && setings.map((res, index) => {
-                                return (
-                                    <div onClick={() => settings(res)} key={index} className='flex p-[5px_10px_0_10px] hover:bg-[#EEEE] hover:rounded-[10px] items-center gap-[15px]'>
-                                        <div className='h-[10px] w-[10px] rounded-full bg-[#ddd]'></div>
-                                        <p className='capitalize'>{res.name}</p>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div> */}
                     {icons && <Dropdowns share={true} width={'w-[170px]'} data={icons} />}
 
                     {setings && <Dropdowns setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}

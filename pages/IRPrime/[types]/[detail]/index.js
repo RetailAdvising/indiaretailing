@@ -1,19 +1,19 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
-import { articlesDetail,getAds } from '@/libs/api';
+import { articlesDetail, getAds } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import { check_Image } from '@/libs/common';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Details() {
   const router = useRouter();
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);
-  const[advertisement,setAds] = useState()
+  const [advertisement, setAds] = useState()
 
   const articleDetail = async () => {
     if (router.query && (router.query.detail && router.query.types)) {
@@ -48,11 +48,11 @@ export default function Details() {
   const user = useSelector(s => s.user);
 
   useEffect(() => {
-    if(typeof window !== 'undefined'){
+    if (typeof window !== 'undefined') {
       articleDetail();
       ads();
     }
-  }, [router,user])
+  }, [router, user])
 
 
   async function loadMore() {
@@ -84,13 +84,14 @@ export default function Details() {
 
   return (
     <>
-      <RootLayout isLanding={true} homeAd={advertisement ? advertisement :null} head={''}>
-      { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>}
-      {/* { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>} */}
+      <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
+        {(values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />}
+        {/* { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>} */}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
               <div key={index}>
+                <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} />
                 <CategoryBuilder isPrime={true} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} />
               </div>
             )

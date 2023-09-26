@@ -39,14 +39,14 @@ export default function Tags({ res, data }) {
 
         if (data && data.length != 0) {
             console.log(data)
-            data.unshift({name :'All' , custom_route: 'all'})
+            data.unshift({ name: 'All', custom_route: 'all' })
             setTag(data)
         }
         // console.log(res)
         // console.log(data)
 
         // getTags();
-       
+
         scrollElement()
         const intersectionObserver = new IntersectionObserver(entries => {
             if (entries[0].intersectionRatio <= 0) return;
@@ -63,6 +63,7 @@ export default function Tags({ res, data }) {
         }
     }, [router.query])
 
+    
 
     const get_list = async () => {
         // const param = await router.query.id;
@@ -81,18 +82,18 @@ export default function Tags({ res, data }) {
         }
     }
 
-    const getTag = async () =>{
+    const getTag = async () => {
         let param1 = {
             doctype: 'Tag',
             fields: ['name', 'custom_route'],
             page_no: pageNo,
             page_size: 25
         }
-    
+
         const response = await getList(param1);
-        if(response.message && response.message.length !=0){
-            setTag(d => d = [...d,...response.message])
-        }else{
+        if (response.message && response.message.length != 0) {
+            setTag(d => d = [...d, ...response.message])
+        } else {
             no_tag = true
         }
     }
@@ -171,7 +172,7 @@ export default function Tags({ res, data }) {
                             {(tabs && tag) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
                             <TrendingBox />
                         </div>
-                        <div  id='scroll' className="lg:flex-[0_0_calc(50%_-_10px)]  lg:p-5  md:basis-full lg:h-[calc(100vh-_90px)] overflow-auto scrollbar-hide">
+                        <div id='scroll' className="lg:flex-[0_0_calc(50%_-_10px)]  lg:p-5  md:basis-full lg:h-[calc(100vh-_90px)] overflow-auto scrollbar-hide">
                             {/* <div className=''> */}
                             {(resp_data && resp_data.length != 0 && !nodata) ?
                                 <div className={`lg:grid  lg:grid-cols-1 lg:gap-5 `}>
@@ -179,16 +180,16 @@ export default function Tags({ res, data }) {
                                         return (
                                             <div key={index} onClick={() => checkRoute(res)} className={`md:flex-[0_0_calc(70%_-_10px)] cursor-pointer border-b-[4px] border-[#f1f1f1] md:mb-[15px] md:pb-[15px]`}>
                                                 {/* <div className='flex justify-between items-center'> */}
-                                                    <div className='flex items-center gap-[10px]'>
-                                                        <Image className='h-[30px] w-[30px] object-contain' src={'/Navbar/IR-01.svg'} height={20} width={20} alt='ir prime' />
-                                                        <p className='text-[14px] font-semibold capitalize'>{res.category ? res.category : ''}</p>
-                                                    </div>
+                                                <div className='flex items-center gap-[10px]'>
+                                                    <Image className='h-[30px] w-[30px] object-contain' src={'/Navbar/IR-01.svg'} height={20} width={20} alt='ir prime' />
+                                                    <p className='text-[14px] font-semibold capitalize'>{res.category ? res.category : ''}</p>
+                                                </div>
                                                 {/* </div> */}
                                                 <h6 className={`title line-clamp-2 py-[10px]`}>{res.title}</h6>
                                                 <div>
                                                     <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image)} height={500} width={800} className={`w-full h-[320px] rounded-[5px]`} alt={res.title ? res.title : index} />
                                                 </div>
-                                                <div className={`lg:py-[10px] md:pt-[10px] flex justify-between ${res.doctype == 'Community Event' ? 'float-right': ''}`}>
+                                                <div className={`lg:py-[10px] md:pt-[10px] flex justify-between ${res.doctype == 'Community Event' ? 'float-right' : ''}`}>
                                                     {res.doctype != 'Community Event' && <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between'>
                                                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                                                         <div className='flex  items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</span></div>

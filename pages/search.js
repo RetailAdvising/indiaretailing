@@ -44,7 +44,7 @@ export default function search({searchTxt}) {
 
 
           const intersectionObserver = new IntersectionObserver(entries => {
-            console.log('12345')
+            // console.log('12345')
             if (entries[0].intersectionRatio <= 0) return;
             // console.log(entries,'entery')
             if(!no_product && !enableSearch){

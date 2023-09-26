@@ -95,9 +95,11 @@ export default function Home({ data, ads }) {
     let value = await newsLanding(param);
     let data = value.message;
     if (data && data.length != 0) {
-      setNews(data)
+      setNews(data);
     }
   }
+
+ 
 
 
   const getPageData = async () => {
@@ -124,6 +126,15 @@ export default function Home({ data, ads }) {
     }
 
   }
+
+  //   function WriteCookie() {
+  //     var now = new Date();
+  //     now = now.getTime() + 300;
+
+  //     document.cookie="name=john";
+  //     document.cookie = "expires=" + now + ";"
+  //     console.log ("Setting Cookies : " + "name=john"  );
+  //  }
 
   const [isMobile, setIsMobile] = useState()
   useEffect(() => {
@@ -201,7 +212,7 @@ export default function Home({ data, ads }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending" && !isMobile) && <>
                             <Title data={{ title: c.component_title }} />
                             <div className='lg:flex justify-between items-center gap-[10px]'>
-                              <div className={`flex gap-[10px] flex-[0_0_calc(4%_-_10px)] justify-end`}><TrendingBox icons={'left'} parentElement={'trending'} /></div>
+                              <div className={`flex gap-[10px] flex-[0_0_calc(4%_-_10px)]`}><TrendingBox icons={'left'} parentElement={'trending'} /></div>
                               <div className={`flex gap-[10px] overflow-auto trending`}><TrendingBox data={data.data[c.cid].data} /></div>
                               <div className={`flex gap-[10px] flex-[0_0_calc(4%_-_10px)] justify-end`}><TrendingBox icons={'right'} parentElement={'trending'} /></div>
                             </div>

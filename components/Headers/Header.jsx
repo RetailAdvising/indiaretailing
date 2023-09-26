@@ -6,8 +6,8 @@ import { check_Image } from '@/libs/common'
 import Dropdowns from '../common/Dropdowns';
 import { search_product, checkMobile, stored_customer_info } from '@/libs/api';
 import AuthModal from '../Auth/AuthModal';
-import { useSelector,useDispatch } from 'react-redux';
-// import setUser from 'redux/actions/userAction';
+import { useSelector, useDispatch } from 'react-redux';
+import setUser from 'redux/actions/userAction';
 
 // import {setUser} from '@/redux/actions/userAction'
 export default function Header({ checkout }) {
@@ -18,7 +18,7 @@ export default function Header({ checkout }) {
     }
 
     const user = useSelector(s => s.user);
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     const profile = [{ name: 'Logout', icon: '/Navbar/Logout.svg' }, { name: 'Profile', icon: '/login/profile-01.svg', route: '/profile?my_account=edit-profile', mob_route: '/profile?my_account=' }]
     const [valid, setValid] = useState(false);
@@ -31,7 +31,7 @@ export default function Header({ checkout }) {
     const [enableSearch, setEnableSearch] = useState(false)
     const [searchResult, setSearchResult] = useState([])
     const [searchValue, setSearchValue] = useState(undefined)
-    
+
     useEffect(() => {
         // console.log(user)
 
@@ -43,21 +43,23 @@ export default function Header({ checkout }) {
             // roleMember();
         }
 
+        getWithExpiry('api')
+
         setLoader(true);
 
-        const handleClickOutside = (event) => {
-            let el = document.getElementById('dropdown1')?.classList;
-            let classs = (el && el != null) && Array.from(el);
-            let out = classs && classs.find(res => res == 'dropdown-menu-active');
-            if (ref.current && !ref.current.contains(event.target) && out) {
-                el.remove('dropdown-menu-active')
-            }
-        };
+        // const handleClickOutside = (event) => {
+        //     let el = document.getElementById('dropdown1')?.classList;
+        //     let classs = (el && el != null) && Array.from(el);
+        //     let out = classs && classs.find(res => res == 'dropdown-menu-active');
+        //     if (ref.current && !ref.current.contains(event.target) && out) {
+        //         el.remove('dropdown-menu-active')
+        //     }
+        // };
 
-        document.addEventListener('click', handleClickOutside, true);
-        return () => {
-            document.removeEventListener('click', handleClickOutside, true);
-        };
+        // document.addEventListener('click', handleClickOutside, true);
+        // return () => {
+        //     document.removeEventListener('click', handleClickOutside, true);
+        // };
 
         // const node = document.getElementById("search");
         // node.addEventListener("keyup", function(event) {
@@ -94,13 +96,13 @@ export default function Header({ checkout }) {
 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
-        console.log(user)
+        // console.log(user)
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
-    }, [])
+    }, [valid])
 
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
@@ -143,6 +145,33 @@ export default function Header({ checkout }) {
         if (event.key === 'Enter') {
             navigateSearchScreen('search')
             // console.log(event)
+        }
+    }
+
+    function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+        // Set the session timeout to 90 days from today.
+        // var today = new Date();
+        // var ninetyDaysFromToday = new Date(today.getTime() + 90 * 24 * 60 * 60 * 1000);
+        // document.cookie = "sessionTimeout=" + ninetyDaysFromToday.toUTCString() + "; path=/";
+        // if the item doesn't exist, return null
+        if (!itemStr) {
+            return null
+        }
+
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        // compare the expiry time of the item with the current time
+        if (now > item.expiry) {
+            // If the item is expired, delete the item from storage
+            // and return null
+            // localStorage.removeItem(key)
+            dispatch(setUser(''))
+            localStorage.clear();
+            setValid(!valid);
+            // setLoader(true);
+            return null
         }
     }
 
@@ -267,22 +296,22 @@ export default function Header({ checkout }) {
                         </div>
                         {loader &&
                             <>
-                                {!valid ?
+                                {!valid && (!user || user != '') ?
                                     <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
                                         <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
                                         <button type='button' onClick={show} className={`${styles.btn_sig}`}>{head.btn2}</button>
                                     </div>
                                     :
                                     <div className='flex justify-end'>
-                                        <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
+                                        {((user) || (localStorage && localStorage['userid'])) && <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
                                             <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
                                             <div>
-                                                {((user) || (localStorage && localStorage['userid'])) && <p className='cursor-pointer text-[14px] font-[500]'>{(user.message && user.message.user_id) ? user.message.user_id : localStorage['userid']}</p>}
+                                                <p className='cursor-pointer text-[14px] font-[500]'>{(user != '' && user.message && user.message.user_id) ? user.message.user_id : localStorage['userid']}</p>
                                             </div>
-                                            {/* <div>
+                                        </div>}
+                                        {/* <div>
                                             <Image className='cursor-pointer h-[8px] w-[13px]' src={'/Navbar/down.svg'} height={20} width={20} alt='down' />
                                         </div> */}
-                                        </div>
 
                                     </div>
                                 }
