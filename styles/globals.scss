@@ -1892,6 +1892,18 @@ strong {
   .zero-gap .react-multi-carousel-track {
     gap: 0px !important;
   }
+  .popright .rodal .rodal-dialog{
+    left: 0!important;
+    padding: 0!important;
+    margin: 0;
+    width: 100% !important;
+    border-radius: 29px;
+    top: 29%;
+    h6{
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+    }
+  }
 }
 
 .mouse {

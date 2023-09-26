@@ -37,7 +37,7 @@ export default function CategoryDetail({ data }) {
       data._user_tags = [];
     }
 
-    // console.log('reloaded', data);
+    console.log('reloaded', data);
 
     if (data) {
       let val = [data]

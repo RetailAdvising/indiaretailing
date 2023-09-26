@@ -22,7 +22,7 @@ export default function LatestNews({ data, height, width, isList }) {
     <>
       {(data && !isMobile) ? data.map((res, index) => {
         return (
-          <Link key={index} href={'/news/' + res.route}>
+          <Link key={index} href={'/categories/' + res.route}>
             <div className={`pb-[10px] ${!res.image && ((index != data.length - 1 || index == 1)) && 'border_bottom'}`}>
               {(res.thumbnail_image && index < 2) && <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />}
               {res.title && <h6 className={`my-[10px] line-clamp-1 title `}>{res.title}</h6>}
@@ -36,7 +36,7 @@ export default function LatestNews({ data, height, width, isList }) {
           {(data && isMobile && !isList) &&
             data.slice(0, 2).map((res, i) => {
               return (
-                <Link key={i} href={'/news/' + res.route} className='flex-[0_0_calc(70%_-_10px)] border rounded-[10px] h-[280px]'>
+                <Link key={i} href={'/categories/' + res.route} className='flex-[0_0_calc(70%_-_10px)] border rounded-[10px] h-[280px]'>
                   <div>
                     <Image priority src={check_Image(res.thumbnail_image)} className={`rounded-[5px_5px_0_0] ${height} ${width}`} width={400} height={200} alt={res.title} />
                   </div>
@@ -51,7 +51,7 @@ export default function LatestNews({ data, height, width, isList }) {
 
           {(data && isMobile && isList) && data.map((res, i) => {
             return (
-              <div key={i} onClick={() => router.push('/news/' + res.route)} className={`${i == 0 ? 'border_top border_bottom' : 'mb-[15px]'}`}>
+              <div key={i} onClick={() => router.push('/categories/' + res.route)} className={`${i == 0 ? 'border_top border_bottom' : 'mb-[15px]'}`}>
                 {res.title && <h6 className={`my-[10px] line-clamp-1 title `}>{res.title}</h6>}
                 {(res.blog_intro) && <p className={`${!res.image && 'mb-[10px]'} sub_title line-clamp-2`}>{res.blog_intro}</p>}
 

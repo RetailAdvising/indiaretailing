@@ -192,7 +192,7 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
                         </Rodal>
                             : modal == 'report' ?
                             <Rodal visible={visible} animation='slideUp' onClose={hide} className='h-[70%]'>
-                               <h3 className='text-[18px] font-bold'>Report Comment </h3>
+                               <h3 className='text-[18px] font-bold md:p-[10px] pb-[0px]'>Report Comment </h3>
                                 {errors ?.report && <p className={`${styles.danger}`}>{errors.report.message}</p>}
 
                                <form onSubmit={handleSubmit((form_data) => check(form_data))} autoComplete='off'>

@@ -129,11 +129,12 @@ export default function Trending({ data, res }) {
 
     const checkRoute = (data) => {
         // console.log(data);
+        // else if (data.doctype == 'News') {
+        //     router.push('/news/' + data.route)
+        // }
         if (data.doctype == 'Articles') {
             router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
-        } else if (data.doctype == 'News') {
-            router.push('/news/' + data.route)
-        } else if (data.doctype == 'Community Event') {
+        }  else if (data.doctype == 'Community Event') {
             router.push('/events/' + data.route)
         }
     }
@@ -162,7 +163,7 @@ export default function Trending({ data, res }) {
     return (
         <>
             <RootLayout>
-                <div className={`container md:p-[15px] p-[20px_0]`}>
+                <div className={`container md:py-[15px] p-[20px_0]`}>
                     <div><Title data={{ title: 'Trending Tags' }} /></div>
                     <div class="lg:flex lg:gap-[15px] md:block">
                         <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh-_90px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
@@ -177,14 +178,14 @@ export default function Trending({ data, res }) {
                                         return (
                                             <div key={index} onClick={() => checkRoute(res)} className={`md:flex-[0_0_calc(70%_-_10px)] cursor-pointer border-b-[4px] border-[#f1f1f1] md:mb-[15px] md:pb-[15px]`}>
                                                 {/* <div className='flex justify-between items-center'> */}
-                                                <div className='flex items-center gap-[10px]'>
+                                                <div className='flex items-center md:px-[10px] gap-[10px]'>
                                                     <Image className='h-[30px] w-[30px] object-contain' src={'/Navbar/IR-01.svg'} height={20} width={20} alt='ir prime' />
                                                     <p className='text-[14px] font-semibold capitalize'>{res.category ? res.category : ''}</p>
                                                 </div>
                                                 {/* </div> */}
-                                                <h6 className={`title line-clamp-2 py-[10px]`}>{res.title}</h6>
+                                                <h6 className={`title line-clamp-2 md:p-[10px] py-[10px]`}>{res.title}</h6>
                                                 <div>
-                                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image)} height={500} width={800} className={`w-full h-[320px] rounded-[5px]`} alt={res.title ? res.title : index} />
+                                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image)} height={500} width={800} className={`w-full h-[320px] lg:rounded-[5px]`} alt={res.title ? res.title : index} />
                                                 </div>
                                                 <div className='lg:py-[10px] md:pt-[10px] flex justify-between'>
                                                     {res.doctype != 'Community Event' && <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between'>
@@ -193,7 +194,7 @@ export default function Trending({ data, res }) {
                                                         {/* <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div> */}
                                                         <div className='flex  items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
                                                     </div>}
-                                                    {icons && <Dropdowns share={true} width={'w-[170px]'} type={'tag'} data={icons} />}
+                                                    {icons && <Dropdowns share={true} link={{route: (res.doctype == 'Articles' && res.ir_prime == 1 ) ? '/IRPrime/' + res.route : (res.doctype == 'Articles' && res.ir_prime != 1 ) ? '/categories/' + res.route : res.doctype == 'Community Event' ? '/events/' + res.route : null}} width={'w-[170px]'} type={'tag'} data={icons} />}
 
                                                     {/* <p className={`sub_title line-clamp-2 pt-[5px]`}>{res.blog_intro}</p> */}
                                                 </div>

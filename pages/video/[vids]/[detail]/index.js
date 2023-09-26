@@ -7,7 +7,6 @@ import { check_Image } from '@/libs/common'
 import Image from 'next/image';
 import List from '@/components/common/List'
 import Title from '@/components/common/Title'
-import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import SEO from '@/components/common/SEO'
 import Video from '../../../../components/Video/Video';
 import Dropdowns from '../../../../components/common/Dropdowns';
@@ -44,7 +43,7 @@ export default function Videos(meta_info, ads_data) {
                 window.removeEventListener('resize', checkIsMobile);
             };
         }
-    }, [router.query,user])
+    }, [router.query])
 
     const checkIsMobile = async () => {
         isMobile = await checkMobile();
@@ -80,20 +79,20 @@ export default function Videos(meta_info, ads_data) {
                         <div className="lg:flex-[0_0_calc(70%_-_30px)]">
                             {/* <h6 className='text-[20px] line-clamp-2 font-semibold'>{videoDetail.message.title}</h6> */}
 
-                            <div className='flex items-center gap-[10px] mb-[10px]'>
-                                <div className='flex items-center gap-[10px]'>
+                            {/* <div className='flex items-center gap-[10px] mb-[10px]'> */}
+                                <div className='flex items-center gap-[10px] mb-[10px]'>
                                     <Image className={`h-[15px] w-[15px] object-contain`} src={'/views.svg'} height={10} width={15} alt={'share'} />
                                     <span className='text-[12px] gray_color'>{videoDetail.message.noof_views} Views</span>
                                 </div>
-                                <div className='flex items-center gap-[10px]'>
+                                {/* <div className='flex items-center gap-[10px]'>
                                     <Image className={`h-[15px] w-[15px] object-contain`} src={'/share.svg'} height={10} width={15} alt={'share'} />
                                     <span className='text-[12px] gray_color'>4 Shares</span>
-                                </div>
-                            </div>
+                                </div> */}
+                            {/* </div> */}
 
                             <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] md:pb-[10px] md:pl-0`}>
                                 <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
-                                {icons && <div className={``}><Dropdowns data={icons} share={true} /></div>}
+                                {icons && <div className={``}><Dropdowns link={videoDetail.message} data={icons} share={true} /></div>}
                                 {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'> */}
                                 {/* <Image onClick={share} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} /> */}
                                 {/* {sort && */}

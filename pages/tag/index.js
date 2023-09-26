@@ -130,10 +130,11 @@ export default function Tags({ res, data }) {
 
     const checkRoute = (data) => {
         // console.log(data);
+        // else if (data.doctype == 'News') {
+        //     router.push('/news/' + data.route)
+        // }
         if (data.doctype == 'Articles') {
             router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
-        } else if (data.doctype == 'News') {
-            router.push('/news/' + data.route)
         } else if (data.doctype == 'Community Event') {
             router.push('/events/' + data.route)
         }
@@ -196,7 +197,7 @@ export default function Tags({ res, data }) {
                                                         {/* <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div> */}
                                                         <div className='flex  items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
                                                     </div>}
-                                                    {icons && <Dropdowns share={true} width={'w-[170px]'} type={'tag'} data={icons} />}
+                                                    {icons && <Dropdowns share={true} link={{route: (res.doctype == 'Articles' && res.ir_prime == 1 ) ? '/IRPrime/' + res.route : (res.doctype == 'Articles' && res.ir_prime != 1 ) ? '/categories/' + res.route : res.doctype == 'Community Event' ? '/events/' + res.route : null}} width={'w-[170px]'} type={'tag'} data={icons} />}
 
                                                     {/* <p className={`sub_title line-clamp-2 pt-[5px]`}>{res.blog_intro}</p> */}
                                                 </div>

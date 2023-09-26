@@ -99,7 +99,7 @@ export default function Home({ data, ads }) {
     }
   }
 
- 
+
 
 
   const getPageData = async () => {
@@ -206,7 +206,7 @@ export default function Home({ data, ads }) {
                               </div>
                               <div className='md:my-[15px] md:hidden'><AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} /></div>
                             </div>
-                            <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards contentHeight={'pt-[10px]'} isHome={'/news/'} data={data.data[c.cid].data.slice(0, 5)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
+                            <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards contentHeight={'pt-[10px]'} isHome={'/categories/'} data={data.data[c.cid].data.slice(0, 5)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
                           </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending" && !isMobile) && <>
@@ -278,13 +278,13 @@ export default function Home({ data, ads }) {
                                         </>
 
                                         } */}
-                            <Title data={{ title: c.component_title }} route={c.component_title == "E-Commerce" ? '/news/e-commerce' : c.component_title == "People" ? '/news/people' : c.component_title == "D2C Buzz" ? '/news/d2c-buzz' : null} seeMore={true} />
+                            <Title data={{ title: c.component_title }} route={c.component_title == "E-Commerce" ? '/categories/e-commerce' : c.component_title == "People" ? '/categories/people' : c.component_title == "D2C Buzz" ? '/categories/d2c-buzz' : null} seeMore={true} />
                             {/* //  h-[144px] contentWidth={'lg:gap-[3px]'}  */}
-                            <div className={` lg:grid lg:gap-[10px] md:flex md:flex-col md:gap-[5px]`}><List primary_pb={'lg:pb-[5px]'} hash_bg={'pt-[10px]'} check={true} titleClamp={'line-clamp-2'} line={'line-clamp-1'} isHome={'/news/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} flex={'items-center'} data={data.data[c.cid].data} imgWidth={"w-full"} imgHeight={"h-[135px] md:h-[115px]"} borderRadius={"rounded-[7px]"} /></div>
+                            <div className={` lg:grid lg:gap-[10px] md:flex md:flex-col md:gap-[5px]`}><List primary_pb={'lg:pb-[5px]'} hash_bg={'pt-[10px]'} check={true} titleClamp={'line-clamp-2'} line={'line-clamp-1'} isHome={'/categories/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} flex={'items-center'} data={data.data[c.cid].data} imgWidth={"w-full"} imgHeight={"h-[135px] md:h-[115px]"} borderRadius={"rounded-[7px]"} /></div>
                           </div>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Shopping Centers") && <>
-                            <Title data={{ title: c.component_title }} route={'/news/shopping-centers'} seeMore={true} />
-                            <div className={`md:flex md:flex-col md:gap-[5px]`}><List isHome={'/news/'} flex={'items-center lg:mb-[8px] lg:gap-5'} imgFlex={'flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} contentWidth={'lg:flex-[0_0_calc(60%_-_10px)] lg:gap-[5px]'} titleClamp={'line-clamp-2'} line={'line-clamp-2 md:line-clamp-1'} data={data.data[c.cid].data} check={true} fullWidth={true} imgWidth={"w-full"} imgHeight={"h-[130px] md:h-[110px]"} borderRadius={"rounded-[5px]"} /></div>
+                            <Title data={{ title: c.component_title }} route={'/categories/shopping-centers'} seeMore={true} />
+                            <div className={`md:flex md:flex-col md:gap-[5px]`}><List isHome={'/categories/'} flex={'items-center lg:mb-[8px] lg:gap-5'} imgFlex={'flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} contentWidth={'lg:flex-[0_0_calc(60%_-_10px)] lg:gap-[5px]'} titleClamp={'line-clamp-2'} line={'line-clamp-2 md:line-clamp-1'} data={data.data[c.cid].data} check={true} fullWidth={true} imgWidth={"w-full"} imgHeight={"h-[130px] md:h-[110px]"} borderRadius={"rounded-[5px]"} /></div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Podcast") && <div className={`border md:mt-[15px] p-[10px] rounded-[5px]`}>
                             <Title data={{ title: c.component_title }} route={'/podcast'} seeMore={true} />
@@ -296,12 +296,12 @@ export default function Home({ data, ads }) {
                           </>}
                           {/* {(resp.component_title == "AdsBaner" && resp.component_type == "Ad4" && resp.data) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={resp.data} height={"100px"} /></>} */}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>
-                            <Title data={{ title: c.component_title }} route={c.component_title == "Supply Chain" ? '/news/supply-chain' : c.component_title == "Marketing" ? '/news/marketting' : null} seeMore={true} />
-                            <div className='md:flex md:flex-col md:gap-[5px]'><List isHome={'/news/'} primary_pb={'lg:pb-[5px]'} mb={true} data={data.data[c.cid].data} titleClamp={'line-clamp-2'} line={'line-clamp-1 md:line-clamp-1'} hash_bg={'pt-[10px] md:pt-[10px]'} check={true} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[125px] md:h-[115px]"} borderRadius={"rounded-[10px]"} /></div>
+                            <Title data={{ title: c.component_title }} route={c.component_title == "Supply Chain" ? '/categories/supply-chain' : c.component_title == "Marketing" ? '/categories/marketting' : null} seeMore={true} />
+                            <div className='md:flex md:flex-col md:gap-[5px]'><List isHome={'/categories/'} primary_pb={'lg:pb-[5px]'} mb={true} data={data.data[c.cid].data} titleClamp={'line-clamp-2'} line={'line-clamp-1 md:line-clamp-1'} hash_bg={'pt-[10px] md:pt-[10px]'} check={true} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[125px] md:h-[115px]"} borderRadius={"rounded-[10px]"} /></div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Technology") && <>
-                            <Title data={{ title: c.component_title }} route={'/news/technology'} seeMore={true} />
-                            <div className={'border p-[10px] rounded-[5px]'}><List line={'line-clamp-1'} isHome={'/news/'} titleClamp={'line-clamp-2'} check={true} data={data.data[c.cid].data} imgFlex={'flex-[0_0_calc(30%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[92px] md:h-[80px]"} isBB={true} isTop={true} borderRadius={"rounded-[10px] md:rounded-[5px]"} /></div>
+                            <Title data={{ title: c.component_title }} route={'/categories/technology'} seeMore={true} />
+                            <div className={'border p-[10px] rounded-[5px]'}><List line={'line-clamp-1'} isHome={'/categories/'} titleClamp={'line-clamp-2'} check={true} data={data.data[c.cid].data} imgFlex={'flex-[0_0_calc(30%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[92px] md:h-[80px]"} isBB={true} isTop={true} borderRadius={"rounded-[10px] md:rounded-[5px]"} /></div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Case Studies") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/case-studies'} seeMore={true} />
@@ -323,17 +323,15 @@ export default function Home({ data, ads }) {
                                         <Title data={resp.data} />
                                         <div className={`flex flex-wrap gap-5 justify-between`}><Cards data={resp.data.data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[330px]"} width={"w-full"} flex={'flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} isBorder={true} /></div>
                                     </>} */}
-                          {/* {(c.cid && books && books.length != 0 && c.component_title == "Book Store") && <>
+                          {(c.cid && books && books.length != 0 && c.component_title == "Book Store") && <>
                             <Title data={{ title: c.component_title }} route={'/bookstore'} seeMore={true} />
-                            <div className={`lg:grid lg:gap-5 lg:grid-cols-5 no_scroll`}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} check={true} data={books} boxShadow={true} /></div>
-                          </>} */}
+                            <div className={`lg:grid lg:gap-5 lg:grid-cols-5 no_scroll`}><Card isHome={true} imgClass={'lg:h-[300px] md:h-[225px] mouse'} check={true} data={books} boxShadow={true} /></div>
+                          </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Reconnect") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/reconnect'} seeMore={true} />
                             <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/categories/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(85%_-_10px)]'} cardClass={'h-[310px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
                           </>}
                           {(c.cid && c.component_title == "Image" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{ ad_image: '/ads_bike.png' }} /></div>}
-
-
                         </div>
                       )
                     })}

@@ -7,7 +7,7 @@ export default function ImageContainer({ data, height, width,isWeb }) {
     return (
         <>
             {data && <div className='relative pb-[20px]'>
-                <Link href={'/news/' + data.route}>
+                <Link href={'/categories/' + data.route}>
                     <Image width={530} loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`rounded-[5px] ${height} ${width}`} alt="image.." src={check_Image(data.thumbnail_image)} height={329} />
                     {/* <div className={`${height ? height : 'h-[350px]'} absolute top-0 w-full bg-[#0000002e]]`}></div> */}
                     <Image className={`${height ? height : 'h-[350px]'} absolute top-0 w-full rounded-[5px]`} src={'/home/bg-png.png'} height={329} width={530} alt='background...' />
