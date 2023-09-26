@@ -128,7 +128,7 @@ export default function Trending({ data, res }) {
     }
 
     const checkRoute = (data) => {
-        console.log(data);
+        // console.log(data);
         if (data.doctype == 'Articles') {
             router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
         } else if (data.doctype == 'News') {
@@ -140,9 +140,9 @@ export default function Trending({ data, res }) {
 
 
     const getTabs = (data) => {
-        setTabs(data);
+        // setTabs(data);
         router.push('/tag/' + data)
-        console.log(data)
+        // console.log(data)
     }
 
     const getLatestNews = async () => {
@@ -155,7 +155,7 @@ export default function Trending({ data, res }) {
 
         const resp = await getList(params);
         if (resp.message && resp.message.length != 0) {
-            console.log(resp.message)
+            // console.log(resp.message)
             setNews(resp.message)
         }
     }

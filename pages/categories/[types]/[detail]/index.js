@@ -120,14 +120,14 @@ export default function CategoryDetail({ data }) {
   return (
     <>
       <RootLayout isLanding={true} head={''} homeAd={ads ? ads : null}>
-        <SEO title={data.meta_title ? data.meta_title : data.title} ogImage={check_Image(data.image)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.title} description={data.meta_description ? data.meta_description : data.title} />
+        <SEO title={data.meta_title ? data.meta_title : data.title} ogImage={check_Image(data.meta_image ? data.meta_image : data.image)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.title} description={data.meta_description ? data.meta_description : data.title} />
         {/* {data && <div> */}
         {/* setPage={(data) => setPagination(data)} pagination={pagination} */}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
               <div key={index} className='box'>
-                <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} />
+                <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} />
                 <CategoryBuilder isLast={index == values.length - 1}  ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
               </div>
             )

@@ -63,7 +63,7 @@ export default function Tags({ res, data }) {
         }
     }, [router.query])
 
-    
+
 
     const get_list = async () => {
         // const param = await router.query.id;
@@ -129,7 +129,7 @@ export default function Tags({ res, data }) {
     }
 
     const checkRoute = (data) => {
-        console.log(data);
+        // console.log(data);
         if (data.doctype == 'Articles') {
             router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
         } else if (data.doctype == 'News') {
@@ -142,9 +142,9 @@ export default function Tags({ res, data }) {
 
     // Activate and Change route
     const getTabs = (data) => {
-        setTabs(data);
+        // setTabs(data);
         router.push('/tag/' + data)
-        console.log(data)
+        // console.log(data)
     }
 
     // Latest News
@@ -158,7 +158,7 @@ export default function Tags({ res, data }) {
 
         const resp = await getList(params);
         if (resp.message && resp.message.length != 0) {
-            console.log(resp.message)
+            // console.log(resp.message)
             setNews(resp.message)
         }
     }
@@ -166,7 +166,7 @@ export default function Tags({ res, data }) {
     return (
         <>
             <RootLayout>
-                <div className={`container md:p-[15px] p-[20px_0]`}>
+                <div className={`container md:py-[15px] lg:p-[20px_0]`}>
                     <div class="lg:flex lg:gap-[15px] md:block">
                         <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh-_90px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
                             {(tabs && tag) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
@@ -180,16 +180,16 @@ export default function Tags({ res, data }) {
                                         return (
                                             <div key={index} onClick={() => checkRoute(res)} className={`md:flex-[0_0_calc(70%_-_10px)] cursor-pointer border-b-[4px] border-[#f1f1f1] md:mb-[15px] md:pb-[15px]`}>
                                                 {/* <div className='flex justify-between items-center'> */}
-                                                <div className='flex items-center gap-[10px]'>
+                                                <div className='flex items-center md:px-[10px] gap-[10px]'>
                                                     <Image className='h-[30px] w-[30px] object-contain' src={'/Navbar/IR-01.svg'} height={20} width={20} alt='ir prime' />
                                                     <p className='text-[14px] font-semibold capitalize'>{res.category ? res.category : ''}</p>
                                                 </div>
                                                 {/* </div> */}
-                                                <h6 className={`title line-clamp-2 py-[10px]`}>{res.title}</h6>
+                                                <h6 className={`title line-clamp-2 md:p-[10px] lg:py-[10px]`}>{res.title}</h6>
                                                 <div>
-                                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image)} height={500} width={800} className={`w-full h-[320px] rounded-[5px]`} alt={res.title ? res.title : index} />
+                                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image)} height={500} width={800} className={`w-full h-[320px] lg:rounded-[5px]`} alt={res.title ? res.title : index} />
                                                 </div>
-                                                <div className={`lg:py-[10px] md:pt-[10px] flex justify-between ${res.doctype == 'Community Event' ? 'float-right' : ''}`}>
+                                                <div className={`lg:py-[10px] md:p-[10px_10px_0_10px] flex  ${res.doctype == 'Community Event' ? 'justify-end' : 'justify-between'}`}>
                                                     {res.doctype != 'Community Event' && <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between'>
                                                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                                                         <div className='flex  items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</span></div>

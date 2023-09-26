@@ -32,6 +32,7 @@ export default function Categories({ data, ads }) {
     let cardref = useRef(null);
     let no_product = false;
     useEffect(() => {
+        console.log(data);
         if (data && data.length != 0) {
             setDatas(data)
         }
@@ -56,7 +57,7 @@ export default function Categories({ data, ads }) {
         // console.log('load...',)
         setLoading(true)
         let params = {
-            "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title", "thumbnail_image", "articles_category", "route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description", "route"], "page_no": page_no, "records": 10, "category_count": 5
+            "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title",'image', "thumbnail_imagee as thumbnail_image", "articles_category", "route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description", "route"], "page_no": page_no, "records": 10, "category_count": 5
         }
         const resp = await getCategoryList(params);
         // const data = res.message;
@@ -110,7 +111,7 @@ export default function Categories({ data, ads }) {
 
 export async function getStaticProps() {
     let params = {
-        "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title", "thumbnail_image", "articles_category", "route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description", "route"], "page_no": 1, "records": 10, "category_count": 5
+        "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title", 'image', "thumbnail_imagee as thumbnail_image", "articles_category", "route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description", "route"], "page_no": 1, "records": 10, "category_count": 5
     }
     const res = await getCategoryList(params);
     const data = res.message;
