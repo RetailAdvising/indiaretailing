@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import SubscribeNews from '../Newsletter/SubscribeNews';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-export default function Subscribe({ data, height, width }) {
+export default function Subscribe({ data, height, width, isSubscribe }) {
   const [email, setEmail] = useState('')
   async function showPopup() {
     // console.log(data);
@@ -25,7 +25,7 @@ export default function Subscribe({ data, height, width }) {
     //   // setShowAlert(true);
     //   show();
     // }
-    console.log(email)
+    // console.log(email)
     show();
 
 

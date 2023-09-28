@@ -117,7 +117,7 @@ export default function Home({ data, ads }) {
         setTimeout(() => {
           setValue(d => d = [...d, ...resp.message.page_content])
           setLoading(false)
-        }, 400);
+        }, 200);
         console.log(resp.message.page_content)
       } else {
         no_product = true;
@@ -162,7 +162,6 @@ export default function Home({ data, ads }) {
     if (resp.message && resp.message.length != 0) {
       setBooks(resp.message)
     } else {
-      setBooks([])
     }
   }
 
@@ -180,7 +179,7 @@ export default function Home({ data, ads }) {
               {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                 return (
                   // || i == 5
-                  <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-23-00094') ? 'md:mb-[20px]' : ''}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} `}>
+                  <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-23-00094') ? 'md:mb-[20px]' : 'container'}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} `}>
                     {(res.components && res.components.length != 0) && res.components.map(c => {
                       return (
                         <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-5' : ''}`}>
@@ -201,12 +200,12 @@ export default function Home({ data, ads }) {
                             <div className={`lg:flex gap-5`}>
                               <div className='lg:flex flex-wrap justify-between flex-[0_0_calc(70%_-_10px)]'>
                                 <div className='flex-[0_0_calc(55%_-_10px)]'><ImageContainer isWeb={true} data={data.data[c.cid].data[0]} height={'h-[250px]'} width={'w-[500px]'} /></div>
-                                <div className={`${isMobile ? '' : 'border_right border_left px-[20px] h-[250px] flex-[0_0_calc(45%_-_10px)]'}`}><BulletList data={data.data[c.cid].data.slice(0, 5)} /></div>
-                                <div className={` flex border-t border-[#d4d8d8] pt-[15px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(0, 3)} /></div>
+                                <div className={`${isMobile ? '' : 'border_right border_left px-[20px] h-[250px] flex-[0_0_calc(45%_-_10px)]'}`}><BulletList data={data.data[c.cid].data.slice(1, 6)} /></div>
+                                <div className={` flex border-t border-[#d4d8d8] pt-[15px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(7, 10)} /></div>
                               </div>
                               <div className='md:my-[15px] md:hidden'><AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} /></div>
                             </div>
-                            <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards contentHeight={'pt-[10px]'} isHome={'/categories/'} data={data.data[c.cid].data.slice(0, 5)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
+                            <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards contentHeight={'pt-[10px]'} isHome={'/categories/'} data={data.data[c.cid].data.slice(11, 16)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
                           </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending" && !isMobile) && <>
@@ -221,15 +220,15 @@ export default function Home({ data, ads }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Leaders Ink") && <>
                             <Title data={{ title: c.component_title }} />
                             {data.data[c.cid].data &&
-                              <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/categories/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>}
+                              <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>}
 
                             {/* <div className='none leaders'><MultiCarousel isHome={'/categories/'} perView={3} check={true} none={true} data={data.data[c.cid].data} cardHeight={'h-[310px]'} card_width={"285px !important"} height={"h-[185px]"} width={"w-full"} type={'profile'} /></div>} */}
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Research") && <>
                             {/* route={'/categories/'} seeMore={true} */}
                             <Title data={{ title: c.component_title }} />
-                            {data.data[c.cid].data && isMobile ? <div className='mb-[10px] research'><ListSlider route={'/categories/'} noDots={true} auto={false} data={data.data[c.cid].data} /></div> :
-                              <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/categories/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[220px] flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>
+                            {data.data[c.cid].data && isMobile ? <div className='mb-[10px] research'><ListSlider route={'/'} noDots={true} auto={false} data={data.data[c.cid].data} /></div> :
+                              <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[220px] flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>
 
                               // <div className={`pr-[30px] none research`}><MultiCarousel isHome={'/categories/'} none={true} check={true} cardHeight={'h-[310px]'} perView={2} noPlay={true} data={data.data[c.cid].data} card_width={"285px !important"} height={"h-[185px]"} width={'w-full'} type={'card'} /></div>
                             }
@@ -264,7 +263,7 @@ export default function Home({ data, ads }) {
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Food & Beverage") && <>
                             <Title data={{ title: c.component_title }} />
-                            <div className={`${isMobile ? 'no_scroll' : 'grid gap-5  grid-cols-5'}`}><Cards isHome={'/categories/'} cardClass={"h-[300px] md:h-[290px]"} check={true} data={data.data[c.cid].data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'md:flex-[0_0_calc(75%_-_15px)]'} isBorder={true} /></div>
+                            <div className={`${isMobile ? 'no_scroll' : 'grid gap-5  grid-cols-5'}`}><Cards isHome={'/'} cardClass={"h-[300px] md:h-[290px]"} check={true} data={data.data[c.cid].data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'md:flex-[0_0_calc(75%_-_15px)]'} isBorder={true} /></div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "E-Commerce" || c.component_title == "People" || c.component_title == "D2C Buzz")) && <div className={`${isMobile ? '' : 'border p-[10px_15px] rounded-[10px]'}`}>
                             {/* {isMobile ? <>
@@ -280,11 +279,11 @@ export default function Home({ data, ads }) {
                                         } */}
                             <Title data={{ title: c.component_title }} route={c.component_title == "E-Commerce" ? '/categories/e-commerce' : c.component_title == "People" ? '/categories/people' : c.component_title == "D2C Buzz" ? '/categories/d2c-buzz' : null} seeMore={true} />
                             {/* //  h-[144px] contentWidth={'lg:gap-[3px]'}  */}
-                            <div className={` lg:grid lg:gap-[10px] md:flex md:flex-col md:gap-[5px]`}><List primary_pb={'lg:pb-[5px]'} hash_bg={'pt-[10px]'} check={true} titleClamp={'line-clamp-2'} line={'line-clamp-1'} isHome={'/categories/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} flex={'items-center'} data={data.data[c.cid].data} imgWidth={"w-full"} imgHeight={"h-[135px] md:h-[115px]"} borderRadius={"rounded-[7px]"} /></div>
+                            <div className={` lg:grid lg:gap-[10px] md:flex md:flex-col md:gap-[5px]`}><List primary_pb={'lg:pb-[5px]'} hash_bg={'pt-[10px]'} check={true} titleClamp={'line-clamp-2'} line={'line-clamp-2'} isHome={'/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} flex={'items-center'} data={data.data[c.cid].data} imgWidth={"w-full"} imgHeight={"h-[135px] md:h-[115px]"} borderRadius={"rounded-[7px]"} /></div>
                           </div>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Shopping Centers") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/shopping-centers'} seeMore={true} />
-                            <div className={`md:flex md:flex-col md:gap-[5px]`}><List isHome={'/categories/'} flex={'items-center lg:mb-[8px] lg:gap-5'} imgFlex={'flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} contentWidth={'lg:flex-[0_0_calc(60%_-_10px)] lg:gap-[5px]'} titleClamp={'line-clamp-2'} line={'line-clamp-2 md:line-clamp-1'} data={data.data[c.cid].data} check={true} fullWidth={true} imgWidth={"w-full"} imgHeight={"h-[130px] md:h-[110px]"} borderRadius={"rounded-[5px]"} /></div>
+                            <div className={`md:flex md:flex-col md:gap-[5px]`}><List isHome={'/'} flex={'items-center lg:mb-[8px] lg:gap-5'} imgFlex={'flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} contentWidth={'lg:flex-[0_0_calc(60%_-_10px)] lg:gap-[5px]'} titleClamp={'line-clamp-2'} line={'line-clamp-2 md:line-clamp-1'} data={data.data[c.cid].data} check={true} fullWidth={true} imgWidth={"w-full"} imgHeight={"h-[130px] md:h-[110px]"} borderRadius={"rounded-[5px]"} /></div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Podcast") && <div className={`border md:mt-[15px] p-[10px] rounded-[5px]`}>
                             <Title data={{ title: c.component_title }} route={'/podcast'} seeMore={true} />
@@ -292,24 +291,24 @@ export default function Home({ data, ads }) {
                           </div>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Privilege Members Corner") && <>
                             <Title data={{ title: c.component_title }} route={'/video'} seeMore={true} />
-                            <><Video imgClass={'h-[210px] md:h-[190px] w-full'} isHome={'/video/'} vh={'h-[265px] md:h-[245px]'} data={data.data[c.cid].data} /></>
+                            <Video imgClass={'h-[210px] md:h-[190px] w-full'} isHome={'/video/'} vh={'h-[265px] md:h-[245px]'} data={data.data[c.cid].data} />
                           </>}
                           {/* {(resp.component_title == "AdsBaner" && resp.component_type == "Ad4" && resp.data) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={resp.data} height={"100px"} /></>} */}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>
                             <Title data={{ title: c.component_title }} route={c.component_title == "Supply Chain" ? '/categories/supply-chain' : c.component_title == "Marketing" ? '/categories/marketting' : null} seeMore={true} />
-                            <div className='md:flex md:flex-col md:gap-[5px]'><List isHome={'/categories/'} primary_pb={'lg:pb-[5px]'} mb={true} data={data.data[c.cid].data} titleClamp={'line-clamp-2'} line={'line-clamp-1 md:line-clamp-1'} hash_bg={'pt-[10px] md:pt-[10px]'} check={true} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[125px] md:h-[115px]"} borderRadius={"rounded-[10px]"} /></div>
+                            <div className='md:flex md:flex-col md:gap-[5px]'><List isHome={'/'} primary_pb={'lg:pb-[5px]'} mb={true} data={data.data[c.cid].data} titleClamp={'line-clamp-2'} line={'line-clamp-1 md:line-clamp-1'} hash_bg={'pt-[10px] md:pt-[10px]'} check={true} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[125px] md:h-[115px]"} borderRadius={"rounded-[10px]"} /></div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Technology") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/technology'} seeMore={true} />
-                            <div className={'border p-[10px] rounded-[5px]'}><List line={'line-clamp-1'} isHome={'/categories/'} titleClamp={'line-clamp-2'} check={true} data={data.data[c.cid].data} imgFlex={'flex-[0_0_calc(30%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[92px] md:h-[80px]"} isBB={true} isTop={true} borderRadius={"rounded-[10px] md:rounded-[5px]"} /></div>
+                            <div className={'border p-[10px] rounded-[5px]'}><List line={'line-clamp-1'} isHome={'/'} titleClamp={'line-clamp-2'} check={true} data={data.data[c.cid].data} imgFlex={'flex-[0_0_calc(30%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[92px] md:h-[80px]"} isBB={true} isTop={true} borderRadius={"rounded-[10px] md:rounded-[5px]"} /></div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Case Studies") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/case-studies'} seeMore={true} />
-                            <div className={`lg:flex no_scroll lg:gap-5`}><Cards check={true} isHome={'/categories/'} data={data.data[c.cid].data} cardClass={"h-[300px] "} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /></div>
+                            <div className={`lg:flex no_scroll lg:gap-5`}><Cards check={true} isHome={'/'} data={data.data[c.cid].data} cardClass={"h-[300px] "} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /></div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Photo Essays") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/photo-essays'} seeMore={true} />
-                            <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/categories/'} data={data.data[c.cid].data} cardClass={'lg:h-[300px]  flex-[0_0_calc(70%_-_15px)] '} imgClass={'h-[175px]  w-full'} /></div>
+                            <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'lg:h-[300px]  flex-[0_0_calc(70%_-_15px)] '} imgClass={'h-[175px]  w-full'} /></div>
                             {/* <div className='photo'><MultiCarousel isHome={'/categories/'} check={true} cardHeight={'h-[310px]'} data={data.data[c.cid].data} height={"h-[175px]"} width={'w-full'} perView={2} noPlay={true} none={true} type={'card'} /></div> */}
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IMAGES Group Events") && <>
@@ -329,7 +328,7 @@ export default function Home({ data, ads }) {
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Reconnect") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/reconnect'} seeMore={true} />
-                            <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/categories/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(85%_-_10px)]'} cardClass={'h-[310px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
+                            <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(85%_-_10px)]'} cardClass={'h-[310px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
                           </>}
                           {(c.cid && c.component_title == "Image" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{ ad_image: '/ads_bike.png' }} /></div>}
                         </div>

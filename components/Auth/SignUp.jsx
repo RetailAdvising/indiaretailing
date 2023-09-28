@@ -198,7 +198,7 @@ export default function SignUp({ isModal, hide, auth }) {
                     </div> */}
                 </div>
 
-            </div> : <><LogIn auth={auth} /></>}
+            </div> : <><LogIn auth={auth} hide={hide} /></>}
         </>
     )
 }

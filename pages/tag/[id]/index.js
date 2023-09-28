@@ -171,7 +171,7 @@ export default function Trending({ data, res }) {
                             <TrendingBox />
                         </div>
                         {/* <div class=""> */}
-                        <div id='scroll' className='lg:h-[calc(100vh-_90px)] overflow-auto scrollbar-hide lg:flex-[0_0_calc(50%_-_10px)]  lg:p-5  md:basis-full'>
+                        <div id='scroll' className='lg:h-[calc(100vh-_15px)] overflow-auto scrollbar-hide lg:flex-[0_0_calc(50%_-_10px)]  lg:p-5  md:basis-full'>
                             {(resp_data && resp_data.length != 0 && !nodata) ?
                                 <div className={`lg:grid  lg:grid-cols-1 lg:gap-5  `}>
                                     {resp_data.map((res, index) => {
@@ -213,7 +213,7 @@ export default function Trending({ data, res }) {
                         <div class="lg:flex-[0_0_calc(30%_-_10px)] md:hidden">
                             {(news && news.length != 0) && <div className='p-[10px]'>
                                 <Title data={{ title: 'Latest News' }} />
-                                <List data={news} isHome={'/news/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
+                                <List data={news} isHome={'/categories/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
                             </div>}
                             <AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} />
                         </div>

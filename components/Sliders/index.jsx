@@ -57,9 +57,9 @@ export default function Sliders({ data,perView,imgClass,event,isMobile }) {
           return (
             <div onClick={()=> res.route ? router.push(`/${router.asPath.split('/')[1]}/category/${res.route}`) : null} className={`${event ? '' : 'flex items-center justify-center gap-[15px] h-full'}`} key={index}>
               <div className={`lg:flex-[0_0_calc(30%_-_10px)]`}>
-              {/* h-[310px] w-[210px] */}
+              {/* h-[310px] w-[210px] object-contain */}
               {/* {isMobile} */}
-                <Image alt={''} src={check_Image(isMobile ? res.mobile_image  : (res.image || res.detail_image))} quality={100} height={300} width={1500} className={`${imgClass ? imgClass : 'h-[300px]'} object-contain`} />
+                <Image alt={''} src={check_Image(isMobile ? res.mobile_image  : res.image ? res.image : res.detail_image ? res.detail_image : null)} quality={100} height={300} width={1500} className={`${imgClass ? imgClass : 'h-[300px]'} w-full `} />
               </div>
              {!event && <div className={`flex flex-col items-start justify-start lg:h-[175px]`}>
                 <p className={`text-[15px] line-clamp-2 font-bold`}>{res.item}</p>

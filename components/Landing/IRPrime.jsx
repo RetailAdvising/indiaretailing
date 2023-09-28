@@ -24,7 +24,7 @@ export default function IRPrime({ data }) {
                     </div>
                     {data.map((res, index) => {
                         return (
-                            <Link key={index} href={'/IRPrime/' + res.route}>
+                            <Link key={index} href={'/' + res.route}>
                                 <div className={`flex items-center gap-[10px] ${index != data.length - 1 && 'border_bottom_white'} py-[10px]`}>
                                     <div className='flex-[0_0_calc(25%_-_10px)]'>
                                         <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className='h-[60px] rounded-[5px] w-full' src={check_Image(res.thumbnail_image)} alt={res.title} height={50} width={70} />

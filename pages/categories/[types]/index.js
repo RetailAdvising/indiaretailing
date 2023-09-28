@@ -86,7 +86,7 @@ export default function CategoryType({ values, ads }) {
                             {/* {!isMobile && <Title data={{ title: router.query.types }} />} */}
                             <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px] cursor-pointer`}>{data.slice(0, 1).map((res, index) => {
                                 return (
-                                    <div key={index} onClick={() => router.push(`/categories/${res.route}`)} className={` pb-[10px]`}>
+                                    <div key={index} onClick={() => router.push(`/${res.route}`)} className={` pb-[10px]`}>
                                         <h6 className={`lg:text-[18px] md:text-[16px] font-semibold`}>{res.title}</h6>
                                         <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.thumbnail_image)} height={250} width={300} alt={res.title} />
                                         <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>

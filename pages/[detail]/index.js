@@ -1,76 +1,88 @@
-import { articlesDetail, getAds,check_Image } from '@/libs/api';
-import React, { useEffect, useState, useRef } from 'react'
+'use client'
+import RootLayout from '@/layouts/RootLayout'
+import React, { useState, useEffect } from 'react'
+import { articlesDetail, getAds } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
-
-import RootLayout from '@/layouts/RootLayout';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
+import { check_Image } from '@/libs/common';
+import { useSelector, useDispatch } from 'react-redux';
 
-// Redux
-// import { useDispatch, useSelector } from 'react-redux'
-// import setPagination from 'redux/actions/paginationAction';
-
-export default function CategoryDetail({ data }) {
-  // Store
-  // const pagination = useSelector(s => s.pagination);
-  // const dispatch = useDispatch();
-
+export default function Details() {
   const router = useRouter();
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);
-  const [ads, setAds] = useState();
-  const route = useRef(null);
-  
-  // let pagination = false;
-  // let prev = router.query.detail;
-  let boxElList = ''
+  const [advertisement, setAds] = useState()
+
+  let page_no = 1;
+  const articleDetail = async () => {
+    if (router.query && router.query.detail) {
+      let Id = router.query?.detail;
+      let param = {
+        "route": Id,
+        // "category": category,
+        "next": 0
+      }
+      let value = await articlesDetail(param);
+      let data = await value.message;
+      if (data.status == "Success") {
+        if (data && data._user_tags && data._user_tags != '') {
+          let tags = data._user_tags.split(',');
+          tags.splice(0, 1);
+          data._user_tags = tags
+        } else {
+          // data._user_tags = [];
+          data ? data._user_tags = [] : null;
+        }
+        let val = [data]
+        page_no += 1;
+        // setValues(d => [...d, ...val])
+        setValues(val)
+        setPrev(router.query.detail)
+      }
+    }
+    // console.log('sad'+val)
+  }
+
+  const ads = async () => {
+    let param = { doctype: 'Articles', page_type: 'Detail' }
+    const resp = await getAds(param);
+    const ads = resp.message;
+    setAds(ads)
+  }
+
+
+  const user = useSelector(s => s.user);
+
   useEffect(() => {
-    if (data && data._user_tags && data._user_tags != '') {
-      let tags = data._user_tags.split(',');
-      tags.splice(0, 1);
-      data._user_tags = tags
-    } else {
-      // data._user_tags = [];
-      data ? data._user_tags = [] : null;
+    window.addEventListener("scroll", call_observer)
+
+    if (typeof window !== 'undefined') {
+      articleDetail();
+      ads();
     }
-
-    // console.log('reloaded', data);
-
-    if (data) {
-      let val = [data]
-      console.log(data)
-      setValues(val)
-      getAd()
-    }
-    // call_observer()
-    setPrev(router.query.types + '/' + router.query.detail);
-
-    window.addEventListener("scroll", function () {
-      call_observer()
-    })
-
-
   }, [])
-  // router.query
 
 
-  const call_observer = async () => {
+  // Observer for route change
+  let boxElList = '';
+  const call_observer = () => {
     const observer = new IntersectionObserver(entries => {
 
       entries.forEach((entry, ind) => {
         if (entry.intersectionRatio > 0) {
-          console.log(ind, 'visible');
+          // console.log(ind, 'visible');
           if (values && values.length > 0) {
-            console.log('pushed', values[ind]);
-            console.log('route', values[ind]["route"])
-            router.replace({ pathname: '/categories/' + values[ind]["route"] }, undefined, { scroll: false });
+            // console.log('pushed', values[ind]);
+            // console.log('route', values[ind]["route"])
+            router.replace({ pathname: '/' + values[ind]["route"] }, undefined, { scroll: false });
             // console.log('replaced',ind,values)
             // console.log('value',values[ind])
           }
         } else {
           // Element is not visible
-          console.log(ind, 'not visible');
+          // console.log(ind, 'not visible');
         }
       });
     });
@@ -81,31 +93,22 @@ export default function CategoryDetail({ data }) {
   }
 
 
-
-
-  const getAd = async () => {
-    let paras = { doctype: 'Articles', page_type: 'Detail' }
-    const resp = await getAds(paras);
-    const ads = resp.message;
-    setAds(ads)
-  }
-
-
-
-
   async function loadMore() {
     let param = {
       "route": prev,
-      "category": router.query.types,
-      "next": 1
+      // "category": router.query?.types,
+      "next": 1,
     }
-    if (pagination) {
+
+    if (pagination && page_no <= 5) {
       let value = await articlesDetail(param);
       let data = value.message;
+      // console.log(data)
       if (data && data.status == "Success") {
         setPrev(data.route)
-        // router.replace(`/categories/${router.query.types}/${data.name}`)
+        page_no += 1;
         let val = [data]
+        // router.replace(`/categories/${router.query.types}/${data.name}`)
         if (val && val[0] && val[0]._user_tags && val[0]._user_tags != '') {
           let tags = val[0]['_user_tags'].split(',');
           tags.splice(0, 1);
@@ -114,8 +117,6 @@ export default function CategoryDetail({ data }) {
           val[0]._user_tags = [];
         }
         setValues(d => d = [...d, ...val]);
-        // router.replace('/' + prev);
-
       } else {
         setPagination(!pagination)
       }
@@ -126,36 +127,38 @@ export default function CategoryDetail({ data }) {
     }, 500)
   }
 
+  // const getAdsList = async () => {
+  //   let param = { doctype: 'Articles', page_type: 'Detail' }
+  //   const resp = await getAds(param);
+  //   const ads = resp.message;
+  // }
 
   return (
     <>
-      <RootLayout isLanding={true} head={''} homeAd={ads ? ads : null}>
-        <SEO title={data.meta_title ? data.meta_title : data.title} ogImage={check_Image(data.meta_image ? data.meta_image : data.image)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.title} description={data.meta_description ? data.meta_description : data.title} />
-        {/* {data && <div> */}
-        {/* setPage={(data) => setPagination(data)} pagination={pagination} */}
+      <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
+        {(values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />}
+        {/* { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>} */}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
-              <div key={index} ref={route} className={'box'}>
+              <div key={index} className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
-                <CategoryBuilder isLast={index == values.length - 1} ads={ads ? ads : undefined} i={index} data={res} load={loadMore} />
+                <CategoryBuilder isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} />
               </div>
             )
           })}
         </> : <Skeleton />
         }
-        {/* </div>} */}
       </RootLayout>
     </>
   )
 }
 
-
 const Skeleton = () => {
   return (
     <>
-      <div className='lg:flex md:flex-wrap container justify-between p-[30px_0px] md:p-[15px]'>
-        <div className='lg:flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+      <div className='lg:flex md:flex-wrap container justify-between p-[30px_0px] md:p-[20px_15px]'>
+        <div className='flex-[0_0_calc(70%_-_10px)] md:overflow-hidden md:flex-[0_0_calc(100%_-_10px)]'>
           <div className='flex gap-[5px]'>
             {[0, 1, 2, 3].map((res, index) => {
               return (
@@ -211,7 +214,7 @@ const Skeleton = () => {
 
           </div>
         </div>
-        <div className='lg:flex-[0_0_calc(30%_-_10px)] md:mt-[20px] md:flex-[0_0_calc(100%_-_10px)]'>
+        <div className='flex-[0_0_calc(30%_-_10px)] md:overflow-hidden md:mt-[20px] md:flex-[0_0_calc(100%_-_10px)]'>
           <p className='h-[15px] w-[100px] bg-[#E5E4E2]'></p>
           {[0, 1, 2].map((res, index) => {
             return (
@@ -258,7 +261,7 @@ const Skeleton = () => {
       </div>
 
       {/* Cards */}
-      <div className='container lg:px-[30px] md:px-[15px] md:mb-[20px] overflow-hidden flex justify-between gap-[15px]'>
+      <div className='container lg:px-[30px] md:px-[15px] md:mb-[20px] md:overflow-hidden flex justify-between gap-[15px]'>
         {[0, 1, 2, 3, 4].map((res, index) => {
           return (
             <div key={index} className='flex-[0_0_calc(20%_-_10px)]'>
@@ -274,18 +277,18 @@ const Skeleton = () => {
   )
 }
 
+// export async function getServerSideProps({ params }) {
+//   let Id = await params?.detail;
+//   let category = await params?.list;
+//   let param = {
+//     "article": Id,
+//     "category": category,
+//     "next": 0
+//   }
+//   let value = await articlesDetail(param);
+//   let data = value.message;
 
-export async function getServerSideProps({ params }) {
-  let Id = await params?.detail;
-  let Category = await params?.types;
-  let param = {
-    "route": Category + '/' + Id,
-    "category": Category,
-    "next": 0
-  }
-  let value = await articlesDetail(param);
-  let data = value.message;
-  return {
-    props: { data }
-  }
-}
+//   return {
+//     props: { data }
+//   }
+// }

@@ -14,8 +14,9 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import { useRouter } from 'next/router'
 import CustomSlider from '../Sliders/CustomSlider'
 import AuthModal from '../Auth/AuthModal';
+// import DOMPurify from 'dompurify';
 
-export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, user }) {
+export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -72,6 +73,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, u
     //   console.log(data)
     //   console.log(i)
     // }
+
     if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
       const data = JSON.parse(localStorage['roles']);
       if (data && data.length != 0) {
@@ -239,6 +241,53 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, u
   }
 
 
+  const sanitizeHtml = (html) => {
+    // Replace all &nbsp; entities with a space character
+    if(html && typeof(html) == 'string'){
+      let cleanedHtml = html.replace(/&nbsp;/g, ' ');
+  
+      // Remove extra spaces (multiple consecutive spaces) without removing tags and colors
+      cleanedHtml = cleanedHtml.replace(/<[^>]*>/g, (match) => {
+        // Preserve inline colors (style attributes) within tags
+        if (match.includes('style="color:')) {
+          return match;
+        }
+        // Remove spaces from other parts of the tags
+        return match.replace(/\s+/g, ' ');
+      });
+  
+      // Parse the cleaned HTML into a DOM tree
+      const parser = new DOMParser();
+      let doc = parser.parseFromString(cleanedHtml, 'text/html');
+  
+      // Remove all elements that do not have any content (including nested content)
+      const emptyElements = doc.querySelectorAll('*:empty:not(br):not(img)');
+      for (const element of emptyElements) {
+        element.parentNode.removeChild(element);
+      }
+  
+      cleanedHtml = new XMLSerializer().serializeToString(doc);
+      doc = parser.parseFromString(cleanedHtml, 'text/html');
+      const brElements = doc.querySelectorAll('br');
+      for (const br of brElements) {
+        const prevNode = (br.previousSibling && br.previousSibling.data) ? br.previousSibling.data : undefined;
+        const nextNode = (br.nextSibling && br.nextSibling.data) ? br.nextSibling.data :undefined;
+        // console.log(prevNode)
+        if((prevNode && prevNode != ' ') || (nextNode && nextNode != ' ')){
+   
+        }else {
+          
+          if(!br.closest('strong')){
+            br.parentNode.removeChild(br);
+          }
+  
+        }
+      }
+      cleanedHtml = new XMLSerializer().serializeToString(doc);
+      return cleanedHtml;
+    }
+
+  };
 
 
   return (
@@ -252,8 +301,8 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, u
               <Content i={i} res={data} />
             </p>
 
-            <div className='relative'>
-              <div dangerouslySetInnerHTML={{ __html: data.content }} id={`${i}`} className={`contents ${(isPrime && !validator) && 'prime-article'}`} />
+            <div className='relative article_content'>
+              {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`${i}`} className={`contents ${(data.ir_prime == 1 && !validator) && 'prime-article'}`} />}
               {/* {(isPrime && !validator && data.ir_prime == 1) && <div className='prime-article-after'></div>} */}
             </div>
             {/* {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'> */}
@@ -265,7 +314,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, u
             {/* </div>
             </div>} */}
 
-            {(isPrime && !validator && data.ir_prime == 1) &&
+            {(!validator && data.ir_prime == 1) &&
               <div className='grid place-content-center max-w-[400px] p-[30px_20px_0_20px] md:p-[20px] m-[0_auto]'>
                 <div className={`flex items-center gap-[10px] `}>
                   <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
@@ -296,7 +345,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, u
             {/* Comments */}
 
             {data._user_tags && typeof (data._user_tags) != 'string' && data._user_tags.length != 0 &&
-              <div className='flex items-center flex-wrap'>
+              <div className='flex items-center flex-wrap pt-[15px]'>
                 <h6 className='w-max text-[13px] text-[#fff] bg-[#e21b22] border rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>Tags</h6>
                 {data._user_tags.map((res, index) => {
                   return (
@@ -320,22 +369,22 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, u
                   return (
                     <div key={index}>
                       {
-                        res.name == 'fb' ? <FacebookShareButton url={`${!isPrime ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
+                        res.name == 'fb' ? <FacebookShareButton url={`${true ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
                           <div key={index} className={`rounded-full bg-light-gray p-2`}>
                             <Image src={res.icon} alt={res.name} height={25} width={20} />
                           </div>
                         </FacebookShareButton>
-                          : res.name == 'ws' ? <WhatsappShareButton url={`${!isPrime ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
+                          : res.name == 'ws' ? <WhatsappShareButton url={`${true ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
                             <div key={index} className={`rounded-full bg-light-gray p-2`}>
                               <Image src={res.icon} alt={res.name} height={25} width={20} />
                             </div>
                           </WhatsappShareButton>
-                            : res.name == 'linkedin' ? <LinkedinShareButton url={`${!isPrime ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
+                            : res.name == 'linkedin' ? <LinkedinShareButton url={`${true ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
                               <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                 <Image src={res.icon} alt={res.name} height={25} width={20} />
                               </div>
                             </LinkedinShareButton>
-                              : res.name == 'twitter' ? <TwitterShareButton url={`${!isPrime ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
+                              : res.name == 'twitter' ? <TwitterShareButton url={`${true ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
                                 <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                   <Image src={res.icon} alt={res.name} height={25} width={20} />
                                 </div>
@@ -389,12 +438,12 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, u
           </div>
 
           <div className='w_30 md:hidden'>
-              {/* {data.advertisement_tags && data.advertisement_tags.length != 0 && <AdsBaner data={data.advertisement_tags[0]} />} */}
+            {/* {data.advertisement_tags && data.advertisement_tags.length != 0 && <AdsBaner data={data.advertisement_tags[0]} />} */}
             {(data.place_holders_ads && data.place_holders_ads.length != 0) && <Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : []} />}
           </div>
         </div>
 
-        {data.latest_news && <div className={`${isMobile ? '' : 'container'}  ${styles.section_3}`}>
+        {data.latest_news && data.latest_news.length != 0 && <div className={`${isMobile ? '' : 'container'}  ${styles.section_3}`}>
           {/* Slider */}
           {(data.latest_news) && <div className={`${styles.slider_parent} latestNews_slider lg:mb-[15px] p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
@@ -403,7 +452,7 @@ export default function CategoryBuilder({ data, isPrime, load, isLast, i, ads, u
           </div>}
         </div>}
 
-        {!isLast && <div className={`flex md:gap-[10px] lg:m-[20px_auto_0] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] ${isMobile ? '' : 'container'}`}>
+        {!isLast && <div className={`flex md:gap-[10px]  lg:m-[20px_auto_0] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] ${isMobile ? '' : 'container'}`}>
           <h6 className={`flex-[0_0_auto] lg:text-[18px] md:text-[14px] font-semibold`}>Next Post</h6>
           <div className='lg:bg-[#999] w-full lg:h-[10px] md:bg-stone-200 md:h-[3px]'></div>
         </div>}

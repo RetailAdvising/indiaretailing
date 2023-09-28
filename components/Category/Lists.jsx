@@ -16,22 +16,25 @@ import Tags from '../common/Tags';
 //   })
 
 
-export default function Lists({ imgFlex, hash_bg, contentWidth, primary_pb, line, data, titleClamp, isTop, isReverse, borderRadius, imgHeight, imgWidth, isBB, flex, isMp, fullWidth, noWidth, tittleOnly, isHome = undefined, isDesc, descLine, mb }) {
+export default function Lists({ imgFlex, hash_bg, contentWidth, primary_pb, line, data, titleClamp, isTop, isReverse, borderRadius, imgHeight, imgWidth, isBB, flex, isMp, tittleOnly, isHome = undefined, isDesc, descLine, mb }) {
     const router = useRouter();
     const checkRoute = (data) => {
         console.log(data);
         if (data.doc_type == 'Articles') {
+            // router.replace({pathname:'/categories' + '/' + values[ind]["route"]}, undefined, { scroll: false })
             router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
         } else if (data.doc_type == 'News') {
             router.push('/news/' + data.route)
         } else if (data.doc_type == 'Community Event') {
-            router.push('/events/' + data.route)
+            const route = '/events/' + data.route
+            router.push({route}, undefined, { scroll: true })
         } else if (data.doc_type == 'Product') {
             router.push('/bookstore/' + data.route)
         } else if (data.doc_type == 'Video') {
             router.push('/video/' + data.route)
         }else if(data.doc_type == 'Podcast'){
-            router.push('/podcast/' + data.route)  
+            const route = '/podcast/' + data.route
+            router.push(route)  
         }
     }
 
@@ -68,7 +71,7 @@ export default function Lists({ imgFlex, hash_bg, contentWidth, primary_pb, line
                             : <div className={`flex flex-col leading-[1]`}>
                                 {(res.primary_text && res.secondary_text && !isTop) && <p className={`flex items-center line-clamp-1 ${primary_pb}`}><span className='primary_text pr-[8px] line-clamp-1 flex-[0_0_calc(50%_-_5px)]'>{res.primary_text}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f] '></span> <span className='secondary_text line-clamp-1 pl-[8px] flex-[0_0_calc(50%_-_5px)]'>{res.secondary_text}</span></p>}
                                 {res.title && <h6 className={`title  pt-[5px] ${titleClamp ? titleClamp : 'line-clamp-1'}`}>{res.title ? res.title : ''}</h6>}
-                                {((res.sub_title || res.blog_intro) && !tittleOnly) && <p className={`sub_title pt-[5px] ${line ? line : 'line-clamp-2'}`}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
+                                {((res.sub_title || res.blog_intro) && (!tittleOnly && res.doc_type != 'Product')) && <p className={`sub_title pt-[5px] ${line ? line : 'line-clamp-2'}`}>{res.doc_type != 'Product' ? '' : (res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : '')}</p>}
                                 {res.blog_intro && <div className={`${descLine ? descLine : ''} sub_title innertag pt-[5px] line-clamp-1`} dangerouslySetInnerHTML={{ __html: res.blog_intro }}></div>}
 
                                 {/* {((res.hashtags || res.publisher) && !tittleOnly) && <p className={`hashtags  ${hash_bg ? hash_bg : 'pt-[5px]'} font-[500]`}>by {res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>} */}

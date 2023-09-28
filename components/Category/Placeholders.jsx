@@ -2,7 +2,7 @@ import React from 'react'
 import categories from '@/libs/categories'
 import Cards from '../common/Cards'
 export default function Placeholders({data,index}) {
-    console.log(data)
+    // console.log(data)
   return (
     <>
       {categories.sections.section_1.must_read && < >

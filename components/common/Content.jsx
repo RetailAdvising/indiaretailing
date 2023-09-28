@@ -48,7 +48,7 @@ export default function Content({ res, i }) {
                 <div className='flex gap-4 items-center'>
                     <Image className='rounded-full object-cover w-[48px] h-[48px]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <div className='flex flex-col'>
-                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{dateFormat(res.modified)}</span>
+                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{dateFormat(res.published_on)}</span>
                     </div>
                     <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between lg:hidden'>
                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
@@ -69,7 +69,7 @@ export default function Content({ res, i }) {
                     <Image className='rounded-full object-contain lg:hidden w-[40] h-[40]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <div className='block'>
                         <h6 className="font-semibold lg:hidden text-[12px]">{res.publisher}</h6>
-                        <span className='lg:hidden text-gray text-[11px] gray-text'>{dateFormat(res.modified)}</span>
+                        <span className='lg:hidden text-gray text-[11px] gray-text'>{dateFormat(res.published_on)}</span>
                     </div>
                 </div>
                 <div className='lg:hidden flex gap-[15px]'>
@@ -86,7 +86,7 @@ export default function Content({ res, i }) {
                 <div className='flex items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><p className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </p></div>
             </div>
             {/* <p className='py-3 text-[18px] md:hidden'>{res.title}</p> */}
-            <Image src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} priority={true} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
+            <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600}  width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
             <p className='py-3 !leading-[1.74] !text-[15px] !text-justify'>{res.blog_intro}</p>
         </>
     )

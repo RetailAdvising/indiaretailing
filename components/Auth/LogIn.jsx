@@ -10,6 +10,7 @@ import Forget from './Forget'
 // import GoogleLogin from './GoogleLogin';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import Script from 'next/script';
 
 // import NextAuth from 'next-auth';
 // import Providers from 'next-auth/providers';
@@ -79,6 +80,20 @@ export default function LogIn({ isModal, hide, auth }) {
             window.removeEventListener('resize', checkIsMobile);
         };
 
+        // const script = document.createElement('script');
+        // script.src = 'https://accounts.google.com/gsi/client';
+        google.accounts.id.initialize({
+            client_id: "630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com",
+            callback:handleCallbackResponse
+        })
+
+        google.accounts.id.renderButton(
+            document.getElementById('apple')
+            // {theme: "outline", size="large"}
+        )
+
+
+
         window.fbAsyncInit = function () {
             window.FB.init({
               appId: '1395750980977164',
@@ -100,6 +115,11 @@ export default function LogIn({ isModal, hide, auth }) {
           })(document, 'script', 'facebook-jssdk');
 
     }, [])
+
+    function handleCallbackResponse(response)
+    {
+        console.log(response)
+    }
 
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
@@ -247,6 +267,9 @@ export default function LogIn({ isModal, hide, auth }) {
     // }, []);
     return (
         <>
+        <div>
+        <Script src="https://accounts.google.com/gsi/client" strategy="beforeInteractive" />
+        </div>
             {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='flex container h-full p-[20px] justify-center gap-[20px] '>
                 {(!isModal || auth) && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border h-full rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`w-full ${auth ? 'h-full object-contain' : ''}`} />
@@ -303,7 +326,7 @@ export default function LogIn({ isModal, hide, auth }) {
                             {<GoogleLogin buttonText="" clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} />}
                         </div>
 
-                        <div className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
+                        <div id="apple" className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
                             <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/Apple-login.svg'} />
                             {/* <p>Continue with Apple</p> */}
                         </div>

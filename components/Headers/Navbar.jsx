@@ -36,11 +36,12 @@ export default function Navbar({ heading, isLanding, checkout }) {
 
 
     useEffect(() => {
-       
+        
         dispatch(setRoutes(router.route));
         const formattedDate = format(new Date(), "iiii, d MMMM yyyy");
         setDate(formattedDate)
-        // console.log(formattedDate); 
+        console.log('router.asPath',router.asPath); 
+        console.log('router.asPath',nav); 
     }, [])
 
    
@@ -102,9 +103,9 @@ export default function Navbar({ heading, isLanding, checkout }) {
                                         return (
                                             // onClick={() => router.push(item.redirect_url)}
                                             // <div key={index} className={`nav-item ${index === activeIndex ? 'active' : ''}`} onClick={() => handleItemClick(index)}>
-                                            <Link key={index} href={item.redirect_url} className={`${'/' + router.asPath == item.redirect_url ? 'active' : ''} justify-center p-[10px_8px] flex gap-[5px] items-center`} >
+                                            <Link key={index} href={item.redirect_url} className={`${router.asPath == item.redirect_url ? 'active' : ''} justify-center p-[10px_8px] flex gap-[5px] items-center`} >
                                                 <div className='h-[4px] w-[4px] rounded-full bg-red'></div>
-                                                <p className='text-[13px]'>{item.menu_name}</p>
+                                                <p className={`${router.asPath == item.redirect_url ? 'primary_color' : ''} text-[13px]`}>{item.menu_name}</p>
                                             </Link>
                                             // </div>
                                         )

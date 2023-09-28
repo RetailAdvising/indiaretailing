@@ -2,12 +2,12 @@ import Image from 'next/image'
 import React from 'react'
 import { check_Image } from '../../libs/api'
 import Link from 'next/link'
-export default function ImageGroupEvents({ data, height, width, isHome = undefined }) {
+export default function ImageGroupEvents({ data, height, width}) {
     return (
         <>
             {data && data.map((res, index) => {
                 return (
-                    <Link key={index} href={isHome ? isHome + res.route : null}>
+                    <Link key={index} href={'/' + res.route }>
                         <div className={`imageGroup h-full`} >
                             <div className={`imageContainer h-[80%]`}>
                                 <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`image ${height} ${width}`} src={check_Image(res.thumbnail_path)} height={100} width={200} alt={res.title} />

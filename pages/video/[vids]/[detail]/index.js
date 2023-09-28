@@ -90,7 +90,7 @@ export default function Videos(meta_info, ads_data) {
                                 </div> */}
                             {/* </div> */}
 
-                            <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] md:pb-[10px] md:pl-0`}>
+                            <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] pb-[10px] md:pl-0`}>
                                 <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
                                 {icons && <div className={``}><Dropdowns link={videoDetail.message} data={icons} share={true} /></div>}
                                 {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'> */}
@@ -124,11 +124,17 @@ export default function Videos(meta_info, ads_data) {
                                 {/* </div> */}
                             </div>
 
+                            <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='lg:h-[500px] md:h-full w-full' />
+         
+
+                            <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
+
+
                             <div className={`${validator ? 'lg:h-[80vh] md:h-[220px]' : ''} my-[10px]`}>
                                 {(!validator && videoDetail.message.ir_prime == 1) ?
                                  <>
 
-                                    <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
+                                    
                                     <div className='grid place-content-center max-w-[400px] p-[30px_20px_20px_20px] md:p-[20px] m-[0_auto]'>
                                         <div className={`flex items-center gap-[10px] `}>
                                         <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
@@ -170,8 +176,6 @@ export default function Videos(meta_info, ads_data) {
 
                                 {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
                             </div>
-
-                            <div className='gray_color  mb-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
 
 
                             {/* {videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0 && 

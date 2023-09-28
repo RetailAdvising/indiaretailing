@@ -8,7 +8,7 @@ export default function SectionList({ data }) {
     <>
       {data && data.map((res, index) => {
         return (
-          <Link key={index} href={'/categories/' + res.route}>
+          <Link key={index} href={'/' + res.route}>
             <div className={`flex justify-between gap-[10px] ${index == 0 ? 'lg:mt-[15px]' : ''} ${index != data.length - 1 ? 'mb-[20px] md:mb-[15px]' : ''} ${index != data.length - 1 && 'border_bottom'} items-center pb-[20px] md:pb-[15px]`}>
               <div className={`flex flex-[0_0_calc(95%_-_10px)] w-full gap-[10px]`}>
                 <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]`}>
