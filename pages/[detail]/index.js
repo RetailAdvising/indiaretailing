@@ -56,13 +56,13 @@ export default function Details() {
   const user = useSelector(s => s.user);
 
   useEffect(() => {
-    window.addEventListener("scroll", call_observer)
+    // window.addEventListener("scroll", call_observer)
 
     if (typeof window !== 'undefined') {
       articleDetail();
       ads();
     }
-  }, [])
+  }, [router])
 
 
   // Observer for route change
@@ -121,10 +121,10 @@ export default function Details() {
         setPagination(!pagination)
       }
     }
-    setTimeout(() => {
-      // console.log('time');
-      call_observer()
-    }, 500)
+    // setTimeout(() => {
+    //   // console.log('time');
+    //   call_observer()
+    // }, 500)
   }
 
   // const getAdsList = async () => {
