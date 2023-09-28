@@ -25,6 +25,11 @@ export default function Content({ res, i }) {
     }
 
 
+    const videoLink = (link) => {
+        return 'https://player.vimeo.com/video/' + link
+    }
+
+
 
 
     return (
@@ -88,7 +93,7 @@ export default function Content({ res, i }) {
             {/* <p className='py-3 text-[18px] md:hidden'>{res.title}</p> */}
             {(res.attach_type == 'Video' && res.video_type == 'YouTube') ? <iframe
                 className={`h-[500px] md:h-[300px] w-full`}
-                title={res.name ? res.name : ''}
+                title={res.title ? res.title : ''}
                 src={`${'https://www.youtube.com/embed/' + res.video_id ? res.video_id : null}`}
                 id={res.i}
                 // width={res.width}
@@ -96,21 +101,20 @@ export default function Content({ res, i }) {
                 frameBorder="2"
                 loading="lazy"
             // allowfullscreen="allowfullscreen"
-            ></iframe>  : <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
+            ></iframe> : (res.attach_type == 'Video' && res.video_type == 'Vimeo') ? <iframe
+                className={`h-[500px] md:h-[300px] w-full`}
+                title={res.title ? res.title : ''}
+                src={videoLink(res.video_id)}
+                id={res.i}
+                // width={res.width}
+                // height={res.height}
+                frameBorder="2"
+                loading="lazy"
+            // allowfullscreen="allowfullscreen"
+            ></iframe> : <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
             }
             <p className='py-3 !leading-[1.74] !text-[15px] !text-justify'>{res.blog_intro}</p>
         </>
     )
 }
 
-// : (res.attach_type == 'Video' && res.video_type == 'Vimeo') ? <iframe
-            //     className={`h-[500px] md:h-[300px] w-full`}
-            //     title={res.name ? res.name : ''}
-            //     src={`${'https://player.vimeo.com/video/' + res.video_id ? res.video_id : null}`}
-            //     id={res.i}
-            //     // width={res.width}
-            //     // height={res.height}
-            //     frameBorder="2"
-            //     loading="lazy"
-            // // allowfullscreen="allowfullscreen"
-            // ></iframe>

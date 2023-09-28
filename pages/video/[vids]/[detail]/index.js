@@ -72,7 +72,7 @@ export default function Videos(meta_info, ads_data) {
 
     return (
         <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head={'Detail'}>
-            {meta_info && <SEO title={meta_info.meta_info.meta_title ? meta_info.meta_info.meta_title : meta_info.meta_info.title} ogImage={check_Image(meta_info.meta_info.video_image)} siteName={'India Reatiling'} ogType={meta_info.meta_info.meta_keywords ? meta_info.meta_info.meta_keywords : meta_info.meta_info.title} description={meta_info.meta_info.meta_description ? meta_info.meta_info.meta_description : meta_info.meta_info.title} />}
+            {meta_info && <SEO title={meta_info.meta_info.meta_title ? meta_info.meta_info.meta_title : meta_info.meta_info.title} ogImage={check_Image(meta_info.meta_info.video_image)} siteName={'India Retailing'} ogType={meta_info.meta_info.meta_keywords ? meta_info.meta_info.meta_keywords : meta_info.meta_info.title} description={meta_info.meta_info.meta_description ? meta_info.meta_info.meta_description : meta_info.meta_info.title} />}
             {videoDetail ? <>
                 {videoDetail &&
                     <div className='flex gap-[30px] container lg:py-[20px] md:flex-col md:p-[10px]'>

@@ -15,7 +15,7 @@ export default function PodcastDetail({ data, ads_data }) {
     return (
         <>
             {data && <RootLayout homeAd={ads_data ? ads_data : null} head={data.message.title}>
-                <SEO title={data.message.meta_title ? data.message.meta_title : data.message.title} ogImage={check_Image(data.message.image)} siteName={'India Reatiling'} ogType={data.message.meta_keywords ? data.message.meta_keywords : data.message.title} description={data.message.meta_description ? data.message.meta_description : data.message.title} />
+                <SEO title={data.message.meta_title ? data.message.meta_title : data.message.title} ogImage={check_Image(data.message.image)} siteName={'India Retailing'} ogType={data.message.meta_keywords ? data.message.meta_keywords : data.message.title} description={data.message.meta_description ? data.message.meta_description : data.message.title} />
                 <div className={`flex p-[30px_0px] md:p-[15px] justify-between flex-wrap gap-[25px] container`}>
                     {
                         <div className="w-full">
@@ -28,12 +28,12 @@ export default function PodcastDetail({ data, ads_data }) {
                                 <div className="w-[75%] md:w-full lg:pr-[10px]">
                                     <Title data={{ title: 'Related Podcasts' }} seeMore={false} />
                                     <div className={`flex gap-[10px] justify-between no_scroll lg:flex-wrap md:flex-wrap md:gap-[10px]`}>
-                                        <Cards data={data.related_podcasts} check={true} border_none={true} height={'h-[220px]'} width={'w-[100%]'} flex={'flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(50%_-_10px)]'} />
+                                        <Cards data={data.related_podcasts} isHome={'/podcast/'} check={true} border_none={true} height={'h-[220px]'} width={'w-[100%]'} flex={'flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(50%_-_10px)]'} />
                                     </div>
                                 </div>
                                 <div className="w-[25%] p-[10px] border md:hidden">
                                     <Title data={data.other_category} seeMore={false} />
-                                    <List data={data.other_category.data} check={true} />
+                                    <List isHome={'/podcast/'} data={data.other_category.data} check={true} />
                                 </div>
                             </div>
                         }

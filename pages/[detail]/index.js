@@ -1,11 +1,10 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
-import { articlesDetail, getAds } from '@/libs/api';
+import { articlesDetail, getAds, check_Image } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
-import { check_Image } from '@/libs/common';
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function Details() {
@@ -13,14 +12,17 @@ export default function Details() {
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);
-  const [advertisement, setAds] = useState()
+  const [advertisement, setAds] = useState();
+  const [pageNo, setPageNo] = useState(1)
 
   let page_no = 1;
-  const articleDetail = async () => {
-    if (router.query && router.query.detail) {
-      let Id = router.query?.detail;
+
+  const articleDetail = async (link) => {
+    // console.log(router,'router')
+    if (link) {
+      let Id = await link;
       let param = {
-        "route": Id,
+        "route": link,
         // "category": category,
         "next": 0
       }
@@ -37,9 +39,10 @@ export default function Details() {
         }
         let val = [data]
         page_no += 1;
+        setPageNo(pageNo + 1)
         // setValues(d => [...d, ...val])
         setValues(val)
-        setPrev(router.query.detail)
+        setPrev(link)
       }
     }
     // console.log('sad'+val)
@@ -56,13 +59,24 @@ export default function Details() {
   const user = useSelector(s => s.user);
 
   useEffect(() => {
-    // window.addEventListener("scroll", call_observer)
+    window.addEventListener("scroll", call_observer)
 
     if (typeof window !== 'undefined') {
-      articleDetail();
+      // setTimeout(() => {
+      // }, 500);
+      const route = window.location.pathname.split('/')[1]
+      // console.log(route)
+      articleDetail(route);
+      // console.log(route)
       ads();
+      // console.log(router,'window')
+      // console.log(window.location)
     }
-  }, [router])
+
+
+
+
+  }, [])
 
 
   // Observer for route change
@@ -100,13 +114,14 @@ export default function Details() {
       "next": 1,
     }
 
-    if (pagination && page_no <= 5) {
+    if (pagination && pageNo <= 5) {
       let value = await articlesDetail(param);
       let data = value.message;
       // console.log(data)
       if (data && data.status == "Success") {
         setPrev(data.route)
         page_no += 1;
+        setPageNo(pageNo + 1)
         let val = [data]
         // router.replace(`/categories/${router.query.types}/${data.name}`)
         if (val && val[0] && val[0]._user_tags && val[0]._user_tags != '') {
@@ -121,10 +136,10 @@ export default function Details() {
         setPagination(!pagination)
       }
     }
-    // setTimeout(() => {
-    //   // console.log('time');
-    //   call_observer()
-    // }, 500)
+    setTimeout(() => {
+      // console.log('time');
+      call_observer()
+    }, 500)
   }
 
   // const getAdsList = async () => {

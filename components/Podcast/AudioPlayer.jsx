@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Image from 'next/image';
 import { check_Image } from '@/libs/common';
 import React from 'react';

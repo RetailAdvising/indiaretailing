@@ -9,7 +9,7 @@ export default function PodcastList(data, ads_data) {
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null}>
-            {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Reatiling'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
+            {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Retailing'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
                 {data && <HomePodcast data={data} />}
             </RootLayout>
         </>

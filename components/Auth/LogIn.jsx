@@ -268,7 +268,7 @@ export default function LogIn({ isModal, hide, auth }) {
     return (
         <>
         <div>
-        <Script src="https://accounts.google.com/gsi/client" strategy="beforeInteractive" />
+            <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" />
         </div>
             {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='flex container h-full p-[20px] justify-center gap-[20px] '>
                 {(!isModal || auth) && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border h-full rounded-[5px] p-[20px]'>
