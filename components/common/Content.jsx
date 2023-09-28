@@ -25,8 +25,8 @@ export default function Content({ res, i }) {
     }
 
 
-    const videoLink = (link) => {
-        return 'https://player.vimeo.com/video/' + link
+    const videoLink = (link, type) => {
+        return type == 'yt' ? 'https://www.youtube.com/embed/' + link : 'https://player.vimeo.com/video/' + link
     }
 
 
@@ -94,7 +94,7 @@ export default function Content({ res, i }) {
             {(res.attach_type == 'Video' && res.video_type == 'YouTube') ? <iframe
                 className={`h-[500px] md:h-[300px] w-full`}
                 title={res.title ? res.title : ''}
-                src={`${'https://www.youtube.com/embed/' + res.video_id ? res.video_id : null}`}
+                src={videoLink(res.video_id, 'yt')}
                 id={res.i}
                 // width={res.width}
                 // height={res.height}
@@ -104,7 +104,7 @@ export default function Content({ res, i }) {
             ></iframe> : (res.attach_type == 'Video' && res.video_type == 'Vimeo') ? <iframe
                 className={`h-[500px] md:h-[300px] w-full`}
                 title={res.title ? res.title : ''}
-                src={videoLink(res.video_id)}
+                src={videoLink(res.video_id, 'vimeo')}
                 id={res.i}
                 // width={res.width}
                 // height={res.height}
