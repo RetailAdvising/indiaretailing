@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import { check_Image } from '../../libs/api'
 import Link from 'next/link'
@@ -29,7 +29,7 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
     // const [mouseDown,setMouseDown] = useState(false);
     // const [startX,setStartX] = useState()
     // const [scrollLeft,setScrollLeft] = useState()
-    const ourRef = useRef(null)
+    // const ourRef = useRef(null)
     // useEffect(() => {
     //     let mouseDown1 = false;
     //     // let scrollLeft;
@@ -63,6 +63,27 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
     //     slider.addEventListener('mouseup', stopDragging, false);
     //     slider.addEventListener('mouseleave', stopDragging, false);
     // }, [mouseDown,startX,scrollLeft])
+
+    const containerRef = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(null);
+    const [scrollLeft, setScrollLeft] = useState(0);
+
+    const handleMouseDown = (e) => {
+        setIsDragging(true);
+        setStartX(e.pageX - containerRef.current.scrollLeft);
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDragging) return;
+        const x = e.pageX - containerRef.current.offsetLeft;
+        const walk = (x - startX) * 2; // Adjust the scroll speed as needed
+        containerRef.current.scrollLeft = scrollLeft - walk;
+    };
     return (
         <>
             {!type && <div className='relative' id={slider_id}>
@@ -72,12 +93,16 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                     <Image alt="Prev" src={'/less_than.svg'} width={35} height={35} ></Image>
                 </div>
                 {/* ref={ourRef} onMouseDown={handleMouseDown} */}
-                <div id={slider_child_id}  className='overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] justify-between scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px]'
+                <div id={slider_child_id} ref={containerRef}
+                    onMouseDown={handleMouseDown}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseUp}
+                    onMouseMove={handleMouseMove} className='overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] justify-between scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px]'
                 >
                     {data && data.map((res, index) => {
                         return (
                             // '/' + router.asPath.split('/')[1] +
-                            <Link key={index} className={`${cardClass} border rounded-[10px] overfow-hidden`} href={route ? route + res.route :  '/' + res.route}>
+                            <Link key={index} className={`${cardClass} border rounded-[10px] overfow-hidden`} href={route ? route + res.route : '/' + res.route}>
                                 <div className={``} >
                                     <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.image)} height={200} width={300} alt={index + 'image'} />
                                 </div>

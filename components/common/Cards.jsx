@@ -10,18 +10,19 @@ export default function Cards({ searchNavigation, noPrimaryText, data, isHome=un
 
   const navigateDetail = (data) =>{
     // router.push('/login')
+  //   else if(data.type == 'News'){
+  //     route = '/news/' + data.route
+  // }
     let route = ''
     if(data.type == 'Articles'){
-        route = data.ir_prime == '1' ?'/IRPrime/' + data.route : '/categories/' + data.route
-        route = data.route;
+        // route = data.ir_prime == '1' ?'/IRPrime/' + data.route : '/categories/' + data.route
+        route = '/' + data.route;
     }else if(data.type == 'Product'){
         route = '/bookstore/' + data.route
-    }else if(data.type == 'News'){
-        route = '/news/' + data.route
     }else if(data.type == 'Podcast'){
         route = '/podcast/' + data.route
     }else if(data.type == 'Video'){
-        route = '/ir/' + data.route
+        route = '/video/' + data.route
     }else if(data.type == 'Newsletter'){
         route = '/newsletters/' + data.route
     }

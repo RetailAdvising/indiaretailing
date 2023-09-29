@@ -12,7 +12,7 @@ export default function SectionList({ data }) {
             <div className={`flex justify-between gap-[10px] ${index == 0 ? 'lg:mt-[15px]' : ''} ${index != data.length - 1 ? 'mb-[20px] md:mb-[15px]' : ''} ${index != data.length - 1 && 'border_bottom'} items-center pb-[20px] md:pb-[15px]`}>
               <div className={`flex flex-[0_0_calc(95%_-_10px)] w-full gap-[10px]`}>
                 <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]`}>
-                  <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`rounded-[5px] h-[90px] w-full`} src={check_Image(res.thumbnail_image)} height={50} width={150} alt={"image"} ></Image>
+                  <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`rounded-[5px] h-[90px] w-full`} src={check_Image(res.thumbnail_imagee ? res.thumbnail_imagee : res.image)} height={50} width={150} alt={"image"} ></Image>
                 </div>
                 <div className='grid'>
                   <p className='primary_text'>{res.primary_text}</p>

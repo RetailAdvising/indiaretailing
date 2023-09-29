@@ -12,6 +12,7 @@ import Video from '../../../../components/Video/Video';
 import Dropdowns from '../../../../components/common/Dropdowns';
 import { useSelector,useDispatch } from 'react-redux';
 import AdsBaner from '@/components/Baners/AdsBaner'
+import SubscriptionAlert from '@/components/common/SubscriptionAlert';
 
 export default function Videos(meta_info, ads_data) {
     // console.log(meta_info)
@@ -93,49 +94,15 @@ export default function Videos(meta_info, ads_data) {
                             <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] pb-[10px] md:pl-0`}>
                                 <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
                                 {icons && <div className={``}><Dropdowns link={videoDetail.message} data={icons} share={true} /></div>}
-                                {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'> */}
-                                {/* <Image onClick={share} className={`dropdowns transition-all delay-500`} src={'/share.svg'} height={10} width={15} alt={'share'} /> */}
-                                {/* {sort && */}
-                                {/* <div className={`md:absolute md:right-0 dropdown-menu p-[10px] grid justify-center`} style={{ borderRadius: '10px', width: '150px' }} id='dropdown'>
-                                    {icons && icons.map((res, index) => {
-                                        return (
-                                            <div key={index}>
-                                                {res.name == 'Linkedin' && <LinkedinShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                                    <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                                    <p>{res.name}</p>
-                                                </LinkedinShareButton>}
-                                                {res.name == 'Facebook' && <FacebookShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                                    <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                                    <p>{res.name}</p>
-                                                </FacebookShareButton>}
-                                                {res.name == 'Twitter' && <TwitterShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                                    <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                                    <p>{res.name}</p>
-                                                </TwitterShareButton>}
-                                                {res.name == 'Whatsapp' && <WhatsappShareButton url={router.asPath} className='flex items-center gap-[10px]'>
-                                                    <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                                    <p>{res.name}</p>
-                                                </WhatsappShareButton>}
-                                            </div>
-                                        )
-                                    })}
-                                </div> */}
-                                {/* } */}
-                                {/* </div> */}
                             </div>
 
-                            <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='lg:h-[500px] md:h-full w-full' />
+                            {(!validator && videoDetail.message.ir_prime == 1) && <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='lg:h-[500px] object-contain md:h-full w-full' />}
          
-
-                            <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
-
 
                             <div className={`${validator ? 'lg:h-[80vh] md:h-[220px]' : ''} my-[10px]`}>
                                 {(!validator && videoDetail.message.ir_prime == 1) ?
                                  <>
-
-                                    
-                                    <div className='grid place-content-center max-w-[400px] p-[30px_20px_20px_20px] md:p-[20px] m-[0_auto]'>
+                                    {/* <div className='grid place-content-center max-w-[400px] p-[30px_20px_20px_20px] md:p-[20px] m-[0_auto]'>
                                         <div className={`flex items-center gap-[10px] `}>
                                         <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
                                         <p className='text-red font-semibold'>Prime Video</p>
@@ -147,7 +114,8 @@ export default function Videos(meta_info, ads_data) {
                                         <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-max' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to Prime Video</button>
                                         </div>
 
-                                    </div>
+                                    </div> */}
+                                    <SubscriptionAlert />
                                     {/* <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
                                     <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6 flex justify-between md:block'>
                                         <div className='text-center text-[20px] md:text-[16px] font-semibold text-[white] flex md:pb-2'>
@@ -176,7 +144,7 @@ export default function Videos(meta_info, ads_data) {
 
                                 {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
                             </div>
-
+                            <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
 
                             {/* {videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0 && 
                         <div className=''><Title data={videoDetail.other_category} seeMore={false} /><List fullWidth={true} check={true} isBB={true} isDesc={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[100px] md:h-[85px]'} data={videoDetail.other_category.data.slice(0,3)} borderRadius={'rounded-[5px]'} /></div>
@@ -191,7 +159,7 @@ export default function Videos(meta_info, ads_data) {
                                 <>
                                     <Title data={{ title: 'Related Videos' }} seeMore={false} />
                                     <div className='border p-[10px] rounded-[5px] mb-[10px]'>
-                                        <List imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
+                                        <List isHome={'/video/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                                     </div>
                                 </>
                             }
@@ -208,14 +176,13 @@ export default function Videos(meta_info, ads_data) {
                         </div>
                     </div>
 
-
                 }
                 {(videoDetail && videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0) && <div className='container py-[20px] md:p-[15px]'>
                     <div>
                         <Title data={videoDetail.other_category} />
                     </div>
                     <div className='lg:grid grid-cols-4 lg:gap-5 no_scroll'>
-                        <Video data={videoDetail.other_category.data} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} />
+                        <Video  data={videoDetail.other_category.data} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} />
 
                     </div>
                 </div>}

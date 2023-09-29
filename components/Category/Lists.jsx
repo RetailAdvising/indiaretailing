@@ -20,12 +20,14 @@ export default function Lists({ imgFlex, hash_bg, contentWidth, primary_pb, line
     const router = useRouter();
     const checkRoute = (data) => {
         console.log(data);
+        // else if (data.doc_type == 'News') {
+        //     router.push('/news/' + data.route)
+        // }
         if (data.doc_type == 'Articles') {
             // router.replace({pathname:'/categories' + '/' + values[ind]["route"]}, undefined, { scroll: false })
-            router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
-        } else if (data.doc_type == 'News') {
-            router.push('/news/' + data.route)
-        } else if (data.doc_type == 'Community Event') {
+            // router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
+            router.push('/' + data.route)
+        }  else if (data.doc_type == 'Community Event') {
             const route = '/events/' + data.route
             router.push({route}, undefined, { scroll: true })
         } else if (data.doc_type == 'Product') {

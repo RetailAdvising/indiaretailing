@@ -133,7 +133,8 @@ export default function Trending({ data, res }) {
         //     router.push('/news/' + data.route)
         // }
         if (data.doctype == 'Articles') {
-            router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
+            // router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
+            router.push('/'+data.route)
         }  else if (data.doctype == 'Community Event') {
             router.push('/events/' + data.route)
         }
@@ -148,8 +149,8 @@ export default function Trending({ data, res }) {
 
     const getLatestNews = async () => {
         const params = {
-            fields: ['name', 'route', 'title', 'primary_text', 'secondary_text', 'publisher', 'thumbnail_image'],
-            doctype: 'News',
+            fields: ['name', 'route', 'title', 'primary_text', 'secondary_text', 'publisher', 'thumbnail_imagee as thumbnail_image'],
+            doctype: 'Articles',
             page_no: 1,
             page_size: 3
         }
@@ -166,12 +167,12 @@ export default function Trending({ data, res }) {
                 <div className={`container md:py-[15px] p-[20px_0]`}>
                     <div><Title data={{ title: 'Trending Tags' }} /></div>
                     <div class="lg:flex lg:gap-[15px] md:block">
-                        <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh-_90px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
+                        <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
                             {(tabs && tag) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
                             <TrendingBox />
                         </div>
                         {/* <div class=""> */}
-                        <div id='scroll' className='lg:h-[calc(100vh-_15px)] overflow-auto scrollbar-hide lg:flex-[0_0_calc(50%_-_10px)]  lg:p-5  md:basis-full'>
+                        <div id='scroll' className='lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide lg:flex-[0_0_calc(50%_-_10px)]  lg:p-5  md:basis-full'>
                             {(resp_data && resp_data.length != 0 && !nodata) ?
                                 <div className={`lg:grid  lg:grid-cols-1 lg:gap-5  `}>
                                     {resp_data.map((res, index) => {
@@ -213,7 +214,7 @@ export default function Trending({ data, res }) {
                         <div class="lg:flex-[0_0_calc(30%_-_10px)] md:hidden">
                             {(news && news.length != 0) && <div className='p-[10px]'>
                                 <Title data={{ title: 'Latest News' }} />
-                                <List data={news} isHome={'/categories/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
+                                <List data={news} isHome={'/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
                             </div>}
                             <AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} />
                         </div>

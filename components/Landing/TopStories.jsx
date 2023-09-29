@@ -12,7 +12,7 @@ export default function TopStories({ data }) {
                         {/* <div  className={`flex gap-[10px]  items-center h-[100px] px-[10px]  rounded-[5px] bg-white  md:h-[80px]  md:flex-[0_0_calc(90%_-_10px)] ${index == data.length - 1 ? 'md:mx-[15px]' : index == 0 ? '' : 'md:ml-[15px]'}`}> */}
                         {/* <div > */}
                         <Link href={'/' + res.route} className='flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(35%_-_10px)]'>
-                            <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image)} height={80} width={100} alt={res.title} className={`rounded-[5px] h-[75px] md:h-[70px] w-full`} />
+                            <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.image)} height={80} width={100} alt={res.title} className={`rounded-[5px] h-[75px] md:h-[70px] w-full`} />
                         </Link>
                         {/* </div> */}
                         <div>

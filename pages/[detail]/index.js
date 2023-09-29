@@ -17,12 +17,12 @@ export default function Details() {
 
   let page_no = 1;
 
-  const articleDetail = async (link) => {
+  const articleDetail = async () => {
     // console.log(router,'router')
-    if (link) {
-      let Id = await link;
+    if (router.query && router.query?.detail && typeof window !== 'undefined') {
+      let Id = await router.query?.detail;
       let param = {
-        "route": link,
+        "route": Id,
         // "category": category,
         "next": 0
       }
@@ -42,7 +42,7 @@ export default function Details() {
         setPageNo(pageNo + 1)
         // setValues(d => [...d, ...val])
         setValues(val)
-        setPrev(link)
+        setPrev(router.query?.detail)
       }
     }
     // console.log('sad'+val)
@@ -59,14 +59,12 @@ export default function Details() {
   const user = useSelector(s => s.user);
 
   useEffect(() => {
-    window.addEventListener("scroll", call_observer)
+    // window.addEventListener("scroll", call_observer)
 
     if (typeof window !== 'undefined') {
-      // setTimeout(() => {
-      // }, 500);
-      const route = window.location.pathname.split('/')[1]
+      // const route = window.location.pathname.split('/')[1]
       // console.log(route)
-      articleDetail(route);
+      articleDetail();
       // console.log(route)
       ads();
       // console.log(router,'window')
@@ -76,7 +74,7 @@ export default function Details() {
 
 
 
-  }, [])
+  }, [router])
 
 
   // Observer for route change
@@ -136,10 +134,10 @@ export default function Details() {
         setPagination(!pagination)
       }
     }
-    setTimeout(() => {
-      // console.log('time');
-      call_observer()
-    }, 500)
+    // setTimeout(() => {
+    //   // console.log('time');
+    //   call_observer()
+    // }, 500)
   }
 
   // const getAdsList = async () => {

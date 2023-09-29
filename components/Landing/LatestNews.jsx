@@ -24,7 +24,7 @@ export default function LatestNews({ data, height, width, isList }) {
         return (
           <Link key={index} href={'/' + res.route}>
             <div className={`pb-[10px] ${!res.image && ((index != data.length - 1 || index == 1)) && 'border_bottom'}`}>
-              {(res.thumbnail_image && index < 2) && <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />}
+              {(res.thumbnail_imagee && index < 2) && <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_imagee ? res.thumbnail_imagee : res.image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />}
               {res.title && <h6 className={`my-[10px] line-clamp-1 title `}>{res.title}</h6>}
               {(res.blog_intro && index >= 2) && <p className={`${!res.image && 'mb-[10px]'} sub_title line-clamp-2`}>{res.blog_intro}</p>}
             </div>
@@ -38,7 +38,7 @@ export default function LatestNews({ data, height, width, isList }) {
               return (
                 <Link key={i} href={'/' + res.route} className='flex-[0_0_calc(70%_-_10px)] border rounded-[10px] h-[280px]'>
                   <div>
-                    <Image priority src={check_Image(res.thumbnail_image)} className={`rounded-[5px_5px_0_0] ${height} ${width}`} width={400} height={200} alt={res.title} />
+                    <Image priority src={check_Image(res.thumbnail_imagee ? res.thumbnail_imagee : res.image)} className={`rounded-[5px_5px_0_0] ${height} ${width}`} width={400} height={200} alt={res.title} />
                   </div>
                   <div className='px-[10px]'>
                     <h6 className={`my-[10px] line-clamp-2 title `}>{res.title}</h6>

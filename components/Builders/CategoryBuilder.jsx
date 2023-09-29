@@ -14,6 +14,7 @@ import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookS
 import { useRouter } from 'next/router'
 import CustomSlider from '../Sliders/CustomSlider'
 import AuthModal from '../Auth/AuthModal';
+import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
 
 export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
@@ -156,7 +157,9 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
 
 
   function onPageLoad() {
+    // console.log(data)
     if ((data && data.article_sections && data.article_sections.length != 0)) {
+      // console.log(data.article_sections)
       data.article_sections.map((res) => {
         let element = document.getElementById(`${res.placeholder_key}`);
         // console.log(element)
@@ -164,14 +167,16 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
         let html = ''
         res.data.map((item, index) => {
           html +=
-            `<div key=${index} class='${'card'} cursor-pointer'>
-              <div>
-                <Image class=${'img'} src='${check_Image(item.thumbnail_image)}' height={40} width={50} alt='image' />
-              </div>
-              <div class='p-[10px]'>
-              <h6 class='line-clamp-2 title'>${item.title}</h6>            
-              <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : ''}</span>            
-              </div>
+            `<div onClick=${checkRoute(item)} key=${index} class='${'card'} cursor-pointer'>
+            
+            <div>
+              <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ? item.thumbnail_imagee : item.image)}' height={40} width={50} alt='image' />
+            </div>
+            <div class='p-[10px]'>
+            <h6 class='line-clamp-2 title'>${item.title}</h6>            
+            <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : ''}</span>            
+            </div>
+            
             </div>`
         })
         element ? element.innerHTML = html : null
@@ -180,6 +185,10 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
       })
     }
 
+  }
+
+  const checkRoute = (link) => {
+    console.log(link)
   }
 
 
@@ -243,9 +252,9 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
 
   const sanitizeHtml = (html) => {
     // Replace all &nbsp; entities with a space character
-    if(html && typeof(html) == 'string'){
+    if (html && typeof (html) == 'string') {
       let cleanedHtml = html.replace(/&nbsp;/g, ' ');
-  
+
       // Remove extra spaces (multiple consecutive spaces) without removing tags and colors
       cleanedHtml = cleanedHtml.replace(/<[^>]*>/g, (match) => {
         // Preserve inline colors (style attributes) within tags
@@ -255,32 +264,32 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
         // Remove spaces from other parts of the tags
         return match.replace(/\s+/g, ' ');
       });
-  
+
       // Parse the cleaned HTML into a DOM tree
       const parser = new DOMParser();
       let doc = parser.parseFromString(cleanedHtml, 'text/html');
-  
+
       // Remove all elements that do not have any content (including nested content)
-      const emptyElements = doc.querySelectorAll('*:empty:not(br):not(img)');
+      const emptyElements = doc.querySelectorAll('*:empty:not(br):not(img):not(div)');
       for (const element of emptyElements) {
         element.parentNode.removeChild(element);
       }
-  
+
       cleanedHtml = new XMLSerializer().serializeToString(doc);
       doc = parser.parseFromString(cleanedHtml, 'text/html');
       const brElements = doc.querySelectorAll('br');
       for (const br of brElements) {
         const prevNode = (br.previousSibling && br.previousSibling.data) ? br.previousSibling.data : undefined;
-        const nextNode = (br.nextSibling && br.nextSibling.data) ? br.nextSibling.data :undefined;
+        const nextNode = (br.nextSibling && br.nextSibling.data) ? br.nextSibling.data : undefined;
         // console.log(prevNode)
-        if((prevNode && prevNode != ' ') || (nextNode && nextNode != ' ')){
-   
-        }else {
-          
-          if(!br.closest('strong')){
+        if ((prevNode && prevNode != ' ') || (nextNode && nextNode != ' ')) {
+
+        } else {
+
+          if (!br.closest('strong')) {
             br.parentNode.removeChild(br);
           }
-  
+
         }
       }
       cleanedHtml = new XMLSerializer().serializeToString(doc);
@@ -296,14 +305,12 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
       <div ref={cardref}>
         <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
-
             <p>
               <Content i={i} res={data} />
             </p>
-
             <div className='relative article_content'>
               {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`${i}`} className={`contents ${(data.ir_prime == 1 && !validator) && 'prime-article'}`} />}
-              {/* {(isPrime && !validator && data.ir_prime == 1) && <div className='prime-article-after'></div>} */}
+              {(!validator && data.ir_prime == 1) && <div className='prime-article-after'></div>}
             </div>
             {/* {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'> */}
             {/* <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This story is for Premium Members you  have to buy Membership to Unlock</h6>
@@ -315,22 +322,22 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
             </div>} */}
 
             {(!validator && data.ir_prime == 1) &&
-              <div className='grid place-content-center max-w-[400px] p-[30px_20px_0_20px] md:p-[20px] m-[0_auto]'>
-                <div className={`flex items-center gap-[10px] `}>
-                  <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
-                  <p className='text-red font-semibold'>IR Prime</p>
-                </div>
+              // <div className='grid place-content-center max-w-[400px] p-[30px_20px_0_20px] md:p-[20px] m-[0_auto]'>
+              //   <div className={`flex items-center gap-[10px] `}>
+              //     <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
+              //     <p className='text-red font-semibold'>IR Prime</p>
+              //   </div>
 
-                {/* <div> */}
-                <h6 className='text-[32px] font-[600] leading-[40px] md:text-[17px] md:leading-[22px] pt-[10px]'>Its a Premium Content,Simply buy Membership to Unlock</h6>
-                <p className='text-[14px] font-[400] text-gray pt-[10px] leading-[20px] md:leading-[16px] md:pt-[15px]'>50,000+ articles IRPrime is the only subscription you need</p>
-                {/* </div> */}
+              //   {/* <div> */}
+              //   <h6 className='text-[32px] font-[600] leading-[40px] md:text-[17px] md:leading-[22px] pt-[10px]'>Its a Premium Content,Simply buy Membership to Unlock</h6>
+              //   <p className='text-[14px] font-[400] text-gray pt-[10px] leading-[20px] md:leading-[16px] md:pt-[15px]'>50,000+ articles IRPrime is the only subscription you need</p>
+              //   {/* </div> */}
 
-                <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
-                  <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-max' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
-                </div>
-
-              </div>
+              //   <div className='w-full mt-[25px] md:mt-[15px] md:text-center'>
+              //     <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-max' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
+              //   </div>
+              // </div>
+              <SubscriptionAlert />
             }
 
             <Modal modal={modal} show={show} visible={visible} hide={hide} />
@@ -445,11 +452,11 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
 
         {data.latest_news && data.latest_news.length != 0 && <div className={`${isMobile ? '' : 'container'}  ${styles.section_3}`}>
           {/* Slider */}
-          {(data.latest_news) && <div className={`${styles.slider_parent} latestNews_slider lg:mb-[15px] p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
+          <div className={`${styles.slider_parent} latestNews_slider lg:mb-[15px] p-[20px 0] md:p-[10px_15px] ${isLast && 'mb-7'}`}>
             <Title data={{ title: 'Latest News' }} />
             <CustomSlider slider_id={"category_builder" + i} slider_child_id={'category_builder_child' + i} data={data.latest_news} cardClass={'flex-[0_0_calc(20%_-_16px)] md:flex-[0_0_calc(70%_-_10px)]'} route={'/news/'} imgClass={'h-[190px] md:h-[160px] w-full'} />
             {/* <MultiCarousel isHome={'/news/'} perView={5} noPlay={true}  height={""} width={'w-full'} type={'card'} check={true} /> */}
-          </div>}
+          </div>
         </div>}
 
         {!isLast && <div className={`flex md:gap-[10px]  lg:m-[20px_auto_0] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] ${isMobile ? '' : 'container'}`}>

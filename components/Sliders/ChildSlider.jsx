@@ -149,3 +149,6 @@ export default function ChildSlider({ data, type, rows,colsPerView, cols, per_vi
 
 
 
+
+
+

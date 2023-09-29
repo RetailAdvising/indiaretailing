@@ -134,7 +134,8 @@ export default function Tags({ res, data }) {
         //     router.push('/news/' + data.route)
         // }
         if (data.doctype == 'Articles') {
-            router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
+            // router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
+            router.push('/' + data.route)
         } else if (data.doctype == 'Community Event') {
             router.push('/events/' + data.route)
         }
@@ -151,8 +152,8 @@ export default function Tags({ res, data }) {
     // Latest News
     const getLatestNews = async () => {
         const params = {
-            fields: ['name', 'route', 'title', 'primary_text', 'secondary_text', 'publisher', 'thumbnail_image'],
-            doctype: 'News',
+            fields: ['name', 'route', 'title', 'primary_text', 'secondary_text', 'publisher', 'thumbnail_imagee as thumbnail_image'],
+            doctype: 'Articles',
             page_no: 1,
             page_size: 3
         }
@@ -169,7 +170,7 @@ export default function Tags({ res, data }) {
             <RootLayout>
                 <div className={`container md:py-[15px] lg:p-[20px_0]`}>
                     <div class="lg:flex lg:gap-[15px] md:block">
-                        <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh-_90px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
+                        <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
                             {(tabs && tag) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
                             <TrendingBox />
                         </div>
@@ -197,7 +198,7 @@ export default function Tags({ res, data }) {
                                                         {/* <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div> */}
                                                         <div className='flex  items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
                                                     </div>}
-                                                    {icons && <Dropdowns share={true} link={{route: (res.doctype == 'Articles' && res.ir_prime == 1 ) ? '/IRPrime/' + res.route : (res.doctype == 'Articles' && res.ir_prime != 1 ) ? '/categories/' + res.route : res.doctype == 'Community Event' ? '/events/' + res.route : null}} width={'w-[170px]'} type={'tag'} data={icons} />}
+                                                    {icons && <Dropdowns share={true} link={{ route: (res.doctype == 'Articles' && res.ir_prime == 1) ? '/IRPrime/' + res.route : (res.doctype == 'Articles' && res.ir_prime != 1) ? '/categories/' + res.route : res.doctype == 'Community Event' ? '/events/' + res.route : null }} width={'w-[170px]'} type={'tag'} data={icons} />}
 
                                                     {/* <p className={`sub_title line-clamp-2 pt-[5px]`}>{res.blog_intro}</p> */}
                                                 </div>
@@ -218,7 +219,7 @@ export default function Tags({ res, data }) {
                         <div class="lg:flex-[0_0_calc(30%_-_10px)] md:hidden">
                             {(news && news.length != 0) && <div className='p-[10px]'>
                                 <Title data={{ title: 'Latest News' }} />
-                                <List data={news} isHome={'/categories/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'} check={true} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
+                                <List data={news} isHome={'/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'}  borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
                             </div>}
                             <AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} />
                         </div>

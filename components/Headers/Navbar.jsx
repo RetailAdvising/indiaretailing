@@ -36,15 +36,15 @@ export default function Navbar({ heading, isLanding, checkout }) {
 
 
     useEffect(() => {
-        
+
         dispatch(setRoutes(router.route));
         const formattedDate = format(new Date(), "iiii, d MMMM yyyy");
         setDate(formattedDate)
-        console.log('router.asPath',router.asPath); 
-        console.log('router.asPath',nav); 
+        // console.log('router.asPath',router.asPath); 
+        // console.log('router.asPath',nav); 
     }, [])
 
-   
+
 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
