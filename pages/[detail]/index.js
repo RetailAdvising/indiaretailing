@@ -84,7 +84,7 @@ export default function Details() {
 
       entries.forEach((entry, ind) => {
         if (entry.intersectionRatio > 0) {
-          // console.log(ind, 'visible');
+          console.log(ind, 'visible');
           if (values && values.length > 0) {
             // console.log('pushed', values[ind]);
             // console.log('route', values[ind]["route"])
@@ -94,7 +94,7 @@ export default function Details() {
           }
         } else {
           // Element is not visible
-          // console.log(ind, 'not visible');
+          console.log(ind, 'not visible');
         }
       });
     });

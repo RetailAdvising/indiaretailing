@@ -187,7 +187,7 @@ export default function Home({ data }) {
         {(value && value.length != 0) && value.map((data, i) => {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
-            <div key={i} className={`py-[20px] ${data.section == 'PS-23-00094' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00105' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00120' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
+            <div key={i} className={`py-[20px] ${data.section == 'PS-23-00094' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00150' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00120' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
               {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                 return (
                   // || i == 5
@@ -204,7 +204,7 @@ export default function Home({ data }) {
                             <Title data={{ title: 'Latest News' }} />
                             {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(4, 6)} /></> : <LatestNews height={'h-[222px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} />}
                           </div>}
-                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Advertisement") && <AdsBaner data={data.data[c.cid].data[0]} height={'h-[250px]'} />}
+                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Advertisement") && <AdsBaner data={data.data[c.cid].data[0]} height={'h-[250px] w-[300px] object-contain'} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive" && !isMobile) && <Subscribe height={"h-[162px]"} data={news} width={"w-full"} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Web Special" && c.component_data_type == 'Location') && <>
@@ -213,11 +213,11 @@ export default function Home({ data }) {
                               <div className='lg:flex flex-wrap justify-between flex-[0_0_calc(70%_-_10px)]'>
                                 <div className='flex-[0_0_calc(55%_-_10px)]'><ImageContainer isWeb={true} data={data.data[c.cid].data[0]} height={'h-[250px]'} width={'w-[500px]'} /></div>
                                 <div className={`${isMobile ? '' : 'border_right border_left px-[20px] h-[250px] flex-[0_0_calc(45%_-_10px)]'}`}><BulletList data={data.data[c.cid].data.slice(1, 6)} /></div>
-                                <div className={` flex border-t border-[#d4d8d8] pt-[15px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(7, 10)} /></div>
+                                <div className={` flex border-t border-[#d4d8d8] pt-[15px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(6, 10)} /></div>
                               </div>
                               <div className='md:my-[15px] md:hidden'><AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} /></div>
                             </div>
-                            <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards contentHeight={'pt-[10px]'} isHome={'/'} data={data.data[c.cid].data.slice(11, 16)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
+                            <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards noPrimaryText={true} titleOnly={true} contentHeight={'pt-[10px]'} isHome={'/'} data={data.data[c.cid].data.slice(10, 16)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
                           </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending" && !isMobile) && <>

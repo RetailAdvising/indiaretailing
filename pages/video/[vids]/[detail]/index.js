@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import { checkMobile } from '@/libs/api';
-import { video_details,getAds } from '@/libs/api';
+import { video_details, getAds } from '@/libs/api';
 import { useRouter } from 'next/router';
 import { check_Image } from '@/libs/common'
 import Image from 'next/image';
@@ -10,7 +10,7 @@ import Title from '@/components/common/Title'
 import SEO from '@/components/common/SEO'
 import Video from '../../../../components/Video/Video';
 import Dropdowns from '../../../../components/common/Dropdowns';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AdsBaner from '@/components/Baners/AdsBaner'
 import SubscriptionAlert from '@/components/common/SubscriptionAlert';
 
@@ -23,7 +23,7 @@ export default function Videos(meta_info, ads_data) {
     const [prev, setPrev] = useState('')
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
     const user = useSelector(s => s.user);
-    let bannerImg = {ad_image:'/ads_baner.png'};
+    let bannerImg = { ad_image: '/ads_baner.png' };
 
     useEffect(() => {
         if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
@@ -81,11 +81,11 @@ export default function Videos(meta_info, ads_data) {
                             {/* <h6 className='text-[20px] line-clamp-2 font-semibold'>{videoDetail.message.title}</h6> */}
 
                             {/* <div className='flex items-center gap-[10px] mb-[10px]'> */}
-                                <div className='flex items-center gap-[10px] mb-[10px]'>
-                                    <Image className={`h-[15px] w-[15px] object-contain`} src={'/views.svg'} height={10} width={15} alt={'share'} />
-                                    <span className='text-[12px] gray_color'>{videoDetail.message.noof_views} Views</span>
-                                </div>
-                                {/* <div className='flex items-center gap-[10px]'>
+                            <div className='flex items-center gap-[10px] mb-[10px]'>
+                                <Image className={`h-[15px] w-[15px] object-contain`} src={'/views.svg'} height={10} width={15} alt={'share'} />
+                                <span className='text-[12px] gray_color'>{videoDetail.message.noof_views} Views</span>
+                            </div>
+                            {/* <div className='flex items-center gap-[10px]'>
                                     <Image className={`h-[15px] w-[15px] object-contain`} src={'/share.svg'} height={10} width={15} alt={'share'} />
                                     <span className='text-[12px] gray_color'>4 Shares</span>
                                 </div> */}
@@ -97,12 +97,11 @@ export default function Videos(meta_info, ads_data) {
                             </div>
 
                             {(!validator && videoDetail.message.ir_prime == 1) && <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='lg:h-[500px] object-contain md:h-full w-full' />}
-         
 
                             <div className={`${validator ? 'lg:h-[80vh] md:h-[220px]' : ''} my-[10px]`}>
                                 {(!validator && videoDetail.message.ir_prime == 1) ?
-                                 <>
-                                    {/* <div className='grid place-content-center max-w-[400px] p-[30px_20px_20px_20px] md:p-[20px] m-[0_auto]'>
+                                    <>
+                                        {/* <div className='grid place-content-center max-w-[400px] p-[30px_20px_20px_20px] md:p-[20px] m-[0_auto]'>
                                         <div className={`flex items-center gap-[10px] `}>
                                         <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
                                         <p className='text-red font-semibold'>Prime Video</p>
@@ -115,8 +114,9 @@ export default function Videos(meta_info, ads_data) {
                                         </div>
 
                                     </div> */}
-                                    <SubscriptionAlert />
-                                    {/* <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
+                                        <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
+                                        <SubscriptionAlert />
+                                        {/* <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
                                     <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6 flex justify-between md:block'>
                                         <div className='text-center text-[20px] md:text-[16px] font-semibold text-[white] flex md:pb-2'>
                                             <Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />
@@ -130,21 +130,22 @@ export default function Videos(meta_info, ads_data) {
                                             <button className='m-auto primary_btn p-[6px_8px] text-[13px] bg-[#fff] text-[#e21b22] flex' onClick={() => router.push('/membership')}><Image src={'/subscribe.svg'} height={18} width={18} alt={"image"} className='mr-1' />Subscribe</button>
                                         </div>
                                     </div> */}
-                                  </> 
-                                : <iframe
-                                    className={`lg:h-[80vh] md:h-[30vh] w-full`}
-                                    title={videoDetail.message.title ? videoDetail.message.title : ''}
-                                    src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
-                                    // width={res.width}
-                                    // height={res.height}
-                                    frameBorder="2"
-                                    loading="lazy"
-                                // allowfullscreen="allowfullscreen"
-                                ></iframe>}
+                                    </>
+                                    : <iframe
+                                        className={`lg:h-[80vh] md:h-[30vh] w-full`}
+                                        title={videoDetail.message.title ? videoDetail.message.title : ''}
+                                        src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
+                                        // width={res.width}
+                                        // height={res.height}
+                                        frameBorder="2"
+                                        loading="lazy"
+                                    // allowfullscreen="allowfullscreen"
+                                    ></iframe>}
 
                                 {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
                             </div>
-                            <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
+
+                           {(videoDetail.message.ir_prime != 1) &&  <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />}
 
                             {/* {videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0 && 
                         <div className=''><Title data={videoDetail.other_category} seeMore={false} /><List fullWidth={true} check={true} isBB={true} isDesc={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[100px] md:h-[85px]'} data={videoDetail.other_category.data.slice(0,3)} borderRadius={'rounded-[5px]'} /></div>
@@ -164,7 +165,7 @@ export default function Videos(meta_info, ads_data) {
                                 </>
                             }
 
-                          <AdsBaner data={bannerImg} height={'h-[250px]'} />
+                            <AdsBaner data={bannerImg} height={'h-[250px]'} />
 
                             {/* <div className='h-[260px] mt-[10px]'>
                                 <Image className='h-[250px] w-[300px]' src={'/ads_baner.png'} height={250} width={300} layout="fixed" alt={''} />
@@ -182,7 +183,7 @@ export default function Videos(meta_info, ads_data) {
                         <Title data={videoDetail.other_category} />
                     </div>
                     <div className='lg:grid grid-cols-4 lg:gap-5 no_scroll'>
-                        <Video  data={videoDetail.other_category.data} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} />
+                        <Video data={videoDetail.other_category.data} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} />
 
                     </div>
                 </div>}
@@ -316,7 +317,7 @@ const Skeleton = () => {
 
 
 export async function getServerSideProps({ params }) {
-    let id = await params ?.vids + '/' + await params ?.detail;
+    let id = await params?.vids + '/' + await params?.detail;
     let data = {
         "route": id, fields: ["name", "route", "title", "video_image", 'description']
     }

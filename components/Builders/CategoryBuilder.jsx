@@ -168,13 +168,12 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
         res.data.map((item, index) => {
           html +=
             `<div onClick=${checkRoute(item)} key=${index} class='${'card'} cursor-pointer'>
-            
             <div>
-              <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ? item.thumbnail_imagee : item.image)}' height={40} width={50} alt='image' />
+              <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ? item.thumbnail_imagee : item.thumbnail_path ? item.thumbnail_path : item.image_path ? item.image_path :  item.image)}' height={40} width={50} alt='image' />
             </div>
             <div class='p-[10px]'>
             <h6 class='line-clamp-2 title'>${item.title}</h6>            
-            <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : ''}</span>            
+            <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : item.description ? item.description : ''}</span>            
             </div>
             
             </div>`

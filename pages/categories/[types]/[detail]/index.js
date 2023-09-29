@@ -62,8 +62,8 @@ export default function CategoryDetail({ data }) {
         if (entry.intersectionRatio > 0) {
           console.log(ind, 'visible');
           if (values && values.length > 0) {
-            console.log('pushed', values[ind]);
-            console.log('route', values[ind]["route"])
+            // console.log('pushed', values[ind]);
+            // console.log('route', values[ind]["route"])
             router.replace({ pathname: '/categories/' + values[ind]["route"] }, undefined, { scroll: false });
             // console.log('replaced',ind,values)
             // console.log('value',values[ind])
