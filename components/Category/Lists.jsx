@@ -36,7 +36,9 @@ export default function Lists({ imgFlex, hash_bg, contentWidth, primary_pb, line
             router.push('/video/' + data.route)
         }else if(data.doc_type == 'Podcast'){
             const route = '/podcast/' + data.route
-            router.push(route)  
+            router.push(route)
+            // router.push({route},undefined, { shallow: false, scroll: false })  
+
         }
     }
 

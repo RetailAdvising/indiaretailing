@@ -84,7 +84,7 @@ export default function Categories({ data, ads }) {
                     {datas && datas.map((res, index) => {
                         return (
                             <div key={index} className={`flex md:block md:mb-[10px] lg:mr-[15px] ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>
-                                <div className={`lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)] ${res.background_color && 'bg-['+res.background_color+']'}`}><SectionBox data={res} /></div>
+                                <div className={`lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)]`} ><SectionBox data={res} /></div>
                                 {/* <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(100%_-_0px)] xl:w-[calc(80%_-_10px)] md:p-[10px]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[200px]'} islanding={true} noPlay={false} check={true} height={'lg:h-[185px] md:h-[140px]'} perView={4} width={'w-full'} data={res.events} /></div> */}
                                 <div className='lg:w-[calc(80%_-_10px)]  md:p-[10px]'>
                                     {/* <CardCarousel data={res.events} cardClass={'lg:h-[280px] md:h-[220px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}

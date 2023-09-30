@@ -4,6 +4,7 @@ import { check_Image, checkMobile } from '@/libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 export default function LatestNews({ data, height, width, isList }) {
+  console.log(data);
   const [isMobile, setIsMobile] = useState()
   const router = useRouter()
   useEffect(() => {

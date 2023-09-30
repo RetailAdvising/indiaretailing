@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { check_Image } from '@/libs/api'
 import Link from 'next/link'
 export default function TopStories({ data }) {
-    // console.log(data)
+    data = data.slice(0,3)
     return (
         <>
             {data && data.map((res, index) => {
@@ -21,7 +21,7 @@ export default function TopStories({ data }) {
                                 <h6 className={`top_title`}>{res.title}</h6>
                             </Link>
                         </div>
-                        {/* </div>                     */}
+                        {/* </div>*/}
                     </Link>
                 )
             })}

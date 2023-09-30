@@ -339,7 +339,7 @@ export default function LogIn({ isModal, hide, auth }) {
                                     textButton=""
                                     cssClass="my-facebook-button-class"
                                     icon="fa-facebook"
-                                    appId="1395750980977164"
+                                    appId="341622788230249"
                                     autoLoad={false} // Set to true if you want auto-login on page load
                                     fields="name,email,picture"
                                     callback={responseFacebook}
