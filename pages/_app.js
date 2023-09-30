@@ -1,6 +1,6 @@
 import '@/styles/globals.scss'
 import store from '../redux/store'
-import { Inter, Roboto } from 'next/font/google'
+import { Inter, Roboto, Faustina } from 'next/font/google'
 import { useDispatch, useSelector, Provider } from 'react-redux'
 // import userAction from 'redux/actions/userAction'
 import ErrorBoundary from '@/components/Exception/ErrorBoundary'
@@ -10,13 +10,23 @@ import { websiteSettings } from '@/libs/api'
 import MobileHead from '@/components/Headers/MobileHead'
 import BottomTabs from '@/components/common/BottomTabs'
 import Header from '@/components/Headers/Header'
-const inter = Inter({
-  weight: ["200", "300", "400", "500", "600", '700'],
+
+// const inter = Inter({
+//   weight: ["200", "300", "400", "500", "600", '700'],
+//   display: "block",
+//   preload: true,
+//   style: 'normal',
+//   subsets: ["latin"],
+//   variable: '--font-inter'
+// })
+
+const inter = Faustina({
+  weight: ["300", "400", "500", "600", '700'],
   display: "block",
   preload: true,
   style: 'normal',
   subsets: ["latin"],
-  variable: '--font-inter'
+  variable: '--font-faustina'
 })
 
 

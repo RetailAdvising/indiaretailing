@@ -113,7 +113,9 @@ export default function Content({ res, i }) {
             // allowfullscreen="allowfullscreen"
             ></iframe> : <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
             }
-            <p className='py-3 !leading-[1.74] !text-[15px] !text-justify font-semibold'>{res.blog_intro}</p>
+
+            {/* <p className='py-3 !leading-[1.74] !text-[15px] !text-justify font-semibold'>{res.blog_intro}</p> */}
+            <p className='py-3 !leading-[1.5] !text-[18px] !text-justify font-semibold'>{res.blog_intro}</p>
         </> 
     )
 }

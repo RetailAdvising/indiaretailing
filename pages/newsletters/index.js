@@ -44,6 +44,7 @@ export default function newsletter({ ads }) {
   async function newsLanding_info(){
     let value = await newsLanding();
     let news = value.message;
+    console.log(news);
     setData(news);
     setSkeleton(false);
   }

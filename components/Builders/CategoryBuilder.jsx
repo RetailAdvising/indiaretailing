@@ -17,7 +17,7 @@ import AuthModal from '../Auth/AuthModal';
 import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
 
-export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
+export default function CategoryBuilder({ data, load, isLast, i, ads, user,productNavigation }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -166,8 +166,9 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
         element?.classList.add('placeholder')
         let html = ''
         res.data.map((item, index) => {
+          //  onClick=${checkRoute(item)}
           html +=
-            `<div onClick=${checkRoute(item)} key=${index} class='${'card'} cursor-pointer'>
+            `<a href=${item.route ?'/'+item.route : '#'} key=${index} class='${'card'} cursor-pointer'>
             <div>
               <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ? item.thumbnail_imagee : item.thumbnail_path ? item.thumbnail_path : item.image_path ? item.image_path :  item.image)}' height={40} width={50} alt='image' />
             </div>
@@ -176,7 +177,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
             <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : item.description ? item.description : ''}</span>            
             </div>
             
-            </div>`
+            </a>`
         })
         element ? element.innerHTML = html : null
         // element.append(data)
@@ -300,7 +301,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
 
   return (
     <>
-
+     {console.log('child',data)}  
       <div ref={cardref}>
         <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
@@ -445,7 +446,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user }) {
 
           <div className='w_30 md:hidden'>
             {/* {data.advertisement_tags && data.advertisement_tags.length != 0 && <AdsBaner data={data.advertisement_tags[0]} />} */}
-            {(data.place_holders_ads && data.place_holders_ads.length != 0) && <Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : []} />}
+            {(data.place_holders_ads && data.place_holders_ads.length != 0) && <Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : [] } productNavigation={productNavigation} />}
           </div>
         </div>
 

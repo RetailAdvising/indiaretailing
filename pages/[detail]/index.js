@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import { useSelector, useDispatch } from 'react-redux';
 
-export default function Details() {
+export default function Details({page_route}) {
   const router = useRouter();
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
@@ -16,11 +16,15 @@ export default function Details() {
   const [pageNo, setPageNo] = useState(1)
 
   let page_no = 1;
+  let [divs,setDivs] = useState(['div0']);
+  let [routeList,setRouteList] = useState([])
 
-  const articleDetail = async () => {
+  const articleDetail = async (route) => {
     // console.log(router,'router')
     if (router.query && router.query?.detail && typeof window !== 'undefined') {
-      let Id = await router.query?.detail;
+      let Id = route ? route : page_route 
+      // let Id = await router.query?.detail;
+      console.log('fffffffffsrgrsf',Id)
       let param = {
         "route": Id,
         // "category": category,
@@ -37,6 +41,8 @@ export default function Details() {
           // data._user_tags = [];
           data ? data._user_tags = [] : null;
         }
+        routeList.push(data.route)
+        setRouteList(routeList)
         let val = [data]
         page_no += 1;
         setPageNo(pageNo + 1)
@@ -60,31 +66,24 @@ export default function Details() {
 
   useEffect(() => {
     // window.addEventListener("scroll", call_observer)
-
     if (typeof window !== 'undefined') {
-      // const route = window.location.pathname.split('/')[1]
-      // console.log(route)
-      articleDetail();
-      // console.log(route)
+      articleDetail(undefined);
       ads();
-      // console.log(router,'window')
-      // console.log(window.location)
     }
-
-
-
-
-  }, [router])
+  }, [])
 
 
   // Observer for route change
   let boxElList = '';
+  let active_Ind = -1;
   const call_observer = () => {
     const observer = new IntersectionObserver(entries => {
 
       entries.forEach((entry, ind) => {
         if (entry.intersectionRatio > 0) {
           console.log(ind, 'visible');
+          console.log('values', values);
+
           if (values && values.length > 0) {
             // console.log('pushed', values[ind]);
             // console.log('route', values[ind]["route"])
@@ -117,6 +116,8 @@ export default function Details() {
       let data = value.message;
       // console.log(data)
       if (data && data.status == "Success") {
+        routeList.push(data.route)
+        setRouteList(routeList)
         setPrev(data.route)
         page_no += 1;
         setPageNo(pageNo + 1)
@@ -130,6 +131,8 @@ export default function Details() {
           val[0]._user_tags = [];
         }
         setValues(d => d = [...d, ...val]);
+        divs.push('div'+divs.length)
+        setDivs(divs)
       } else {
         setPagination(!pagination)
       }
@@ -146,6 +149,57 @@ export default function Details() {
   //   const ads = resp.message;
   // }
 
+
+  useEffect(() => {
+    // Event listener to track scroll events
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      for (const divId of divs) {
+
+        const div = document.getElementById(divId);
+
+        if (!div) continue;
+
+        const divTop = div.getBoundingClientRect().top;
+        const divBottom = div.getBoundingClientRect().bottom;
+
+        if (divTop < windowHeight / 2 && divBottom > windowHeight / 2) {
+          let ind = divId.replace('div','')
+          ind = Number(ind);
+          console.log(ind)
+          setTimeout(()=>{
+            if (routeList && routeList.length > 0 && routeList[ind]) {
+              // router.push('/' + routeList[ind], undefined, { scroll: false });
+              router.replace({ pathname: '/' + routeList[ind] }, undefined, { shallow: true, scroll: false });
+            }
+          },300)
+          break;
+        }
+
+     }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+
+  }, []);
+
+ const productNavigation = (obj) =>{
+   console.log(obj);
+   router.replace({ pathname: '/' + obj }, undefined, { shallow: false, scroll: true });
+   setRouteList([])
+   setPageNo(1);
+   setValues([]);
+   articleDetail(obj);
+  //  window.scrollTo(0, 0);
+ }
+
+
   return (
     <>
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
@@ -154,9 +208,9 @@ export default function Details() {
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
-              <div key={index} className='box'>
+              <div id={'div' + index} key={index}  className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
-                <CategoryBuilder isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} />
+                <CategoryBuilder productNavigation={(obj)=>{productNavigation(obj)}} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} />
               </div>
             )
           })}
@@ -290,18 +344,20 @@ const Skeleton = () => {
   )
 }
 
-// export async function getServerSideProps({ params }) {
-//   let Id = await params?.detail;
-//   let category = await params?.list;
-//   let param = {
-//     "article": Id,
-//     "category": category,
-//     "next": 0
-//   }
-//   let value = await articlesDetail(param);
-//   let data = value.message;
+export async function getServerSideProps({ params }) {
 
-//   return {
-//     props: { data }
-//   }
-// }
+  let page_route = await params?.detail;
+
+  // let category = await params?.list;
+  // let param = {
+  //   "article": Id,
+  //   "category": category,
+  //   "next": 0
+  // }
+  // let value = await articlesDetail(param);
+  // let data = value.message;
+
+  return {
+    props: { page_route }
+  }
+}

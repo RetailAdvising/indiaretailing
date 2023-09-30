@@ -4,10 +4,8 @@ import { check_Image } from '@/libs/api'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Tags from './Tags'
-export default function Cards({ searchNavigation,titleOnly, noPrimaryText, data, isHome=undefined, check, contentHeight, flex, border_none, isBorder, width, height, borderRadius, cardClass }) {
-  
+export default function Cards({ searchNavigation,titleOnly, noPrimaryText, data, isHome=undefined, check, contentHeight, flex, border_none, isBorder, width, height, borderRadius, cardClass}) {
   const router = useRouter();
-
   const navigateDetail = (data) =>{
     // router.push('/login')
   //   else if(data.type == 'News'){

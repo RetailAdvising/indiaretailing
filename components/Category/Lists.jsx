@@ -16,31 +16,61 @@ import Tags from '../common/Tags';
 //   })
 
 
-export default function Lists({ imgFlex, hash_bg, contentWidth, primary_pb, line, data, titleClamp, isTop, isReverse, borderRadius, imgHeight, imgWidth, isBB, flex, isMp, tittleOnly, isHome = undefined, isDesc, descLine, mb }) {
+export default function Lists({ productNavigation, imgFlex, hash_bg, contentWidth, primary_pb, line, data, titleClamp, isTop, isReverse, borderRadius, imgHeight, imgWidth, isBB, flex, isMp, tittleOnly, isHome = undefined, isDesc, descLine, mb }) {
+    
     const router = useRouter();
-    const checkRoute = (data) => {
-        console.log(data);
-        // else if (data.doc_type == 'News') {
-        //     router.push('/news/' + data.route)
-        // }
-        if (data.doc_type == 'Articles') {
-            // router.replace({pathname:'/categories' + '/' + values[ind]["route"]}, undefined, { scroll: false })
-            // router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
-            router.push('/' + data.route)
-        }  else if (data.doc_type == 'Community Event') {
-            const route = '/events/' + data.route
-            router.push({route}, undefined, { scroll: true })
-        } else if (data.doc_type == 'Product') {
-            router.push('/bookstore/' + data.route)
-        } else if (data.doc_type == 'Video') {
-            router.push('/video/' + data.route)
-        }else if(data.doc_type == 'Podcast'){
-            const route = '/podcast/' + data.route
-            router.push(route)
-            // router.push({route},undefined, { shallow: false, scroll: false })  
 
+    const checkRoute = (data) => {
+        if(productNavigation){
+           productNavigation(data.route)
+        }else{
+            
+            if (data.doc_type == 'Articles') {
+                // router.replace({pathname:'/categories' + '/' + values[ind]["route"]}, undefined, { scroll: false })
+                // router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
+                router.push('/' + data.route)
+            }  else if (data.doc_type == 'Community Event') {
+                const route = '/events/' + data.route
+                router.push({route}, undefined, { scroll: true })
+            } else if (data.doc_type == 'Product') {
+                router.push('/bookstore/' + data.route)
+            } else if (data.doc_type == 'Video') {
+                router.push('/video/' + data.route)
+            }else if(data.doc_type == 'Podcast'){
+                const route = '/podcast/' + data.route
+                router.push(route)
+                // router.push({route},undefined, { shallow: false, scroll: false })  
+                // router.replace({route},undefined, { shallow: false, scroll: false }) 
+            }
         }
+      
     }
+
+
+    // const checkRoute = (data) => {
+    //     console.log(data);
+    //     // else if (data.doc_type == 'News') {
+    //     //     router.push('/news/' + data.route)
+    //     // }
+    //     let routerLink;
+
+    //     if (data.doc_type == 'Articles') {
+    //         routerLink = '/' + data.route
+    //     }  else if (data.doc_type == 'Community Event') {
+    //         routerLink = '/events' + data.route
+    //     } else if (data.doc_type == 'Product') {
+    //         routerLink = '/bookstore' + data.route
+    //     } else if (data.doc_type == 'Video') {
+    //         routerLink = '/video' + data.route
+    //     }else if(data.doc_type == 'Podcast'){
+    //         routerLink = '/podcast' + data.route
+    //     }
+
+    //     // router.push({route},undefined, { shallow: false, scroll: false })  
+    //     // router.replace({pathname:routerLink},undefined, { shallow: false, scroll: false })  
+
+    //     productNavigation(data.route)
+    // }
 
     return (
         <>

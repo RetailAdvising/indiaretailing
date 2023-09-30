@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @import './Variables.module.scss';
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Faustina:wght@300;400;500;600;700;800&display=swap');
 
 @layer components {
   .primary_btn {
@@ -1513,26 +1513,30 @@ button:focus {
   // padding:10px;
   // border-radius: 5px;
   // margin: 10px 0 0 0;
-  font-size: $font-15;
+  font-size: $font-18;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   text-align: justify;
-  line-height: 1.74 !important;
+  line-height: 1.5 !important;
   // font-family: PT Serif !important;
-  font-family: 'Inter', sans-serif !important;
+  // font-family: 'Inter', sans-serif !important;
+  font-family: 'Faustina', sans-serif !important;
+
+  
 
   // position: relative;
   p , span > :not(h1, h2, h3, h4, h5, h6) {
-    font-size: $font-15 !important;
+    font-size: $font-18 !important;
     // padding-top: 0.75rem;
     // padding-bottom: 0.75rem;
     // text-align: justify;
-    line-height: 1.74 !important;
+    line-height: 1.5 !important;
     margin: 0 !important;
     padding: 0 !important;
     margin-bottom: 18px !important;
     // font-family: PT Serif !important;
-    font-family: 'Inter', sans-serif !important;
+    // font-family: 'Inter', sans-serif !important;
+  font-family: 'Faustina', sans-serif !important;
     // margin-bottom: 26px;
   }
   
@@ -1546,43 +1550,48 @@ button:focus {
   }
 
   a{
-    font-size: $font-15 !important;
-    line-height: 1.74 !important;
+    font-size: $font-18 !important;
+    line-height: 1.5 !important;
     margin: 0 !important;
     padding: 0 !important;
-    font-family: 'Inter', sans-serif !important;
+    // font-family: 'Inter', sans-serif !important;
+    font-family: 'Faustina', sans-serif !important;
     cursor: pointer;
     color: $primary-color;
   }
 
   p > span{
     display: inline-block;
-    font-size: $font-15 !important;
+    font-size: $font-18 !important;
     margin: 0px 0;
-    line-height: 1.74 !important;
+    line-height: 1.5 !important;
     // font-family: PT Serif !important;
-    font-family: 'Inter', sans-serif !important;
+    // font-family: 'Inter', sans-serif !important;
+    font-family: 'Faustina', sans-serif !important;
   }
 
   strong {
     // font-family: PT Serif !important;
-    font-family: 'Inter', sans-serif !important;
+    // font-family: 'Inter', sans-serif !important;
+    font-family: 'Faustina', sans-serif !important;
   }
 
   .ql-editor {
     width: 100% !important;
 
     p {
-      font-size: $font-15;
+      font-size: $font-18;
       text-align: justify;
-      line-height: 1.74 !important;
+      line-height: 1.5 !important;
       // margin-bottom: 20px;
-      font-family: 'Inter', sans-serif !important;
+      // font-family: 'Inter', sans-serif !important;
+       font-family: 'Faustina', sans-serif !important;
       padding: 0 !important;
     }
 
     strong {
-      font-family: 'Inter', sans-serif !important;
+      // font-family: 'Inter', sans-serif !important;
+     font-family: 'Faustina', sans-serif !important;
     }
   }
 
