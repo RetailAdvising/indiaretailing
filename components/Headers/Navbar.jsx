@@ -80,7 +80,7 @@ export default function Navbar({ heading, isLanding, checkout }) {
                                         {res.menus.map(item => {
                                             return (
                                                 // ${nav1 == item.redirect_url ? header.activeMenu : ''}
-                                                <Link href={item.redirect_url} className={`${header.listKey} font-semibold navigation_c lg:text-[14px] tracking-wide ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''}`} key={item.menu_label}>
+                                                <Link href={item.redirect_url} className={`${header.listKey} font-semibold navigation_c lg:text-[16px] tracking-wide ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''}`} key={item.menu_label}>
                                                     {item.menu_label}
                                                 </Link>
                                             )
@@ -105,7 +105,7 @@ export default function Navbar({ heading, isLanding, checkout }) {
                                             // <div key={index} className={`nav-item ${index === activeIndex ? 'active' : ''}`} onClick={() => handleItemClick(index)}>
                                             <Link key={index} href={item.redirect_url} className={`${router.asPath == item.redirect_url ? 'active' : ''} justify-center p-[10px_8px] flex gap-[5px] items-center`} >
                                                 <div className='h-[4px] w-[4px] rounded-full bg-red'></div>
-                                                <p className={`${router.asPath == item.redirect_url ? 'primary_color' : ''} text-[13px]`}>{item.menu_name}</p>
+                                                <p className={`${router.asPath == item.redirect_url ? 'primary_color' : ''} text-[14px]`}>{item.menu_name}</p>
                                             </Link>
                                             // </div>
                                         )

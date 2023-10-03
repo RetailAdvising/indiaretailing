@@ -159,33 +159,47 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
   function onPageLoad() {
     // console.log(data)
     if ((data && data.article_sections && data.article_sections.length != 0)) {
-      // console.log(data.article_sections)
+      console.log('data.article_sections',data.article_sections);
       data.article_sections.map((res) => {
-        let element = document.getElementById(`${res.placeholder_key}`);
-        // console.log(element)
-        element?.classList.add('placeholder')
-        let html = ''
-        res.data.map((item, index) => {
-          //  onClick=${checkRoute(item)}
-          html +=
-            `<a href=${item.route ?'/'+item.route : '#'} key=${index} class='${'card'} cursor-pointer'>
-            <div>
-              <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ? item.thumbnail_imagee : item.thumbnail_path ? item.thumbnail_path : item.image_path ? item.image_path :  item.image)}' height={40} width={50} alt='image' />
-            </div>
-            <div class='p-[10px]'>
-            <h6 class='line-clamp-2 title'>${item.title}</h6>            
-            <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : item.description ? item.description : ''}</span>            
-            </div>
-            
-            </a>`
-        })
-        element ? element.innerHTML = html : null
+        if(res.data && res.data.length != 0){
+          let element = document.getElementById(`${res.placeholder_key}`);
+          // console.log(element)
+          element?.classList.add('placeholder')
+          let html = ''
+          res.data.map((item, index) => {
+            //  onClick=${checkRoute(item)} 
+            // <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ? item.thumbnail_imagee : item.thumbnail_path ? item.thumbnail_path : item.image_path ? item.image_path :  item.image)}' height={40} width={50} alt='image' />
+            // <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : item.description ? item.description : ''}</span>            
+            html +=
+              `<a href=${item.route ?'/'+item.route : '#'} key=${index} class='${'card'} cursor-pointer'>
+              <div>
+                <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ||item.thumbnail_path || item.image_path || item.image || item.video_image)}' height={40} width={50} alt='image' />
+              </div>
+              <div class='p-[10px]'>
+              <h6 class='line-clamp-2 title'>${(item.title || item.item) ? (item.title || item.item) : ''}</h6>            
+               <span class='pt-[5px] line-clamp-2 sub_title'>${res.placeholder_key.includes('Product') ? (item.short_description ? item.short_description : '' ) : (stripHtmlTags(item.blog_intro || item.description))}</span>            
+              </div>
+              
+              </a>`
+          })
+          element ? element.innerHTML = html : null
+        }
         // element.append(data)
         // console.log(res.placeholder_key)
       })
     }
 
   }
+
+  const stripHtmlTags = (html) => {
+    if(html && html != ''){
+      const withoutStyles = html.replace(/style\s*=\s*".*?"/g, '');
+      const withoutTags = withoutStyles.replace(/<\/?[^>]+(>|$)/g, '');
+      return withoutTags;
+    }else{
+      return ''
+    }
+  };
 
   const checkRoute = (link) => {
     console.log(link)
@@ -301,7 +315,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
 
   return (
     <>
-     {console.log('child',data)}  
+     {/* {console.log('child',data)}   */}
       <div ref={cardref}>
         <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
@@ -367,7 +381,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
               {!isMobile && <div className={`flex flex-row justify-between`}>
                 {/* <p className="gray-text">Previous Post</p> */}
                 <hr></hr>
-                <h6 className={`font15_bold`}>Share this Article</h6>
+                <h6 className={`font15_bold montserrat_fnt`}>Share this Article</h6>
                 <hr></hr>
                 {/* <p className="gray-text">Next Post</p> */}
               </div>}
@@ -406,7 +420,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
 
               {(data.comments && data.disable_comments != 1) && data.doctype == 'Articles' && <>
                 <div className={`${!isMobile && 'border_bottom'} py-1.5 ${styles.profile_div}`}>
-                  <h6 id={`cmt${i}`} className='font-semibold'>Comments</h6>
+                  <h6 id={`cmt${i}`} className='font-semibold montserrat_fnt'>Comments</h6>
                 </div>
 
                 {(data.comments && data.comments.length != 0) && data.doctype == 'Articles' &&
@@ -424,10 +438,10 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
               {data.disable_comments != 1 && data.doctype == 'Articles' &&
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
-                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex `}>{(data.comments && data.comments.length != 0) ? 'View all comments' : 'Add Comment'}</button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex montserrat_fnt`}>{(data.comments && data.comments.length != 0) ? 'View all comments' : 'Add Comment'}</button>
                     {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
                   </div> : <div className={`mt-[10px] flex justify-center`}>
-                    <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex `}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex montserrat_fnt`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
                   </div>}
                 </>
 
@@ -461,7 +475,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
 
         {!isLast && <div className={`flex md:gap-[10px]  lg:m-[20px_auto_0] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] ${isMobile ? '' : 'container'}`}>
           <h6 className={`flex-[0_0_auto] lg:text-[18px] md:text-[14px] font-semibold`}>Next Post</h6>
-          <div className='lg:bg-[#999] w-full lg:h-[10px] md:bg-stone-200 md:h-[3px]'></div>
+          <div className='lg:bg-[#999] w-full lg:h-[2px] md:bg-stone-200 md:h-[3px]'></div>
         </div>}
       </div>
     </>

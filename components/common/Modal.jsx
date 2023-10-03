@@ -198,10 +198,29 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
                                <form onSubmit={handleSubmit((form_data) => check(form_data))} autoComplete='off'>
                                 {
                                     data && data.map(rc=>{
-                                        return( <div className='flex items-center gap-[10px] m-[20px]'>
-                                                <input type="radio" className='cursor-pointer' id={ rc.name} name={modal} value={ rc.name} {...register('report', { required: { value: true, message: 'Must be Select One Report' }} )}/>
-                                                <label for={rc.name} className='cursor-pointer text-[14px]'>{ rc.name}</label>
-                                                </div>                                                
+                                        return(
+
+                                            <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
+                                                <label htmlFor={rc.name} className='w-full cursor-pointer '>
+                                                <input
+                                                    type="radio"
+                                                    className='mr-[8px] cursor-pointer'
+                                                    id={rc.name}
+                                                    name={modal}
+                                                    value={rc.name}
+                                                    {...register('report', {
+                                                    required: { value: true, message: 'Must select one report' },
+                                                    })}
+                                                />
+                                                {rc.name}
+                                                </label>
+                                            </div>
+                                            
+                                            //  <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
+                                            //       <input type="radio" className='cursor-pointer' id={rc.name} name={modal} value={ rc.name} {...register('report', { required: { value: true, message: 'Must be Select One Report' }} )}/>
+                                            //       <label for={rc.name}  className='cursor-pointer text-[14px]'>{rc.name}</label>
+                                            //  </div>       
+
                                             )
                                        }
                                        )

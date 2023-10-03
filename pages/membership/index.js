@@ -354,17 +354,20 @@ export default function Membership() {
         </div>
       </div>
 
-      <div className='container py-[20px]'>
+      <div className='py-[20px]'>
         {pageContent && pageContent.length != 0 && pageContent.map((res) => {
           return (
             <>
               {res.section_name == 'IR Member Ship' && res.section_type == 'Static Section' &&
-                <div className='container py-[20px] md:p-[15px]'>
+                <div className='py-[20px] '>
                   <Benefits data={res}></Benefits>
                 </div>
               }
+                
+              {/* <Benefits data={res}></Benefits> */}
+
               {res.section_name == 'FAQ Style 4' && res.section_type == 'Custom Section' &&
-                <div className='container py-[30px] md:p-[15px]'>
+                <div className='py-[30px] md:p-[15px]'>
                   <Faq data={res}></Faq>
                 </div>
               }

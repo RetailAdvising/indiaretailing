@@ -6,6 +6,7 @@ import SEO from '@/components/common/SEO'
 
 
 export default function IRPrime({ data , ads }) {
+    console.log('dadad',data,ads) 
     return (
         <>
             <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'IR Prime'}>

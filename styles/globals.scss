@@ -5,6 +5,7 @@
 @import './Variables.module.scss';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Poppins:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Faustina:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 @layer components {
   .primary_btn {
@@ -33,15 +34,15 @@
     }
 
     .top_title {
-      @apply text-[14px] font-medium leading-[17.62px] line-clamp-2
+      @apply text-[15px] font-medium leading-[17.62px] line-clamp-2
     }
 
     .top_primary_text {
-      @apply text-[12px] uppercase font-semibold text-[#e21b22] line-clamp-1 pb-[5px]
+      @apply text-[13px] uppercase font-semibold text-[#e21b22] line-clamp-1 pb-[5px]
     }
 
     .title {
-      @apply text-[14px] font-semibold leading-[18.62px] line-clamp-2;
+      @apply text-[15px] font-semibold leading-[18.62px] line-clamp-2;
 
     }
 
@@ -88,7 +89,7 @@
     }
 
     .sub_title {
-      font-size: $font-12;
+      font-size: $font-13;
       font-weight: 400;
       // line-height: 1.3;
       line-height: 17.62px;
@@ -566,17 +567,13 @@ input {
 }
 
 .evenabout {
-  background-color: #F8F8F8;
+  background-color: #EAF0F6;
 }
 
 .eventeam .flex,
 .evenabout .flex {
   flex-direction: row-reverse;
 }
-
-
-
-
 
 //Trending
 .trendingList {
@@ -2192,3 +2189,7 @@ span {
 }
 
 @media screen and (max-width: 1066px) {}
+
+.montserrat_fnt{
+  font-family: 'Montserrat', sans-serif !important;
+}

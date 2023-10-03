@@ -3,7 +3,7 @@ import Lists from '../Category/Lists'
 import AdsBaner from '../Baners/AdsBaner'
 import List from '../Bookstore/List'
 export default function Placeholders({ placeholder, tagbasedAd,productNavigation }) {
-    console.log('ffffffff',placeholder)
+
     return (
         <>
             {(placeholder && placeholder.length != 0) ?

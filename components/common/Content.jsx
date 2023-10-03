@@ -47,13 +47,14 @@ export default function Content({ res, i }) {
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
             </div>
 
-            <h1 className='mega_title lg:text-4xl md:text-[18px] md:leading-[29.23px] my-4 md:my-1 md:mb-[5px]'>{res.title}</h1>
+            <h1 className='mega_title lg:text-[40px] md:text-[18px] md:leading-[29.23px] leading-[1.3] m-[8px_0] md:my-1 md:mb-[5px]'>{res.title}</h1>
 
             <div className={`flex items-center justify-between ${styles.profile_div} md:hidden`}>
                 <div className='flex gap-4 items-center'>
                     <Image className='rounded-full object-cover w-[48px] h-[48px]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <div className='flex flex-col'>
-                        <h6 className="font-semibold">{res.publisher}</h6><span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{dateFormat(res.published_on)}</span>
+                        <h6 className="text-[14x] font-semibold montserrat_fnt">{res.publisher}</h6>
+                        <span className='text-gray lg:text-[13px] montserrat_fnt md:text-[12px] gray-text'>{dateFormat(res.published_on)}</span>
                     </div>
                     <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between lg:hidden'>
                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}

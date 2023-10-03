@@ -15,7 +15,7 @@ import AdsBaner from '@/components/Baners/AdsBaner'
 import SubscriptionAlert from '@/components/common/SubscriptionAlert';
 
 export default function Videos(meta_info, ads_data) {
-    // console.log(meta_info)
+    console.log(meta_info,ads_data)
     const router = useRouter();
     let [isMobile, setIsmobile] = useState();
     let [videoDetail, setVideoDetail] = useState();

@@ -16,7 +16,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
         } else if (data.name == 'Copy Link') {
             // console.log('https://indiaretail.vercel.app' + router.asPath)
             // let str = 'https://indiaretail.vercel.app' + router.asPath
-            let str = 'https://indiaretail.vercel.app/' + router.asPath.split('/')[1] + '/' + link.route
+            let str = 'https://indiaretail.vercel.app/' + router.asPath.split('/')[1]
             await navigator?.clipboard?.writeText(str);
             toast.success("Link copied successfully")
             // copyToClipboard(str);
@@ -91,7 +91,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                             {/* <span>{btn_name}</span> */}
                             <div className='flex gap-[10px] items-center'>
                                 {/*  */}
-                                <Image src={share ? '/share1.svg' : img} height={share ? 18 : 5.5} width={share ? 18 : 5.5} alt='img' className={`object-contain ${share ? 'h-[15px] w-[15px]' : ''}`} />
+                                <Image src={share ? '/share1.svg' : img} height={share ? 18 : 5.5} width={share ? 18 : 5.5} alt='img' className={`object-contain ${share ? 'h-[15px] w-[15px]' : 'h-[16px]'}`} />
                                 {(localStorage['full_name'] && type == 'head') && <p className='text-[14px] font-semibold'>{localStorage['full_name']}</p>}
                             </div>
                         </Popover.Button>

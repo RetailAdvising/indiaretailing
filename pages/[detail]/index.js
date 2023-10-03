@@ -24,7 +24,6 @@ export default function Details({page_route}) {
     if (router.query && router.query?.detail && typeof window !== 'undefined') {
       let Id = route ? route : page_route 
       // let Id = await router.query?.detail;
-      console.log('fffffffffsrgrsf',Id)
       let param = {
         "route": Id,
         // "category": category,
@@ -169,7 +168,7 @@ export default function Details({page_route}) {
         if (divTop < windowHeight / 2 && divBottom > windowHeight / 2) {
           let ind = divId.replace('div','')
           ind = Number(ind);
-          console.log(ind)
+
           setTimeout(()=>{
             if (routeList && routeList.length > 0 && routeList[ind]) {
               // router.push('/' + routeList[ind], undefined, { scroll: false });
@@ -190,7 +189,6 @@ export default function Details({page_route}) {
   }, []);
 
  const productNavigation = (obj) =>{
-   console.log(obj);
    router.replace({ pathname: '/' + obj }, undefined, { shallow: false, scroll: true });
    setRouteList([])
    setPageNo(1);

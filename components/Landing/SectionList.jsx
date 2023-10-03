@@ -18,7 +18,8 @@ export default function SectionList({ data }) {
                   <p className='primary_text'>{res.primary_text}</p>
                   <h4 className='title line-clamp-2'>{res.title}</h4>
                   {/* {res.publisher && <p className='light_text'>{res.publisher}</p>} */}
-                  <Tags tags={res.tags}/>
+                  {res.tags && <Tags tags={res.tags}/>}
+                  {/* {res._user_tags &&} */}
                 </div>
               </div>
               <div className='flex-[1] md:hidden'>

@@ -34,7 +34,7 @@ export default function AlertPopup({ message, show, data, news, hide, email = un
             if (validateEmail(element.value)) {
                 if (value && value.length != 0) {
                     value.map(res => {
-                        get_group.push(res.custom_day)
+                        get_group.push(res.title)
                     })
                     setInvalid(true)
                     let param = {
