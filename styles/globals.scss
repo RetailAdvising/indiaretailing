@@ -2193,3 +2193,12 @@ span {
 .montserrat_fnt{
   font-family: 'Montserrat', sans-serif !important;
 }
+
+.inner_line:not(:first-child)::before{
+  content: "";
+  height: 20px;
+  background-color: #ddd;
+  width: 2px;
+  display: inline-block;
+  margin: 0 8px -3px;
+}

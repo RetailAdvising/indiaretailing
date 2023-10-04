@@ -104,7 +104,7 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                             // '/' + router.asPath.split('/')[1] +
                             <Link key={index} className={`${cardClass} border rounded-[10px] overfow-hidden`} href={route ? route + res.route : '/' + res.route}>
                                 <div className={``} >
-                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.image)} height={200} width={300} alt={index + 'image'} />
+                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_image: res.image)} height={200} width={300} alt={index + 'image'} />
                                 </div>
                                 <div className={` flex flex-col justify-between p-[10px] `}>
                                     {(res.primary_text && res.secondary_text) && <p className='flex gap-2 items-center py-[5px]'><span className={`primary_text leading-normal tracking-wider !text-[10px]`}>{res.primary_text}</span> <span class="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className='secondary_text'>{res.secondary_text}</span></p>}

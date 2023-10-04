@@ -77,7 +77,7 @@ export default function Home({ data }) {
   useEffect(() => {
     if (data && data.page_content && data.page_content.length != 0) {
       setValue(data.page_content)
-      console.log(data)
+      console.log('data1234567',data);
       // console.log(ads)
     }
 
@@ -197,7 +197,8 @@ export default function Home({ data }) {
                         <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-5' : ''}`}>
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 3 Stories") && <TopStories data={data.data[c.cid].data.slice(0,3)} />}
                           {(c.component_title == "In Focus" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <div className='lg:flex gap-5'>
-                            <div className={``}><ImageContainer data={data.data[c.cid].data[0]} height={"h-[350px] md:h-[250px]"} width={'w-full'} />
+                            <div className={``}>
+                              <ImageContainer data={data.data[c.cid].data[0]} height={"h-[350px] md:h-[250px]"} width={'w-full'} />
                               <SectionList data={data.data[c.cid].data.slice(1, 4)} /></div>
                           </div>}
                           {(c.component_title == "Latest News" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <div className={`flex-[0_0_calc(40%_-_10px)]`}>
@@ -375,9 +376,6 @@ export async function getStaticProps() {
   }
   const resp = await HomePage(param);
   const data = await resp.message;
-
-
-
   return {
     props: { data }, revalidate: 10
   }

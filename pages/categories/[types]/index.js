@@ -5,7 +5,7 @@ import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
 import List from '@/components/common/List';
 import Cards from '@/components/common/Cards';
-import { getList, checkMobile, check_Image, getAds, trending } from '@/libs/api';
+import { getList,articlesList, checkMobile, check_Image, getAds, trending } from '@/libs/api';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import Tags from '@/components/common/Tags';
@@ -120,13 +120,13 @@ export default function CategoryType({ values, ads }) {
 export async function getServerSideProps({ params }) {
     let Id = await params?.types;
     let param = {
-        doctype: "Articles",
-        fields: ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image", "image", "sub_title", "_user_tags", "location"],
+    //    s: ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image", "image", "sub_title", "_user_tags", "location"],
+        category_route:Id,  
         page_no: 1,
         page_size: 8,
-        filters: { articles_category: Id }
     }
-    let value = await getList(param);
+    // let value = await getList(param);
+    let value = await articlesList(param);
     let values = value.message;
 
     let param1 = { doctype: 'Articles', page_type: 'List' }

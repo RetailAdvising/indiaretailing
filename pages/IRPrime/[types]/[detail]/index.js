@@ -52,6 +52,9 @@ export default function Details() {
       articleDetail();
       ads();
     }
+
+  
+
   }, [router, user])
 
 

@@ -24,16 +24,13 @@ export default function Content({ res, i }) {
         }
     }
 
-
     const videoLink = (link, type) => {
         return type == 'yt' ? 'https://www.youtube.com/embed/' + link : 'https://player.vimeo.com/video/' + link
     }
 
-
-
-
     return (
         <>
+
             <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden'>
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
                 <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden'>
@@ -43,26 +40,48 @@ export default function Content({ res, i }) {
                     <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
                 </div>
             </div>
+
             <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between lg:hidden'>
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
             </div>
 
             <h1 className='mega_title lg:text-[40px] md:text-[18px] md:leading-[29.23px] leading-[1.3] m-[8px_0] md:my-1 md:mb-[5px]'>{res.title}</h1>
 
+            <h6 className='text-gray text-[11px] gray-text pb-[10px]'><span className='text-[12px] text-[#000] font-semibold'>Published On : </span>{dateFormat(res.published_on)}</h6>
+
             <div className={`flex items-center justify-between ${styles.profile_div} md:hidden`}>
-                <div className='flex gap-4 items-center'>
-                    <Image className='rounded-full object-cover w-[48px] h-[48px]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                <div className='lg:hidden flex gap-4 items-center'>
+
+                    {/* <Image className='rounded-full object-cover w-[48px] h-[48px]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <div className='flex flex-col'>
                         <h6 className="text-[14x] font-semibold montserrat_fnt">{res.publisher}</h6>
                         <span className='text-gray lg:text-[13px] montserrat_fnt md:text-[12px] gray-text'>{dateFormat(res.published_on)}</span>
-                    </div>
-                    <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between lg:hidden'>
+                    </div> */}
+                    <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between '>
                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                         <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views ? res.views : res.no_of_views ? res.no_of_views : 1} Views</span></div>
                         {/* <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div> */}
                         <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
                     </div>
                 </div>
+
+                <div className={`flex items-center gap-[8px] flex-wrap`}>
+                  {res.publisher && res.publisher.length != 0 &&
+                     res.publisher.map((r,index)=>{
+                        return(
+                            <div key={index} className='flex gap-[8px] items-center inner_line'>
+                              <Image className='rounded-full object-contain w-[30px] h-[30px]' priority={true} src={(r.avatar && r.avatar != '' && r.avatar != '') ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                             <div className='block'>
+                                <h6 className="font-semibold text-[12px]">{r.full_name}</h6>
+                                {/* <span className='text-gray text-[11px] gray-text'>{dateFormat(res.published_on)}</span> */}
+                             </div>
+
+                           </div>
+                        )
+                     })
+                    }
+                </div>
+
 
                 <div className='flex items-center gap-[15px]'>
                     {icons && <Dropdowns share={true} link={res} width={'w-[170px]'} data={icons} />}
@@ -71,13 +90,23 @@ export default function Content({ res, i }) {
                 </div>
             </div>
             <div className='flex gap-3 justify-between'>
-                <div className='flex gap-[15px] items-center'>
-                    <Image className='rounded-full object-contain lg:hidden w-[40] h-[40]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
-                    <div className='block'>
-                        <h6 className="font-semibold lg:hidden text-[12px]">{res.publisher}</h6>
-                        <span className='lg:hidden text-gray text-[11px] gray-text'>{dateFormat(res.published_on)}</span>
-                    </div>
+                <div className={`lg:hidden flex items-center gap-[8px] flex-wrap`}>
+                  {res.publisher && res.publisher.length != 0 &&
+                   
+                    res.publisher.map((r,index)=>{
+                        return(
+                            <div key={index} className='flex gap-[8px] items-center inner_line'>
+                              <Image className='rounded-full object-contain w-[25px] h-[25px]' priority={true} src={(r.avatar && r.avatar != null) ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                             <div className='block'>
+                                <h6 className="font-semibold text-[12px]">{r.full_name}</h6>
+                                {/* <span className='text-gray text-[11px] gray-text'>{dateFormat(res.published_on)}</span> */}
+                             </div>
+                           </div>
+                        )
+                    })
+                  }
                 </div>
+
                 <div className='lg:hidden flex gap-[15px]'>
                     {icons && <Dropdowns link={res} share={true} width={'w-[170px]'} data={icons} />}
 

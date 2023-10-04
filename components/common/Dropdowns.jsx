@@ -15,9 +15,10 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
             router.push('/' + router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2])
         } else if (data.name == 'Copy Link') {
             // console.log('https://indiaretail.vercel.app' + router.asPath)
-            // let str = 'https://indiaretail.vercel.app' + router.asPath
-            let str = 'https://indiaretail.vercel.app/' + router.asPath.split('/')[1]
+            let str = 'https://indiaretail.vercel.app' + router.asPath
+            // let str = 'https://indiaretail.vercel.app/' + router.asPath.split('/')[1]
             await navigator?.clipboard?.writeText(str);
+            // navigator?.clipboard?.writeText(str);
             toast.success("Link copied successfully")
             // copyToClipboard(str);
         } else if (data.name == 'Comment') {

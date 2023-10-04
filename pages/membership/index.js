@@ -45,7 +45,7 @@ export default function Membership() {
   }
 
   async function getMembershipLanding() {
-    let data = { "route": "membership" }
+    let data = { "route": "membership", "page_no": 1, "page_size": 10}
     const resp = await HomePage(data);
     console.log(resp);
     if (resp && resp.message && resp.message.page_content && resp.message.page_content != 0) {
@@ -358,13 +358,13 @@ export default function Membership() {
         {pageContent && pageContent.length != 0 && pageContent.map((res) => {
           return (
             <>
-              {res.section_name == 'IR Member Ship' && res.section_type == 'Static Section' &&
+              {/* {res.section_name == 'IR Member Ship' && res.section_type == 'Static Section' &&
                 <div className='py-[20px] '>
                   <Benefits data={res}></Benefits>
                 </div>
-              }
+              } */}
                 
-              {/* <Benefits data={res}></Benefits> */}
+              <Benefits data={res}></Benefits>
 
               {res.section_name == 'FAQ Style 4' && res.section_type == 'Custom Section' &&
                 <div className='py-[30px] md:p-[15px]'>

@@ -165,13 +165,36 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
           let element = document.getElementById(`${res.placeholder_key}`);
           // console.log(element)
           element?.classList.add('placeholder')
-          let html = ''
+          let html = '';
+          if(res.title){
+            const headerElement = document.createElement('h6');
+            headerElement?.classList.add('mb-[18px]', 'text-[18px]','font-semibold')
+            headerElement.textContent = res.title;
+            (element && element.parentNode) ? element.parentNode.insertBefore(headerElement, element) : null;
+          }
+
           res.data.map((item, index) => {
+                if(res.title){
+                  if (res.title == 'Articles') {
+                    item.route = '/' + item.route
+                  } else if (res.title == 'Community Event' || res.title == 'Events' ) {
+                    item.route = '/events/' + item.route
+                  } else if (res.title == 'Books') {
+                    item.route = '/bookstore/' + item.route
+                  } else if (res.title == 'Videos') {
+                    item.route = '/video/' + item.route
+                  }else if(res.title == 'Podcast'){
+                    item.route = '/podcast/' + item.route
+                  }
+                }else{
+                  item.route = '/' + item.route
+                }
+
             //  onClick=${checkRoute(item)} 
             // <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ? item.thumbnail_imagee : item.thumbnail_path ? item.thumbnail_path : item.image_path ? item.image_path :  item.image)}' height={40} width={50} alt='image' />
             // <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : item.description ? item.description : ''}</span>            
             html +=
-              `<a href=${item.route ?'/'+item.route : '#'} key=${index} class='${'card'} cursor-pointer'>
+              `<a href=${item.route ? item.route : '#'} key=${index} class='${'card'} cursor-pointer'>
               <div>
                 <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ||item.thumbnail_path || item.image_path || item.image || item.video_image)}' height={40} width={50} alt='image' />
               </div>
@@ -193,7 +216,8 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
 
   const stripHtmlTags = (html) => {
     if(html && html != ''){
-      const withoutStyles = html.replace(/style\s*=\s*".*?"/g, '');
+      const cleanedHtml = html.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '');
+      const withoutStyles = cleanedHtml.replace(/style\s*=\s*".*?"/g, '');
       const withoutTags = withoutStyles.replace(/<\/?[^>]+(>|$)/g, '');
       return withoutTags;
     }else{
@@ -370,7 +394,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
                 <h6 className='w-max text-[13px] text-[#fff] bg-[#e21b22] border rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>Tags</h6>
                 {data._user_tags.map((res, index) => {
                   return (
-                    <h6 key={index} className='w-max capitalize text-[13px] text-[#000] bg-[#f1f1f1]  rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>{res}</h6>
+                    <h6 key={index} onClick={()=>{router.push('/tag/'+ res)}} className='cursor-pointer w-max capitalize text-[13px] text-[#000] bg-[#f1f1f1]  rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>{res}</h6>
                   )
                 })
                 }

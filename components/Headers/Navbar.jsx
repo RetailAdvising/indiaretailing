@@ -104,7 +104,7 @@ export default function Navbar({ heading, isLanding, checkout }) {
                                             // onClick={() => router.push(item.redirect_url)}
                                             // <div key={index} className={`nav-item ${index === activeIndex ? 'active' : ''}`} onClick={() => handleItemClick(index)}>
                                             <Link key={index} href={item.redirect_url} className={`${router.asPath == item.redirect_url ? 'active' : ''} justify-center p-[10px_8px] flex gap-[5px] items-center`} >
-                                                <div className='h-[4px] w-[4px] rounded-full bg-red'></div>
+                                                <div className='h-[4px] w-[4px] m-[3px_0_0_0] rounded-full bg-red'></div>
                                                 <p className={`${router.asPath == item.redirect_url ? 'primary_color' : ''} text-[14px]`}>{item.menu_name}</p>
                                             </Link>
                                             // </div>

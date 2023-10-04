@@ -10,7 +10,7 @@ import Title from '@/components/common/Title'
 import Dropdowns from '@/components/common/Dropdowns';
 import AdsBaner from '@/components/Baners/AdsBaner'
 
-export default function Trending({ data, res }) {
+export default function Trending({ data, res, Id }) {
     const categories = [{ name: 'All', route: 'all' }, { name: 'News', route: 'news_list' }, { name: 'Articles', route: 'article_list' }, { name: 'Events', route: 'event_list' }]
     const [resp_data, setData] = useState([])
     const [nodata, setNodata] = useState(false);
@@ -29,10 +29,9 @@ export default function Trending({ data, res }) {
     useEffect(() => {
         getLatestNews()
         if (res && res.data) {
-            console.log(res)
             setData(res.data)
             // console.log(router)
-            setTabs(router.query.id)
+            setTabs(Id)
             // setActivatedData([...res.data['news_list'], ...res.data['event_list'], ...res.data['article_list']]);
         }
 
@@ -111,7 +110,7 @@ export default function Trending({ data, res }) {
 
 
     const get_list = async () => {
-        const param = await router.query.id;
+        const param = Id;
         const params = {
             tag_route: param,
             page_no: page_no
@@ -229,16 +228,17 @@ export default function Trending({ data, res }) {
 
 
 export async function getServerSideProps({ params }) {
+
     const Id = await params?.id;
+
     const param = {
         tag_route: Id,
         page_no: 1
     }
+
     const resp = await getTagsList(param);
     let res = resp;
-    // if (resp.data && resp.data.length != 0) {
-    //     res = resp;
-    // }
+
 
     let param1 = {
         doctype: 'Tag',
@@ -250,7 +250,37 @@ export async function getServerSideProps({ params }) {
     const response = await getList(param1);
     const data = response.message;
     return {
-        props: { res, data }
+        props: { res, data,Id}
     }
 
 }
+
+// async function getValues(Id){
+
+//     const param = {
+//         tag_route: Id,
+//         page_no: 1
+//     }
+
+//     const resp = await getTagsList(param);
+//     let res = resp;
+
+//     if (res && res.data) {
+//         setData(res.data)
+//         setTabs(Id)
+//     }
+
+//     let param1 = {
+//         doctype: 'Tag',
+//         fields: ['name', 'custom_route'],
+//         page_no: 1,
+//         page_size: 25
+//     }
+
+//     const response = await getList(param1);
+//     const data = response.message;
+//     if (data && data.length != 0) {
+//         setTag(data)
+//     }
+
+// }

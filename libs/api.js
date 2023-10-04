@@ -262,6 +262,10 @@ export async function getList(data) {
     return await postMethod(api, data);
 }
 
+export async function articlesList(data) {
+    let api = domainUrl + 'article_list';
+    return await postMethod(api, data);
+}
 export async function getDetails(data) {
     let api = domainUrl + "doc_detail";
     return await postMethod(api, data)
