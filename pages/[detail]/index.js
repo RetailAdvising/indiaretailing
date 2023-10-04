@@ -69,7 +69,15 @@ export default function Details({page_route}) {
       articleDetail(undefined);
       ads();
     }
-  }, [])
+
+    if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != '') {
+      values.map(res=>{
+        res.ir_prime = 1;
+      })
+      setValues(values);
+    }
+
+  }, [user])
 
 
   // Observer for route change
