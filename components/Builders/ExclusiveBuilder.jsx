@@ -71,18 +71,18 @@ export default function ExclusiveBuilder({ data }) {
                 </div>} */}
 
             {/* Section - 2 p-[20px_30px_0_0] w-[30%]*/}
-            <div className={`flex lg:p-[20px 0] md:p-[0_15px]  pb-[35px] container flex-wrap items-end justify-between w-full gap-[15px]`}>
+            { data.sec2 && data.sec2.data && data.sec2.data.lengrh !=0 &&  <div className={`flex lg:p-[20px 0] md:p-[0_15px]  pb-[35px] container flex-wrap items-end justify-between w-full gap-[15px]`}>
                 <div className='w-[calc(75%_-_10px)] md:basis-full md:pt-[10px]'>
-                    <Title data={{ title: 'IR Prime Leaders Ink' }} />
+                    <Title data={{ title: data.sec2.title}} />
                     <div className='primeSlide'>
                         {/* <MultiCarousel cardHeight={'h-[280px]'} type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} /> */}
                         <CustomSlider cardClass={'lg:h-[300px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
-                            slider_id={"slider_id" + 0} slider_child_id={"slider_child_id" + 0} data={val.section_2.col_1.data} />
+                            slider_id={"slider_id" + 0} slider_child_id={"slider_child_id" + 0} data={data.sec2.data} title_class={'line-clamp-1'} subtitle_class={'line-clamp-1'}/>
                     </div>
                 </div>
 
                 {(val.section_2 && val.section_2.col_2 && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><AdsBaner height={'h-[280px] '} Class={'pt-[40px]'} width={'w-full'} data={val.section_2.col_2} /></div>}
-            </div>
+            </div>}
 
             {/* Section - 3 p-[20px_30px]*/}
 

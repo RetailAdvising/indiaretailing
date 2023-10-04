@@ -31,6 +31,7 @@ export default function Details({page_route}) {
       }
       let value = await articlesDetail(param);
       let data = await value.message;
+      console.log(data)
       if (data.status == "Success") {
         if (data && data._user_tags && data._user_tags != '') {
           let tags = data._user_tags.split(',');
