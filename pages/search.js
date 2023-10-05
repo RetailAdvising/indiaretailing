@@ -146,8 +146,6 @@ export default function search({ searchTxt }) {
       route = '/bookstore/' + data.route
     }else if (data.type == 'Community Event') {
       route = '/events/' + data.route
-    } else if (data.type == 'News') {
-      route = '/news/' + data.route
     } else if (data.type == 'Podcast') {
       route = '/podcast/' + data.route
     } else if (data.type == 'Video') {

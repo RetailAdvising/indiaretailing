@@ -134,7 +134,7 @@ export default function OTP({ setotp, isModal, hide, auth }) {
                                 <div className={`flex flex-col py-5 relative`}>
                                     <label className={`${styles.label} text-[#808D9E]`} htmlFor='mobile' >Mobile Number</label>
                                     <input id='mobile_no' type='number' className={`${styles.input} ${styles.input1} p-[5px_10px] rounded-[5px] h-[45px] `} style={{ border: '1px solid #EEEE' }} {...register('mobile', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } })} />
-                                    <Image className={`absolute  right-[10px] h-[27px] w-[22px] ${errors.mobile?.message ? 'bottom-[50px]' : 'bottom-[30px]'} object-contain mt-[5px]`} src={'/login/mobile.svg'} height={15} width={15} alt={"pass"} />
+                                    <Image className={`absolute  right-[10px] h-[27px] w-[22px] ${errors.mobile?.message ? 'bottom-[50px]' : 'bottom-[25px]'} object-contain mt-[5px]`} src={'/login/mobile.svg'} height={15} width={15} alt={"pass"} />
                                     {errors?.mobile && <p className={`${styles.danger}`}>{errors.mobile.message}</p>}
                                 </div>
                                 {otp && <div className={`flex flex-col pt-[10px] pb-4 relative`}>

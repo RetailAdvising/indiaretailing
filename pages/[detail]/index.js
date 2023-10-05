@@ -130,13 +130,14 @@ export default function Details({ page_route }) {
 
 
   async function loadMore() {
+    console.log(router);
     let param = {
       "route": prev,
       // "category": router.query?.types,
       "next": 1,
     }
 
-    if (pagination && pageNo <= 5) {
+    if (pagination && pageNo <= 5 && router.query.preview != 'true') {
       let value = await articlesDetail(param);
       let data = value.message;
       // console.log(data)

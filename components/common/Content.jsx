@@ -83,10 +83,10 @@ export default function Content({ res, i }) {
                 </div>
 
 
-                {/* <div className='flex items-center gap-[15px]'>
+                <div className='flex items-center gap-[15px]'>
                     {icons && <Dropdowns share={true} link={res} width={'w-[170px]'} data={icons} />}
                     {setings && <Dropdowns setting={true} link={res.articles_category[0].category_route} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
-                </div> */}
+                </div>
             </div>
             <div className='flex gap-3 justify-between'>
                 <div className={`lg:hidden flex items-center gap-[8px] flex-wrap`}>
@@ -140,7 +140,7 @@ export default function Content({ res, i }) {
                 frameBorder="2"
                 loading="lazy"
             // allowfullscreen="allowfullscreen"
-            ></iframe> : <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-[500px] md:object-contain w-full" />
+            ></iframe> : <div className='w-full lg:h-[500px]'><Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-full object-contain w-full" /></div>
             }
 
             {/* <p className='py-3 !leading-[1.74] !text-[15px] !text-justify font-semibold'>{res.blog_intro}</p> */}
