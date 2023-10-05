@@ -14,7 +14,7 @@ export default function Details({ page_route }) {
   const [pagination, setPagination] = useState(true);
   const [advertisement, setAds] = useState();
   const [pageNo, setPageNo] = useState(1);
-  const [meta_info,setMetaInfo] = useState();
+  const [meta_info, setMetaInfo] = useState();
   const generateMetaData = (data) => {
     // return{
     //   title: data.meta_title ? data.meta_title : data.title,
@@ -26,7 +26,7 @@ export default function Details({ page_route }) {
     // }
     // console.log(data,'from memo')
   }
-  const meta_inf = useMemo(() => generateMetaData(meta_info),[meta_info])
+  const meta_inf = useMemo(() => generateMetaData(meta_info), [meta_info])
 
   let page_no = 1;
   let [divs, setDivs] = useState(['div0']);
@@ -36,6 +36,8 @@ export default function Details({ page_route }) {
     // console.log(router,'router')
     if (router.query && router.query?.detail && typeof window !== 'undefined') {
       let Id = route ? route : page_route
+      values.length = 0
+      setValues(values)
       // let Id = await router.query?.detail;
       let param = {
         "route": Id,
@@ -231,7 +233,7 @@ export default function Details({ page_route }) {
 
   }, []);
 
- 
+
 
   const productNavigation = (obj) => {
     router.replace({ pathname: '/' + obj }, undefined, { shallow: false, scroll: true });
@@ -247,7 +249,7 @@ export default function Details({ page_route }) {
     <>
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
         {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
-        {(values && values.length != 0 && meta_info && Object.keys(meta_info).length > 0) && <>{console.log(meta_info)} <SEO title={meta_info.meta_title } ogImage={check_Image(meta_info.meta_image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords} description={meta_info.meta_description } /></>}
+        {(meta_info && Object.keys(meta_info).length > 0) && <><SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title } description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} /></>}
         {/* { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>} */}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { send_otp, verify_otp,checkMobile } from '@/libs/api'
+import { send_otp, verify_otp, checkMobile } from '@/libs/api'
 import AlertUi from '../common/AlertUi';
 import SignUp from './SignUp';
 import { useDispatch, useSelector } from 'react-redux';
@@ -113,7 +113,7 @@ export default function OTP({ setotp, isModal, hide, auth }) {
 
     return (
         <>
-            {otp && <ToastContainer position={'bottom-right'} autoClose={2000}  />}
+            {otp && <ToastContainer position={'bottom-right'} autoClose={2000} />}
             {(auth && modal != 'signup') || isMobile ? <div className='flex container md:justify-center md:p-[15px] p-[20px] h-full gap-[20px] '>
                 {!isMobile && <div className={` ${(isModal) ? 'flex-[0_0_calc(100%_-_10px)]' : auth ? 'flex-[0_0_calc(60%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px] flex-col justify-center'}  flex `}>
                     {/* {!isModal && <div className=' cursor-pointer '> 
