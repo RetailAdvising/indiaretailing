@@ -7,11 +7,11 @@ import { check_Image } from '@/libs/common';
 import Title from '@/components/common/Title'
 import Cards from '@/components/common/Cards'
 import List from '@/components/common/List'
-
+import Placeholders from '@/components/common/Placeholders'
 
 export default function PodcastDetail({ data, ads_data }) {
     // const {data,ads_data} = data
-    // console.log(data);
+    console.log(data);
     return (
         <>
             {data && <RootLayout homeAd={ads_data ? ads_data : null} head={data.message.title}>
@@ -23,6 +23,7 @@ export default function PodcastDetail({ data, ads_data }) {
                         </div>
                     }
                     <>
+                        {/* <Placeholders placeholder={videoDetail.place_holders_ads}  /> */}
                         {
                             <div className="flex w-full">
                                 <div className="w-[75%] md:w-full lg:pr-[10px]">
@@ -32,8 +33,15 @@ export default function PodcastDetail({ data, ads_data }) {
                                     </div>
                                 </div>
                                 <div className="w-[25%] p-[10px] border md:hidden">
-                                    <Title data={data.other_category} seeMore={false} />
-                                    <List isHome={'/podcast/'} data={data.other_category.data} check={true} />
+                                    {
+                                        data.place_holders_ads && data.place_holders_ads.length != 0 ?
+                                            <Placeholders placeholder={data.place_holders_ads} />
+                                            :
+                                            <>
+                                                <Title data={data.other_category} seeMore={false} />
+                                                <List isHome={'/podcast/'} data={data.other_category.data} check={true} />
+                                            </>
+                                    }
                                 </div>
                             </div>
                         }
@@ -51,8 +59,8 @@ export default function PodcastDetail({ data, ads_data }) {
                             </div> */}
 
 export async function getServerSideProps({ params }) {
-    let Id = await params ?.detail;
-    let list_Id = await params ?.list;
+    let Id = await params?.detail;
+    let list_Id = await params?.list;
     let param = {
         route: list_Id + '/' + Id,
         fields: ['name', 'title', 'sound', 'image', 'category', 'description', 'route'],

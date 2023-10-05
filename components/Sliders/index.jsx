@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { check_Image } from '@/libs/api';
 import { useRouter } from 'next/router';
 export default function Sliders({ data,perView,imgClass,event,isMobile }) {
-  console.log(data)
+  // console.log(data)
   const router = useRouter();
   const responsive = {
     desktop: {

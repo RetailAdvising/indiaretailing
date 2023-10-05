@@ -84,7 +84,7 @@ export default function CategoryType({ values, ads }) {
                     {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
                             {/* {!isMobile && <Title data={{ title: router.query.types }} />} */}
-                            <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px] cursor-pointer`}>{data.slice(0, 1).map((res, index) => {
+                            <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px] cursor-pointer`}>{data && data.slice(0, 1).map((res, index) => {
                                 return (
                                     <div key={index} onClick={() => router.push(`/${res.route}`)} className={` pb-[10px]`}>
                                         <h6 className={`lg:text-[18px] md:text-[16px] font-semibold`}>{res.title}</h6>

@@ -1,28 +1,41 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { articlesDetail, getAds, check_Image } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import { useSelector, useDispatch } from 'react-redux';
 
-export default function Details({page_route}) {
+export default function Details({ page_route }) {
   const router = useRouter();
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);
   const [advertisement, setAds] = useState();
-  const [pageNo, setPageNo] = useState(1)
+  const [pageNo, setPageNo] = useState(1);
+  const [meta_info,setMetaInfo] = useState();
+  const generateMetaData = (data) => {
+    // return{
+    //   title: data.meta_title ? data.meta_title : data.title,
+    //   openGraph: {
+    //     title: data.meta_title ? data.meta_title : data.title,
+    //     images: check_Image(data.meta_image ? data.meta_image : data.image),
+    //     description: data.meta_description ? data.meta_description : data.title
+    //   },
+    // }
+    // console.log(data,'from memo')
+  }
+  const meta_inf = useMemo(() => generateMetaData(meta_info),[meta_info])
 
   let page_no = 1;
-  let [divs,setDivs] = useState(['div0']);
-  let [routeList,setRouteList] = useState([])
+  let [divs, setDivs] = useState(['div0']);
+  let [routeList, setRouteList] = useState([])
 
   const articleDetail = async (route) => {
     // console.log(router,'router')
     if (router.query && router.query?.detail && typeof window !== 'undefined') {
-      let Id = route ? route : page_route 
+      let Id = route ? route : page_route
       // let Id = await router.query?.detail;
       let param = {
         "route": Id,
@@ -43,11 +56,13 @@ export default function Details({page_route}) {
         }
         routeList.push(data.route)
         setRouteList(routeList)
-        let val = [data]
+        setMetaInfo(data)
         page_no += 1;
         setPageNo(pageNo + 1)
+        // let val = [data]
         // setValues(d => [...d, ...val])
-        setValues(val)
+        values.push(data)
+        setValues(values)
         setPrev(router.query?.detail)
       }
     }
@@ -71,8 +86,10 @@ export default function Details({page_route}) {
       ads();
     }
 
+    console.log(user, 'user')
+
     if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != '') {
-      values.map(res=>{
+      values.map(res => {
         res.ir_prime = 1;
       })
       setValues(values);
@@ -129,17 +146,27 @@ export default function Details({page_route}) {
         setPrev(data.route)
         page_no += 1;
         setPageNo(pageNo + 1)
-        let val = [data]
+        let val = data
         // router.replace(`/categories/${router.query.types}/${data.name}`)
-        if (val && val[0] && val[0]._user_tags && val[0]._user_tags != '') {
-          let tags = val[0]['_user_tags'].split(',');
+        // if (val && val[0] && val[0]._user_tags && val[0]._user_tags != '') {
+        //   let tags = val[0]['_user_tags'].split(',');
+        //   tags.splice(0, 1);
+        //   val[0]._user_tags = tags
+        // } else {
+        //   val[0]._user_tags = [];
+        // }
+
+        if (val && val._user_tags && val._user_tags != '') {
+          let tags = val['_user_tags'].split(',');
           tags.splice(0, 1);
-          val[0]._user_tags = tags
+          val._user_tags = tags
         } else {
-          val[0]._user_tags = [];
+          val._user_tags = [];
         }
-        setValues(d => d = [...d, ...val]);
-        divs.push('div'+divs.length)
+        values.push(val)
+        // setValues(d => d = [...d, ...val]);
+        setValues(values);
+        divs.push('div' + divs.length)
         setDivs(divs)
       } else {
         setPagination(!pagination)
@@ -175,19 +202,25 @@ export default function Details({page_route}) {
         const divBottom = div.getBoundingClientRect().bottom;
 
         if (divTop < windowHeight / 2 && divBottom > windowHeight / 2) {
-          let ind = divId.replace('div','')
+          let ind = divId.replace('div', '')
           ind = Number(ind);
 
-          setTimeout(()=>{
+          setTimeout(() => {
             if (routeList && routeList.length > 0 && routeList[ind]) {
               // router.push('/' + routeList[ind], undefined, { scroll: false });
               router.replace({ pathname: '/' + routeList[ind] }, undefined, { shallow: true, scroll: false });
+
+              // generateMetaData(values[ind])
+              if (values && values.length > 0 && values[ind]) {
+                setMetaInfo(values[ind])
+                // console.log(ind)
+              }
             }
-          },300)
+          }, 300)
           break;
         }
 
-     }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -197,27 +230,30 @@ export default function Details({page_route}) {
 
   }, []);
 
- const productNavigation = (obj) =>{
-   router.replace({ pathname: '/' + obj }, undefined, { shallow: false, scroll: true });
-   setRouteList([])
-   setPageNo(1);
-   setValues([]);
-   articleDetail(obj);
-  //  window.scrollTo(0, 0);
- }
+ 
+
+  const productNavigation = (obj) => {
+    router.replace({ pathname: '/' + obj }, undefined, { shallow: false, scroll: true });
+    setRouteList([])
+    setPageNo(1);
+    setValues([]);
+    articleDetail(obj);
+    //  window.scrollTo(0, 0);
+  }
 
 
   return (
     <>
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
-        {(values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />}
+        {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
+        {(values && values.length != 0 && meta_info && Object.keys(meta_info).length > 0) && <>{console.log(meta_info)} <SEO title={meta_info.meta_title } ogImage={check_Image(meta_info.meta_image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords} description={meta_info.meta_description } /></>}
         {/* { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>} */}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
-              <div id={'div' + index} key={index}  className='box'>
+              <div id={'div' + index} key={index} className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
-                <CategoryBuilder productNavigation={(obj)=>{productNavigation(obj)}} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} />
+                <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} />
               </div>
             )
           })}

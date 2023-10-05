@@ -144,12 +144,14 @@ export default function search({ searchTxt }) {
       route = '/' + data.route
     } else if (data.type == 'Product') {
       route = '/bookstore/' + data.route
+    }else if (data.type == 'Community Event') {
+      route = '/events/' + data.route
     } else if (data.type == 'News') {
       route = '/news/' + data.route
     } else if (data.type == 'Podcast') {
       route = '/podcast/' + data.route
     } else if (data.type == 'Video') {
-      route = '/ir/' + data.route
+      route = '/video/' + data.route
     } else if (data.type == 'Newsletter') {
       route = '/newsletters/' + data.route
     }

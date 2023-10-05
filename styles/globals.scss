@@ -2202,3 +2202,24 @@ span {
   display: inline-block;
   margin: 0 8px -3px;
 }
+
+.arrow_::before{
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 15%;
+  box-sizing: border-box;
+  border: 5px solid white;
+  border-color: transparent transparent #ffffff #fffffe;
+  transform-origin: 0 0;
+  transform: rotate(133deg);
+  box-shadow: -1px 1px 1px 0 #dddddd;
+}
+
+@media screen and (max-width: 768px) {
+  .arrow_::before{
+    right: 0;
+    left: unset !important;
+  }
+}

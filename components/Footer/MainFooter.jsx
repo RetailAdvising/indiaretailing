@@ -67,9 +67,11 @@ export default function MainFooter({ footerData }) {
                         return (
                             <div key={index} className={`flex-[0_0_${100 / footerData.items.length}%] ${'md:flex md:flex-wrap md:mb-[10px]'}`}>
                                 {footer_item.items && footer_item.items.map((item,i) => {
-                                    return (<div key={i}>
+                                    return (
+                                    // <div key={i}>
+                                    <>
                                         {item.section_name == 'Footer Contact' &&
-                                            <div className={` flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
+                                            <div  key={i} className={` flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
                                                 <Image src={check_Image(item.logo)} height={66} width={200} alt={"image"} className='mb-[20px]' />
                                                 <h6 className='font-medium pb-1 text-[13px]'>{item.title}</h6>
                                                 <p className='address font-normal text-[13px]'>{item.address_content}</p>
@@ -82,7 +84,9 @@ export default function MainFooter({ footerData }) {
                                                     <a href={`mailto:${item.email_id}`} className='hover:text-[red] text-[12px]'>{item.email_id}</a>
                                                 </span>
                                             </div>}
-                                        {item.section_name == 'Social Links' && <div className='md:flex-[0_0_calc(100%_-_10px)]'>
+                                        {item.section_name == 'Social Links' && 
+                                        <>
+                                        <div className='md:flex-[0_0_calc(100%_-_10px)]'  key={i}>
                                             <h6 className='text-[16px] font-semibold pb-[10px] pt-[20px] '>Our Social Media</h6>
                                             <div className='flex items-center gap-[13px] py-[10px]'>
                                                 {item.social_links && item.social_links.map((res, index) => {
@@ -92,18 +96,19 @@ export default function MainFooter({ footerData }) {
                                                 })}
                                             </div>
                                         </div>
-                                        }
-                                        {item.section_name == 'Social Links' && <div className='md:flex-[0_0_calc(100%_-_10px)]'>
+                                          <div className='md:flex-[0_0_calc(100%_-_10px)]'  key={i}>
                                             <h6 className='text-[16px] font-semibold py-3'>Download Indiaretailing App</h6>
                                             <div className='flex gap-[15px] items-center'>
                                                 <Image src={'/footer/play-store.svg'} className='h-[32px] w-[101px]' height={15} width={20} alt={'app-store'} />
                                                 <Image src={'/footer/app-store.svg'} className='h-[32px] w-[101px]' height={15} width={20} alt={'app-store'} />
                                             </div>
                                         </div>
+                                        </>
+                                        
                                         }
 
                                         {item.section_name == "Menu" &&
-                                            <div className={`list_div leading-[2.5] min-h-[290px] md:min-h-[20px] md:flex-[0_0_calc(50%_-_20px)] md:mr-[20px]`}>
+                                            <div className={`list_div leading-[2.5] ${ (i%2 == 0) ? 'min-h-[290px]':''} md:flex-[0_0_calc(50%_-_20px)] md:min-h-[20px]  md:mr-[20px]`}  key={i}>
                                                 <h6 className='text-[15px] font-semibold mb-3'>{item.title}</h6>
                                                 {(item.menus && item.menus.length != 0) && item.menus.map((item, index) => {
                                                     return (
@@ -112,7 +117,9 @@ export default function MainFooter({ footerData }) {
                                                 })}
                                             </div>
                                         }
-                                    </div>)
+                                    {/* </div> */}
+                                    </>
+                                    )
                                 })}
                             </div>
 

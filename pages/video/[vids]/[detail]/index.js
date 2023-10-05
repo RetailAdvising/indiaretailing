@@ -13,9 +13,9 @@ import Dropdowns from '../../../../components/common/Dropdowns';
 import { useSelector, useDispatch } from 'react-redux';
 import AdsBaner from '@/components/Baners/AdsBaner'
 import SubscriptionAlert from '@/components/common/SubscriptionAlert';
-
+import Placeholders from '@/components/common/Placeholders'
 export default function Videos(meta_info, ads_data) {
-    console.log(meta_info,ads_data)
+    console.log(meta_info, ads_data)
     const router = useRouter();
     let [isMobile, setIsmobile] = useState();
     let [videoDetail, setVideoDetail] = useState();
@@ -145,7 +145,7 @@ export default function Videos(meta_info, ads_data) {
                                 {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
                             </div>
 
-                           {(videoDetail.message.ir_prime != 1) &&  <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />}
+                            {(videoDetail.message.ir_prime != 1) && <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />}
 
                             {/* {videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0 && 
                         <div className=''><Title data={videoDetail.other_category} seeMore={false} /><List fullWidth={true} check={true} isBB={true} isDesc={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[100px] md:h-[85px]'} data={videoDetail.other_category.data.slice(0,3)} borderRadius={'rounded-[5px]'} /></div>
@@ -156,16 +156,21 @@ export default function Videos(meta_info, ads_data) {
                         <div className="lg:flex-[0_0_calc(30%_-_0px)] lg:pt-[40px]">
 
 
-                            {videoDetail.related_videos && videoDetail.related_videos.length != 0 &&
+
+
+                            { (videoDetail.place_holders_ads && videoDetail.place_holders_ads.length != 0) ? <>
+                                <Placeholders placeholder={videoDetail.place_holders_ads}  />
+
+                            </>  : videoDetail.related_videos && videoDetail.related_videos.length != 0 &&
                                 <>
                                     <Title data={{ title: 'Related Videos' }} seeMore={false} />
                                     <div className='border p-[10px] rounded-[5px] mb-[10px]'>
                                         <List isHome={'/video/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                                     </div>
+                                    <AdsBaner data={bannerImg} height={'h-[250px]'} />
                                 </>
                             }
 
-                            <AdsBaner data={bannerImg} height={'h-[250px]'} />
 
                             {/* <div className='h-[260px] mt-[10px]'>
                                 <Image className='h-[250px] w-[300px]' src={'/ads_baner.png'} height={250} width={300} layout="fixed" alt={''} />

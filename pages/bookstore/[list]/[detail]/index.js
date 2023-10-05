@@ -64,7 +64,6 @@ export default function Bookstoredetail({ value, res }) {
     }
   }
 
-  console.log('val',value)
 
 
   useEffect(() => {
@@ -475,6 +474,69 @@ const  getCarts = async (type) => {
     setEnableModal(false);
   }
 
+  // useEffect(() => {
+  //   $("#lightgallery").lightGallery();
+  //   $("#lightgallery").on('click', 'a', function() {
+  //     $(this).lightGallery();
+  //   });
+  // }, []);
+
+  useEffect(() => {
+
+    if(typeof window !== 'undefined'){
+      setTimeout(()=>{
+
+        const $lightGallery = $("#lightgallery");
+        $lightGallery.lightGallery();
+    
+        return () => {
+          $lightGallery.data('lightGallery').destroy(true);
+        };
+
+        const $lightGallery1 = $("#lightgallery1");
+        $lightGallery1.lightGallery();
+    
+        return () => {
+          $lightGallery1.data('lightGallery1').destroy(true);
+        };
+        
+        // $("#lightgallery").lightGallery();
+  
+        // $("#lightgallery").on('click', 'a, img', function () {
+        //   $(this).lightGallery();
+        // });
+
+        // $("#lightgallery1").lightGallery();
+  
+        // $("#lightgallery1").on('click', 'a, img', function () {
+        //   $(this).lightGallery();
+        // });
+
+      },800)
+    }
+
+  }, []);
+
+  // useEffect(() => {
+  //   // Initialize LightGallery
+  //   const $lightGallery = $("#lightgallery");
+  //   $lightGallery.lightGallery();
+
+  //   // Clean up LightGallery when the component unmounts
+  //   return () => {
+  //     $lightGallery.data('lightGallery').destroy(true);
+  //   };
+  // }, []);
+
+  const openLightGallery = async (imageSrc) => {
+    imageSrc = check_Image(imageSrc);
+    console.log(imageSrc)
+    $.fn.lightGallery.call($('<a href="' + imageSrc + '">'), {
+      dynamic: true,
+      dynamicEl: [{ src: imageSrc }]
+    });
+  };
+
   return (
     <>
       <RootLayout>
@@ -482,37 +544,51 @@ const  getCarts = async (type) => {
       {/* <div className='md:hidden'>
         <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>
       </div> */}
-      
-      { enableModal &&   <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+    
+    { enableModal &&   <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
         
-        {!data ?  <Skeleton /> :
-          (data && Object.keys(data).length != 0) && <div className='container'>
-          <div className={`lg:flex justify-between flex-wrap gap-[15px] py-0`}>
-            <div className={`flex-[0_0_calc(40%_-_10px)]  md:p-[10px] md:hidden flex md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
+    {!data ?  <Skeleton /> :
+      (data && Object.keys(data).length != 0) && 
+      <div className='container'>
+        <div className={`lg:flex justify-between flex-wrap gap-[15px] py-0`}>
+          <div className={`flex-[0_0_calc(40%_-_10px)]  md:p-[10px] md:hidden flex md:pt-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
              
-             <div className='flex sticky top-[15px] bottom-0 z-1 h-[450px] bg-white'>
-              <div className={`mr-[10px]`}>
-              {(data.images && data.images.length != 0) &&
-               data.images.map((res,index)=>{
-                return (
-                 <div onMouseEnter={()=>changeMainImage(index,data)} key={index} className={`${res.is_primary == 1 ? 'border-black' : null} h-[100px] w-[100px] cursor-pointer mb-[10px] border rounded-[5px] p-[5px] flex-items-center justify-center`}>
-                   <Image className={`h-[90px] object-contain`} src={check_Image(res.detail_thumbnail)} height={90} width={90} alt={data.item_title} />
-                 </div>
-                )
-              })
-              }
+            <div className='flex sticky top-[15px] bottom-0 z-1 h-[450px] bg-white'>
+              <div  className={`mr-[10px]`}>
+                {(data.images && data.images.length != 0) &&
+                  data.images.map((res,index)=>{
+                  return (
+                    <a onMouseEnter={()=>changeMainImage(index,data)} key={index} className={`${res.is_primary == 1 ? 'border-black' : null} h-[100px] w-[100px] cursor-pointer mb-[10px] border rounded-[5px] p-[5px] flex-items-center justify-center flex`}>
+                      {/* <a href={check_Image(res.detail_image)}> */}
+                      <img className={`h-[90px] object-contain`} src={check_Image(res.detail_thumbnail)} alt={res.title} height={90} width={90}  />
+                        {/* <Image className={`h-[90px] object-contain`} src={check_Image(res.detail_thumbnail)} height={90} width={90} alt={data.item_title} /> */}
+                      {/* </a> */}
+                    </a>
+                  )
+                })}
               </div> 
 
               <div className='w-full'>
-              <div className={`bg-[#f1f1f14f] py-[5px]`}>
-                <Image className={`w-full h-[465px] object-contain`} src={check_Image(data.selected_image)} height={200} width={300} alt={data.item_title} />
-               </div>
-               <div className='text-center pt-[15px]'>
-                      <button onClick={() => preview(data.custom_product_preview)} className={`w-full h-[40px] border`}>Preview</button>
-               </div>
+                <div id="lightgallery" className={`bg-[#f1f1f14f] py-[5px]`}>
+                  {data.images.map((res,index)=>{
+                   return (
+                     <a href={check_Image(res.detail_image)}>
+                        <img className={`w-full h-[465px] object-contain ${res.is_primary == 0 ? 'hidden' : ''}`} src={check_Image(res.detail_image)} height={200} width={300} alt={res.title} />
+                     </a>
+                    )
+                   })
+                  }
+                  {/* // <a href={check_Image(data.selected_image)}>
+                  //  <img className={`w-full h-[465px] object-contain`} src={check_Image(data.selected_image)} height={200} width={300} alt={data.title} />
+                  // </a> */}
+                </div>
+                <div className='text-center pt-[15px]'>
+                  <button onClick={() => preview(data.custom_product_preview)} className={`w-full h-[40px] border`}>Preview</button>
+                </div>
               </div>  
-              </div>
+
             </div>
+          </div>
 
 
             {/* p-[20px] flex flex-col justify-between*/}
@@ -564,7 +640,7 @@ const  getCarts = async (type) => {
                 </div> */}
 
                <div className="zero-gap">
-                 {data.images && data.images.length != 0 && <Sliders imgClass={'h-[330px] w-full'} event={true} data={data.images} perView={1} className='gap-0' />}
+                 {data.images && data.images.length != 0 && <Sliders imgClass={'h-[330px] object-contain w-full'} event={true} data={data.images} perView={1} className='gap-0' />}
                 </div>
                 <div className='text-center pt-[15px]'>
                   <button onClick={()=>preview(data.custom_product_preview)} className={`w-full h-[40px] border`}>Preview</button>
@@ -665,14 +741,14 @@ const  getCarts = async (type) => {
 
             </div>
 
-          </div>
+        </div>
 
           {/* Section - 2 */}
 
           {data.related_products && data.related_products.length != 0 && <div className={`lg:p-[30px] md:p-[15px]`}>
             <Title data={{ title: 'Previous Issues' }} seeMore={true} route={'/bookstore/'+router.asPath.split('/')[2]} />
-            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={router.query.list} check={true} data={data.related_products.slice(0, 5)} boxShadow={true} /></div>
-          </div>}
+            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={router.query.list} check={true} data={data.related_products.slice(0, 5)} boxShadow={true} /></div></div>
+          }
 
           {/* Section - 3 */}
 
@@ -688,13 +764,15 @@ const  getCarts = async (type) => {
 
           {/* Section - 4 */}
 
-          {(data.other_group_items && data.other_group_items.data && data.other_group_items.data.length != 0) && <div className={`p-[30px]`}>
-            <Title data={data.other_group_items} seeMore={true} />
-            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.other_group_items.data.slice(0, 5)} boxShadow={true} /></div>
-          </div>}
-           </div>
-        }
-      </RootLayout>
+          {(data.other_group_items && data.other_group_items.data && data.other_group_items.data.length != 0) && 
+            <div className={`p-[30px]`}>
+              <Title data={data.other_group_items} seeMore={true} />
+              <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.other_group_items.data.slice(0, 5)} boxShadow={true} /></div> 
+            </div>
+          }
+      </div>
+    }
+    </RootLayout>
 
     </>
   )

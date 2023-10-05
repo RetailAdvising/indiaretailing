@@ -43,8 +43,7 @@ export default function newsletter({ ads }) {
 
   async function newsLanding_info(){
     let value = await newsLanding();
-    let news = value.message;
-    console.log(news);
+    let news = value.message
     setData(news);
     setSkeleton(false);
   }
@@ -67,7 +66,9 @@ export default function newsletter({ ads }) {
 
       <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'}>
       {/* {!skeleton && localValue && !localValue['cust_name'] &&  */}
-       <div className='lg:min-h-[250px]'>
+      
+      {skeleton ? <SkeletonLoader/> :
+      <div className='lg:min-h-[250px]'>
         <SEO title={'Newsletters'} siteName={'India Reatiling'} description={'Newsletters'}/>
         {(data) && <div className='container p-[30px_0px] md:p-[15px] '>
           <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
@@ -92,6 +93,7 @@ export default function newsletter({ ads }) {
 
         </div>}
         </div>
+       }
        {/* }
        {!skeleton && localValue && localValue['cust_name'] && 
          <SubscribeNews cssClass={'lg:w-[50%] lg:m-[0_auto] md:pb-[15px]'} data={data} no_modal={true} hide={(obj)=> hide(obj)}/>
@@ -121,6 +123,42 @@ export async function getStaticProps() {
   return {
     props: { ads }, revalidate: 50,
   }
+}
+
+
+const SkeletonLoader = () => {
+  return (
+    <div className={'container p-[30px_0px] md:p-[15px] '}>
+
+      <h6 className='h-[20px] w-[120px] bg-slate-200 rounded-[5px] mb-3'></h6>
+
+
+      <div className='flex gap-[10px] '>
+        <div className={'flex-[0_0_calc(70%_-_0px)] md:flex-[0_0_calc(100%_-_0px)] border p-[20px] rounded-[5px]'}>
+          {[1,2,3,4,5].map((res,index)=>{
+            return(
+              <>
+                <div className='animate-pulse gap-[10px] flex p-[10px] cursor-pointer items-center border-b-[1px] border-b-slate-100 last-child:border-b[0px]'>
+                  <div className={'h-[100px] w-[100px] bg-slate-200 rounded-[5px]'}></div>
+                  <div className='w-full'>
+                    <h6 className='h-[15px] w-[50%] bg-slate-200 rounded-[5px]'></h6>
+                    <h6 className='h-[20px] w-[70%] bg-slate-200 rounded-[5px] my-[7px]'></h6>
+                    <h6 className='h-[15px] w-[90%] bg-slate-200 rounded-[5px]'></h6>
+                  </div>
+                </div>
+              </>
+            )
+          })
+          }
+        </div>
+
+        <div className={'flex-[0_0_calc(30%_-_10px)]'}>
+          <div className={'w-[380px] h-[316px] bg-slate-200 rounded-[5px]'}></div>
+        </div>
+      </div>
+    </div>
+
+  )
 }
 
 // export async function getServerSideProps() {

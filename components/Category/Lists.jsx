@@ -17,33 +17,33 @@ import Tags from '../common/Tags';
 
 
 export default function Lists({ productNavigation, imgFlex, hash_bg, contentWidth, primary_pb, line, data, titleClamp, isTop, isReverse, borderRadius, imgHeight, imgWidth, isBB, flex, isMp, tittleOnly, isHome = undefined, isDesc, descLine, mb }) {
-    
+
     const router = useRouter();
 
     const checkRoute = (data) => {
-        if(productNavigation){
-           productNavigation(data.route)
-        }else{
-            
+        if (productNavigation) {
+            productNavigation(data.route)
+        } else {
             if (data.doc_type == 'Articles') {
                 // router.replace({pathname:'/categories' + '/' + values[ind]["route"]}, undefined, { scroll: false })
                 // router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
                 router.push('/' + data.route)
-            }  else if (data.doc_type == 'Community Event') {
+            } else if (data.doc_type == 'Community Event') {
                 const route = '/events/' + data.route
-                router.push({route}, undefined, { scroll: true })
+                // router.push({ route }, undefined, { scroll: true })
+                router.push(route)
             } else if (data.doc_type == 'Product') {
                 router.push('/bookstore/' + data.route)
             } else if (data.doc_type == 'Video') {
                 router.push('/video/' + data.route)
-            }else if(data.doc_type == 'Podcast'){
+            } else if (data.doc_type == 'Podcast') {
                 const route = '/podcast/' + data.route
                 router.push(route)
                 // router.push({route},undefined, { shallow: false, scroll: false })  
                 // router.replace({route},undefined, { shallow: false, scroll: false }) 
             }
         }
-      
+
     }
 
 
@@ -87,12 +87,14 @@ export default function Lists({ productNavigation, imgFlex, hash_bg, contentWidt
                         </div>
                         {/* w-[280px] */}
                         {res.doc_type == 'Community Event' ?
+
                             <div className='flex flex-col'>
                                 {res.title && <h6 className={`title  pt-[5px] ${titleClamp ? titleClamp : 'line-clamp-1'}`}>{res.title ? res.title : ''}</h6>}
                                 <div className={`flex gap-[5px] items-center lg:pt-[5px]`}>
                                     <p className={`flex items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className='md:hidden h-[15px] w-[13px]' objectFit='contain' height={25} width={20} alt={res.title} />  <span className={`light_text`}>{res.start_date}</span></p>{res.locations && <span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>}
                                     {res.locations && <>
                                         <p className={`flex flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='md:hidden' height={15} width={20} alt={res.title} />
+
                                             {res.locations.slice(0, 1).map((item, index) => {
                                                 return (
                                                     <span key={index} className={`light_text`}>{item.event_location}</span>

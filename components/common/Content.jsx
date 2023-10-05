@@ -9,7 +9,7 @@ import format from 'date-fns/format'
 export default function Content({ res, i }) {
     const router = useRouter()
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
-    const setings = [{ name: 'More Stories' }, { name: 'Copy Link' }, { name: 'Comment' }]
+    const setings = [{ name: 'Copy Link', icon: '/bookstore/Copy.svg' }, { name: 'Comment', icon: '/bookstore/comment.svg' }, { name: 'More Stories', icon: '/bookstore/more-stories.svg' }]
 
 
     const dateFormat = (data) => {
@@ -66,51 +66,50 @@ export default function Content({ res, i }) {
                 </div>
 
                 <div className={`flex items-center gap-[8px] flex-wrap`}>
-                  {res.publisher && res.publisher.length != 0 &&
-                     res.publisher.map((r,index)=>{
-                        return(
-                            <div key={index} className='flex gap-[8px] items-center inner_line'>
-                              <Image className='rounded-full object-contain w-[30px] h-[30px]' priority={true} src={(r.avatar && r.avatar != '' && r.avatar != '') ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
-                             <div className='block'>
-                                <h6 className="font-semibold text-[12px]">{r.full_name}</h6>
-                                {/* <span className='text-gray text-[11px] gray-text'>{dateFormat(res.published_on)}</span> */}
-                             </div>
+                    {res.publisher && res.publisher.length != 0 &&
+                        res.publisher.map((r, index) => {
+                            return (
+                                <div key={index} className='flex gap-[8px] items-center inner_line'>
+                                    <Image className='rounded-full object-contain w-[30px] h-[30px]' priority={true} src={(r.avatar && r.avatar != '' && r.avatar != '') ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                                    <div className='block'>
+                                        <h6 className="font-semibold text-[12px]">{r.full_name}</h6>
+                                        {/* <span className='text-gray text-[11px] gray-text'>{dateFormat(res.published_on)}</span> */}
+                                    </div>
 
-                           </div>
-                        )
-                     })
+                                </div>
+                            )
+                        })
                     }
                 </div>
 
 
-                <div className='flex items-center gap-[15px]'>
+                {/* <div className='flex items-center gap-[15px]'>
                     {icons && <Dropdowns share={true} link={res} width={'w-[170px]'} data={icons} />}
-
-                    {setings && <Dropdowns setting={true} link={res} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
-                </div>
+                    {setings && <Dropdowns setting={true} link={res.articles_category[0].category_route} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
+                </div> */}
             </div>
             <div className='flex gap-3 justify-between'>
                 <div className={`lg:hidden flex items-center gap-[8px] flex-wrap`}>
-                  {res.publisher && res.publisher.length != 0 &&
-                   
-                    res.publisher.map((r,index)=>{
-                        return(
-                            <div key={index} className='flex gap-[8px] items-center inner_line'>
-                              <Image className='rounded-full object-contain w-[25px] h-[25px]' priority={true} src={(r.avatar && r.avatar != null) ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
-                             <div className='block'>
-                                <h6 className="font-semibold text-[12px]">{r.full_name}</h6>
-                                {/* <span className='text-gray text-[11px] gray-text'>{dateFormat(res.published_on)}</span> */}
-                             </div>
-                           </div>
-                        )
-                    })
-                  }
+                    {res.publisher && res.publisher.length != 0 &&
+
+                        res.publisher.map((r, index) => {
+                            return (
+                                <div key={index} className='flex gap-[8px] items-center inner_line'>
+                                    <Image className='rounded-full object-contain w-[25px] h-[25px]' priority={true} src={(r.avatar && r.avatar != null) ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                                    <div className='block'>
+                                        <h6 className="font-semibold text-[12px]">{r.full_name}</h6>
+                                        {/* <span className='text-gray text-[11px] gray-text'>{dateFormat(res.published_on)}</span> */}
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
 
                 <div className='lg:hidden flex gap-[15px]'>
                     {icons && <Dropdowns link={res} share={true} width={'w-[170px]'} data={icons} />}
 
-                    {setings && <Dropdowns link={res} setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[130px] lg:w-[160px]'} data={setings} />}
+                    {setings && <Dropdowns link={res} setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[160px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
 
@@ -146,7 +145,6 @@ export default function Content({ res, i }) {
 
             {/* <p className='py-3 !leading-[1.74] !text-[15px] !text-justify font-semibold'>{res.blog_intro}</p> */}
             <p className='py-3 !leading-[1.5] !text-[18px] !text-justify font-semibold'>{res.blog_intro}</p>
-        </> 
+        </>
     )
 }
-

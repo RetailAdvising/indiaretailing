@@ -27,7 +27,7 @@ export default function NewsLists({ data, Id }) {
   }
 
   const [showAlert, setShowAlert] = useState(false);
-  const [enableModal,setEnableModal] = useState(false)
+  const [enableModal, setEnableModal] = useState(false)
   const [alertMsg, setAlertMsg] = useState({})
   const [visible, setVisible] = useState(false)
 
@@ -35,34 +35,34 @@ export default function NewsLists({ data, Id }) {
     setVisible(true);
   }
 
-  async function closeModal(value){
-      setEnableModal(false);
+  async function closeModal(value) {
+    setEnableModal(false);
   }
- 
+
   function hide(obj) {
     setVisible(false);
-    if(obj.status == 'Success'){
-      setAlertMsg({message:'Newsletters subscribed successfully'});
+    if (obj.status == 'Success') {
+      setAlertMsg({ message: 'Newsletters subscribed successfully' });
       setEnableModal(true);
     }
   }
 
-  async function closeModal(value){
-      setEnableModal(false);
+  async function closeModal(value) {
+    setEnableModal(false);
   }
 
   const handleButtonClick = () => {
-    
-    let get_check = news.filter(res=>{ return res.selected == 1})
 
-    if(get_check.length == data.length){
-      setAlertMsg({message:'Already you have subscribed all the Newsletters'});
+    let get_check = news.filter(res => { return res.selected == 1 })
+
+    if (get_check.length == data.length) {
+      setAlertMsg({ message: 'Already you have subscribed all the Newsletters' });
       setEnableModal(true);
-    }else{
-      news.map((res,i)=>{
-        if(Id == res.name){
+    } else {
+      news.map((res, i) => {
+        if (Id == res.name) {
           res.selected = 1;
-        }else{
+        } else {
           res.selected = 0;
         }
       })
@@ -72,7 +72,7 @@ export default function NewsLists({ data, Id }) {
 
 
   useEffect(() => {
-    console.log('ddd',data)
+    console.log('ddd', data)
     allNews();
     newsLanding_info();
   }, [router.query])
@@ -80,7 +80,7 @@ export default function NewsLists({ data, Id }) {
   // All News
   const allNews = async () => {
     let param = {
-      route:'newsletters/'+ await router.query.detail,
+      route: 'newsletters/' + await router.query.detail,
       // newsletter_id: await router.query.detail,
       page_no: page_no,
       page_size: 10,
@@ -92,9 +92,9 @@ export default function NewsLists({ data, Id }) {
     }
   }
 
-  const [news,setData] = useState();
+  const [news, setData] = useState();
 
-  async function newsLanding_info(){
+  async function newsLanding_info() {
     let value = await newsLanding();
     let news = value.message;
     setData(news)
@@ -103,10 +103,10 @@ export default function NewsLists({ data, Id }) {
   return (
     <>
       <RootLayout isLanding={false} head={'Newsletters'}>
-         
-      {enableModal && 
-              <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'ok'} alertMsg={alertMsg} /> 
-      }
+
+        {enableModal &&
+          <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'ok'} alertMsg={alertMsg} />
+        }
 
         <SEO title={data.meta_title ? data.meta_title : data.custom_title} ogImage={check_Image(data.custom_image_)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.custom_title} description={data.meta_description ? data.meta_description : data.custom_title} />
         {<div className='container p-[30px_0px] md:p-[15px]'>
@@ -125,18 +125,19 @@ export default function NewsLists({ data, Id }) {
           </label>
 
           {!isChecked ? <>
-            {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] flex-wrap justify-between gap-5`}>
+            {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] md:flex-wrap justify-between gap-5`}>
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_0px)]`}>
-                <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.article_detail.title}</h6>
+                {/* <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.article_detail.title}</h6> */}
                 <p className='sub_title py-3 md:hidden'>{data.article_detail.subject}</p>
-                <p className='sub_title py-3 md:hidden'>{data.article_detail.description}</p>
-                <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] h-[35px] w-[100px]'>subscribe</button>
+                <div dangerouslySetInnerHTML={{ __html: data.article_detail.message }} className={`contents sub_title py-3 md:hidden`} />
+                <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] block h-[35px] w-[100px]'>subscribe</button>
               </div>
-              <div className={`flex-[0_0_calc(45%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
-                <Image className={`h-[380px] w-full`} src={check_Image(data.article_detail.image)} height={300} width={500} alt={data.custom_title} />
-                <p className='sub_title py-3 lg:hidden'>{data.article_detail.description}</p>
+              <div className={`flex-[0_0_calc(45%_-_10px)] overflow-hidden md:flex-[0_0_calc(100%_-_0px)]`}>
+                <Image className={`h-[380px] w-full`} src={check_Image(data.article_detail.image)} height={300} width={500} alt={data.custom_title ? data.custom_title : data.subject ? data.subject : 'newsletter'} />
+                <div dangerouslySetInnerHTML={{ __html: data.article_detail.message }} className={`contents sub_title py-3 lg:hidden`} />
+                {/* <p className='sub_title py-3 lg:hidden'>{data.article_detail.description}</p> */}
                 <div className='w-full text-center lg:hidden'>
-                  <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn  my-3 text-[14px] h-[35px] w-[50%]'>subscribe</button>
+                  <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn block my-3 text-[14px] h-[35px] w-[50%]'>subscribe</button>
                 </div>
               </div>
             </div>}
@@ -154,15 +155,15 @@ export default function NewsLists({ data, Id }) {
             {/* {showAlert && <AlertPopup data={data} show={() => setShowAlert(false)} />} */}
             {/* {showAlert && <NewsList data={news} />} */}
 
-            {visible && <SubscribeNews data={news} visible={visible}  hide={(obj)=> hide(obj)} />}
-            
+            {visible && <SubscribeNews data={news} visible={visible} hide={(obj) => hide(obj)} />}
+
           </> : <>
             {(allNewsLetter && allNewsLetter.length != 0) ?
               <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] md:gap-[10px] pt-[20px] md:pt-[15px]'>
-              <NewsCard load={() => handleCheckboxChange()} pagination={true} data={allNewsLetter} imgClass={'h-[315px] md:h-[200px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[300px]'} />
-            </div>:
-             <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-newsletter.svg'} heading={'No Newsletters Found'}/>
-             }
+                <NewsCard load={() => handleCheckboxChange()} pagination={true} data={allNewsLetter} imgClass={'h-[315px] md:h-[200px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[300px]'} />
+              </div> :
+              <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-newsletter.svg'} heading={'No Newsletters Found'} />
+            }
           </>}
         </div>}
       </RootLayout>

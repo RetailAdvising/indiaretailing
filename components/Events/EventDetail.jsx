@@ -9,7 +9,6 @@ import EventCards from './EventCards'
 import { useRouter } from 'next/router'
 import Placeholders from '../common/Placeholders'
 export default function EventDetail({ data }) {
-    console.log(data)
     const router = useRouter();
 
     const redirectTo = () => {
@@ -23,11 +22,39 @@ export default function EventDetail({ data }) {
             window.open(data.message.view_more_link, '_blank')
         }
     }
+
+
+    const videoLink = (link, type) => {
+        return type == 'yt' ? 'https://www.youtube.com/embed/' + link : 'https://player.vimeo.com/video/' + link
+    }
+
+
     return (
         <>
             {data && <div className={`p-[30px_0px] md:p-[15px] container`}>
                 <div className=' py-[5px] bg-[#f1f1f130]'>
-                    <Image height={200} width={400} priority src={check_Image(data.message.image_path ? data.message.image_path : data.message.thumbnail_path)} className={`lg:h-[450px] object-contain w-full`} alt={data.message.title} />
+                    {(data.message.attach_type == 'Video' && data.message.video_type == 'YouTube') ? <iframe
+                        className={`h-[500px] md:h-[300px] w-full`}
+                        title={data.message.title ? data.message.title : ''}
+                        src={videoLink(data.message.video_id, 'yt')}
+                        id={data.message.i}
+                        // width={data.message.width}
+                        // height={data.message.height}
+                        frameBorder="2"
+                        loading="lazy"
+                    // allowfullscreen="allowfullscreen"
+                    ></iframe> : (data.message.attach_type == 'Video' && data.message.video_type == 'Vimeo') ? <iframe
+                        className={`h-[500px] md:h-[300px] w-full`}
+                        title={data.message.title ? data.message.title : ''}
+                        src={videoLink(data.message.video_id, 'vimeo')}
+                        id={data.message.i}
+                        // width={data.message.width}
+                        // height={data.message.height}
+                        frameBorder="2"
+                        loading="lazy"
+                    // allowfullscreen="allowfullscreen"
+                    ></iframe> :
+                        <Image height={200} width={400} priority src={check_Image(data.message.image_path ? data.message.image_path : data.message.thumbnail_path)} className={`lg:h-[450px] object-contain w-full`} alt={data.message.title} />}
                 </div>
                 <div className={`lg:flex md:flex-wrap gap-[20px] pb-[20px] pt-[30px] md:pt-[10px]`}>
                     <div className={`flex-[0_0_calc(75%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] p-[10px] border rounded-[5px]`}>
@@ -76,7 +103,9 @@ export default function EventDetail({ data }) {
                             <button type='button' className={`primary_button h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={redirectTo} >Register Now</button>
                             <button type='button' className={`primary_outline h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={viewMoreLink}>More Details</button>
                         </div>
-                        {(data.place_holders_ads && data.place_holders_ads.length != 0) && <Placeholders placeholder={data.place_holders_ads}  />}
+                        {/* tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : [] } pro  ductNavigation={productNavigation}*/}
+                        {(data.place_holders_ads && data.place_holders_ads.length != 0) && <Placeholders placeholder={data.place_holders_ads} />}
+
                         {/* {data && <AdsBaner data={{ ad_image: '/ads_baner.png' }} />} */}
                     </div>
                 </div>

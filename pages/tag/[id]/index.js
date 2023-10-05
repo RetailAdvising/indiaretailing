@@ -10,7 +10,7 @@ import Title from '@/components/common/Title'
 import Dropdowns from '@/components/common/Dropdowns';
 import AdsBaner from '@/components/Baners/AdsBaner'
 
-export default function Trending({ data, res, Id }) {
+export default function Trending({ data, res }) {
     const categories = [{ name: 'All', route: 'all' }, { name: 'News', route: 'news_list' }, { name: 'Articles', route: 'article_list' }, { name: 'Events', route: 'event_list' }]
     const [resp_data, setData] = useState([])
     const [nodata, setNodata] = useState(false);
@@ -31,13 +31,15 @@ export default function Trending({ data, res, Id }) {
         if (res && res.data) {
             setData(res.data)
             // console.log(router)
-            setTabs(Id)
+            setTabs(router.query.id)
             // setActivatedData([...res.data['news_list'], ...res.data['event_list'], ...res.data['article_list']]);
         }
 
         if (data && data.length != 0) {
             console.log(data)
             setTag(data)
+        }else{
+            getTag();
         }
         // console.log(res)
         // console.log(data)
@@ -65,12 +67,13 @@ export default function Trending({ data, res, Id }) {
             doctype: 'Tag',
             fields: ['name', 'custom_route'],
             page_no: pageNo,
-            page_size: 25
+            page_size: 25,
+            "filters":{}
         }
 
         const response = await getList(param1);
         if (response.message && response.message.length != 0) {
-            setTag(d => d = [...d, ...response.message])
+            pageNo == 1 ? setTag(response.message) : setTag(d => d = [...d, ...response.message])
         } else {
             no_tag = true
         }
@@ -110,7 +113,7 @@ export default function Trending({ data, res, Id }) {
 
 
     const get_list = async () => {
-        const param = Id;
+        const param = await router.query.id;
         const params = {
             tag_route: param,
             page_no: page_no
@@ -142,7 +145,7 @@ export default function Trending({ data, res, Id }) {
 
     const getTabs = (data) => {
         // setTabs(data);
-        router.push('/tag/' + data)
+        router.push('/tag/' + data);
         // console.log(data)
     }
 
@@ -244,13 +247,17 @@ export async function getServerSideProps({ params }) {
         doctype: 'Tag',
         fields: ['name', 'custom_route'],
         page_no: 1,
-        page_size: 25
+        page_size: 25,
+        "filters":{}
     }
 
     const response = await getList(param1);
     const data = response.message;
+
+    // const data = [];
+
     return {
-        props: { res, data,Id}
+        props: { res, data }
     }
 
 }

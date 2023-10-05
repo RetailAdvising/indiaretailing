@@ -484,7 +484,8 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user,produ
 
           <div className='w_30 md:hidden'>
             {/* {data.advertisement_tags && data.advertisement_tags.length != 0 && <AdsBaner data={data.advertisement_tags[0]} />} */}
-            {(data.place_holders_ads && data.place_holders_ads.length != 0) && <Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : [] } productNavigation={productNavigation} />}
+            {(data.place_holders_ads && data.place_holders_ads.length != 0) && 
+            <Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : [] } productNavigation={productNavigation} />}
           </div>
         </div>
 
