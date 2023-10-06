@@ -236,7 +236,8 @@ export default function Home({ data }) {
                             {data.data[c.cid].data &&
                               <div className='overflow-auto scrollbar-hide gap-[15px] flex '>
                                 {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                               <CustomSlider hide_scroll_button={true} slider_child_id={'leaders_ink'+c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}/>
+                               <CustomSlider hide_scroll_button={true} slider_child_id={'leaders_ink'+c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} 
+                                 imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'}/>
                               </div>}
 
                             {/* <div className='none leaders'><MultiCarousel isHome={'/categories/'} perView={3} check={true} none={true} data={data.data[c.cid].data} cardHeight={'h-[310px]'} card_width={"285px !important"} height={"h-[185px]"} width={"w-full"} type={'profile'} /></div>} */}
@@ -245,7 +246,11 @@ export default function Home({ data }) {
                             {/* route={'/categories/'} seeMore={true} */}
                             <Title data={{ title: c.component_title }} />
                             {data.data[c.cid].data && isMobile ? <div className='mb-[10px] research'><ListSlider route={'/'} noDots={true} auto={false} data={data.data[c.cid].data} /></div> :
-                              <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[220px] flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>
+                              <div className='overflow-auto scrollbar-hide gap-[15px] flex '>
+                                {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[220px] flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
+                                <CustomSlider hide_scroll_button={true} slider_child_id={'research'+c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(75%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} 
+                                 imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'}/>
+                                </div>
 
                               // <div className={`pr-[30px] none research`}><MultiCarousel isHome={'/categories/'} none={true} check={true} cardHeight={'h-[310px]'} perView={2} noPlay={true} data={data.data[c.cid].data} card_width={"285px !important"} height={"h-[185px]"} width={'w-full'} type={'card'} /></div>
                             }
@@ -321,11 +326,19 @@ export default function Home({ data }) {
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Case Studies") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/case-studies'} seeMore={true} />
-                            <div className={`lg:flex no_scroll lg:gap-5`}><Cards check={true} isHome={'/'} data={data.data[c.cid].data} cardClass={"h-[300px] "} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /></div>
+                            <div className={`lg:flex no_scroll lg:gap-5`}>
+                              {/* <Cards check={true} isHome={'/'} data={data.data[c.cid].data} cardClass={"h-[300px] "} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /> */}
+                              <CustomSlider hide_scroll_button={true} slider_child_id={'case_studies'+c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'} 
+                                 imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'}/>
+                              </div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Photo Essays") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/photo-essays'} seeMore={true} />
-                            <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'lg:h-[300px]  flex-[0_0_calc(70%_-_15px)] '} imgClass={'h-[175px]  w-full'} /></div>
+                            <div className='overflow-auto scrollbar-hide gap-[15px] flex '>
+                              {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'lg:h-[300px]  flex-[0_0_calc(70%_-_15px)] '} imgClass={'h-[175px]  w-full'} /> */}
+                              <CustomSlider hide_scroll_button={true} slider_child_id={'photo_essays'+c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'} 
+                                 imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'}/>
+                              </div>
                             {/* <div className='photo'><MultiCarousel isHome={'/categories/'} check={true} cardHeight={'h-[310px]'} data={data.data[c.cid].data} height={"h-[175px]"} width={'w-full'} perView={2} noPlay={true} none={true} type={'card'} /></div> */}
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IMAGES Group Events") && <>
@@ -376,7 +389,7 @@ export async function getStaticProps() {
     // "application_type": "mobile",
     "route": "home",
     page_no: 1,
-    page_size: 4
+    page_size: 10
   }
   const resp = await HomePage(param);
   const data = await resp.message;

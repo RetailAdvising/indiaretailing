@@ -4,8 +4,6 @@ function Tags({tags,count=2}) {
 
     const router = useRouter();
 
-    if(tags)
-
     return ( 
         <>
         {(tags && tags.length!=0) && <p className={`light_text pt-[10px] flex gap-[5px]`}>{ tags.map((tag,index_no)=>{

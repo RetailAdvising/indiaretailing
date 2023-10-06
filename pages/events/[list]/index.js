@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { postMethod, eventList } from '@/libs/api.js';
+import { postMethod, eventList, getAds } from '@/libs/api.js';
 import RootLayout from '@/layouts/RootLayout';
 import EventList from '@/components/Events/EventList';
 import Title from '@/components/common/Title';
@@ -34,6 +34,7 @@ export default function EventDetails({ values }) {
     // }
 
     useEffect(() => {
+        getAd()
         if (values) {
             console.log(values);
             setData(values.message)
@@ -80,9 +81,21 @@ export default function EventDetails({ values }) {
         }
 
     }
+
+    const [ads,setAds] = useState()
+
+    const getAd = async () => {
+        let params = { doctype: 'Community Event', page_type: 'List' }
+        const res = await getAds(params);
+        const ads = res.message;
+        if(ads){
+          setAds(ads)
+        }
+      }
+    
     return (
         <>
-            <RootLayout isLanding={false} head={values.title}>
+            <RootLayout isLanding={false} head={values.title} homeAd={ads ? ads : null} >
             {values && <SEO title={values.title} siteName={'India Reatiling'}/>}
             {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Reatiling'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
                 <div className='p-[30px_0px] md:p-[15px] container '>

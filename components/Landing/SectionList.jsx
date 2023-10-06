@@ -3,12 +3,20 @@ import Image from 'next/image'
 import { check_Image, trending } from '@/libs/api'
 import Link from 'next/link'
 import Tags from '../common/Tags'
+import { useRouter } from 'next/router'
 export default function SectionList({ data }) {
+  const router = useRouter();
+    function navigate(event, res) {
+        event.stopPropagation();
+        // '/' + router.asPath.split('/')[1] +
+        router.push(`${isHome ? isHome + res.route :  '/' + res.route}`)
+    }
   return (
     <>
       {data && data.map((res, index) => {
         return (
-          <Link key={index} href={'/' + res.route}>
+          // href={'/' + res.route}
+          <div key={index} onClick={($event) => navigate($event, res)} className='cursor-pointer'>
             <div className={`flex justify-between gap-[10px] ${index == 0 ? 'lg:mt-[15px]' : ''} ${index != data.length - 1 ? 'mb-[20px] md:mb-[15px]' : ''} ${index != data.length - 1 && 'border_bottom'} items-center pb-[20px] md:pb-[15px]`}>
               <div className={`flex flex-[0_0_calc(95%_-_10px)] w-full gap-[10px]`}>
                 <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]`}>
@@ -26,7 +34,7 @@ export default function SectionList({ data }) {
                 <Image src={'/rightArrow.svg'} height={15} width={20} alt={'arrow'} ></Image>
               </div>
             </div>
-          </Link>
+          </div>
         )
       })}
     </>

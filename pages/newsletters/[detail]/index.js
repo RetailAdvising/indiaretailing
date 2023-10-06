@@ -6,7 +6,7 @@ import Title from '@/components/common/Title';
 import NewsCard from '@/components/Newsletter/NewsCard';
 import Tabs from '@/components/common/Tabs';
 import AlertPopup from '@/components/common/AlertPopup';
-import { get_all_newsletter, newsDetail, newsLanding } from '@/libs/api';
+import { get_all_newsletter, newsDetail, newsLanding, getAds } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -72,8 +72,8 @@ export default function NewsLists({ data, Id }) {
 
 
   useEffect(() => {
-    console.log('ddd', data)
     allNews();
+    getAd();
     newsLanding_info();
   }, [router.query])
 
@@ -100,9 +100,21 @@ export default function NewsLists({ data, Id }) {
     setData(news)
   }
 
+  const [ads,setAds] = useState()
+
+  const getAd = async () => {
+      let params = { doctype: 'News letter', page_type: 'Detail' }
+      const res = await getAds(params);
+      const ads = res.message;
+      if(ads){
+        setAds(ads)
+      }
+    }
+  
+
   return (
     <>
-      <RootLayout isLanding={false} head={'Newsletters'}>
+      <RootLayout isLanding={false} homeAd={ads ? ads : null} head={'Newsletters'}>
 
         {enableModal &&
           <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'ok'} alertMsg={alertMsg} />

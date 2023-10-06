@@ -59,6 +59,8 @@ export default function newsletter({ ads }) {
     setEnableModal(false);
   }
 
+
+
   return (
     <>
 

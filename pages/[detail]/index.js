@@ -1,13 +1,13 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image } from '@/libs/api';
+import { articlesDetail, getAds, check_Image, getList } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import { useSelector, useDispatch } from 'react-redux';
 import { NextSeo } from 'next-seo'
-export default function Details({ page_route }) {
+export default function Details({ data, page_route }) {
   const router = useRouter();
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
@@ -187,6 +187,7 @@ export default function Details({ page_route }) {
   //   const ads = resp.message;
   // }
 
+  console.log('meta', data)
 
   useEffect(() => {
     // Event listener to track scroll events
@@ -250,57 +251,33 @@ export default function Details({ page_route }) {
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
         {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
         {/* {(meta_info && Object.keys(meta_info).length > 0) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />} */}
-        {/* {(meta_info && Object.keys(meta_info).length > 0) && <NextSeo
-          title={meta_info.meta_title ? meta_info.meta_title : meta_info.title}
-          description={meta_info.meta_description ? meta_info.meta_description : meta_info.title}
+        {(data && Object.keys(data).length > 0) && <NextSeo
+          title={data.meta_title ? data.meta_title : data.title}
+          description={data.meta_description ? data.meta_description : data.title}
           canonical="https://indiaretail.vercel.app/"
           openGraph={{
             type: 'article',
             article: {
-              publishedTime: meta_info.published_on,
-              modifiedTime: meta_info.modified,
+              publishedTime: data.published_on,
+              modifiedTime: data.modified,
               authors: [
                 'https://www.example.com/authors/@firstnameA-lastnameA',
                 'https://www.example.com/authors/@firstnameB-lastnameB',
               ],
-              tags: meta_info._user_tags,
+              tags: data._user_tags,
             },
             url: 'https://indiaretail.vercel.app' + router.asPath,
             images: {
-              url: check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image),
+              url: check_Image(data.meta_image ? data.meta_image : data.image),
               width: 850,
               height: 650,
               alt: 'India Reatiling',
             },
             site_name: 'India Reatiling'
           }}
-        />} */}
+        />}
 
-        <NextSeo
-          title="Manage SEO in NextJS with Next SEO"
-          description="Next SEO packages simplifies the SEO management in Next Apps with less configurations"
-          canonical="www.example.com/next-seo-blog"
-          openGraph={{
-            type: 'article',
-            article: {
-              publishedTime: '2022-06-21T23:04:13Z',
-              modifiedTime: '2022-01-21T18:04:43Z',
-              authors: [
-                'https://www.example.com/authors/@firstnameA-lastnameA',
-                'https://www.example.com/authors/@firstnameB-lastnameB',
-              ],
-              tags: ['Tag A', 'Tag B', 'Tag C'],
-            },
-            url: 'www.example.com/next-seo-blog',
-            images: {
-              url: 'https://www.test.ie/images/cover.jpg',
-              width: 850,
-              height: 650,
-              alt: 'Photo of text',
-            },
-            site_name: 'Next Blog'
-          }}
-        />
+
 
         {/* { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>} */}
         {(values && values.length != 0) ? <>
@@ -318,6 +295,8 @@ export default function Details({ page_route }) {
     </>
   )
 }
+
+
 
 
 {/* <NextSeo
@@ -345,6 +324,24 @@ export default function Details({ page_route }) {
     site_name: 'Next Blog'
   }}
 /> */}
+
+export async function getServerSideProps({ params }) {
+  let page_route = await params?.detail;
+  // let Id = 'beauty-wellness';
+  let param = {
+    doctype: "Articles",
+    fields: ["name", "route", "title", "meta_title", "meta_description", "meta_keywords", "meta_image", "image", "published_on", "modified", "_user_tags"],
+    filters: { "route": page_route }
+  }
+
+  let value = await getList(param);
+  let data = value.message[0];
+
+  return {
+    props: { data, page_route }
+  }
+}
+
 
 const Skeleton = () => {
   return (
@@ -469,20 +466,3 @@ const Skeleton = () => {
   )
 }
 
-export async function getServerSideProps({ params }) {
-
-  let page_route = await params?.detail;
-
-  // let category = await params?.list;
-  // let param = {
-  //   "article": Id,
-  //   "category": category,
-  //   "next": 0
-  // }
-  // let value = await articlesDetail(param);
-  // let data = value.message;
-
-  return {
-    props: { page_route }
-  }
-}
