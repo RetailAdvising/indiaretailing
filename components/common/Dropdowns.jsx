@@ -85,7 +85,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
             <Popover className={`relative `}>
                 {({ open }) => (
                     <>
-                        <Popover.Button className={`${open ? '' : ''} border-[1px] border-slate-100 rounded-[5px] h-[32px] w-[32px] flex items-center justify-center`}>
+                        <Popover.Button className={`${open ? '' : ''} lg:border-[1px] border-slate-100 rounded-[5px] h-[32px] lg:w-[32px] flex items-center justify-center`}>
                             {/* <span>{btn_name}</span> */}
                             <div className='flex gap-[10px] items-center'>
                                 {/*  */}

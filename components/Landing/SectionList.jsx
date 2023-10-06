@@ -4,7 +4,7 @@ import { check_Image, trending } from '@/libs/api'
 import Link from 'next/link'
 import Tags from '../common/Tags'
 import { useRouter } from 'next/router'
-export default function SectionList({ data }) {
+export default function SectionList({ data,isHome }) {
   const router = useRouter();
     function navigate(event, res) {
         event.stopPropagation();

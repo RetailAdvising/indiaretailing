@@ -83,7 +83,7 @@ export default function Content({ res, i }) {
                 </div>
 
 
-                <div className='flex items-center gap-[15px]'>
+                <div className='flex items-center gap-[15px] pr-[10px]'>
                     {icons && <Dropdowns share={true} link={res} width={'w-[170px]'} data={icons} />}
                     {setings && <Dropdowns setting={true} link={res.articles_category[0].category_route} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
                 </div>
@@ -106,7 +106,7 @@ export default function Content({ res, i }) {
                     }
                 </div>
 
-                <div className='lg:hidden flex gap-[15px]'>
+                <div className='lg:hidden flex gap-[15px] mr-[10px]'>
                     {icons && <Dropdowns link={res} share={true} width={'w-[170px]'} data={icons} />}
 
                     {setings && <Dropdowns link={res} setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[160px] lg:w-[160px]'} data={setings} />}

@@ -11,7 +11,8 @@ import Forget from './Forget'
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import Script from 'next/script';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import NextAuth from 'next-auth';
 // import Providers from 'next-auth/providers';
 // import GoogleProvider from "next-auth/providers/google"
@@ -70,11 +71,11 @@ export default function LogIn({ isModal, hide, auth }) {
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
         checkIsMobile();
-        const usr = getCookie('usr')
-        const pwd = getCookie('pwd')
-        setValue('email', usr)
-        setValue('password', pwd)
-        console.log(usr, pwd)
+        // const usr = getCookie('usr')
+        // const pwd = getCookie('pwd')
+        // setValue('email', usr)
+        // setValue('password', pwd)
+        // console.log(usr, pwd)
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
@@ -168,6 +169,7 @@ export default function LogIn({ isModal, hide, auth }) {
                 (isModal || !isMobile) ? hide() : router.push('/')
             } else {
                 setWrong(!wrong);
+                toast.error(val.message.message)
             }
         }
     }
@@ -189,20 +191,20 @@ export default function LogIn({ isModal, hide, auth }) {
     }
 
 
-    function getCookie(cname) {
-        let name = cname + "=";
-        let ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
+    // function getCookie(cname) {
+    //     let name = cname + "=";
+    //     let ca = document.cookie.split(';');
+    //     for (let i = 0; i < ca.length; i++) {
+    //         let c = ca[i];
+    //         while (c.charAt(0) == ' ') {
+    //             c = c.substring(1);
+    //         }
+    //         if (c.indexOf(name) == 0) {
+    //             return c.substring(name.length, c.length);
+    //         }
+    //     }
+    //     return "";
+    // }
 
 
 
@@ -267,6 +269,7 @@ export default function LogIn({ isModal, hide, auth }) {
     // }, []);
     return (
         <>
+        <ToastContainer position={'bottom-right'} autoClose={2000} />
         <div>
             <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" />
         </div>
@@ -312,7 +315,7 @@ export default function LogIn({ isModal, hide, auth }) {
                             <p className='text-blue-500 font-semibold text-[13px] cursor-pointer' onClick={() => auth ? setModal('forget') : router.push('/forget')}>Forget Password</p>
                         </div>
                         <button type="submit" className={`${styles.loginBtn} `}>Log In</button>
-                        {wrong && <p className='text-center pt-[5px] text-[#ff1010] font-semibold'>Please check your email or password</p>}
+                        {/* {wrong && <p className='text-center pt-[5px] text-[#ff1010] font-semibold'>Please check your email or password</p>} */}
                     </form>
                     <p className='pt-[10px] text-[13px]'>Not registered yet? <span onClick={() => auth ? setModal('signup') : router.push('/signup')} className='text-[#e21b22] font-semibold cursor-pointer text-[13px]'>Create an account</span></p>
                     <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div>

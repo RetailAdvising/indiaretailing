@@ -50,11 +50,11 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
     }, [pageno])
 
 
-    function checkValid() {
-        if (!localStorage['apikey']) {
-            router.push('/login')
-        }
-    }
+    // function checkValid() {
+    //     if (!localStorage['apikey']) {
+    //         router.push('/login')
+    //     }
+    // }
 
 
     async function commentslist() {
@@ -165,7 +165,8 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
                             </div>
                             <div className='flex justify-between gap-[10px]'>
                              <div className='flex w-full mt-[10px] items-center'>
-                                  <textarea id='addCmt' type='text' row={1} onClick={checkValid} placeholder='Add a comment...' className='comment_box flex-1 pt-[7px] border-none  w-full text-[14px] p-[5px]' />
+                                {/* onClick={checkValid} */}
+                                  <textarea id='addCmt' type='text' row={1}  placeholder='Add a comment...' className='comment_box flex-1 pt-[7px] border-none  w-full text-[14px] p-[5px]' />
                                 <div className='flex-[0_0_30px] relative'>
                                   <Image src={'/categories/send-arrow.svg'} className='cursor-pointer absolute top-0 m-auto bottom-0' onClick={() => sendMsg('addCmt')} height={22} width={22} alt='send' />
                                 </div>

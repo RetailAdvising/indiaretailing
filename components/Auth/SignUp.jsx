@@ -63,6 +63,7 @@ export default function SignUp({ isModal, hide, auth }) {
                         isModal || !isMobile ? hide() : router.push('/')
                     } else {
                         setWrong(!wrong);
+                        toast.error(val.message.message)
                     }
 
                     // isModal ? hide() : router.push('/')
@@ -168,7 +169,7 @@ export default function SignUp({ isModal, hide, auth }) {
                         </div>
 
                         <button type="submit" className={`${styles.loginBtn}`}>Signup</button>
-                        {wrong && <p className={`${styles.danger}`}>Please check your email or password</p>}
+                        {/* {wrong && <p className={`${styles.danger}`}>Please check your email or password</p>} */}
                     </form>
                     <p className='pt-[10px] text-[14px]'>already have an account? <span onClick={() => auth ? setModal('login') : router.push('/login')} className='text-[#e21b22] text-[13px] font-semibold cursor-pointer'>login</span></p>
                     {/* <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div> */}

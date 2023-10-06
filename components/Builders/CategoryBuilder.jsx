@@ -449,11 +449,11 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
                 {(data.comments && data.comments.length != 0) && data.doctype == 'Articles' &&
                   <div style={{ background: "#efefef" }} className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  mt-3  `}>
-                    {data.comments.map((res, index) => {
-                      return (
-                        <Comments cmt={true} data={res} key={index} hide_comment={hide} />
-                      )
-                    })}
+                    {/* {data.comments.map((res, index) => {
+                      return ( */}
+                        <Comments  data={data.comments} hide_comment={hide} />
+                      {/* )
+                    })} */}
                   </div>
                 }
               </>
@@ -470,9 +470,9 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                 </>
 
               }
-
               {(!showComment && data && data.doctype == 'Articles') ? <>
                 <div className='popright'>
+                  
                   <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur) => store_comments(cur)} hide={sideDrawerClosedHandler} />
                   {/* scrolling="no" */}
                   {/* <iframe className='w-full ' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092358111637737472" height="696" width="504" frameborder="0" allowfullscreen="false" title="Embedded post"></iframe> */}

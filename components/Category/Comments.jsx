@@ -6,21 +6,21 @@ import AlertUi from '../common/AlertUi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Comments({ data, isLast, load, cmt, store_comments, comments }) {
+export default function Comments({ data, isLast, load, store_comments, comments }) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
     const [reportComment, setReporComment] = useState()
     const [selecedComment, setSelecedComment] = useState()
     const [isSuccessPopup, setIsSuccessPopup] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
-
+    console.log(data);
     function showInputs(index) {
         setInput({ index: index, show: true });
     }
 
     const cardref = useRef(null)
     useEffect(() => {
-        setComment(data)
+        // setComment(data)
         if (!cardref?.current) return;
         const observer = new IntersectionObserver(([entry]) => {
             if (isLast && entry.isIntersecting) {
@@ -126,46 +126,50 @@ export default function Comments({ data, isLast, load, cmt, store_comments, comm
         }
     }
 
-    console.log(comment)
+    // console.log(comment)
     return (
         <>
             <ToastContainer position={'bottom-right'} autoClose={2000} />
-            {comment &&
-                <div ref={cardref} className={`transition-all ease-in delay-500 duration-500 last:border-0 ${cmt ? 'p-[10px]' : ''}  ${!isLast ? 'border_bottom' : ''}`}>
-                    <div className={`flex gap-3 p10`}>
-                        <div>
-                            <Image className='rounded-full object-contain' src={'/profit.svg'} height={48} width={48} alt={comment.name} />
-                        </div>
-                        <div className='max-w-full w-full comment'>
-                            {/* | <span>{comment.duration}</span> */}
-                            <p className='flex gap-3 '><h6 className='font14_bold'>{comment.comment_by}</h6> </p>
-                            <div className='py-2 sub_title' dangerouslySetInnerHTML={{ __html: comment.content }} />
-                            <div className='flex justify-between items-center py-[5px]'>
-                                <div className='flex gap-3'>
-                                    {/* || (comment.likes && comment.likes == 1) */}
-                                    <p className='flex gap-2 items-center sub_title'><span>{comment.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => likeCmt(comment)} src={(comment.is_liked && comment.is_liked == 1)  ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
-                                    {/* || (comment.dislikes && comment.dislikes == 1) */}
-                                    <p className='flex gap-2 items-center sub_title'><span>{comment.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => dislikeCmt(comment)} src={(comment.is_disliked && comment.is_disliked == 1)  ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
-                                    {/* <p className='sub_title'>Share</p>
-                                            <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
-                                </div>
-                                {localStorage.apikey && <div>
-                                    <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={() => report(comment)} />
-                                </div>}
+
+
+            {data &&
+                data.map((comment, index) => {
+                    return (
+                        // < div ref={cardref} className={`transition-all ease-in delay-500 duration-500 last:border-0 ${cmt ? 'p-[10px]' : ''}  ${!isLast ? 'border_bottom' : ''}`}>
+                        <div key={index} className={`flex gap-3 p10`}>
+                            <div>
+                                <Image className='rounded-full object-contain' src={'/profit.svg'} height={48} width={48} alt={comment.name} />
                             </div>
-                            {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}
-                            {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
-                            {/* {(input.index == index && input.show) &&
-                                        <div>
-                                            <input type='text' />
-                                        </div>
-                              } */}
+                            <div className='max-w-full w-full comment'>
+                                {/* | <span>{comment.duration}</span> */}
+                                <p className='flex gap-3 '><h6 className='font14_bold'>{comment.comment_by}</h6> </p>
+                                <div className='py-2 sub_title' dangerouslySetInnerHTML={{ __html: comment.content }} />
+                                <div className='flex justify-between items-center py-[5px]'>
+                                    <div className='flex gap-3'>
+                                        {/* || (comment.likes && comment.likes == 1) */}
+                                        <p className='flex gap-2 items-center sub_title'><span>{comment.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => likeCmt(comment)} src={(comment.is_liked && comment.is_liked == 1) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
+                                        {/* || (comment.dislikes && comment.dislikes == 1) */}
+                                        <p className='flex gap-2 items-center sub_title'><span>{comment.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => dislikeCmt(comment)} src={(comment.is_disliked && comment.is_disliked == 1) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
+                                        {/* <p className='sub_title'>Share</p>
+                                                <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
+                                    </div>
+                                    {localStorage.apikey && <div>
+                                        <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={() => report(comment)} />
+                                    </div>}
+                                </div>
+                                {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}
+                                {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
+                                {/* {(input.index == index && input.show) &&
+                                            <div>
+                                                <input type='text' />
+                                            </div>
+                                  } */}
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        // </div >
+                    )
+                })
             }
-
-
         </>
     )
 }
