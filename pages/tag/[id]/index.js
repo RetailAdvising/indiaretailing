@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import Image from 'next/image'
-import { getTagsList, check_Image, getList } from '@/libs/api'
+import { getTagsList, check_Image, getList, getAds } from '@/libs/api'
 import TrendingBox from '/components/Landing/TrendingBox'
 import Tabs from '@/components/Landing/Tabs'
 import { useRouter } from 'next/router'
@@ -10,7 +10,7 @@ import Title from '@/components/common/Title'
 import Dropdowns from '@/components/common/Dropdowns';
 import AdsBaner from '@/components/Baners/AdsBaner'
 
-export default function Trending({ data, res }) {
+export default function Trending({ data, res, ads }) {
     const categories = [{ name: 'All', route: 'all' }, { name: 'News', route: 'news_list' }, { name: 'Articles', route: 'article_list' }, { name: 'Events', route: 'event_list' }]
     const [resp_data, setData] = useState([])
     const [nodata, setNodata] = useState(false);
@@ -25,12 +25,12 @@ export default function Trending({ data, res }) {
     let pageNo = 1;
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
 
-
+    console.log(ads)
     useEffect(() => {
         getLatestNews()
         if (res && res.data) {
             setData(res.data)
-            // console.log(router)
+
             setTabs(router.query.id)
             // setActivatedData([...res.data['news_list'], ...res.data['event_list'], ...res.data['article_list']]);
         }
@@ -38,7 +38,7 @@ export default function Trending({ data, res }) {
         if (data && data.length != 0) {
             console.log(data)
             setTag(data)
-        }else{
+        } else {
             getTag();
         }
         // console.log(res)
@@ -68,7 +68,7 @@ export default function Trending({ data, res }) {
             fields: ['name', 'custom_route'],
             page_no: pageNo,
             page_size: 25,
-            "filters":{}
+            "filters": {}
         }
 
         const response = await getList(param1);
@@ -136,8 +136,8 @@ export default function Trending({ data, res }) {
         // }
         if (data.doctype == 'Articles') {
             // router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
-            router.push('/'+data.route)
-        }  else if (data.doctype == 'Community Event') {
+            router.push('/' + data.route)
+        } else if (data.doctype == 'Community Event') {
             router.push('/events/' + data.route)
         }
     }
@@ -165,7 +165,7 @@ export default function Trending({ data, res }) {
     }
     return (
         <>
-            <RootLayout>
+            <RootLayout isLanding={true} homeAd={ads ? ads : null}>
                 <div className={`container md:py-[15px] p-[20px_0]`}>
                     <div><Title data={{ title: 'Trending Tags' }} /></div>
                     <div class="lg:flex lg:gap-[15px] md:block">
@@ -197,7 +197,7 @@ export default function Trending({ data, res }) {
                                                         {/* <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div> */}
                                                         <div className='flex  items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
                                                     </div>}
-                                                    {icons && <Dropdowns share={true} link={{route: (res.doctype == 'Articles' && res.ir_prime == 1 ) ? '/IRPrime/' + res.route : (res.doctype == 'Articles' && res.ir_prime != 1 ) ? '/categories/' + res.route : res.doctype == 'Community Event' ? '/events/' + res.route : null}} width={'w-[170px]'} type={'tag'} data={icons} />}
+                                                    {icons && <Dropdowns share={true} link={{ route: (res.doctype == 'Articles' && res.ir_prime == 1) ? '/IRPrime/' + res.route : (res.doctype == 'Articles' && res.ir_prime != 1) ? '/categories/' + res.route : res.doctype == 'Community Event' ? '/events/' + res.route : null }} width={'w-[170px]'} type={'tag'} data={icons} />}
 
                                                     {/* <p className={`sub_title line-clamp-2 pt-[5px]`}>{res.blog_intro}</p> */}
                                                 </div>
@@ -218,7 +218,8 @@ export default function Trending({ data, res }) {
                                 <Title data={{ title: 'Latest News' }} />
                                 <List data={news} isHome={'/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
                             </div>}
-                            <AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} />
+                            {/* <AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} /> */}
+                            {(ads.right && ads.right.length != 0 && ads.right[0]) && <AdsBaner data={(ads.right && ads.right.length != 0 && ads.right[0]) ? ads.right[0] : null} height={'h-[250px]'} width={'w-[300px]'} />}
                         </div>
                         <div className='more' ref={cardref}></div>
                     </div>
@@ -248,16 +249,22 @@ export async function getServerSideProps({ params }) {
         fields: ['name', 'custom_route'],
         page_no: 1,
         page_size: 25,
-        "filters":{}
+        "filters": {}
     }
 
     const response = await getList(param1);
     const data = response.message;
 
+
+    let params_id = { doctype: 'Tag', page_type: 'List' }
+    const responses = await getAds(params_id);
+    const ads = responses.message;
+
+
     // const data = [];
 
     return {
-        props: { res, data }
+        props: { res, data, ads }
     }
 
 }

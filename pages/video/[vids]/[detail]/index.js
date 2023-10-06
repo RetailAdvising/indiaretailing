@@ -91,7 +91,7 @@ export default function Videos(meta_info, ads_data) {
                                 </div> */}
                             {/* </div> */}
 
-                            <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] pb-[10px] md:pl-0`}>
+                            <div className={`flex md:p-[10px] justify-between lg:gap-5 md:gap-[5px] pb-[10px] md:pl-0`}>
                                 <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
                                 {icons && <div className={``}><Dropdowns link={videoDetail.message} data={icons} share={true} /></div>}
                             </div>

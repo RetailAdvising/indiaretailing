@@ -87,10 +87,9 @@ export default function Lists({ productNavigation, imgFlex, hash_bg, contentWidt
                         </div>
                         {/* w-[280px] */}
                         {res.doc_type == 'Community Event' ?
-
                             <div className='flex flex-col'>
                                 {res.title && <h6 className={`title  pt-[5px] ${titleClamp ? titleClamp : 'line-clamp-1'}`}>{res.title ? res.title : ''}</h6>}
-                                <div className={`flex gap-[5px] items-center lg:pt-[5px]`}>
+                                <div className={`flex gap-[5px] items-center lg:pt-[10px]`}>
                                     <p className={`flex items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className='md:hidden h-[15px] w-[13px]' objectFit='contain' height={25} width={20} alt={res.title} />  <span className={`light_text`}>{res.start_date}</span></p>{res.locations && <span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>}
                                     {res.locations && <>
                                         <p className={`flex flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='md:hidden' height={15} width={20} alt={res.title} />

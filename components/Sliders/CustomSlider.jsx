@@ -5,7 +5,24 @@ import Link from 'next/link'
 import { useRouter } from 'next/router';
 export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route,title_class,subtitle_class,primary_text_class,hashtags_class }) {
     const router = useRouter()
-    // const [isNext,setIsNext] = useState(true)
+    let isDown = false;
+    var slider = '';
+    useEffect(()=>{
+      slider = document.getElementById(slider_child_id);
+          
+    (() => {
+        slider.addEventListener('mousedown', start);
+        slider.addEventListener('touchstart', start);
+    
+        slider.addEventListener('mousemove', move);
+        slider.addEventListener('touchmove', move);
+    
+        slider.addEventListener('mouseleave', end);
+        slider.addEventListener('mouseup', end);
+        slider.addEventListener('touchend', end);
+    })();
+    },[])
+
     const sctollTo = (direction) => {
         if (slider_id && slider_child_id) {
             let custom_slider = document.getElementById(slider_id)
@@ -25,84 +42,50 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
         }
     }
 
-
-    // const [mouseDown,setMouseDown] = useState(false);
-    // const [startX,setStartX] = useState()
-    // const [scrollLeft,setScrollLeft] = useState()
-    // const ourRef = useRef(null)
-    // useEffect(() => {
-    //     let mouseDown1 = false;
-    //     // let scrollLeft;
-    //     const slider = document.getElementById(slider_child_id);
-
-    //     const startDragging = (e) => {
-    //         mouseDown1 = true;
-    //         setMouseDown(true)
-    //         // startX = e.pageX - slider.offsetLeft;
-    //         setStartX(e.pageX - slider.offsetLeft)
-    //         // scrollLeft = slider.scrollLeft;
-    //         setScrollLeft(slider.scrollLeft)
-    //     }
-
-    //     const stopDragging = (e) => {
-    //         // mouseDown1 = false;
-    //         setMouseDown(false)
-    //     }
-
-    //     const move = (e) => {
-    //         e.preventDefault();
-    //         if (!mouseDown) { return; }
-    //         const x = e.pageX - slider.offsetLeft;
-    //         const scroll = x - startX;
-    //         slider.scrollLeft = scrollLeft - scroll;
-    //     }
-
-    //     // Add the event listeners
-    //     slider.addEventListener('mousemove', move, false);
-    //     slider.addEventListener('mousedown', startDragging, false);
-    //     slider.addEventListener('mouseup', stopDragging, false);
-    //     slider.addEventListener('mouseleave', stopDragging, false);
-    // }, [mouseDown,startX,scrollLeft])
-
     const containerRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
-    const [startX, setStartX] = useState(null);
-    const [scrollLeft, setScrollLeft] = useState(0);
+    let startX = ''
+    let scrollLeft = ''
 
-    const handleMouseDown = (e) => {
-        setIsDragging(true);
-        setStartX(e.pageX - containerRef.current.scrollLeft);
-    };
+    // start
+    const end = () => {
+        isDown = false;
+      slider.classList.remove('active');
+    }
+    
+    const start = (e) => {
+      isDown = true;
+      slider.classList.add('active');
+      startX = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;	
+    }
+    
+    const move = (e) => {
+        if(!isDown) return;
+    
+      e.preventDefault();
+      const x = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+      const dist = (x - startX);
+      slider.scrollLeft = scrollLeft - dist;
+    }
 
-    const handleMouseUp = () => {
-        setIsDragging(false);
-    };
+    // end
 
-    const handleMouseMove = (e) => {
-        if (!isDragging) return;
-        const x = e.pageX - containerRef.current.offsetLeft;
-        const walk = (x - startX) * 2; // Adjust the scroll speed as needed
-        containerRef.current.scrollLeft = scrollLeft - walk;
-    };
+    // };
     return (
         <>
             {!type && <div className='relative' id={slider_id}>
                 <div className='absolute top-[40%] left-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center  cursor-pointer md:hidden'
                     onClick={() => sctollTo('prev')} id={'prev_' + slider_id}>
-                    {/* drop-shadow-md */}
                     <Image alt="Prev" src={'/less_than.svg'} width={35} height={35} ></Image>
                 </div>
-                {/* ref={ourRef} onMouseDown={handleMouseDown} */}
-                <div id={slider_child_id} ref={containerRef}
-                    onMouseDown={handleMouseDown}
-                    onMouseUp={handleMouseUp}
-                    onMouseLeave={handleMouseUp}
-                    onMouseMove={handleMouseMove} className='overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px]'
+                <div id={slider_child_id} ref={containerRef} 
+                   className=' overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px]'
                 >
                     {data && data.map((res, index) => {
                         return (
                             // '/' + router.asPath.split('/')[1] +
-                            <Link key={index} className={`${cardClass} border rounded-[10px] overfow-hidden`} href={route ? route + res.route : '/' + res.route}>
+                            <Link key={index} className={`${cardClass} item border rounded-[10px] overfow-hidden`} href={route ? route + res.route : '/' + res.route}>
                                 <div className={``} >
                                     <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_imagee: res.image)} height={200} width={300} alt={index + 'image'} />
                                 </div>

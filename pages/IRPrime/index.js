@@ -25,7 +25,7 @@ export async function getStaticProps() {
     //     "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title", "thumbnail_image", "articles_category", "blog_intro", "primary_text", "secondary_text", "avatar", "publisher","route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description",'route'], "page_no": 1, "records": 6, "category_count": 6, "ir_prime": 1
     // }
     let params = {
-        fields:["name","route","primary_text","secondary_text","title","thumbnail_image","articles_category","blog_intro","avatar","publisher"],page_length:10,page_no:1
+        fields:["name","route","primary_text","secondary_text","title","thumbnail_imagee as thumbnail_image","image","articles_category","blog_intro","avatar","publisher"],page_length:10,page_no:1
     }
     const res = await primeLanding(params);
     const data = await res;
