@@ -251,32 +251,38 @@ export default function Details({ data, page_route }) {
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
         {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
         {/* {(meta_info && Object.keys(meta_info).length > 0) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />} */}
-        {(data && Object.keys(data).length > 0) && 
-        <NextSeo
-          title={data.meta_title ? data.meta_title : data.title}
-          description={data.meta_description ? data.meta_description : data.title}
-          canonical="https://indiaretail.vercel.app/"
-          openGraph={{
-            type: 'article',
-            article: {
-              publishedTime: data.published_on,
-              modifiedTime: data.modified,
-              authors: [
-                'https://www.example.com/authors/@firstnameA-lastnameA',
-                'https://www.example.com/authors/@firstnameB-lastnameB',
+        {(data && Object.keys(data).length > 0) &&
+          <NextSeo
+            title={data.meta_title ? data.meta_title : data.title}
+            description={data.meta_description ? data.meta_description : data.title}
+            canonical="https://indiaretail.vercel.app/"
+            openGraph={{
+              type: 'article',
+              article: {
+                publishedTime: data.published_on,
+                modifiedTime: data.modified,
+                authors: [
+                  'https://www.example.com/authors/@firstnameA-lastnameA',
+                  'https://www.example.com/authors/@firstnameB-lastnameB',
+                ],
+                tags: data._user_tags,
+              },
+              url: 'https://indiaretail.vercel.app' + router.asPath,
+              // images: {
+              //   url: check_Image(data.meta_image ? data.meta_image : data.image),
+              //   width: 850,
+              //   height: 650,
+              //   alt: 'India Reatiling',
+              // },
+              images: [
+                {
+                  url:check_Image(data.meta_image ? data.meta_image : data.image) ,
+                  alt: 'Open Graph Image Alt Text',
+                }
               ],
-              tags: data._user_tags,
-            },
-            url: 'https://indiaretail.vercel.app' + router.asPath,
-            images: {
-              url: check_Image(data.meta_image ? data.meta_image : data.image),
-              width: 850,
-              height: 650,
-              alt: 'India Reatiling',
-            },
-            site_name: 'India Reatiling'
-          }}
-        />}
+              site_name: 'India Reatiling'
+            }}
+          />}
 
 
 
@@ -336,7 +342,12 @@ export async function getServerSideProps({ params }) {
   }
 
   let value = await getList(param);
-  let data = value.message[0];
+  let data;
+  if (value && value.message && value.message.length != 0) {
+    data = value.message[0];
+  } else {
+    data = value
+  }
 
   return {
     props: { data, page_route }

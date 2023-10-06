@@ -27,8 +27,8 @@ export async function getServerSideProps({ params }) {
     let param = {
         doctype: "Articles",
         fields: ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image"],
-        filters: { articles_category: Id },
-        ir_prime: 1,
+        filters: { articles_category: Id, ir_prime: 1, published: 1 },
+
     }
     let value = await getList(param);
     let data = value.message;

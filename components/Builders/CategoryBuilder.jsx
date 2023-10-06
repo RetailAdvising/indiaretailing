@@ -341,7 +341,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     <>
       {/* {console.log('child',data)}   */}
       <div ref={cardref}>
-        <div className={`flex w-full gap-11 md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
+        <div className={`flex w-full gap-[20px] md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
             <p>
               <Content i={i} res={data} />

@@ -18,7 +18,7 @@ export default function SubscriptionAlert() {
     }
     return (
         <>
-            <div className='lg:flex items-center gap-5  rounded-[10px] h-[500px] my-5 p-[40px] shadow-[rgba(0,0,0,0.04)_0px_4px_12px]'>
+            <div className='lg:flex items-center gap-5  rounded-[10px] lg:h-[500px] my-5 p-[40px] md:p-[20px] shadow-[rgba(0,0,0,0.04)_0px_4px_12px]'>
                 <div className='flex-[0_0_calc(30%_-_10px)]'>
                     <Image className='img h-full w-full object-contain' src={'/irprime/news.svg'} height={15} width={15} alt='news' />
 
@@ -37,16 +37,16 @@ export default function SubscriptionAlert() {
                         <h4 className='font-semibold text-[20px] md:text-[16px] my-[10px]'>With this subscription you also get:</h4>
                         <div className='flex items-center py-[10px] gap-[10px]'>
                             <Image src={'/irprime/list-check-ir.svg'} height={20} width={20} alt='' />
-                            <p>Access to 5000+ paywall stories written by experts</p>
+                            <p className='md:text-[14px]'>Access to 5000+ paywall stories written by experts</p>
                         </div>
                         {/* <p>Access to daily digital TOI Paper in an easy-to-navigate format</p> */}
                         <div className='flex items-center py-[10px] gap-[10px]'>
                             <Image src={'/irprime/list-check-ir.svg'} height={20} width={20} alt='' />
-                            <p>Access to Times Assist: your team of AI assistants**</p>
+                            <p className='md:text-[14px]'>Access to Times Assist: your team of AI assistants**</p>
                         </div>
                         <div className='flex items-center py-[10px] gap-[10px]'>
                             <Image src={'/irprime/list-check-ir.svg'} height={20} width={20} alt='' />
-                            <p>Access to 6 weekly Newsletters including Gender+, Health+ Wealth+</p>
+                            <p className='md:text-[14px]'>Access to 6 weekly Newsletters including Gender+, Health+ Wealth+</p>
                         </div>
                     </div>
                     <button className='primary_btn w-full my-5 rounded-[10px] text-[16px] h-[60px]' onClick={() => router.push('/membership')}>View all plans</button>

@@ -50,7 +50,7 @@ export default function CategoryType({ values, ads }) {
             page_no: page_no,
             page_size: 8,
             fields: ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image", "image", "sub_title", "_user_tags", "location"],
-            filters: { articles_category: Id }
+            filters: { articles_category: Id,ir_prime:0,published:1 }
         }
         let value = await getList(param);
         if (value && value.message.length != 0) {
