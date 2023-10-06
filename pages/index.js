@@ -21,6 +21,7 @@ import BulletList from '@/components/Landing/BulletList'
 import TrendingBox from '@/components/Landing/TrendingBox'
 import Title from '@/components/common/Title'
 import Video from '@/components/Video/Video'
+import CustomSlider from '@/components/Sliders/CustomSlider';
 // import ListSlider from '../Sliders/ListSlider'
 // import ImageGroupEvents from '../Landing/ImageGroupEvents'
 // import EventList from '../Events/EventList'
@@ -192,7 +193,7 @@ export default function Home({ data }) {
                 return (
                   // || i == 5
                   <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-23-00094') ? 'md:mb-[20px]' : 'container'}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} `}>
-                    {(res.components && res.components.length != 0) && res.components.map(c => {
+                    {(res.components && res.components.length != 0) && res.components.map((c,c_index)=> {
                       return (
                         <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-5' : ''}`}>
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 3 Stories") && <TopStories data={data.data[c.cid].data.slice(0,3)} />}
@@ -233,7 +234,10 @@ export default function Home({ data }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Leaders Ink") && <>
                             <Title data={{ title: c.component_title }} />
                             {data.data[c.cid].data &&
-                              <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>}
+                              <div className='overflow-auto scrollbar-hide gap-[15px] flex '>
+                                {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
+                               <CustomSlider hide_scroll_button={true} slider_child_id={'leaders_ink'+c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}/>
+                              </div>}
 
                             {/* <div className='none leaders'><MultiCarousel isHome={'/categories/'} perView={3} check={true} none={true} data={data.data[c.cid].data} cardHeight={'h-[310px]'} card_width={"285px !important"} height={"h-[185px]"} width={"w-full"} type={'profile'} /></div>} */}
                           </>}

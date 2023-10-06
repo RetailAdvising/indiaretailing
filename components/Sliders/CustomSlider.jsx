@@ -3,24 +3,26 @@ import Image from 'next/image'
 import { check_Image } from '../../libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route,title_class,subtitle_class,primary_text_class,hashtags_class }) {
+export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route,title_class,subtitle_class,primary_text_class,hashtags_class,hide_scroll_button }) {
     const router = useRouter()
     let isDown = false;
     var slider = '';
     useEffect(()=>{
-      slider = document.getElementById(slider_child_id);
-          
-    (() => {
-        slider.addEventListener('mousedown', start);
-        slider.addEventListener('touchstart', start);
-    
-        slider.addEventListener('mousemove', move);
-        slider.addEventListener('touchmove', move);
-    
-        slider.addEventListener('mouseleave', end);
-        slider.addEventListener('mouseup', end);
-        slider.addEventListener('touchend', end);
-    })();
+        if(slider_child_id){
+            slider = document.getElementById(slider_child_id);
+            (() => {
+                slider.addEventListener('mousedown', start);
+                slider.addEventListener('touchstart', start);
+            
+                slider.addEventListener('mousemove', move);
+                slider.addEventListener('touchmove', move);
+            
+                slider.addEventListener('mouseleave', end);
+                slider.addEventListener('mouseup', end);
+                slider.addEventListener('touchend', end);
+            })();
+        }
+
     },[])
 
     const sctollTo = (direction) => {
@@ -75,7 +77,7 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
     return (
         <>
             {!type && <div className='relative' id={slider_id}>
-                <div className='absolute top-[40%] left-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center  cursor-pointer md:hidden'
+                <div className={`${hide_scroll_button && 'hidden'} absolute top-[40%] left-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center  cursor-pointer md:hidden`}
                     onClick={() => sctollTo('prev')} id={'prev_' + slider_id}>
                     <Image alt="Prev" src={'/less_than.svg'} width={35} height={35} ></Image>
                 </div>
@@ -99,7 +101,7 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                         )
                     })}
                 </div>
-                <div className='absolute top-[40%] right-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center cursor-pointer md:hidden'
+                <div className={`${hide_scroll_button && 'hidden'} absolute top-[40%] right-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center cursor-pointer md:hidden`}
                     onClick={() => sctollTo('next')} id={'next_' + slider_id}>
                     <Image alt="forward" src={'/greater_than.svg'} width={35} height={35}></Image>
                 </div>

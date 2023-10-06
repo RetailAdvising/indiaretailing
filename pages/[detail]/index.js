@@ -6,7 +6,7 @@ import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import { useSelector, useDispatch } from 'react-redux';
-
+import { NextSeo } from 'next-seo'
 export default function Details({ page_route }) {
   const router = useRouter();
   const [values, setValues] = useState([])
@@ -249,7 +249,32 @@ export default function Details({ page_route }) {
     <>
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
         {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
-        {(meta_info && Object.keys(meta_info).length > 0) && <><SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title } description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} /></>}
+        {/* {(meta_info && Object.keys(meta_info).length > 0) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />} */}
+        {(meta_info && Object.keys(meta_info).length > 0) && <NextSeo
+          title={meta_info.meta_title ? meta_info.meta_title : meta_info.title}
+          description={meta_info.meta_description ? meta_info.meta_description : meta_info.title}
+          canonical="https://indiaretail.vercel.app/"
+          openGraph={{
+            type: 'article',
+            article: {
+              publishedTime: meta_info.published_on,
+              modifiedTime: meta_info.modified,
+              authors: [
+                'https://www.example.com/authors/@firstnameA-lastnameA',
+                'https://www.example.com/authors/@firstnameB-lastnameB',
+              ],
+              tags: meta_info._user_tags,
+            },
+            url: 'https://indiaretail.vercel.app' + router.asPath,
+            images: {
+              url: check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image),
+              width: 850,
+              height: 650,
+              alt: 'India Reatiling',
+            },
+            site_name: 'India Reatiling'
+          }}
+        />}
         {/* { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>} */}
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
@@ -266,6 +291,33 @@ export default function Details({ page_route }) {
     </>
   )
 }
+
+
+{/* <NextSeo
+  title="Manage SEO in NextJS with Next SEO"
+  description="Next SEO packages simplifies the SEO management in Next Apps with less configurations"
+  canonical="www.example.com/next-seo-blog"
+  openGraph={{
+    type: 'article',
+    article: {
+      publishedTime: '2022-06-21T23:04:13Z',
+      modifiedTime: '2022-01-21T18:04:43Z',
+      authors: [
+        'https://www.example.com/authors/@firstnameA-lastnameA',
+        'https://www.example.com/authors/@firstnameB-lastnameB',
+      ],
+      tags: ['Tag A', 'Tag B', 'Tag C'],
+    },
+    url: 'www.example.com/next-seo-blog',
+    images: {
+      url: 'https://www.test.ie/images/cover.jpg',
+      width: 850,
+      height: 650,
+      alt: 'Photo of text',
+    },
+    site_name: 'Next Blog'
+  }}
+/> */}
 
 const Skeleton = () => {
   return (
