@@ -22,7 +22,7 @@ export default function checkout() {
 
 
   const [selectedOption, setSelectedOption] = useState('India');
-  const [currentIndex, setIndex] = useState(-1);
+  const [currentIndex, setIndex] = useState(0);
   const [payment_methods, setPaymentMethods] = useState([]);
   let [cart_items, setCartItems] = useState({});
   let [isMobile, setIsmobile] = useState();

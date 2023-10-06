@@ -82,7 +82,7 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                     <Image alt="Prev" src={'/less_than.svg'} width={35} height={35} ></Image>
                 </div>
                 <div id={slider_child_id} ref={containerRef} 
-                   className=' overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px]'
+                   className=' overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px] md:w-screen'
                 >
                     {data && data.map((res, index) => {
                         return (

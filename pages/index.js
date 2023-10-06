@@ -78,7 +78,7 @@ export default function Home({ data }) {
   useEffect(() => {
     if (data && data.page_content && data.page_content.length != 0) {
       setValue(data.page_content)
-      console.log('data1234567',data);
+      // console.log('data1234567',data);
       // console.log(ads)
     }
 
@@ -171,11 +171,10 @@ export default function Home({ data }) {
       page_size: 5
     };
     const resp = await getList(params);
-    console.log(resp);
+    // console.log(resp);
     if (resp.message && resp.message.length != 0) {
       setBooks(resp.message)
-    } else {
-    }
+    } 
   }
 
 
@@ -234,10 +233,10 @@ export default function Home({ data }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Leaders Ink") && <>
                             <Title data={{ title: c.component_title }} />
                             {data.data[c.cid].data &&
-                              <div className='overflow-auto scrollbar-hide gap-[15px] flex '>
+                              <div className='overflow-auto scrollbar-hide gap-[15px] flex'>
                                 {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                               <CustomSlider hide_scroll_button={true} slider_child_id={'leaders_ink'+c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} 
-                                 imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'}/>
+                               <CustomSlider hide_scroll_button={true} slider_child_id={'leaders_ink'+c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[260px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'} 
+                                 imgClass={'lg:h-[185px] md:h-[150px] w-full'} title_class={'min-h-[35px] line-clamp-2'}/>
                               </div>}
 
                             {/* <div className='none leaders'><MultiCarousel isHome={'/categories/'} perView={3} check={true} none={true} data={data.data[c.cid].data} cardHeight={'h-[310px]'} card_width={"285px !important"} height={"h-[185px]"} width={"w-full"} type={'profile'} /></div>} */}
