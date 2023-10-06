@@ -49,7 +49,7 @@ export default function SubscriptionAlert() {
                             <p className='md:text-[14px]'>Access to 6 weekly Newsletters including Gender+, Health+ Wealth+</p>
                         </div>
                     </div>
-                    <button className='primary_btn w-full my-5 rounded-[10px] text-[16px] h-[60px]' onClick={() => router.push('/membership')}>View all plans</button>
+                    <button className='primary_btn w-full lg:my-5 rounded-[10px] text-[16px] h-[60px] md:h-[40px] md:text-[15px] ' onClick={() => router.push('/membership')}>View all plans</button>
                 </div>
             </div>
             {visible && <div className='authModal'><AuthModal modal={modal} show={show} visible={visible} hide={hide} /></div>}

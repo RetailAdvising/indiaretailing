@@ -77,7 +77,7 @@ export default function SideBar({ data, close, navbar }) {
         setValid(false);
         setMember(false);
         close();
-        router.push('/login')
+        router.push('/')
     }
 
 

@@ -187,7 +187,7 @@ export default function Details({ data, page_route }) {
   //   const ads = resp.message;
   // }
 
-  console.log('meta', data)
+  // console.log('meta', data)
 
   useEffect(() => {
     // Event listener to track scroll events
@@ -211,6 +211,7 @@ export default function Details({ data, page_route }) {
 
           setTimeout(() => {
             if (routeList && routeList.length > 0 && routeList[ind]) {
+              console.log(routeList)
               // router.push('/' + routeList[ind], undefined, { scroll: false });
               router.replace({ pathname: '/' + routeList[ind] }, undefined, { shallow: true, scroll: false });
 
@@ -250,33 +251,35 @@ export default function Details({ data, page_route }) {
     <>
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
         {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
+        
         {/* {(meta_info && Object.keys(meta_info).length > 0) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />} */}
-        {(data && Object.keys(data).length > 0) &&
+
+        {(meta_info && Object.keys(meta_info).length > 0) &&
           <NextSeo
-            title={data.meta_title ? data.meta_title : data.title}
-            description={data.meta_description ? data.meta_description : data.title}
+            title={meta_info.meta_title ? meta_info.meta_title : meta_info.title}
+            description={meta_info.meta_description ? meta_info.meta_description : meta_info.title}
             canonical="https://indiaretail.vercel.app/"
             openGraph={{
               type: 'article',
               article: {
-                publishedTime: data.published_on,
-                modifiedTime: data.modified,
+                publishedTime: meta_info.published_on,
+                modifiedTime: meta_info.modified,
                 authors: [
                   'https://www.example.com/authors/@firstnameA-lastnameA',
                   'https://www.example.com/authors/@firstnameB-lastnameB',
                 ],
-                tags: data._user_tags,
+                tags: meta_info._user_tags,
               },
               url: 'https://indiaretail.vercel.app' + router.asPath,
               // images: {
-              //   url: check_Image(data.meta_image ? data.meta_image : data.image),
+              //   url: check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image),
               //   width: 850,
               //   height: 650,
               //   alt: 'India Reatiling',
               // },
               images: [
                 {
-                  url:check_Image(data.meta_image ? data.meta_image : data.image) ,
+                  url:check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image) ,
                   alt: 'Open Graph Image Alt Text',
                 }
               ],
