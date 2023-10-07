@@ -24,7 +24,7 @@ export async function getServerSideProps({ params }) {
     }
     let value = await podcast_list(param);
     let data = value.message;
-    let ads_params = { doctype: 'Podcast', page_type: 'List' }
+    let ads_params = { doctype: 'Podcast', page_type: 'List', category_route: params.list }
     const res_ads = await getAds(ads_params);
     const ads_data = res_ads.message;
     return {

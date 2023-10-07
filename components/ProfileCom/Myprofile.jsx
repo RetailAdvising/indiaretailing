@@ -22,7 +22,7 @@ export default function Myprofile({ profileInfo, navigateToProfile }) {
              <h6 className={'text-[14px] font-medium'}>{res.title}</h6>
             </div>
 
-            <div className='lg:hidden flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='see more' /></div>
+            <div className='lg:hidden flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
           </div>
         )
       })}

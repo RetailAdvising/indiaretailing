@@ -19,8 +19,8 @@ export default function EventCards({ data, flex,height,width,card }) {
                             <p className={`sub_title lg:pt-[5px] line-clamp-2`}>{res.description}</p>
                             {/* <p className={`sub_title pt-[5px]`}>{res.end}</p> */}
                             <div className={`flex gap-[5px] items-center lg:pt-[5px]`}>
-                                <p className={`flex items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className='md:hidden' objectFit='contain' height={15} width={20} alt={res.title} />  <span className={`light_text`}>{res.start_date}</span></p><span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>
-                                <p className={`flex flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='md:hidden' height={15} width={20} alt={res.title} /> 
+                                <p className={`flex items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className='md:object-contain md:h-[15px] md:w-[17px]' objectFit='contain' height={15} width={20} alt={res.title} />  <span className={`light_text`}>{res.start_date}</span></p><span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>
+                                <p className={`flex flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='md:object-contain md:h-[15px] md:w-[17px]' height={15} width={20} alt={res.title} /> 
                                 {res.locations && res.locations.slice(0,1).map((item,index)=>{
                                     return(
                                         <span key={index} className={`light_text`}>{item.event_location}</span>

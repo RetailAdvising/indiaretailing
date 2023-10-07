@@ -1,12 +1,14 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image, getList } from '@/libs/api';
+import { articlesDetail, getAds, check_Image, getList, commentList } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import { useSelector, useDispatch } from 'react-redux';
 import { NextSeo } from 'next-seo'
+import setComments from 'redux/actions/commentsReducer'
+import { comment } from 'postcss';
 export default function Details({ data, page_route }) {
   const router = useRouter();
   const [values, setValues] = useState([])
@@ -15,6 +17,9 @@ export default function Details({ data, page_route }) {
   const [advertisement, setAds] = useState();
   const [pageNo, setPageNo] = useState(1);
   const [meta_info, setMetaInfo] = useState();
+  const [comments, setComments] = useState([])
+  // const comment = useSelector(s => s.comments);
+  // const dispatch = useDispatch();
   const generateMetaData = (data) => {
     // return{
     //   title: data.meta_title ? data.meta_title : data.title,
@@ -60,6 +65,7 @@ export default function Details({ data, page_route }) {
         setRouteList(routeList)
         setMetaInfo(data)
         page_no += 1;
+        commentslist(data)
         setPageNo(pageNo + 1)
         // let val = [data]
         // setValues(d => [...d, ...val])
@@ -100,35 +106,7 @@ export default function Details({ data, page_route }) {
   }, [user])
 
 
-  // Observer for route change
-  let boxElList = '';
-  let active_Ind = -1;
-  const call_observer = () => {
-    const observer = new IntersectionObserver(entries => {
 
-      entries.forEach((entry, ind) => {
-        if (entry.intersectionRatio > 0) {
-          console.log(ind, 'visible');
-          console.log('values', values);
-
-          if (values && values.length > 0) {
-            // console.log('pushed', values[ind]);
-            // console.log('route', values[ind]["route"])
-            router.replace({ pathname: '/' + values[ind]["route"] }, undefined, { scroll: false });
-            // console.log('replaced',ind,values)
-            // console.log('value',values[ind])
-          }
-        } else {
-          // Element is not visible
-          console.log(ind, 'not visible');
-        }
-      });
-    });
-    boxElList = document.querySelectorAll(".box");
-    boxElList.forEach((el) => {
-      observer.observe(el);
-    });
-  }
 
 
   async function loadMore() {
@@ -149,6 +127,7 @@ export default function Details({ data, page_route }) {
         setPrev(data.route)
         page_no += 1;
         setPageNo(pageNo + 1)
+        commentslist(data)
         let val = data
         // router.replace(`/categories/${router.query.types}/${data.name}`)
         // if (val && val[0] && val[0]._user_tags && val[0]._user_tags != '') {
@@ -175,19 +154,9 @@ export default function Details({ data, page_route }) {
         setPagination(!pagination)
       }
     }
-    // setTimeout(() => {
-    //   // console.log('time');
-    //   call_observer()
-    // }, 500)
+
   }
 
-  // const getAdsList = async () => {
-  //   let param = { doctype: 'Articles', page_type: 'Detail' }
-  //   const resp = await getAds(param);
-  //   const ads = resp.message;
-  // }
-
-  // console.log('meta', data)
 
   useEffect(() => {
     // Event listener to track scroll events
@@ -211,7 +180,7 @@ export default function Details({ data, page_route }) {
 
           setTimeout(() => {
             if (routeList && routeList.length > 0 && routeList[ind]) {
-              console.log(routeList)
+              // console.log(routeList)
               // router.push('/' + routeList[ind], undefined, { scroll: false });
               router.replace({ pathname: '/' + routeList[ind] }, undefined, { shallow: true, scroll: false });
 
@@ -247,11 +216,60 @@ export default function Details({ data, page_route }) {
   }
 
 
+
+  const [pageno, setPageno] = useState(1)
+
+  async function commentslist(data) {
+    let param = { ref: data.name, page_no: pageno, page_size: 10 };
+    let resp = await commentList(param);
+    if (resp.message && resp.message.length != 0) {
+      const val = { data: resp.message, route: data.name }
+      comments.push(val);
+      setComments(comments)
+      // comment.push(val);
+      // dispatch(setComments)
+      // setComments(resp.message);
+      // setTimeout(() => {
+      //     setNoData(false)
+      // }, 200);
+    } else {
+      // setTimeout(() => {
+      //     setNoData(false)
+      // }, 200);
+    }
+  }
+
+
+
+  const updatedCmt = (cmt, route, index) => {
+    // console.log(cmt);
+    // console.log(comments);
+    // console.log(route);
+    if (comments && comments.length != 0) {
+      comments.map(async (res, i) => {
+        if (res.route == route) {
+          let param = { ref: route, page_no: 1, page_size: 10 };
+          let resp = await commentList(param);
+          if (resp.message && resp.message.length != 0) {
+            const val = { data: resp.message, route: data.name }
+            comments.splice(i, 1)
+            comments.splice(i, 0, val);
+            setComments(comments)
+            // console.log(res.data[index])
+            // console.log(cmt)
+            console.log('updated one', comments[i])
+          }
+        }
+      })
+    }
+  }
+
+
   return (
     <>
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
         {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
-        
+
         {(meta_info && Object.keys(meta_info).length > 0) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />}
 
         {/* {(meta_info && Object.keys(meta_info).length > 0) &&
@@ -295,7 +313,7 @@ export default function Details({ data, page_route }) {
             return (
               <div id={'div' + index} key={index} className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
-                <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} />
+                <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} />
               </div>
             )
           })}

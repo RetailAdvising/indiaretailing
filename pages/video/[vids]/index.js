@@ -29,7 +29,7 @@ export async function getServerSideProps({ params }) {
     let value = await video_list(param);
     let data = value.message;
 
-    let param1 = { doctype: 'Video', page_type: 'List' }
+    let param1 = { doctype: 'Video', page_type: 'List', category_route: params.vids }
     const resp = await getAds(param1);
     const ads = resp.message;
 

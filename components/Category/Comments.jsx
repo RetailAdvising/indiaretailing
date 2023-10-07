@@ -6,14 +6,13 @@ import AlertUi from '../common/AlertUi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Comments({ data, isLast, load, store_comments, comments }) {
+export default function Comments({ data, isLast, load, comments,route,updatedCmt }) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
     const [reportComment, setReporComment] = useState()
     const [selecedComment, setSelecedComment] = useState()
     const [isSuccessPopup, setIsSuccessPopup] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
-    console.log(data);
     function showInputs(index) {
         setInput({ index: index, show: true });
     }
@@ -32,36 +31,43 @@ export default function Comments({ data, isLast, load, store_comments, comments 
         observer.observe(cardref.current);
     }, [isLast, reportComment])
 
-    const likeCmt = async (comm) => {
+    const likeCmt = async (comm,index) => {
+        // console.log(route)
         let param = {
             name: comm.name,
             like: comm.is_liked == 1 ? 'No' : 'Yes'
         }
+        comm['is_liked'] == 1 ? 0 : 1
         const resp = await like(param);
         if (resp.status == 'Success') {
-            setComment(resp.message);
-            if (comments) {
-                let index = comments.comments.findIndex(res => { return res.name == resp.message.name })
-                if (index >= 0) {
-                    comments['comments'][index] = resp.message
-                    store_comments(comments);
-                }
-            }
+            // console.log(comm)
+            updatedCmt(comm,route,index)
+            // setComment(resp.message);
+            // if (comments) {
+            //     let index = comments.comments.findIndex(res => { return res.name == resp.message.name })
+            //     if (index >= 0) {
+            //         comments['comments'][index] = resp.message
+            //         // store_comments(comments); john
+            //     }
+            // }
         }
         // setComment({...comm,likes:(comm.is_liked && comm.is_liked == 1) ? comm.likes - 1:comm.likes + 1
         //     ,is_liked:(comm.is_liked && comm.is_liked == 1) ? 0 : 1})  ;
         //     if(comm.is_disliked ==1 && comm.is_liked == 0) dislikeCmt(comm);
     }
-    const dislikeCmt = async (comm) => {
+    const dislikeCmt = async (comm,index) => {
         // console.log(comment);
+        // console.log(route)
         let param = {
             name: comm.name,
             dislike: comm.is_disliked == 1 ? 'No' : 'Yes'
         }
+        comm['is_disliked'] == 1 ? 0 : 1
         const resp = await dislike(param);
         if (resp.status == 'success') {
-            setComment(resp.message);
-            console.log(comments)
+            // setComment(resp.message);
+            // console.log(comm)
+            updatedCmt(comm,route,index)
             // if (comments.comments) {
             //     let index = comments.comments.findIndex(res => { return res.name == resp.message.name })
             //     if (index >= 0) {
@@ -130,8 +136,6 @@ export default function Comments({ data, isLast, load, store_comments, comments 
     return (
         <>
             <ToastContainer position={'bottom-right'} autoClose={2000} />
-
-
             {data &&
                 data.map((comment, index) => {
                     return (
@@ -147,9 +151,9 @@ export default function Comments({ data, isLast, load, store_comments, comments 
                                 <div className='flex justify-between items-center py-[5px]'>
                                     <div className='flex gap-3'>
                                         {/* || (comment.likes && comment.likes == 1) */}
-                                        <p className='flex gap-2 items-center sub_title'><span>{comment.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => likeCmt(comment)} src={(comment.is_liked && comment.is_liked == 1) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-2 items-center sub_title'><span>{comment.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => likeCmt(comment,index)} src={(comment.is_liked && comment.is_liked == 1) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
                                         {/* || (comment.dislikes && comment.dislikes == 1) */}
-                                        <p className='flex gap-2 items-center sub_title'><span>{comment.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => dislikeCmt(comment)} src={(comment.is_disliked && comment.is_disliked == 1) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-2 items-center sub_title'><span>{comment.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => dislikeCmt(comment,index)} src={(comment.is_disliked && comment.is_disliked == 1) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
                                         {/* <p className='sub_title'>Share</p>
                                                 <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
                                     </div>

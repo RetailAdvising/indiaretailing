@@ -17,7 +17,7 @@ import AuthModal from '../Auth/AuthModal';
 import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
 
-export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation }) {
+export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -241,13 +241,28 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   const [loginModal, setLoginModal] = useState(false)
   // FUNCTION TO HANDLE OPEN ACTION ON SIDEDRAWER/MODAL
   const showSidebar = () => {
-    if (data.comments && data.comments.length != 0) {
+    // if (data.comments && data.comments.length != 0) {
+    //   setshowComment(!showComment);
+    //   // Disables Background Scrolling whilst the SideDrawer/Modal is open
+    //   if (typeof window != 'undefined' && window.document) {
+    //     document.body.style.overflow = 'hidden';
+    //   }
+    // } else if (data.comments && data.comments.length == 0) {
+    //   if (localStorage && !localStorage['apikey']) {
+    //     setIsLogin(true);
+    //     setLoginModal(true)
+    //   } else {
+    //     setshowComment(!showComment);
+    //   }
+    // }
+
+    if (comments && comments.length != 0) {
       setshowComment(!showComment);
       // Disables Background Scrolling whilst the SideDrawer/Modal is open
       if (typeof window != 'undefined' && window.document) {
         document.body.style.overflow = 'hidden';
       }
-    } else if (data.comments && data.comments.length == 0) {
+    } else if (comments && comments.length == 0) {
       if (localStorage && !localStorage['apikey']) {
         setIsLogin(true);
         setLoginModal(true)
@@ -278,13 +293,6 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   const checkIsMobile = async () => {
     let isMobile = await checkMobile();
     setIsMobile(isMobile);
-  }
-
-
-  function store_comments(data) {
-    data = data;
-    // setdatas(data)
-    setupdateCmts(updateCmts + 1)
   }
 
 
@@ -335,6 +343,11 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     }
 
   };
+
+  const reRender = async () => {
+    console.log('rerender....');
+    setupdateCmts(updateCmts + 1)
+  }
 
 
   return (
@@ -447,14 +460,20 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                   <h6 id={`cmt${i}`} className='font-semibold montserrat_fnt'>Comments</h6>
                 </div>
 
-                {(data.comments && data.comments.length != 0) && data.doctype == 'Articles' &&
-                  <div style={{ background: "#efefef" }} className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  mt-3  `}>
-                    {/* {data.comments.map((res, index) => {
+                {(comments && comments.length != 0) && data.doctype == 'Articles' &&
+                  comments.map((res, i) => {
+                    return (
+                      <div key={i}>
+                        {(res.route == data.name && res.data && res.data.length != 0) && <div style={{ background: "#efefef" }} className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  mt-3  `}>
+                          {/* {data.comments.map((res, index) => {
                       return ( */}
-                        <Comments  data={data.comments} hide_comment={hide} />
-                      {/* )
+                          <Comments updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data} hide_comment={hide} />
+                          {/* )
                     })} */}
-                  </div>
+                        </div>}
+                      </div>
+                    )
+                  })
                 }
               </>
               }
@@ -471,13 +490,19 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
               }
               {(!showComment && data && data.doctype == 'Articles') ? <>
-                <div className='popright'>
-                  
-                  <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur) => store_comments(cur)} hide={sideDrawerClosedHandler} />
-                  {/* scrolling="no" */}
-                  {/* <iframe className='w-full ' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092358111637737472" height="696" width="504" frameborder="0" allowfullscreen="false" title="Embedded post"></iframe> */}
-                  {/* <iframe className='w-full' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}
-                </div>
+                {comments && comments.length != 0 && comments.map((res, i) => {
+                  return (
+                    <div key={i}>
+                      {(res.route == data.name && res.data && res.data.length != 0) && <div className='popright'>
+                        {/* <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur) => store_comments(cur)} hide={sideDrawerClosedHandler} /> */}
+                        <Modal updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} visible={true} modal={'comments'} route={res.route} comments={res.data} hide={sideDrawerClosedHandler} />
+                        {/* scrolling="no" */}
+                        {/* <iframe className='w-full ' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092358111637737472" height="696" width="504" frameborder="0" allowfullscreen="false" title="Embedded post"></iframe> */}
+                        {/* <iframe className='w-full' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}
+                      </div>}
+                    </div>
+                  )
+                })}
               </> : (showComment && data && data.doctype == 'Articles' && isLogin && loginModal) ? <div className='authModal'><AuthModal visible={loginModal} hide={hideModal} /></div> : null}
             </div>}
           </div>

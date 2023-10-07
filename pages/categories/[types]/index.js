@@ -15,6 +15,7 @@ export default function CategoryType({ values, ads }) {
 
     let apiCall = false;
     let page_no = 1;
+    console.log(ads)
 
     useEffect(() => {
         console.log(values);
@@ -129,7 +130,7 @@ export async function getServerSideProps({ params }) {
     let value = await articlesList(param);
     let values = value.message;
 
-    let param1 = { doctype: 'Articles', page_type: 'List' }
+    let param1 = { doctype: 'Articles', page_type: 'List', category_route: Id }
     const resp = await getAds(param1);
     const ads = resp.message;
 

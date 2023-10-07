@@ -15,11 +15,11 @@ import AlertUi from './AlertUi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Modal({ modal, hide, visible, data, cur, store_comments }) {
+export default function Modal({ modal, hide, visible, data, cur,comments,route,updatedCmt }) {
     const [sort, setSort] = useState(false);
     const [sortbyVal, setSortByVal] = useState('Newest');
     const [pageno, setPageno] = useState(1);
-    const [comments, setComments] = useState([]);
+    // const [comments, setComments] = useState([]);
     const [noData,setNoData] = useState(false)
     const [isSuccessPopup,setIsSuccessPopup] =  useState(false)
     const [alertMessage,setAlertMessage] =  useState("")
@@ -174,12 +174,13 @@ export default function Modal({ modal, hide, visible, data, cur, store_comments 
                             </div>
                             {(comments && comments.length != 0 && !noData) ?
                                 <div className='commentPopup '>
-                                    {comments.map((res, index) => {
-                                        return (
-                                            // isLast={index == comments.length - 1}
-                                            <Comments load={loadMore} key={index} store_comments={(cur)=>store_comments(cur)} comments={cur} data={res} />
-                                        )
-                                    })}
+                                    {/* {comments.map((res, index) => {
+                                        return ( */}
+                                            {/* // isLast={index == comments.length - 1} */}
+                                            {/* <Comments load={loadMore} key={index} store_comments={(cur)=>store_comments(cur)} comments={cur} data={res} /> */}
+                                            <Comments updatedCmt={(cmt,route,index) => updatedCmt(cmt,route,index)} load={loadMore} route={route} data={comments} />
+                                        {/* )
+                                    })} */}
                                 </div>
                                 : noData ? <div className='mt-[15px] h-[70vh] overflow-auto'>
                                     {[0, 1, 2, 3, 4, 5].map((res, index) => {

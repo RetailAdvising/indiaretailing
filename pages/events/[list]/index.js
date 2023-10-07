@@ -85,7 +85,7 @@ export default function EventDetails({ values }) {
     const [ads,setAds] = useState()
 
     const getAd = async () => {
-        let params = { doctype: 'Community Event', page_type: 'List' }
+        let params = { doctype: 'Community Event', page_type: 'List',category_route:router.query.list }
         const res = await getAds(params);
         const ads = res.message;
         if(ads){

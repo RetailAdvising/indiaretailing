@@ -52,14 +52,14 @@ export default function ExclusiveBuilder({ data }) {
                 </div>
 
                 {(data.sec1 && data.sec1.data && data.sec1.data.length != 0) &&
-                    isMobile ? <div className='beautySlide pt-[20px]'><Title noPadding={true} data={data.sec1} />
+                    isMobile ? <div className='beautySlide pt-[20px]'><Title noPadding={true} data={data.sec1} seeMore={true}/>
                     {/* <ListSlider data={data.sec1.data.slice(0, 5)} auto={false} /> */}
                     <CustomSlider cardClass={'flex-[0_0_85%]'}
                         slider_id={"slider" + 10} slider_child_id={"slider_child" + 10} data={data.sec1.data.slice(0, 5)} type='beautySlide' />
                 </div>
                     :
                     <div className='w-full lg:h-[640px] md:pt-[20px] lg:pb-5 flex-[0_0_calc(25%_-_10px)] md:basis-full'>
-                        <Title data={data.sec1} />
+                        <Title data={data.sec1} seeMore={true}/>
                         <div className={`border lg:h-[595px] p-[10px] rounded-[5px]`}><List isMp={true} titleClamp={'md:line-clamp-2 line-clamp-3'} check={true} tittleOnly={true} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isBB={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[85px] md:h-[110px]'} data={data.sec1.data.slice(0, 4)} borderRadius={'rounded-[5px]'} isTop={true} /></div>
                     </div>
                 }
@@ -73,7 +73,7 @@ export default function ExclusiveBuilder({ data }) {
             {/* Section - 2 p-[20px_30px_0_0] w-[30%]*/}
             { data.sec2 && data.sec2.data && data.sec2.data.lengrh !=0 &&  <div className={`flex lg:p-[20px 0] md:p-[0_15px]  pb-[35px] container flex-wrap items-end justify-between w-full gap-[15px]`}>
                 <div className='w-[calc(75%_-_10px)] md:basis-full md:pt-[10px]'>
-                    <Title data={{ title: data.sec2.title}} />
+                    <Title data={{ title: data.sec2.title}} seeMore={true}/>
                     <div className='primeSlide'>
                         {/* <MultiCarousel cardHeight={'h-[280px]'} type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} /> */}
                         <CustomSlider cardClass={'lg:h-[300px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}

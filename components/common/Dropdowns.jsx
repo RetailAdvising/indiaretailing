@@ -115,7 +115,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                          <p className={`${(index != data.length - 1 && !res.icon) ? '' : ''} mb-[1px] text-[14px] ${(router.asPath.split('/')[1] == 'news' && res.name == 'Comment') ? 'hidden' : ''}`}>{res.name}</p>
                                                         </div>
 
-                                                        <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='see more' /></div>
+                                                        <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
 
                                                     </div>
                                                 )
@@ -143,7 +143,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                             </WhatsappShareButton>}
                                                        </div>
 
-                                                       <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='see more' /></div>
+                                                       <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
 
                                                     </div>
                                                 )

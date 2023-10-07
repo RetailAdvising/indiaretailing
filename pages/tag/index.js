@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import Image from 'next/image'
-import { getTagsList, check_Image, getList } from '@/libs/api'
+import { getTagsList, check_Image, getList, getTagList } from '@/libs/api'
 import TrendingBox from '/components/Landing/TrendingBox'
 import Tabs from '@/components/Landing/Tabs'
 import { useRouter } from 'next/router'
@@ -84,13 +84,10 @@ export default function Tags({ res, data }) {
 
     const getTag = async () => {
         let param1 = {
-            doctype: 'Tag',
-            fields: ['name', 'custom_route'],
             page_no: pageNo,
-            page_size: 25
         }
 
-        const response = await getList(param1);
+        const response = await getTagList(param1);
         if (response.message && response.message.length != 0) {
             setTag(d => d = [...d, ...response.message])
         } else {
@@ -219,7 +216,7 @@ export default function Tags({ res, data }) {
                         <div class="lg:flex-[0_0_calc(30%_-_10px)] md:hidden">
                             {(news && news.length != 0) && <div className='p-[10px]'>
                                 <Title data={{ title: 'Latest News' }} />
-                                <List data={news} isHome={'/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'}  borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
+                                <List data={news} isHome={'/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
                             </div>}
                             <AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} />
                         </div>
@@ -247,13 +244,12 @@ export async function getServerSideProps() {
     }
 
     let param1 = {
-        doctype: 'Tag',
-        fields: ['name', 'custom_route'],
+
         page_no: 1,
-        page_size: 25
+
     }
 
-    const response = await getList(param1);
+    const response = await getTagList(param1);
     const data = response.message;
     return {
         props: { res, data }

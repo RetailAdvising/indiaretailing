@@ -201,10 +201,10 @@ export default function Home({ data }) {
                               <ImageContainer data={data.data[c.cid].data[0]} height={"h-[350px] md:h-[250px]"} width={'w-full'} />
                               <SectionList data={data.data[c.cid].data.slice(1, 4)} /></div>
                           </div>}
-                          {(c.component_title == "Latest News" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <div className={`flex-[0_0_calc(40%_-_10px)]`}>
+                          {(c.component_title == "Latest News" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <>
                             <Title data={{ title: 'Latest News' }} />
                             {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(4, 6)} /></> : <LatestNews height={'h-[222px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} />}
-                          </div>}
+                          </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Advertisement") && <AdsBaner data={data.data[c.cid].data[0]} height={'h-[250px] w-[300px] object-contain'} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive" && !isMobile) && <Subscribe height={"h-[162px]"} data={news} width={"w-full"} />}
@@ -393,7 +393,7 @@ export async function getStaticProps() {
   const resp = await HomePage(param);
   const data = await resp.message;
   return {
-    props: { data }, revalidate: 10
+    props: { data }, revalidate: 4
   }
 
 }

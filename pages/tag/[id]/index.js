@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import Image from 'next/image'
-import { getTagsList, check_Image, getList, getAds } from '@/libs/api'
+import { getTagsList, check_Image, getList, getAds,getTagList } from '@/libs/api'
 import TrendingBox from '/components/Landing/TrendingBox'
 import Tabs from '@/components/Landing/Tabs'
 import { useRouter } from 'next/router'
@@ -34,6 +34,7 @@ export default function Trending({ data, res, ads }) {
             setTabs(router.query.id)
             // setActivatedData([...res.data['news_list'], ...res.data['event_list'], ...res.data['article_list']]);
         }
+        console.log(data,'data')
 
         if (data && data.length != 0) {
             console.log(data)
@@ -64,14 +65,12 @@ export default function Trending({ data, res, ads }) {
 
     const getTag = async () => {
         let param1 = {
-            doctype: 'Tag',
-            fields: ['name', 'custom_route'],
+           
             page_no: pageNo,
-            page_size: 25,
-            "filters": {}
+           
         }
 
-        const response = await getList(param1);
+        const response = await getTagList(param1);
         if (response.message && response.message.length != 0) {
             pageNo == 1 ? setTag(response.message) : setTag(d => d = [...d, ...response.message])
         } else {
@@ -245,15 +244,11 @@ export async function getServerSideProps({ params }) {
 
 
     let param1 = {
-        doctype: 'Tag',
-        fields: ['name', 'custom_route'],
         page_no: 1,
-        page_size: 25,
-        "filters": {}
     }
 
-    const response = await getList(param1);
-    const data = response.message;
+    const response = await getTagList(param1);
+    const data = response;
 
 
     let params_id = { doctype: 'Tag', page_type: 'List' }

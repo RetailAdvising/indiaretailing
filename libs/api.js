@@ -498,6 +498,11 @@ export async function newsSubscribe(data){
     return await postMethod(api,data)
 }
 
+export async function getTagList(data){
+    let api = domainUrl + 'get_tag_list';
+    return await postMethod(api,data)
+}
+
 export async function get_country_list(){
     let api = 'ecommerce_business_store.ecommerce_business_store.mobileapi.get_country_list';
     return await GET(api)
