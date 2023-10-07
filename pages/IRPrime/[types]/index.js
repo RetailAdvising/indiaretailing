@@ -1,11 +1,11 @@
 import RootLayout from '@/layouts/RootLayout'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { getList, getAds } from '@/libs/api'
 import List from '@/components/common/List'
 export default function Lists({ data, ads }) {
     return (
         <>
-            <RootLayout isLanding={false} head={'List'}>
+            <RootLayout isLanding={false} homeAd={ads ? ads : null} head={'List'}>
                 <div className='p-[30px_0px] md:p-[15px] container'>
                     {data && <>
                         {/* {!isChecked ? <List fullWidth={true} check={true} isBB={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px]'} data={data} borderRadius={'rounded-[5px]'} />

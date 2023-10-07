@@ -1,17 +1,17 @@
 import RootLayout from '@/layouts/RootLayout'
 import React from 'react'
-import { primeLanding,getAds } from '@/libs/api'
+import { primeLanding, getAds } from '@/libs/api'
 import ExclusiveBuilder from '@/components/Builders/ExclusiveBuilder'
 import SEO from '@/components/common/SEO'
 
 
-export default function IRPrime({ data , ads }) {
-    console.log('dadad',data,ads) 
+export default function IRPrime({ data, ads }) {
+    console.log('dadad', data, ads)
     return (
         <>
             <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'IR Prime'}>
-            <SEO title={'IR Prime'} siteName={'India Reatiling'} description={'IR Prime'}/>
-                {(data && data.message && data.message.length != 0) && <ExclusiveBuilder data={data} />}
+                <SEO title={'IR Prime'} siteName={'India Reatiling'} description={'IR Prime'} />
+                {(data && data.message && data.message.length != 0) && <ExclusiveBuilder data={data} ads={ads ? ads : null} />}
             </RootLayout>
 
         </>
@@ -25,7 +25,7 @@ export async function getStaticProps() {
     //     "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title", "thumbnail_image", "articles_category", "blog_intro", "primary_text", "secondary_text", "avatar", "publisher","route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description",'route'], "page_no": 1, "records": 6, "category_count": 6, "ir_prime": 1
     // }
     let params = {
-        fields:["name","route","primary_text","secondary_text","title","thumbnail_imagee as thumbnail_image","image","articles_category","blog_intro","avatar","publisher"],page_length:10,page_no:1
+        fields: ["name", "route", "primary_text", "secondary_text", "title", "thumbnail_imagee as thumbnail_image", "image", "articles_category", "blog_intro", "avatar", "publisher"], page_length: 10, page_no: 1
     }
     const res = await primeLanding(params);
     const data = await res;
@@ -34,7 +34,7 @@ export async function getStaticProps() {
     const resp = await getAds(param);
     const ads = resp.message;
     return {
-        props: { data , ads } , revalidate: 50,
+        props: { data, ads }, revalidate: 50,
     }
 }
 

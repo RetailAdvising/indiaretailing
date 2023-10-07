@@ -136,6 +136,21 @@
   width: calc(40% - 15px);
 }
 
+.flex-45 {
+  flex: 0 0 calc(45% - 15px);
+  width: calc(45% - 15px);
+}
+
+.flex-30 {
+  flex: 0 0 calc(30% - 15px);
+  width: calc(30% - 15px);
+}
+
+.flex-25 {
+  flex: 0 0 calc(25% - 15px);
+  width: calc(25% - 15px);
+}
+
 
 
 .none {

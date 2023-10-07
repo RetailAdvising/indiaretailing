@@ -220,10 +220,11 @@ export default function Details({ data, page_route }) {
   const [pageno, setPageno] = useState(1)
 
   async function commentslist(data) {
-    let param = { ref: data.name, page_no: pageno, page_size: 10 };
+    let param = { ref: data.name, page_no: pageno, page_size: 25 };
     let resp = await commentList(param);
     if (resp.message && resp.message.length != 0) {
       const val = { data: resp.message, route: data.name }
+      // data.comments = val;
       comments.push(val);
       setComments(comments)
       // comment.push(val);
@@ -242,22 +243,15 @@ export default function Details({ data, page_route }) {
 
 
   const updatedCmt = (cmt, route, index) => {
-    // console.log(cmt);
-    // console.log(comments);
-    // console.log(route);
     if (comments && comments.length != 0) {
       comments.map(async (res, i) => {
         if (res.route == route) {
           let param = { ref: route, page_no: 1, page_size: 10 };
           let resp = await commentList(param);
           if (resp.message && resp.message.length != 0) {
-            const val = { data: resp.message, route: data.name }
-            comments.splice(i, 1)
-            comments.splice(i, 0, val);
+            const val = { data: resp.message, route: res.route }
+            comments.splice(i, 1, val);
             setComments(comments)
-            // console.log(res.data[index])
-            // console.log(cmt)
-            console.log('updated one', comments[i])
           }
         }
       })

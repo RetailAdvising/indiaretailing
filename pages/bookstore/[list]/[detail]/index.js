@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image';
-import val from '@/libs/bookdetails'
 import RootLayout from '@/layouts/RootLayout';
 import Card from '@/components/Bookstore/Card';
 import Title from '@/components/common/Title';

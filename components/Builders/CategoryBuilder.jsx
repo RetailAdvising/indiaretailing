@@ -467,7 +467,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                         {(res.route == data.name && res.data && res.data.length != 0) && <div style={{ background: "#efefef" }} className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  mt-3  `}>
                           {/* {data.comments.map((res, index) => {
                       return ( */}
-                          <Comments updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data} hide_comment={hide} />
+                          <Comments updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0,3)} hide_comment={hide} />
                           {/* )
                     })} */}
                         </div>}
