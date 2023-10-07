@@ -207,7 +207,7 @@ export default function Home({ data }) {
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Advertisement") && <AdsBaner data={data.data[c.cid].data[0]} height={'h-[250px] w-[300px] object-contain'} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
-                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive" && !isMobile) && <Subscribe height={"h-[125px]"} data={news} width={"w-full"} />}
+                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive" && !isMobile) && <Subscribe height={"h-[125px] "} data={news} width={"w-full"} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Web Special" && c.component_data_type == 'Location') && <>
                             <div className='lg:w-[calc(70%_-_10px)]'><Title data={{ title: c.component_title }} /></div>
                             <div className={`lg:flex gap-5`}>

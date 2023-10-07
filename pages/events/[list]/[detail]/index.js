@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import Detail from '@/libs/eventDetail';
 import RootLayout from '@/layouts/RootLayout';
 import EventDetail from '@/components/Events/EventDetail';
 import { postMethod, getAds } from '@/libs/api';

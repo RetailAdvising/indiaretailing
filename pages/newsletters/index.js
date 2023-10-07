@@ -2,7 +2,6 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
 import NewsList from '@/components/Newsletter/NewsList';
-import value from '@/libs/newsletter';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import Subscribe from '@/components/Landing/Subscribe';
@@ -79,7 +78,7 @@ export default function newsletter({ ads }) {
               <NewsList data={data} />
             </div>
 
-            {(value.col_2 && !isMobile) &&
+            {/* {(value.col_2 && !isMobile) &&
               <div className='flex-[0_0_calc(30%_-_10px)] md:mt-[15px] md:flex-[0_0_calc(100%_-_0px)]'>
                 <div className='pb-[20px]'>
                   <AdsBaner data={value.col_2} />
@@ -88,7 +87,7 @@ export default function newsletter({ ads }) {
                   <Subscribe height={'h-[162px]'} width={'w-full'} data={data} />
                 </div>
               </div>
-            }
+            } */}
 
           </div>
 

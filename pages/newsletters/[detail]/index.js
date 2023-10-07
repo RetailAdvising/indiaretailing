@@ -1,6 +1,5 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, { useEffect, useState } from 'react'
-import data from '@/libs/newsDetail';
 import Image from 'next/image';
 import Title from '@/components/common/Title';
 import NewsCard from '@/components/Newsletter/NewsCard';
