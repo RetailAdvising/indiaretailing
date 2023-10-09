@@ -30,7 +30,7 @@ export default function Tags({ res, data }) {
     useEffect(() => {
         getLatestNews()
         if (res && res.data && res.data.length != 0) {
-            console.log(res)
+            // console.log(res)
             setData(res.data)
             // console.log(router)
             setTabs('all')
@@ -38,8 +38,8 @@ export default function Tags({ res, data }) {
         }
 
         if (data && data.length != 0) {
-            console.log(data)
-            data.unshift({ name: 'All', custom_route: 'all' })
+            // console.log(data)
+            data.unshift({ name: 'All', route: 'all' })
             setTag(data)
         }
         // console.log(res)
@@ -186,7 +186,7 @@ export default function Tags({ res, data }) {
                                                 {/* </div> */}
                                                 <h6 className={`title line-clamp-2 md:p-[10px] lg:py-[10px]`}>{res.title}</h6>
                                                 <div>
-                                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_image)} height={500} width={800} className={`w-full h-[320px] lg:rounded-[5px]`} alt={res.title ? res.title : index} />
+                                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_imagee)} height={500} width={800} className={`w-full h-[320px] lg:rounded-[5px]`} alt={res.title ? res.title : index} />
                                                 </div>
                                                 <div className={`lg:py-[10px] md:p-[10px_10px_0_10px] flex  ${res.doctype == 'Community Event' ? 'justify-end' : 'justify-between'}`}>
                                                     {res.doctype != 'Community Event' && <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between'>
@@ -244,13 +244,11 @@ export async function getServerSideProps() {
     }
 
     let param1 = {
-
         page_no: 1,
-
     }
 
     const response = await getTagList(param1);
-    const data = response.message;
+    const data = response.data;
     return {
         props: { res, data }
     }

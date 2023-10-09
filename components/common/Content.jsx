@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Dropdowns from './Dropdowns'
 import format from 'date-fns/format'
 
-export default function Content({ res, i }) {
+export default function Content({ res, i,updateShare }) {
     const router = useRouter()
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
     const setings = [{ name: 'Copy Link', icon: '/bookstore/Copy.svg' }, { name: 'Comment', icon: '/bookstore/comment.svg' }, { name: 'More Stories', icon: '/bookstore/more-stories.svg' }]
@@ -84,7 +84,7 @@ export default function Content({ res, i }) {
 
 
                 <div className='flex items-center gap-[15px] pr-[10px]'>
-                    {icons && <Dropdowns share={true} link={res} width={'w-[170px]'} data={icons} />}
+                    {icons && <Dropdowns updateShare={(data)=> updateShare(data)} share={true} link={res} width={'w-[170px]'} data={icons} />}
                     {setings && <Dropdowns setting={true} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>

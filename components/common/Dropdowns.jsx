@@ -7,7 +7,7 @@ import { checkMobile } from '@/libs/api'
 import { ToastContainer, toast } from 'react-toastify';
 
 // import { Menu } from '@headlessui/react'
-export default function Dropdowns({ data, img, width, share, setting, element, type, link }) {
+export default function Dropdowns({ data, img, width, share, setting, element, type, link,updateShare }) {
     const router = useRouter();
 
     const settings = async (data) => {
@@ -79,6 +79,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
     }
 
 
+
     return (
         <>
             {/* ${share ? 'w-[17px]' : type == 'head' ? 'w-[auto]' : 'w-[8px]'} */}
@@ -123,7 +124,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                         </> : <>
                                             {data && data.map((res, index) => {
                                                 return (
-                                                    <div key={index} className='flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px] cursor-pointer'>
+                                                    <div key={index} onClick={() => updateShare(link)} className='flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px] cursor-pointer'>
                                                        <div className='flex items-center gap-[5px]'>
                                                             {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>

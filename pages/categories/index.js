@@ -32,7 +32,7 @@ export default function Categories({ data, ads }) {
     let cardref = useRef(null);
     let no_product = false;
     useEffect(() => {
-        
+
         if (data && data.length != 0) {
             setTimeout(() => {
                 setDatas(data)
@@ -99,11 +99,11 @@ export default function Categories({ data, ads }) {
 
                     <div className='more h-[30px]' ref={cardref}></div>
                     {loading && <div id="wave">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                        <span className="dot"></span>
                     </div>}
-                    {!data?.length && <Skeleton type='' />}
+                    {!datas?.length && <Skeleton type='' />}
                 </div>
             </RootLayout>
 

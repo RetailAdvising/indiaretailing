@@ -9,8 +9,12 @@ import SEO from '@/components/common/SEO'
 export default function Events({ data, slider_data, ads_data }) {
     // console.log(ads_data)  
     const [pageData, setPageData] = useState([])
-    // const cardref = useRef()
-    const [isMobile, setIsMobile] = useState()
+    const [isMobile, setIsMobile] = useState();
+
+    let page_no = 1;
+    let cardref = useRef(null);
+    let no_product = false;
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         checkIsMobile();
         // slider_data.map((res)=> {
@@ -19,21 +23,41 @@ export default function Events({ data, slider_data, ads_data }) {
         // })
         if (data) {
             setTimeout(() => {
-                setPageData(data)
+            setPageData(data)
             }, 200);
         }
-        // if (!cardref?.current) return;
-        // const observer = new IntersectionObserver(([entry]) => {
-        //     if (isLast && entry.isIntersecting) {
-        //         // newLimit();
-        //         // loadMore()
-        //         // console.log(entry)
-        //         observer.unobserve(entry.target);
-        //     }
-        // });
 
-        // observer.observe(cardref.current);
+        const intersectionObserver = new IntersectionObserver(entries => {
+            if (entries[0].intersectionRatio <= 0) return;
+            if (!no_product) {
+                page_no > 1 ? getEvents() : null
+                page_no = page_no + 1
+            }
+        });
+
+        intersectionObserver?.observe(cardref?.current);
+
+        return () => {
+            cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+        }
     }, []);
+
+    const getEvents = async () => {
+        setLoading(true)
+        let params = {
+            "doctype": "Community Event", "filter_name": "category", "parent_fields": ["name", "title", "thumbnail_path", "start_date", "description", "category", "route"], "category_doctype": "Event Category", "category_fields": ["name", "category_name", "route"], "page_no": page_no, "records": 4, "category_count": 4
+        }
+        const resp = await getCategoryList(params);
+        if (resp.message && resp.message.length != 0) {
+            setTimeout(() => {
+                setPageData(d => d = [...d, ...resp.message])
+                setLoading(false)
+            }, 400);
+        } else {
+            no_product = true;
+            setLoading(false)
+        }
+    }
 
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
@@ -66,6 +90,14 @@ export default function Events({ data, slider_data, ads_data }) {
                             </div>
                         )
                     }) : <Skeleton />}
+
+                    <div className='more h-[30px]' ref={cardref}></div>
+                    {loading && <div id="wave">
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                    </div>}
+                    {!pageData?.length && <Skeleton type='' />}
                 </div>
 
             </RootLayout>

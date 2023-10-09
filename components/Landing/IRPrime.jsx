@@ -14,9 +14,9 @@ export default function IRPrime({ data }) {
                             <div className={``}>
                                 <Image src={'/IR.svg'} objectFit='contain' height={30} width={35} className={``} alt={"IR Prime"}></Image>
                             </div>
-                            <p className={`flex flex-col`}>
+                            <div className={`flex flex-col`}>
                                 <h6 className={`text-sm font-semibold`}>IR Prime</h6><span className={`text-[11px] font-[400] text-[#757575]`}>Top 3  stories of the day</span>
-                            </p>
+                            </div>
                         </div>
                         <div>
                             <p onClick={() => router.push('/IRPrime')} className={`text-[13px] bg-white rounded-full w-[60px] text-center p-[2px] button_text_color md:text-[12px] md:rounded-[50%]`}>See All</p>

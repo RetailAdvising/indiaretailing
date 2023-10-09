@@ -69,7 +69,8 @@ export const check_Image = (Image) => {
             return Image;
         }
     }else{
-        return '/empty_state.svg'
+        // return '/empty_state.svg'
+        return '/empty_state.jpg'
     }
 }
 
@@ -374,6 +375,16 @@ export async function getProductDetail(data){
 export async function getAds(data){
     let api = domainUrl + 'ad_list';
     return await postMethod(api,data)
+}
+
+export async function update_no_of_shares(data){
+    let api = domainUrl + 'update_no_of_shares';
+    return await postMethod(api,data)
+}
+
+export async function user_roles(){
+    let api = domainUrl + 'user_roles';
+    return await GET(api)
 }
 
 // export async function get_cart_items(data) {

@@ -30,7 +30,7 @@ export default function List({ imgFlex, hash_bg, contentWidth, primary_pb, line,
               
                 return (
                     // style={{flex:flex}}
-                    <div key={index} onClick={($event) => navigate($event, res)} className={`${flex} flex cursor-pointer gap-[15px] ${(index != data.length - 1 && !isMp) ? 'pb-[10px]' : (isMp && index != data.length - 1) ?
+                    <div key={res.title ? res.title : index} onClick={($event) => navigate($event, res)} className={`${flex} flex cursor-pointer gap-[15px] ${(index != data.length - 1 && !isMp) ? 'pb-[10px]' : (isMp && index != data.length - 1) ?
                         'lg:mb-[20px] lg:pb-[20px] md:pb-[10px] md:mb-[10px]' : ''} ${mb && index != data.length - 1 ? 'lg:mb-[10px]' : ''} relative ${exclusives.card_item} ${(isReverse) ? 'flex-row-reverse items-center  mb-[10px] justify-between' : ''} ${(isReverse && index != data.length - 1) ?
                             'border_bottom' : ''} ${(isBB && index != data.length - 1) && 'border_bottom mb-[10px]'}`}>
                         {((res.primary_text || res.secondary_text) && isTop) && <p className={`flex line-clamp-1  ${exclusives.title_top}  items-center absolute`}><span className='primary_text pr-[8px] line-clamp-1'>{res.primary_text}</span> <span className='h-[10px] w-[1px]  bg-[#6f6f6f]'></span> <span className='pl-[8px] line-clamp-1 secondary_text'>{res.secondary_text}</span></p>}

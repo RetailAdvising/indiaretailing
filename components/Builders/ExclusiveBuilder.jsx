@@ -12,8 +12,8 @@ import Video from '../Video/Video'
 export default function ExclusiveBuilder({ data,ads }) {
     const router = useRouter();
     const [isMobile, setIsMobile] = useState()
-    console.log(data)
-    console.log(ads)
+    // console.log(data)
+    // console.log(ads)
     useEffect(() => {
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
@@ -37,7 +37,7 @@ export default function ExclusiveBuilder({ data,ads }) {
                             // ${router.asPath.split('/')[1]}/
                             <div key={index} onClick={() => router.push(`/${res.route}`)} className={`md:mb-[10px] mb-5 pb-5 cursor-pointer md:pb-[10px] ${(index == 0 && !isMobile) ? 'border_bottom' : ''}`}>
                                 <h6 className={`${index == 0 ? 'lg:text-[18px] md:text-[17px] font-semibold' : ''}`}>{res.title}</h6>
-                                <Image className={`${index == 0 ? 'h-[350px] md:h-[320px] w-full mt-[10px] rounded-[5px]' : ''}`} src={check_Image(res.image ? res.image : res.thumbnail_image)} height={250} width={300} alt={res.title} />
+                                <Image className={`${index == 0 ? 'h-[335px] md:h-[320px] w-full mt-[10px] rounded-[5px]' : ''}`} src={check_Image(res.image ? res.image : res.thumbnail_image)} height={250} width={300} alt={res.title} />
                                 {res.primary_text && <p className={`flex items-center ${index == 0 ? 'pt-[10px]' : ''}`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>}
                                 <p className={`sub_title line-clamp-2 ${index == 0 ? 'pt-[10px]' : ''}`}>{res.blog_intro}</p>
                             </div>

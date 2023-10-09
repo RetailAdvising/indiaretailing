@@ -17,7 +17,7 @@ import AuthModal from '../Auth/AuthModal';
 import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
 
-export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt }) {
+export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt,updateShare }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -357,7 +357,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
         <div className={`flex w-full gap-[20px] md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
             <p>
-              <Content i={i} res={data} />
+              <Content i={i} res={data} updateShare={(data)=> updateShare(data)} />
             </p>
             <div className='relative article_content'>
               {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`${i}`} className={`contents ${(data.ir_prime == 1 && !validator) && 'prime-article'}`} />}
@@ -425,7 +425,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               {!isMobile && <div className='flex flex-row gap-3 items-center justify-center py-5'>
                 {socials.map((res, index) => {
                   return (
-                    <div key={index}>
+                    <div key={index} onClick={() => updateShare(res)}>
                       {
                         res.name == 'fb' ? <FacebookShareButton url={`${true ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
                           <div key={index} className={`rounded-full bg-light-gray p-2`}>

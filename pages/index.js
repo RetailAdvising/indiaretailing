@@ -131,7 +131,7 @@ export default function Home({ data }) {
           setValue(d => d = [...d, ...resp.message.page_content])
           setLoading(false)
         }, 200);
-        console.log(resp.message.page_content)
+        // console.log(resp.message.page_content)
       } else {
         no_product = true;
         setLoading(false)
@@ -372,9 +372,9 @@ export default function Home({ data }) {
         })}
         <div className='more h-[30px]' ref={cardref}></div>
         {loading && <div id="wave">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
         </div>}
       </RootLayout>
     </>

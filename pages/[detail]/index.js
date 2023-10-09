@@ -1,14 +1,14 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image, getList, commentList } from '@/libs/api';
+import { articlesDetail, getAds, check_Image, getList, commentList,update_no_of_shares } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
+import SeoArticles from '@/components/common/SeoArticles'
 import { useSelector, useDispatch } from 'react-redux';
-import { NextSeo } from 'next-seo'
+// import { NextSeo } from 'next-seo'
 import setComments from 'redux/actions/commentsReducer'
-import { comment } from 'postcss';
 export default function Details({ data, page_route }) {
   const router = useRouter();
   const [values, setValues] = useState([])
@@ -51,7 +51,7 @@ export default function Details({ data, page_route }) {
       }
       let value = await articlesDetail(param);
       let data = await value.message;
-      console.log(data)
+      // console.log(data)
       if (data.status == "Success") {
         if (data && data._user_tags && data._user_tags != '') {
           let tags = data._user_tags.split(',');
@@ -94,7 +94,7 @@ export default function Details({ data, page_route }) {
       ads();
     }
 
-    console.log(user, 'user')
+    // console.log(user, 'user')
 
     if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != '') {
       values.map(res => {
@@ -110,7 +110,7 @@ export default function Details({ data, page_route }) {
 
 
   async function loadMore() {
-    console.log(router);
+    // console.log(router);
     let param = {
       "route": prev,
       // "category": router.query?.types,
@@ -186,8 +186,10 @@ export default function Details({ data, page_route }) {
 
               // generateMetaData(values[ind])
               if (values && values.length > 0 && values[ind]) {
-                setMetaInfo(values[ind])
+                setMetaInfo(values[ind]);
                 // console.log(ind)
+                // document.title = values[ind].meta_title ? values[ind].meta_title : 'Updated Title';
+                // document.querySelector('meta[name="description"]').setAttribute('content', 'updated description');
               }
             }
           }, 300)
@@ -258,14 +260,26 @@ export default function Details({ data, page_route }) {
     }
   }
 
+  const updateShare = async (data) => {
+    // console.log(data,'share');
+    const param = {
+      id: data.name,
+      doctype:'Articles'
+    }
+
+    const resp = await update_no_of_shares(param);
+    console.log(resp)
+  }
+
 
   return (
     <>
       <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
         {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
 
-        {(meta_info && Object.keys(meta_info).length > 0) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />}
-
+        {/* {(meta_info) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />} */}
+        {/* <SEO  /> */}
+       { (data) && <SeoArticles meta={data} meta_data={meta_info} /> }
         {/* {(meta_info && Object.keys(meta_info).length > 0) &&
           <NextSeo
             title={meta_info.meta_title ? meta_info.meta_title : meta_info.title}
@@ -307,7 +321,7 @@ export default function Details({ data, page_route }) {
             return (
               <div id={'div' + index} key={index} className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
-                <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} />
+                <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data)=> updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} />
               </div>
             )
           })}

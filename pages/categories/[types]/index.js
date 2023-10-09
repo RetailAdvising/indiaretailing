@@ -5,7 +5,7 @@ import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
 import List from '@/components/common/List';
 import Cards from '@/components/common/Cards';
-import { getList,articlesList, checkMobile, check_Image, getAds, trending } from '@/libs/api';
+import { getList, articlesList, checkMobile, check_Image, getAds, trending } from '@/libs/api';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import Tags from '@/components/common/Tags';
@@ -15,10 +15,10 @@ export default function CategoryType({ values, ads }) {
 
     let apiCall = false;
     let page_no = 1;
-    console.log(ads)
+    // console.log(ads)
 
     useEffect(() => {
-        console.log(values);
+        // console.log(values);
         if (values) {
             setData(values)
         }
@@ -47,13 +47,14 @@ export default function CategoryType({ values, ads }) {
     async function loadMore() {
         let Id = router.query.types;
         let param = {
-            doctype: "Articles",
+            // doctype: "Articles",
+            category_route: Id,
             page_no: page_no,
-            page_size: 8,
-            fields: ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image", "image", "sub_title", "_user_tags", "location"],
-            filters: { articles_category: Id,ir_prime:0,published:1 }
+            page_size: 13,
+            // fields: ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image", "image", "sub_title", "_user_tags", "location"],
+            // filters: { articles_category: Id, ir_prime: 0, published: 1 }
         }
-        let value = await getList(param);
+        let value = await articlesList(param);
         if (value && value.message.length != 0) {
             setData(d => d = [...d, ...value.message]);
             // data = [...data,...value.message]
@@ -87,25 +88,25 @@ export default function CategoryType({ values, ads }) {
                             {/* {!isMobile && <Title data={{ title: router.query.types }} />} */}
                             <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px] cursor-pointer`}>{data && data.slice(0, 1).map((res, index) => {
                                 return (
-                                    <div key={index} onClick={() => router.push(`/${res.route}`)} className={` pb-[10px]`}>
+                                    <div key={res.title ? res.title : index} onClick={() => router.push(`/${res.route}`)} className={` pb-[10px]`}>
                                         <h6 className={`lg:text-[18px] md:text-[16px] font-semibold`}>{res.title}</h6>
-                                        <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.image ? res.image :  res.thumbnail_image )} height={250} width={300} alt={res.title} />
+                                        <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.image ? res.image : res.thumbnail_image)} height={250} width={300} alt={res.title} />
                                         <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
                                         <p className={`sub_title line-clamp-2 pt-[10px]`}>{res.blog_intro}</p>
                                         {/* <p className={`hashtags pt-[5px]`}>{res.publisher}</p> */}
-                                       <Tags tags={res.tags}/>
+                                        <Tags tags={res.tags} />
                                     </div>
                                 )
                             })}</div>
                         </div>
                         {/* lg:pt-[45px] */}
                         <div className={`lg:flex-[0_0_calc(35%_-_10px)]  md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
-                            <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List primary_pb={'mb-[10px]'} hash_bg={'mt-[10px]'} contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-1 md:line-clamp-2 leading-none'} imgWidth={'w-full'} line={'line-clamp-1 md:hidden'} imgHeight={'h-[90px]'} check={true} data={data.slice(0, 4)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
+                            <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List primary_pb={'mb-[10px]'} hash_bg={'mt-[10px]'} contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-1 md:line-clamp-2 leading-none'} imgWidth={'w-full'} line={'line-clamp-1 md:hidden'} imgHeight={'h-[90px]'} check={true} data={data.slice(1, 5)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}
                     <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:py-8 md:gap-[10px] lg:gap-[20px]`}>
                         {/* contentHeight={'h-[175px]'} */}
-                        <Cards cardClass={"lg:h-[315px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data} />
+                        <Cards cardClass={"lg:h-[315px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data.slice(5, data.length-1)} />
                     </div>
                 </div>
             </RootLayout>
@@ -121,10 +122,10 @@ export default function CategoryType({ values, ads }) {
 export async function getServerSideProps({ params }) {
     let Id = await params?.types;
     let param = {
-    //    s: ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image", "image", "sub_title", "_user_tags", "location"],
-        category_route:Id,  
+        //    s: ["blog_intro", "name", "articles_category", "title", "publisher", "secondary_text", "route", "primary_text", "thumbnail_image", "image", "sub_title", "_user_tags", "location"],
+        category_route: Id,
         page_no: 1,
-        page_size: 8,
+        page_size: 13,
     }
     // let value = await getList(param);
     let value = await articlesList(param);

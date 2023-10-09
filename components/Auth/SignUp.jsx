@@ -113,18 +113,19 @@ export default function SignUp({ isModal, hide, auth }) {
             {/* {isOpen && <AlertUi isOpen={isOpen} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />} */}
             <ToastContainer position={'bottom-right'} autoClose={2000} />
 
-            {(auth && modal != 'login') || isMobile ? <div className='flex container p-[20px]  gap-5 justify-between h-full '>
+            {(auth && modal != 'login') || isMobile ? <div className='lg:flex container p-[20px]  gap-5 justify-between h-full '>
                 {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full h-full object-contain`} />
                 </div>}
-                <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px]'} flex-col gap-5 md:gap-[10px] flex justify-center`}>
+                {/* md:mt-[40px] */}
+                <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] '} flex-col gap-5 md:gap-[10px] flex justify-center`}>
                     {/* {!isModal && <div className='top-0 cursor-pointer left-[10px]'>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>} */}
-                    <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Sign Up</h6>
                     {isMobile && <div className=' cursor-pointer'>
                         <Image className='w-full h-[70%] object-contain' onClick={() => router.push('/')} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
+                    <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Sign Up</h6>
                     <form onSubmit={handleSubmit((data) => signup(data))} autoComplete='off'>
                         <div className='flex items-center justify-between pb-[10px] gap-[10px]'>
                             <div className={`flex flex-col relative flex-[0_0_calc(50%_-_10px)]`}>
