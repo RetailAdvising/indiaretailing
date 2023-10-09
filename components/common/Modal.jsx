@@ -8,21 +8,21 @@ import LogIn from '../Auth/LogIn';
 import SignUp from '../Auth/SignUp';
 import Comments from '../Category/Comments';
 import Image from 'next/image';
-import { addComment, commentList,report } from '@/libs/api'
+import { addComment, commentList, report } from '@/libs/api'
 import { useRouter } from 'next/router';
 import AlertUi from './AlertUi';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Modal({ modal, hide, visible, data, cur,comments,route,updatedCmt }) {
+export default function Modal({ modal, hide, visible, data, cur, comments, route, updatedCmt }) {
     const [sort, setSort] = useState(false);
     const [sortbyVal, setSortByVal] = useState('Newest');
     const [pageno, setPageno] = useState(1);
     // const [comments, setComments] = useState([]);
-    const [noData,setNoData] = useState(false)
-    const [isSuccessPopup,setIsSuccessPopup] =  useState(false)
-    const [alertMessage,setAlertMessage] =  useState("")
+    const [noData, setNoData] = useState(false)
+    const [isSuccessPopup, setIsSuccessPopup] = useState(false)
+    const [alertMessage, setAlertMessage] = useState("")
 
     const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -39,15 +39,15 @@ export default function Modal({ modal, hide, visible, data, cur,comments,route,u
         sortBy();
     }
     function show_alert(message) {
-        setAlertMessage({message:message})
+        setAlertMessage({ message: message })
         setIsSuccessPopup(true)
     }
 
-    useEffect(() => {
-        if (cur && pageno == 1) {
-            commentslist();
-        }
-    }, [pageno])
+    // useEffect(() => {
+    //     // if (cur && pageno == 1) {
+    //     //     commentslist();
+    //     // }
+    // }, [pageno])
 
 
     // function checkValid() {
@@ -67,7 +67,7 @@ export default function Modal({ modal, hide, visible, data, cur,comments,route,u
             setTimeout(() => {
                 setNoData(false)
             }, 200);
-        } else{
+        } else {
             setTimeout(() => {
                 setNoData(false)
             }, 200);
@@ -75,20 +75,20 @@ export default function Modal({ modal, hide, visible, data, cur,comments,route,u
     }
     async function check(form_data) {
         console.log(localStorage.apikey)
-        if(localStorage.apikey &&  localStorage.apikey!= 'undefined'){
+        if (localStorage.apikey && localStorage.apikey != 'undefined') {
             let params = {
                 "comment_id": cur,
-                "report_type":form_data.report,
-                "report":form_data.report,
-                "new":1,
-                "update":1,
+                "report_type": form_data.report,
+                "report": form_data.report,
+                "new": 1,
+                "update": 1,
                 // "report_id":"ss"
-                }
+            }
             let resp = await report(params)
-            if (resp){
+            if (resp) {
                 hide(resp);
             }
-        }else{
+        } else {
             show_alert("Need To sign In To Report This Comment")
         }
     }
@@ -115,7 +115,7 @@ export default function Modal({ modal, hide, visible, data, cur,comments,route,u
                 // resp.message["is_disliked"] = 0
                 // resp.message["dislikes"] = 0
                 // setComments(c => [...c, resp.message])
-                
+
                 // let array  = []
                 // array.push(resp['message']);
                 // cur.comments = [...comments, ...array];
@@ -129,8 +129,8 @@ export default function Modal({ modal, hide, visible, data, cur,comments,route,u
 
     return (
         <div className={`${modal == 'report' ? 'report_cmt_popup' : ''}`}>
-             {/* <div> */}
-                <ToastContainer position={'bottom-right'} autoClose={2000}  />
+            {/* <div> */}
+            <ToastContainer position={'bottom-right'} autoClose={2000} />
             {/* </div> */}
             {/* {show ? <div >
                 <h6 >Hello modal</h6>
@@ -164,22 +164,22 @@ export default function Modal({ modal, hide, visible, data, cur,comments,route,u
                                 </div> */}
                             </div>
                             <div className='flex justify-between gap-[10px]'>
-                             <div className='flex w-full mt-[10px] items-center'>
-                                {/* onClick={checkValid} */}
-                                  <textarea id='addCmt' type='text' row={1}  placeholder='Add a comment...' className='comment_box flex-1 pt-[7px] border-none  w-full text-[14px] p-[5px]' />
-                                <div className='flex-[0_0_30px] relative'>
-                                  <Image src={'/categories/send-arrow.svg'} className='cursor-pointer absolute top-0 m-auto bottom-0' onClick={() => sendMsg('addCmt')} height={22} width={22} alt='send' />
+                                <div className='flex w-full mt-[10px] items-center'>
+                                    {/* onClick={checkValid} */}
+                                    <textarea id='addCmt' type='text' row={1} placeholder='Add a comment...' className='comment_box flex-1 pt-[7px] border-none  w-full text-[14px] p-[5px]' />
+                                    <div className='flex-[0_0_30px] relative'>
+                                        <Image src={'/categories/send-arrow.svg'} className='cursor-pointer absolute top-0 m-auto bottom-0' onClick={() => sendMsg('addCmt')} height={22} width={22} alt='send' />
+                                    </div>
                                 </div>
-                             </div>   
                             </div>
                             {(comments && comments.length != 0 && !noData) ?
                                 <div className='commentPopup '>
                                     {/* {comments.map((res, index) => {
                                         return ( */}
-                                            {/* // isLast={index == comments.length - 1} */}
-                                            {/* <Comments load={loadMore} key={index} store_comments={(cur)=>store_comments(cur)} comments={cur} data={res} /> */}
-                                            <Comments updatedCmt={(cmt,route,index) => updatedCmt(cmt,route,index)} load={loadMore} route={route} data={comments} />
-                                        {/* )
+                                    {/* // isLast={index == comments.length - 1} */}
+                                    {/* <Comments load={loadMore} key={index} store_comments={(cur)=>store_comments(cur)} comments={cur} data={res} /> */}
+                                    <Comments updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} load={loadMore} route={route} data={comments} />
+                                    {/* )
                                     })} */}
                                 </div>
                                 : noData ? <div className='mt-[15px] h-[70vh] overflow-auto'>
@@ -189,52 +189,52 @@ export default function Modal({ modal, hide, visible, data, cur,comments,route,u
                                         )
                                     })}
                                 </div>
-                                :<div className='grid place-content-center h-[50vh]'><h6 className='font-semibold text-[16px]'>No Comments</h6></div>
+                                    : <div className='grid place-content-center h-[50vh]'><h6 className='font-semibold text-[16px]'>No Comments</h6></div>
                             }
                         </Rodal>
                             : modal == 'report' ?
-                            <Rodal visible={visible} animation='slideUp' onClose={hide} className='h-[70%]'>
-                               <h3 className='text-[18px] font-bold md:p-[10px] pb-[0px]'>Report Comment </h3>
-                                {errors ?.report && <p className={`${styles.danger}`}>{errors.report.message}</p>}
+                                <Rodal visible={visible} animation='slideUp' onClose={hide} className='h-[70%]'>
+                                    <h3 className='text-[18px] font-bold md:p-[10px] pb-[0px]'>Report Comment </h3>
+                                    {errors?.report && <p className={`${styles.danger}`}>{errors.report.message}</p>}
 
-                               <form onSubmit={handleSubmit((form_data) => check(form_data))} autoComplete='off'>
-                                {
-                                    data && data.map(rc=>{
-                                        return(
+                                    <form onSubmit={handleSubmit((form_data) => check(form_data))} autoComplete='off'>
+                                        {
+                                            data && data.map(rc => {
+                                                return (
 
-                                            <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
-                                                <label htmlFor={rc.name} className='w-full cursor-pointer '>
-                                                <input
-                                                    type="radio"
-                                                    className='mr-[8px] cursor-pointer'
-                                                    id={rc.name}
-                                                    name={modal}
-                                                    value={rc.name}
-                                                    {...register('report', {
-                                                    required: { value: true, message: 'Must select one report' },
-                                                    })}
-                                                />
-                                                {rc.name}
-                                                </label>
-                                            </div>
-                                            
-                                            //  <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
-                                            //       <input type="radio" className='cursor-pointer' id={rc.name} name={modal} value={ rc.name} {...register('report', { required: { value: true, message: 'Must be Select One Report' }} )}/>
-                                            //       <label for={rc.name}  className='cursor-pointer text-[14px]'>{rc.name}</label>
-                                            //  </div>       
+                                                    <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
+                                                        <label htmlFor={rc.name} className='w-full cursor-pointer '>
+                                                            <input
+                                                                type="radio"
+                                                                className='mr-[8px] cursor-pointer'
+                                                                id={rc.name}
+                                                                name={modal}
+                                                                value={rc.name}
+                                                                {...register('report', {
+                                                                    required: { value: true, message: 'Must select one report' },
+                                                                })}
+                                                            />
+                                                            {rc.name}
+                                                        </label>
+                                                    </div>
 
+                                                    //  <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
+                                                    //       <input type="radio" className='cursor-pointer' id={rc.name} name={modal} value={ rc.name} {...register('report', { required: { value: true, message: 'Must be Select One Report' }} )}/>
+                                                    //       <label for={rc.name}  className='cursor-pointer text-[14px]'>{rc.name}</label>
+                                                    //  </div>       
+
+                                                )
+                                            }
                                             )
-                                       }
-                                       )
-                                  } 
-                                  <div className='flex gap-[10px] justify-end text-[14px] absolute bottom-[20px] right-[20px]'>
-                                    <button className='primary_outline px-[10px] py-[5px] color-red' style={{color:'#e21b22'}} onClick={hide}>Cancel</button>
-                                    <input className='primary_button px-[10px] cursor-pointer' type="Submit" />
-                                    </div>
-                                </form>
-                                { isSuccessPopup &&  <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"}/>  }                         
-                            </Rodal> : 
-                            null
+                                        }
+                                        <div className='flex gap-[10px] justify-end text-[14px] absolute lg:bottom-[20px] right-[20px]'>
+                                            <button className='primary_outline px-[10px] py-[5px] color-red' style={{ color: '#e21b22' }} onClick={hide}>Cancel</button>
+                                            <input className='primary_button px-[10px] cursor-pointer' type="Submit" />
+                                        </div>
+                                    </form>
+                                    {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
+                                </Rodal> :
+                                null
             }
         </div>
     )

@@ -9,8 +9,7 @@ import SEO from '@/components/common/SEO'
 export default function Events({ data, slider_data, ads_data }) {
     // console.log(ads_data)  
     const [pageData, setPageData] = useState([])
-    const [isLast, setIsLast] = useState([])
-    const cardref = useRef()
+    // const cardref = useRef()
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
         checkIsMobile();
@@ -19,27 +18,29 @@ export default function Events({ data, slider_data, ads_data }) {
         //     isMobile && res.mobile_image ? res.image = res.mobile_image : res.image = ''
         // })
         if (data) {
-            setPageData(data)
+            setTimeout(() => {
+                setPageData(data)
+            }, 200);
         }
-        if (!cardref?.current) return;
-        const observer = new IntersectionObserver(([entry]) => {
-            if (isLast && entry.isIntersecting) {
-                // newLimit();
-                // loadMore()
-                // console.log(entry)
-                observer.unobserve(entry.target);
-            }
-        });
+        // if (!cardref?.current) return;
+        // const observer = new IntersectionObserver(([entry]) => {
+        //     if (isLast && entry.isIntersecting) {
+        //         // newLimit();
+        //         // loadMore()
+        //         // console.log(entry)
+        //         observer.unobserve(entry.target);
+        //     }
+        // });
 
-        observer.observe(cardref.current);
-    }, [isLast, pageData]);
+        // observer.observe(cardref.current);
+    }, []);
 
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
         setIsMobile(isMobile);
-        slider_data && slider_data.map((res)=> {
-            !isMobile ?res.web_image ? res.image = res.web_image : res.image = '' : ''
-            isMobile ? res.mobile_image ? res.image = res.mobile_image : res.image = '' :''
+        slider_data && slider_data.map((res) => {
+            !isMobile ? res.web_image ? res.image = res.web_image : res.image = '' : ''
+            isMobile ? res.mobile_image ? res.image = res.mobile_image : res.image = '' : ''
         })
         window.addEventListener('resize', checkIsMobile)
         return () => {
@@ -50,13 +51,13 @@ export default function Events({ data, slider_data, ads_data }) {
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head={'Events'}>
-            <SEO title={'Events'} siteName={'India Reatiling'} description={'Events'}/>
-            {/* !mt-6 */}
+                <SEO title={'Events'} siteName={'India Reatiling'} description={'Events'} />
+                {/* !mt-6 */}
                 <div className="container zero-gap ">
                     {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-[220px] w-full'} event={true} data={slider_data} perView={1} className='gap-0' />}
                 </div>
                 <div className='gap-[20px] container justify-between flex-wrap p-[30px_0px] md:p-[15px] lg:flex mb-[20px]'>
-                    {(pageData && pageData.length != 0) && pageData.map((resp, index) => {
+                    {(pageData && pageData.length != 0) ? pageData.map((resp, index) => {
                         return (
                             <div key={index} className={`flex flex-col md:flex-[0_0_calc(100%_-_0px)] flex-[0_0_calc(100%_-_15px)] ${index != 0 ? 'md:pt-[15px]' : ''}`}>
                                 {resp.events && resp.events.length != 0 && <div><Title data={resp} seeMore={true} /></div>}
@@ -64,13 +65,45 @@ export default function Events({ data, slider_data, ads_data }) {
                                 <div className={`lg:grid lg:grid-cols-4 eventCards md:flex  md:gap-[15px] md:overflow-auto justify-between lg:gap-[20px]`}><EventCards data={resp.events.slice(0, 4)} flex={'md:flex-[0_0_calc(70%_-_10px)]'} height={'h-[210px] md:h-[150px]'} width={'w-full'} /></div>
                             </div>
                         )
-                    })}
+                    }) : <Skeleton />}
                 </div>
 
             </RootLayout>
 
         </>
 
+    )
+}
+
+const Skeleton = () => {
+    return (
+        <>
+            {[0, 1, 2, 3].map((res, index) => {
+                return (
+                    <div key={index} className='mb-5'>
+                        <h6 className={`bg-[#E5E4E2] h-[10px]  w-[140px] rounded-[5px] mb-[15px]`}></h6>
+                        <div className='grid grid-cols-4 gap-[15px]'>
+                            {[0, 1, 2, 3].map(i => {
+                                return (
+                                    <div key={i} className='border rounded-[10px] lg:h-[380px] md:h-[300px]'>
+                                        <div className='bg-[#E5E4E2] h-[210px] w-full rounded-[5px_5px_0_0]'></div>
+                                        <div className='p-[10px]'>
+                                            <p className={`bg-[#E5E4E2] h-[10px] w-full my-[10px] rounded-[5px]`}></p>
+                                            <p className={`bg-[#E5E4E2] h-[10px] w-full mb-[20px] rounded-[5px]`}></p>
+                                            <p className={`bg-[#E5E4E2] h-[7px] w-full my-[10px] rounded-[5px]`}></p>
+                                            <p className={`bg-[#E5E4E2] h-[7px] w-full mb-[10px] rounded-[5px]`}></p>
+                                            <p className='flex my-[15px] gap-[10px] items-center'><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span></p>
+                                            <p className={`bg-[#E5E4E2] h-[7px] w-[150px] mt-[10px] rounded-[5px]`}></p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                )
+            })}
+
+        </>
     )
 }
 

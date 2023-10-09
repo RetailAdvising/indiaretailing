@@ -481,7 +481,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               {data.disable_comments != 1 && data.doctype == 'Articles' &&
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
-                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex montserrat_fnt`}>{(data.comments && data.comments.length != 0) ? 'View all comments' : 'Add Comment'}</button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex montserrat_fnt`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'}</button>
                     {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
                   </div> : <div className={`mt-[10px] flex justify-center`}>
                     <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex montserrat_fnt`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>

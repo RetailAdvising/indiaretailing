@@ -14,7 +14,7 @@ export default function SectionBox({ data }) {
     const router = useRouter();
     return (
         <>
-            {data && <div className={`lg:border-[0px] rounded-[10px] justify-center p-[10px] md:h-auto lg:h-[280px] flex flex-col md:gap-[5px] lg:gap-[15px]`}  style={{ backgroundColor:`${data.background_color ? data.background_color : '#EDF6E5' }`}}>
+            {data && <div className={`lg:border-[0px] lg:rounded-[10px] md:rounded-[5px_5px_0_0] justify-center p-[10px] md:h-auto lg:h-[280px] flex flex-col md:gap-[5px] lg:gap-[15px]`}  style={{ backgroundColor:`${data.background_color ? data.background_color : '#EDF6E5' }`}}>
                 <p className='text-red lg:text-[14px] md:text-[12px] cursor-pointer'>{data.primary_text}</p>
                 <h6 className='lg:text-[20px] md:text-[15px] line-clamp-[2] font-semibold cursor-pointer'>{data.title}</h6>
                 <p className={`sub_title line-clamp-[4] cursor-pointer `}>{data.description}</p>

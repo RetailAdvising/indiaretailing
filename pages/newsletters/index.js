@@ -9,12 +9,12 @@ import { newsLanding, checkMobile, getAds, stored_customer_info } from '@/libs/a
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import AlertUi from '@/components/common/AlertUi';
 import SEO from '@/components/common/SEO'
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function newsletter({ ads }) {
 
   const [isMobile, setIsMobile] = useState();
-  let [data,setData] = useState();
+  let [data, setData] = useState();
   let [localValue, setLocalValue] = useState(undefined);
   let [skeleton, setSkeleton] = useState(true);
   const user = useSelector(s => s.user);
@@ -38,9 +38,9 @@ export default function newsletter({ ads }) {
   }
 
   const [alertMsg, setAlertMsg] = useState({})
-  const [enableModal,setEnableModal] = useState(false)
+  const [enableModal, setEnableModal] = useState(false)
 
-  async function newsLanding_info(){
+  async function newsLanding_info() {
     let value = await newsLanding();
     let news = value.message
     setData(news);
@@ -48,13 +48,13 @@ export default function newsletter({ ads }) {
   }
 
   function hide(obj) {
-    if(obj.status == 'Success'){
-      setAlertMsg({message:'You have successfully subscribed to our newsletter'});
+    if (obj.status == 'Success') {
+      setAlertMsg({ message: 'You have successfully subscribed to our newsletter' });
       setEnableModal(true);
     }
   }
- 
-  async function closeModal(value){
+
+  async function closeModal(value) {
     setEnableModal(false);
   }
 
@@ -63,39 +63,37 @@ export default function newsletter({ ads }) {
   return (
     <>
 
-     { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+      {enableModal && <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
       <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'}>
-      {/* {!skeleton && localValue && !localValue['cust_name'] &&  */}
-      
-      {skeleton ? <SkeletonLoader/> :
-      <div className='lg:min-h-[250px]'>
-        <SEO title={'Newsletters'} siteName={'India Reatiling'} description={'Newsletters'}/>
-        {(data) && <div className='container p-[30px_0px] md:p-[15px] '>
-          <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
-          <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
-            <div className={`flex-[0_0_calc(70%_-_0px)] md:flex-[0_0_calc(100%_-_0px)] ${isMobile ? '' : 'border p-[20px] rounded-[5px]'} `}>
-              <NewsList data={data} />
-            </div>
+        {/* {!skeleton && localValue && !localValue['cust_name'] &&  */}
 
-            {/* {(value.col_2 && !isMobile) &&
-              <div className='flex-[0_0_calc(30%_-_10px)] md:mt-[15px] md:flex-[0_0_calc(100%_-_0px)]'>
-                <div className='pb-[20px]'>
-                  <AdsBaner data={value.col_2} />
+        {skeleton ? <SkeletonLoader /> :
+          <div className='lg:min-h-[250px]'>
+            <SEO title={'Newsletters'} siteName={'India Reatiling'} description={'Newsletters'} />
+            {(data) && <div className='container p-[30px_0px] md:p-[15px] '>
+              <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
+              <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
+                <div className={`flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(100%_-_0px)] ${isMobile ? '' : 'border p-[20px] rounded-[5px]'} `}>
+                  <NewsList data={data} />
                 </div>
-                <div>
-                  <Subscribe height={'h-[162px]'} width={'w-full'} data={data} />
-                </div>
+
+                {!isMobile &&
+                  <div className='flex-[0_0_calc(30%_-_15px)] md:mt-[15px] md:flex-[0_0_calc(100%_-_0px)]'>
+                    {(ads.right && ads.right.length != 0 && ads.right[0]) && <div className='pb-[20px]'>
+                      <AdsBaner data={ads.right[0]} />
+                    </div>}
+                    <Subscribe />
+                  </div>
+                }
+
               </div>
-            } */}
 
+
+            </div>}
           </div>
-
-
-        </div>}
-        </div>
-       }
-       {/* }
+        }
+        {/* }
        {!skeleton && localValue && localValue['cust_name'] && 
          <SubscribeNews cssClass={'lg:w-[50%] lg:m-[0_auto] md:pb-[15px]'} data={data} no_modal={true} hide={(obj)=> hide(obj)}/>
        } */}
@@ -136,8 +134,8 @@ const SkeletonLoader = () => {
 
       <div className='flex gap-[10px] '>
         <div className={'flex-[0_0_calc(70%_-_0px)] md:flex-[0_0_calc(100%_-_0px)] border p-[20px] rounded-[5px]'}>
-          {[1,2,3,4,5].map((res,index)=>{
-            return(
+          {[1, 2, 3, 4, 5].map((res, index) => {
+            return (
               <>
                 <div className='animate-pulse gap-[10px] flex p-[10px] cursor-pointer items-center border-b-[1px] border-b-slate-100 last-child:border-b[0px]'>
                   <div className={'h-[100px] w-[100px] bg-slate-200 rounded-[5px]'}></div>

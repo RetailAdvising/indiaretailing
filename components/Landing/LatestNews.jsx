@@ -53,7 +53,7 @@ export default function LatestNews({ data, height, width, isList }) {
 
           {(data && isMobile && isList) && data.map((res, i) => {
             return (
-              <div key={i} onClick={() => router.push('/' + res.route)} className={`${i == 0 ? 'border_top border_bottom' : 'mb-[15px]'}`}>
+              <div key={i} onClick={() => router.push('/' + res.route)} className={`${i == 0 ? 'border_top border_bottom pb-[10px]' : 'mb-[15px]'}`}>
                 {res.title && <h6 className={`my-[10px] line-clamp-1 title `}>{res.title}</h6>}
                 {(res.blog_intro) && <p className={`${!res.image && 'mb-[10px]'} sub_title line-clamp-2`}>{res.blog_intro}</p>}
 

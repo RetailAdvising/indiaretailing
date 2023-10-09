@@ -11,8 +11,15 @@ import Sliders from '@/components/Sliders/index'
 export default function Videos({ data, ads, slider_data }) {
   // console.log(data)
   // console.log(ads)
-  const [isMobile, setIsMobile] = useState()
+  const [isMobile, setIsMobile] = useState();
+  const [values,setValues] = useState([])
+
   useEffect(() => {
+    if(data && data.length !=0){
+      setTimeout(() => {
+        setValues(data)
+      }, 200);
+    }
     checkIsMobile();
     window.addEventListener('resize', checkIsMobile)
     return () => {
@@ -36,8 +43,8 @@ export default function Videos({ data, ads, slider_data }) {
         <div className="container zero-gap ">
           {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-[220px] w-full'} event={true} data={slider_data} perView={1} className='gap-0' />}
         </div>
-        {(data && data.length != 0) ? <div className='container lg:p-[30px_0px] md:p-[15px]'>
-          {data.map((res, index) => {
+        {(values && values.length != 0) ? <div className='container lg:p-[30px_0px] md:p-[15px]'>
+          {values.map((res, index) => {
             return (
               <div key={index} className='pb-[20px]'>
                 <Title data={res} seeMore={true} />
@@ -47,10 +54,37 @@ export default function Videos({ data, ads, slider_data }) {
           })}
 
 
-        </div> : <>Loading</>}
+        </div> : <Skeleton />}
         {/* <Tabs /> */}
       </RootLayout>
     </>
+  )
+}
+
+const Skeleton = () => {
+  return(
+    <div className='container lg:p-[30px_0px] md:p-[15px]'>
+    {[0,1,2,3].map(index=>{
+      return(
+        <div key={index}>
+          <h6 className={`bg-[#E5E4E2] h-[10px]  w-[140px] rounded-[5px] mb-[15px]`}></h6>
+                <div className='flex items-center gap-[15px]'>
+                    {[0, 1, 2, 3].map(i => {
+                        return (
+                            <div key={i} className=' h-[280px] flex-[0_0_calc(25%_-_10px)]'>
+                                <div className='bg-[#E5E4E2] h-[200px] w-full rounded-[5px]'></div>
+                                <div className='p-[10px]'>
+                                    <p className={`bg-[#E5E4E2] h-[8px] w-full my-[10px] rounded-[5px]`}></p>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+        </div>
+      )
+    })}
+    
+    </div>
   )
 }
 
