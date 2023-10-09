@@ -60,6 +60,13 @@
       // color: $secondary-color;
       color: #121212;
     }
+
+    .center_div{
+      position: absolute;
+      top:50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+    }
   }
 
   @screen md {
