@@ -388,12 +388,12 @@ export async function getStaticProps() {
     // "application_type": "mobile",
     "route": "home",
     page_no: 1,
-    page_size: 10
+    page_size: 4
   }
   const resp = await HomePage(param);
   const data = await resp.message;
   return {
-    props: { data }, revalidate: 4
+    props: { data }, revalidate: 10
   }
 
 }
