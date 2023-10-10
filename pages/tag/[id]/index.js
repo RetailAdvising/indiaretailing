@@ -248,7 +248,7 @@ export async function getServerSideProps({ params }) {
     }
 
     const response = await getTagList(param1);
-    const data = response;
+    const data = response.data;
 
 
     let params_id = { doctype: 'Tag', page_type: 'List' }

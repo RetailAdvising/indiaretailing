@@ -84,6 +84,8 @@ export default function Details({ data, page_route }) {
     setAds(ads)
   }
 
+  // console.log(data,'meta')
+
 
   const user = useSelector(s => s.user);
 

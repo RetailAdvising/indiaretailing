@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { check_Image } from '../../libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route,title_class,subtitle_class,primary_text_class,hashtags_class,hide_scroll_button }) {
+export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route,title_class,subtitle_class,primary_text_class,hashtags_class,hide_scroll_button,noPrimaryText }) {
     const router = useRouter()
     let isDown = false;
     var slider = '';
@@ -92,7 +92,7 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                                     <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_imagee: res.image)} height={200} width={300} alt={index + 'image'} />
                                 </div>
                                 <div className={` flex flex-col justify-between p-[10px] `}>
-                                    {(res.primary_text && res.secondary_text) && <p className={`${primary_text_class} flex gap-2 items-center py-[5px]`}><span className={`primary_text leading-normal tracking-wider !text-[10px]`}>{res.primary_text}</span> <span className="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className='secondary_text'>{res.secondary_text}</span></p>}
+                                    {(res.primary_text && res.secondary_text && !noPrimaryText) && <p className={`${primary_text_class} flex gap-2 items-center py-[5px]`}><span className={`primary_text leading-normal tracking-wider !text-[10px]`}>{res.primary_text}</span> <span className="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className='secondary_text'>{res.secondary_text}</span></p>}
                                     <h4 className={`title  ${title_class ? title_class :'line-clamp-2'}`}>{res.title ? res.title : ''}</h4>
                                     {(res.sub_title || res.blog_intro) && <p className={` ${subtitle_class ? subtitle_class :'line-clamp-2' } sub_title mt-[6px] `}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
                                     {(res.hashtags || res.publisher) && <p className={`${hashtags_class} hashtags pt-1`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}
