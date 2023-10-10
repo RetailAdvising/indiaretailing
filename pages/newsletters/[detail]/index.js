@@ -139,7 +139,7 @@ export default function NewsLists({ data, Id }) {
             {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] md:flex-wrap justify-between gap-5`}>
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_0px)]`}>
                 {/* <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.article_detail.title}</h6> */}
-                <p className='sub_title py-3 md:hidden'>{data.article_detail.subject}</p>
+                <p className='text-[20px] md:text-[16px] font-semibold py-3 md:hidden'>{data.article_detail.subject}</p>
                 <div dangerouslySetInnerHTML={{ __html: data.article_detail.message }} className={`contents sub_title py-3 md:hidden`} />
                 <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] block h-[35px] w-[100px]'>subscribe</button>
               </div>

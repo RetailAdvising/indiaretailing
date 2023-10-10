@@ -5,7 +5,7 @@ import Card from '@/components/Bookstore/Card';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import { useRouter } from 'next/router';
-import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, make_payment_entry, insert_cart_items, updateCartItems, getCartItem, deleteCartItems , get_razorpay_settings, subscriptionPlans, get_subscription_plans } from '@/libs/api';
+import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, make_payment_entry, insert_cart_items, updateCartItems, getCartItem, deleteCartItems , get_razorpay_settings, subscriptionPlans, get_subscription_plans,update_no_of_shares } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import Modal from '@/components/common/Modal';
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
@@ -70,7 +70,7 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        console.log(value);
+        // console.log(value);
         // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
@@ -536,6 +536,20 @@ const  getCarts = async (type) => {
     });
   };
 
+  const updateShare = async (data) => {
+    // console.log(data,'share');
+    const param = {
+      doc_id: data.name,
+      doctype:'Product'
+    }
+
+    const resp = await update_no_of_shares(param);
+    if(resp.message == 'Success'){
+      // console.log(resp)
+
+    }
+  }
+
   return (
     <>
       <RootLayout>
@@ -544,7 +558,7 @@ const  getCarts = async (type) => {
         <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>
       </div> */}
     
-    { enableModal &&   <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+    { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
         
     {!data ?  <Skeleton /> :
       (data && Object.keys(data).length != 0) && 
@@ -594,7 +608,8 @@ const  getCarts = async (type) => {
             <div className={` flex-[0_0_calc(60%_-_10px)] md:p-[10px] lg:p-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
                 <h6 className={`lg:min-h-[60px] md:text-[16px] line-clamp-2 leading-[1.5] lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{data.item_title}</h6>
-                {icons && <Dropdowns share={true} link={{route: router.asPath.split('/')[2]+'/'+data.route}} width={'w-[170px]'} data={icons} />}
+                {/* {route: router.asPath.split('/')[2]+'/'+data.route} */}
+                {icons && <Dropdowns share={true} updateShare={(data) => updateShare(data)} link={data} width={'w-[170px]'} data={icons} />}
 
                 {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
                   <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500 lg:pt-[6px]`} src={'/share.svg'} height={10} width={15} alt={'share'} /> */}
@@ -809,14 +824,14 @@ export async function getServerSideProps({ params }) {
 const Skeleton = () => {
   return (
     <>
-        <div class="container lg:py-0 md:p-[10px] flex lg:gap-[30px] md:flex-col animate-pulse">
+        <div className="container lg:py-0 md:p-[10px] flex lg:gap-[30px] md:flex-col animate-pulse">
 
-          <div class="lg:flex-[0_0_calc(40%_-_10px)]">
+          <div className="lg:flex-[0_0_calc(40%_-_10px)]">
             <div className='h-[455px] lg:w-[510px] bg-slate-100 rounded'></div>
             <div className='h-[45px] w-full my-[20px] bg-slate-300 rounded'></div>
           </div>
              
-          <div class="lg:flex-[0_0_calc(40%_-_10px)]">
+          <div className="lg:flex-[0_0_calc(40%_-_10px)]">
            <div className='h-[40px] w-[75%] bg-slate-300 rounded'></div>
            <div className='h-[40px] w-[15%] my-[20px] bg-slate-300 rounded'></div>
            <div className='flex mb-[20px] gap-[10px]'>

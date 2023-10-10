@@ -25,19 +25,20 @@ export default function Trending({ data, res, ads }) {
     let pageNo = 1;
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
 
-    console.log(ads)
+    // console.log(ads)
+    // console.log(res)
+
     useEffect(() => {
         getLatestNews()
         if (res && res.data) {
             setData(res.data)
-
-            setTabs(router.query.id)
             // setActivatedData([...res.data['news_list'], ...res.data['event_list'], ...res.data['article_list']]);
         }
-        console.log(data,'data')
 
-        if (data && data.length != 0) {
-            console.log(data)
+        if (data && data.length != 0 && router && router.query) {
+            // console.log(data)
+            setTabs(router.query.id)
+            // tag.push(data)
             setTag(data)
         } else {
             getTag();
@@ -65,12 +66,14 @@ export default function Trending({ data, res, ads }) {
 
     const getTag = async () => {
         let param1 = {
-           
+            page_size:20,
+            doctype: 'Tags',
+            fields:['name','route'],
             page_no: pageNo,
            
         }
 
-        const response = await getTagList(param1);
+        const response = await getList(param1);
         if (response.message && response.message.length != 0) {
             pageNo == 1 ? setTag(response.message) : setTag(d => d = [...d, ...response.message])
         } else {
@@ -119,8 +122,8 @@ export default function Trending({ data, res, ads }) {
         }
         const resp = await getTagsList(params);
         if (resp && resp.status && resp.status == 'Success') {
-            if (resp.data.length != 0) {
-                setData((d) => d = [...d, ...resp.data]);
+            if (resp.message.data.length != 0) {
+                setData((d) => d = [...d, ...resp.message.data]);
             } else {
                 no_product = true;
                 setNodata(!nodata)
@@ -169,7 +172,8 @@ export default function Trending({ data, res, ads }) {
                     <div><Title data={{ title: 'Trending Tags' }} /></div>
                     <div class="lg:flex lg:gap-[15px] md:block">
                         <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
-                            {(tabs && tag) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
+                            {console.log(tabs,tag , 'from dom')}
+                            {(tabs && tag && tag.length != 0) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
                             <TrendingBox />
                         </div>
                         {/* <div class=""> */}
@@ -240,15 +244,18 @@ export async function getServerSideProps({ params }) {
     }
 
     const resp = await getTagsList(param);
-    let res = resp;
+    let res = resp.message;
 
 
     let param1 = {
         page_no: 1,
+        page_size:20,
+        doctype: 'Tags',
+        fields:['name','route']
     }
 
-    const response = await getTagList(param1);
-    const data = response.data;
+    const response = await getList(param1);
+    const data = response.message;
 
 
     let params_id = { doctype: 'Tag', page_type: 'List' }

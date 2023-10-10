@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
 
-export default function SideBar({ data, close, navbar }) {
+export default function SideBar({ data, close, navbar,emit_item }) {
     const router = useRouter();
     const [valid, setValid] = useState(false)
     const [member, setMember] = useState(false);
@@ -52,7 +52,12 @@ export default function SideBar({ data, close, navbar }) {
         }
     }
 
-
+    const change_nav=(item)=>{
+        console.log(item);
+        emit_item(item)
+      router.push(item.redirect_url)
+      close()
+    }
 
     const myAccount = () => {
         router.push('/profile?my_account=')
@@ -131,13 +136,13 @@ export default function SideBar({ data, close, navbar }) {
                                     {res.menus.map(item => {
                                         return (
                                             // ${nav1 == item.redirect_url ? header.activeMenu : ''}
-                                            <Link href={item.redirect_url} onClick={close} key={item.menu_label} className='flex gap-[13px] items-center p-[10px_10px_10px_20px]'>
+                                            <div  onClick={()=>change_nav(item)} key={item.menu_label} className='flex gap-[13px] items-center p-[10px_10px_10px_20px]'>
                                                 <Image src={item.icon} className='h-[17px] w-[17px]' style={{ objectFit: 'contain' }} height={40} width={40} alt={item.menu_label} />
                                                 <h6 className={`${header.listKey} font-medium text-[14px] navigation_c `} >
                                                     {item.menu_label}
                                                 </h6>
                                                 {/* <Image src='/rightArrow.svg' className='h-[20px] w-[20px] absolute right-2' style={{objectFit:'contain'}} height={40} width={40} alt='arrow' /> */}
-                                            </Link>
+                                            </div>
                                         )
                                     })}
                                     {valid && <div className='flex items-center gap-[13px] p-[10px_10px_10px_20px]' onClick={() => logout()}>
@@ -172,7 +177,7 @@ export default function SideBar({ data, close, navbar }) {
                         {!member && <div className='flex  cursor-pointer justify-center w-full'>
                             <div className='flex bg-[#e21b22] rounded-[5px] p-[8px_15px] gap-[5px] items-center justify-end px-[20px]'>
                                 {/* <Image className='h-[18px] w-[18px]' src={'/Navbar/premium.svg'} height={20} width={20} alt='premium' /> */}
-                                <p onClick={() => router.push('/login')} className='text-[#fff] text-[15px] cursor-pointer font-semibold'>Login</p>
+                                <p onClick={() => {router.push('/login'),close()}} className='text-[#fff] text-[15px] cursor-pointer font-semibold'>Login</p>
                             </div>
                         </div>}
                     </div>

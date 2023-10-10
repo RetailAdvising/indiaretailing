@@ -33,12 +33,13 @@ export default function Tags({ res, data }) {
             // console.log(res)
             setData(res.data)
             // console.log(router)
-            setTabs('all')
+            
             // setActivatedData([...res.data['news_list'], ...res.data['event_list'], ...res.data['article_list']]);
         }
 
         if (data && data.length != 0) {
             // console.log(data)
+            setTabs('all')
             data.unshift({ name: 'All', route: 'all' })
             setTag(data)
         }
@@ -73,8 +74,8 @@ export default function Tags({ res, data }) {
         }
         const resp = await getTagsList(params);
         if (resp && resp.status && resp.status == 'success') {
-            if (resp.data.length != 0) {
-                setData((d) => d = [...d, ...resp.data]);
+            if (resp.message.data.length != 0) {
+                setData((d) => d = [...d, ...resp.message.data]);
             } else {
                 no_product = true;
                 // setNodata(!nodata)
@@ -85,9 +86,12 @@ export default function Tags({ res, data }) {
     const getTag = async () => {
         let param1 = {
             page_no: pageNo,
+            page_size: 20,
+            doctype: 'Tags',
+            fields: ['name', 'route']
         }
 
-        const response = await getTagList(param1);
+        const response = await getList(param1);
         if (response.message && response.message.length != 0) {
             setTag(d => d = [...d, ...response.message])
         } else {
@@ -168,7 +172,7 @@ export default function Tags({ res, data }) {
                 <div className={`container md:py-[15px] lg:p-[20px_0]`}>
                     <div class="lg:flex lg:gap-[15px] md:block">
                         <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
-                            {(tabs && tag) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
+                            {(tabs && tag && tag.length != 0) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
                             <TrendingBox />
                         </div>
                         <div id='scroll' className="lg:flex-[0_0_calc(50%_-_10px)]  lg:p-5  md:basis-full lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide ">
@@ -238,17 +242,20 @@ export async function getServerSideProps() {
         page_no: 1
     }
     const resp = await getTagsList(param);
-    let res;
-    if (resp.data && resp.data.length != 0) {
-        res = resp;
-    }
+    let res = resp.message;
+    // if (resp.data && resp.data.length != 0) {
+    //     res = resp;
+    // }
 
     let param1 = {
         page_no: 1,
+        page_size: 20,
+        doctype: 'Tags',
+        fields: ['name', 'route']
     }
 
-    const response = await getTagList(param1);
-    const data = response.data;
+    const response = await getList(param1);
+    const data = response.message;
     return {
         props: { res, data }
     }

@@ -182,7 +182,7 @@ export default function Details({ data, page_route }) {
 
           setTimeout(() => {
             if (routeList && routeList.length > 0 && routeList[ind]) {
-              // console.log(routeList)
+              console.log(routeList)
               // router.push('/' + routeList[ind], undefined, { scroll: false });
               router.replace({ pathname: '/' + routeList[ind] }, undefined, { shallow: true, scroll: false });
 
@@ -265,12 +265,15 @@ export default function Details({ data, page_route }) {
   const updateShare = async (data) => {
     // console.log(data,'share');
     const param = {
-      id: data.name,
+      doc_id: data.name,
       doctype:'Articles'
     }
 
     const resp = await update_no_of_shares(param);
-    console.log(resp)
+    if(resp.message == 'Success'){
+      // console.log(resp)
+
+    }
   }
 
 

@@ -75,6 +75,9 @@ export default function OTP({ setotp, isModal, hide, auth }) {
             let val = await verify_otp(datass);
             console.log(val);
             if (val.message.status == 'Success') {
+                if(val.message.existing_customer == 0){
+                    router.push(`${isMobile ? '/profile?my_account=' : '/profile?my_account=edit-profile'}`)
+                }
                 if (val.message.type == 'Customer') {
                     localStorage['apikey'] = val.message.api_key
                     localStorage['secret'] = val.message.api_secret

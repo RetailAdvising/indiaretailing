@@ -273,7 +273,7 @@ export default function LogIn({ isModal, hide, auth }) {
         <div>
             <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" />
         </div>
-            {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='lg:flex container h-full md:h-[calc(100vh_-_50px)] overflow-auto p-[20px] lg:justify-center gap-[20px] '>
+            {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='lg:flex container h-full md:h-[calc(100vh_-_50px)] overflow-auto p-[20px] md:p-[0_15px] lg:justify-center gap-[20px] '>
                 {(!isModal || auth) && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border h-full rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`w-full ${auth ? 'h-full object-contain' : ''}`} />
                 </div>}
@@ -281,8 +281,8 @@ export default function LogIn({ isModal, hide, auth }) {
                     {/* {!isModal && <div className=' top-0 left-[10px] cursor-pointer'>
                         <Image onClick={() => go_to_home()} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>} */}
-                    {isMobile && <div className=' cursor-pointer'>
-                        <Image className='w-full h-[70%] object-contain' onClick={() => router.push('/')} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
+                    {isMobile && <div className=' cursor-pointer grid justify-center'>
+                        <Image className='w-full h-full object-contain' onClick={() => router.push('/')} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
                     <form onSubmit={handleSubmit((data) => login(data))} autoComplete='off'>

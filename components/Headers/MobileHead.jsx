@@ -11,6 +11,7 @@ export default function MobileHead({ isLanding = true, Heading, checkout, getAct
     const [isVisible, setIsVisible] = useState(false);
     const router = useRouter()
     useEffect(() => {
+        console.log(router)
         // After 2 seconds, set the isVisible state to true
         const timeout = setTimeout(() => {
             setIsVisible(true);
@@ -18,8 +19,8 @@ export default function MobileHead({ isLanding = true, Heading, checkout, getAct
         if (isMobile) show_header()
         // Clear the timeout if the component unmounts before the 2 seconds
         return () => clearTimeout(timeout);
-    }, [isMobile, router.query,activeTab]);
-
+    }, [isMobile, router.query, activeTab]);
+  
     useEffect(() => {
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
@@ -27,7 +28,9 @@ export default function MobileHead({ isLanding = true, Heading, checkout, getAct
             window.removeEventListener('resize', checkIsMobile);
         };
     }, [])
-
+  const  emit_nav_item=(item)=>{
+    console.log(item,activeTab);
+  }
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
         setIsMobile(isMobile);
@@ -85,7 +88,8 @@ export default function MobileHead({ isLanding = true, Heading, checkout, getAct
 
     return (
         <>
-            {<div className={`fixed sidebar ${navbar ? 'sideActive' : ''} `} ><div className={`${isVisible ? 'visible' : ''}`}></div><SideBar data={nav} navbar={navbar} close={() => close()} /></div>}
+            {<div className={`fixed sidebar ${navbar ? 'sideActive' : ''} `} ><div className={`${isVisible ? 'visible' : ''}`}></div>
+                <SideBar data={nav} navbar={navbar} close={() => close()} emit_item={emit_nav_item}/></div>}
             {navbar && <Backdrop />}
 
             <div id="header" className=''>
@@ -99,7 +103,7 @@ export default function MobileHead({ isLanding = true, Heading, checkout, getAct
                     </div>
                     <Image className='lg:hidden md:h-[20px] cursor-pointer' onClick={() => router.push("/search?searchText=")} style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} ></Image>
                 </div>
-                <TopNavBar nav_data={nav} getActiveTab={getActiveTab} activeTab={activeTab} />
+                {router.route != '/login' && <TopNavBar nav_data={nav} getActiveTab={getActiveTab} activeTab={activeTab} />}
             </div>
         </>
     )

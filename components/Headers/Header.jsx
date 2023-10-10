@@ -4,10 +4,11 @@ import styles from '@/styles/Header.module.scss'
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common'
 import Dropdowns from '../common/Dropdowns';
-import { search_product, checkMobile, stored_customer_info } from '@/libs/api';
+import { search_product, checkMobile, stored_customer_info,user_roles } from '@/libs/api';
 import AuthModal from '../Auth/AuthModal';
 import { useSelector, useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
+import setRole from 'redux/actions/roleAction';
 
 // import {setUser} from '@/redux/actions/userAction'
 export default function Header({ checkout }) {
@@ -18,11 +19,13 @@ export default function Header({ checkout }) {
     }
 
     const user = useSelector(s => s.user);
+    const role = useSelector(s => s.role);
     const dispatch = useDispatch()
 
     const profile = [{ name: 'Logout', icon: '/Navbar/Logout.svg' }, { name: 'Profile', icon: '/login/profile-01.svg', route: '/profile?my_account=edit-profile', mob_route: '/profile?my_account=' }]
     const [valid, setValid] = useState(false);
     const [loader, setLoader] = useState(false);
+    const [usrName,setUsrName] = useState()
     // const [member, setMember] = useState(false);
     // const [sort, setSort] = useState(false);
     const ref = useRef(null);
@@ -34,7 +37,7 @@ export default function Header({ checkout }) {
 
     useEffect(() => {
         // console.log(user)
-
+        roles()
         if (typeof window !== 'undefined') {
             let data = stored_customer_info();
             // console.log(data)
@@ -73,6 +76,17 @@ export default function Header({ checkout }) {
 
     }, [user])
 
+    const roles = async () => {
+        if (localStorage && localStorage['apikey']) {
+            const resp = await user_roles();
+            if(resp.status == 'Success'){
+                dispatch(setRole(resp))
+                console.log(resp)
+            }
+            
+        }
+    }
+
 
     // const profileMenu = () => {
     //     setSort(!sort);
@@ -97,6 +111,7 @@ export default function Header({ checkout }) {
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
         // console.log(user)
+       
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
@@ -168,6 +183,7 @@ export default function Header({ checkout }) {
             // and return null
             // localStorage.removeItem(key)
             dispatch(setUser(''))
+            dispatch(setRole(''))
             localStorage.clear();
             setValid(!valid);
             // setLoader(true);
@@ -296,17 +312,20 @@ export default function Header({ checkout }) {
                         </div>
                         {loader &&
                             <>
-                                {!valid && (!user || user != '') ?
+                            {/* !valid && (!user || user != '') */}
+                                {!role ?
                                     <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
                                         <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
                                         <button type='button' onClick={show} className={`${styles.btn_sig}`}>{head.btn2}</button>
                                     </div>
                                     :
                                     <div className='flex justify-end'>
-                                        {((user) || (localStorage && localStorage['userid'])) && <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
+                                        {/* ((user) || (localStorage && localStorage['userid'])) */}
+                                        {((user) || role) && <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
                                             <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
                                             <div>
-                                                <p className='cursor-pointer text-[14px] font-[500]'>{(user != '' && user.message && user.message.user_id) ? user.message.user_id : localStorage['userid']}</p>
+                                                {/* (user != '' && user.message && user.message.user_id) ? user.message.user_id : localStorage['userid'] */}
+                                                <p className='cursor-pointer text-[14px] font-[500]'>{role.user ? role.user : (user != '' && user.message && user.message.user_id) ? user.message.user_id : ''}</p>
                                             </div>
                                         </div>}
                                         {/* <div>

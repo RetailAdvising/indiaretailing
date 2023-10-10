@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Dropdowns from './Dropdowns'
 import format from 'date-fns/format'
 
-export default function Content({ res, i,updateShare }) {
+export default function Content({ res, i, updateShare }) {
     const router = useRouter()
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
     const setings = [{ name: 'Copy Link', icon: '/bookstore/Copy.svg' }, { name: 'Comment', icon: '/bookstore/comment.svg' }, { name: 'More Stories', icon: '/bookstore/more-stories.svg' }]
@@ -36,7 +36,7 @@ export default function Content({ res, i,updateShare }) {
                 <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden'>
                     {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                     <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views ? res.views : res.no_of_views ? res.no_of_views : 1} Views</span></div>
-                    {/* <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div> */}
+                    <div className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{res.no_of_shares + ' shares'}</span></div>
                     <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} </span></div>
                 </div>
             </div>
@@ -61,6 +61,7 @@ export default function Content({ res, i,updateShare }) {
                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                         <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views ? res.views : res.no_of_views ? res.no_of_views : 1} Views</span></div>
                         {/* <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div> */}
+                        <div className='flex  items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{res.no_of_shares + ' shares'}</span></div>
                         <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} </span></div>
                     </div>
                 </div>
@@ -84,7 +85,7 @@ export default function Content({ res, i,updateShare }) {
 
 
                 <div className='flex items-center gap-[15px] pr-[10px]'>
-                    {icons && <Dropdowns updateShare={(data)=> updateShare(data)} share={true} link={res} width={'w-[170px]'} data={icons} />}
+                    {icons && <Dropdowns updateShare={(data) => updateShare(data)} share={true} link={res} width={'w-[170px]'} data={icons} />}
                     {setings && <Dropdowns setting={true} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
@@ -117,6 +118,8 @@ export default function Content({ res, i,updateShare }) {
                 {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                 <div className='flex items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><p className='text-[12px] md:text-[10px] gray-text'>{res.views ? res.views : res.no_of_views ? res.no_of_views : 1} Views</p></div>
                 {/* <div className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><p className='md:text-[10px] text-[12px] gray-text'>3 Shares</p></div> */}
+                <div className='flex  items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{res.no_of_shares + ' shares'}</span></div>
+
                 <div className='flex items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><p className='text-[12px] md:text-[10px] gray-text'>{res.read_time} </p></div>
             </div>
             {/* <p className='py-3 text-[18px] md:hidden'>{res.title}</p> */}

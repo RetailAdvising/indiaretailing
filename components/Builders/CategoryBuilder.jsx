@@ -16,8 +16,9 @@ import CustomSlider from '../Sliders/CustomSlider'
 import AuthModal from '../Auth/AuthModal';
 import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
+import { useSelector, useDispatch } from 'react-redux';
 
-export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt,updateShare }) {
+export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -25,6 +26,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   const [validator, setValidator] = useState(false)
   const router = useRouter();
   const [updateCmts, setupdateCmts] = useState(-1)
+  const role = useSelector(s => s.role);
 
   // console.log(ads)
   // let validate;
@@ -75,15 +77,25 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     //   console.log(i)
     // }
 
-    if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
-      const data = JSON.parse(localStorage['roles']);
-      if (data && data.length != 0) {
-        data.map(res => {
-          if (res.role == 'Member') {
+    if (typeof window !== 'undefined') {
+      if(role && role != '' && role.message && role.message.length != 0){
+        for (let index = 0; index < role.message.length; index++) {
+          if(role.message[i] == 'Member'){
             setValidator(!validator);
           }
-        })
+        }
+      }else{
+        setValidator(false)
       }
+      // const data = JSON.parse(localStorage['roles']);
+      // if (data && data.length != 0) {
+      //   data.map(res => {
+      //     if (res.role == 'Member') {
+      //       setValidator(!validator);
+      //     }
+      //   })
+      // }
+      // console.log(role)
     }
 
     if (document.readyState === 'complete') {
@@ -94,7 +106,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
       return () => window.removeEventListener('load', onPageLoad);
     }
 
-  }, [updateCmts, user])
+  }, [updateCmts, user,role])
 
   const cardref = useRef(null)
 
@@ -357,7 +369,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
         <div className={`flex w-full gap-[20px] md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
             <p>
-              <Content i={i} res={data} updateShare={(data)=> updateShare(data)} />
+              <Content i={i} res={data} updateShare={(data) => updateShare(data)} />
             </p>
             <div className='relative article_content'>
               {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`${i}`} className={`contents ${(data.ir_prime == 1 && !validator) && 'prime-article'}`} />}
@@ -457,7 +469,8 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
               {(data.comments && data.disable_comments != 1) && data.doctype == 'Articles' && <>
                 <div className={`${!isMobile && 'border_bottom'} py-1.5 ${styles.profile_div}`}>
-                  <h6 id={`cmt${i}`} className='font-semibold montserrat_fnt'>Comments</h6>
+                  {/* id={`cmt${data.route}`} */}
+                  <h6 className={`font-semibold montserrat_fnt ${'cmt' + i}`}>Comments</h6>
                 </div>
 
                 {(comments && comments.length != 0) && data.doctype == 'Articles' &&
@@ -467,7 +480,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                         {(res.route == data.name && res.data && res.data.length != 0) && <div style={{ background: "#efefef" }} className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  mt-3  `}>
                           {/* {data.comments.map((res, index) => {
                       return ( */}
-                          <Comments updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0,3)} hide_comment={hide} />
+                          <Comments updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 3)} hide_comment={hide} />
                           {/* )
                     })} */}
                         </div>}

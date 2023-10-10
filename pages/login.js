@@ -10,7 +10,7 @@ export default function login() {
   
   useEffect(()=>{
     if(localStorage["apikey"]){
-      console.log("l");
+      // console.log("l");
       route.push("/")
     }
   },[shows])

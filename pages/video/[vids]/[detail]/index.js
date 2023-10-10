@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import RootLayout from '@/layouts/RootLayout'
-import { checkMobile } from '@/libs/api';
+import { checkMobile, update_no_of_shares } from '@/libs/api';
 import { video_details, getAds } from '@/libs/api';
 import { useRouter } from 'next/router';
 import { check_Image } from '@/libs/common'
@@ -15,7 +15,7 @@ import AdsBaner from '@/components/Baners/AdsBaner'
 import SubscriptionAlert from '@/components/common/SubscriptionAlert';
 import Placeholders from '@/components/common/Placeholders'
 export default function Videos(meta_info, ads_data) {
-    console.log(meta_info, ads_data)
+    // console.log(meta_info, ads_data)
     const router = useRouter();
     let [isMobile, setIsmobile] = useState();
     let [videoDetail, setVideoDetail] = useState();
@@ -63,12 +63,19 @@ export default function Videos(meta_info, ads_data) {
         }
     }
 
-    const [sort, setSort] = useState(false);
 
-    async function share() {
-        await setSort(!sort);
-        let element = document.getElementById('dropdown');
-        sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
+    const updateShare = async (data) => {
+        console.log(data, 'share');
+        const param = {
+            doc_id: data.name,
+            doctype: 'Video'
+        }
+
+        const resp = await update_no_of_shares(param);
+        if (resp.message == 'Success') {
+            // console.log(resp)
+
+        }
     }
 
     return (
@@ -80,20 +87,20 @@ export default function Videos(meta_info, ads_data) {
                         <div className="lg:flex-[0_0_calc(70%_-_30px)]">
                             {/* <h6 className='text-[20px] line-clamp-2 font-semibold'>{videoDetail.message.title}</h6> */}
 
-                            {/* <div className='flex items-center gap-[10px] mb-[10px]'> */}
                             <div className='flex items-center gap-[10px] mb-[10px]'>
-                                <Image className={`h-[15px] w-[15px] object-contain`} src={'/views.svg'} height={10} width={15} alt={'share'} />
-                                <span className='text-[12px] gray_color'>{videoDetail.message.noof_views} Views</span>
-                            </div>
-                            {/* <div className='flex items-center gap-[10px]'>
+                                <div className='flex items-center gap-[10px]'>
+                                    <Image className={`h-[15px] w-[15px] object-contain`} src={'/views.svg'} height={10} width={15} alt={'share'} />
+                                    <span className='text-[12px] gray_color'>{videoDetail.message.noof_views} Views</span>
+                                </div>
+                                <div className='flex items-center gap-[10px]'>
                                     <Image className={`h-[15px] w-[15px] object-contain`} src={'/share.svg'} height={10} width={15} alt={'share'} />
-                                    <span className='text-[12px] gray_color'>4 Shares</span>
-                                </div> */}
-                            {/* </div> */}
+                                    <span className='text-[12px] gray_color'>{videoDetail.message.no_of_share + ' shares'}</span>
+                                </div>
+                            </div>
 
                             <div className={`flex md:p-[10px] justify-between lg:gap-5 md:gap-[5px] pb-[10px] md:pl-0`}>
                                 <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
-                                {icons && <div className={``}><Dropdowns link={videoDetail.message} data={icons} share={true} /></div>}
+                                {icons && <><Dropdowns updateShare={(data) => updateShare(data)} link={videoDetail.message} data={icons} share={true} /></>}
                             </div>
 
                             {(!validator && videoDetail.message.ir_prime == 1) && <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='lg:h-[500px] object-contain md:h-full w-full' />}
@@ -158,17 +165,17 @@ export default function Videos(meta_info, ads_data) {
 
 
 
-                            { (videoDetail.place_holders_ads && videoDetail.place_holders_ads.length != 0) ? <>
-                                <Placeholders placeholder={videoDetail.place_holders_ads}  />
+                            {(videoDetail.place_holders_ads && videoDetail.place_holders_ads.length != 0) ? <>
+                                <Placeholders placeholder={videoDetail.place_holders_ads} />
 
-                            </>  : videoDetail.related_videos && videoDetail.related_videos.length != 0 &&
-                                <>
-                                    <Title data={{ title: 'Related Videos' }} seeMore={false} />
-                                    <div className='border p-[10px] rounded-[5px] mb-[10px]'>
-                                        <List isHome={'/video/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
-                                    </div>
-                                    <AdsBaner data={bannerImg} height={'h-[250px]'} />
-                                </>
+                            </> : videoDetail.related_videos && videoDetail.related_videos.length != 0 &&
+                            <>
+                                <Title data={{ title: 'Related Videos' }} seeMore={false} />
+                                <div className='border p-[10px] rounded-[5px] mb-[10px]'>
+                                    <List isHome={'/video/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
+                                </div>
+                                <AdsBaner data={bannerImg} height={'h-[250px]'} />
+                            </>
                             }
 
 

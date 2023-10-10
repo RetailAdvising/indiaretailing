@@ -7,7 +7,7 @@ import { checkMobile } from '@/libs/api'
 import { ToastContainer, toast } from 'react-toastify';
 
 // import { Menu } from '@headlessui/react'
-export default function Dropdowns({ data, img, width, share, setting, element, type, link,updateShare }) {
+export default function Dropdowns({ data, img, width, share, setting, element, type, link, updateShare }) {
     const router = useRouter();
 
     const settings = async (data) => {
@@ -23,8 +23,30 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
             toast.success("Link copied successfully")
             // copyToClipboard(str);
         } else if (data.name == 'Comment') {
-            let el = document.getElementById(element)
-            el?.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
+            // let el = document.getElementById(element)
+            let el = document.getElementsByClassName(element)
+            let doc = Array.from(el)
+            for (let index = 0; index < doc.length; index++) {
+                const element = doc[index];
+                console.log(element)
+                element.scrollIntoView()
+            }
+            // console.log(el)
+            // console.log(doc)
+            // el && window.scrollTo(0, 10000)
+            // el && el.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
+            // (doc) && doc.scrollIntoView({ block: 'end', behavior: 'smooth', inline: 'nearest' })
+            // window.location.href= el && el
+        }
+    }
+
+    function Position(obj) {
+        var currenttop = 0;
+        if (obj.offsetParent) {
+            do {
+                currenttop += obj.offsetTop;
+            } while ((obj = obj.offsetParent));
+            return [currenttop];
         }
     }
 
@@ -103,7 +125,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                             leave="transition ease-in duration-150"
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1">
-                                {/* absolute md:left-[-55px] z-[99] rounded-[10px] mt-3 bg-white -translate-x-1/2 transform */}
+                            {/* absolute md:left-[-55px] z-[99] rounded-[10px] mt-3 bg-white -translate-x-1/2 transform */}
                             <Popover.Panel className={`arrow_ absolute z-[99] rounded-[10px] mt-[8px]  bg-white md:right-0 lg:left-0 transform  ${type == 'tag' ? 'left-[-60px]' : ''}`}>
                                 <div className={`overflow-hidden ${width} shadow-[0_0_5px_#dddddd91] rounded-[7px_10px_10px_10px] bg-[#fff]`}>
                                     <div className="p-[7px]">
@@ -112,8 +134,8 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                 return (
                                                     <div onClick={() => setting ? settings(res) : type == 'head' ? myAccounts(res) : null} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} key={index}>
                                                         <div className='flex items-center gap-[5px]'>
-                                                         { res.icon &&<div className='h-[17px] flex items-center justify-center'><Image className='object-contain h-[18px] w-[18px]' src={res.icon} height={20} alt={res.name} width={20} /></div>}
-                                                         <p className={`${(index != data.length - 1 && !res.icon) ? '' : ''} mb-[1px] text-[14px] ${(router.asPath.split('/')[1] == 'news' && res.name == 'Comment') ? 'hidden' : ''}`}>{res.name}</p>
+                                                            {res.icon && <div className='h-[17px] flex items-center justify-center'><Image className='object-contain h-[18px] w-[18px]' src={res.icon} height={20} alt={res.name} width={20} /></div>}
+                                                            <p className={`${(index != data.length - 1 && !res.icon) ? '' : ''} mb-[1px] text-[14px] ${(router.asPath.split('/')[1] == 'news' && res.name == 'Comment') ? 'hidden' : ''}`}>{res.name}</p>
                                                         </div>
 
                                                         <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
@@ -125,7 +147,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                             {data && data.map((res, index) => {
                                                 return (
                                                     <div key={index} onClick={() => updateShare(link)} className='flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px] cursor-pointer'>
-                                                       <div className='flex items-center gap-[5px]'>
+                                                        <div className='flex items-center gap-[5px]'>
                                                             {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
@@ -142,9 +164,9 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </WhatsappShareButton>}
-                                                       </div>
+                                                        </div>
 
-                                                       <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
+                                                        <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
 
                                                     </div>
                                                 )
@@ -161,5 +183,5 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
             </Popover>
         </>
     )
-} 
+}
 
