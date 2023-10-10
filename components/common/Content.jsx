@@ -140,7 +140,7 @@ export default function Content({ res, i,updateShare }) {
                 frameBorder="2"
                 loading="lazy"
             // allowfullscreen="allowfullscreen"
-            ></iframe> : <div className='w-full lg:h-[500px]'><Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-full object-contain w-full" /></div>
+            ></iframe> : <div className='w-full lg:h-[500px]'><Image loading="lazy" blurDataURL={'/empty_state.jpg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-full object-contain w-full" /></div>
             }
 
             {/* <p className='py-3 !leading-[1.74] !text-[15px] !text-justify font-semibold'>{res.blog_intro}</p> */}

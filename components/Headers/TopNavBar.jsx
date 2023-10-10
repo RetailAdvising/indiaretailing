@@ -43,6 +43,7 @@ export default function TopNavBar({ nav_data,getActiveTab,activeTab }) {
         }
     ])
     useEffect(() => {
+        console.log(activeTab)
         if(!activeTab){
         let route = router.route.split('/')
         let redirect_url = route[1] ? '/' + route[1] : '/'

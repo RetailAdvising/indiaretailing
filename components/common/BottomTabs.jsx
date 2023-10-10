@@ -41,7 +41,6 @@ export default function BottomTabs({ activeTab, getActiveTab }) {
         },
     ])
     useEffect(() => {
-        // console.log(activeTab);
         if (!activeTab) {
             let route = router.asPath.split('/')
             let redirect_url = route[1] ? '/' + route[1] : '/'

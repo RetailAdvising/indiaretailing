@@ -4,12 +4,13 @@ import { Inter, Roboto, Faustina } from 'next/font/google'
 import { useDispatch, useSelector, Provider } from 'react-redux'
 // import userAction from 'redux/actions/userAction'
 import ErrorBoundary from '@/components/Exception/ErrorBoundary'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import Head from 'next/head'
 import { websiteSettings } from '@/libs/api'
 import MobileHead from '@/components/Headers/MobileHead'
 import BottomTabs from '@/components/common/BottomTabs'
 import Header from '@/components/Headers/Header'
+import { useRouter } from 'next/router'
 
 // const inter = Inter({
 //   weight: ["200", "300", "400", "500", "600", '700'],
@@ -34,6 +35,7 @@ export default function App({ Component, pageProps }) {
   const [tabHeight, setTabHeight] = useState(0)
   const [activeTab, setActiveTab] = useState(0)
 
+  const router = useRouter()
 
   useEffect(() => {
     let tabs = document.getElementById('tabs')
@@ -52,8 +54,18 @@ export default function App({ Component, pageProps }) {
   const getActiveTab = (tab_data) => {
     console.log(tab_data);
     setActiveTab(tab_data)
-
   }
+
+  // const getRoutes = (route) => {
+  //   console.log(route,'actives route')
+  //   const val = {redirect_url: router.route}
+  //   setActiveTab(val)
+  // }
+
+  // let tabsAct = useMemo(()=> getRoutes(router), [router]) 
+
+
+
   // const router = useRouter();
   // const [loading, setLoading] = useState(false);
 
@@ -106,7 +118,7 @@ export default function App({ Component, pageProps }) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-thumbnail/1.1.0/lg-thumbnail.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-fullscreen/1.1.0/lg-fullscreen.min.js"></script>
-        
+
       </Head>
       <ErrorBoundary >
         <Provider store={store} >

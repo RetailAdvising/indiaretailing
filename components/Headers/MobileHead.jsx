@@ -18,7 +18,7 @@ export default function MobileHead({ isLanding = true, Heading, checkout, getAct
         if (isMobile) show_header()
         // Clear the timeout if the component unmounts before the 2 seconds
         return () => clearTimeout(timeout);
-    }, [isMobile, router.query]);
+    }, [isMobile, router.query,activeTab]);
 
     useEffect(() => {
         checkIsMobile();

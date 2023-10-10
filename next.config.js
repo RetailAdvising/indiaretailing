@@ -5,7 +5,8 @@ const nextConfig = {
   reactStrictMode: false,
  
   images:{
-    domains:["indiaretailing.go1cms.com","https://","via.placeholder.com","vumbnail.com",'img.youtube.com']
+    domains:["indiaretailing.go1cms.com","https://","via.placeholder.com","vumbnail.com",'img.youtube.com'],
+    unoptimized: true
   },
   // output: 'export'
   // sassOptions: {
