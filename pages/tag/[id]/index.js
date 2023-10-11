@@ -124,9 +124,10 @@ export default function Trending({ data, res, ads }) {
         if (resp && resp.status && resp.status == 'Success') {
             if (resp.message.data.length != 0) {
                 setData((d) => d = [...d, ...resp.message.data]);
-            } else {
+            }
+             else {
                 no_product = true;
-                setNodata(!nodata)
+                // page_no == 1 && setNodata(!nodata)
             }
         }
     }
@@ -182,7 +183,7 @@ export default function Trending({ data, res, ads }) {
                                 <div className={`lg:grid  lg:grid-cols-1 lg:gap-5  `}>
                                     {resp_data.map((res, index) => {
                                         return (
-                                            <div key={index} onClick={() => checkRoute(res)} className={`md:flex-[0_0_calc(70%_-_10px)] cursor-pointer border-b-[4px] border-[#f1f1f1] md:mb-[15px] md:pb-[15px]`}>
+                                            <div key={index} onClick={() => router.push('/'+res.route)} className={`md:flex-[0_0_calc(70%_-_10px)] cursor-pointer border-b-[4px] border-[#f1f1f1] md:mb-[15px] md:pb-[15px]`}>
                                                 {/* <div className='flex justify-between items-center'> */}
                                                 <div className='flex items-center md:px-[10px] gap-[10px]'>
                                                     <Image className='h-[30px] w-[30px] object-contain' src={'/Navbar/IR-01.svg'} height={20} width={20} alt='ir prime' />

@@ -10,9 +10,7 @@ export default function MobileHead({ isLanding = true, Heading, checkout, getAct
     const [isMobile, setIsMobile] = useState()
     const [isVisible, setIsVisible] = useState(false);
     const router = useRouter()
-    console.log(activeTab);
     useEffect(() => {
-        console.log(router)
         // After 2 seconds, set the isVisible state to true
         const timeout = setTimeout(() => {
             setIsVisible(true);
@@ -32,7 +30,6 @@ export default function MobileHead({ isLanding = true, Heading, checkout, getAct
   const  emit_nav_item=(item)=>{
     activeTab = item
     getActiveTab(item)
-    console.log(activeTab);
   }
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();

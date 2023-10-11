@@ -73,7 +73,7 @@ export default function ExclusiveBuilder({ data,ads }) {
             {/* Section - 2 p-[20px_30px_0_0] w-[30%]*/}
             { data.leaders_ink && data.leaders_ink.data && data.leaders_ink.data.lengrh !=0 &&  <div className={`flex lg:p-[20px 0] md:p-[0_15px]  pb-[35px] container flex-wrap items-end justify-between w-full gap-[15px]`}>
                 <div className='w-[calc(75%_-_10px)] md:basis-full md:pt-[10px]'>
-                    <Title data={{ title: data.leaders_ink.title}} seeMore={true}/>
+                    <Title data={{ title: data.leaders_ink.title}} route={'/IRPrime/'} seeMore={true}/>
                     <div className='primeSlide'>
                         {/* <MultiCarousel cardHeight={'h-[280px]'} type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} /> */}
                         <CustomSlider cardClass={'lg:h-[300px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}

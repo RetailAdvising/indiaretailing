@@ -1,7 +1,7 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image, getList, commentList,update_no_of_shares } from '@/libs/api';
+import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares,checkMobile } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -17,7 +17,8 @@ export default function Details({ data, page_route }) {
   const [advertisement, setAds] = useState();
   const [pageNo, setPageNo] = useState(1);
   const [meta_info, setMetaInfo] = useState();
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState([]);
+  const [scrollEle, setScrollEle] = useState(true)
   // const comment = useSelector(s => s.comments);
   // const dispatch = useDispatch();
   const generateMetaData = (data) => {
@@ -105,7 +106,20 @@ export default function Details({ data, page_route }) {
       setValues(values);
     }
 
+    // checkIsMobile();
+    // window.addEventListener('resize', checkIsMobile)
+    // return () => {
+    //   window.removeEventListener('resize', checkIsMobile);
+    // };
+
   }, [user])
+
+  // const [isMobile, setIsMobile] = useState()
+  
+  // const checkIsMobile = async () => {
+  //   let isMobile = await checkMobile();
+  //   setIsMobile(isMobile);
+  // }
 
 
 
@@ -164,49 +178,60 @@ export default function Details({ data, page_route }) {
     // Event listener to track scroll events
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
+      if (scrollEle) {
+        // console.log(scrollEle, 'scrollele')
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
 
-      for (const divId of divs) {
+        for (const divId of divs) {
 
-        const div = document.getElementById(divId);
+          const div = document.getElementById(divId);
 
-        if (!div) continue;
+          if (!div) continue;
 
-        const divTop = div.getBoundingClientRect().top;
-        const divBottom = div.getBoundingClientRect().bottom;
+          const divTop = div.getBoundingClientRect().top;
+          const divBottom = div.getBoundingClientRect().bottom;
 
-        if (divTop < windowHeight / 2 && divBottom > windowHeight / 2) {
-          let ind = divId.replace('div', '')
-          ind = Number(ind);
+          if (divTop < windowHeight / 2 && divBottom > windowHeight / 2) {
+            let ind = divId.replace('div', '')
+            ind = Number(ind);
 
-          setTimeout(() => {
-            if (routeList && routeList.length > 0 && routeList[ind]) {
-              console.log(routeList)
-              // router.push('/' + routeList[ind], undefined, { scroll: false });
-              router.replace({ pathname: '/' + routeList[ind] }, undefined, { shallow: true, scroll: false });
+            setTimeout(() => {
+              if (routeList && routeList.length > 0 && routeList[ind]) {
+                // console.log(routeList)
+                // router.push('/' + routeList[ind], undefined, { scroll: false });
+                router.replace({ pathname: '/' + routeList[ind] }, undefined, { shallow: true, scroll: false });
 
-              // generateMetaData(values[ind])
-              if (values && values.length > 0 && values[ind]) {
-                setMetaInfo(values[ind]);
-                // console.log(ind)
-                // document.title = values[ind].meta_title ? values[ind].meta_title : 'Updated Title';
-                // document.querySelector('meta[name="description"]').setAttribute('content', 'updated description');
+                // generateMetaData(values[ind])
+                if (values && values.length > 0 && values[ind]) {
+                  setMetaInfo(values[ind]);
+                  // console.log(ind)
+                  // document.title = values[ind].meta_title ? values[ind].meta_title : 'Updated Title';
+                  // document.querySelector('meta[name="description"]').setAttribute('content', 'updated description');
+                }
               }
-            }
-          }, 300)
-          break;
-        }
+            }, 300)
+            break;
+          }
 
+        }
       }
     };
+
+
 
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
 
-  }, []);
+
+  }, [scrollEle]);
+
+  const noScroll = (val) => {
+    // console.log('triggered....',val)
+    setScrollEle(val);
+  }
 
 
 
@@ -266,11 +291,11 @@ export default function Details({ data, page_route }) {
     // console.log(data,'share');
     const param = {
       doc_id: data.name,
-      doctype:'Articles'
+      doctype: 'Articles'
     }
 
     const resp = await update_no_of_shares(param);
-    if(resp.message == 'Success'){
+    if (resp.message == 'Success') {
       // console.log(resp)
 
     }
@@ -284,7 +309,7 @@ export default function Details({ data, page_route }) {
 
         {/* {(meta_info) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />} */}
         {/* <SEO  /> */}
-       { (data) && <SeoArticles meta={data} meta_data={meta_info} /> }
+        {(data) && <SeoArticles meta={data} meta_data={meta_info} />}
         {/* {(meta_info && Object.keys(meta_info).length > 0) &&
           <NextSeo
             title={meta_info.meta_title ? meta_info.meta_title : meta_info.title}
@@ -326,7 +351,7 @@ export default function Details({ data, page_route }) {
             return (
               <div id={'div' + index} key={index} className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
-                <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data)=> updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} />
+                <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data) => updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} noScroll={(val) => noScroll(val)} />
               </div>
             )
           })}

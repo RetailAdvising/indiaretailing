@@ -20,7 +20,7 @@ export default function Title({ data, textClass, seeMore, font, noPadding, isVid
       {data &&
         <div className={`title_div ${noPadding ? '' : 'pb-3'} flex justify-between ${title_class ? title_class : ''}`}>
           <div className='cursor-pointer'>
-            <h6 style={{ fontSize: font }} className={`title montserrat_fnt text-[18px] ${textClass}`}>{data.title ? data.title : data.category_name ? data.category_name : ''}</h6>
+            <h6 style={{ fontSize: font }} className={`title text-[18px] ${textClass}`}>{data.title ? data.title : data.category_name ? data.category_name : ''}</h6>
             <div className='line mt-1'></div>
           </div>
           {

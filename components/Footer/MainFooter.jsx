@@ -3,7 +3,7 @@ import footer from '@/libs/footer';
 import Image from 'next/image';
 import { check_Image } from '@/libs/api';
 export default function MainFooter({ footerData }) {
-
+    console.log(footerData)
 
     return (
         <>
@@ -71,7 +71,7 @@ export default function MainFooter({ footerData }) {
                                         <div key={i}>
                                             {/* // <> */}
                                             {item.section_name == 'Footer Contact' &&
-                                                <div  className={` flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
+                                                <div className={` flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
                                                     <Image src={check_Image(item.logo)} height={66} width={200} alt={"image"} className='mb-[20px]' />
                                                     <h6 className='font-medium pb-1 text-[13px]'>{item.title}</h6>
                                                     <p className='address font-normal text-[13px]'>{item.address_content}</p>
@@ -112,13 +112,13 @@ export default function MainFooter({ footerData }) {
                                                     <h6 className='text-[15px] font-semibold mb-3'>{item.title}</h6>
                                                     {(item.menus && item.menus.length != 0) && item.menus.map((item, index) => {
                                                         return (
-                                                            <a href={item.redirect_url} key={index}><p className='sub_title pb-2 hover:text-[red]'>{item.menu_label}</p></a>
+                                                            <a target={item.title == 'Events' ? '_blank' : '_self'} href={item.redirect_url} key={index}><p className='sub_title pb-2 hover:text-[red]'>{item.menu_label}</p></a>
                                                         )
                                                     })}
                                                 </div>
                                             }
                                         </div>
-                                    // {/* </> */ }
+                                        // {/* </> */ }
                                     )
                                 })}
                             </div>

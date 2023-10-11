@@ -263,6 +263,11 @@ export async function getList(data) {
     return await postMethod(api, data);
 }
 
+export async function get_article_breadcrumb(data) {
+    let api = domainUrl + 'get_article_breadcrumb';
+    return await postMethod(api, data);
+}
+
 export async function articlesList(data) {
     let api = domainUrl + 'article_list';
     return await postMethod(api, data);

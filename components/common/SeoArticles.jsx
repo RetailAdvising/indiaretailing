@@ -34,6 +34,7 @@ export default function SeoArticles({ meta, meta_data, canonical = 'https://indi
                 {/* <title key="title">{`${meta.meta_title} – ${'IndiaRetailing'}`}</title> */}
                 <title key="title">{title ? title : meta.meta_title ? meta.meta_title : meta.title ? meta.title : 'India Retailing'}</title>
                 <meta name="description" content={meta.meta_description} />
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
                 <meta name="theme-color" content="#e21b22" />
                 <meta key="og_type" property="og:type" content={ogType} />
                 <meta key="og_title" property="og:title" content={meta.meta_title} />

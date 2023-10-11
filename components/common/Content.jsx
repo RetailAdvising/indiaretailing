@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Dropdowns from './Dropdowns'
 import format from 'date-fns/format'
 
-export default function Content({ res, i, updateShare }) {
+export default function Content({ res, i, updateShare,noScroll }) {
     const router = useRouter()
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
     const setings = [{ name: 'Copy Link', icon: '/bookstore/Copy.svg' }, { name: 'Comment', icon: '/bookstore/comment.svg' }, { name: 'More Stories', icon: '/bookstore/more-stories.svg' }]
@@ -54,8 +54,8 @@ export default function Content({ res, i, updateShare }) {
 
                     {/* <Image className='rounded-full object-cover w-[48px] h-[48px]' priority={true} src={(res.avatar && res.avatar != null) ? check_Image(res.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                     <div className='flex flex-col'>
-                        <h6 className="text-[14x] font-semibold montserrat_fnt">{res.publisher}</h6>
-                        <span className='text-gray lg:text-[13px] montserrat_fnt md:text-[12px] gray-text'>{dateFormat(res.published_on)}</span>
+                        <h6 className="text-[14x] font-semibold">{res.publisher}</h6>
+                        <span className='text-gray lg:text-[13px] md:text-[12px] gray-text'>{dateFormat(res.published_on)}</span>
                     </div> */}
                     <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between '>
                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
@@ -85,8 +85,8 @@ export default function Content({ res, i, updateShare }) {
 
 
                 <div className='flex items-center gap-[15px] pr-[10px]'>
-                    {icons && <Dropdowns updateShare={(data) => updateShare(data)} share={true} link={res} width={'w-[170px]'} data={icons} />}
-                    {setings && <Dropdowns setting={true} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
+                    {icons && <Dropdowns noScroll={(val) => noScroll(val)} updateShare={(data) => updateShare(data)} share={true} link={res} type={'articles'} width={'w-[170px]'} data={icons} />}
+                    {setings && <Dropdowns noScroll={(val) => noScroll(val)} setting={true} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} img={'/setting.svg'} element={`cmt${i}`} width={'w-[100px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
             <div className='flex gap-3 justify-between'>
@@ -108,9 +108,9 @@ export default function Content({ res, i, updateShare }) {
                 </div>
 
                 <div className='lg:hidden flex gap-[15px] mr-[10px]'>
-                    {icons && <Dropdowns link={res} share={true} width={'w-[170px]'} data={icons} />}
+                    {icons && <Dropdowns type={'articles'} noScroll={(val) => noScroll(val)} link={res} share={true} width={'w-[170px]'} data={icons} />}
 
-                    {setings && <Dropdowns link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[160px] lg:w-[160px]'} data={setings} />}
+                    {setings && <Dropdowns noScroll={(val) => noScroll(val)} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[160px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
 
@@ -143,7 +143,7 @@ export default function Content({ res, i, updateShare }) {
                 frameBorder="2"
                 loading="lazy"
             // allowfullscreen="allowfullscreen"
-            ></iframe> : <div className='w-full lg:h-[500px]'><Image loading="lazy" blurDataURL={'/empty_state.jpg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-full object-contain w-full" /></div>
+            ></iframe> : <div className={`w-full lg:h-[500px]`}><Image loading="lazy" blurDataURL={'/empty_state.jpg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-full object-contain w-full" /></div>
             }
 
             {/* <p className='py-3 !leading-[1.74] !text-[15px] !text-justify font-semibold'>{res.blog_intro}</p> */}

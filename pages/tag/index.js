@@ -33,7 +33,7 @@ export default function Tags({ res, data }) {
             console.log(res)
             setData(res.data)
             // console.log(router)
-            
+
             // setActivatedData([...res.data['news_list'], ...res.data['event_list'], ...res.data['article_list']]);
         }
 
@@ -181,7 +181,7 @@ export default function Tags({ res, data }) {
                                 <div className={`lg:grid  lg:grid-cols-1 lg:gap-5 `}>
                                     {resp_data.map((res, index) => {
                                         return (
-                                            <div key={index} onClick={() => checkRoute(res)} className={`md:flex-[0_0_calc(70%_-_10px)] cursor-pointer border-b-[4px] border-[#f1f1f1] md:mb-[15px] md:pb-[15px]`}>
+                                            <div key={index} onClick={() => router.push('/' + res.route)} className={`md:flex-[0_0_calc(70%_-_10px)] cursor-pointer border-b-[4px] border-[#f1f1f1] md:mb-[15px] md:pb-[15px]`}>
                                                 {/* <div className='flex justify-between items-center'> */}
                                                 <div className='flex items-center md:px-[10px] gap-[10px]'>
                                                     <Image className='h-[30px] w-[30px] object-contain' src={'/Navbar/IR-01.svg'} height={20} width={20} alt='ir prime' />

@@ -332,7 +332,7 @@ export default function Home({ data }) {
                             <Title data={{ title: c.component_title }} route={'/categories/case-studies'} seeMore={true} />
                             <div className={`no_scroll `}>
                               {/* <Cards check={true} isHome={'/'} data={data.data[c.cid].data} cardClass={"h-[300px] "} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /> */}
-                              <CustomSlider hide_scroll_button={true} slider_child_id={'case_studies' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
+                              <CustomSlider noPrimaryText={true} hide_scroll_button={true} slider_child_id={'case_studies' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
                                 imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'} />
                             </div>
                           </>}
@@ -341,7 +341,7 @@ export default function Home({ data }) {
                             {/* overflow-auto scrollbar-hide gap-[15px] flex */}
                             <>
                               {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'lg:h-[300px]  flex-[0_0_calc(70%_-_15px)] '} imgClass={'h-[175px]  w-full'} /> */}
-                              <CustomSlider hide_scroll_button={true} slider_child_id={'photo_essays' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(75%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
+                              <CustomSlider noPrimaryText={true} hide_scroll_button={true} slider_child_id={'photo_essays' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(75%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
                                 imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'} />
                             </>
                             {/* <div className='photo'><MultiCarousel isHome={'/categories/'} check={true} cardHeight={'h-[310px]'} data={data.data[c.cid].data} height={"h-[175px]"} width={'w-full'} perView={2} noPlay={true} none={true} type={'card'} /></div> */}

@@ -5,7 +5,7 @@
 @import './Variables.module.scss';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Poppins:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Faustina:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 @layer components {
   .primary_btn {
@@ -2212,10 +2212,6 @@ span {
 }
 
 @media screen and (max-width: 1066px) {}
-
-.montserrat_fnt{
-  font-family: 'Montserrat', sans-serif !important;
-}
 
 .inner_line:not(:first-child)::before{
   content: "";

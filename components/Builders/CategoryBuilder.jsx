@@ -18,7 +18,7 @@ import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
 import { useSelector, useDispatch } from 'react-redux';
 
-export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare }) {
+export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare,noScroll }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -286,7 +286,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
   const hideModal = () => {
     setLoginModal(false)
-    console.log('close')
+    // console.log('close')
     if (localStorage && localStorage['apikey']) {
       setshowComment(!showComment);
       show()
@@ -369,7 +369,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
         <div className={`flex w-full gap-[20px] md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
             <p>
-              <Content i={i} res={data} updateShare={(data) => updateShare(data)} />
+              <Content i={i} res={data} updateShare={(data) => updateShare(data)} noScroll={(val) => noScroll(val)} />
             </p>
             <div className='relative article_content'>
               {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`${i}`} className={`contents ${(data.ir_prime == 1 && !validator) && 'prime-article'}`} />}
@@ -430,7 +430,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               {!isMobile && <div className={`flex flex-row justify-between`}>
                 {/* <p className="gray-text">Previous Post</p> */}
                 <hr></hr>
-                <h6 className={`font15_bold montserrat_fnt`}>Share this Article</h6>
+                <h6 className={`font15_bold`}>Share this Article</h6>
                 <hr></hr>
                 {/* <p className="gray-text">Next Post</p> */}
               </div>}
@@ -470,7 +470,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               {(data.comments && data.disable_comments != 1) && data.doctype == 'Articles' && <>
                 <div className={`${!isMobile && 'border_bottom'} py-1.5 ${styles.profile_div}`}>
                   {/* id={`cmt${data.route}`} */}
-                  <h6 className={`font-semibold montserrat_fnt ${'cmt' + i}`}>Comments</h6>
+                  <h6 className={`font-semibold ${'cmt' + i}`}>Comments</h6>
                 </div>
 
                 {(comments && comments.length != 0) && data.doctype == 'Articles' &&
@@ -494,10 +494,10 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               {data.disable_comments != 1 && data.doctype == 'Articles' &&
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
-                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex montserrat_fnt`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'}</button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'}</button>
                     {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
                   </div> : <div className={`mt-[10px] flex justify-center`}>
-                    <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex montserrat_fnt`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
+                    <button onClick={showSidebar} className={`justify-center bg-red text-white p-[6px_8px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
                   </div>}
                 </>
 

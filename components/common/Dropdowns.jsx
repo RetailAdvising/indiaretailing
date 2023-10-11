@@ -7,8 +7,9 @@ import { checkMobile } from '@/libs/api'
 import { ToastContainer, toast } from 'react-toastify';
 
 // import { Menu } from '@headlessui/react'
-export default function Dropdowns({ data, img, width, share, setting, element, type, link, updateShare }) {
+export default function Dropdowns({ data, img, width, share, setting, element, type, link, updateShare,noScroll }) {
     const router = useRouter();
+    
 
     const settings = async (data) => {
         if (data.name == 'More Stories') {
@@ -26,10 +27,11 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
             // let el = document.getElementById(element)
             let el = document.getElementsByClassName(element)
             let doc = Array.from(el)
+            noScroll(isMobile ? false : true);
             for (let index = 0; index < doc.length; index++) {
                 const element = doc[index];
                 console.log(element)
-                element.scrollIntoView()
+                element.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
             }
             // console.log(el)
             // console.log(doc)
@@ -88,7 +90,9 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
 
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
+        (!isMobile && !share && setting) && noScroll(true)
         setIsMobile(isMobile);
+        // !isMobile && noScroll(true);
     }
 
     const myAccounts = (data) => {
@@ -148,19 +152,19 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                 return (
                                                     <div key={index} onClick={() => updateShare(link)} className='flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px] cursor-pointer'>
                                                         <div className='flex items-center gap-[5px]'>
-                                                            {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </LinkedinShareButton>}
-                                                            {res.name == 'Facebook' && <FacebookShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Facebook' && <FacebookShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </FacebookShareButton>}
-                                                            {res.name == 'Twitter' && <TwitterShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Twitter' && <TwitterShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </TwitterShareButton>}
-                                                            {res.name == 'Whatsapp' && <WhatsappShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Whatsapp' && <WhatsappShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </WhatsappShareButton>}

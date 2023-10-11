@@ -9,7 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, {  useEffect, useState } from 'react'
-import { websiteSettings } from '@/libs/api'
+import { websiteSettings,get_article_breadcrumb } from '@/libs/api'
 import MobileHead from '@/components/Headers//MobileHead';
 import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
@@ -28,13 +28,23 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
 
   useEffect(() => {
     if (typeof window != 'undefined' && router) {
-      setBreadCrumbs(router.asPath.split('/'))
+      console.log(router);
+      if(router.query.detail){
+        article_breadcrumb(router.query.detail)
+      }else setBreadCrumbs(router.asPath.split('/'))
     }
 
     let ads = document.getElementById('ads')
     get_website_settings()
     // ads.classList.remove('hidden')
   }, [])
+  
+  const article_breadcrumb =async (route) =>{
+   const resp =  await get_article_breadcrumb({article_route:route})
+    if (resp) {
+      setBreadCrumbs(resp.message)
+    }
+  }
 
   const get_website_settings = async () => {
     let websiteData = await websiteSettings()
@@ -59,14 +69,14 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
               let url = index == 3 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] + '/' + breadCrumbs[3] :
                 index == 2 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] :
                   index == 1 ? '/' + breadCrumbs[1] : '/'
-              return (<>
-                {index == 0 ? <Link key={index} className={`flex gap-[5px] items-center capitalize hover:text-red `} href={url}>
+              return (<div key={index}  >
+                {index == 0 ? <Link className={`flex gap-[5px] items-center capitalize hover:text-red `} href={url}>
                   <p className='text-[12px]'> Home</p>
                   <div className='ml-[5px] pt-[4px]'>
                     <Image alt='arrow' src={'/arrow.svg'} width={5} height={5} />
                   </div>
                 </Link> : index == breadCrumbs.length - 1 ?
-                  <div key={index} className={`flex gap-[5px] items-center capitalize hover:text-red `}>
+                  <div className={`flex gap-[5px] items-center capitalize hover:text-red `}>
                     <p className={`text-[12px] max-w-[250px] line-clamp-1 ${breadCrumbs.length - 1 == index && 'font-semibold'}`}> {bc.replaceAll('-', ' ')}</p>
                     {(index !== 0 && index != breadCrumbs.length - 1) &&
                       <div className='ml-[5px] pt-[4px]'>
@@ -74,7 +84,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
                       </div>
                     }
                   </div> :
-                  <Link key={index} className={`flex gap-[5px] items-center capitalize`} href={url}>
+                  <Link className={`flex gap-[5px] items-center capitalize`} href={url}>
                     <p className={`text-[12px] ${breadCrumbs.length - 1 == index && 'font-semibold'}`}> {bc.replaceAll('-', ' ')}</p>
                     {(index !== 0 && index != breadCrumbs.length - 1) &&
                       <div className='ml-[5px] pt-[4px]'>
@@ -82,7 +92,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
                       </div>
                     }
                   </Link>}
-              </>)
+              </div>)
             })}
           </div>
         }
