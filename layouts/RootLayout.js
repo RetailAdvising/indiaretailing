@@ -64,11 +64,12 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
         <Navbar isLanding={isLanding} heading={head} checkout={checkout} />
         {/* {!checkout ? <Navbar isLanding={isLanding} heading={head} /> : <div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={head} /></div> } */}
         {(breadCrumbs && breadCrumbs.length > 1 && breadCrumbs[1] && breadCrumbs[1] != 'newsletters' && breadCrumbs[1] != 'news' && breadCrumbs[1].split('?')[0] != 'thankyou' && breadCrumbs[1].split('?')[0] != 'profile' && breadCrumbs[1].split('?')[0] != 'search' && breadCrumbs[1].split('?')[0] != 'tag') &&
+          
           <div className='container flex  gap-[7px] md:hidden py-[20px]'>
             {breadCrumbs.map((bc, index) => {
               let url = index == 3 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] + '/' + breadCrumbs[3] :
                 index == 2 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] :
-                  index == 1 ? '/' + breadCrumbs[1] : '/'
+                  index == 1 ? router.query.detail ? '/categories/' + breadCrumbs[1]:'/' + breadCrumbs[1] : '/'
               return (<div key={index}  >
                 {index == 0 ? <Link className={`flex gap-[5px] items-center capitalize hover:text-red `} href={url}>
                   <p className='text-[12px]'> Home</p>

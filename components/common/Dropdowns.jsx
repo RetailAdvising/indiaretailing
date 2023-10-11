@@ -130,7 +130,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1">
                             {/* absolute md:left-[-55px] z-[99] rounded-[10px] mt-3 bg-white -translate-x-1/2 transform */}
-                            <Popover.Panel className={`arrow_ absolute z-[99] rounded-[10px] mt-[8px]  bg-white md:right-0 lg:left-0 transform  ${type == 'tag' ? 'left-[-60px]' : ''}`}>
+                            <Popover.Panel className={`arrow_ absolute z-[99] rounded-[10px] mt-[8px]  bg-white md:right-0 lg:left-0 transform  ${type == 'tag' ? 'lg:!right-0 ' : ''}`}>
                                 <div className={`overflow-hidden ${width} shadow-[0_0_5px_#dddddd91] rounded-[7px_10px_10px_10px] bg-[#fff]`}>
                                     <div className="p-[7px]">
                                         {!share ? <>
@@ -152,19 +152,19 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                 return (
                                                     <div key={index} onClick={() => updateShare(link)} className='flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px] cursor-pointer'>
                                                         <div className='flex items-center gap-[5px]'>
-                                                            {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/'+ router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </LinkedinShareButton>}
-                                                            {res.name == 'Facebook' && <FacebookShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Facebook' && <FacebookShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/'+ router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </FacebookShareButton>}
-                                                            {res.name == 'Twitter' && <TwitterShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Twitter' && <TwitterShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/'+ router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </TwitterShareButton>}
-                                                            {res.name == 'Whatsapp' && <WhatsappShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Whatsapp' && <WhatsappShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/'+ router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </WhatsappShareButton>}

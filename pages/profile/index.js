@@ -13,6 +13,10 @@ import AlertUi from '@/components/common/AlertUi';
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import AddAddress from '@/components/Bookstore/AddAddress';
 import NewsList from '@/components/Newsletter/NewsList';
+import setRole from 'redux/actions/roleAction';
+import { useSelector, useDispatch } from 'react-redux';
+import setUser from 'redux/actions/userAction';
+
 export default function profile({my_account}) {  
 
   
@@ -42,6 +46,7 @@ export default function profile({my_account}) {
   const [index,setIndex] = useState(-1)
   const [member, setMember] = useState(false);
 
+  const dispatch = useDispatch()
   const router = useRouter();
 
   
@@ -147,6 +152,8 @@ export default function profile({my_account}) {
     if(value == 'Yes' && alertUi){
       setAlertUi(false);
       localStorage.clear();
+      dispatch(setRole(''))
+      dispatch(setUser(''))
       router.push('/'); 
     }else{
       setAlertUi(false);
@@ -159,6 +166,8 @@ export default function profile({my_account}) {
     if(value == 'Yes' && alertUi){
       setAlertUi(false);
       localStorage.clear();
+      dispatch(setRole(''))
+      dispatch(setUser(''))
       router.push('/'); 
     }else{
       setAlertUi(false);

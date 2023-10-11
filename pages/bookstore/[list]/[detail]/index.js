@@ -123,6 +123,7 @@ export default function Bookstoredetail({ value, res }) {
 
   async function addToCart() {
     setLoader(true);
+    console.log(localStorage['apikey']);
     if (localStorage['apikey']) {
 
       let val = subs.find(res => res.active == true)
@@ -609,7 +610,7 @@ const  getCarts = async (type) => {
               <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
                 <h6 className={`lg:min-h-[60px] md:text-[16px] line-clamp-2 leading-[1.5] lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{data.item_title}</h6>
                 {/* {route: router.asPath.split('/')[2]+'/'+data.route} */}
-                {icons && <Dropdowns share={true} updateShare={(data) => updateShare(data)} link={data} width={'w-[170px]'} data={icons} />}
+                {icons && <Dropdowns share={true} updateShare={(data) => updateShare(data)} link={data} width={'w-[170px]'} data={icons} type={'books'} />}
 
                 {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
                   <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500 lg:pt-[6px]`} src={'/share.svg'} height={10} width={15} alt={'share'} /> */}
@@ -733,7 +734,9 @@ const  getCarts = async (type) => {
 
               <div className='border_bottom mb-[20px]'>
                <div className={`md:p-[10px] lg:w-[570px] text-center md:p-[10px_0_20px_0] lg:p-[0px_0_20px_0]`}>
-                <LoaderButton loader={loader} cssclass={'lg:w-[250px] md:w-[100%] md:h-[40px] m-0'} image_left={(indexs >= 0 && Onetime < 0)  ? '/bookstore/subscribe.svg' : (Onetime >= 0 ? '/bookstore/cart.svg' : '/bookstore/cart.svg')} button_name={(indexs >= 0 && Onetime < 0) ? 'Subscribe' : (Onetime >= 0 ? 'Buy Now' : 'Add to Cart')} buttonClick={addToCart} />
+                <LoaderButton loader={loader} cssclass={'lg:w-[250px] md:w-[100%] md:h-[40px] m-0'} image_left={(indexs >= 0 && Onetime < 0)  ? '/bookstore/subscribe.svg' 
+                : (Onetime >= 0 ? '/bookstore/cart.svg' : '/bookstore/cart.svg')} button_name={(indexs >= 0 && Onetime < 0) ? 'Subscribe' 
+                : (Onetime >= 0 ? 'Buy Now' : 'Add to Cart')} buttonClick={addToCart} />
                </div>
               </div>
 

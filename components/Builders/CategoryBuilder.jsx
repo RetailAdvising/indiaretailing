@@ -18,7 +18,7 @@ import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
 import { useSelector, useDispatch } from 'react-redux';
 
-export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare,noScroll }) {
+export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -78,15 +78,8 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     // }
 
     if (typeof window !== 'undefined') {
-      if(role && role != '' && role.message && role.message.length != 0){
-        for (let index = 0; index < role.message.length; index++) {
-          if(role.message[i] == 'Member'){
-            setValidator(!validator);
-          }
-        }
-      }else{
-        setValidator(false)
-      }
+      checkRole()
+
       // const data = JSON.parse(localStorage['roles']);
       // if (data && data.length != 0) {
       //   data.map(res => {
@@ -106,7 +99,20 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
       return () => window.removeEventListener('load', onPageLoad);
     }
 
-  }, [updateCmts, user,role])
+  }, [updateCmts,user, role])
+
+  const checkRole = () => {
+    if (role && role != '' && role.message && role.message.length != 0) {
+      // console.log(role)
+      // if(updateCmts == -1){
+        for (let index = 0; index < role.message.length; index++) {
+          if (role.message[index] == 'Member') {
+            setValidator(!validator);
+          }
+        }
+      // }
+    }
+  }
 
   const cardref = useRef(null)
 
@@ -267,7 +273,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     //     setshowComment(!showComment);
     //   }
     // }
-
+    // console.log(comments)
     if (comments && comments.length != 0) {
       setshowComment(!showComment);
       // Disables Background Scrolling whilst the SideDrawer/Modal is open
@@ -295,6 +301,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
   const [isMobile, setIsMobile] = useState()
   useEffect(() => {
+    
     checkIsMobile();
     window.addEventListener('resize', checkIsMobile)
     return () => {
@@ -357,7 +364,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   };
 
   const reRender = async () => {
-    console.log('rerender....');
+    // console.log('rerender....');
     setupdateCmts(updateCmts + 1)
   }
 
@@ -414,12 +421,24 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
             {/* Comments */}
 
-            {data._user_tags && typeof (data._user_tags) != 'string' && data._user_tags.length != 0 &&
+            {/* {data._user_tags && typeof (data._user_tags) != 'string' && data._user_tags.length != 0 &&
               <div className='flex items-center flex-wrap pt-[15px]'>
                 <h6 className='w-max text-[13px] text-[#fff] bg-[#e21b22] border rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>Tags</h6>
                 {data._user_tags.map((res, index) => {
                   return (
                     <h6 key={index} onClick={() => { router.push('/tag/' + res) }} className='cursor-pointer w-max capitalize text-[13px] text-[#000] bg-[#f1f1f1]  rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>{res}</h6>
+                  )
+                })
+                }
+              </div>
+            } */}
+
+            {data.articles_tags && data.articles_tags.length != 0 &&
+              <div className='flex items-center flex-wrap pt-[15px]'>
+                <h6 className='w-max text-[13px] text-[#fff] bg-[#e21b22] border rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>Tags</h6>
+                {data.articles_tags.map((res, index) => {
+                  return (
+                    <h6 key={index} onClick={() => { router.push('/tag/' + res.route) }} className='cursor-pointer w-max capitalize text-[13px] text-[#000] bg-[#f1f1f1]  rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>{res.tag}</h6>
                   )
                 })
                 }
@@ -502,8 +521,8 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                 </>
 
               }
-              {(!showComment && data && data.doctype == 'Articles') ? <>
-                {comments && comments.length != 0 && comments.map((res, i) => {
+              {(!showComment && data) ? <>
+                {comments && comments.length != 0 ? comments.map((res, i) => {
                   return (
                     <div key={i}>
                       {(res.route == data.name && res.data && res.data.length != 0) && <div className='popright'>
@@ -515,7 +534,9 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                       </div>}
                     </div>
                   )
-                })}
+                }) : <div className='popright'>
+                  <Modal visible={true} modal={'comments'} hide={sideDrawerClosedHandler} />
+                </div>}
               </> : (showComment && data && data.doctype == 'Articles' && isLogin && loginModal) ? <div className='authModal'><AuthModal visible={loginModal} hide={hideModal} /></div> : null}
             </div>}
           </div>

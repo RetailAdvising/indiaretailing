@@ -110,14 +110,15 @@ export default function Header({ checkout }) {
 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
-        // console.log(user)
+        // console.log(user,'user')
+        // console.log(role,'role')
        
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
-    }, [valid])
+    }, [valid,role])
 
     const checkIsMobile = async () => {
         let isMobile = await checkMobile();
