@@ -252,7 +252,7 @@ export default function Home({ data }) {
                               // className='overflow-auto scrollbar-hide gap-[15px] flex '
                               <>
                                 {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[220px] flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                                <CustomSlider hide_scroll_button={true} slider_child_id={'research' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(60%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'}
+                                <CustomSlider hide_scroll_button={true} noPrimaryText={true} slider_child_id={'research' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(60%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'}
                                   imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'} />
                               </>
 

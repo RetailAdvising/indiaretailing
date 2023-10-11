@@ -30,7 +30,7 @@ export default function Tags({ res, data }) {
     useEffect(() => {
         getLatestNews()
         if (res && res.data && res.data.length != 0) {
-            // console.log(res)
+            console.log(res)
             setData(res.data)
             // console.log(router)
             
@@ -196,7 +196,7 @@ export default function Tags({ res, data }) {
                                                     {res.doctype != 'Community Event' && <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between'>
                                                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                                                         <div className='flex  items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</span></div>
-                                                        {/* <div className='flex md:block items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>3 Shares</span></div> */}
+                                                        <div className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{res.no_of_shares ? res.no_of_shares : 0 + ' shares'}</span></div>
                                                         <div className='flex  items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
                                                     </div>}
                                                     {icons && <Dropdowns share={true} link={{ route: (res.doctype == 'Articles' && res.ir_prime == 1) ? '/IRPrime/' + res.route : (res.doctype == 'Articles' && res.ir_prime != 1) ? '/categories/' + res.route : res.doctype == 'Community Event' ? '/events/' + res.route : null }} width={'w-[170px]'} type={'tag'} data={icons} />}
