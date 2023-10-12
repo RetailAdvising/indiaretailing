@@ -70,7 +70,7 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        // console.log(value);
+        console.log(value);
         // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')

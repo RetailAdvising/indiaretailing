@@ -169,6 +169,12 @@ export default function Tags({ res, data }) {
     return (
         <>
             <RootLayout>
+                {/* mobile tabs */}
+                <div id={'scrollTag'} class="bg-[#e7e7e7] overflow-auto scrollbar-hide mt-[3px] lg:hidden">
+                    {(tabs && tag && tag.length != 0) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
+                    <TrendingBox />
+                </div>
+                {/* ------- */}
                 <div className={`container md:py-[15px] lg:p-[20px_0]`}>
                     <div class="lg:flex lg:gap-[15px] md:block">
                         <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">

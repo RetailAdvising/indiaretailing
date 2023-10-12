@@ -1882,7 +1882,9 @@ strong {
     display: none;
   }
 }
-
+.hide_scroll::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
 
 .hiding {
   display: none

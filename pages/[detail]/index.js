@@ -34,6 +34,8 @@ export default function Details({ data, page_route }) {
   }
   const meta_inf = useMemo(() => generateMetaData(meta_info), [meta_info])
 
+  // const meta_inf0s = useMemo(() => generateMetaData(comments), [comments])
+
   let page_no = 1;
   let [divs, setDivs] = useState(['div0']);
   let [routeList, setRouteList] = useState([])
@@ -179,7 +181,7 @@ export default function Details({ data, page_route }) {
 
     const handleScroll = () => {
       if (scrollEle) {
-        // console.log(scrollEle, 'scrollele')
+        console.log(scrollEle, 'scrollele')
         const scrollPosition = window.scrollY;
         const windowHeight = window.innerHeight;
 

@@ -7,7 +7,6 @@ import style from '@/styles/Components.module.scss'
 
 export default function Address({hide,edit_address,modal}) {
 
-
   const { handleSubmit, control, reset , setValue, formState: { errors } } = useForm({
     defaultValues: {
       first_name: ((edit_address && edit_address.first_name) ? edit_address.first_name : ''),
@@ -56,8 +55,6 @@ export default function Address({hide,edit_address,modal}) {
         }
       }
   }
-  
-
   
   const onSubmit = (data) => {
     data.zipcode = data.pincode;

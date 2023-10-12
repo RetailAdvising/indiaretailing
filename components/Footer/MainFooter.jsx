@@ -3,7 +3,7 @@ import footer from '@/libs/footer';
 import Image from 'next/image';
 import { check_Image } from '@/libs/api';
 export default function MainFooter({ footerData }) {
-    console.log(footerData)
+    // console.log(footerData)
 
     return (
         <>

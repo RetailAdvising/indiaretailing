@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AdsBaner from '@/components/Baners/AdsBaner'
 import SubscriptionAlert from '@/components/common/SubscriptionAlert';
 import Placeholders from '@/components/common/Placeholders'
+
 export default function Videos(meta_info, ads_data) {
     // console.log(meta_info, ads_data)
     const router = useRouter();
@@ -23,18 +24,21 @@ export default function Videos(meta_info, ads_data) {
     const [prev, setPrev] = useState('')
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
     const user = useSelector(s => s.user);
+    const role = useSelector(s => s.role);
+
     let bannerImg = { ad_image: '/ads_baner.png' };
 
     useEffect(() => {
-        if (typeof window !== 'undefined' && localStorage['roles'] && localStorage['roles'] != 'undefined') {
-            const data = JSON.parse(localStorage['roles']);
-            if (data && data.length != 0) {
-                data.map(res => {
-                    if (res.role == 'Member') {
-                        setValidator(true);
-                    }
-                })
-            }
+        if (typeof window !== 'undefined') {
+            checkRole()
+            // const data = JSON.parse(localStorage['roles']);
+            // if (data && data.length != 0) {
+            //     data.map(res => {
+            //         if (res.role == 'Member') {
+            //             setValidator(true);
+            //         }
+            //     })
+            // }
         }
         if (router.query) {
             get_video_details()
@@ -44,7 +48,20 @@ export default function Videos(meta_info, ads_data) {
                 window.removeEventListener('resize', checkIsMobile);
             };
         }
-    }, [router.query])
+    }, [router.query,role])
+
+    const checkRole = () => {
+        if (role && role != '' && role.message && role.message.length != 0) {
+          // console.log(role)
+          // if(updateCmts == -1){
+          for (let index = 0; index < role.message.length; index++) {
+            if (role.message[index] == 'Member') {
+              setValidator(true);
+            }
+          }
+          // }
+        }
+      }
 
     const checkIsMobile = async () => {
         isMobile = await checkMobile();

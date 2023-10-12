@@ -56,7 +56,10 @@ export default function Trending({ data, res, ads }) {
             }
         });
         intersectionObserver.observe(cardref?.current);
-
+        if (data && data.length != 0) {
+            data.unshift({ name: 'All',route:"/"})
+            setTag(data)
+        }
         return () => {
             cardref?.current && intersectionObserver.unobserve(cardref?.current)
         }
@@ -169,14 +172,22 @@ export default function Trending({ data, res, ads }) {
     return (
         <>
             <RootLayout isLanding={true} homeAd={ads ? ads : null}>
+                {/* mobile tabs */}
+                <div id={'scrollTag'} class="bg-[#e7e7e7] overflow-auto scrollbar-hide mt-[3px] lg:hidden">
+                    {(tabs && tag && tag.length != 0) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
+                    <TrendingBox />
+                </div>
+                {/* ------- */}
                 <div className={`container md:py-[15px] p-[20px_0]`}>
-                    <div><Title data={{ title: 'Trending Tags' }} /></div>
+                    <div className='md:hidden'><Title data={{ title: 'Trending Tags' }} /></div>
                     <div class="lg:flex lg:gap-[15px] md:block">
+                        {/* Web tabs */}
                         <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
                             {console.log(tabs,tag , 'from dom')}
                             {(tabs && tag && tag.length != 0) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
                             <TrendingBox />
                         </div>
+                        {/* ------ */}
                         {/* <div class=""> */}
                         <div id='scroll' className='lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide lg:flex-[0_0_calc(50%_-_10px)]  lg:p-5  md:basis-full'>
                             {(resp_data && resp_data.length != 0 && !nodata) ?

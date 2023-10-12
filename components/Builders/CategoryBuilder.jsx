@@ -18,6 +18,8 @@ import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
 import { useSelector, useDispatch } from 'react-redux';
 
+import ReactDOM from 'react-dom';
+
 export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
@@ -25,7 +27,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
   const [validator, setValidator] = useState(false)
   const router = useRouter();
-  const [updateCmts, setupdateCmts] = useState(-1)
+  const [updateCmts, setupdateCmts] = useState(false)
   const role = useSelector(s => s.role);
 
   // console.log(ads)
@@ -68,7 +70,6 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
   // console.log(data);
 
-
   useEffect(() => {
     // if(data && i){
     //   if(i == 1){}
@@ -78,13 +79,14 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     // }
 
     if (typeof window !== 'undefined') {
-      checkRole()
 
+      //  checkRole()
       // const data = JSON.parse(localStorage['roles']);
       // if (data && data.length != 0) {
       //   data.map(res => {
       //     if (res.role == 'Member') {
       //       setValidator(!validator);
+      //       // setRender(!render);
       //     }
       //   })
       // }
@@ -99,20 +101,26 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
       return () => window.removeEventListener('load', onPageLoad);
     }
 
-  }, [updateCmts,user, role])
+  }, [user, role])
+
+
+
+
 
   const checkRole = () => {
     if (role && role != '' && role.message && role.message.length != 0) {
       // console.log(role)
       // if(updateCmts == -1){
-        for (let index = 0; index < role.message.length; index++) {
-          if (role.message[index] == 'Member') {
-            setValidator(!validator);
-          }
+      for (let index = 0; index < role.message.length; index++) {
+        if (role.message[index] == 'Member') {
+          setValidator(!validator);
         }
+      }
       // }
     }
   }
+
+
 
   const cardref = useRef(null)
 
@@ -120,7 +128,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     if (!cardref?.current) return;
     const observer = new IntersectionObserver(([entry]) => {
       if (isLast && entry.isIntersecting) {
-        load()
+        load();
         observer.unobserve(entry.target);
       }
     });
@@ -178,12 +186,13 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     // console.log(data)
     if ((data && data.article_sections && data.article_sections.length != 0)) {
       console.log('data.article_sections', data.article_sections);
-      data.article_sections.map((res) => {
+      data.article_sections.map((res, i) => {
         if (res.data && res.data.length != 0) {
           let element = document.getElementById(`${res.placeholder_key}`);
+          // element && ReactDOM.render( <SubscriptionAlert />,element)
           // console.log(element)
-          element?.classList.add('placeholder')
-          let html = '';
+          // element?.classList.add('placeholder')
+          // let html = '';
           if (res.title) {
             const headerElement = document.createElement('h6');
             headerElement?.classList.add('mb-[18px]', 'text-[18px]', 'font-semibold')
@@ -191,39 +200,42 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
             (element && element.parentNode) ? element.parentNode.insertBefore(headerElement, element) : null;
           }
 
-          res.data.map((item, index) => {
-            if (res.title) {
-              if (res.title == 'Articles') {
-                item.route = '/' + item.route
-              } else if (res.title == 'Community Event' || res.title == 'Events') {
-                item.route = '/events/' + item.route
-              } else if (res.title == 'Books') {
-                item.route = '/bookstore/' + item.category_route + '/' + item.route
-              } else if (res.title == 'Videos') {
-                item.route = '/video/' + item.route
-              } else if (res.title == 'Podcasts') {
-                item.route = '/podcast/' + item.route
-              }
-            } else {
-              item.route = '/' + item.route
-            }
+          element && ReactDOM.render(<CustomSlider type={'widget'} data={res.data} parent={res} routers={router} hide_scroll_button={true} slider_child_id={res.placeholder_key + i} cardClass={'flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
+            imgClass={'lg:h-[185px] md:h-[170px] w-full'} subtitle_class={'line-clamp-1  md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} />, element)
 
-            //  onClick=${checkRoute(item)} 
-            // <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ? item.thumbnail_imagee : item.thumbnail_path ? item.thumbnail_path : item.image_path ? item.image_path :  item.image)}' height={40} width={50} alt='image' />
-            // <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : item.description ? item.description : ''}</span>            
-            html +=
-              `<a href=${item.route ? item.route : '#'} key=${index} class='${'card'} cursor-pointer'>
-              <div>
-                <Image class=${'img'} src='${check_Image(item.thumbnail_imagee || item.thumbnail_path || item.image_path || item.image || item.video_image)}' height={40} width={50} alt='image' />
-              </div>
-              <div class='p-[10px]'>
-              <h6 class='line-clamp-2 title'>${(item.title || item.item) ? (item.title || item.item) : ''}</h6>            
-               <span class='pt-[5px] line-clamp-2 sub_title'>${res.placeholder_key.includes('Product') ? (item.short_description ? item.short_description : '') : (stripHtmlTags(item.blog_intro || item.description))}</span>            
-              </div>
-              
-              </a>`
-          })
-          element ? element.innerHTML = html : null
+          // res.data.map((item, index) => {
+          //   if (res.title) {
+          //     if (res.title == 'Articles') {
+          //       item.route = '/' + item.route
+          //     } else if (res.title == 'Community Event' || res.title == 'Events') {
+          //       item.route = '/events/' + item.route
+          //     } else if (res.title == 'Books') {
+          //       item.route = '/bookstore/' + item.category_route + '/' + item.route
+          //     } else if (res.title == 'Videos') {
+          //       item.route = '/video/' + item.route
+          //     } else if (res.title == 'Podcasts') {
+          //       item.route = '/podcast/' + item.route
+          //     }
+          //   } else {
+          //     item.route = '/' + item.route
+          //   }
+
+          //   //  onClick=${checkRoute(item)} 
+          //   // <Image class=${'img'} src='${check_Image(item.thumbnail_imagee ? item.thumbnail_imagee : item.thumbnail_path ? item.thumbnail_path : item.image_path ? item.image_path :  item.image)}' height={40} width={50} alt='image' />
+          //   // <span class='pt-[5px] line-clamp-2 sub_title'>${item.blog_intro ? item.blog_intro : item.description ? item.description : ''}</span>            
+          //   html +=
+          //     `<a href=${item.route ? item.route : '#'} key=${index} class='${'card'} cursor-pointer'>
+          //     <div>
+          //       <Image class=${'img'} src='${check_Image(item.thumbnail_imagee || item.thumbnail_path || item.image_path || item.image || item.video_image)}' height={40} width={50} alt='image' />
+          //     </div>
+          //     <div class='p-[10px]'>
+          //     <h6 class='line-clamp-2 title'>${(item.title || item.item) ? (item.title || item.item) : ''}</h6>            
+          //      <span class='pt-[5px] line-clamp-2 sub_title'>${res.placeholder_key.includes('Product') ? (item.short_description ? item.short_description : '') : (stripHtmlTags(item.blog_intro || item.description))}</span>            
+          //     </div>
+
+          //     </a>`
+          // })
+          // element ? element.innerHTML = html : null
         }
         // element.append(data)
         // console.log(res.placeholder_key)
@@ -275,7 +287,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     // }
     // console.log(comments)
     if (comments && comments.length != 0) {
-      setshowComment(!showComment);
+      setshowComment(false);
       // Disables Background Scrolling whilst the SideDrawer/Modal is open
       if (typeof window != 'undefined' && window.document) {
         document.body.style.overflow = 'hidden';
@@ -285,7 +297,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
         setIsLogin(true);
         setLoginModal(true)
       } else {
-        setshowComment(!showComment);
+        setshowComment(false);
       }
     }
   }
@@ -294,14 +306,14 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     setLoginModal(false)
     // console.log('close')
     if (localStorage && localStorage['apikey']) {
-      setshowComment(!showComment);
+      setshowComment(true);
       show()
     }
   }
 
   const [isMobile, setIsMobile] = useState()
   useEffect(() => {
-    
+    // checkRole()
     checkIsMobile();
     window.addEventListener('resize', checkIsMobile)
     return () => {
@@ -363,9 +375,17 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
   };
 
+  useEffect(() => {
+    checkRole()
+    // console.log('load role')
+  }, [updateCmts, role, comments])
+
   const reRender = async () => {
     // console.log('rerender....');
-    setupdateCmts(updateCmts + 1)
+    setTimeout(() => {
+      setupdateCmts(!updateCmts)
+      checkRole()
+    }, 500);
   }
 
 
@@ -379,8 +399,8 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               <Content i={i} res={data} updateShare={(data) => updateShare(data)} noScroll={(val) => noScroll(val)} />
             </p>
             <div className='relative article_content'>
-              {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`${i}`} className={`contents ${(data.ir_prime == 1 && !validator) && 'prime-article'}`} />}
-              {(!validator && data.ir_prime == 1) && <div className='prime-article-after'></div>}
+              {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`${i}`} className={`contents ${(data.ir_prime == 1 && !data.is_member) && 'prime-article'}`} />}
+              {(!data.is_member && data.ir_prime == 1) && <div className='prime-article-after'></div>}
             </div>
             {/* {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'> */}
             {/* <h6 className='text-center text-[20px] md:text-[16px] font-semibold pb-[15px] text-[white] flex'><Image src={'/ir-icon.svg'} height={38} width={38} alt={"image"} className='mr-3 object-contain' />This story is for Premium Members you  have to buy Membership to Unlock</h6>
@@ -391,7 +411,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
             {/* </div>
             </div>} */}
 
-            {(!validator && data.ir_prime == 1) &&
+            {(!data.is_member && data.ir_prime == 1) &&
               // <div className='grid place-content-center max-w-[400px] p-[30px_20px_0_20px] md:p-[20px] m-[0_auto]'>
               //   <div className={`flex items-center gap-[10px] `}>
               //     <Image src={'/irprime/premium.svg'} height={20} width={20} alt='premium' />
@@ -486,13 +506,13 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                 })}
               </div>}
 
-              {(data.comments && data.disable_comments != 1) && data.doctype == 'Articles' && <>
+              {(data.comments && data.disable_comments != 1) && <>
                 <div className={`${!isMobile && 'border_bottom'} py-1.5 ${styles.profile_div}`}>
                   {/* id={`cmt${data.route}`} */}
                   <h6 className={`font-semibold ${'cmt' + i}`}>Comments</h6>
                 </div>
 
-                {(comments && comments.length != 0) && data.doctype == 'Articles' &&
+                {(comments && comments.length != 0) &&
                   comments.map((res, i) => {
                     return (
                       <div key={i}>
@@ -510,7 +530,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               </>
               }
 
-              {data.disable_comments != 1 && data.doctype == 'Articles' &&
+              {data.disable_comments != 1 &&
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
                     <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'}</button>
@@ -522,7 +542,10 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
               }
               {(!showComment && data) ? <>
-                {comments && comments.length != 0 ? comments.map((res, i) => {
+                <div className='popright'>
+                  <Modal visible={true} modal={'comments'} hide={sideDrawerClosedHandler} />
+                </div>
+                {comments && comments.length != 0 && comments.map((res, i) => {
                   return (
                     <div key={i}>
                       {(res.route == data.name && res.data && res.data.length != 0) && <div className='popright'>
@@ -534,9 +557,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                       </div>}
                     </div>
                   )
-                }) : <div className='popright'>
-                  <Modal visible={true} modal={'comments'} hide={sideDrawerClosedHandler} />
-                </div>}
+                })}
               </> : (showComment && data && data.doctype == 'Articles' && isLogin && loginModal) ? <div className='authModal'><AuthModal visible={loginModal} hide={hideModal} /></div> : null}
             </div>}
           </div>

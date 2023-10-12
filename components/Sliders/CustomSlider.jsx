@@ -3,27 +3,38 @@ import Image from 'next/image'
 import { check_Image } from '../../libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route,title_class,subtitle_class,primary_text_class,hashtags_class,hide_scroll_button,noPrimaryText }) {
-    const router = useRouter()
+export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route, title_class, subtitle_class, primary_text_class, hashtags_class, hide_scroll_button, noPrimaryText, routers, parent }) {
+    // let router = routers ? routers : useRouter();
+    // let router = routers ;
+    let router;
+    console.log(type, 'type')
+    if (type == 'widget') {
+        router = routers
+    } else {
+        router = useRouter()
+    }
     let isDown = false;
     var slider = '';
-    useEffect(()=>{
-        if(slider_child_id){
+    useEffect(() => {
+        // router = type == 'widget' ?  routers : useRouter()
+        if (slider_child_id) {
             slider = document.getElementById(slider_child_id);
+            // setTimeout(() => {
+            // }, 2000);
             (() => {
                 slider.addEventListener('mousedown', start);
                 slider.addEventListener('touchstart', start);
-            
+
                 slider.addEventListener('mousemove', move);
                 slider.addEventListener('touchmove', move);
-            
+
                 slider.addEventListener('mouseleave', end);
                 slider.addEventListener('mouseup', end);
                 slider.addEventListener('touchend', end);
             })();
         }
 
-    },[])
+    }, [])
 
     const sctollTo = (direction) => {
         if (slider_id && slider_child_id) {
@@ -52,52 +63,80 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
     // start
     const end = () => {
         isDown = false;
-      slider.classList.remove('active');
+        slider.classList.remove('active');
     }
-    
+
     const start = (e) => {
-      isDown = true;
-      slider.classList.add('active');
-      startX = e.pageX || e.touches[0].pageX - slider.offsetLeft;
-      scrollLeft = slider.scrollLeft;	
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
     }
-    
+
     const move = (e) => {
-        if(!isDown) return;
-    
-      e.preventDefault();
-      const x = e.pageX || e.touches[0].pageX - slider.offsetLeft;
-      const dist = (x - startX);
-      slider.scrollLeft = scrollLeft - dist;
+        if (!isDown) return;
+
+        e.preventDefault();
+        const x = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+        const dist = (x - startX);
+        slider.scrollLeft = scrollLeft - dist;
     }
 
     // end
 
     // };
+
+    const checkRoute = (res) => {
+        if (type == 'widget') {
+            console.log(data)
+            if (parent && parent.title) {
+                if (parent.title == 'Articles') {
+                    res.route = '/' + res.route
+                } else if (parent.title == 'Community Event' || parent.title == 'Events') {
+                    res.route = '/events/' + res.route
+                } else if (parent.title == 'Books') {
+                    res.route = '/bookstore/' + res.category_route + '/' + res.route
+                } else if (parent.title == 'Videos') {
+                    res.route = '/video/' + res.route
+                } else if (parent.title == 'Podcasts') {
+                    res.route = '/podcast/' + res.route
+                }
+            } else {
+                res.route = '/' + res.route
+            }
+            routers.push(res.route)
+        } else if (route) {
+            router.push(route + res.route)
+        } else {
+            router.push('/' + res.route)
+        }
+        // : route ? route + res.route : '/' + res.route
+    }
     return (
         <>
-            {!type && <div className='relative' id={slider_id}>
+            {(!type || type == 'widget') && <div className='relative' id={slider_id}>
                 <div className={`${hide_scroll_button && 'hidden'} absolute top-[40%] left-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center  cursor-pointer md:hidden`}
                     onClick={() => sctollTo('prev')} id={'prev_' + slider_id}>
                     <Image alt="Prev" src={'/less_than.svg'} width={35} height={35} ></Image>
                 </div>
-                <div id={slider_child_id} ref={containerRef} 
-                   className=' overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px] md:w-[calc(100vw_-_41px)]'
+                <div id={slider_child_id} ref={containerRef}
+                    className=' overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px] md:w-[calc(100vw_-_41px)]'
                 >
                     {data && data.map((res, index) => {
                         return (
                             // '/' + router.asPath.split('/')[1] +
-                            <Link key={index} className={`${cardClass} item border rounded-[10px] overfow-hidden`} href={route ? route + res.route : '/' + res.route}>
+                            <div key={index} className={`${cardClass} item border cursor-pointer rounded-[10px] overfow-hidden`} onClick={() => checkRoute(res)}>
                                 <div className={``} >
-                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_imagee: res.image)} height={200} width={300} alt={index + 'image'} />
+                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_imagee : res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : res.video_image ? res.video_image : res.product_image ? res.product_image : res.image)} height={200} width={300} alt={index + 'image'} />
                                 </div>
                                 <div className={` flex flex-col justify-between p-[10px] `}>
                                     {(res.primary_text && res.secondary_text && !noPrimaryText) && <p className={`${primary_text_class} flex gap-2 items-center py-[5px]`}><span className={`primary_text leading-normal tracking-wider !text-[10px]`}>{res.primary_text}</span> <span className="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className='secondary_text'>{res.secondary_text}</span></p>}
-                                    <h4 className={`title  ${title_class ? title_class :'line-clamp-2'}`}>{res.title ? res.title : ''}</h4>
-                                    {(res.sub_title || res.blog_intro) && <p className={` ${subtitle_class ? subtitle_class :'line-clamp-2' } sub_title mt-[6px] `}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
+                                    <h4 className={`title  ${title_class ? title_class : 'line-clamp-2'}`}>{res.title ? res.title : res.item ? res.item : ''}</h4>
+                                    {res.short_description && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title mt-[6px] `}>{res.short_description}</p>}
+                                    {(res.sub_title || res.blog_intro) && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title mt-[6px] `}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
                                     {(res.hashtags || res.publisher) && <p className={`${hashtags_class} hashtags pt-1`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}
                                 </div>
-                            </Link>
+                            </div>
                         )
                     })}
                 </div>

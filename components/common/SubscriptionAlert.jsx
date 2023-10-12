@@ -3,8 +3,9 @@ import { useRouter } from 'next/router'
 import AuthModal from '../Auth/AuthModal';
 import { useState } from 'react'
 
+
 export default function SubscriptionAlert() {
-    const router = useRouter();
+    // const router = useRouter();
     // Modal Popup
     const [modal, setModal] = useState('')
 
@@ -49,7 +50,8 @@ export default function SubscriptionAlert() {
                             <p className='md:text-[14px]'>Access to 6 weekly Newsletters including Gender+, Health+ Wealth+</p>
                         </div>
                     </div>
-                    <button className='primary_btn w-full lg:my-5 rounded-[10px] text-[16px] h-[60px] md:h-[40px] md:text-[15px] ' onClick={() => router.push('/membership')}>View all plans</button>
+                    {/* onClick={() => router.push('/membership')} */}
+                    <button className='primary_btn w-full lg:my-5 rounded-[10px] text-[16px] h-[60px] md:h-[40px] md:text-[15px] ' >View all plans</button>
                 </div>
             </div>
             {visible && <div className='authModal'><AuthModal modal={modal} show={show} visible={visible} hide={hide} /></div>}

@@ -12,17 +12,22 @@ export default function SideBar({ data, close, navbar,emit_item }) {
     const ref = useRef(null);
 
     const user = useSelector(s => s.user);
+    const role = useSelector(s => s.role);
+    const [validator, setValidator] = useState(false)
+
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
             localStorage['apikey'] ? setValid(!valid) : null;
-            roleMember()
+            // roleMember()
+            checkRole()
             // let val = roleMember();
         }
 
         if (user) {
             localStorage['apikey'] ? setValid(!valid) : null;
-            roleMember()
+            // roleMember()
+            checkRole()
         }
 
 
@@ -39,7 +44,21 @@ export default function SideBar({ data, close, navbar,emit_item }) {
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
         };
-    }, [user])
+    }, [user,role])
+
+    const checkRole = () => {
+        if (role && role != '' && role.message && role.message.length != 0) {
+          // console.log(role)
+          // if(updateCmts == -1){
+          for (let index = 0; index < role.message.length; index++) {
+            if (role.message[index] == 'Member') {
+            //   setValidator(!validator);
+              setMember(!member)
+            }
+          }
+          // }
+        }
+      }
 
 
     const route = async (type) => {
