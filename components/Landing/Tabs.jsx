@@ -80,7 +80,7 @@ export default function Tabs({ categories, setTabs, tab  }) {
                 {categories && categories.length != 0 && <div className='lg:block md:flex items-center scrollbar-hide gap-5 md:overflow-auto  md:p-[10px]'>
                     {categories.map((res, i) => {
                         return (
-                            <h6 className={`${tab == res.route ? 'font-semibold bg-[#eca2a221] md:text-red' : ''} md:bg-white md:px-[10px]   lg:hover:bg-slate-100 rounded-[10px] cursor-pointer text-[15px] md:text-[14px] p-[12px_15px] md:p-[0px_5px] mr-6 md:mr-0`} 
+                            <h6 className={`${tab == res.route ? 'font-semibold bg-[#eca2a221] md:text-red' : ''} md:bg-white md:px-[10px]  md:flex-[0_0_auto] lg:hover:bg-slate-100 rounded-[10px] cursor-pointer text-[15px] md:text-[14px] p-[12px_15px] md:p-[0px_5px] mr-6 md:mr-0`} 
                             key={i} onClick={() => setTabs(res.route)}>{res.name}</h6>
                         )
                     })}

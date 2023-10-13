@@ -20,7 +20,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import ReactDOM from 'react-dom';
 
-export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll }) {
+export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll ,plans}) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -201,7 +201,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
           }
 
           element && ReactDOM.render(<CustomSlider type={'widget'} data={res.data} parent={res} routers={router} hide_scroll_button={true} slider_child_id={res.placeholder_key + i} cardClass={'flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
-            imgClass={'lg:h-[185px] md:h-[170px] w-full'} subtitle_class={'line-clamp-1  md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} />, element)
+            imgClass={'lg:h-[185px] md:h-[170px] w-full'} subtitle_class={'line-clamp-1  md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} productNavigation={productNavigation} />, element)
 
           // res.data.map((item, index) => {
           //   if (res.title) {
@@ -427,7 +427,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               //     <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-max' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
               //   </div>
               // </div>
-              <SubscriptionAlert />
+              <SubscriptionAlert data={plans} />
             }
 
             <Modal modal={modal} show={show} visible={visible} hide={hide} />
@@ -543,14 +543,14 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               }
               {(!showComment && data) ? <>
                 <div className='popright'>
-                  <Modal visible={true} modal={'comments'} hide={sideDrawerClosedHandler} />
+                  <Modal visible={true} cur={data} modal={'comments'} hide={sideDrawerClosedHandler} />
                 </div>
                 {comments && comments.length != 0 && comments.map((res, i) => {
                   return (
                     <div key={i}>
                       {(res.route == data.name && res.data && res.data.length != 0) && <div className='popright'>
                         {/* <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur) => store_comments(cur)} hide={sideDrawerClosedHandler} /> */}
-                        <Modal updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} visible={true} modal={'comments'} route={res.route} comments={res.data} hide={sideDrawerClosedHandler} />
+                        <Modal updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} cur={data} visible={true} modal={'comments'} route={res.route} comments={res.data} hide={sideDrawerClosedHandler} />
                         {/* scrolling="no" */}
                         {/* <iframe className='w-full ' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092358111637737472" height="696" width="504" frameborder="0" allowfullscreen="false" title="Embedded post"></iframe> */}
                         {/* <iframe className='w-full' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}

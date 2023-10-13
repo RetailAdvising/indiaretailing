@@ -74,7 +74,7 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
         }
     }
     async function check(form_data) {
-        console.log(localStorage.apikey)
+        // console.log(localStorage.apikey)
         if (localStorage.apikey && localStorage.apikey != 'undefined') {
             let params = {
                 "comment_id": cur,

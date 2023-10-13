@@ -502,7 +502,7 @@ export default function checkout() {
             </div>
 
             <div className={`${styles.box_2}`}>
-
+{/* lg:h-[calc(100vh_-_450px)] */}
               <div className='lg:border lg:rounded-[10px] md:border-b-[1px] border-slate-200 md:mb-[8px] lg:overflow-auto lg:hide-scrollbar lg:h-[calc(100vh_-_450px)]'>
 
                 <h6 className='text-[16px] lg:sticky lg:z-[9] lg:bg-white lg:top-0 pt-[10px] px-[10px] font-semibold'>Your Orders</h6>

@@ -63,7 +63,7 @@ export default function Membership() {
   async function getMembershipData() {
     let data = { "plan_type": btnState ? "Month" : "Year", "res_type": "member" }
     const resp = await get_subscription_plans(data);
-    console.log(resp);
+    // console.log(resp);
     if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
 
       let datas = resp.message.message;

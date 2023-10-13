@@ -26,7 +26,8 @@ export default function LatestNews({ data, height, width, isList }) {
           <Link key={index} href={'/' + res.route}>
             {/* !res.image && */}
             <div className={`pb-[10px] ${ ((index != data.length - 1 || index == 1)) && 'border_bottom'}`}>
-              {(res.thumbnail_imagee && index < 2) && <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.thumbnail_imagee ? res.thumbnail_imagee : res.image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />}
+              {/* loader={imageLoader} */}
+              {(res.thumbnail_imagee && index < 2) && <Image loading="lazy" blurDataURL={'/empty_state.svg'}  placeholder='blur' src={check_Image(res.thumbnail_imagee ? res.thumbnail_imagee : res.image)} className={`rounded-[5px] ${height} ${width}`} width={400} height={200} alt={res.title} />}
               {res.title && <h6 className={`my-[10px] line-clamp-1 title `}>{res.title}</h6>}
               {(res.blog_intro && index >= 2) && <p className={`${!res.image && 'mb-[10px]'} sub_title line-clamp-2`}>{res.blog_intro}</p>}
             </div>

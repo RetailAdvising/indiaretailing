@@ -215,8 +215,8 @@ const OrderDetailScreen = ({order_id,loadPage}) => {
                    <h6 className='w-3/6 text-[14px] text-end pb-[5px] text-medium'>{formatter.format(orderInfo.total_tax_amount)}</h6>
                    <h6 className='border-t-[1px] border-t-slate-100 w-3/6 text-[14px] mt-[8px] py-[8px]'>Total</h6>
                    <h6 className='border-t-[1px] border-t-slate-100 w-3/6 text-[14px] text-end mt-[8px] py-[8px] text-medium'>{formatter.format(orderInfo.total_amount)}</h6>
-                   <h6 className='w-3/6 text-[14px] font-semibold'>Outstanding Amount</h6>
-                   <h6 className='w-3/6 text-[14px] text-end font-semibold'>{formatter.format(orderInfo.outstanding_amount)}</h6>
+                   {/* <h6 className='w-3/6 text-[14px] font-semibold'>Outstanding Amount</h6>
+                   <h6 className='w-3/6 text-[14px] text-end font-semibold'>{formatter.format(orderInfo.outstanding_amount)}</h6> */}
           </div>
           </div>
          

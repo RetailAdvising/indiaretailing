@@ -1,7 +1,7 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares,checkMobile } from '@/libs/api';
+import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares,checkMobile,get_subscription_plans } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -41,7 +41,8 @@ export default function Details({ data, page_route }) {
   let [routeList, setRouteList] = useState([])
 
   const articleDetail = async (route) => {
-    // console.log(router,'router')
+    console.log(route,'route')
+    console.log(page_route,'page_route')
     if (router.query && router.query?.detail && typeof window !== 'undefined') {
       let Id = route ? route : page_route
       values.length = 0
@@ -74,7 +75,10 @@ export default function Details({ data, page_route }) {
         // setValues(d => [...d, ...val])
         values.push(data)
         setValues(values)
-        setPrev(router.query?.detail)
+        setPrev(route ? route : page_route)
+        if(data.is_member == 0){
+          getMembershipPlans();
+        }
       }
     }
     // console.log('sad'+val)
@@ -181,7 +185,7 @@ export default function Details({ data, page_route }) {
 
     const handleScroll = () => {
       if (scrollEle) {
-        console.log(scrollEle, 'scrollele')
+        // console.log(scrollEle, 'scrollele')
         const scrollPosition = window.scrollY;
         const windowHeight = window.innerHeight;
 
@@ -238,8 +242,10 @@ export default function Details({ data, page_route }) {
 
 
   const productNavigation = (obj) => {
+    // console.log(obj)
     router.replace({ pathname: '/' + obj }, undefined, { shallow: false, scroll: true });
-    setRouteList([])
+    routeList.length = 0
+    setRouteList(routeList)
     setPageNo(1);
     setValues([]);
     articleDetail(obj);
@@ -303,6 +309,20 @@ export default function Details({ data, page_route }) {
     }
   }
 
+  const [plans,setPlans] = useState([])
+
+  const getMembershipPlans = async () => {
+    let data = { "plan_type":  "Month" , "res_type": "member" }
+    const resp = await get_subscription_plans(data);
+    if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
+      // console.log(resp)
+      if(resp.message.message && resp.message.message.length != 0 && resp.message.message[0]){
+        // plans.push(resp.message.message[0].features)
+        setPlans(resp.message.message[0].features)
+      }
+    }
+  }
+
 
   return (
     <>
@@ -353,7 +373,7 @@ export default function Details({ data, page_route }) {
             return (
               <div id={'div' + index} key={index} className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
-                <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data) => updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} noScroll={(val) => noScroll(val)} />
+                <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data) => updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} noScroll={(val) => noScroll(val)} plans={(plans && plans.length != 0) ? plans : []} />
               </div>
             )
           })}

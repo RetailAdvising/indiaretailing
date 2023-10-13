@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { check_Image } from '../../libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route, title_class, subtitle_class, primary_text_class, hashtags_class, hide_scroll_button, noPrimaryText, routers, parent }) {
+export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route, title_class, subtitle_class, primary_text_class, hashtags_class, hide_scroll_button, noPrimaryText, routers, parent, productNavigation }) {
     // let router = routers ? routers : useRouter();
     // let router = routers ;
     let router;
@@ -88,23 +88,45 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
 
     const checkRoute = (res) => {
         if (type == 'widget') {
-            console.log(data)
-            if (parent && parent.title) {
-                if (parent.title == 'Articles') {
-                    res.route = '/' + res.route
-                } else if (parent.title == 'Community Event' || parent.title == 'Events') {
-                    res.route = '/events/' + res.route
-                } else if (parent.title == 'Books') {
-                    res.route = '/bookstore/' + res.category_route + '/' + res.route
-                } else if (parent.title == 'Videos') {
-                    res.route = '/video/' + res.route
-                } else if (parent.title == 'Podcasts') {
-                    res.route = '/podcast/' + res.route
+            // console.log(parent)
+            // console.log(res.route)
+            // if (productNavigation) {
+                if (parent && parent.title) {
+                    if (parent.title == 'Articles') {
+                        res.route =  res.route
+                        productNavigation(res.route)
+                    } else if (parent.title == 'Community Event' || parent.title == 'Events') {
+                        res.route = '/events/' + res.route
+                        routers.push(res.route)
+                    } else if (parent.title == 'Books') {
+                        res.route = '/bookstore/' + res.category_route + '/' + res.route
+                        routers.push(res.route)
+                    } else if (parent.title == 'Videos') {
+                        res.route = '/video/' + res.route
+                        routers.push(res.route)
+                    } else if (parent.title == 'Podcasts') {
+                        res.route = '/podcast/' + res.route
+                        routers.push(res.route)
+                    }
                 }
-            } else {
-                res.route = '/' + res.route
-            }
-            routers.push(res.route)
+                // productNavigation(res.route)
+            // } 
+            // else if (parent && parent.title) {
+            //     if (parent.title == 'Articles') {
+            //         res.route = '/' + res.route
+            //     } else if (parent.title == 'Community Event' || parent.title == 'Events') {
+            //         res.route = '/events/' + res.route
+            //     } else if (parent.title == 'Books') {
+            //         res.route = '/bookstore/' + res.category_route + '/' + res.route
+            //     } else if (parent.title == 'Videos') {
+            //         res.route = '/video/' + res.route
+            //     } else if (parent.title == 'Podcasts') {
+            //         res.route = '/podcast/' + res.route
+            //     }
+            // } else {
+            //     res.route = '/' + res.route
+            // }
+            // routers.push(res.route)
         } else if (route) {
             router.push(route + res.route)
         } else {
@@ -132,8 +154,8 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                                 <div className={` flex flex-col justify-between p-[10px] `}>
                                     {(res.primary_text && res.secondary_text && !noPrimaryText) && <p className={`${primary_text_class} flex gap-2 items-center py-[5px]`}><span className={`primary_text leading-normal tracking-wider !text-[10px]`}>{res.primary_text}</span> <span className="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className='secondary_text'>{res.secondary_text}</span></p>}
                                     <h4 className={`title  ${title_class ? title_class : 'line-clamp-2'}`}>{res.title ? res.title : res.item ? res.item : ''}</h4>
-                                    {res.short_description && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title mt-[6px] `}>{res.short_description}</p>}
-                                    {(res.sub_title || res.blog_intro) && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title mt-[6px] `}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
+                                    {res.short_description && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title !mt-[6px] `}>{res.short_description}</p>}
+                                    {(res.sub_title || res.blog_intro) && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title !mt-[6px] `}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
                                     {(res.hashtags || res.publisher) && <p className={`${hashtags_class} hashtags pt-1`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}
                                 </div>
                             </div>

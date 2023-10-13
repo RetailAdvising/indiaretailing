@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import RootLayout from '@/layouts/RootLayout'
-import { checkMobile, update_no_of_shares } from '@/libs/api';
+import { checkMobile, update_no_of_shares,get_subscription_plans,check_Image } from '@/libs/api';
 import { video_details, getAds } from '@/libs/api';
 import { useRouter } from 'next/router';
-import { check_Image } from '@/libs/common'
+// import { check_Image } from '@/libs/common'
 import Image from 'next/image';
 import List from '@/components/common/List'
 import Title from '@/components/common/Title'
@@ -15,8 +15,8 @@ import AdsBaner from '@/components/Baners/AdsBaner'
 import SubscriptionAlert from '@/components/common/SubscriptionAlert';
 import Placeholders from '@/components/common/Placeholders'
 
-export default function Videos(meta_info, ads_data) {
-    // console.log(meta_info, ads_data)
+export default function Videos({meta_info, ads_data}) {
+    console.log(meta_info, ads_data)
     const router = useRouter();
     let [isMobile, setIsmobile] = useState();
     let [videoDetail, setVideoDetail] = useState();
@@ -61,6 +61,8 @@ export default function Videos(meta_info, ads_data) {
           }
           // }
         }
+
+        getMembershipPlans()
       }
 
     const checkIsMobile = async () => {
@@ -95,9 +97,25 @@ export default function Videos(meta_info, ads_data) {
         }
     }
 
+    const [plans,setPlans] = useState([])
+
+  const getMembershipPlans = async () => {
+    if(!validator){
+        let data = { "plan_type":  "Month" , "res_type": "member" }
+        const resp = await get_subscription_plans(data);
+        if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
+          // console.log(resp)
+          if(resp.message.message && resp.message.message.length != 0 && resp.message.message[0]){
+            // plans.push(resp.message.message[0].features)
+            setPlans(resp.message.message[0].features)
+          }
+        }
+    }
+  }
+
     return (
         <RootLayout homeAd={ads_data ? ads_data : null} isLanding={false} head={'Detail'}>
-            {meta_info && <SEO title={meta_info.meta_info.meta_title ? meta_info.meta_info.meta_title : meta_info.meta_info.title} ogImage={check_Image(meta_info.meta_info.video_image)} siteName={'India Retailing'} ogType={meta_info.meta_info.meta_keywords ? meta_info.meta_info.meta_keywords : meta_info.meta_info.title} description={meta_info.meta_info.meta_description ? meta_info.meta_info.meta_description : meta_info.meta_info.title} />}
+            {(meta_info && meta_info.message) && <SEO title={meta_info.message.meta_title ? meta_info.message.meta_title : meta_info.message.title} ogImage={check_Image(meta_info.message.video_image)} siteName={'India Retailing'} ogType={meta_info.message.meta_keywords ? meta_info.message.meta_keywords : meta_info.message.title} description={meta_info.message.meta_description ? meta_info.message.meta_description : meta_info.message.title} />}
             {videoDetail ? <>
                 {videoDetail &&
                     <div className='flex gap-[30px] container lg:py-[20px] md:flex-col md:p-[10px]'>
@@ -139,7 +157,7 @@ export default function Videos(meta_info, ads_data) {
 
                                     </div> */}
                                         <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
-                                        <SubscriptionAlert />
+                                        <SubscriptionAlert data={(plans && plans.length != 0) ? plans : []} />
                                         {/* <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
                                     <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6 flex justify-between md:block'>
                                         <div className='text-center text-[20px] md:text-[16px] font-semibold text-[white] flex md:pb-2'>
@@ -169,7 +187,7 @@ export default function Videos(meta_info, ads_data) {
                                 {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
                             </div>
 
-                            {(videoDetail.message.ir_prime != 1) && <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />}
+                            {(videoDetail.message.description) && <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />}
 
                             {/* {videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0 && 
                         <div className=''><Title data={videoDetail.other_category} seeMore={false} /><List fullWidth={true} check={true} isBB={true} isDesc={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[100px] md:h-[85px]'} data={videoDetail.other_category.data.slice(0,3)} borderRadius={'rounded-[5px]'} /></div>
@@ -351,7 +369,7 @@ export async function getServerSideProps({ params }) {
         "route": id, fields: ["name", "route", "title", "video_image", 'description']
     }
     let res = await video_details(data);
-    let meta_info = res.message;
+    let meta_info = res;
 
     let ads_params = { doctype: 'Video', page_type: 'Detail' }
     const res_ads = await getAds(ads_params);
