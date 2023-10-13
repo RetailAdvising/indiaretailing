@@ -12,7 +12,7 @@ import { domain } from '@/libs/config/siteConfig'
 // }
 const DEFAULT_OG_IMAGE = '/indiaretail_new.png'
 export default function SeoArticles({ meta, meta_data, canonical = 'https://indiaretail.vercel.app/',
-    ogType = "website",
+    ogType = "article",
     siteName = "Indiaretail",
     twitterHandle = "@d__indiaRetail" }) {
     const [title, setTitle] = useState();
@@ -22,7 +22,9 @@ export default function SeoArticles({ meta, meta_data, canonical = 'https://indi
         if (meta_data) {
             setTitle(meta_data.meta_title ? meta_data.meta_title : meta_data.title + 'IndiaRetailing')
             document.querySelector('meta[name="description"]').setAttribute('content', meta_data.meta_description ? meta_data.meta_description : meta_data.blog_intro)
+            document.querySelector('meta[property="twitter:description"]').setAttribute('content', meta_data.meta_description ? meta_data.meta_description : meta_data.blog_intro)
             document.querySelector('meta[property="og:image"]').setAttribute('content', check_Image(meta_data.meta_image ? meta_data.meta_image : meta_data.image))
+            document.querySelector('meta[property="twitter:image"]').setAttribute('content', check_Image(meta_data.meta_image ? meta_data.meta_image : meta_data.image))
         }
     }, [meta_data, title]);
 
@@ -73,6 +75,7 @@ export default function SeoArticles({ meta, meta_data, canonical = 'https://indi
                     name="twitter:creator"
                     content={twitterHandle}
                 />
+                <meta property="twitter:image" content={check_Image(meta.meta_image) ?? DEFAULT_OG_IMAGE} />
                 <meta
                     key="twitter:title"
                     property="twitter:title"
@@ -83,6 +86,11 @@ export default function SeoArticles({ meta, meta_data, canonical = 'https://indi
                     property="twitter:description"
                     content={meta.meta_description}
                 />
+
+                {/* <meta property="twitter:card" content="summary_large_image" /> */}
+                {/* <meta property="twitter:url" content="https://metatags.io/" /> */}
+                {/* <meta property="twitter:title" content="Meta Tags — Preview, Edit and Generate" /> */}
+                {/* <meta property="twitter:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!" /> */}
 
                 <link rel="canonical" href={canonical ?? domain} />
 
