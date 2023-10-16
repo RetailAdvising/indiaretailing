@@ -39,7 +39,7 @@ export default function SeoArticles({ meta, meta_data, canonical = 'https://indi
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
                 <meta name="theme-color" content="#e21b22" />
                 <meta key="og_type" property="og:type" content={ogType} />
-                <meta key="og_title" property="og:title" content={meta.meta_title} />
+                <meta key="og_title" property="og:title" content={title ? title : meta.meta_title} />
                 <meta key="og_description" property="og:description" content={meta.meta_description} />
                 <meta key="og_locale" property="og:locale" content="en_IE" />
                 <meta key="og_site_name" property="og:site_name" content={'IndiaRetailing'} />
@@ -97,16 +97,11 @@ export default function SeoArticles({ meta, meta_data, canonical = 'https://indi
 
                 <link rel="shortcut icon" href="/ir_2023.png" />
             </Head>
-            <body>
-                {/* <link itemprop="thumbnailUrl" href="url_image"> */}
-                {/* <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
-                        <link itemprop="url" href="url_image" />
-                    </span> */}
+            {/* <body>
                 <span itemprop="image" itemscope >
                     <link itemprop="url" href={`${check_Image(meta.meta_image) ?? DEFAULT_OG_IMAGE}`} />
                 </span>
-            </body>
-            {/* </html> */}
+            </body> */}
         </>
     )
 }

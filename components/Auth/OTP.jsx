@@ -67,13 +67,13 @@ export default function OTP({ setotp, isModal, hide, auth }) {
 
     async function verifyOtp(data) {
         if (data) {
-            console.log(data)
+            // console.log(data)
             let datass = {
                 mobile_no: data.mobile,
                 otp: data.otp
             }
             let val = await verify_otp(datass);
-            console.log(val);
+            // console.log(val);
             if (val.message.status == 'Success') {
                 if(val.message.existing_customer == 0){
                     router.push(`${isMobile ? '/profile?my_account=' : '/profile?my_account=edit-profile'}`)

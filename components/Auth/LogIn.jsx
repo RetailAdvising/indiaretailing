@@ -119,7 +119,7 @@ export default function LogIn({ isModal, hide, auth }) {
 
     function handleCallbackResponse(response)
     {
-        console.log(response)
+        // console.log(response)
     }
 
     const checkIsMobile = async () => {
@@ -228,7 +228,7 @@ export default function LogIn({ isModal, hide, auth }) {
             console.error('Google login popup closed by the user.');
         } else {
             // Handle successful login
-            console.log('Google login successful:', response);
+            // console.log('Google login successful:', response);
         }
     };
 
@@ -237,10 +237,10 @@ export default function LogIn({ isModal, hide, auth }) {
     const responseFacebook = (response) => {
         if (response.status === 'connected') {
             // The user is logged in and authorized your app
-            console.log('Logged in and authorized:', response);
+            // console.log('Logged in and authorized:', response);
         } else {
             // The user is not logged in or did not authorize your app
-            console.log('Not logged in or not authorized:', response);
+            // console.log('Not logged in or not authorized:', response);
         }
     };
     // };

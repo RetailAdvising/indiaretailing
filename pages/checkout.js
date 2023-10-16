@@ -95,7 +95,7 @@ export default function checkout() {
   // let customer_info_mobile = {};  
 
   async function customer_info() {
-    console.log('customer', customer);
+    // console.log('customer', customer);
     if (customer && customer.address && customer.address.length != 0) {
       check_info(customer);
     } else {
@@ -157,7 +157,7 @@ export default function checkout() {
     alert_dispatch(alertAction(false))
 
     if (alertMsg && alertMsg.navigate) {
-      console.log(alertMsg)
+      // console.log(alertMsg)
       // setAlertMsg({});
       // router.push('/bookstore');
       router.push('/thankyou?order_id=' + alertMsg.order_id);
@@ -208,7 +208,7 @@ export default function checkout() {
     }
 
     const resp = await insertOrder(orderdata);
-    console.log(resp)
+    // console.log(resp)
     if (resp && resp.message && resp.message.status == true) {
       let data = resp.message
       setLoader(false);
@@ -251,7 +251,7 @@ export default function checkout() {
   }
 
   const load_razorpay = async (amount, description, order_id) => {
-    console.log(razorpay_settings.api_key)
+    // console.log(razorpay_settings.api_key)
     let r_pay_color = '#e21b22';
     const app_name = 'India Retail';
     var options = {

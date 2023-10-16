@@ -21,14 +21,16 @@ export default function Lists({ productNavigation, imgFlex, hash_bg, contentWidt
     const router = useRouter();
 
     const checkRoute = (data) => {
-        if (productNavigation) {
+        if (productNavigation && data.doc_type == 'Articles') {
             productNavigation(data.route)
-        } else {
-            if (data.doc_type == 'Articles') {
+        } 
+        // else {
+            // if (data.doc_type == 'Articles') {
                 // router.replace({pathname:'/categories' + '/' + values[ind]["route"]}, undefined, { scroll: false })
                 // router.push(data.ir_prime == 1 ? '/IRPrime/' + data.route : '/categories/' + data.route)
-                router.push('/' + data.route)
-            } else if (data.doc_type == 'Community Event') {
+                // router.push('/' + data.route)
+            // }
+             else if (data.doc_type == 'Community Event') {
                 const route = '/events/' + data.route
                 // router.push({ route }, undefined, { scroll: true })
                 router.push(route)
@@ -42,7 +44,7 @@ export default function Lists({ productNavigation, imgFlex, hash_bg, contentWidt
                 // router.push({route},undefined, { shallow: false, scroll: false })  
                 // router.replace({route},undefined, { shallow: false, scroll: false }) 
             }
-        }
+        // }
 
     }
 

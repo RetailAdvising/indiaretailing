@@ -52,7 +52,7 @@ export default function App({ Component, pageProps }) {
   }
 
   const getActiveTab = (tab_data) => {
-    console.log(tab_data);
+    // console.log(tab_data);
     setActiveTab(tab_data)
   }
 

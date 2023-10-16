@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 export default function SubscriptionAlert({ data }) {
     const router = useRouter();
-    console.log(data)
+    // console.log(data)
     // Modal Popup
     const [modal, setModal] = useState('')
 

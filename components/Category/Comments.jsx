@@ -107,7 +107,7 @@ export default function Comments({ data, isLast, load, comments,route,updatedCmt
     }
 
     const hideReport = (resp_message) => {
-        console.log(resp_message);
+        // console.log(resp_message);
         setVisible(false)
 
         if (resp_message && resp_message.message) {

@@ -12,7 +12,7 @@ export default function changepwd() {
     const [show, setShow] = useState(false)
     async function changePass(data) {
         if (data) {
-            console.log(data);
+            // console.log(data);
             // const resp = await update_user_password(data);
             // console.log(resp);
             // if(resp.status == "Success"){

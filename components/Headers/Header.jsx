@@ -81,7 +81,7 @@ export default function Header({ checkout }) {
             const resp = await user_roles();
             if(resp.status == 'Success'){
                 dispatch(setRole(resp))
-                console.log(resp)
+                // console.log(resp)
             }
             
         }

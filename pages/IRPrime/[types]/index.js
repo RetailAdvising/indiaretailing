@@ -17,7 +17,7 @@ export default function Lists({ data, ads }) {
         //     isMobile && res.mobile_image ? res.image = res.mobile_image : res.image = ''
         // })
         if (data) {
-            console.log(data)
+            // console.log(data)
             setTimeout(() => {
                 setPageData(data)
             }, 200);

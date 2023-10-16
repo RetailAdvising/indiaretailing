@@ -161,7 +161,7 @@ export default function profile({ my_account }) {
 
 
   function closeModal(value) {
-    console.log(value);
+    // console.log(value);
     setEnableModal(false);
     if (value == 'Yes' && alertUi) {
       setAlertUi(false);
@@ -175,7 +175,7 @@ export default function profile({ my_account }) {
   }
 
   function logout(value) {
-    console.log(value);
+    // console.log(value);
     setEnableModal(false);
     if (value == 'Yes' && alertUi) {
       setAlertUi(false);

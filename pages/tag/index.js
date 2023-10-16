@@ -30,7 +30,7 @@ export default function Tags({ res, data }) {
     useEffect(() => {
         getLatestNews()
         if (res && res.data && res.data.length != 0) {
-            console.log(res)
+            // console.log(res)
             setData(res.data)
             // console.log(router)
 

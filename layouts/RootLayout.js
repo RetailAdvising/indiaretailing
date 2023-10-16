@@ -28,7 +28,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
 
   useEffect(() => {
     if (typeof window != 'undefined' && router) {
-      console.log(router);
+      // console.log(router);
       if(router.query.detail){
         article_breadcrumb(router.query.detail)
       }else setBreadCrumbs(router.asPath.split('/'))
@@ -56,7 +56,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   return (
     <>
       {/* <SEO /> */}
-      {!checkout && <div className="md:hidden"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
+      {!checkout && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
       {/* <PdfViewer/> */}
       <>
         <Header checkout={checkout}  />

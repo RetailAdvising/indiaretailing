@@ -5,7 +5,7 @@ import Video from '@/components/Video/Video'
 import { useRouter } from 'next/router'
 export default function Videos({data,ads}) {
     const router = useRouter()
-    console.log(data)
+    // console.log(data)
     return (
         <>
             <RootLayout isLanding={false} homeAd={ads ? ads : null} head={router.query.vids ? router.query.vids : 'List'}>

@@ -12,7 +12,7 @@ import SEO from '@/components/common/SEO'
 // import BreadCrumb from '@/components/common/BreadCrumb';
 
 export default function Bookstore({ data, ads_data, slider_data }) {
-  console.log(data);
+  // console.log(data);
   let [isMobile, setIsmobile] = useState();
   // let [breadCrumbs, setBreadCrumbs] = useState([
   //   { name: 'Home', route: '/' },

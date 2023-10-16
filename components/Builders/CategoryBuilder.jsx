@@ -185,7 +185,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   function onPageLoad() {
     // console.log(data)
     if ((data && data.article_sections && data.article_sections.length != 0)) {
-      console.log('data.article_sections', data.article_sections);
+      // console.log('data.article_sections', data.article_sections);
       data.article_sections.map((res, i) => {
         if (res.data && res.data.length != 0) {
           let element = document.getElementById(`${res.placeholder_key}`);
@@ -256,7 +256,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   };
 
   const checkRoute = (link) => {
-    console.log(link)
+    // console.log(link)
   }
 
 

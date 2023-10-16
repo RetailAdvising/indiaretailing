@@ -47,7 +47,7 @@ export default function Membership() {
   async function getMembershipLanding() {
     let data = { "route": "membership", "page_no": 1, "page_size": 10}
     const resp = await HomePage(data);
-    console.log(resp);
+    // console.log(resp);
     if (resp && resp.message && resp.message.page_content && resp.message.page_content != 0) {
       let datas = resp.message.page_content
       setpageContent(datas);

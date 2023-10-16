@@ -16,7 +16,7 @@ import SubscriptionAlert from '@/components/common/SubscriptionAlert';
 import Placeholders from '@/components/common/Placeholders'
 
 export default function Videos({meta_info, ads_data}) {
-    console.log(meta_info, ads_data)
+    // console.log(meta_info, ads_data)
     const router = useRouter();
     let [isMobile, setIsmobile] = useState();
     let [videoDetail, setVideoDetail] = useState();
@@ -84,7 +84,7 @@ export default function Videos({meta_info, ads_data}) {
 
 
     const updateShare = async (data) => {
-        console.log(data, 'share');
+        // console.log(data, 'share');
         const param = {
             doc_id: data.name,
             doctype: 'Video'

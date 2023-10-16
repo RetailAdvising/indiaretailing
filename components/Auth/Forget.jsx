@@ -28,7 +28,7 @@ const Forget = ({ auth,hide }) => {
         if (data) {
             // console.log(data);
             const resp = await forget_password(data);
-            console.log(resp);
+            // console.log(resp);
             if (resp.status == "Success") {
                 alert('Password reset instructions have been sent to your email');
                 setTimeout(() => {

@@ -72,7 +72,7 @@ export default function SideBar({ data, close, navbar,emit_item }) {
     }
 
     const change_nav=(item)=>{
-        console.log(item);
+        // console.log(item);
         emit_item(item)
       router.push(item.redirect_url)
       close()

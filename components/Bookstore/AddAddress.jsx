@@ -94,7 +94,7 @@ export default function AddAddress() {
 
   function hide(obj) {
     setVisible(false);
-    console.log(obj);
+    // console.log(obj);
     if (obj) {
 
       if (customerInfo.address && customerInfo.address.length != 0 && obj.name) {

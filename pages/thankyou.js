@@ -7,10 +7,7 @@ import OrderDetail from '@/components/ProfileCom/OrderDetail';
 export default function thankyou({order_id}) {
 
    const router = useRouter();
-
-   useEffect(()=>{
-
-   },[])  
+  
 
    return(
     <>

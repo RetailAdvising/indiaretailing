@@ -23,7 +23,7 @@ export default function ChangePwd({ customerInfo }) {
 
   async function signup(data) {
     if (data) {
-      console.log(data);
+      // console.log(data);
       get_check(data);
     } else {
       setWrong(!wrong);

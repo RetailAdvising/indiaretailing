@@ -183,7 +183,7 @@ export default function Trending({ data, res, ads }) {
                     <div class="lg:flex lg:gap-[15px] md:block">
                         {/* Web tabs */}
                         <div id={'scrollTag'} class="lg:flex-[0_0_calc(20%_-_10px)] lg:h-[calc(100vh_-_15px)] overflow-auto scrollbar-hide p-[10px] md:hidden border rounded-[10px]">
-                            {console.log(tabs,tag , 'from dom')}
+                            {/* {console.log(tabs,tag , 'from dom')} */}
                             {(tabs && tag && tag.length != 0) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}
                             <TrendingBox />
                         </div>

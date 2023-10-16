@@ -96,7 +96,6 @@ export default function search({ searchTxt }) {
   }
 
   async function searchText_1(eve) {
-
     page_no = 1;
     let value = eve.target.value;
     setEnableSearch(true);

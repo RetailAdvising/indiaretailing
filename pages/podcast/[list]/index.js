@@ -5,7 +5,7 @@ import HomePodcast from '@/components/Podcast/HomePodcast';
 import SEO from '@/components/common/SEO'
 
 export default function PodcastList(data, ads_data) {
-    console.log(data)
+    // console.log(data)
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null}>

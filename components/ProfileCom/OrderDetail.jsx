@@ -92,7 +92,7 @@ const OrderDetailScreen = ({order_id,loadPage}) => {
   }
 
   const load_razorpay = async (amount, description, order_id) => {
-    console.log(razorpay_settings.api_key)
+    // console.log(razorpay_settings.api_key)
     let r_pay_color = '#e21b22';
     const app_name = 'India Retail';
     var options = {

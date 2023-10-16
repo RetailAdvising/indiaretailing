@@ -7,9 +7,9 @@ import { checkMobile } from '@/libs/api'
 import { ToastContainer, toast } from 'react-toastify';
 
 // import { Menu } from '@headlessui/react'
-export default function Dropdowns({ data, img, width, share, setting, element, type, link, updateShare,noScroll }) {
+export default function Dropdowns({ data, img, width, share, setting, element, type, link, updateShare, noScroll }) {
     const router = useRouter();
-    
+
 
     const settings = async (data) => {
         if (data.name == 'More Stories') {
@@ -30,7 +30,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
             noScroll(isMobile ? false : true);
             for (let index = 0; index < doc.length; index++) {
                 const element = doc[index];
-                console.log(element)
+                // console.log(element)
                 element.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
             }
             // console.log(el)
@@ -104,6 +104,45 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
         }
     }
 
+    const [title, setTitle] = useState()
+    const [description, setDescription] = useState()
+    const [image, setImage] = useState()
+    const onClick = async () => {
+        // Be sure to check for the "none" state, so we don't trigger an infinite loop.
+        // if (url === "none") {
+        //   const newUrl = await getUrFromService();
+        //   setUrl(newUrl);
+        // }
+        // console.log('btn clicked...')
+        let titles = document.querySelector('meta[property="og:title"]')
+        let desc = document.querySelector('meta[property="og:description"]')
+        let images = document.querySelector('meta[property="og:image"]')
+        // console.log(titles.getAttribute('content'))
+        setTitle(titles.getAttribute('content'))
+        // console.log(desc.getAttribute('content'))
+        setDescription(desc.getAttribute('content'))
+        // console.log(images.getAttribute('content'))
+        setImage(images.getAttribute('content'))
+    };
+
+    // Whenever "url" changes and we re-render, we manually fire the click event on the button, and then re-set the url.
+    useEffect(() => {
+        // if (url !== "none") {
+        //   shareButton.current?.click();
+        //   setUrl("none");
+        // }
+        if (typeof window != 'undefined') {
+            let titles = document.querySelector('meta[property="og:title"]')
+            let desc = document.querySelector('meta[property="og:description"]')
+            let images = document.querySelector('meta[property="og:image"]')
+            setTitle(titles.getAttribute('content'))
+            // console.log(images,'meta image')
+            setDescription(desc.getAttribute('content'))
+            setImage(images.getAttribute('content'))
+        }
+
+    }, []);
+
 
 
     return (
@@ -152,19 +191,31 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                 return (
                                                     <div key={index} onClick={() => updateShare(link)} className='flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px] cursor-pointer'>
                                                         <div className='flex items-center gap-[5px]'>
-                                                            {res.name == 'Linkedin' && <LinkedinShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/'+ router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
-                                                                <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
-                                                                <p className={'text-[14px]'}>{res.name}</p>
-                                                            </LinkedinShareButton>}
-                                                            {res.name == 'Facebook' && <FacebookShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/'+ router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Linkedin' &&
+                                                                <LinkedinShareButton 
+                                                                  source={image}
+                                                                title={title}  summary={description}  url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                                    <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
+                                                                    <p className={'text-[14px]'}>{res.name}</p>
+                                                                </LinkedinShareButton>
+                                                                // <a target='_blank' href={`http://www.linkedin.com/shareArticle?mini=true&url=https://indiaretail.vercel.app/${(type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)}&submitted-image-url=${image}&title=${title}&summary=${description}&source=${(type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)}`} >Linedin</a>
+                                                                // <a target='_blank' href={`https://www.linkedin.com/sharing/share-offsite/?url=https://indiaretail.vercel.app/${(type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)}&title=${title}&summary=${description}&source=${image}`}>
+                                                                //     Share on LinkedIn
+                                                                // </a>
+                                                            }
+                                                            {res.name == 'Facebook' && <FacebookShareButton title={title} image={image} summary={description} imageUrl={image} source={image} url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </FacebookShareButton>}
-                                                            {res.name == 'Twitter' && <TwitterShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/'+ router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Twitter' && <TwitterShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </TwitterShareButton>}
-                                                            {res.name == 'Whatsapp' && <WhatsappShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/'+ router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Whatsapp' && <WhatsappShareButton
+                                                                title={title} image={image} summary={description} imageUrl={image} source={image}
+                                                                // openShareDialogOnClick={url !== "none"}
+                                                                // url={url}
+                                                                onClick={onClick} url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </WhatsappShareButton>}

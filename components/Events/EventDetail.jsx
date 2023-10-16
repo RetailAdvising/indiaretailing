@@ -117,7 +117,7 @@ export default function EventDetail({ data }) {
                     </div> */}
                     <Title data={{ title: 'Upcoming Events' }} />
                     <div className='lg:grid lg:grid-cols-4 eventCards md:flex  md:gap-[15px] md:overflow-auto  gap-[20px]'>
-                        <EventCards height={'h-[200px] md:h-[160px]'} flex={'md:flex-[0_0_calc(70%_-_10px)]'} card={'lg:h-[370px] md:h-[310px]'} width={'w-full'} data={data.upcoming_events} />
+                        <EventCards height={'h-[200px] md:h-[160px]'} flex={'md:flex-[0_0_calc(70%_-_10px)]'} card={'lg:h-[370px] md:h-[310px]'} width={'w-full'} data={data.upcoming_events.slice(0,4)} />
                         {/* <Cards data={data.upcoming_events} borderRadius={"10px 10px 0 0"} check={true} height={"h-[200px]"} width={'w-full'}  isBorder={true} /> */}
                     </div>
                 </>}

@@ -108,7 +108,7 @@ export default function Content({ res, i, updateShare,noScroll }) {
                 </div>
 
                 <div className='lg:hidden flex gap-[15px] mr-[10px]'>
-                    {icons && <Dropdowns type={'articles'} noScroll={(val) => noScroll(val)} link={res} share={true} width={'w-[170px]'} data={icons} />}
+                    {icons && <Dropdowns type={'articles'} noScroll={(val) => noScroll(val)} updateShare={(data) => updateShare(data)} link={res} share={true} width={'w-[170px]'} data={icons} />}
 
                     {setings && <Dropdowns noScroll={(val) => noScroll(val)} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} setting={true} img={'/setting.svg'} element={`cmt${i}`} width={'w-[160px] lg:w-[160px]'} data={setings} />}
                 </div>

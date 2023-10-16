@@ -70,7 +70,7 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        console.log(value);
+        // console.log(value);
         // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
@@ -123,7 +123,7 @@ export default function Bookstoredetail({ value, res }) {
 
   async function addToCart() {
     setLoader(true);
-    console.log(localStorage['apikey']);
+    // console.log(localStorage['apikey']);
     if (localStorage['apikey']) {
 
       let val = subs.find(res => res.active == true)
@@ -249,7 +249,7 @@ export default function Bookstoredetail({ value, res }) {
           // response.razorpay_payment_id
         } else if(error){
            payment_error_callback(error)
-           console.log(error);
+          //  console.log(error);
         }
       }
     };
@@ -530,7 +530,7 @@ const  getCarts = async (type) => {
 
   const openLightGallery = async (imageSrc) => {
     imageSrc = check_Image(imageSrc);
-    console.log(imageSrc)
+    // console.log(imageSrc)
     $.fn.lightGallery.call($('<a href="' + imageSrc + '">'), {
       dynamic: true,
       dynamicEl: [{ src: imageSrc }]

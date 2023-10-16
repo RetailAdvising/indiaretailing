@@ -9,7 +9,6 @@ const nextConfig = {
     unoptimized: true,
     loader: 'custom',
     loaderFile: './components/ImageLoader.js'
-
   },
   // output: 'export'
   // sassOptions: {

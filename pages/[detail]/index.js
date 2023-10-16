@@ -41,8 +41,8 @@ export default function Details({ data, page_route }) {
   let [routeList, setRouteList] = useState([])
 
   const articleDetail = async (route) => {
-    console.log(route,'route')
-    console.log(page_route,'page_route')
+    // console.log(route,'route')
+    // console.log(page_route,'page_route')
     if (router.query && router.query?.detail && typeof window !== 'undefined') {
       let Id = route ? route : page_route
       values.length = 0

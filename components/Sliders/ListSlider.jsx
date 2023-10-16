@@ -26,7 +26,7 @@ export default function ListSlider({ data, auto, noDots, route = undefined, isEv
         }
     }
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <>
