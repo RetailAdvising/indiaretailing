@@ -48,6 +48,7 @@ export default function SeoArticles({ meta, meta_data, canonical = 'https://indi
                 <meta
                     key="og_image"
                     property="og:image"
+                    itemprop="image"
                     content={check_Image(meta.meta_image) ?? DEFAULT_OG_IMAGE}
                 />
                 <meta
@@ -96,6 +97,15 @@ export default function SeoArticles({ meta, meta_data, canonical = 'https://indi
 
                 <link rel="shortcut icon" href="/ir_2023.png" />
             </Head>
+            <body>
+                {/* <link itemprop="thumbnailUrl" href="url_image"> */}
+                {/* <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
+                        <link itemprop="url" href="url_image" />
+                    </span> */}
+                <span itemprop="image" itemscope >
+                    <link itemprop="url" href={`${check_Image(meta.meta_image) ?? DEFAULT_OG_IMAGE}`} />
+                </span>
+            </body>
             {/* </html> */}
         </>
     )
