@@ -4,13 +4,15 @@ import { check_Image, trending } from '@/libs/api'
 import Link from 'next/link'
 import Tags from '../common/Tags'
 import { useRouter } from 'next/router'
-export default function SectionList({ data,isHome }) {
+import ImageLoader from '../ImageLoader';
+
+export default function SectionList({ data, isHome }) {
   const router = useRouter();
-    function navigate(event, res) {
-        event.stopPropagation();
-        // '/' + router.asPath.split('/')[1] +
-        router.push(`${isHome ? isHome + res.route :  '/' + res.route}`)
-    }
+  function navigate(event, res) {
+    event.stopPropagation();
+    // '/' + router.asPath.split('/')[1] +
+    router.push(`${isHome ? isHome + res.route : '/' + res.route}`)
+  }
   return (
     <>
       {data && data.map((res, index) => {
@@ -20,13 +22,14 @@ export default function SectionList({ data,isHome }) {
             <div className={`flex justify-between gap-[10px] ${index == 0 ? 'lg:mt-[15px]' : ''} ${index != data.length - 1 ? 'mb-[20px] md:mb-[15px]' : ''} ${index != data.length - 1 && 'border_bottom'} items-center pb-[20px] md:pb-[15px]`}>
               <div className={`flex flex-[0_0_calc(95%_-_10px)] w-full gap-[10px]`}>
                 <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]`}>
-                  <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`rounded-[5px] h-[90px] w-full`} src={check_Image(res.thumbnail_imagee ? res.thumbnail_imagee : res.image)} height={50} width={150} alt={"image"} ></Image>
+                  <ImageLoader style={`rounded-[5px] h-[90px] w-full`} src={res.thumbnail_imagee ? res.thumbnail_imagee : res.image} title={res.title} />
+                  {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`rounded-[5px] h-[90px] w-full`} src={check_Image(res.thumbnail_imagee ? res.thumbnail_imagee : res.image)} height={50} width={150} alt={"image"} ></Image> */}
                 </div>
                 <div className='grid'>
                   <p className='primary_text'>{res.primary_text}</p>
                   <h4 className='title line-clamp-2'>{res.title}</h4>
                   {/* {res.publisher && <p className='light_text'>{res.publisher}</p>} */}
-                  {res.tags && <Tags tags={res.tags}/>}
+                  {res.tags && <Tags tags={res.tags} />}
                   {/* {res._user_tags &&} */}
                 </div>
               </div>

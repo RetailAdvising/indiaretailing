@@ -5,6 +5,8 @@ import exclusives from '@/styles/Exclusives.module.scss';
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import Tags from '../common/Tags';
+import ImageLoader from '../ImageLoader';
+
 // import {Roboto} from 'next/font/google'
 
 // const roboto = Roboto({
@@ -85,7 +87,9 @@ export default function Lists({ productNavigation, imgFlex, hash_bg, contentWidt
                         {(res.primary_text && res.secondary_text && isTop) && <p className={`flex line-clamp-1  ${exclusives.title_top}  items-center absolute`}><span className='primary_text pr-[8px] line-clamp-1'>{res.primary_text}</span> <span className='h-[10px] w-[1px]  bg-[#6f6f6f]'></span> <span className='pl-[8px] line-clamp-1 secondary_text'>{res.secondary_text}</span></p>}
                         {/* ${check ? '' : 'basis-1/4'} */}
                         <div className={`${imgFlex} ${isTop && 'pt-[25px]'}`}>
-                            <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgHeight} ${imgWidth} ${borderRadius}`} src={check_Image(res.image || res.video_image || res.thumbnail_image)} height={100} width={100} alt={"image"} />
+                            {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgHeight} ${imgWidth} ${borderRadius}`} src={check_Image(res.image || res.video_image || res.thumbnail_image)} height={100} width={100} alt={"image"} /> */}
+                            <ImageLoader style={`${imgHeight} ${imgWidth} ${borderRadius}`} src={res.image || res.video_image || res.thumbnail_image} title={res.title ? res.title : 's'} />
+
                         </div>
                         {/* w-[280px] */}
                         {res.doc_type == 'Community Event' ?

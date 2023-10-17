@@ -2,6 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common';
+import ImageLoader from '../ImageLoader';
+
 export default function EventCards({ data, flex,height,width,card }) {
     const router = useRouter();
     return (
@@ -12,7 +14,9 @@ export default function EventCards({ data, flex,height,width,card }) {
                     <div className={` flex flex-col rounded-[10px] ${card ? card : 'md:h-[300px] lg:h-[380px]'} border cursor-pointer ${flex}`} onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`) } key={index}>
                         <div className={``} >
                             {/* style={{ height: '250px', width: '100%', borderRadius: '10px 10px 0 0' }} */}
-                            <Image src={check_Image(res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : null)} className={`rounded-[10px_10px_0_0] ${height} ${width}`}  height={100} width={200} alt={res.title} />
+                            {/* <Image src={check_Image(res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : null)} className={`rounded-[10px_10px_0_0] ${height} ${width}`}  height={100} width={200} alt={res.title} /> */}
+                            <ImageLoader style={`rounded-[10px_10px_0_0] ${height} ${width}`} src={res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : null} title={res.title ? res.title : 's'} />
+
                         </div>
                         <div className={`flex flex-col p-[10px] h-full justify-between `}>
                             <h4 className={`event-title font-semibold  line-clamp-1`}>{res.title} </h4>

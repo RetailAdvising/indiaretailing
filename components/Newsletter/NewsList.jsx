@@ -6,6 +6,7 @@ import { check_Image } from '@/libs/common';
 import AlertPopup from '../common/AlertPopup';
 import SubscribeNews from './SubscribeNews';
 import AlertUi from '@/components/common/AlertUi';
+import ImageLoader from '../ImageLoader';
 
 export default function NewsList({ data }) {
   const router = useRouter();
@@ -74,6 +75,8 @@ export default function NewsList({ data }) {
             {/* flex-[0_0_calc(15%_-_10px)] */}
             <div  onClick={() => router.push(`/${res.route}`)} className={`cursor-pointer flex gap-[10px] lg:w-[110px] md:flex-[0_0_calc(35%_-_5px)]`}>
               <Image className={`lg:h-[93px] md:h-full w-full rounded-[6px] `} src={check_Image(res.image)} height={100} width={200} alt={res.title} />
+              <ImageLoader style={`lg:h-[93px] md:h-full w-full rounded-[6px]`} src={res.image} title={res.title ? res.title : 's'} />
+
             </div>
             <div  className={`lg:leading-[1.7] md:gap-[5px] md:flex-[0_0_calc(65%_-_5px)] lg:flex-[0_0_calc(60%_-_10px)]`}>
               <p onClick={() => router.push(`/${res.route}`)} className={`text-[#818181] leading-[17.62px] lg:text-[13px] md:text-[11px] capitalize`}>{res.title}</p>

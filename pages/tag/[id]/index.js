@@ -9,6 +9,7 @@ import List from '@/components/common/List'
 import Title from '@/components/common/Title'
 import Dropdowns from '@/components/common/Dropdowns';
 import AdsBaner from '@/components/Baners/AdsBaner'
+import ImageLoader from '@/components/ImageLoader';
 
 export default function Trending({ data, res, ads }) {
     const categories = [{ name: 'All', route: 'all' }, { name: 'News', route: 'news_list' }, { name: 'Articles', route: 'article_list' }, { name: 'Events', route: 'event_list' }]
@@ -203,7 +204,8 @@ export default function Trending({ data, res, ads }) {
                                                 {/* </div> */}
                                                 <h6 className={`title line-clamp-2 md:p-[10px] py-[10px]`}>{res.title}</h6>
                                                 <div>
-                                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_imagee)} height={500} width={800} className={`w-full h-[320px] lg:rounded-[5px]`} alt={res.title ? res.title : index} />
+                                                <ImageLoader style={`w-full h-[320px] lg:rounded-[5px]`} src={res.image ? res.image : res.thumbnail_imagee} title={res.title ? res.title : 's'} />
+                                                    {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_imagee)} height={500} width={800} className={`w-full h-[320px] lg:rounded-[5px]`} alt={res.title ? res.title : index} /> */}
                                                 </div>
                                                 <div className='lg:py-[10px] md:p-[10px_10px_0_10px] flex justify-between'>
                                                     {res.doctype != 'Community Event' && <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between'>

@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { check_Image } from '../../libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import ImageLoader from '../ImageLoader';
+
 export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route, title_class, subtitle_class, primary_text_class, hashtags_class, hide_scroll_button, noPrimaryText, routers, parent, productNavigation }) {
     // let router = routers ? routers : useRouter();
     // let router = routers ;
@@ -149,7 +151,8 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                             // '/' + router.asPath.split('/')[1] +
                             <div key={index} className={`${cardClass} item border cursor-pointer rounded-[10px] overfow-hidden`} onClick={() => checkRoute(res)}>
                                 <div className={``} >
-                                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_imagee : res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : res.video_image ? res.video_image : res.product_image ? res.product_image : res.image)} height={200} width={300} alt={index + 'image'} />
+                                    {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_imagee : res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : res.video_image ? res.video_image : res.product_image ? res.product_image : res.image)} height={200} width={300} alt={index + 'image'} /> */}
+                                    <ImageLoader style={`${imgClass} rounded-[10px_10px_0_0]`} src={res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_imagee : res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : res.video_image ? res.video_image : res.product_image ? res.product_image : res.image} title={index + 'image'} />
                                 </div>
                                 <div className={` flex flex-col justify-between p-[10px] `}>
                                     {(res.primary_text && res.secondary_text && !noPrimaryText) && <p className={`${primary_text_class} flex gap-2 items-center py-[5px]`}><span className={`primary_text leading-normal tracking-wider !text-[10px] line-clamp-1`}>{res.primary_text}</span> <span className="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className='secondary_text line-clamp-1'>{res.secondary_text}</span></p>}

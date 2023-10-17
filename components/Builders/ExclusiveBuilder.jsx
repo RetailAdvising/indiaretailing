@@ -8,8 +8,9 @@ import { useRouter } from 'next/router'
 import ListSlider from '@/components/Sliders/ListSlider'
 import CustomSlider from '../Sliders/CustomSlider'
 import Video from '../Video/Video'
+import ImageLoader from '../ImageLoader';
 
-export default function ExclusiveBuilder({ data,ads }) {
+export default function ExclusiveBuilder({ data, ads }) {
     const router = useRouter();
     const [isMobile, setIsMobile] = useState()
     // console.log(data)
@@ -37,7 +38,8 @@ export default function ExclusiveBuilder({ data,ads }) {
                             // ${router.asPath.split('/')[1]}/
                             <div key={index} onClick={() => router.push(`/${res.route}`)} className={`md:mb-[10px] mb-5 pb-5 cursor-pointer md:pb-[10px] ${(index == 0 && !isMobile) ? 'border_bottom' : ''}`}>
                                 <h6 className={`${index == 0 ? 'lg:text-[18px] md:text-[17px] font-semibold' : ''}`}>{res.title}</h6>
-                                <Image className={`${index == 0 ? 'h-[335px] md:h-[320px] w-full mt-[10px] rounded-[5px]' : ''}`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.image)} height={250} width={300} alt={res.title} />
+                                <ImageLoader style={`${index == 0 ? 'h-[335px] md:h-[320px] w-full mt-[10px] rounded-[5px]' : ''}`} src={res.thumbnail_image ? res.thumbnail_image : res.image} title={res.title ? res.title : 's'} />
+                                {/* <Image className={`${index == 0 ? 'h-[335px] md:h-[320px] w-full mt-[10px] rounded-[5px]' : ''}`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.image)} height={250} width={300} alt={res.title} /> */}
                                 {res.primary_text && <p className={`flex items-center ${index == 0 ? 'pt-[10px]' : ''}`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>}
                                 <p className={`sub_title line-clamp-2 ${index == 0 ? 'pt-[10px]' : ''}`}>{res.blog_intro}</p>
                             </div>
@@ -52,14 +54,14 @@ export default function ExclusiveBuilder({ data,ads }) {
                 </div>
 
                 {(data.sec1 && data.sec1.data && data.sec1.data.length != 0) &&
-                    isMobile ? <div className='beautySlide pt-[20px]'><Title noPadding={true} data={data.sec1} seeMore={true}/>
+                    isMobile ? <div className='beautySlide pt-[20px]'><Title noPadding={true} data={data.sec1} seeMore={true} />
                     {/* <ListSlider data={data.sec1.data.slice(0, 5)} auto={false} /> */}
                     <CustomSlider cardClass={'flex-[0_0_85%]'}
                         slider_id={"slider" + 10} slider_child_id={"slider_child" + 10} data={data.sec1.data.slice(0, 5)} type='beautySlide' />
                 </div>
                     :
                     <div className='w-full lg:h-[640px] md:pt-[20px] lg:pb-5 flex-[0_0_calc(25%_-_10px)] md:basis-full'>
-                        <Title data={data.sec1} seeMore={true}/>
+                        <Title data={data.sec1} seeMore={true} />
                         <div className={`border lg:h-[595px] p-[10px] rounded-[5px]`}><List isMp={true} titleClamp={'md:line-clamp-2 line-clamp-3'} check={true} tittleOnly={true} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isBB={true} imgWidth={'w-[130px] md:w-full'} imgHeight={'h-[85px] md:h-[110px]'} data={data.sec1.data.slice(0, 4)} borderRadius={'rounded-[5px]'} isTop={true} /></div>
                     </div>
                 }
@@ -71,13 +73,13 @@ export default function ExclusiveBuilder({ data,ads }) {
                 </div>} */}
 
             {/* Section - 2 p-[20px_30px_0_0] w-[30%]*/}
-            { data.leaders_ink && data.leaders_ink.data && data.leaders_ink.data.lengrh !=0 &&  <div className={`flex lg:p-[20px 0] md:p-[0_15px]  pb-[35px] container flex-wrap items-end justify-between w-full gap-[15px]`}>
+            {data.leaders_ink && data.leaders_ink.data && data.leaders_ink.data.lengrh != 0 && <div className={`flex lg:p-[20px 0] md:p-[0_15px]  pb-[35px] container flex-wrap items-end justify-between w-full gap-[15px]`}>
                 <div className='w-[calc(75%_-_10px)] md:basis-full md:pt-[10px]'>
-                    <Title data={{ title: data.leaders_ink.title}} route={'/IRPrime/'} seeMore={true}/>
+                    <Title data={{ title: data.leaders_ink.title }} route={'/IRPrime/leaders-ink'} seeMore={true} />
                     <div className='primeSlide'>
                         {/* <MultiCarousel cardHeight={'h-[280px]'} type={'profile'} noPlay={true} height={'h-[150px]'} perView={4} width={'w-full'} data={val.section_2.col_1.data} /> */}
-                        <CustomSlider cardClass={'lg:h-[300px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
-                            slider_id={"slider_id" + 0} slider_child_id={"slider_child_id" + 0} data={data.leaders_ink.data} title_class={'line-clamp-1'} subtitle_class={'line-clamp-1'}/>
+                        <CustomSlider cardClass={'lg:h-[305px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
+                            slider_id={"slider_id" + 0} slider_child_id={"slider_child_id" + 0} data={data.leaders_ink.data} title_class={'line-clamp-1'} subtitle_class={'line-clamp-1'} />
                     </div>
                 </div>
 
@@ -114,9 +116,9 @@ export default function ExclusiveBuilder({ data,ads }) {
                 <div className={`flex-[0_0_calc(75%_-_10px)] md:basis-full`}>
                     <Title data={data.sec2} seeMore={true} />
                     <List fullWidth={true} check={true} isBB={true} titleClamp={'line-clamp-2'} contentWidth={'gap-[5px] w-[520px] md:w-[auto]'} flex={'gap-[25px] items-center mb-[20px] pb-[20px]'}
-                    imgFlex={'flex-[0_0_calc(28%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px] md:h-[130px]'} data={data.sec2.data.slice(0, 3)} borderRadius={'rounded-[5px]'} />
+                        imgFlex={'flex-[0_0_calc(28%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px] md:h-[130px]'} data={data.sec2.data.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                 </div>
-                {(ads.right && ads.right.length != 0 && ads.right[1] && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><AdsBaner height={'h-[600px] '}  width={'w-full'} data={ads.right[1]} /></div>}
+                {(ads.right && ads.right.length != 0 && ads.right[1] && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><AdsBaner height={'h-[600px] '} width={'w-full'} data={ads.right[1]} /></div>}
 
                 {/* {(val.section_4 && val.section_4.col_2 && !isMobile) && <div className='flex-[0_0_calc(25%_-_10px)] md:basis-full'> <AdsBaner height={'h-[567px]'} width={'w-full'} data={val.section_4.col_2} /></div>} */}
             </div>}

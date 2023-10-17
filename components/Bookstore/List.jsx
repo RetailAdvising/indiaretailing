@@ -2,6 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common';
+import ImageLoader from '../ImageLoader';
+
 export default function List({ data,border_b,line_clamp, flex, height, width, imgWidth, imgWidth1, route, boxShadow, check, category }) {
   const router = useRouter();
 
@@ -17,7 +19,8 @@ export default function List({ data,border_b,line_clamp, flex, height, width, im
         return (
           <div className={`flex cursor-pointer gap-[10px] ${border_b ? border_b : ''} ${flex ? flex : ''}`} onClick={() => navigateToDetail(res)} key={index}>
             <div className={`${imgWidth}`}>
-              <Image className={`${height} ${width}  ${boxShadow && 'rounded-[5px]'}`} src={check ? check_Image(res.product_image) : res.image} height={210} width={162} alt={res.title}></Image>
+              {/* <Image className={`${height} ${width}  ${boxShadow && 'rounded-[5px]'}`} src={check ? check_Image(res.product_image) : res.image} height={210} width={162} alt={res.title}></Image> */}
+              <ImageLoader style={`${height} ${width}  ${boxShadow && 'rounded-[5px]'}`} src={res.product_image} title={res.title ? res.title : 's'} />
             </div>
             <div className={`${imgWidth1 ? imgWidth1 : ''} flex flex-col items-start gap-[10px] justify-center`}>
               {res.primary_text && <p className={`flex items-center`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#121212]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>}

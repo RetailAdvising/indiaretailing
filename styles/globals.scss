@@ -123,6 +123,11 @@
   }
 }
 
+.lazy-load-image-background{
+  height: 100% !important;
+  width: 100% !important;
+}
+
 .flex_70 {
   flex: 0 0 calc(70% - 10px);
   width: calc(70% - 15px);

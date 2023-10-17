@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { check_Image } from '@/libs/common'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import ImageLoader from '../ImageLoader';
 
 export default function EventList({ data, flex, height, width, check, isHome, isRoute = undefined }) {
     const router = useRouter();
@@ -40,7 +41,8 @@ export default function EventList({ data, flex, height, width, check, isHome, is
                     <div className={`overflow-hidden cursor-pointer flex ${isHome ? 'flex rounded-[10px] border h-[160px]' : ' pb-[20px]'} border_bottom bg-white gap-[10px]   ${flex}`} onClick={() => router.push(`${isRoute ? isRoute + res.route : '/' + router.asPath.split('/')[1] + '/' + res.route}`)} key={index}>
                         <div className={`flex-[0_0_calc(40%_-_10px)] ${isHome ? 'lg:grid lg:place-content-center' : ''}`}>
                             {/* style={{ background: imageBackground }} */}
-                            <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur'  height={100} width={200} alt={res.title} src={!check ? check_Image(res.thumbnail_path) : res.image} className={`${height} ${width} ${isHome ? 'rounded-[25px] p-5' : 'rounded-[10px]'}`} />
+                            {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur'  height={100} width={200} alt={res.title} src={!check ? check_Image(res.thumbnail_path) : res.image} className={`${height} ${width} ${isHome ? 'rounded-[25px] p-5' : 'rounded-[10px]'}`} /> */}
+                            <ImageLoader style={`${height} ${width} ${isHome ? 'rounded-[25px] p-5' : 'rounded-[10px]'}`} src={res.thumbnail_path ? res.thumbnail_path : res.image ? res.image : null} title={res.title ? res.title : 's'} />
                         </div>
                         <div className={`flex flex-col ${isHome ? 'p-[10px] justify-between gap-[5px]' : 'leading-[2] px-[10px] min-h-[185px]'} `}>
                             <h4 className={`font-semibold ${isHome ? 'text-[14px] ' : 'text-[16px] py-[10px]'} line-clamp-2 text-[#39364F] `}>{res.title} </h4>

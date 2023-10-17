@@ -7,8 +7,8 @@ const nextConfig = {
   images:{
     domains:["indiaretailing.go1cms.com","https://","via.placeholder.com","vumbnail.com",'img.youtube.com'],
     unoptimized: true,
-    loader: 'custom',
-    loaderFile: './components/ImageLoader.js'
+    // loader: 'custom',
+    // loaderFile: './components/ImageLoader.js'
   },
   // output: 'export'
   // sassOptions: {
