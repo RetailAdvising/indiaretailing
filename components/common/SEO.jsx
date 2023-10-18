@@ -41,9 +41,9 @@ export default function SEO({ title = "India Reatiling",
                         property="og:image:alt"
                         content={`${title} | ${siteName}`}
                     />
-                    <meta key="og_image:width" property="og:image:width" content="1200" />
-                    <meta key="og_image:height" property="og:image:height" content="630" />
-
+                    <meta key="og_image:width" property="og:image:width" content="200" />
+                    <meta key="og_image:height" property="og:image:height" content="200" />
+                    <meta name="og:image:type" property="og:image:type" content="image/jpg" />
                     <meta name="robots" content="index,follow" />
 
                     <meta
