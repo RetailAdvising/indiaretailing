@@ -10,6 +10,8 @@ import SEO from '@/components/common/SEO'
 import CardCarousel from '../../components/Sliders/CardCarousel';
 import CustomSlider from '@/components/Sliders/CustomSlider';
 
+// import Loader from '@/components/Loader';
+// import { useRouter } from 'next/router';
 export default function Categories({ data, ads }) {
     const [isMobile, setIsMobile] = useState()
     const [activeNav, setActiveNav] = useState()
@@ -75,13 +77,34 @@ export default function Categories({ data, ads }) {
         }
     }
 
+    // const [loader, setLoader] = useState(false);
+    // const router = useRouter()
+    // useEffect(() => {
+    //   const handleStart = () => {
+    //     setLoader(true);
+    //   };
+    //   const handleComplete = () => {
+    //     setLoader(false);
+    //   };
+  
+    //   router.events.on("routeChangeStart", handleStart);
+    //   router.events.on("routeChangeComplete", handleComplete);
+    //   router.events.on("routeChangeError", handleComplete);
+  
+    //   return () => {
+    //     router.events.off("routeChangeStart", handleStart);
+    //     router.events.off("routeChangeComplete", handleComplete);
+    //     router.events.off("routeChangeError", handleComplete);
+    //   };
+    // }, []);
+
 
     return (
         <>
             <RootLayout homeAd={ads ? ads : null} head={'Categories'} isLanding={true}>
                 <SEO title={'Categories'} siteName={'India Reatiling'} description={'Categories'} />
 
-                <div className={` md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
+                 <div className={` md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
                     <Title data={{ title: 'Categories' }} font={'20px'} className='md:hidden' title_class='md:hidden' />
                     {(datas && datas.length != 0) ? datas.map((res, index) => {
                         return (

@@ -366,7 +366,7 @@ export default function Home({ data }) {
                             <Title data={{ title: c.component_title }} route={'/categories/reconnect'} seeMore={true} />
                             <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'} cardClass={'h-[310px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
                           </>}
-                          {(c.cid && c.component_title == "Image" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{ ad_image: '/ads_bike.png' }} /></div>}
+                          {(c.cid && c.component_title == "Image" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{bannerAd: '/no_state.svg'}} /></div>}
                         </div>
                       )
                     })}

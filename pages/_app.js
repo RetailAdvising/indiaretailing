@@ -11,7 +11,7 @@ import MobileHead from '@/components/Headers/MobileHead'
 import BottomTabs from '@/components/common/BottomTabs'
 import Header from '@/components/Headers/Header'
 import { useRouter } from 'next/router'
-
+import Loader from '@/components/Loader'
 // const inter = Inter({
 //   weight: ["200", "300", "400", "500", "600", '700'],
 //   display: "block",
@@ -67,26 +67,26 @@ export default function App({ Component, pageProps }) {
 
 
   // const router = useRouter();
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   const handleStart = () => {
-  //     setLoading(true);
-  //   };
-  //   const handleComplete = () => {
-  //     setLoading(false);
-  //   };
+  useEffect(() => {
+    const handleStart = () => {
+      setLoading(true);
+    };
+    const handleComplete = () => {
+      setLoading(false);
+    };
 
-  //   router.events.on("routeChangeStart", handleStart);
-  //   router.events.on("routeChangeComplete", handleComplete);
-  //   router.events.on("routeChangeError", handleComplete);
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
 
-  //   return () => {
-  //     router.events.off("routeChangeStart", handleStart);
-  //     router.events.off("routeChangeComplete", handleComplete);
-  //     router.events.off("routeChangeError", handleComplete);
-  //   };
-  // }, [router]);
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [router]);
 
   // const isMobile = useSelector(s=> s.isMobile)
   // const dispatch = useDispatch();
@@ -123,14 +123,14 @@ export default function App({ Component, pageProps }) {
       <ErrorBoundary >
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
-          <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
+          {loading ? <><Loader /></> : <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
             <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
             {/* <Header/> */}
             <Component {...pageProps} />
             <div className='lg:hidden'>
               <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
             </div>
-          </main>
+          </main>}
         </Provider>
       </ErrorBoundary>
     </>

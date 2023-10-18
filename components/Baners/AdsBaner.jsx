@@ -54,7 +54,7 @@ export default function AdsBaner({ data, height, Class, style, width, homeAd, fo
             // <p className="fnt_12 text-center">Advertisement</p>
           } */}
           {footerAd.footer[0] &&
-            <div style={style} onClick={() => window.open(footerAd.footer[0].banner_link, '_blank')} className={`${Class}`}>
+            <div style={style} onClick={() => window.open(footerAd.footer[0].banner_link, '_blank')} className={`${Class} lg:!h-[90px] lg:!w-[970px]`}>
               <ImageLoader style={`${height ? height : 'h-[250px]'} ${width ? width : 'w-[970px]'} object-contain cursor-pointer`} src={footerAd.footer[0].banner_image} title={footerAd.footer[0].title ? footerAd.footer[0].title : 's'} />
               {/* <Image priority onClick={() => window.open(footerAd.footer[0].banner_link, '_blank')} src={check_Image(footerAd.footer[0].banner_image)} height={250} className={`${height ? height : 'h-[250px]'} ${width ? width : 'w-[970px]'} object-contain cursor-pointer`} width={970} alt='ad' /> */}
             </div>}

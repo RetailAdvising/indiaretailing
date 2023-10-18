@@ -70,7 +70,7 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        // console.log(value);
+        // console.log(value,'before');
         // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
@@ -96,6 +96,8 @@ export default function Bookstoredetail({ value, res }) {
             value.attribute =  value.vendor_price_list[0].variant_text ? value.vendor_price_list[0].variant_text : '';
           }
         }
+
+        // console.log(value,'After');
         setData(value);
       }
   

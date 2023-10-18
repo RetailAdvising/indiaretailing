@@ -8,13 +8,13 @@ import SEO from '@/components/common/SEO'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, {  useEffect, useState } from 'react'
-import { websiteSettings,get_article_breadcrumb } from '@/libs/api'
+import React, { useEffect, useState } from 'react'
+import { websiteSettings, get_article_breadcrumb } from '@/libs/api'
 import MobileHead from '@/components/Headers//MobileHead';
 import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
 
-export default function RootLayout({ children, checkout, isLanding, head, homeAd, data,header_data }) {
+export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
   const [headerData, setHeaderData] = useState([]);
@@ -29,19 +29,23 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   useEffect(() => {
     if (typeof window != 'undefined' && router) {
       // console.log(router);
-      if(router.query.detail){
+      if (router.query.detail) {
         article_breadcrumb(router.query.detail)
-      }else setBreadCrumbs(router.asPath.split('/'))
+      } else setBreadCrumbs(router.asPath.split('/'))
     }
 
     let ads = document.getElementById('ads')
-    get_website_settings()
+    get_website_settings() 
     // ads.classList.remove('hidden')
   }, [])
-  
-  const article_breadcrumb =async (route) =>{
-   const resp =  await get_article_breadcrumb({article_route:route})
-    if (resp) {
+
+  const article_breadcrumb = async (route) => {
+    const resp = await get_article_breadcrumb({ article_route: route })
+    if (resp && resp.message && resp.message.length != 0) {
+      // console.log(resp)
+      // resp.message.map((res)=>{
+      //   breadCrumbs.push(res)
+      // })    
       setBreadCrumbs(resp.message)
     }
   }
@@ -53,23 +57,43 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       setFooterData(websiteData.message.footer_template)
     }
   }
+  // const [loading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   const handleStart = () => {
+  //     setLoading(true);
+  //   };
+  //   const handleComplete = () => {
+  //     setLoading(false);
+  //   };
+
+  //   router.events.on("routeChangeStart", handleStart);
+  //   router.events.on("routeChangeComplete", handleComplete);
+  //   router.events.on("routeChangeError", handleComplete);
+
+  //   return () => {
+  //     router.events.off("routeChangeStart", handleStart);
+  //     router.events.off("routeChangeComplete", handleComplete);
+  //     router.events.off("routeChangeError", handleComplete);
+  //   };
+  // }, [router]);
+
   return (
     <>
       {/* <SEO /> */}
       {!checkout && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
       {/* <PdfViewer/> */}
       <>
-        <Header checkout={checkout}  />
+        <Header checkout={checkout} />
         {/* {!checkout && <Navbar isLanding={isLanding} heading={head} /> } */}
         <Navbar isLanding={isLanding} heading={head} checkout={checkout} />
         {/* {!checkout ? <Navbar isLanding={isLanding} heading={head} /> : <div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={head} /></div> } */}
-        {(breadCrumbs && breadCrumbs.length > 1 && breadCrumbs[1] && breadCrumbs[1] != 'newsletters' && breadCrumbs[1] != 'news' && breadCrumbs[1].split('?')[0] != 'thankyou' && breadCrumbs[1].split('?')[0] != 'profile' && breadCrumbs[1].split('?')[0] != 'search' && breadCrumbs[1].split('?')[0] != 'tag') &&
-          
+        {(breadCrumbs && breadCrumbs.length > 1 && breadCrumbs[1] && breadCrumbs[1] != 'newsletters' && breadCrumbs[1].split('?')[0] != 'thankyou' && breadCrumbs[1].split('?')[0] != 'profile' && breadCrumbs[1].split('?')[0] != 'search' && breadCrumbs[1].split('?')[0] != 'tag') &&
           <div className='container flex  gap-[7px] md:hidden py-[20px]'>
             {breadCrumbs.map((bc, index) => {
               let url = index == 3 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] + '/' + breadCrumbs[3] :
                 index == 2 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] :
-                  index == 1 ? router.query.detail ? '/categories/' + breadCrumbs[1]:'/' + breadCrumbs[1] : '/'
+                  index == 1 ? router.query.detail ? '/categories/' + breadCrumbs[1] : '/' + breadCrumbs[1] : '/'
               return (<div key={index}  >
                 {index == 0 ? <Link className={`flex gap-[5px] items-center capitalize hover:text-red `} href={url}>
                   <p className='text-[12px]'> Home</p>
@@ -95,13 +119,12 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
                   </Link>}
               </div>)
             })}
-          </div>
-        }
-       <main id='main'>
+          </div>}
+        <main id='main'>
           {children}
         </main>
 
-        {!checkout && <div className="md:hidden mb-[10px]"><AdsBaner footerAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
+        {!checkout && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><AdsBaner footerAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
         {!checkout && <MainFooter footerData={footerData} />}
         {/* <div className='lg:hidden' >
           <BottomTabs />
