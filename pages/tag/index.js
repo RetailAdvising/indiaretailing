@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import Image from 'next/image'
-import { getTagsList, check_Image, getList, getTagList } from '@/libs/api'
+import { getTagsList, check_Image, getList, getTagList,update_no_of_shares } from '@/libs/api'
 import TrendingBox from '/components/Landing/TrendingBox'
 import Tabs from '@/components/Landing/Tabs'
 import { useRouter } from 'next/router'
@@ -168,6 +168,20 @@ export default function Tags({ res, data }) {
         }
     }
 
+    const updateShare = async (data) => {
+        // console.log(data,'share');
+        const param = {
+          doc_id: data.name,
+          doctype: 'Articles'
+        }
+    
+        const resp = await update_no_of_shares(param);
+        if (resp.message == 'Success') {
+          // console.log(resp)
+    
+        }
+      }
+
     return (
         <>
             <RootLayout>
@@ -189,15 +203,15 @@ export default function Tags({ res, data }) {
                                 <div className={`lg:grid  lg:grid-cols-1 lg:gap-5 `}>
                                     {resp_data.map((res, index) => {
                                         return (
-                                            <div key={index} onClick={() => router.push('/' + res.route)} className={`md:flex-[0_0_calc(70%_-_10px)] cursor-pointer border-b-[4px] border-[#f1f1f1] md:mb-[15px] md:pb-[15px]`}>
+                                            <div key={index}  className={`md:flex-[0_0_calc(70%_-_10px)] cursor-pointer border-b-[4px] border-[#f1f1f1] md:mb-[15px] md:pb-[15px]`}>
                                                 {/* <div className='flex justify-between items-center'> */}
-                                                <div className='flex items-center md:px-[10px] gap-[10px]'>
+                                                <div onClick={() => router.push('/' + res.route)} className='flex items-center md:px-[10px] gap-[10px]'>
                                                     <Image className='h-[30px] w-[30px] object-contain' src={'/Navbar/IR-01.svg'} height={20} width={20} alt='ir prime' />
                                                     <p className='text-[14px] font-semibold capitalize'>{res.category ? res.category : ''}</p>
                                                 </div>
                                                 {/* </div> */}
-                                                <h6 className={`title line-clamp-2 md:p-[10px] lg:py-[10px]`}>{res.title}</h6>
-                                                <div>
+                                                <h6 onClick={() => router.push('/' + res.route)} className={`title line-clamp-2 md:p-[10px] lg:py-[10px]`}>{res.title}</h6>
+                                                <div onClick={() => router.push('/' + res.route)}>
                                                     <ImageLoader style={`w-full h-[320px] lg:rounded-[5px]`} src={res.image ? res.image : res.thumbnail_imagee} title={res.title ? res.title : 's'} />
                                                     {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_imagee)} height={500} width={800} className={`w-full h-[320px] lg:rounded-[5px]`} alt={res.title ? res.title : index} /> */}
                                                 </div>
@@ -205,10 +219,10 @@ export default function Tags({ res, data }) {
                                                     {res.doctype != 'Community Event' && <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between'>
                                                         {/* {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>} */}
                                                         <div className='flex  items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.views} Views</span></div>
-                                                        <div className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{res.no_of_shares ? res.no_of_shares : 0 + ' shares'}</span></div>
+                                                        <div className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{res.no_of_shares ? res.no_of_shares + ' shares' : 0 } </span></div>
                                                         <div className='flex  items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{res.read_time} Minutes </span></div>
                                                     </div>}
-                                                    {icons && <Dropdowns share={true} link={{ route: (res.doctype == 'Articles' && res.ir_prime == 1) ? '/IRPrime/' + res.route : (res.doctype == 'Articles' && res.ir_prime != 1) ? '/categories/' + res.route : res.doctype == 'Community Event' ? '/events/' + res.route : null }} width={'w-[170px]'} type={'tag'} data={icons} />}
+                                                    {icons && <Dropdowns updateShare={(data)=> updateShare(data)} share={true} link={res} width={'w-[170px]'} type={'tag'} data={icons} />}
 
                                                     {/* <p className={`sub_title line-clamp-2 pt-[5px]`}>{res.blog_intro}</p> */}
                                                 </div>

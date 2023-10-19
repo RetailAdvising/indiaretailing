@@ -148,7 +148,7 @@ export default function NewsLists({ data, Id }) {
                 <div dangerouslySetInnerHTML={{ __html: data.article_detail.message }} className={`contents sub_title py-3 lg:hidden`} />
                 {/* <p className='sub_title py-3 lg:hidden'>{data.article_detail.description}</p> */}
                 <div className='w-full text-center lg:hidden'>
-                  <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn block my-3 text-[14px] h-[35px] w-[50%]'>subscribe</button>
+                  <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn block my-3 text-[14px] h-[35px] w-[50%] md:w-full'>subscribe</button>
                 </div>
               </div>
             </div>}

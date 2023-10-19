@@ -97,16 +97,16 @@ export default function Bookstoredetail({ value, res }) {
         //   }
         // }
 
-        if(value.product_variant && value.product_variant.length != 0){
+        if(value.product_variant_group && value.product_variant_group.length != 0){
           if(value.has_variants == 1){
-            value.attribute_ids = value.product_variant[0].attribute;
+            value.attribute_ids = value.product_variant_group[0].attribute;
             value.business = value.restaurant;
-            value.attribute = value.product_variant[0].attribute;
+            value.attribute = value.product_variant_group[0].attribute;
 
-            // setPlans(value.product_variant[0]);
-            setSubs(value.product_variant[0].value)
+            // setPlans(value.product_variant_group[0]);
+            setSubs(value.product_variant_group[0].value)
             // setTimeout(() => {
-              setOnetimeAsDefault(value.product_variant[0].value);
+              setOnetimeAsDefault(value.product_variant_group[0].value);
             // }, 200);
           }else{
             // value.price = value.vendor_price_list[0].product_price;
@@ -156,7 +156,7 @@ export default function Bookstoredetail({ value, res }) {
       } else {
         data['count'] = 1;
         if(data['quantity'] == 0) {
-          insert_cart(data,'buy_now')
+          insert_cart(data,'buy_now',val)
         }else{
           updateCart(data,'inc')
         }
@@ -317,7 +317,7 @@ export default function Bookstoredetail({ value, res }) {
     
 }
 
-async function insert_cart(dataValue,type){
+async function insert_cart(dataValue,type,value){
   // console.log('dataValue',dataValue)
   let param = {
     "item_code": dataValue.name,
@@ -326,7 +326,8 @@ async function insert_cart(dataValue,type){
     "cart_type": "Shopping Cart",
     "customer": localStorage['customer_id'],
     "attribute": dataValue.attribute ? dataValue.attribute : '',
-    "attribute_id": dataValue.attribute_ids ? dataValue.attribute_ids : '',
+    // "attribute_id": dataValue.attribute_ids ? dataValue.attribute_ids : '',
+    "attribute_id": value.name ? value.name : '',
     "business": dataValue.business ? dataValue.business : ''
 }
 
@@ -744,10 +745,10 @@ const  getCarts = async (type) => {
                   </div> 
               } */}
 
-              {data.product_variant && data.product_variant.length != 0 && 
+              {data.product_variant_group && data.product_variant_group.length != 0 && 
               
               <div className='flex gap-[10px] lg:m-[12px_0px_0_0px] md:m-[0] md:pb-[12px] items-center'>
-             { data.product_variant.map((res,index)=>{
+             { data.product_variant_group.map((res,index)=>{
                 return(
                   <div key={index} onClick={() => selectMethod(res,index,res.value)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == res.attribute ) ? 'active_border' : null} lg:h-[45px] md:h-[40px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_12px] `}>
                     <input className={styles.input_radio} checked={res.attribute == data.attribute_ids} type="radio"/>
