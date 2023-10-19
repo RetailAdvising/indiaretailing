@@ -273,6 +273,7 @@ export default function LogIn({ isModal, hide, auth }) {
         <>
         <ToastContainer position={'bottom-right'} autoClose={2000} />
         <div>
+            <Script src="https://apis.google.com/js/platform.js?onload=init" async defer />
             <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" />
         </div>
             {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='lg:flex container h-full md:h-[calc(100vh_-_50px)] overflow-auto p-[20px] md:p-[0_15px] lg:justify-center gap-[20px] '>

@@ -70,7 +70,7 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        console.log(value,'before');
+        // console.log(value,'before');
         // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
@@ -319,15 +319,17 @@ export default function Bookstoredetail({ value, res }) {
 
 async function insert_cart(dataValue,type,value){
   // console.log('dataValue',dataValue)
+  // console.log(value)
   let param = {
     "item_code": dataValue.name,
     "qty": 1,
     "qty_type": "",
     "cart_type": "Shopping Cart",
     "customer": localStorage['customer_id'],
-    "attribute": dataValue.attribute ? dataValue.attribute : '',
+    // "attribute": dataValue.attribute ? dataValue.attribute : '',
+    "attribute": value.attribute ? value.attribute : '',
     // "attribute_id": dataValue.attribute_ids ? dataValue.attribute_ids : '',
-    "attribute_id": value.name ? value.name : '',
+    "attribute_id": value.attribute_id ? value.attribute_id : '',
     "business": dataValue.business ? dataValue.business : ''
 }
 
