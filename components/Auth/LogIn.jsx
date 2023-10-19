@@ -326,7 +326,7 @@ export default function LogIn({ isModal, hide, auth }) {
                         <div className='flex h-[50px] w-[75px] rounded-[10px] border cursor-pointer items-center justify-center '>
                             {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='google' src={'/google-login.svg'} /> */}
                             {/* <p>Continue with Google</p> onClick={() => signIn('google')} */}
-                            {<GoogleLogin buttonText="" clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'indiaretail.vercel.app'}/>}
+                            {<GoogleLogin buttonText="" clientId="630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'none'}/>}
                         </div>
 
                         <div id="apple" className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
