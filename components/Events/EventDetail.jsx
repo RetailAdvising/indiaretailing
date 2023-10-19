@@ -8,6 +8,8 @@ import Title from '../common/Title'
 import EventCards from './EventCards'
 import { useRouter } from 'next/router'
 import Placeholders from '../common/Placeholders'
+import format from 'date-fns/format'
+
 export default function EventDetail({ data }) {
     const router = useRouter();
 
@@ -26,6 +28,18 @@ export default function EventDetail({ data }) {
 
     const videoLink = (link, type) => {
         return type == 'yt' ? 'https://www.youtube.com/embed/' + link : 'https://player.vimeo.com/video/' + link
+    }
+
+    const dateFormat = (data,type) => {
+        // console.log(data)
+        if (data && data != null) {
+            const formattedDate = type == 'start' ? format(new Date(data), "iii, LLL d") : format(new Date(data), "iii, d LLL yyyy");
+            // setDate(formattedDate)
+            // console.log(formattedDate)
+            return formattedDate
+        } else {
+            return data
+        }
     }
 
 
@@ -58,7 +72,7 @@ export default function EventDetail({ data }) {
                 </div>
                 <div className={`lg:flex md:flex-wrap gap-[20px] pb-[20px] pt-[30px] md:pt-[10px]`}>
                     <div className={`flex-[0_0_calc(75%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] p-[10px] border rounded-[5px]`}>
-                        <p>{data.message.start_date}</p>
+                        <p>{dateFormat(data.message.start_date,'start')}</p>
                         {/* <div className={`flex items-center pt-[15px] justify-between`}> */}
                         <h6 className={`text-xl md:text-[17px] pt-[15px] md:pt-[10px] font-semibold`}>{data.message.title}</h6>
                         {/* <div className='flex gap-[5px]'>
@@ -75,7 +89,7 @@ export default function EventDetail({ data }) {
                             {/* pr-[60px] */}
                             <div className='flex gap-[10px] items-start  '>
                                 <Image src={'/Events/Date-time.svg'} className='md:h-[18px] md:w-[18px]' height={20} width={20} alt={'date and time'} />
-                                <p className={`flex flex-col`}><span className='text-[15px] md:text-[14px] font-semibold'>Date and Time</span><span className='sub_title'>{data.message.start_date}</span></p>
+                                <p className={`flex flex-col`}><span className='text-[15px] md:text-[14px] font-semibold'>Date and Time</span><span className='sub_title'>{dateFormat(data.message.start_date,'end')}</span></p>
                             </div>
                             {/* pl-[20px] */}
                             <div className='flex gap-[10px] items-start '>

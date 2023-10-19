@@ -70,7 +70,7 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        // console.log(value,'before');
+        console.log(value,'before');
         // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
@@ -81,19 +81,39 @@ export default function Bookstoredetail({ value, res }) {
             }
           })
         }
-        if(value.vendor_price_list && value.vendor_price_list.length != 0){     
+        // if(value.vendor_price_list && value.vendor_price_list.length != 0){     
+        //   if(value.has_variants == 1){
+        //       value.price = value.vendor_price_list[0].default_variant.product_price;
+        //       value.old_price = value.vendor_price_list[0].default_variant.old_price;
+        //       value.attribute_ids = value.vendor_price_list[0].default_variant.attribute_id;
+        //       value.business = value.vendor_price_list[0].business;
+        //       value.attribute = value.vendor_price_list[0].default_variant.variant_text;
+        //   } else{
+        //     value.price = value.vendor_price_list[0].product_price;
+        //     value.old_price = value.vendor_price_list[0].old_price;
+        //     value.attribute_ids = value.vendor_price_list[0].attribute_id ? value.vendor_price_list[0].attribute_id : '';
+        //     value.business = value.vendor_price_list[0].business;
+        //     value.attribute =  value.vendor_price_list[0].variant_text ? value.vendor_price_list[0].variant_text : '';
+        //   }
+        // }
+
+        if(value.product_variant && value.product_variant.length != 0){
           if(value.has_variants == 1){
-              value.price = value.vendor_price_list[0].default_variant.product_price;
-              value.old_price = value.vendor_price_list[0].default_variant.old_price;
-              value.attribute_ids = value.vendor_price_list[0].default_variant.attribute_id;
-              value.business = value.vendor_price_list[0].business;
-              value.attribute = value.vendor_price_list[0].default_variant.variant_text;
-          } else{
-            value.price = value.vendor_price_list[0].product_price;
-            value.old_price = value.vendor_price_list[0].old_price;
-            value.attribute_ids = value.vendor_price_list[0].attribute_id ? value.vendor_price_list[0].attribute_id : '';
-            value.business = value.vendor_price_list[0].business;
-            value.attribute =  value.vendor_price_list[0].variant_text ? value.vendor_price_list[0].variant_text : '';
+            value.attribute_ids = value.product_variant[0].attribute;
+            value.business = value.restaurant;
+            value.attribute = value.product_variant[0].attribute;
+
+            // setPlans(value.product_variant[0]);
+            setSubs(value.product_variant[0].value)
+            // setTimeout(() => {
+              setOnetimeAsDefault(value.product_variant[0].value);
+            // }, 200);
+          }else{
+            // value.price = value.vendor_price_list[0].product_price;
+            //     value.old_price = value.vendor_price_list[0].old_price;
+            //     value.attribute_ids = value.vendor_price_list[0].attribute_id ? value.vendor_price_list[0].attribute_id : '';
+            //     value.business = value.vendor_price_list[0].business;
+            //     value.attribute =  value.vendor_price_list[0].variant_text ? value.vendor_price_list[0].variant_text : '';
           }
         }
 
@@ -101,10 +121,10 @@ export default function Bookstoredetail({ value, res }) {
         setData(value);
       }
   
-      if (res && res.length != 0) {
-        setOnetimeAsDefault();
-        setPlans(content_type);
-      }
+      // if (res && res.length != 0) {
+      //   setOnetimeAsDefault();
+      //   setPlans(content_type);
+      // }
   
   
       // const handleClickOutside = (event) => {
@@ -130,7 +150,8 @@ export default function Bookstoredetail({ value, res }) {
 
       let val = subs.find(res => res.active == true)
 
-      if (val && val.item__type != "Onetime Purchase") {
+      // val.item__type != "Onetime Purchase"
+      if (val && val.is_subscription == 1) {
         insert_subscription(val)
       } else {
         data['count'] = 1;
@@ -182,17 +203,19 @@ export default function Bookstoredetail({ value, res }) {
   async function insert_subscription(checked_plans){
     let params = {
         "party": localStorage['customer_id'],
-        "subscription_plan": checked_plans.plan_name,
+        // "subscription_plan": checked_plans.plan_name,
+        "subscription_plan": checked_plans.subscription_plan,
         "item":data['name'],
         "subscription_type":"item",
         "content_type":content_type,
-        "price":data['price'],
+        // "price":data['price'],
+        "price":checked_plans['price'],
     }
     const resp = await insert_member_subscription(params);
     setLoader(false);
     if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
-    // console.log(resp.message.data[0].document_name)
-    load_razorpay(checked_plans.total_amount,checked_plans.plan_name,resp.message.data[0].document_name)
+    // load_razorpay(checked_plans.total_amount,checked_plans.plan_name,resp.message.data[0].document_name)
+    load_razorpay(checked_plans.price,checked_plans.subscription_plan,resp.message.data[0].document_name)
 
       // if(subs && subs.length != 0){
       //     setIndex(-1);
@@ -393,39 +416,64 @@ const  getCarts = async (type) => {
   //   setPlans(content_type)
   // };
 
- const setOnetimeAsDefault = () =>{
-  res.map((e,i)=>{if(e.item__type == "Onetime Purchase"){ handleSubs(res,e,i) }})
+ const setOnetimeAsDefault = (val) =>{
+  // res.map((e,i)=>{if(e.item__type == "Onetime Purchase"){ handleSubs(res,e,i) }})
+  if(val && val.length != 0){
+    // console.log(val)
+    val.map((res,i)=> {
+      if(res.is_subscription != 1){
+         handleSubs(val,res,i) 
+        }
+    })
+  }
  } 
 
-  const selectMethod = (e,index) =>{
-    setOnetimeAsDefault();
+  const selectMethod = (e,index,subs) =>{
+    setOnetimeAsDefault(e.value);
     setVariantsIndex(index);
-    data.attribute_ids = e.attribute_id;
-    data.attribute = e.variant_text ;
-    data.price = e.product_price;
-    data.old_price = e.old_price;
+    // data.attribute_ids = e.attribute_id;
+    // data.attribute = e.variant_text ;
+    // data.price = e.product_price;
+    // data.old_price = e.old_price;
+
+    data.attribute_ids = e.attribute;
+    data.attribute = e.attribute ;
+    // data.price = e.product_price;
+    // data.old_price = e.old_price;
 
     setData(data);
     getCarts('');
 
-    if(subs && subs.length != 0){
-      // setIndex(-1);
-      // setOnetime(-1)
-      subs.map((res)=>{
-        res['active'] = false
-      }) 
+    // if(subs && subs.length != 0){
+    //   // setIndex(-1);
+    //   // setOnetime(-1)
+    //   subs.map((res)=>{
+    //     res['active'] = false
+    //   }) 
       
-      setSubs(subs);
+    //   setSubs(subs);
+    // }
+
+    if(e.value && e.value.length != 0){
+      //  setIndex(-1);
+       setOnetime(1)
+      e.value.map(res=>{
+        res['active'] = false;
+      })
+
+      setSubs(e.value);
     }
     
-    if(e.variant_text){
-      let data_1 = e.variant_text.toUpperCase().includes("PDF");
-      let data_2 = e.variant_text.toUpperCase().includes("PRINT");
-      if(data_1 || data_2){
-        content_type = data_1 ? 'PDF' : 'PRINT';
-        setPlans(content_type)
-      }
-    }
+    // if(e.variant_text){
+    //   let data_1 = e.variant_text.toUpperCase().includes("PDF");
+    //   let data_2 = e.variant_text.toUpperCase().includes("PRINT");
+    //   if(data_1 || data_2){
+    //     content_type = data_1 ? 'PDF' : 'PRINT';
+    //     setPlans(content_type)
+    //   }
+    // }
+
+
 
   };
 
@@ -444,7 +492,13 @@ const  getCarts = async (type) => {
           res['active'] = true
           res['active'] ? setIndex(i) : setIndex(-1);
 
-          if(res.item__type == "Onetime Purchase"){
+          // if(res.item__type == "Onetime Purchase"){
+          //   res['active'] ? setOnetime(i) : setOnetime(-1);
+          // }else{
+          //   setOnetime(-1)
+          // }
+
+          if(res.is_subscription != 1){
             res['active'] ? setOnetime(i) : setOnetime(-1);
           }else{
             setOnetime(-1)
@@ -586,13 +640,18 @@ const  getCarts = async (type) => {
 
               <div className='w-full'>
                 <div id="lightgallery" className={`bg-[#f1f1f14f] py-[5px]`}>
-                  {data.images.map((res,index)=>{
+                  {(data.images && data.images.length != 0) ? data.images.map((res,index)=>{
                    return (
                      <a href={check_Image(res.detail_image)}>
                         <img className={`w-full h-[465px] object-contain ${res.is_primary == 0 ? 'hidden' : ''}`} src={check_Image(res.detail_image)} height={200} width={300} alt={res.title} />
                      </a>
                     )
-                   })
+                   }) : <Image
+                   className={'w-full h-[465px]'}
+                   height={200} width={300} alt={res.title}
+                   src="/empty_state.svg"
+                   
+               />
                   }
                   {/* // <a href={check_Image(data.selected_image)}>
                   //  <img className={`w-full h-[465px] object-contain`} src={check_Image(data.selected_image)} height={200} width={300} alt={data.title} />
@@ -670,7 +729,7 @@ const  getCarts = async (type) => {
                 {(data.old_price != 0)  && <p className={`md:text-[12px] lg:text-[16px] line-through gray_color`}>{formatter.format(data.old_price)}</p>}
               </div>
 
-              {data.vendor_price_list && data.vendor_price_list[0] && data.vendor_price_list[0].variants && data.vendor_price_list[0].variants.length != 0 &&
+              {/* {data.vendor_price_list && data.vendor_price_list[0] && data.vendor_price_list[0].variants && data.vendor_price_list[0].variants.length != 0 &&
                  <div className='flex gap-[10px] lg:m-[12px_0px_0_0px] md:m-[0] md:pb-[12px] items-center'>
                     {data.vendor_price_list[0].variants.map((vendor,index)=>{
                       return(
@@ -683,8 +742,20 @@ const  getCarts = async (type) => {
                       }) 
                     }
                   </div> 
-              }
+              } */}
 
+              {data.product_variant && data.product_variant.length != 0 && 
+              
+              <div className='flex gap-[10px] lg:m-[12px_0px_0_0px] md:m-[0] md:pb-[12px] items-center'>
+             { data.product_variant.map((res,index)=>{
+                return(
+                  <div key={index} onClick={() => selectMethod(res,index,res.value)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == res.attribute ) ? 'active_border' : null} lg:h-[45px] md:h-[40px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_12px] `}>
+                    <input className={styles.input_radio} checked={res.attribute == data.attribute_ids} type="radio"/>
+                    <p className='text-[12px]'>{res.attribute}</p>
+                  </div>
+                )
+              })}
+              </div>}
               {/* <div className='flex gap-[10px] lg:m-[18px_0px_0_0px] md:m-[3px_10px_8px_10px] items-center'>
                     {variants.map((vendor,index)=>{
                       return(
@@ -705,7 +776,7 @@ const  getCarts = async (type) => {
               
               <><div className={`md:hidden grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[10px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
 
-                    {subs.map((item, index) => {
+                    {/* {subs.map((item, index) => {
                       return (
                         <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(subs, item, index)} key={index}>
                           <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.plan_name}</p>
@@ -713,6 +784,19 @@ const  getCarts = async (type) => {
                           {item.features && item.features.map((f, index) => {
                             return (<p key={index} style={{ fontWeight: '400' }} className='lg:text-[10px] sub_title md:text-[10px]'>{f.features}</p>);
                           })}
+                        </div>
+                      );
+                    })} */}
+
+                    {subs.map((item, index) => {
+                      return (
+                        <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(subs, item, index)} key={index}>
+                          <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.subscription_plan}</p>
+                          {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.attribute}</p> */}
+                          <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.price)}</h6>
+                          {/* {item.features && item.features.map((f, index) => {
+                            return (<p key={index} style={{ fontWeight: '400' }} className='lg:text-[10px] sub_title md:text-[10px]'>{f.features}</p>);
+                          })} */}
                           {/* <p className='text-[14px]'>{res.issues}</p> */}
                         </div>
                       );
@@ -720,7 +804,7 @@ const  getCarts = async (type) => {
                   </div>
                   <div className={`lg:hidden p-[16px_0_8px_0]`}>
 
-                      {subs.map((item, index) => {
+                      {/* {subs.map((item, index) => {
                         return (
                         <div key={index} onClick={() => handleSubs(subs, item, index)} className={`flex cursor-pointer gap-[5px] pb-[7px] last:pb-[0px] items-center`}>
                           <input className={styles.input_radio} checked={index == indexs} type="radio"/>
@@ -728,7 +812,24 @@ const  getCarts = async (type) => {
                           <p className='text-[13px] font-semibold'>({formatter.format(item.total_amount)})</p>
                         </div>
                         );
-                      })}
+                      })} */}
+
+                    {subs.map((item, index) => {
+                      return (
+                        <div key={index} onClick={() => handleSubs(subs, item, index)} className={`flex cursor-pointer gap-[5px] pb-[7px] last:pb-[0px] items-center`}>
+                          <input className={styles.input_radio} checked={index == indexs} type="radio"/>
+                          <p className='text-[13px]'>{item.subscription_plan}</p>
+                          {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.attribute}</p> */}
+                          <p className='text-[13px] font-semibold'>({formatter.format(item.price)})</p>
+                        </div>
+                        // <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(subs, item, index)} key={index}>
+                        //   <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.subscription_plan}</p>
+                        //   <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.attribute}</p>
+                        //   <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.price)}</h6>
+                         
+                        // </div>
+                      );
+                    })}
                   </div>
                 </>
               
@@ -737,7 +838,8 @@ const  getCarts = async (type) => {
               <div className='border_bottom mb-[20px]'>
                <div className={`md:p-[10px] lg:w-[570px] text-center md:p-[10px_0_20px_0] lg:p-[0px_0_20px_0]`}>
                 <LoaderButton loader={loader} cssclass={'lg:w-[250px] md:w-[100%] md:h-[40px] m-0'} image_left={(indexs >= 0 && Onetime < 0)  ? '/bookstore/subscribe.svg' 
-                : (Onetime >= 0 ? '/bookstore/cart.svg' : '/bookstore/cart.svg')} button_name={(indexs >= 0 && Onetime < 0) ? 'Subscribe' 
+                : (Onetime >= 0 ? '/bookstore/cart.svg' : '/bookstore/cart.svg')} 
+                 button_name={(indexs >= 0 && Onetime < 0) ? 'Subscribe' 
                 : (Onetime >= 0 ? 'Buy Now' : 'Add to Cart')} buttonClick={addToCart} />
                </div>
               </div>
