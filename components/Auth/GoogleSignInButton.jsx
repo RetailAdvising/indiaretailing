@@ -1,0 +1,52 @@
+// import React, { useEffect } from "react";
+// import { LoginSocialGoogle } from "reactjs-social-login";
+
+// const GoogleLogin = ({ onSuccess, onFailure }) => {
+//   useEffect(() => {
+//     // This code will only run on the client side
+//     const clientId = "630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com";
+//     if (typeof window !== "undefined") {
+//       // Accessing window object is safe here
+//       LoginSocialGoogle.init(clientId);
+//     }
+//   }, []);
+
+//   return (
+//     <LoginSocialGoogle
+//       onSuccess={onSuccess}
+//       onFailure={onFailure}
+//     >
+//       Login with Google
+//     </LoginSocialGoogle>
+//   );
+// };
+
+// export default GoogleLogin;
+
+// components/GoogleSignInButton.js
+import React, { useEffect } from 'react';
+import Script from 'next/script';
+
+// import { GoogleLogin } from 'react-oauth/google';
+import { GoogleLogin } from 'react-google-login';
+const GoogleSignInButton = ({ onSuccess, onFailure }) => {
+  useEffect(() => {
+    gapi.load('auth2', function () {
+      gapi.auth2.init({
+        client_id: '189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com',
+      });
+    });
+  }, []);
+
+  return (
+    <GoogleLogin
+      clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"
+      buttonText=""
+      onSuccess={onSuccess}
+      onFailure={onFailure}
+      cookiePolicy="single_host_origin"
+    />
+  );
+};
+
+export default GoogleSignInButton;

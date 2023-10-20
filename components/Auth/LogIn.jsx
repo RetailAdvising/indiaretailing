@@ -8,11 +8,16 @@ import OTP from './OTP';
 import SignUp from './SignUp';
 import Forget from './Forget'
 // import GoogleLogin from './GoogleLogin';
-import { GoogleLogin } from 'react-google-login';
+// import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import Script from 'next/script';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+// import { GoogleOAuthProvider } from '@react-oauth/google';
+// import { GoogleLogin } from '@react-oauth/google';
+import GoogleSignInButton from './GoogleSignInButton';
+
 // import NextAuth from 'next-auth';
 // import Providers from 'next-auth/providers';
 // import GoogleProvider from "next-auth/providers/google"
@@ -126,6 +131,14 @@ export default function LogIn({ isModal, hide, auth }) {
         let isMobile = await checkMobile();
         setIsMobile(isMobile);
     }
+
+    // useEffect(() => {
+  //   gapi.load('auth2', function () {
+  //     gapi.auth2.init({
+  //       client_id: '189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com',
+  //     });
+  //   });
+  // }, []);
 
     async function login(data) {
         // console.log(data)
@@ -255,6 +268,14 @@ export default function LogIn({ isModal, hide, auth }) {
     //     }
     // };
 
+    const handleSuccess = (response) => {
+        console.log('Google Sign-In success:', response);
+      };
+    
+      const handleFailure = (error) => {
+        console.error('Google Sign-In error:', error);
+      };
+
     // const responseGoogle = (response) => {
     //     console.log(response);
     //     // Handle the response from Google here (e.g., send it to your server for authentication).
@@ -273,8 +294,10 @@ export default function LogIn({ isModal, hide, auth }) {
         <>
         <ToastContainer position={'bottom-right'} autoClose={2000} />
         <div>
-            <Script src="https://apis.google.com/js/platform.js?onload=init" async defer />
-            <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" />
+            {/* <Script src="https://apis.google.com/js/platform.js" async defer />
+            <Script src="https://apis.google.com/js/api.js" async defer /> */}
+            {/* <Script src="https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" */}
+            {/* <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" /> */}
         </div>
             {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='lg:flex container h-full md:h-[calc(100vh_-_50px)] overflow-auto p-[20px] md:p-[0_15px] lg:justify-center gap-[20px] '>
                 {(!isModal || auth) && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border h-full rounded-[5px] p-[20px]'>
@@ -329,7 +352,9 @@ export default function LogIn({ isModal, hide, auth }) {
                         <div className='flex h-[50px] w-[75px] rounded-[10px] border cursor-pointer items-center justify-center '>
                             {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='google' src={'/google-login.svg'} /> */}
                             {/* <p>Continue with Google</p> onClick={() => signIn('google')} */}
-                            {<GoogleLogin buttonText="" clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>}
+                            {/* {<GoogleLogin buttonText="" clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>} */}
+                            {/* <GoogleOAuthProvider clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"></GoogleOAuthProvider>; */}
+                            <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} />
                         </div>
 
                         <div id="apple" className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
