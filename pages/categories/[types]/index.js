@@ -9,6 +9,8 @@ import { getList, articlesList, checkMobile, check_Image, getAds, trending } fro
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import Tags from '@/components/common/Tags';
+import ImageLoader from '@/components/ImageLoader';
+
 export default function CategoryType({ values, ads }) {
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -90,7 +92,8 @@ export default function CategoryType({ values, ads }) {
                                 return (
                                     <div key={res.title ? res.title : index} onClick={() => router.push(`/${res.route}`)} className={` pb-[10px]`}>
                                         <h6 className={`lg:text-[18px] md:text-[16px] font-semibold`}>{res.title}</h6>
-                                        <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.image ? res.image : res.thumbnail_image)} height={250} width={300} alt={res.title} />
+                                        <ImageLoader style={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={res.image ? res.image : res.thumbnail_image } title={res.title ? res.title : 'indiaRetail'} />
+                                        {/* <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.image ? res.image : res.thumbnail_image)} height={250} width={300} alt={res.title} /> */}
                                         <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
                                         <p className={`sub_title line-clamp-2 pt-[10px]`}>{res.blog_intro}</p>
                                         {/* <p className={`hashtags pt-[5px]`}>{res.publisher}</p> */}
@@ -101,7 +104,7 @@ export default function CategoryType({ values, ads }) {
                         </div>
                         {/* lg:pt-[45px] */}
                         <div className={`lg:flex-[0_0_calc(35%_-_10px)]  md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
-                            <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List primary_pb={'mb-[10px]'} hash_bg={'mt-[10px]'} contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-1 md:line-clamp-2 leading-none'} imgWidth={'w-full'} line={'line-clamp-1 md:hidden'} imgHeight={'h-[90px]'} check={true} data={data.slice(1, 5)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
+                            <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List primary_pb={'mb-[10px]'} hash_bg={'mt-[10px]'} contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-2 leading-none'} imgWidth={'w-full'} line={'line-clamp-1 md:hidden'} imgHeight={'h-[90px]'} check={true} data={data.slice(1, 5)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
                     </div>}
                     <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:py-8 md:gap-[10px] lg:gap-[20px]`}>

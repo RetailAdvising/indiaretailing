@@ -50,7 +50,7 @@ export default function Home({ data }) {
   const [ads, setAds] = useState()
   let page_no = 1;
 
-  
+
 
 
   // const userInfo = useSelector(s=>s.user);
@@ -114,7 +114,7 @@ export default function Home({ data }) {
     }
   }
 
- 
+
 
 
 
@@ -191,7 +191,7 @@ export default function Home({ data }) {
         {(value && value.length != 0) && value.map((data, i) => {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
-            <div key={i} className={`py-[20px] ${data.section == 'PS-23-00094' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00157' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00120' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
+            <div key={i} className={`py-[20px] ${data.section == 'PS-23-00094' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00157' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00120' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll ' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px] md:py-[10px] lg:flex gap-5`}>
               {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                 return (
                   // || i == 5
@@ -202,9 +202,9 @@ export default function Home({ data }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 3 Stories") && <TopStories data={data.data[c.cid].data.slice(0, 3)} />}
                           {(c.component_title == "In Focus" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <>
                             {/* <div className={``}> */}
-                              <ImageContainer data={data.data[c.cid].data[0]} height={"h-[350px] md:h-[250px]"} width={'w-full'} />
-                              <SectionList data={data.data[c.cid].data.slice(1, 4)} />
-                              {/* </div> */}
+                            <ImageContainer data={data.data[c.cid].data[0]} height={"h-[350px] md:h-[250px]"} width={'w-full'} />
+                            <SectionList data={data.data[c.cid].data.slice(1, 4)} />
+                            {/* </div> */}
                           </>}
                           {(c.component_title == "Latest News" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <>
                             <Title data={{ title: 'Latest News' }} />
@@ -240,7 +240,7 @@ export default function Home({ data }) {
                             {data.data[c.cid].data &&
                               <div className='overflow-auto scrollbar-hide gap-[15px] flex'>
                                 {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                                <CustomSlider noPrimaryText={true} hide_scroll_button={true} slider_child_id={'leaders_ink' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'}
+                                <CustomSlider noPrimaryText={true} slider_id={'leader_slide' + c_index} hide_scroll_button={true} slider_child_id={'leaders_ink' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'}
                                   imgClass={'lg:h-[185px] md:h-[150px] w-full'} title_class={'min-h-[35px] line-clamp-2'} />
                               </div>}
 
@@ -253,7 +253,7 @@ export default function Home({ data }) {
                               // className='overflow-auto scrollbar-hide gap-[15px] flex '
                               <>
                                 {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[220px] flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                                <CustomSlider hide_scroll_button={true} noPrimaryText={true} slider_child_id={'research' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(60%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'}
+                                <CustomSlider noPrimaryText={true} slider_id={'research_slide' + c_index} slider_child_id={'research' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'}
                                   imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'} />
                               </>
 
@@ -366,7 +366,7 @@ export default function Home({ data }) {
                             <Title data={{ title: c.component_title }} route={'/categories/reconnect'} seeMore={true} />
                             <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'} cardClass={'h-[310px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
                           </>}
-                          {(c.cid && c.component_title == "Image" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{bannerAd: '/no_state.svg'}} /></div>}
+                          {(c.cid && c.component_title == "Image" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{ bannerAd: '/no_state.svg' }} /></div>}
                         </div>
                       )
                     })}

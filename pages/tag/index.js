@@ -41,8 +41,8 @@ export default function Tags({ res, data }) {
 
         if (data && data.length != 0) {
             // console.log(data)
-            setTabs('all')
-            data.unshift({ name: 'All', route: 'all' })
+            // setTabs('all')
+            // data.unshift({ name: 'All', route: 'all' })
             setTag(data)
         }
         // console.log(res)
@@ -103,7 +103,7 @@ export default function Tags({ res, data }) {
 
     const scrollElement = () => {
         const el = document.getElementById('scroll');
-        const el1 = document.getElementById('scrollTag');
+        // const el1 = document.getElementById('scrollTag');
         el.addEventListener('scroll', ($event) => {
             // console.log($event)
             if ($event.target.scrollTop + $event.target.offsetHeight >= $event.target.scrollHeight) {
@@ -117,18 +117,18 @@ export default function Tags({ res, data }) {
             }
         })
 
-        el1.addEventListener('scroll', ($event) => {
-            // console.log($event)
-            if ($event.target.scrollTop + $event.target.offsetHeight >= $event.target.scrollHeight) {
-                if (!no_tag) {
-                    // console.log('scroll')
-                    pageNo > 1 ? getTag() : null
-                    pageNo = pageNo + 1
-                }
-                // page_no = page_no + 1
-                // get_list()
-            }
-        })
+        // el1.addEventListener('scroll', ($event) => {
+        //     // console.log($event)
+        //     if ($event.target.scrollTop + $event.target.offsetHeight >= $event.target.scrollHeight) {
+        //         if (!no_tag) {
+        //             // console.log('scroll')
+        //             pageNo > 1 ? getTag() : null
+        //             pageNo = pageNo + 1
+        //         }
+        //         // page_no = page_no + 1
+        //         // get_list()
+        //     }
+        // })
     }
 
     const checkRoute = (data) => {

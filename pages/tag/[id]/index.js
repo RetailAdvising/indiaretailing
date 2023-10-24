@@ -58,7 +58,7 @@ export default function Trending({ data, res, ads }) {
         });
         intersectionObserver.observe(cardref?.current);
         if (data && data.length != 0) {
-            data.unshift({ name: 'All', route: "/" })
+            // data.unshift({ name: 'All', route: "/" })
             setTag(data)
         }
         return () => {
@@ -87,7 +87,7 @@ export default function Trending({ data, res, ads }) {
 
     const scrollElement = () => {
         const el = document.getElementById('scroll');
-        const el1 = document.getElementById('scrollTag');
+        // const el1 = document.getElementById('scrollTag');
         el.addEventListener('scroll', ($event) => {
             // console.log($event)
             if ($event.target.scrollTop + $event.target.offsetHeight >= $event.target.scrollHeight) {
@@ -101,18 +101,18 @@ export default function Trending({ data, res, ads }) {
             }
         })
 
-        el1.addEventListener('scroll', ($event) => {
-            // console.log($event)
-            if ($event.target.scrollTop + $event.target.offsetHeight >= $event.target.scrollHeight) {
-                if (!no_tag) {
-                    // console.log('scroll')
-                    pageNo > 1 ? getTag() : null
-                    pageNo = pageNo + 1
-                }
-                // page_no = page_no + 1
-                // get_list()
-            }
-        })
+        // el1.addEventListener('scroll', ($event) => {
+        //     // console.log($event)
+        //     if ($event.target.scrollTop + $event.target.offsetHeight >= $event.target.scrollHeight) {
+        //         if (!no_tag) {
+        //             // console.log('scroll')
+        //             pageNo > 1 ? getTag() : null
+        //             pageNo = pageNo + 1
+        //         }
+        //         // page_no = page_no + 1
+        //         // get_list()
+        //     }
+        // })
     }
 
 

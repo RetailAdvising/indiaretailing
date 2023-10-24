@@ -200,6 +200,8 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
             (element && element.parentNode) ? element.parentNode.insertBefore(headerElement, element) : null;
           }
 
+          element && element?.classList.add('py-[15px]')
+
           element && ReactDOM.render(<CustomSlider type={'widget'} data={res.data} parent={res} routers={router} hide_scroll_button={true} slider_child_id={res.placeholder_key + i} cardClass={'flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
             imgClass={'lg:h-[185px] md:h-[170px] w-full'} subtitle_class={'line-clamp-1  md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} productNavigation={productNavigation} />, element)
 
@@ -393,7 +395,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     <>
       {/* {console.log('child',data)}   */}
       <div ref={cardref}>
-        <div className={`flex w-full gap-[20px] md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
+        <div className={`flex w-full lg:gap-[30px] lg:justify-between md:gap-[20px] md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div className='w_70 md:w-full'>
             <p>
               <Content i={i} res={data} updateShare={(data) => updateShare(data)} noScroll={(val) => noScroll(val)} />

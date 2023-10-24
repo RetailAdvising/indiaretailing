@@ -70,7 +70,7 @@ export default function Bookstoredetail({ value, res }) {
       getCarts('');
       get_razor_pay_values();
       if (value) {
-        // console.log(value,'before');
+        console.log(value,'before');
         // console.log(res);
         check_main_image(value)
         let routPath = router.asPath.split('/')
@@ -104,9 +104,9 @@ export default function Bookstoredetail({ value, res }) {
             value.attribute = value.product_variant_group[0].attribute;
 
             // setPlans(value.product_variant_group[0]);
-            setSubs(value.product_variant_group[0].value)
+            value.product_variant_group[0].attribute && setSubs(value.product_variant_group[0].value);
             // setTimeout(() => {
-              setOnetimeAsDefault(value.product_variant_group[0].value);
+              value.product_variant_group[0].attribute && setOnetimeAsDefault(value.product_variant_group[0].value);
             // }, 200);
           }else{
             // value.price = value.vendor_price_list[0].product_price;
@@ -148,7 +148,7 @@ export default function Bookstoredetail({ value, res }) {
     // console.log(localStorage['apikey']);
     if (localStorage['apikey']) {
 
-      let val = subs.find(res => res.active == true)
+      let val = subs && subs.length != 0 ? subs.find(res => res.active == true) : undefined;
 
       // val.item__type != "Onetime Purchase"
       if (val && val.is_subscription == 1) {
@@ -156,7 +156,7 @@ export default function Bookstoredetail({ value, res }) {
       } else {
         data['count'] = 1;
         if(data['quantity'] == 0) {
-          insert_cart(data,'buy_now',val)
+          insert_cart(data,'buy_now',val ? val : undefined)
         }else{
           updateCart(data,'inc')
         }
@@ -320,6 +320,7 @@ export default function Bookstoredetail({ value, res }) {
 async function insert_cart(dataValue,type,value){
   // console.log('dataValue',dataValue)
   // console.log(value)
+  
   let param = {
     "item_code": dataValue.name,
     "qty": 1,
@@ -327,12 +328,15 @@ async function insert_cart(dataValue,type,value){
     "cart_type": "Shopping Cart",
     "customer": localStorage['customer_id'],
     // "attribute": dataValue.attribute ? dataValue.attribute : '',
-    "attribute": value.attribute ? value.attribute : '',
+    "attribute": value && value.attribute ? value.attribute : '',
     // "attribute_id": dataValue.attribute_ids ? dataValue.attribute_ids : '',
-    "attribute_id": value.attribute_id ? value.attribute_id : '',
-    "business": dataValue.business ? dataValue.business : ''
+    "attribute_id": value && value.attribute_id ? value.attribute_id : '',
+    "business": dataValue.restaurant ? dataValue.restaurant : 'BS-00001'
 }
-
+  if(!value){
+    delete param.attribute
+    delete param.attribute_id
+  }
   const resp = await insert_cart_items(param);
   if (resp.message && resp.message.marketplace_items) {
       type == 'buy_now' ? router.push('/cart') : null;
@@ -372,29 +376,31 @@ async function update_cart(dataValue,type){
 
 
 const  getCarts = async (type) => {
-  cart_items = await getCartItem();
-  setCartItems(cart_items);
-  if(cart_items && cart_items.marketplace_items && cart_items.marketplace_items.length != 0){
-    if(value.has_variants == 1){
-      let getValue = cart_items.marketplace_items.find(res=>{ return res.attribute_ids == value.attribute_ids})
-      value.quantity = getValue ? getValue.quantity : 0;
-
-       if(getValue){
-        value.cart_id = getValue.name;
-       }
-
+  if(localStorage && localStorage['apikey']){
+    cart_items = await getCartItem();
+    setCartItems(cart_items);
+    if(cart_items && cart_items.marketplace_items && cart_items.marketplace_items.length != 0){
+      if(value.has_variants == 1){
+        let getValue = cart_items.marketplace_items.find(res=>{ return res.attribute_ids == value.attribute_ids})
+        value.quantity = getValue ? getValue.quantity : 0;
+  
+         if(getValue){
+          value.cart_id = getValue.name;
+         }
+  
+      }else{
+        let getValue = cart_items.marketplace_items.find(res=>{ return res.product == value.name});
+        value.quantity = getValue ? getValue.quantity : 0;
+  
+         if(getValue){
+           value.cart_id = getValue.name;
+         }
+  
+      }
+  
     }else{
-      let getValue = cart_items.marketplace_items.find(res=>{ return res.product == value.name});
-      value.quantity = getValue ? getValue.quantity : 0;
-
-       if(getValue){
-         value.cart_id = getValue.name;
-       }
-
+      value.quantity = 0
     }
-
-  }else{
-    value.quantity = 0
   }
 }
   // async function getCustomerInfo(){
@@ -646,7 +652,7 @@ const  getCarts = async (type) => {
                   {(data.images && data.images.length != 0) ? data.images.map((res,index)=>{
                    return (
                      <a href={check_Image(res.detail_image)}>
-                        <img className={`w-full h-[465px] object-contain ${res.is_primary == 0 ? 'hidden' : ''}`} src={check_Image(res.detail_image)} height={200} width={300} alt={res.title} />
+                        <img className={`w-full h-[400px] object-contain ${res.is_primary == 0 ? 'hidden' : ''}`} src={check_Image(res.detail_image)} height={200} width={300} alt={res.title} />
                      </a>
                     )
                    }) : <Image
@@ -719,7 +725,12 @@ const  getCarts = async (type) => {
                 </div> */}
 
                <div className="zero-gap">
-                 {data.images && data.images.length != 0 && <Sliders imgClass={'h-[330px] object-contain w-full'} event={true} data={data.images} perView={1} className='gap-0' />}
+                 {data.images && data.images.length != 0 ? <Sliders imgClass={'h-[330px] object-contain w-full'} event={true} data={data.images} perView={1} className='gap-0' /> :  <Image
+                   className={'w-full h-[465px]'}
+                   height={200} width={300} alt={res.title}
+                   src="/empty_state.svg"
+                   
+               />}
                 </div>
                 <div className='text-center pt-[15px]'>
                   <button onClick={()=>preview(data.custom_product_preview)} className={`w-full h-[40px] border`}>Preview</button>
@@ -752,9 +763,11 @@ const  getCarts = async (type) => {
               <div className='flex gap-[10px] lg:m-[12px_0px_0_0px] md:m-[0] md:pb-[12px] items-center'>
              { data.product_variant_group.map((res,index)=>{
                 return(
-                  <div key={index} onClick={() => selectMethod(res,index,res.value)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == res.attribute ) ? 'active_border' : null} lg:h-[45px] md:h-[40px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_12px] `}>
+                  <div key={index}>
+                 {res.attribute && <div onClick={() => selectMethod(res,index,res.value)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == res.attribute ) ? 'active_border' : null} lg:h-[45px] md:h-[40px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_12px] `}>
                     <input className={styles.input_radio} checked={res.attribute == data.attribute_ids} type="radio"/>
                     <p className='text-[12px]'>{res.attribute}</p>
+                  </div>}
                   </div>
                 )
               })}
@@ -771,13 +784,16 @@ const  getCarts = async (type) => {
                     }
               </div>  */}
               
-              <h6 className={`md:text-[16px] line-clamp-2 lg:text-[18px] lg:p-[20px_0px_0px_0px] font-semibold`}>Subscription Plans</h6>
 
 
               {/* p-[20px] lg:m-[0_auto]*/ }
               {(subs && subs.length != 0) && 
               
-              <><div className={`md:hidden grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[10px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
+              <>
+                            <h6 className={`md:text-[16px] line-clamp-2 lg:text-[18px] lg:p-[20px_0px_0px_0px] font-semibold`}>Subscription Plans</h6>
+
+              
+              <div className={`md:hidden grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[10px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
 
                     {/* {subs.map((item, index) => {
                       return (
@@ -838,19 +854,19 @@ const  getCarts = async (type) => {
               
               }
 
-              <div className='border_bottom mb-[20px]'>
+             {(subs && subs.length != 0) && <div className='border_bottom mb-[20px]'>
                <div className={`md:p-[10px] lg:w-[570px] text-center md:p-[10px_0_20px_0] lg:p-[0px_0_20px_0]`}>
                 <LoaderButton loader={loader} cssclass={'lg:w-[250px] md:w-[100%] md:h-[40px] m-0'} image_left={(indexs >= 0 && Onetime < 0)  ? '/bookstore/subscribe.svg' 
                 : (Onetime >= 0 ? '/bookstore/cart.svg' : '/bookstore/cart.svg')} 
                  button_name={(indexs >= 0 && Onetime < 0) ? 'Subscribe' 
                 : (Onetime >= 0 ? 'Buy Now' : 'Add to Cart')} buttonClick={addToCart} />
                </div>
-              </div>
+              </div>}
 
               <Modal modal={modal} show={show} visible={visible} hide={hide} />
 
               {data.full_description &&
-                <div className='px-[10px] border_bottom pb-[20px] mb-[20px]'>
+                <div className={`px-[10px] border_bottom pb-[20px] mb-[20px] ${(subs && subs.length != 0) ? '' : 'mt-5'}`}>
                   <h6 className='pb-[10px] font-semibold'>This Issue</h6>
                   {/* <div className='line-clamp-[10]' dangerouslySetInnerHTML={{__html:data.full_description}} ></div> */}
                   <div className='line-clamp-[8]' dangerouslySetInnerHTML={{ __html: data.full_description }} />
@@ -869,9 +885,21 @@ const  getCarts = async (type) => {
 
           {/* Section - 2 */}
 
-          {data.related_products && data.related_products.length != 0 && <div className={`lg:p-[30px] md:p-[15px]`}>
+          {/* {(data.previous_edition && data.previous_edition && data.previous_edition.length != 0) && 
+            <div className={`p-[30px]`}>
+              <Title data={{ title: 'Previous Issues' }} route={'/bookstore/'+router.asPath.split('/')[2]} seeMore={true} />
+              <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.previous_edition.slice(0, 5)} boxShadow={true} /></div> 
+            </div>
+          } */}
+
+          {data.previous_edition && data.previous_edition.length != 0 && <div className={`lg:p-[30px] md:p-[15px]`}>
             <Title data={{ title: 'Previous Issues' }} seeMore={true} route={'/bookstore/'+router.asPath.split('/')[2]} />
-            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={router.query.list} check={true} data={data.related_products.slice(0, 5)} boxShadow={true} /></div></div>
+            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={router.query.list} check={true} data={data.previous_edition.slice(0, 5)} boxShadow={true} /></div></div>
+          }
+
+          {data.related_products && data.related_products.length != 0 && <div className={`lg:p-[30px] md:p-[15px]`}>
+            <Title data={{ title: 'Related Products' }} seeMore={true} route={'/bookstore/'+data.related_products[0].category_route} />
+            <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card imgClass={'lg:h-[300px] md:h-[225px] mouse'} category={data.related_products[0].category_route} check={true} data={data.related_products.slice(0, 5)} boxShadow={true} /></div></div>
           }
 
           {/* Section - 3 */}
@@ -888,12 +916,7 @@ const  getCarts = async (type) => {
 
           {/* Section - 4 */}
 
-          {(data.other_group_items && data.other_group_items.data && data.other_group_items.data.length != 0) && 
-            <div className={`p-[30px]`}>
-              <Title data={data.other_group_items} seeMore={true} />
-              <div className={`grid gap-[20px] grid-cols-5 md:grid-cols-2 `}><Card category={router.query.list} check={true} data={data.other_group_items.data.slice(0, 5)} boxShadow={true} /></div> 
-            </div>
-          }
+         
       </div>
     }
     </RootLayout>
