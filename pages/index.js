@@ -240,7 +240,7 @@ export default function Home({ data }) {
                             {data.data[c.cid].data &&
                               <div className='overflow-auto scrollbar-hide gap-[15px] flex'>
                                 {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                                <CustomSlider noPrimaryText={true} slider_id={'leader_slide' + c_index} hide_scroll_button={true} slider_child_id={'leaders_ink' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'}
+                                <CustomSlider noPrimaryText={true} slider_id={'leader_slide' + c_index} hide_scroll_button={false} slider_child_id={'leaders_ink' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(20%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'}
                                   imgClass={'lg:h-[185px] md:h-[150px] w-full'} title_class={'min-h-[35px] line-clamp-2'} />
                               </div>}
 
@@ -253,7 +253,7 @@ export default function Home({ data }) {
                               // className='overflow-auto scrollbar-hide gap-[15px] flex '
                               <>
                                 {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[220px] flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                                <CustomSlider noPrimaryText={true} slider_id={'research_slide' + c_index} slider_child_id={'research' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'}
+                                <CustomSlider noPrimaryText={true} slider_id={'research_slide' + c_index} slider_child_id={'research' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(20%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'}
                                   imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px]'} />
                               </>
 

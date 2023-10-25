@@ -14,7 +14,7 @@ import MobileHead from '@/components/Headers//MobileHead';
 import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
 
-export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data }) {
+export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data,is_detail }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
   const [headerData, setHeaderData] = useState([]);
@@ -81,7 +81,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   return (
     <>
       {/* <SEO /> */}
-      {!checkout && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
+      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
       {/* <PdfViewer/> */}
       <>
         <Header checkout={checkout} />
@@ -124,7 +124,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
           {children}
         </main>
 
-        {!checkout && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><AdsBaner footerAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
+        {(!checkout && !is_detail) && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><AdsBaner footerAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
         {!checkout && <MainFooter footerData={footerData} />}
         {/* <div className='lg:hidden' >
           <BottomTabs />

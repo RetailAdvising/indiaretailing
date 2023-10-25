@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router';
 import { Inter } from 'next/font/google'
-
+import {check_Image} from '@/libs/api'
 
 const inter = Inter({
   weight: ["400"],
@@ -14,6 +14,7 @@ export default function SectionBox({ data }) {
     const router = useRouter();
     return (
         <>
+        {/* ,backgroundImage: `url(${check_Image(data.background_image)})` */}
             {data && <div className={`lg:border-[0px] lg:rounded-[10px] md:rounded-[5px_5px_0_0] justify-center p-[10px] md:h-auto lg:h-[280px] flex flex-col md:gap-[5px] lg:gap-[15px]`}  style={{ backgroundColor:`${data.background_color ? data.background_color : '#EDF6E5' }`}}>
                 {/* <p className='text-red lg:text-[14px] md:text-[12px] cursor-pointer'>{data.primary_text}</p> */}
                 <h6 className='lg:text-[20px] md:text-[15px] line-clamp-[2] font-semibold cursor-pointer' onClick={() => router.push(`/categories/${data.route}`)}>{data.title}</h6>

@@ -48,12 +48,12 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
             } else {
                 slider_div.scrollLeft -= slider_width
             }
-            let nextBtn = document.getElementById('next_' + slider_id)
-            let prevBtn = document.getElementById('prev_' + slider_id)
-            if (slider_div.scrollLeft >= slider_div.clientWidth) nextBtn.classList.add('hidden')
-            else nextBtn.classList.remove('hidden')
-            if (slider_div.scrollLeft == 0) prevBtn.classList.add('hidden')
-            else prevBtn.classList.remove('hidden')
+            // let nextBtn = document.getElementById('next_' + slider_id)
+            // let prevBtn = document.getElementById('prev_' + slider_id)
+            // if (slider_div.scrollLeft >= slider_div.clientWidth) nextBtn.classList.add('hidden')
+            // else nextBtn.classList.remove('hidden')
+            // if (slider_div.scrollLeft == 0) prevBtn.classList.add('hidden')
+            // else prevBtn.classList.remove('hidden')
         }
     }
 

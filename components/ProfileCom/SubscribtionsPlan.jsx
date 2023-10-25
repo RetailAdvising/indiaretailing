@@ -90,7 +90,7 @@ const formatter = new Intl.NumberFormat('en-US', {
                     <h6 className='flex-[0_0_calc(15%_-_5px)] ml-[5px] text-[13.5px] font-semibold'>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
                     {type == 'items' && <h6 className='flex-[0_0_calc(15%_-_5px)] ml-[5px] text-[13.5px] font-semibold'>{(res.sub_plans && res.sub_plans[0].plan_features && res.sub_plans[0].plan_features[0] && res.sub_plans[0].plan_features[0].features) ? res.sub_plans[0].plan_features[0].features : '-'}</h6>}
                     <h6 style={{color:res.status ? getColor(res.status)  : '#ddd'}} className='flex-[0_0_calc(10%_-_5px)] ml-[5px] text-[14px] font-semibold'>{res.status}</h6>
-                    <div className='flex-[0_0_calc(10%_-_0px)]'><button onClick={()=>{res.status == 'Unpaid' ? payNow(res) : null}} className={`${res.status == 'Unpaid' ? 'primary_btn text-white' : 'bg-[#F6F6F6] text-black'}  w-max p-[5px_25px] text-[13.5px] rounded-[5px]`}>Pay</button> </div>
+                    <div className='flex-[0_0_calc(10%_-_0px)]'><button onClick={()=>{res.status == 'Unpaid' ? payNow(res) : null}} className={`${res.status == 'Unpaid' ? 'primary_btn text-white' : 'bg-[#3b8b42] text-white'}  w-max p-[5px_25px] text-[13.5px] rounded-[5px]`}>{res.status == 'Unpaid' ? 'Pay' : 'Paid'}</button> </div>
                </div>
 
                {type != 'member' && 

@@ -30,7 +30,7 @@ export default function SubscriptionAlert({ data }) {
                         <p className="text-[16px] md:text-[14px]">Already subscribed to Prime </p>
                         <div onClick={show} className='flex cursor-pointer items-center gap-[5px]'>
                             <span className="text-red text-[16px] md:text-[14px]">Login</span>
-                            <Image className='img h-[15px] w-[15px] object-contain' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' />
+                            <div><Image className='img h-[15px] w-[15px] object-contain' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></div>
                         </div>
                     </div>}
 

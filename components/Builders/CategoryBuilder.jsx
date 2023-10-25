@@ -6,7 +6,7 @@ import { useState } from 'react'
 import Content from '../common/Content'
 import Title from '../common/Title'
 import Modal from '../common/Modal'
-import { check_Image, checkMobile } from '@/libs/api'
+import { check_Image, checkMobile, HomePage } from '@/libs/api'
 import Comments from '../Category/Comments'
 import Placeholders from '../common/Placeholders'
 // Social Share
@@ -19,8 +19,8 @@ import SubscriptionAlert from '../common/SubscriptionAlert'
 import { useSelector, useDispatch } from 'react-redux';
 
 import ReactDOM from 'react-dom';
-
-export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll ,plans}) {
+import Benefits from '@/components/Membership/benefits';
+export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll, plans }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -128,13 +128,29 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     if (!cardref?.current) return;
     const observer = new IntersectionObserver(([entry]) => {
       if (isLast && entry.isIntersecting) {
-        load();
+        if (!data.is_member && data.ir_prime == 1) {
+          getMembershipLanding()
+        } else {
+          load();
+        }
         observer.unobserve(entry.target);
       }
     });
 
     observer.observe(cardref.current);
   }, [isLast])
+
+  const [pageContent, setpageContent] = useState([]);
+
+  async function getMembershipLanding() {
+    let data = { "route": "membership", "page_no": 1, "page_size": 10 }
+    const resp = await HomePage(data);
+    // console.log(resp);
+    if (resp && resp.message && resp.message.page_content && resp.message.page_content != 0) {
+      let datas = resp.message.page_content
+      setpageContent(datas);
+    }
+  }
 
   // const more = useRef(null)
   // useEffect(() => {
@@ -395,12 +411,12 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     <>
       {/* {console.log('child',data)}   */}
       <div ref={cardref}>
-        <div className={`flex w-full lg:gap-[30px] lg:justify-between md:gap-[20px] md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
-          <div className='w_70 md:w-full'>
+        <div className={`flex w-full lg:relative lg:gap-[30px] lg:justify-between md:gap-[20px] md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
+          <div className={` md:w-full ${(!data.is_member && data.ir_prime == 1) ? 'w-[calc(80%_-_20px)] m-auto' : 'w_70'}`}>
             <p>
               <Content i={i} res={data} updateShare={(data) => updateShare(data)} noScroll={(val) => noScroll(val)} />
             </p>
-            <div className='relative article_content'>
+            <div className='relative article_content overflow-hidden'>
               {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`${i}`} className={`contents ${(data.ir_prime == 1 && !data.is_member) && 'prime-article'}`} />}
               {(!data.is_member && data.ir_prime == 1) && <div className='prime-article-after'></div>}
             </div>
@@ -429,7 +445,21 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               //     <button className='primary_button w-full text-[16px] h-[50px] p-[5px_10px] md:text-[14px] md:h-[35px] md:w-max' onClick={() => router.push('/membership')} style={{ borderRadius: '9999px', textTransform: 'unset' }}>Subscribe to IR Prime</button>
               //   </div>
               // </div>
-              <SubscriptionAlert data={plans} />
+              <>
+                <SubscriptionAlert data={plans} />
+
+                <div className='py-[20px]'>
+                  {pageContent && pageContent.length != 0 && pageContent.map((res, i) => {
+                    return (
+                      <div key={res.section_name + i}>
+                        <Benefits data={res}></Benefits>
+                      </div>
+
+                    )
+                  })
+                  }
+                </div>
+              </>
             }
 
             <Modal modal={modal} show={show} visible={visible} hide={hide} />
@@ -455,7 +485,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               </div>
             } */}
 
-            {data.articles_tags && data.articles_tags.length != 0 &&
+            {(data.articles_tags && data.articles_tags.length != 0) && ((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) &&
               <div className='flex items-center flex-wrap pt-[15px]'>
                 <h6 className='w-max text-[13px] text-[#fff] bg-[#e21b22] border rounded-[5px] p-[3px_15px] mr-[6px] mb-[12px]'>Tags</h6>
                 {data.articles_tags.map((res, index) => {
@@ -467,7 +497,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               </div>
             }
 
-            {<div className='lg:py-12'>
+            {((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) && <div className='lg:py-12'>
               {!isMobile && <div className={`flex flex-row justify-between`}>
                 {/* <p className="gray-text">Previous Post</p> */}
                 <hr></hr>
@@ -564,11 +594,11 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
             </div>}
           </div>
 
-          <div className='w_30 md:hidden'>
+          {((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) && <div className={`w_30 md:hidden `}>
             {/* {data.advertisement_tags && data.advertisement_tags.length != 0 && <AdsBaner data={data.advertisement_tags[0]} />} */}
             {(data.place_holders_ads && data.place_holders_ads.length != 0) &&
               <Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : []} productNavigation={productNavigation} />}
-          </div>
+          </div>}
         </div>
 
         {data.latest_news && data.latest_news.length != 0 && <div className={`${isMobile ? '' : 'container'}  ${styles.section_3}`}>
@@ -580,10 +610,10 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
           </div>
         </div>}
 
-        {!isLast && <div className={`flex md:gap-[10px]  lg:m-[20px_auto_0] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] ${isMobile ? '' : 'container'}`}>
+        {/* {!isLast && <div className={`flex md:gap-[10px]  lg:m-[20px_auto_0] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] ${isMobile ? '' : 'container'}`}>
           <h6 className={`flex-[0_0_auto] lg:text-[18px] md:text-[14px] font-semibold`}>Next Post</h6>
           <div className='lg:bg-[#999] w-full lg:h-[2px] md:bg-stone-200 md:h-[3px]'></div>
-        </div>}
+        </div>} */}
       </div>
     </>
   )

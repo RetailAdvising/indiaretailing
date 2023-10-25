@@ -113,7 +113,7 @@ export default function Orders() {
             return(
                <>
                 <div onClick={()=>{setorderId(res.name),setVisible(true)}} className='md:hidden px-[20px] cursor-pointer items-center grid grid-cols-6 h-[50px] border-b-[1px] border-b-slate-100 last-child:border-b[0px]'>
-                    <h6 className='text-[14px]'>{res.name}</h6>
+                    <h6 className='text-[14px] text-[#000] font-[500]'>{res.name}</h6>
                     <h6 className='text-[14px]'>{formatDate(res.creation)}</h6>
                     <div className='flex items-center gap-[5px]'><div style={{background:res.status ? getColor(res.status)  : '#ddd'}} className={`h-[10px] w-[10px] rounded-[50%]`}></div><h6 className='text-[14px]'>{res.status}</h6></div>
                     <h6 className='text-[14px]'>{res.Items.length}</h6>

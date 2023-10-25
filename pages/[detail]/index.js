@@ -1,11 +1,12 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares,checkMobile,get_subscription_plans } from '@/libs/api';
+import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares, checkMobile, get_subscription_plans } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import SeoArticles from '@/components/common/SeoArticles'
+import AdsBaner from '@/components/Baners/AdsBaner'
 import { useSelector, useDispatch } from 'react-redux';
 // import { NextSeo } from 'next-seo'
 import setComments from 'redux/actions/commentsReducer'
@@ -76,7 +77,7 @@ export default function Details({ data, page_route }) {
         values.push(data)
         setValues(values)
         setPrev(route ? route : page_route)
-        if(data.is_member == 0){
+        if (data.is_member == 0) {
           getMembershipPlans();
         }
       }
@@ -121,7 +122,7 @@ export default function Details({ data, page_route }) {
   }, [user])
 
   // const [isMobile, setIsMobile] = useState()
-  
+
   // const checkIsMobile = async () => {
   //   let isMobile = await checkMobile();
   //   setIsMobile(isMobile);
@@ -309,14 +310,14 @@ export default function Details({ data, page_route }) {
     }
   }
 
-  const [plans,setPlans] = useState([])
+  const [plans, setPlans] = useState([])
 
   const getMembershipPlans = async () => {
-    let data = { "plan_type":  "Month" , "res_type": "member" }
+    let data = { "plan_type": "Month", "res_type": "member" }
     const resp = await get_subscription_plans(data);
-    if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
+    if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
       // console.log(resp)
-      if(resp.message.message && resp.message.message.length != 0 && resp.message.message[0]){
+      if (resp.message.message && resp.message.message.length != 0 && resp.message.message[0]) {
         // plans.push(resp.message.message[0].features)
         setPlans(resp.message.message[0].features)
       }
@@ -326,7 +327,7 @@ export default function Details({ data, page_route }) {
 
   return (
     <>
-      <RootLayout isLanding={true} homeAd={advertisement ? advertisement : null} head={''}>
+      <RootLayout isLanding={true} is_detail={true} homeAd={advertisement ? advertisement : null} head={''}>
         {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
 
         {/* {(meta_info) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />} */}
@@ -374,6 +375,11 @@ export default function Details({ data, page_route }) {
               <div id={'div' + index} key={index} className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
                 <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data) => updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} noScroll={(val) => noScroll(val)} plans={(plans && plans.length != 0) ? plans : []} />
+                <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><AdsBaner footerAd={advertisement ? advertisement : null} height={'h-full'} width={'500px'} /></div>
+                {!(index == values.length - 1) && <div className={`flex md:gap-[10px]  lg:m-[20px_auto_0] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] container`}>
+                  <h6 className={`flex-[0_0_auto] lg:text-[18px] md:text-[14px] font-semibold`}>Next Post</h6>
+                  <div className='lg:bg-[#999] w-full lg:h-[2px] md:bg-stone-200 md:h-[3px]'></div>
+                </div>}
               </div>
             )
           })}

@@ -357,7 +357,7 @@ export default function Membership() {
       <div className='py-[20px]'>
         {pageContent && pageContent.length != 0 && pageContent.map((res) => {
           return (
-            <>
+            <div key={res.section_name}>
               {/* {res.section_name == 'IR Member Ship' && res.section_type == 'Static Section' &&
                 <div className='py-[20px] '>
                   <Benefits data={res}></Benefits>
@@ -371,7 +371,7 @@ export default function Membership() {
                   <Faq data={res}></Faq>
                 </div>
               }
-            </>
+            </div>
           )
         })
         }

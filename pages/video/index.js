@@ -48,7 +48,7 @@ export default function Videos({ data, ads, slider_data }) {
             return (
               <div key={index} className='pb-[20px]'>
                 <Title data={res} seeMore={true} />
-                <div className={`lg:grid grid-cols-4 no_scroll lg:gap-[15px]`}><Video data={res.videos.slice(0,4)} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} /></div>
+                <div className={`lg:grid grid-cols-4 no_scroll lg:gap-5`}><Video data={res.videos.slice(0,4)} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} /></div>
               </div>
             )
           })}
