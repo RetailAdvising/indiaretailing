@@ -17,7 +17,7 @@ import AuthModal from '../Auth/AuthModal';
 import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
 import { useSelector, useDispatch } from 'react-redux';
-
+import Widgets from '../Category/Widgets'
 import ReactDOM from 'react-dom';
 import Benefits from '@/components/Membership/benefits';
 export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll, plans }) {
@@ -209,17 +209,20 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
           // console.log(element)
           // element?.classList.add('placeholder')
           // let html = '';
-          if (res.title) {
-            const headerElement = document.createElement('h6');
-            headerElement?.classList.add('mb-[18px]', 'text-[18px]', 'font-semibold')
-            headerElement.textContent = res.title;
-            (element && element.parentNode) ? element.parentNode.insertBefore(headerElement, element) : null;
-          }
 
-          element && element?.classList.add('py-[15px]')
 
-          element && ReactDOM.render(<CustomSlider type={'widget'} data={res.data} parent={res} routers={router} hide_scroll_button={true} slider_child_id={res.placeholder_key + i} cardClass={'flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
-            imgClass={'lg:h-[185px] md:h-[170px] w-full'} subtitle_class={'line-clamp-1  md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} productNavigation={productNavigation} />, element)
+          // if (res.title) {
+          //   const headerElement = document.createElement('h6');
+          //   headerElement?.classList.add('mb-[18px]', 'text-[18px]', 'font-semibold')
+          //   headerElement.textContent = res.title;
+          //   (element && element.parentNode) ? element.parentNode.insertBefore(headerElement, element) : null;
+          // }
+
+          // element && element?.classList.add('py-[15px]')
+
+          // element && ReactDOM.render(<CustomSlider type={'widget'} data={res.data} parent={res} routers={router} hide_scroll_button={true} slider_child_id={res.placeholder_key + i} cardClass={'flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
+          //   imgClass={'lg:h-[185px] md:h-[170px] w-full'} subtitle_class={'line-clamp-1  md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} productNavigation={productNavigation} />, element)
+          element && ReactDOM.render(<Widgets data={res} productNavigation={productNavigation} routers={router}  />, element)
 
           // res.data.map((item, index) => {
           //   if (res.title) {

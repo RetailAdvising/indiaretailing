@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router'
 import React, { useRef, useEffect, useState } from 'react'
-import { search_product, checkMobile } from '@/libs/api';
+import { search_product, checkMobile, all_category_list } from '@/libs/api';
 import RootLayout from '@/layouts/RootLayout';
 import Cards from '@/components/common/Cards';
 import Image from 'next/image'
 import { check_Image } from '@/libs/common'
 import BreadCrumb from '@/components/common/BreadCrumb';
+import Link from 'next/link';
 
-export default function search({ searchTxt }) {
+export default function search({ searchTxt, data }) {
 
 
   // Search
@@ -16,6 +17,7 @@ export default function search({ searchTxt }) {
   let [searchValue, setSearchValue] = useState("");
   let [isMobile, setIsmobile] = useState();
   let [Skeleton, setSkeleton] = useState(false);
+  let [allCategory, setAllCategory] = useState([])
   let [breadCrumbs, setBreadCrumbs] = useState([
     { name: 'Home', route: '/' },
     { name: 'Search', route: '/search/searchText=' },
@@ -42,6 +44,11 @@ export default function search({ searchTxt }) {
       setEnableSearch(true)
     }
 
+    if (data && data.length != 0) {
+      allCategory = data
+      setAllCategory(allCategory)
+    }
+    console.log(data)
 
     const intersectionObserver = new IntersectionObserver(entries => {
       // console.log('12345')
@@ -143,7 +150,7 @@ export default function search({ searchTxt }) {
       route = '/' + data.route
     } else if (data.type == 'Product') {
       route = '/bookstore/' + data.route
-    }else if (data.type == 'Community Event') {
+    } else if (data.type == 'Community Event') {
       route = '/events/' + data.route
     } else if (data.type == 'Podcast') {
       route = '/podcast/' + data.route
@@ -170,7 +177,12 @@ export default function search({ searchTxt }) {
             <div onClick={() => { navigateSearchScreen('search') }} className='border-l-[1px] p-[10px] cursor-pointer border-l-slate-100 flex items-center justify-center'><Image style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} className=""></Image></div>
           </div>
           {!Skeleton && enableSearch && <div className='h-[calc(100vh_-_150px)] overflow-auto scrollbar-hide' >
-            {searchResult && searchResult.length == 0 ? <EmptySection searchValue={searchValue} /> :
+            {searchResult && searchResult.length == 0 ?
+              // <EmptySection searchValue={searchValue} />
+              <>
+                {allCategory && allCategory.length != 0 ? <AllCategory data={allCategory} /> : <EmptySection searchValue={searchValue} />}
+              </>
+              :
               searchResult.map((res, index) => {
                 return (
                   <div key={index} onClick={() => { navigateDetail(res) }} className='flex items-center justify-between cursor-pointer border-b-[1px] border-b-slate-100 last-child:border-b-[0px]  p-[10px]'>
@@ -192,7 +204,10 @@ export default function search({ searchTxt }) {
           <>
             {/* {!isMobile && <BreadCrumb BreadCrumbs={breadCrumbs}/>} */}
             {searchResult && searchResult.length == 0 ?
-              <EmptySection searchValue={searchValue} />
+              // <EmptySection searchValue={searchValue} />
+              <>
+                {allCategory && allCategory.length != 0 ? <AllCategory data={allCategory} /> : <EmptySection searchValue={searchValue} />}
+              </>
               :
               <>
                 <div className='lg:min-h-[325px] md:min-h-[500px] grid md:grid-cols-2 grid-cols-5 gap-[15px] container py-[20px] md:px-[10px]'>
@@ -240,8 +255,10 @@ export default function search({ searchTxt }) {
 
 export async function getServerSideProps({ query }) {
   let searchTxt = query.searchText
+  let resp = await all_category_list({})
+  let data = resp.message;
   return {
-    props: { searchTxt }
+    props: { searchTxt, data }
   }
 }
 
@@ -250,10 +267,30 @@ const EmptySection = ({ searchValue }) => {
     <>
       <div className='h-[calc(100vh_-_150px)] flex flex-col items-center justify-center'>
         <div className='h-[150px]'>
-          <Image className='h-[120px]' height={120} priority width={200} alt='' src={searchValue != '' ? '/empty_states/no-news.svg' : '/empty_states/no-comment.svg'}></Image>
+          <Image className='h-[150px] object-contain' height={120} priority width={200} alt='' src={searchValue != '' ? '/empty_states/no-news.svg' : '/empty_states/no-comment.svg'}></Image>
         </div>
         <h6 className='text-[15px] font-semibold py-[10px]'>{searchValue != '' ? 'No new found' : 'Enter the text to search a latest news'}</h6>
       </div>
     </>
   )
-} 
+}
+
+
+const AllCategory = ({ data }) => {
+  return (
+    <div className='grid grid-cols-3 md:grid-cols-2 gap-5 my-5'>
+      {data.map((res, i) => {
+        return (
+          <div key={res.title} className=''>
+            <Link href={res.base_route}  className='text-[15px] font-semibold mb-[5px] '>{res.title}</Link>
+            {res.data && res.data.length != 0 && res.data.map((resp, index) => {
+              return (
+                <Link className='block' href={res.base_route + resp.route} key={resp.title ? resp.title : resp.category_name}>{resp.title ? resp.title : resp.category_name}</Link>
+              )
+            })}
+          </div>
+        )
+      })}
+    </div>
+  )
+}

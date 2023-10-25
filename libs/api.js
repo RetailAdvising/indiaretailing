@@ -288,6 +288,13 @@ export async function articlesDetail(data) {
     let api = domainUrl + 'article_details';
     return await postMethod(api, data)
 }
+
+export async function all_category_list(data) {
+    let api = domainUrl + 'all_category_list';
+    return await postMethod(api, data)
+}
+
+
 export async function articleNewsDetail(data) {
     let api = domainUrl + 'news_details';
     return await postMethod(api, data)
