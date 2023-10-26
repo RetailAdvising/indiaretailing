@@ -120,7 +120,7 @@ export default function Categories({ data, ads }) {
                         )
                     }) : <Skeleton />}
 
-                    <div className='more h-[30px]' ref={cardref}></div>
+                    <div className='more h-[80px]' ref={cardref}></div>
                     {loading && <div id="wave">
                         <span className="dot"></span>
                         <span className="dot"></span>

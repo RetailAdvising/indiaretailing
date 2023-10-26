@@ -62,7 +62,7 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
     <>
       {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> bg-[#fbfbfd] */}
       {/* h-[240px] */}
-      <div className={`flex items-center h-[170px] gap-[10px] justify-center  rounded-[10px] border p-[10px]`} >
+      <div className={`flex items-center h-[210px] gap-[10px] justify-center  rounded-[10px] border p-[10px]`} >
         {/* <div className={``}> */}
         {/* <p className={`absolute top-[35px] right-[120px] font-semibold text-[20px]`}>Subscribe</p>
           // <Image src={'/newsletter1.svg'} className={`${height} ${width}`} height={30} width={50} alt="" /> */}
@@ -72,8 +72,8 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
           <Image src={'/Newsletter-subscription.svg'} className={` object-contain h-full w-full`} height={30} width={50} alt="" />
         </div>
         <div className='flex-[0_0_calc(70%_-_10px)]'>
-          <h5 className={`text-[17px] font-[800] text-center ${inter.className}`}>Staytuned !</h5>
-          <p className='text-[12px] font-semibold py-[10px] text-center'>Subscribe our newsletter & get notifications to stay updated</p>
+          <h5 className={`text-[17px] font-[800] text-center ${inter.className}`}>Stay tuned !</h5>
+          <p className='text-[13px] font-semibold py-[10px] text-center'>Subscribe our newsletter & get notifications to stay updated</p>
           <div className='relative w-full'>
             <input placeholder="Your email address" className='rounded-full w-full pl-[10px] h-[35px] text-[14px]' onChange={(e) => setEmail(e.target.value)} />
             <div className='absolute top-0 right-0 bg-red w-[25%] rounded-full h-full'>

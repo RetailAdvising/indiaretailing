@@ -431,15 +431,20 @@ const  getCarts = async (type) => {
     // console.log(val)
     val.map((res,i)=> {
       if(res.is_subscription != 1){
-         handleSubs(val,res,i) 
+         handleSubs(val,res,i)
+          // Modified john 26-11-23
+         return -1; 
         }
     })
+ // Modified john 26-11-23
+    handleSubs(val,val[0],0)
   }
  } 
 
   const selectMethod = (e,index,subs) =>{
-    setOnetimeAsDefault(e.value);
-    setVariantsIndex(index);
+    // Modified john 26-11-23
+    // setOnetimeAsDefault(e.value);
+    // setVariantsIndex(index);
     // data.attribute_ids = e.attribute_id;
     // data.attribute = e.variant_text ;
     // data.price = e.product_price;
@@ -472,6 +477,10 @@ const  getCarts = async (type) => {
 
       setSubs(e.value);
     }
+
+     // Modified john 26-11-23
+    setOnetimeAsDefault(e.value);
+    setVariantsIndex(index);
     
     // if(e.variant_text){
     //   let data_1 = e.variant_text.toUpperCase().includes("PDF");

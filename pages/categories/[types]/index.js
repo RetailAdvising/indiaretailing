@@ -1,5 +1,5 @@
 // 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import Title from '@/components/common/Title';
 import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
@@ -15,8 +15,12 @@ export default function CategoryType({ values, ads }) {
     const router = useRouter();
     const [data, setData] = useState([]);
 
-    let apiCall = false;
+    // let apiCall = false;
     let page_no = 1;
+    let cardref = useRef(null);
+    let no_product = false;
+    const [loading, setLoading] = useState(false);
+
     // console.log(ads)
 
     useEffect(() => {
@@ -25,28 +29,43 @@ export default function CategoryType({ values, ads }) {
             setData(values)
         }
 
-        const handleScroll = () => {
-            const scrollTop = document.documentElement.scrollTop
-            const scrollHeight = document.documentElement.scrollHeight
-            const clientHeight = document.documentElement.clientHeight
-            if ((scrollTop + clientHeight) + 700 >= scrollHeight) {
-                if (!apiCall) {
-                    apiCall = true;
-                    page_no += 1;
-                    loadMore()
-                }
-            }
-        };
+        // const handleScroll = () => {
+        //     const scrollTop = document.documentElement.scrollTop
+        //     const scrollHeight = document.documentElement.scrollHeight
+        //     const clientHeight = document.documentElement.clientHeight
+        //     if ((scrollTop + clientHeight) + 700 >= scrollHeight) {
+        //         if (!apiCall) {
+        //             apiCall = true;
+        //             page_no += 1;
+        //             loadMore()
+        //         }
+        //     }
+        // };
 
-        window.addEventListener('scroll', handleScroll);
+        // window.addEventListener('scroll', handleScroll);
+
+        // return () => {
+        //     window.removeEventListener('scroll', handleScroll);
+        // };
+
+        const intersectionObserver = new IntersectionObserver(entries => {
+            if (entries[0].intersectionRatio <= 0) return;
+            if (!no_product) {
+                page_no > 1 ? loadMore() : null
+                page_no = page_no + 1
+            }
+        });
+
+        intersectionObserver?.observe(cardref?.current);
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+            cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+        }
 
     }, [router.query]);
 
     async function loadMore() {
+        setLoading(true)
         let Id = router.query.types;
         let param = {
             // doctype: "Articles",
@@ -60,9 +79,11 @@ export default function CategoryType({ values, ads }) {
         if (value && value.message.length != 0) {
             setData(d => d = [...d, ...value.message]);
             // data = [...data,...value.message]
-            apiCall = false;
+            setLoading(false)
+            no_product = false;
         } else {
-            apiCall = true;
+            no_product = true;
+            setLoading(false)
         }
 
     }
@@ -92,7 +113,7 @@ export default function CategoryType({ values, ads }) {
                                 return (
                                     <div key={res.title ? res.title : index} onClick={() => router.push(`/${res.route}`)} className={` pb-[10px]`}>
                                         <h6 className={`lg:text-[18px] md:text-[16px] font-semibold`}>{res.title}</h6>
-                                        <ImageLoader style={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={res.image ? res.image : res.thumbnail_image } title={res.title ? res.title : 'indiaRetail'} />
+                                        <ImageLoader style={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={res.image ? res.image : res.thumbnail_image} title={res.title ? res.title : 'indiaRetail'} />
                                         {/* <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.image ? res.image : res.thumbnail_image)} height={250} width={300} alt={res.title} /> */}
                                         <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>
                                         <p className={`sub_title line-clamp-2 pt-[10px]`}>{res.blog_intro}</p>
@@ -109,9 +130,16 @@ export default function CategoryType({ values, ads }) {
                     </div>}
                     <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:py-8 md:gap-[10px] lg:gap-[20px]`}>
                         {/* contentHeight={'h-[175px]'} */}
-                        <Cards cardClass={"lg:h-[315px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data.slice(5, data.length-1)} />
+                        <Cards cardClass={"lg:h-[315px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data.slice(5, data.length - 1)} />
                     </div>
                 </div>
+
+                <div className='more h-[30px]' ref={cardref}></div>
+                {(loading && isMobile) && <div id="wave">
+                    <span className="dot"></span>
+                    <span className="dot"></span>
+                    <span className="dot"></span>
+                </div>}
             </RootLayout>
         </>
     )

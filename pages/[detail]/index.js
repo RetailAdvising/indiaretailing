@@ -66,8 +66,10 @@ export default function Details({ data, page_route }) {
           // data._user_tags = [];
           data ? data._user_tags = [] : null;
         }
-        routeList.push(data.route)
-        setRouteList(routeList)
+        if(router.query.preview != 'true'){
+          routeList.push(data.route)
+          setRouteList(routeList)
+        }
         setMetaInfo(data)
         page_no += 1;
         commentslist(data)
@@ -227,10 +229,12 @@ export default function Details({ data, page_route }) {
 
 
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    if(router && router.query && router.query.preview != 'true'){
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
 
 
   }, [scrollEle]);

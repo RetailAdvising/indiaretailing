@@ -42,12 +42,14 @@ const EventList = dynamic(() => import('@/components/Events/EventList'))
 const ListSlider = dynamic(() => import('@/components/Sliders/ListSlider'));
 const Card = dynamic(() => import('@/components/Bookstore/Card'))
 export default function Home({ data }) {
-  // console.log(data);
+  console.log(data);
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(false);
+  let [loading, setLoading] = useState(false);
   const [books, setBooks] = useState([])
   const [ads, setAds] = useState()
+  let [pageNo, setPageNo] = useState(1)
+  let [noProduct, setNoProduct] = useState(false)
   let page_no = 1;
 
 
@@ -76,6 +78,21 @@ export default function Home({ data }) {
   let cardref = useRef();
   let no_product = false;
 
+  let [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile)
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, [])
+
+  const checkIsMobile = async () => {
+    let is_mobile = await checkMobile();
+    isMobile = is_mobile
+    setIsMobile(isMobile);
+  }
+
   useEffect(() => {
     if (data && data.page_content && data.page_content.length != 0) {
       setValue(data.page_content)
@@ -87,11 +104,84 @@ export default function Home({ data }) {
     getBooks();
     getAd();
 
+
+    // const intersectionObserver = new IntersectionObserver(entries => {
+    //   if (entries[0].intersectionRatio <= 0) return;
+    //   if (!no_product) {
+    //     page_no > 1 ? getPageData() : null
+    //     page_no = page_no + 1
+    //   }
+    // });
+
+    // intersectionObserver?.observe(cardref?.current);
+
+    // return () => {
+    //   cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+    // }
+
+
+    if (!isMobile) {
+      const handleScroll = () => {
+        const scrollTop = document.documentElement.scrollTop
+        const scrollHeight = document.documentElement.scrollHeight
+        const clientHeight = document.documentElement.clientHeight
+        if ((scrollTop + clientHeight) + 1500 >= scrollHeight) {
+          if (!loading && !noProduct && !isMobile) {
+            // no_product = true
+            if (pageNo > 1) {
+              loading = true
+              setLoading(loading)
+              getPageData()
+            } else {
+              pageNo += 1
+              setPageNo(pageNo)
+            }
+            // page_no > 1 ? getPageData() : loading = true, setLoading(loading)
+            // page_no = page_no + 1
+          }
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+
     const intersectionObserver = new IntersectionObserver(entries => {
       if (entries[0].intersectionRatio <= 0) return;
-      if (!no_product) {
-        page_no > 1 ? getPageData() : null
-        page_no = page_no + 1
+      if (!loading && !noProduct && isMobile) {
+        if (pageNo > 1) {
+          loading = true
+          setLoading(loading)
+          getPageData()
+        } else {
+          pageNo += 1
+          setPageNo(pageNo)
+        }
+      }
+    });
+
+    intersectionObserver?.observe(cardref?.current);
+
+    return () => {
+      cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+    }
+  }, [])
+
+  useEffect(() => {
+    const intersectionObserver = new IntersectionObserver(entries => {
+      if (entries[0].intersectionRatio <= 0) return;
+      if (!loading && !noProduct && isMobile) {
+        if (pageNo > 1) {
+          loading = true
+          setLoading(loading)
+          getPageData()
+        } else {
+          pageNo += 1
+          setPageNo(pageNo)
+        }
       }
     });
 
@@ -121,24 +211,33 @@ export default function Home({ data }) {
 
   const getPageData = async () => {
     // console.log('load...',)
-    setLoading(true)
-    if (page_no > 1) {
+    // setLoading(true)
+    // if (page_no > 1) {
+    if (pageNo > 1) {
       const param = {
         // "application_type": "mobile",
         "route": "home",
-        page_no: page_no,
+        page_no: pageNo,
         page_size: 4
       }
       const resp = await HomePage(param);
       if (resp.message && resp.message.page_content && resp.message.page_content.length != 0) {
+        setValue(d => d = [...d, ...resp.message.page_content])
+        loading = false
+        setLoading(loading)
+        pageNo += 1
+        setPageNo(pageNo)
         setTimeout(() => {
-          setValue(d => d = [...d, ...resp.message.page_content])
-          setLoading(false)
+          // no_product = false;
         }, 200);
         // console.log(resp.message.page_content)
       } else {
-        no_product = true;
-        setLoading(false)
+        // no_product = true;
+        noProduct = true;
+        setNoProduct(noProduct)
+        loading = false
+        setLoading(loading)
+        // setLoading(false)
       }
     }
 
@@ -153,19 +252,7 @@ export default function Home({ data }) {
   //     console.log ("Setting Cookies : " + "name=john"  );
   //  }
 
-  const [isMobile, setIsMobile] = useState()
-  useEffect(() => {
-    checkIsMobile();
-    window.addEventListener('resize', checkIsMobile)
-    return () => {
-      window.removeEventListener('resize', checkIsMobile);
-    };
-  }, [])
 
-  const checkIsMobile = async () => {
-    let isMobile = await checkMobile();
-    setIsMobile(isMobile);
-  }
 
   const getBooks = async () => {
     const params = {
@@ -208,7 +295,7 @@ export default function Home({ data }) {
                           </>}
                           {(c.component_title == "Latest News" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <>
                             <Title data={{ title: 'Latest News' }} />
-                            {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(4, 6)} /></> : <LatestNews height={'h-[222px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} />}
+                            {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(4, 6)} /></> : <LatestNews height={'md:h-[222px] lg:h-[240px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} />}
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Advertisement") && <AdsBaner data={data.data[c.cid].data[0]} height={'h-[250px] w-[300px] object-contain'} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
@@ -240,7 +327,7 @@ export default function Home({ data }) {
                             {data.data[c.cid].data &&
                               <div className='overflow-auto scrollbar-hide gap-[15px] flex'>
                                 {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[275px] flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(70%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                                <CustomSlider noPrimaryText={true} slider_id={'leader_slide' + c_index} hide_scroll_button={false} slider_child_id={'leaders_ink' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(20%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'}
+                                <CustomSlider noPrimaryText={true} slider_id={'leader_slide' + c_index} hide_scroll_button={false} slider_child_id={'leaders_ink' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[280px] flex-[0_0_calc(20%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'}
                                   imgClass={'lg:h-[185px] md:h-[150px] w-full'} title_class={'min-h-[35px] line-clamp-2'} />
                               </div>}
 
@@ -378,7 +465,7 @@ export default function Home({ data }) {
           )
         })}
         <div className='more h-[30px]' ref={cardref}></div>
-        {loading && <div id="wave">
+        {(loading && isMobile) && <div id="wave">
           <span className="dot"></span>
           <span className="dot"></span>
           <span className="dot"></span>
