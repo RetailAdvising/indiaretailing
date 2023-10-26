@@ -42,7 +42,7 @@ const EventList = dynamic(() => import('@/components/Events/EventList'))
 const ListSlider = dynamic(() => import('@/components/Sliders/ListSlider'));
 const Card = dynamic(() => import('@/components/Bookstore/Card'))
 export default function Home({ data }) {
-  console.log(data);
+  // console.log(data);
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
   let [loading, setLoading] = useState(false);

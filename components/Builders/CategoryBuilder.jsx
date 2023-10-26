@@ -198,8 +198,16 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
 
 
+  let [element, setElement] = useState(['parent0'])
+  let [shareEle, setShareEle] = useState(['share0'])
   function onPageLoad() {
     // console.log(data)
+    if (i > 0) {
+      element.push('parent' + i)
+      setElement(element)
+      shareEle.push('share' + i)
+      setShareEle(shareEle)
+    }
     if ((data && data.article_sections && data.article_sections.length != 0)) {
       // console.log('data.article_sections', data.article_sections);
       data.article_sections.map((res, i) => {
@@ -222,7 +230,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
           // element && ReactDOM.render(<CustomSlider type={'widget'} data={res.data} parent={res} routers={router} hide_scroll_button={true} slider_child_id={res.placeholder_key + i} cardClass={'flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
           //   imgClass={'lg:h-[185px] md:h-[170px] w-full'} subtitle_class={'line-clamp-1  md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} productNavigation={productNavigation} />, element)
-          element && ReactDOM.render(<Widgets data={res} productNavigation={productNavigation} routers={router}  />, element)
+          element && ReactDOM.render(<Widgets data={res} productNavigation={productNavigation} routers={router} />, element)
 
           // res.data.map((item, index) => {
           //   if (res.title) {
@@ -410,12 +418,164 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   }
 
 
+  let [scrolls, setScrolls] = useState(false)
+  useEffect(() => {
+    // const handleScroll = () => {
+    //   const scrollTop = document.documentElement.scrollTop
+    //   const scrollHeight = document.documentElement.scrollHeight
+    //   const clientHeight = document.documentElement.clientHeight
+    //   if ((scrollTop + clientHeight)  >= 1700) {
+    //     let ind = i-1
+    //     // let element = document.querySelectorAll('.finding')
+    //     let element = document.getElementById('finding'+ind)
+    //     // let arr = Array.from(element)
+    //     // console.log(arr[i].classList.add('fixed','right-0','top-0'))
+    //     console.log(element?.classList.add('fixed','right-0','top-0'))
+    //   }else{
+    //     let ind = i-1
+    //     // let element = document.querySelectorAll('.finding')
+    //     let element = document.getElementById('finding'+ind)
+    //     // let arr = Array.from(element)
+    //     // console.log(arr[i].classList.remove('fixed','right-0','top-0'))
+    //     console.log(element?.classList.remove('fixed','right-0','top-0'))
+
+    //   }
+    //   // console.log(scrollTop,'scrollTop')
+    //   //   console.log(clientHeight,'clientHeight')
+    //   //   console.log(scrollHeight,'scrollHeight')
+
+    // };
+
+    // window.addEventListener('scroll', handleScroll);
+
+    // return () => {
+    //   window.removeEventListener('scroll', handleScroll);
+    // };
+
+    const handleScroll = () => {
+      // const parentElement = document.getElementById('parent');
+      // const targetElement = document.getElementById('target');
+
+      // if (parentElement && targetElement) {
+      //   const parentRect = parentElement.getBoundingClientRect();
+      //   const targetRect = targetElement.getBoundingClientRect();
+
+      //   if (parentRect.bottom <= targetRect.top) {
+      //     // setIsSticky(true);
+      //     console.log(parentRect, 'parentRect')
+      //     console.log(targetRect, 'targetRect')
+      //   } else {
+      //     console.log(parentRect, 'parentRect')
+      //     console.log(targetRect, 'targetRect')
+      //     // setIsSticky(false);
+      //   }
+      // }
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const scrollTop = document.documentElement.scrollTop
+      const scrollHeight = document.documentElement.scrollHeight
+      const clientHeight = document.documentElement.clientHeight
+
+      for (const divId of element) {
+
+        const div = document.getElementById(divId);
+
+        if (!div) continue;
+
+        const divTop = div.getBoundingClientRect().top;
+        const divBottom = div.getBoundingClientRect().bottom;
+        if ((scrollTop + clientHeight) >= 1200 && !scrolls) {
+          // let val = document.getElementById('target' + divId[divId.length - 1])
+          // val.classList.add('fixed', 'top-0', 'right-[15px]')
+          // scrolls = true
+          // setScrolls(scrolls)
+        }
+        // if (divTop < windowHeight / 2 && divBottom > windowHeight / 2) {
+        //   // let ind = divId.replace('div', '')
+        //   // ind = Number(ind);
+        //   // console.log(div, 'reach')
+        //   // console.log(divId[divId.length - 1], 'reach')
+        //   let val = document.getElementById('target' + divId[divId.length - 1])
+        //   val.classList.add('fixed', 'top-0', 'right-[15px]')
+        //   // console.log(val)
+        // } else {
+        //   let val = document.getElementById('target' + divId[divId.length - 1])
+        //   val.classList.remove('fixed', 'top-[15px]', 'right-[15px]')
+        //   console.log(div)
+        // }
+      }
+
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+    // let ele = document.getElementById('parent' + i)
+    // let ele = document.getElementById('tg')
+    // // const observer = new IntersectionObserver(([entry]) => {
+    // //   console.log(entry)
+    // //   if (entry.isIntersecting) {
+
+    // //     observer.unobserve(entry.target);
+    // //   }
+    // // });
+
+    // // observer.observe(ele);
+    // const intersectionObserver = new IntersectionObserver(entries => {
+    //   if (entries[0].intersectionRatio <= 0){
+    //     console.log(entries[0])
+    //   }
+    //   console.log(entries[0])
+    // });
+
+    // ele && intersectionObserver?.observe(ele);
+
+    // return () => {
+    //   ele && intersectionObserver?.unobserve(ele)
+    // }
+  }, [])
+
+  useEffect(() => {
+    // findingElement()
+    const handleScroll = () => {
+      for (const divId of shareEle) {
+        const div = document.getElementById(divId);
+  
+        if (!div) continue;
+  
+        const intersectionObserver = new IntersectionObserver(entries => {
+          if (entries[0].intersectionRatio >= 0 && scrolls) {
+            // console.log(entries[0])
+            // let val = document.getElementById('target' + divId[divId.length - 1])
+            // val?.classList.remove('fixed', 'top-0', 'right-[15px]')
+            // scrolls = false
+            // setScrolls(scrolls)
+          }
+        });
+  
+        intersectionObserver?.observe(div);
+  
+        return () => {
+          intersectionObserver?.unobserve(div)
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+
+  }, [])
+
+
   return (
     <>
       {/* {console.log('child',data)}   */}
       <div ref={cardref}>
-        <div className={`flex w-full lg:relative lg:gap-[30px] lg:justify-between md:gap-[20px] md:flex-wrap lg:p-[30px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
-          <div className={` md:w-full ${(!data.is_member && data.ir_prime == 1) ? 'w-[calc(80%_-_20px)] m-auto' : 'w_70'}`}>
+        <div className={`flex w-full lg:relative lg:gap-[30px] lg:justify-between md:gap-[20px] md:flex-wrap lg:p-[20px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
+          <div id={'parent' + i} className={` md:w-full ${(!data.is_member && data.ir_prime == 1) ? 'w-[calc(80%_-_20px)] m-auto' : 'w_70'}`}>
             <p>
               <Content i={i} res={data} updateShare={(data) => updateShare(data)} noScroll={(val) => noScroll(val)} />
             </p>
@@ -565,6 +725,8 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               </>
               }
 
+              <div id={`share` + i}></div>
+
               {data.disable_comments != 1 &&
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
@@ -597,12 +759,14 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
             </div>}
           </div>
 
-          {((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) && <div className={`w_30 md:hidden `}>
+          {((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) && <div id={'target' + i} className={`w_30 md:hidden finding`}>
             {/* {data.advertisement_tags && data.advertisement_tags.length != 0 && <AdsBaner data={data.advertisement_tags[0]} />} */}
             {(data.place_holders_ads && data.place_holders_ads.length != 0) &&
               <Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : []} productNavigation={productNavigation} />}
           </div>}
         </div>
+
+        <div id='tg'></div>
 
         {data.latest_news && data.latest_news.length != 0 && <div className={`${isMobile ? '' : 'container'}  ${styles.section_3}`}>
           {/* Slider */}

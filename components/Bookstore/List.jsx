@@ -4,12 +4,12 @@ import { useRouter } from 'next/router'
 import { check_Image } from '@/libs/common';
 import ImageLoader from '../ImageLoader';
 
-export default function List({ data,border_b,line_clamp, flex, height, width, imgWidth, imgWidth1, route, boxShadow, check, category }) {
+export default function List({ data, border_b, line_clamp, flex, height,isLanding, width, imgWidth, imgWidth1, route, boxShadow, check, category }) {
   const router = useRouter();
 
-  function navigateToDetail(res){
+  function navigateToDetail(res) {
     // router.push(`/${router.asPath.split('/')[1] +'/' + category + '/' + res.route}`)
-    router.push({ pathname: `/${router.asPath.split('/')[1] +  '/' + res.route}` }, undefined, { shallow: false, scroll: false });
+    router.push({ pathname: `/${router.asPath.split('/')[1] + '/' + res.route}` }, undefined, { shallow: false, scroll: false });
     // router.replace({ pathname: `/${router.asPath.split('/')[1] +  '/' + res.route}` }, undefined, { shallow: false, scroll: false });
   }
 
@@ -17,7 +17,7 @@ export default function List({ data,border_b,line_clamp, flex, height, width, im
     <>
       {data.map((res, index) => {
         return (
-          <div className={`flex cursor-pointer gap-[10px] ${border_b ? border_b : ''} ${flex ? flex : ''}`} onClick={() => navigateToDetail(res)} key={index}>
+          <div className={`flex cursor-pointer gap-[10px] ${border_b ? border_b : ''} ${flex ? flex : ''}`} onClick={() => isLanding ? router.push('/bookstore/' + category + '/' + res.route) : navigateToDetail(res)} key={index}>
             <div className={`${imgWidth}`}>
               {/* <Image className={`${height} ${width}  ${boxShadow && 'rounded-[5px]'}`} src={check ? check_Image(res.product_image) : res.image} height={210} width={162} alt={res.title}></Image> */}
               <ImageLoader style={`${height} ${width}  ${boxShadow && 'rounded-[5px]'}`} src={res.product_image} title={res.title ? res.title : 's'} />
