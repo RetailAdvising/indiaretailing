@@ -61,7 +61,7 @@ export default function MainFooter({ footerData }) {
             </div>
             <p className='copy_write md:p-[15px_25px] mb-[10px]'>{footer.footer.copy_write}<a href={`${footer.footer.copy_link}`} className='hover:text-[red]'> {footer.footer.copy_link_text}</a>. All Rights Reserved</p> */}
 
-            <div className='footer lg:mt-[30px]'>
+            <div className='footer overflow-hidden lg:mt-[30px]'>
                 {footerData && <div className={` container flex md:block gap-[20px] py-[20px] md:px-[30px] `}>
                     {footerData.items && footerData.items.map((footer_item, index) => {
                         return (

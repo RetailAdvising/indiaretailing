@@ -42,7 +42,7 @@
     }
 
     .title {
-      @apply text-[15px] font-semibold leading-[18.62px] line-clamp-2;
+      @apply text-[14px] font-semibold leading-[18.62px] line-clamp-2;
 
     }
 
@@ -182,10 +182,13 @@
 .gray_color {
   color: $secondary-color;
 }
+// html{
+//   overflow-x: hidden;
+// }
 
 html,
 body {
-  overflow-x: hidden;
+  // overflow-x: hidden;
   padding: 0 !important;
 
   // font-family: 'Poppins', sans-serif !important;
@@ -880,14 +883,14 @@ input {
       }
 
       .rodal-close {
-        color: #fff;
-        top: 25px;
+        // color: #fff;
+        // top: 25px;
       }
 
-      .rodal-close:before,
-      .rodal-close:after {
-        background: #fff;
-      }
+      // .rodal-close:before,
+      // .rodal-close:after {
+      //   background: #fff;
+      // }
     }
   }
 
@@ -1128,8 +1131,8 @@ input {
       }
 
       .rodal-close {
-        color: #fff;
-        top: 25px;
+        // color: #fff;
+        // top: 25px;
       }
 
       .rodal-close:before,

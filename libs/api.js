@@ -238,6 +238,26 @@ export async function GET(api) {
     return data;
 }
 
+export async function GET_Resource(api) {
+    let apikey;
+    let secret;
+    if (typeof window !== 'undefined') {
+        // Perform localStorage action
+        // apikey = localStorage['apikey'] ? localStorage['apikey'] : "955e1e58eaa8a8e";
+        // secret = localStorage['secret'] ? localStorage['secret'] : "6b5ba30c64e937e";
+        apikey = localStorage['apikey'] ? localStorage['apikey'] : undefined;
+        secret = localStorage['secret'] ? localStorage['secret'] : undefined;
+    }
+    const myHead = new Headers((apikey && secret) ? { "Authorization": 'token ' + apikey + ':' + secret, "Content-Type": "application/json" } : { "Content-Type": "application/json" })
+    // const myHead = new Headers()
+    // myHead.append('Content-Type', 'application/json');
+    const response = await fetch(api,
+        // cache: 'force-cache'
+        { method: 'GET', headers: myHead, })
+    const data = await response.json();
+    return data;
+}
+
 export async function HomePage(data) {
     let api = 'go1_cms.go1_cms.api.get_page_content_with_pagination';
     return await postMethod(api, data)
@@ -636,4 +656,14 @@ export async function update_password(data) {
 export async function get_customer_plan_based_subscritpions(data) {
     let api = 'subscription.subscription.api.get_customer_plan_based_subscritpions'
     return await postMethod(api, data)
+}
+
+export async function newsletter_category() {
+    // let api = resourceUrl + 'Newsletter Category?fields=["title","route","name"]'
+    // return await GET_Resource(api)
+}
+
+export async function newsletter_category_list(data) {
+    let api = resourceUrl + `Newsletter?fields=["*"]&filters=[["custom_day","=",${JSON.stringify(data)}]]`
+    return await GET_Resource(api)
 }

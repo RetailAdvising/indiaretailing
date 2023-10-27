@@ -27,17 +27,6 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
     const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    function sortBy() {
-        setSort(!sort);
-        let element = document.getElementById('dropdown');
-        sort ? element.classList.add('dropdown-menu-active') : element.classList.remove('dropdown-menu-active');
-    }
-    const sortby = [{ name: 'Newest' }, { name: 'Oldest' }]
-
-    function setValues(e) {
-        setSortByVal(e.name);
-        sortBy();
-    }
     function show_alert(message) {
         setAlertMessage({ message: message })
         setIsSuccessPopup(true)
@@ -101,28 +90,28 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
         commentslist();
     }
 
-    async function sendMsg(id) {
-        let element = document.getElementById(id);
-        if (element.value && element.value != '') {
-            let param = { article: cur.name, comment: element.value };
-            let resp = await addComment(param);
-            if (resp.message) {
-                element.value = '';
-                toast.success("The comment will appear once it's been approved by IndiaRetailing");
-                // console.log(resp.message);
-                // resp.message["is_liked"] = 0
-                // resp.message["likes"] = 0
-                // resp.message["is_disliked"] = 0
-                // resp.message["dislikes"] = 0
-                // setComments(c => [...c, resp.message])
+    // async function sendMsg(id) {
+    //     let element = document.getElementById(id);
+    //     if (element.value && element.value != '') {
+    //         let param = { article: cur.name, comment: element.value };
+    //         let resp = await addComment(param);
+    //         if (resp.message) {
+    //             element.value = '';
+    //             toast.success("The comment will appear once it's been approved by IndiaRetailing");
+    //             // console.log(resp.message);
+    //             // resp.message["is_liked"] = 0
+    //             // resp.message["likes"] = 0
+    //             // resp.message["is_disliked"] = 0
+    //             // resp.message["dislikes"] = 0
+    //             // setComments(c => [...c, resp.message])
 
-                // let array  = []
-                // array.push(resp['message']);
-                // cur.comments = [...comments, ...array];
-                // store_comments(cur);
-            }
-        }
-    }
+    //             // let array  = []
+    //             // array.push(resp['message']);
+    //             // cur.comments = [...comments, ...array];
+    //             // store_comments(cur);
+    //         }
+    //     }
+    // }
 
 
 
@@ -130,7 +119,7 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
     return (
         <div className={`${modal == 'report' ? 'report_cmt_popup' : ''}`}>
             {/* <div> */}
-            <ToastContainer position={'bottom-right'} autoClose={2000} />
+            {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> */}
             {/* </div> */}
             {/* {show ? <div >
                 <h6 >Hello modal</h6>
@@ -146,41 +135,21 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
                             <SignUp hide={hide} isModal={true} />
                         </Rodal>
                         : modal == 'comments' ? <Rodal visible={visible} animation='slideRight' onClose={hide}>
-                            <div className={`flex justify-between py-[20px] px-[15px]  bg-[#e21b22]`}>
+                            {/* <div className={`flex justify-between py-[20px] px-[15px]  bg-[#e21b22]`}>
                                 <h6 className='text-[18px] font-semibold text-[#fff]'>All Comments</h6>
-                                {/* <div className='dropdowns w-[130px] cursor-pointer pr-[40px]'>
-                                    <div className='flex items-center gap-[5px]' onClick={sortBy}>
-                                        <Image src={'/categories/sort-by.svg'} height={20} width={30} alt="sortBy" className='' />
-                                        <p className={`dropdowns transition-all delay-500`} >Sort by</p>
-                                    </div>
-
-                                    <div className={`dropdown-menu`} id='dropdown'>
-                                        {sortby && sortby.map((res, index) => {
-                                            return (
-                                                <p key={index} onClick={() => setValues(res)} className={`dropdown-item p-[5px_10px] w-full ${res.name == sortbyVal ? 'activeSort' : ''}`}>{res.name}</p>
-                                            )
-                                        })}
-                                    </div>
-                                </div> */}
-                            </div>
-                            <div className='flex justify-between gap-[10px]'>
+                            </div> */}
+                            {/* <div className='flex justify-between gap-[10px]'>
                                 <div className='flex w-full mt-[10px] items-center'>
-                                    {/* onClick={checkValid} */}
+                                   
                                     <textarea id='addCmt' type='text' row={1} placeholder='Add a comment...' className='comment_box flex-1 pt-[7px] border-none  w-full text-[14px] p-[5px]' />
                                     <div className='flex-[0_0_30px] relative'>
                                         <Image src={'/categories/send-arrow.svg'} className='cursor-pointer absolute top-0 m-auto bottom-0' onClick={() => sendMsg('addCmt')} height={22} width={22} alt='send' />
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             {(comments && comments.length != 0 && !noData) ?
                                 <div className='commentPopup '>
-                                    {/* {comments.map((res, index) => {
-                                        return ( */}
-                                    {/* // isLast={index == comments.length - 1} */}
-                                    {/* <Comments load={loadMore} key={index} store_comments={(cur)=>store_comments(cur)} comments={cur} data={res} /> */}
-                                    <Comments updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} load={loadMore} route={route} data={comments} />
-                                    {/* )
-                                    })} */}
+                                    <Comments isModal={true} hide={hide} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} cur={cur} load={loadMore} route={route} data={comments} />
                                 </div>
                                 : noData ? <div className='mt-[15px] h-[70vh] overflow-auto'>
                                     {[0, 1, 2, 3, 4, 5].map((res, index) => {

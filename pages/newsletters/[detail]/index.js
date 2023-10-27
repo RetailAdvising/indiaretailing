@@ -5,7 +5,7 @@ import Title from '@/components/common/Title';
 import NewsCard from '@/components/Newsletter/NewsCard';
 import Tabs from '@/components/common/Tabs';
 import AlertPopup from '@/components/common/AlertPopup';
-import { get_all_newsletter, newsDetail, newsLanding, getAds } from '@/libs/api';
+import { get_all_newsletter, newsDetail, newsLanding, getAds, newsletter_category, newsletter_category_list, getList } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -13,7 +13,15 @@ import NewsList from '@/components/Newsletter/NewsList';
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import NoProductFound from '@/components/common/NoProductFound';
 import AlertUi from '@/components/common/AlertUi';
-
+import { Montserrat,Inter } from 'next/font/google'
+const inter = Inter({
+  weight: ["300","400","500","600","700"],
+  display: "block",
+  preload: true,
+  style: 'normal',
+  subsets: ["latin"],
+  variable: '--font-inter'
+})
 export default function NewsLists({ data, Id }) {
   const tabs = [{ name: 'Current edition' }, { name: 'All Newsletter' }]
   const [isChecked, setIsChecked] = useState(false);
@@ -74,6 +82,7 @@ export default function NewsLists({ data, Id }) {
     allNews();
     getAd();
     newsLanding_info();
+    getCategory()
   }, [router.query])
 
   // All News
@@ -99,17 +108,60 @@ export default function NewsLists({ data, Id }) {
     setData(news)
   }
 
-  const [ads,setAds] = useState()
+  const [ads, setAds] = useState()
 
   const getAd = async () => {
-      let params = { doctype: 'News letter', page_type: 'Detail' }
-      const res = await getAds(params);
-      const ads = res.message;
-      if(ads){
-        setAds(ads)
-      }
+    let params = { doctype: 'News letter', page_type: 'Detail' }
+    const res = await getAds(params);
+    const ads = res.message;
+    if (ads) {
+      setAds(ads)
     }
-  
+  }
+
+  let [newsCategory, setNewsCategory] = useState([])
+  let [newsList, setNewsList] = useState([])
+  let [selectedCategory, setSelectedCategory] = useState()
+  const getCategory = async () => {
+    // let resp = await newsletter_category()
+    let params = {
+      doctype: 'Newsletter Category',
+      fields: ["title", "name", "route", "article_category"],
+      filters: { 'published': 1 }
+    }
+    let resp = await getList(params)
+    if (resp.message && resp.message.length != 0) {
+      newsCategory = resp.message;
+      selectedCategory = resp.message[0].title;
+      setSelectedCategory(selectedCategory)
+      setNewsCategory(newsCategory)
+      getCategoryBaseddata(resp.message[0])
+      // console.log(resp)
+    }
+  }
+
+  const getCategoryBaseddata = async (data) => {
+    let params = {
+      doctype: 'Newsletter',
+      fields: ["name", "route", "subject", "custom_image_ as image"],
+      filters: { 'custom_day': data.title },
+      page_no: 1,
+      page_size: 12
+    }
+    let resp = await getList(params)
+    if (resp.message && resp.message.length != 0) {
+      newsList = resp.message;
+      setNewsList(newsList)
+      // console.log(resp)
+    }
+  }
+
+  const activeCategory = async (res, index) => {
+    selectedCategory = res.title;
+    setSelectedCategory(selectedCategory)
+    getCategoryBaseddata(res)
+  }
+
 
   return (
     <>
@@ -139,7 +191,7 @@ export default function NewsLists({ data, Id }) {
             {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] md:flex-wrap justify-between gap-5`}>
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_0px)]`}>
                 {/* <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.article_detail.title}</h6> */}
-                <p className='text-[20px] md:text-[16px] font-semibold py-3 md:hidden'>{data.article_detail.subject}</p>
+                <p className={`text-[20px] md:text-[16px] font-semibold py-3 md:hidden ${inter.className}`}>{data.article_detail.subject}</p>
                 <div dangerouslySetInnerHTML={{ __html: data.article_detail.message }} className={`contents sub_title py-3 md:hidden`} />
                 <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] block h-[35px] w-[100px]'>subscribe</button>
               </div>
@@ -158,10 +210,27 @@ export default function NewsLists({ data, Id }) {
               <div className='lg:grid grid-cols-4 no_scroll lg:gap-5'><NewsCard data={data.more_articles} imgClass={'h-[215px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[310px] md:h-[280px] md:flex-[0_0_calc(50%_-_10px)]'} /></div>
             </div>}
 
-            {(data.other_newsletters && data.other_newsletters.length != 0) && <div className='p-[30px_0]'>
+            {/* {(data.other_newsletters && data.other_newsletters.length != 0) && <div className='p-[30px_0]'>
               <Title data={{ title: "Read other Newsletters" }} />
               <div className='lg:grid grid-cols-4 no_scroll lg:gap-5'><NewsCard data={data.other_newsletters} imgClass={'h-[315px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[280px] md:flex-[0_0_calc(50%_-_10px)]'} /></div>
-            </div>}
+            </div>} */}
+
+            <div className='border p-[10px] rounded-[5px]'>
+              <div className={`flex items-center m-[10px] gap-[15px]`}>
+                {newsCategory && newsCategory.length != 0 && newsCategory.map((res, i) => {
+                  return (
+                    <div key={i} onClick={() => activeCategory(res, i)} className='cursor-pointer'>
+                      <p className={`${selectedCategory == res.title ? 'tabActive' : ''} pb-[5px] text-[14px] font-semibold capitalize ${inter.className}`}>{res.article_category.split('-').join(" ")}</p>
+                    </div>
+                  )
+                })}
+              </div>
+
+              <div className={`m-[25px_10px]`}>
+                {newsList && newsList.length != 0 ?<div className='lg:grid grid-cols-4  no_scroll lg:gap-5'><NewsCard data={newsList} imgClass={'h-[215px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[310px] md:h-[280px] md:flex-[0_0_calc(50%_-_10px)]'} /></div> :
+                 <>No Newsletters Found</>}
+              </div>
+            </div>
 
             {/* {showAlert && <AlertPopup data={data} show={() => setShowAlert(false)} />} */}
             {/* {showAlert && <NewsList data={news} />} */}
@@ -170,7 +239,7 @@ export default function NewsLists({ data, Id }) {
 
           </> : <>
             {(allNewsLetter && allNewsLetter.length != 0) ?
-              <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] md:gap-[10px] pt-[20px] md:pt-[15px]'>
+              <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] md:gap-[10px] pt-[20px] md:pt-[15px] '>
                 <NewsCard load={() => handleCheckboxChange()} pagination={true} data={allNewsLetter} imgClass={'h-[315px] md:h-[200px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[300px]'} />
               </div> :
               <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-newsletter.svg'} heading={'No Newsletters Found'} />

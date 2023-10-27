@@ -86,7 +86,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       <>
         <Header checkout={checkout} />
         {/* {!checkout && <Navbar isLanding={isLanding} heading={head} /> } */}
-        <Navbar isLanding={isLanding} heading={head} checkout={checkout} />
+        <div className={``}><Navbar isLanding={isLanding} heading={head} checkout={checkout} /></div>
         {/* {!checkout ? <Navbar isLanding={isLanding} heading={head} /> : <div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={head} /></div> } */}
         {(breadCrumbs && breadCrumbs.length > 1 && breadCrumbs[1] && breadCrumbs[1] != 'newsletters' && breadCrumbs[1].split('?')[0] != 'thankyou' && breadCrumbs[1].split('?')[0] != 'profile' && breadCrumbs[1].split('?')[0] != 'search' && breadCrumbs[1].split('?')[0] != 'tag') &&
           <div className='container flex  gap-[7px] md:hidden pt-[20px]'>

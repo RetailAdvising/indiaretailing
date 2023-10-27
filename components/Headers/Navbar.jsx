@@ -9,7 +9,15 @@ import setRoutes from 'redux/actions/routesAction'
 import { checkMobile } from '@/libs/api';
 import format from 'date-fns/format'
 import MobileHead from './MobileHead';
-
+import { Montserrat,Inter } from 'next/font/google'
+const inter = Inter({
+  weight: ["300","400","500","600","700"],
+  display: "block",
+  preload: true,
+  style: 'normal',
+  subsets: ["latin"],
+  variable: '--font-inter'
+})
 export default function Navbar({ heading, isLanding, checkout }) {
     const router = useRouter();
     const route = useSelector(state => state.routes)
@@ -80,7 +88,7 @@ export default function Navbar({ heading, isLanding, checkout }) {
                                         {res.menus.map(item => {
                                             return (
                                                 // ${nav1 == item.redirect_url ? header.activeMenu : ''}
-                                                <Link href={item.redirect_url} className={`${header.listKey} font-semibold navigation_c lg:text-[16px] tracking-wide ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''}`} key={item.menu_label}>
+                                                <Link href={item.redirect_url} className={`${header.listKey} font-semibold navigation_c lg:text-[16px] tracking-wide ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''} ${inter.className}`} key={item.menu_label}>
                                                     {item.menu_label}
                                                 </Link>
                                             )

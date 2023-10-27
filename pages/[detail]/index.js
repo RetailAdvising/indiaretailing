@@ -210,7 +210,8 @@ export default function Details({ data, page_route }) {
                 // console.log(routeList)
                 // router.push('/' + routeList[ind], undefined, { scroll: false });
                 router.replace({ pathname: '/' + routeList[ind] }, undefined, { shallow: true, scroll: false });
-
+                // let val = document.getElementById('target' + divId[divId.length - 1])
+                // val?.classList.remove('sticky', 'top-0', 'z-10','bg-white','h-[calc(100vh_-_10px)]','overflow-auto','scrollbar-hide')
                 // generateMetaData(values[ind])
                 if (values && values.length > 0 && values[ind]) {
                   setMetaInfo(values[ind]);

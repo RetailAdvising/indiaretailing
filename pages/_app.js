@@ -11,6 +11,8 @@ import MobileHead from '@/components/Headers/MobileHead'
 import BottomTabs from '@/components/common/BottomTabs'
 import Header from '@/components/Headers/Header'
 import { useRouter } from 'next/router'
+import { ChakraProvider } from '@chakra-ui/react'
+
 // import Loader from '@/components/Loader'
 // const inter = Inter({
 //   weight: ["200", "300", "400", "500", "600", '700'],
@@ -82,7 +84,7 @@ export default function App({ Component, pageProps }) {
   //     router.events.on("routeChangeStart", handleStart);
   //     router.events.on("routeChangeComplete", handleComplete);
   //     router.events.on("routeChangeError", handleComplete);
-  
+
   //     return () => {
   //       router.events.off("routeChangeStart", handleStart);
   //       router.events.off("routeChangeComplete", handleComplete);
@@ -127,14 +129,16 @@ export default function App({ Component, pageProps }) {
       <ErrorBoundary >
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
-           <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
-            <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
-            {/* <Header/> */}
-            <Component {...pageProps} />
-            <div className='lg:hidden'>
-              <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
-            </div>
-          </main>
+          <ChakraProvider>
+            <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
+              <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
+              {/* <Header/> */}
+              <Component {...pageProps} />
+              <div className='lg:hidden'>
+                <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
+              </div>
+            </main>
+          </ChakraProvider>
         </Provider>
       </ErrorBoundary>
     </>
