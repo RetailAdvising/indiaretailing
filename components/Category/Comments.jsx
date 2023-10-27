@@ -5,18 +5,7 @@ import Modal from '../common/Modal';
 import AlertUi from '../common/AlertUi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import {
-//     Modal,
-//     ModalOverlay,
-//     ModalContent,
-//     ModalHeader,
-//     useDisclosure,
-//     ModalFooter,
-//     ModalBody,
-//     Box,
-//     Button,
-//     ModalCloseButton,
-//   } from '@chakra-ui/react'
+import ModPopup from './ModPopup'
 export default function Comments({ data, isLast, load, comments, route, updatedCmt, cur, isModal, hide }) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
@@ -212,7 +201,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                 })
             }
 
-            {/* {mod && <Alert  />} */}
+            {/* {mod && <ModPopup />} */}
 
             {isModal && <div className={`flex justify-between p-[20px_15px] `}>
                 <h6 className='text-[18px] font-semibold '>All Comments</h6>

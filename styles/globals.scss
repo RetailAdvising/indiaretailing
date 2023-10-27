@@ -6,7 +6,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Poppins:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Faustina:wght@300;400;500;600;700;800&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
 @layer components {
   .primary_btn {
     background: $primary-color;
@@ -188,10 +187,11 @@
 
 html,
 body {
-  // overflow-x: hidden;
+  
   padding: 0 !important;
 
   // font-family: 'Poppins', sans-serif !important;
+  
   p,
   span {
     font-size: $font-15;
@@ -683,6 +683,10 @@ input {
 }
 
 @media screen and (max-width:768px) {
+
+  html,body{
+    overflow-x: hidden;
+  }
 
   .w_100 {
     width: 100%;

@@ -768,7 +768,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
             {/* {data.advertisement_tags && data.advertisement_tags.length != 0 && <AdsBaner data={data.advertisement_tags[0]} />} */}
             {(data.place_holders_ads && data.place_holders_ads.length != 0) &&
             // h-[calc(100vh_-_10px)] scrollbar-hide
-              <div id={'target' + i} className={`sticky top-0 z-10 bg-white  overflow-auto `}><Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : []} productNavigation={productNavigation} /></div>}
+              <div id={'target' + i} className={`sticky h-[calc(100vh_-_10px)] scrollbar-hide top-0 z-10 bg-white  overflow-auto `}><Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : []} productNavigation={productNavigation} /></div>}
           </div>}
         </div>
 
