@@ -1,9 +1,9 @@
 import React from 'react';
-import footer from '@/libs/footer';
+import footer from '@/libs/contactus';
 import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
 
-export default function Contact() {
+export default function Contact() { 
  
     return (
       <RootLayout>
@@ -17,6 +17,9 @@ export default function Contact() {
 
                             <h6 className='font-medium pb-1 pt-2'>{footer.footer.section_1.addresstitle1}</h6 >
                             <p className='address font-normal'>{footer.footer.section_1.address1}</p>
+
+                           {footer.footer.section_1.addresstitle2 &&<><h6 className='font-medium pb-1 pt-2'>{footer.footer.section_1.addresstitle2}</h6 >
+                            <p className='address font-normal'>{footer.footer.section_1.address2}</p></> }
 
                             <span className='flex flex-row mt-2.5 gray-text'>
                                 <Image src={footer.footer.section_1.phoneicon} height={18} width={18} alt={"image"} className='mr-3 m-0.5' />

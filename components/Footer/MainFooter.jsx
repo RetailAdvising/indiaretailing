@@ -86,6 +86,9 @@ export default function MainFooter({ footerData }) {
                                                 </div>}
                                             {item.section_name == 'Social Links' &&
                                                 <>
+                                                <><h6 className='font-medium pb-1 pt-2'>Advertise with us</h6 >
+                                                    <p className='address font-normal pb-2 text-[14px]'>Showcase your product / solution to digitally savvy decision makers from Retail, eCommerce, D2C, Fashion, Food, shopping centres and grow exponentially.</p>
+                                                    <p className='address font-normal text-[14px]'>We have various ways to promote your brand and to know how, please get in touch with Bhavesh Pitroda email : bhaveshpitroda@imagesgroup.in</p></> 
                                                     <div className='md:flex-[0_0_calc(100%_-_10px)]' >
                                                         <h6 className='text-[16px] font-semibold pb-[10px] pt-[20px] '>Our Social Media</h6>
                                                         <div className='flex items-center gap-[13px] py-[10px]'>
