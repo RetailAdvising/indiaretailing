@@ -77,9 +77,7 @@ const JoinOurTeam = ({style, styles}) => {
       data.phone_number = data.phonenumber;
       data.full_name = data.username;
       data.email_id = data.mailid;
-
-      let datas = {'data': data}
-      const resp = await insert_doc(datas);
+      const resp = await insert_doc(data);
       if(resp && resp.message && resp.message.name){
         reset();
         toast.success('Detail updated successfully');
