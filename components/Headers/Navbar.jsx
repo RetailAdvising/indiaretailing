@@ -79,7 +79,7 @@ export default function Navbar({ heading, isLanding, checkout }) {
                         return (
                             <div key={res.section_name} className={`${(res.section_name == 'Header Logo' || res.section_name == 'Header Profile Info') ? 'flex-[0_0_calc(20%_-_10px)]' : (res.section_name == 'Header Category Info') ? 'lg:flex-[0_0_calc(100%_-_10px)] container pt-[10px]' : 'flex-[0_0_calc(60%_-_10px)]'}`}>
                                 {res.section_name == 'Header Logo' && <div>
-                                    <Image priority height={20} width={20} alt={res.section_name} src={'/menu.svg'} />
+                                    {/* <Image priority height={20} width={20} alt={res.section_name} src={'/menu.svg'} /> */}
                                 </div>}
 
                                 {(res.section_name == 'Header Menu' && res.menus) && <>

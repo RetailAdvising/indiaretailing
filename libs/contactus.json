@@ -108,5 +108,47 @@
         "copy_write": "Copyright © 2023.",
         "copy_link_text": "Indiaretailing.com",
         "copy_link": "#"
-    }
+    },
+    "data":{
+        "address_content": "",
+        "bt1_bg": "",
+        "class_name": "oaxqckru",
+        "content": "Contact Us",
+        "content_type": "",
+        "dynamic_data": 0,
+        "email_icon": "",
+        "email_id": "",
+        "icon": "",
+        "is_full_width": 0,
+        "layout_json": null,
+        "login_required": 0,
+        "mobile_app_template": null,
+        "no_of_records": 0,
+        "phone_icon": "",
+        "phone_no": "",
+        "reference_document": null,
+        "section": "PS-23-00295",
+        "section_name": "Contact Info",
+        "section_type": "Static Section",
+        "social_links": [
+          {
+            "icon": "/files/fb-01.svg",
+            "idx": 1,
+            "redirect_link": "https://www.facebook.com/"
+          },
+          {
+            "icon": "/files/twitter-01.svg",
+            "idx": 2,
+            "redirect_link": "https://twitter.com/home"
+          },
+          {
+            "icon": "/files/instagram-01.svg",
+            "idx": 3,
+            "redirect_link": "https://www.instagram.com/"
+          }
+        ],
+        "title": "Contact Us",
+        "view_more_redirect_to": null,
+        "view_type": ""
+      }
 }

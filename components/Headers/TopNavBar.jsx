@@ -17,7 +17,7 @@ export default function TopNavBar({ nav_data,getActiveTab,activeTab }) {
             "redirect_url": "/IRPrime",
         },
         {
-            "menu_label": "Event",
+            "menu_label": "Events",
             "redirect_url": "/events",
 
         },
@@ -27,17 +27,17 @@ export default function TopNavBar({ nav_data,getActiveTab,activeTab }) {
             "icon": "/Navbar/Book-Store.svg",
         },
         {
-            "menu_label": "Newsletter",
+            "menu_label": "Newsletters",
             "redirect_url": "/newsletters",
             "icon": "/Navbar/newsletter.svg",
         },
         {
-            "menu_label": "Video",
+            "menu_label": "Videos",
             "redirect_url": "/video",
             "icon": "/Navbar/video.svg",
         },
         {
-            "menu_label": "Podcast",
+            "menu_label": "Podcasts",
             "redirect_url": "/podcast",
             "icon": "/Navbar/Podcasts.svg",
         }

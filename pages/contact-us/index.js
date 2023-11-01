@@ -2,11 +2,22 @@ import React from 'react';
 import footer from '@/libs/contactus';
 import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
-
+import ContactInfo from '../../components/ProfileCom/ContactInfo'
 export default function Contact() { 
  
     return (
       <RootLayout>
+             {/* <ContactInfo contactInfo={footer.data}/> */}
+             <div className="container lg:py-10 md:py-4">
+            <div className="row">
+                {footer.data.title &&
+                 <div className="m-auto text-center">
+                  <h2 className="lg:text-4xl md:text-2xl font-bold">{footer.data.title} </h2>
+                 </div>
+                }
+                {footer.data.content && footer.data.content == 'Contact Us' && <ContactInfo contactInfo={footer.data} />}
+              </div>
+          </div>
             <div className={`footer`}>
                 <div className='container gap-11 py-10 md:p-[15px] max-w-full'>
                     {footer.footer.section_1 && <div className={`flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] flex flex-row gap-1.5 md:flex-col`}>
