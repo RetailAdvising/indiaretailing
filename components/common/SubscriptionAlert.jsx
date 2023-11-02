@@ -4,7 +4,7 @@ import AuthModal from '../Auth/AuthModal';
 import { useState } from 'react'
 
 
-export default function SubscriptionAlert({ data }) {
+export default function SubscriptionAlert({ data,isModal }) {
     const router = useRouter();
     // console.log(data)
     // Modal Popup
@@ -20,12 +20,12 @@ export default function SubscriptionAlert({ data }) {
     }
     return (
         <>
-            <div className='lg:flex items-center gap-5  rounded-[10px] lg:h-[550px] my-5 p-[40px] md:p-[20px] shadow-[rgba(0,0,0,0.04)_0px_4px_12px]'>
-                <div className='flex-[0_0_calc(30%_-_10px)]'>
+            <div className={`${isModal ? '' : 'lg:h-[550px] p-[40px] md:p-[20px] shadow-[rgba(0,0,0,0.04)_0px_4px_12px]'} lg:flex items-center gap-5  rounded-[10px]  my-5  `}>
+                <div className={`${isModal ? 'flex-[0_0_calc(35%_-_10px)]' : 'flex-[0_0_calc(30%_-_10px)]'}`}>
                     <Image className='img h-full w-full object-contain' src={'/irprime/news.svg'} height={15} width={15} alt='news' />
 
                 </div>
-                <div className='flex-[0_0_calc(70%_-_10px)]'>
+                <div className={`${isModal ? 'flex-[0_0_calc(65%_-_10px)]' : 'flex-[0_0_calc(70%_-_10px)]'}`}>
                     {!(localStorage && localStorage['apikey']) && <div className="rounded-full justify-center flex gap-[10px] p-[10px] mb-[10px] items-center bg-[#ddd] w-[60%] md:w-[80%] md:p-[8px]">
                         <p className="text-[16px] md:text-[14px]">Already subscribed to Prime </p>
                         <div onClick={show} className='flex cursor-pointer items-center gap-[5px]'>
@@ -34,10 +34,10 @@ export default function SubscriptionAlert({ data }) {
                         </div>
                     </div>}
 
-                    <div className='m-[10px]'>
+                    <div className={`m-[10px] ${isModal ? 'md:h-[250px] md:overflow-auto scrollbar-hide' : ''}`}>
                         <h1 className='font-semibold text-[28px] md:text-[17px]'>Unblock this article by subscribing to Prime</h1>
                         <h4 className='font-semibold text-[20px] md:text-[16px] my-[10px]'>With this subscription you also get:</h4>
-                        {(data && data.length != 0) && data.map((res, i) => {
+                        {(data && data.length != 0) && data.slice(0,4).map((res, i) => {
                             return (
                                 <div key={i} className='flex items-center py-[10px] gap-[10px]'>
                                     <Image src={'/irprime/list-check-ir.svg'} height={20} width={20} alt='' />

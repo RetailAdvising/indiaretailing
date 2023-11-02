@@ -8,18 +8,23 @@ import SEO from '@/components/common/SEO'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import { websiteSettings, get_article_breadcrumb } from '@/libs/api'
+import React, { useEffect, useState, useMemo } from 'react'
+import { websiteSettings, get_article_breadcrumb, get_subscription_plans } from '@/libs/api'
 import MobileHead from '@/components/Headers//MobileHead';
 import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
+import 'rodal/lib/rodal.css';
+import Rodal from 'rodal';
+import dynamic from 'next/dynamic'
+const SubscriptionAlert = dynamic(() => import('@/components/common/SubscriptionAlert'))
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data,is_detail }) {
+export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
   const [headerData, setHeaderData] = useState([]);
   const [footerData, setFooterData] = useState([]);
-
+  const user = useSelector(s => s.user);
   const router = useRouter();
   const styles = {
     display: 'flex',
@@ -35,7 +40,8 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     }
 
     let ads = document.getElementById('ads')
-    get_website_settings() 
+    get_website_settings()
+
     // ads.classList.remove('hidden')
   }, [])
 
@@ -77,6 +83,49 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   //     router.events.off("routeChangeError", handleComplete);
   //   };
   // }, [router]);
+
+
+  let [plans, setPlans] = useState([])
+  let [visible, setVisible] = useState(false)
+
+  const hide = () => {
+    visible = false
+    setVisible(visible)
+  }
+
+  const getMembershipPlans = async () => {
+    if (typeof window != 'undefined' && localStorage && localStorage['roles'] && localStorage['apikey'] ) {
+      let val = JSON.parse(localStorage['roles']);
+      // localStorage['new_user'] = localStorage['full_name'] ? localStorage['full_name'] : 'true';
+      if (val && val.length != 0 && !localStorage['new_user']) {
+        console.log(val);
+        for (let i = 0; i < val.length; i++) {
+          if (val[i]['role'] != 'Member' && val[i]['role'] != 'Member User') {
+            localStorage['new_user'] = localStorage['full_name'] ? localStorage['full_name'] : 'true';
+            let data = { "plan_type": "Month", "res_type": "member" }
+            const resp = await get_subscription_plans(data);
+            if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
+              // console.log(resp)
+              if (resp.message.message && resp.message.message.length != 0 && resp.message.message[0]) {
+                // plans.push(resp.message.message[0].features)
+                plans = resp.message.message[0].features
+                setPlans(plans)
+                visible = true
+                setVisible(visible)
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  useMemo(() => {
+    if(typeof window != 'undefined'){
+      getMembershipPlans()
+    }
+  }, [user])
 
   return (
     <>
@@ -121,6 +170,9 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
             })}
           </div>}
         <main id='main' className={`${router.asPath == '/' || router.asPath == '' ? 'md:overflow-hidden' : ''}`}>
+          {visible && <div className='membAlert'><Rodal visible={visible} animation='slideUp' onClose={hide}>
+            <SubscriptionAlert isModal={true} data={plans} />
+          </Rodal></div>}
           {children}
         </main>
 

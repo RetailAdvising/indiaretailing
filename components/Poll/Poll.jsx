@@ -34,7 +34,7 @@ function Poll({ data, ipAddress }) {
         <>{console.log(pollData)}
             <ToastContainer position={'top-right'} autoClose={2000} />
             {pollData && pollData.map((qsn, index) => (
-                <div key={qsn.name} className='border-light-gray divide-y border rounded flex-[0_0_calc(33.33%_-_20px)]'>
+                <div key={qsn.name} className='border-light-gray divide-y border rounded flex-[0_0_calc(33.33%_-_20px)] mb-[20px]'>
                     <div className='font-semibold p-[20px]'>{qsn.question}</div>
                     <div className='h-[200px] overflow-auto px-[15px] pb-[10px]'>
                         <RadioGroup onChange={($event) => change_option($event, qsn)} defaultValue={qsn.answer} className='pt-[10px]'>

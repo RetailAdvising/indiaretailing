@@ -6,7 +6,8 @@ import AlertUi from '../common/AlertUi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModPopup from './ModPopup'
-export default function Comments({ data, isLast, load, comments, route, updatedCmt, cur, isModal, hide,noScroll }) {
+import CommentModal from './CommentModal'
+export default function Comments({ data, isLast, load, comments, route, updatedCmt, cur, isModal, hide, noScroll }) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
     const [reportComment, setReporComment] = useState()
@@ -94,7 +95,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
         let resp = await getList(param)
         if (resp.message) setReporComment(resp.message)
         //  console.log(reportComment);
-       
+
         setSelecedComment(cur_command)
         show()
     }
@@ -137,27 +138,45 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
         // }
     }
 
+    let [showPopup, setShowPopup] = useState(false)
     async function sendMsg(id) {
         let element = document.getElementById(id + cur.name);
         console.log(element, 'element')
         if (element.value && element.value != '') {
-            let param = { article: cur.name, comment: element.value };
-            let resp = await addComment(param);
-            if (resp.message) {
-                element.value = '';
-                toast.success("The comment will appear once it's been approved by IndiaRetailing");
-                // console.log(resp.message);
-                // resp.message["is_liked"] = 0
-                // resp.message["likes"] = 0
-                // resp.message["is_disliked"] = 0
-                // resp.message["dislikes"] = 0
-                // setComments(c => [...c, resp.message])
+            showPopup = true
+            setShowPopup(showPopup)
 
-                // let array  = []
-                // array.push(resp['message']);
-                // cur.comments = [...comments, ...array];
-                // store_comments(cur);
-            }
+        }
+    }
+
+    const hides1 = (type,data) => {
+        console.log(type)
+        showPopup = false;
+        setShowPopup(showPopup)
+        if(type == 'save'){
+            submitMsg(data)
+        }
+    }
+
+    const submitMsg = async (data) => {
+        // let param = { article: cur.name, comment: element.value };
+        let element = document.getElementById('cmt' + cur.name);
+        let param = { article: cur.name, comment: data.value };
+        let resp = await addComment(param);
+        if (resp.message) {
+            element.value = '';
+            toast.success("The comment will appear once it's been approved by IndiaRetailing");
+            // console.log(resp.message);
+            // resp.message["is_liked"] = 0
+            // resp.message["likes"] = 0
+            // resp.message["is_disliked"] = 0
+            // resp.message["dislikes"] = 0
+            // setComments(c => [...c, resp.message])
+
+            // let array  = []
+            // array.push(resp['message']);
+            // cur.comments = [...comments, ...array];
+            // store_comments(cur);
         }
     }
 
@@ -216,6 +235,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                 <input onClick={hides} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id={`cmt` + cur.name} />
                 <Image src={'/categories/send-01.svg'} onClick={() => sendMsg('cmt')} className='cursor-pointer absolute top-0 m-auto bottom-0 right-[10px]' height={22} width={22} alt='send' />
             </div>
+            { showPopup && <CommentModal hides1={(type,data) => hides1(type,data)} />}
             {data && data.length != 0 && <div className={`${isModal ? '' : 'border rounded-[5px]'} p-[10px]  my-[10px]`}>
                 {data.map((res, i) => {
                     return (
@@ -231,12 +251,12 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                         <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.likes}</span><Image className='h-[16px] w-[16px]  cursor-pointer' onClick={() => likeCmt(res, i)} src={(res.is_liked && res.is_liked == 1) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
                                         <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.dislikes}</span><Image className='h-[16px] w-[16px]  cursor-pointer' onClick={() => dislikeCmt(res, i)} src={(res.is_disliked && res.is_disliked == 1) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
                                     </div>
-                                    {localStorage.apikey && <div>
-                                        <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={() => report(res)} />
-                                    </div>}
+                                    {/* {localStorage.apikey && <div> */}
+                                    <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={() => report(res)} />
+                                    {/* </div>} */}
                                 </div>
-                                    {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}
-                                    {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
+                                {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}
+                                {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
                             </div>
                         </div>
                     )

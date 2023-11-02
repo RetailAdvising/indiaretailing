@@ -864,6 +864,8 @@ input {
     width: 90% !important;
   }
 
+  
+
   .mobile-flex {
     display: block;
     width: 100%;
@@ -1175,8 +1177,13 @@ input {
     width: 35% !important;
   }
 
-
-
+  .membAlert{
+    .rodal-dialog{
+      height: 85vh !important;
+      // width: 70% !important;
+      width: 850px !important;
+    }
+  }
 
   .authModal {
     .rodal-dialog {
@@ -1440,6 +1447,8 @@ button:focus {
     // padding-top: 0px !important;
   }
 }
+
+
 
 .activeBorder {
   border: 1px solid $primary-color;
@@ -1967,6 +1976,14 @@ strong {
   .order_detail {
     .rodal-dialog {
       width: 100% !important;
+    }
+  }
+
+  .membAlert{
+    .rodal-dialog{
+      height: 80vh !important;
+      // width: 70% !important;
+      width: 90% !important;
     }
   }
 

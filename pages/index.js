@@ -6,7 +6,7 @@ import RootLayout from '@/layouts/RootLayout'
 // import {setRoutes} from 'redux/actions/routesAction';
 // import PageData from '@/libs/buider'
 // import HomePageBuilder from '@/components/Builders/HomePageBuilder';
-import { HomePage, getAds, newsLanding, checkMobile, getList, updatePollOptionValue,getPollsList,get_ip } from '../libs/api';
+import { HomePage, getAds, newsLanding, checkMobile, getList, updatePollOptionValue, getPollsList, get_ip } from '../libs/api';
 import { useEffect, useState, useRef } from 'react';
 import SEO from '@/components/common/SEO'
 import dynamic from 'next/dynamic'
@@ -42,6 +42,8 @@ const ImageGroupEvents = dynamic(() => import('@/components/Landing/ImageGroupEv
 const EventList = dynamic(() => import('@/components/Events/EventList'))
 const ListSlider = dynamic(() => import('@/components/Sliders/ListSlider'));
 const Card = dynamic(() => import('@/components/Bookstore/Card'))
+// import SubscriptionAlert from '../common/SubscriptionAlert'
+
 export default function Home({ data }) {
   // console.log(data);
   const [value, setValue] = useState([])
@@ -91,13 +93,13 @@ export default function Home({ data }) {
 
   const [pollList, setPollList] = useState(null);
 
-  const get_polls=async()=>{
+  const get_polls = async () => {
     let ip_address = await get_ip()
     console.log(ip_address);
     let param = {
-        ip_address : ip_address
-      }
-    const resp = await getPollsList(param); 
+      ip_address: ip_address
+    }
+    const resp = await getPollsList(param);
     setPollList(resp.message)
   }
 
@@ -301,6 +303,8 @@ export default function Home({ data }) {
     }
   }
 
+
+
   return (
     <>
       {/*  isLast={index == value.length - 1} */}
@@ -459,13 +463,13 @@ export default function Home({ data }) {
                             <Title data={{ title: c.component_title }} route={'/categories/photo-essays'} seeMore={true} />
                             {/* overflow-auto scrollbar-hide gap-[15px] flex */}
                             <>
-                              <CustomSlider  hide_scroll_button={isMobile ? true : false} noPrimaryText={true} slider_id={'photo_essays_id' + c_index} slider_child_id={'photo_essays' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
+                              <CustomSlider hide_scroll_button={isMobile ? true : false} noPrimaryText={true} slider_id={'photo_essays_id' + c_index} slider_child_id={'photo_essays' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
                                 imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px] line-clamp-2'} subtitle_class={'md:line-clamp-1 line-clamp-2 md:mb-[10px]'} />
                             </>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Poll") && <>
                             <Title data={{ title: 'India Reatiling Poll' }} route={'/polls'} seeMore={true} />
-                            {pollList && <Poll data={pollList.slice(0,1)}/>}
+                            {pollList && <Poll data={pollList.slice(0, 1)} />}
                             {/* <div className='border-light-gray border  rounded divide-y'>
                               <div className='p-[20px] h-[258px] overflow-auto'>
                                 <div className='font-semibold '>{data.data[c.cid].data[0] && data.data[c.cid].data[0]['question']}</div>
