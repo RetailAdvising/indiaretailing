@@ -7,7 +7,7 @@ import { checkMobile } from '@/libs/api'
 import { ToastContainer, toast } from 'react-toastify';
 
 // import { Menu } from '@headlessui/react'
-export default function Dropdowns({ data, img, width, share, setting, element, type, link, updateShare, noScroll }) {
+export default function Dropdowns({ data, img, width, share, setting, element, type, link, updateShare, noScroll, btnClass, cur_data }) {
     const router = useRouter();
 
 
@@ -26,13 +26,26 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
         } else if (data.name == 'Comment') {
             // let el = document.getElementById(element)
             let el = document.getElementsByClassName(element)
+            console.log(el, 'el')
             let doc = Array.from(el)
-            noScroll(isMobile ? false : true);
-            for (let index = 0; index < doc.length; index++) {
-                const element = doc[index];
-                // console.log(element)
-                element.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
+            if (doc && doc.length != 0 && doc[0]) {
+                noScroll(isMobile ? false : true);
+                doc[0].scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
             }
+
+            // noScroll(isMobile ? false : true);
+            // for (let index = 0; index < doc.length; index++) {
+            //     if('cmt'+ cur_data.name == element){
+            //         // const element = doc[index];
+            //         const element = 'cmt'+ cur_data.name;
+            //         // console.log(element)
+            //         element.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
+
+            //     }
+            // }
+
+
+
             // console.log(el)
             // console.log(doc)
             // el && window.scrollTo(0, 10000)
@@ -151,7 +164,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
             <Popover className={`relative `}>
                 {({ open }) => (
                     <>
-                        <Popover.Button className={`${open ? '' : ''} lg:border-[1px] border-slate-100 rounded-[5px] h-[32px] lg:w-[32px] flex items-center justify-center bg-[#e9e9e9]`}>
+                        <Popover.Button className={`${open ? '' : ''} ${btnClass ? btnClass : ''} lg:border-[1px] border-slate-100 rounded-[5px] h-[32px] lg:w-[32px] flex items-center justify-center bg-[#e9e9e9]`}>
                             {/* <span>{btn_name}</span> */}
                             <div className='flex gap-[10px] items-center'>
                                 {/*  */}
@@ -193,9 +206,9 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                         <div className='flex items-center gap-[5px]'>
                                                             {res.name == 'Linkedin' &&
                                                                 // title={title}  summary={description}   source={image}
-                                                                <LinkedinShareButton 
-        
-                                                                 url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                                <LinkedinShareButton
+
+                                                                    url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                     <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                     <p className={'text-[14px]'}>{res.name}</p>
                                                                 </LinkedinShareButton>
@@ -204,7 +217,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                                 //     Share on LinkedIn
                                                                 // </a>
                                                             }
-                                                            {res.name == 'Facebook' && <FacebookShareButton  url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                            {res.name == 'Facebook' && <FacebookShareButton url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </FacebookShareButton>}
@@ -213,10 +226,10 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </TwitterShareButton>}
                                                             {res.name == 'Whatsapp' && <WhatsappShareButton
-                                                               
+
                                                                 // openShareDialogOnClick={url !== "none"}
                                                                 // url={url}
-                                                                 url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
+                                                                url={'https://indiaretail.vercel.app/' + (type == 'tag' ? link.route : type == 'articles' ? router.asPath.split('/')[1] : type == 'books' ? router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2] + '/' + link.route : router.asPath.split('/')[1] + '/' + link.route)} className='flex items-center gap-[10px]'>
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </WhatsappShareButton>}

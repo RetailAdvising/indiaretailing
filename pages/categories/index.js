@@ -13,11 +13,16 @@ import CustomSlider from '@/components/Sliders/CustomSlider';
 // import Loader from '@/components/Loader';
 // import { useRouter } from 'next/router';
 export default function Categories({ data, ads }) {
-    const [isMobile, setIsMobile] = useState()
+    let [isMobile, setIsMobile] = useState(false)
     const [activeNav, setActiveNav] = useState()
     const [datas, setDatas] = useState([])
     useEffect(() => {
         // console.log(data);
+        if (data && data.length != 0) {
+            setTimeout(() => {
+                setDatas(data)
+            }, 200);
+        }
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
@@ -26,25 +31,48 @@ export default function Categories({ data, ads }) {
     }, [])
 
     const checkIsMobile = async () => {
-        let isMobile = await checkMobile();
+        let is_Mobile = await checkMobile();
+        isMobile = is_Mobile
         setIsMobile(isMobile);
     }
 
-    let page_no = 1;
+    // let page_no = 1;
     let cardref = useRef(null);
-    let no_product = false;
+    let [pageNo, setPageNo] = useState(1)
+    let [loading, setLoading] = useState(false);
+    let [noProduct, setNoProduct] = useState(false);
+    // let no_product = false;
     useEffect(() => {
 
-        if (data && data.length != 0) {
-            setTimeout(() => {
-                setDatas(data)
-            }, 200);
-        }
+
+        // const intersectionObserver = new IntersectionObserver(entries => {
+        //     if (entries[0].intersectionRatio <= 0) return;
+        //     if (!no_product && isMobile) {
+        //         page_no > 1 ? getPageData() : null
+        //         page_no = page_no + 1
+        //     }
+        // });
+
+        // intersectionObserver?.observe(cardref?.current);
+
+        // return () => {
+        //     cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+        // }
+
         const intersectionObserver = new IntersectionObserver(entries => {
             if (entries[0].intersectionRatio <= 0) return;
-            if (!no_product) {
-                page_no > 1 ? getPageData() : null
-                page_no = page_no + 1
+            if (!loading && !noProduct && isMobile) {
+                if (pageNo >= 2) {
+                    loading = true
+                    setLoading(loading)
+                    pageNo += 1
+                    setPageNo(pageNo)
+                    getPageData()
+                } else {
+                    pageNo += 1
+                    setPageNo(pageNo)
+                    getPageData()
+                }
             }
         });
 
@@ -53,15 +81,103 @@ export default function Categories({ data, ads }) {
         return () => {
             cardref?.current && intersectionObserver?.unobserve(cardref?.current)
         }
+
     }, [])
 
-    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+
+        // const intersectionObserver = new IntersectionObserver(entries => {
+        //   if (entries[0].intersectionRatio <= 0) return;
+        //   if (!no_product) {
+        //     page_no > 1 ? getPageData() : null
+        //     page_no = page_no + 1
+        //   }
+        // });
+
+        // intersectionObserver?.observe(cardref?.current);
+
+        // return () => {
+        //   cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+        // }
+
+
+        if (!isMobile) {
+            const handleScroll = () => {
+                const scrollTop = document.documentElement.scrollTop
+                const scrollHeight = document.documentElement.scrollHeight
+                const clientHeight = document.documentElement.clientHeight
+                if ((scrollTop + clientHeight) + 1500 >= scrollHeight) {
+                    if (!loading && !noProduct && !isMobile) {
+                        // no_product = true
+                        if (pageNo > 1) {
+                            loading = true
+                            setLoading(loading)
+                            getPageData()
+                        } else {
+                            pageNo += 1
+                            setPageNo(pageNo)
+                        }
+                    }
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+
+            return () => {
+                window.removeEventListener('scroll', handleScroll);
+            };
+        }
+
+        const intersectionObserver = new IntersectionObserver(entries => {
+            if (entries[0].intersectionRatio <= 0) return;
+            if (!loading && !noProduct && isMobile) {
+                if (pageNo > 1) {
+                    loading = true
+                    setLoading(loading)
+                    getPageData()
+                } else {
+                    pageNo += 1
+                    setPageNo(pageNo)
+                    getPageData()
+                }
+            }
+        });
+
+        intersectionObserver?.observe(cardref?.current);
+
+        return () => {
+            cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+        }
+
+        // const intersectionObserver = new IntersectionObserver(entries => {
+        //   if (entries[0].intersectionRatio <= 0) return;
+        //   if (!loading && !noProduct && isMobile) {
+        //     if (pageNo > 1) {
+        //       loading = true
+        //       setLoading(loading)
+        //       getPageData()
+        //     } else {
+        //       pageNo += 1
+        //       setPageNo(pageNo)
+        //     }
+        //   }
+        // });
+
+        // intersectionObserver?.observe(cardref?.current);
+
+        // return () => {
+        //   cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+        // }
+    }, [])
+
+
+
 
     const getPageData = async () => {
         // console.log('load...',)
-        setLoading(true)
+        // setLoading(true)
         let params = {
-            "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title", 'image', "thumbnail_imagee as thumbnail_image", "articles_category", "route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description", "route"], "page_no": page_no, "records": 10, "category_count": 5
+            "doctype": "Articles", "filter_name": "articles_category", "parent_fields": ["name", "title", 'image', "thumbnail_imagee as thumbnail_image", "articles_category", "route"], "category_doctype": "Articles Category", "category_fields": ["name", "title", "primary_text", "description", "route"], "page_no": pageNo, "records": 10, "category_count": 5
         }
         const resp = await getCategoryList(params);
         // const data = res.message;
@@ -72,8 +188,11 @@ export default function Categories({ data, ads }) {
                 setLoading(false)
             }, 400);
         } else {
-            no_product = true;
-            setLoading(false)
+            // no_product = true;
+            // setLoading(false)
+
+            noProduct = true;
+            setNoProduct(noProduct)
         }
     }
 
@@ -86,11 +205,11 @@ export default function Categories({ data, ads }) {
     //   const handleComplete = () => {
     //     setLoader(false);
     //   };
-  
+
     //   router.events.on("routeChangeStart", handleStart);
     //   router.events.on("routeChangeComplete", handleComplete);
     //   router.events.on("routeChangeError", handleComplete);
-  
+
     //   return () => {
     //     router.events.off("routeChangeStart", handleStart);
     //     router.events.off("routeChangeComplete", handleComplete);
@@ -104,7 +223,7 @@ export default function Categories({ data, ads }) {
             <RootLayout homeAd={ads ? ads : null} head={'Categories'} isLanding={true}>
                 <SEO title={'Categories'} siteName={'India Reatiling'} description={'Categories'} />
 
-                 <div className={` md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
+                <div className={` md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
                     <Title data={{ title: 'Categories' }} font={'20px'} className='md:hidden' title_class='md:hidden' />
                     {(datas && datas.length != 0) ? datas.map((res, index) => {
                         return (
@@ -120,7 +239,7 @@ export default function Categories({ data, ads }) {
                         )
                     }) : <Skeleton />}
 
-                    <div className='more h-[80px]' ref={cardref}></div>
+                    <div className='more lg:hidden md:h-[80px]' ref={cardref}></div>
                     {loading && <div id="wave">
                         <span className="dot"></span>
                         <span className="dot"></span>

@@ -31,6 +31,21 @@ export const checkMobile = () => {
     }
 }
 
+export const get_ip = async() => {
+    let ip_address = ''
+    await fetch('https://jsonip.com/')
+        .then((response) => response.json())
+        .then((data) => {
+            ip_address = data.ip
+        })
+        .catch((error) => {
+            console.error('Error fetching IP address:', error);
+            return error
+        });
+        return ip_address
+}
+
+
 export async function getCartItem() {
     const resp = await get_cart_items();
     if (resp && resp.message && resp.message.status == 'success') {
@@ -266,6 +281,16 @@ export async function HomePage(data) {
 export async function websiteSettings(data) {
     let api = 'go1_cms.go1_cms.api.get_all_website_settings';
     return await postMethod(api, data)
+}
+
+export async function updatePollOptionValue(data) {
+    let api = domainUrl + 'update_poll_option';
+    return await postMethod(api, data);
+}
+
+export async function getPollsList(data) {
+    let api = domainUrl + 'get_polls_list';
+    return await postMethod(api, data);
 }
 
 export async function getTagsList(data) {

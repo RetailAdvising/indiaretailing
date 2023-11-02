@@ -120,7 +120,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
               </div>)
             })}
           </div>}
-        <main id='main'>
+        <main id='main' className={`${router.asPath == '/' || router.asPath == '' ? 'md:overflow-hidden' : ''}`}>
           {children}
         </main>
 

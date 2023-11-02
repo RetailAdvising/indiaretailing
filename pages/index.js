@@ -6,7 +6,7 @@ import RootLayout from '@/layouts/RootLayout'
 // import {setRoutes} from 'redux/actions/routesAction';
 // import PageData from '@/libs/buider'
 // import HomePageBuilder from '@/components/Builders/HomePageBuilder';
-import { HomePage, getAds, newsLanding, checkMobile, getList } from '../libs/api';
+import { HomePage, getAds, newsLanding, checkMobile, getList, updatePollOptionValue,getPollsList,get_ip } from '../libs/api';
 import { useEffect, useState, useRef } from 'react';
 import SEO from '@/components/common/SEO'
 import dynamic from 'next/dynamic'
@@ -22,6 +22,7 @@ import TrendingBox from '@/components/Landing/TrendingBox'
 import Title from '@/components/common/Title'
 import Video from '@/components/Video/Video'
 import CustomSlider from '@/components/Sliders/CustomSlider';
+import Poll from '@/components/Poll/Poll';
 // import ListSlider from '../Sliders/ListSlider'
 // import ImageGroupEvents from '../Landing/ImageGroupEvents'
 // import EventList from '../Events/EventList'
@@ -81,11 +82,24 @@ export default function Home({ data }) {
   let [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
     checkIsMobile();
+    get_polls()
     window.addEventListener('resize', checkIsMobile)
     return () => {
       window.removeEventListener('resize', checkIsMobile);
     };
   }, [])
+
+  const [pollList, setPollList] = useState(null);
+
+  const get_polls=async()=>{
+    let ip_address = await get_ip()
+    console.log(ip_address);
+    let param = {
+        ip_address : ip_address
+      }
+    const resp = await getPollsList(param); 
+    setPollList(resp.message)
+  }
 
   const checkIsMobile = async () => {
     let is_mobile = await checkMobile();
@@ -268,7 +282,24 @@ export default function Home({ data }) {
     }
   }
 
+  const [pollOption, setPollOption] = useState('')
+  const change_option = ($event) => {
+    console.log($event.target.value);
+    setPollOption($event.target.value)
+  }
 
+  const updatePollOption = (poll_id) => {
+    if (pollOption && poll_id) {
+      let payload = {
+        poll_id: poll_id,
+        answer: pollOption,
+        ip_address: ''
+      }
+      updatePollOptionValue(payload)
+    } else {
+
+    }
+  }
 
   return (
     <>
@@ -418,21 +449,40 @@ export default function Home({ data }) {
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Case Studies") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/case-studies'} seeMore={true} />
-                            <div className={`no_scroll `}>
-                              {/* <Cards check={true} isHome={'/'} data={data.data[c.cid].data} cardClass={"h-[300px] "} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /> */}
-                              <CustomSlider noPrimaryText={true} hide_scroll_button={true} slider_child_id={'case_studies' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
-                                imgClass={'lg:h-[185px] md:h-[140px] w-full'} subtitle_class={'md:line-clamp-1 line-clamp-2 md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} />
-                            </div>
+                            {/* <div className={`no_scroll `}> */}
+                            {/* <Cards check={true} isHome={'/'} data={data.data[c.cid].data} cardClass={"h-[300px] "} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'basis-1/3 md:flex-[0_0_calc(65%_-_10px)]'} isBorder={true} /> */}
+                            <CustomSlider hide_scroll_button={isMobile ? true : false} noPrimaryText={true} slider_id={'case_studies_id' + c_index} slider_child_id={'case_studies' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(20%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
+                              imgClass={'lg:h-[185px] md:h-[140px] w-full'} subtitle_class={'md:line-clamp-1 line-clamp-2 md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} />
+                            {/* </div> */}
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Photo Essays") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/photo-essays'} seeMore={true} />
                             {/* overflow-auto scrollbar-hide gap-[15px] flex */}
                             <>
-                              {/* <CardCarousel isHome={'/'} data={data.data[c.cid].data} cardClass={'lg:h-[300px]  flex-[0_0_calc(70%_-_15px)] '} imgClass={'h-[175px]  w-full'} /> */}
-                              <CustomSlider noPrimaryText={true} hide_scroll_button={true} slider_child_id={'photo_essays' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(75%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
+                              <CustomSlider  hide_scroll_button={isMobile ? true : false} noPrimaryText={true} slider_id={'photo_essays_id' + c_index} slider_child_id={'photo_essays' + c_index} isHome={'/'} data={data.data[c.cid].data} cardClass={'h-[315px] md:h-[275px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
                                 imgClass={'lg:h-[185px] md:h-[140px] w-full'} title_class={'min-h-[35px] line-clamp-2'} subtitle_class={'md:line-clamp-1 line-clamp-2 md:mb-[10px]'} />
                             </>
-                            {/* <div className='photo'><MultiCarousel isHome={'/categories/'} check={true} cardHeight={'h-[310px]'} data={data.data[c.cid].data} height={"h-[175px]"} width={'w-full'} perView={2} noPlay={true} none={true} type={'card'} /></div> */}
+                          </>}
+                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Poll") && <>
+                            <Title data={{ title: 'India Reatiling Poll' }} route={'/polls'} seeMore={true} />
+                            {pollList && <Poll data={pollList.slice(0,1)}/>}
+                            {/* <div className='border-light-gray border  rounded divide-y'>
+                              <div className='p-[20px] h-[258px] overflow-auto'>
+                                <div className='font-semibold '>{data.data[c.cid].data[0] && data.data[c.cid].data[0]['question']}</div>
+                                {data.data[c.cid].data[0] && data.data[c.cid].data[0]['options'].map(ans =>
+                                (<div className='px-[10px] pt-[10px]'>
+                                  <input type='radio' name="poll" id={ans.option} value={ans.option} onChange={change_option}
+                                    className='cursor-pointer'></input>
+                                  <label for={ans.option} className='pl-[10px] cursor-pointer'>{ans.option}</label>
+                                </div>
+                                )
+                                )}
+                              </div>
+                              <div className='p-[10px] text-center '>
+                                <button className="primary_button px-[20px] py-[3px]" onClick={() => updatePollOption(data.data[c.cid].data[0]["name"])}>Update</button>
+                              </div>
+                            </div> */}
+
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IMAGES Group Events") && <>
                             <Title data={{ title: c.component_title }} route={'/events'} seeMore={true} />
@@ -492,3 +542,8 @@ export async function getStaticProps() {
   }
 
 }
+
+
+
+
+

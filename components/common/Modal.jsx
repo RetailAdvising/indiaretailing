@@ -62,6 +62,15 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
             }, 200);
         }
     }
+
+    let [sub, setSub] = useState()
+    const cancel = async (type) => {
+        sub = type
+        setSub(sub)
+        if(type == 'no'){
+            hide()
+        }
+    }
     async function check(form_data) {
         // console.log(localStorage.apikey)
         if (localStorage.apikey && localStorage.apikey != 'undefined') {
@@ -73,7 +82,7 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
                 "update": 1,
                 // "report_id":"ss"
             }
-            let resp = await report(params)
+            let resp = sub != 'no' && await report(params)
             if (resp) {
                 hide(resp);
             }
@@ -197,8 +206,8 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
                                             )
                                         }
                                         <div className='flex gap-[10px] justify-end text-[14px] absolute lg:bottom-[20px] right-[20px]'>
-                                            <button className='primary_outline px-[10px] py-[5px] color-red' style={{ color: '#e21b22' }} onClick={hide}>Cancel</button>
-                                            <input className='primary_button px-[10px] cursor-pointer' type="Submit" />
+                                            <button className='primary_outline px-[10px] py-[5px] color-red' style={{ color: '#e21b22' }} onClick={() => cancel('no')}>Cancel</button>
+                                            <button className='primary_button px-[10px] cursor-pointer' type="Submit" onClick={() => cancel('yes')}>Submit</button>
                                         </div>
                                     </form>
                                     {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}

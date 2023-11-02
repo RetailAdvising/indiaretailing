@@ -6,7 +6,7 @@ import AlertUi from '../common/AlertUi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModPopup from './ModPopup'
-export default function Comments({ data, isLast, load, comments, route, updatedCmt, cur, isModal, hide }) {
+export default function Comments({ data, isLast, load, comments, route, updatedCmt, cur, isModal, hide,noScroll }) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
     const [reportComment, setReporComment] = useState()
@@ -86,6 +86,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
         setIsSuccessPopup(false)
     }
     const report = async (cur_command) => {
+        // noScroll(false);
         let param = {
             doctype: "Report Type",
             fields: ["name", "title"]
@@ -93,6 +94,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
         let resp = await getList(param)
         if (resp.message) setReporComment(resp.message)
         //  console.log(reportComment);
+       
         setSelecedComment(cur_command)
         show()
     }
@@ -136,7 +138,8 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
     }
 
     async function sendMsg(id) {
-        let element = document.getElementById(id);
+        let element = document.getElementById(id + cur.name);
+        console.log(element, 'element')
         if (element.value && element.value != '') {
             let param = { article: cur.name, comment: element.value };
             let resp = await addComment(param);
@@ -161,7 +164,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
     // console.log(comment)
     return (
         <>
-            <ToastContainer position={'top-right'} autoClose={2000} />
+            <ToastContainer position={'bottom-right'} autoClose={2000} />
             {data && false &&
                 data.map((comment, index) => {
                     return (
@@ -210,17 +213,17 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                 </div>
             </div>}
             <div className={`relative ${isModal ? 'mx-[10px]' : ''}`}>
-                <input onClick={hides} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id='cmt' />
+                <input onClick={hides} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id={`cmt` + cur.name} />
                 <Image src={'/categories/send-01.svg'} onClick={() => sendMsg('cmt')} className='cursor-pointer absolute top-0 m-auto bottom-0 right-[10px]' height={22} width={22} alt='send' />
             </div>
-            <div className={`${isModal ? '' : 'border rounded-[5px]'} p-[10px]  my-[10px]`}>
+            {data && data.length != 0 && <div className={`${isModal ? '' : 'border rounded-[5px]'} p-[10px]  my-[10px]`}>
                 {data.map((res, i) => {
                     return (
                         <div key={res.comment_by + i} className={`flex gap-[10px]  mb-[10px] ${i != data.length - 1 ? 'border_bottom pb-[10px]' : ''}`}>
-                            <div className={` ${isModal ? 'flex-[0_0_calc(12%_-_10px)]' : 'flex-[0_0_calc(6%_-_10px)]'}`}>
+                            <div className={` ${isModal ? 'flex-[0_0_calc(12%_-_10px)]' : 'flex-[0_0_calc(6%_-_10px)] md:flex-[0_0_calc(13%_-_10px)]'}`}>
                                 <Image height={45} width={45} className='rounded-full object-contain' alt={res.name} src={'/profit.svg'} />
                             </div>
-                            <div className={`${isModal ? 'flex-[0_0_calc(88%_-_10px)]' : 'flex-[0_0_calc(94%_-_10px)]'}`}>
+                            <div className={`${isModal ? 'flex-[0_0_calc(88%_-_10px)]' : 'flex-[0_0_calc(94%_-_10px)] md:flex-[0_0_calc(87%_-_10px)]'}`}>
                                 <h6 className='text-[17px] font-semibold'>{res.comment_by}</h6>
                                 <div className='pb-[5px] sub_title !text-[14px]' dangerouslySetInnerHTML={{ __html: res.content }} />
                                 <div className='flex justify-between items-center py-[5px]'>
@@ -231,14 +234,14 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                     {localStorage.apikey && <div>
                                         <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={() => report(res)} />
                                     </div>}
+                                </div>
                                     {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}
                                     {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
-                                </div>
                             </div>
                         </div>
                     )
                 })}
-            </div>
+            </div>}
         </>
     )
 }

@@ -22,13 +22,13 @@ export default function SectionList({ data, isHome }) {
             <div className={`flex justify-between gap-[10px] ${index == 0 ? 'lg:mt-[15px]' : ''} ${index != data.length - 1 ? 'mb-[15px] border_bottom' : ''}  items-center pb-[15px]`}>
               <div className={`flex flex-[0_0_calc(95%_-_10px)] w-full gap-[10px]`}>
                 <div className={`flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]`}>
-                  <ImageLoader style={`rounded-[5px] h-[110px] w-full`} src={res.thumbnail_imagee ? res.thumbnail_imagee : res.image} title={res.title} />
+                  <ImageLoader style={`rounded-[5px] h-[110px] md:h-[95px] w-full`} src={res.thumbnail_imagee ? res.thumbnail_imagee : res.image} title={res.title} />
                   {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`rounded-[5px] h-[90px] w-full`} src={check_Image(res.thumbnail_imagee ? res.thumbnail_imagee : res.image)} height={50} width={150} alt={"image"} ></Image> */}
                 </div>
                 <div className='md:grid'>
                   <p className='primary_text lg:mb-[8px]'>{res.primary_text}</p>
                   <h4 className='title line-clamp-2 lg:mb-[5px]'>{res.title}</h4>
-                  {(res.blog_intro) && <p className={`sub_title lg:mb-[8px] line-clamp-1`}>{res.blog_intro}</p>}
+                  {(res.blog_intro) && <p className={`sub_title lg:mb-[8px] line-clamp-1 md:line-clamp-1 md:!leading-[1.5]`}>{res.blog_intro}</p>}
                   {/* {res.publisher && <p className='light_text'>{res.publisher}</p>} */}
                   {res.tags && <Tags tagClass={'!p-0'} tags={res.tags} />}
                   {/* {res._user_tags &&} */}

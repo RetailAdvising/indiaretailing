@@ -18,7 +18,7 @@ import SubscriptionAlert from '../common/SubscriptionAlert'
 // import DOMPurify from 'dompurify';
 import { useSelector, useDispatch } from 'react-redux';
 import Widgets from '../Category/Widgets'
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import Benefits from '@/components/Membership/benefits';
 export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll, plans }) {
   const styles = {}
@@ -230,8 +230,12 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
           // element && ReactDOM.render(<CustomSlider type={'widget'} data={res.data} parent={res} routers={router} hide_scroll_button={true} slider_child_id={res.placeholder_key + i} cardClass={'flex-[0_0_calc(33.33%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'}
           //   imgClass={'lg:h-[185px] md:h-[170px] w-full'} subtitle_class={'line-clamp-1  md:mb-[10px]'} title_class={'min-h-[35px] line-clamp-2'} productNavigation={productNavigation} />, element)
-          element && ReactDOM.render(<Widgets data={res} productNavigation={productNavigation} routers={router} />, element)
+          if (element) {
+            // element && ReactDOM.render(<Widgets data={res} productNavigation={productNavigation} routers={router} />, element)
+            const root = ReactDOM.createRoot(element)
+            root.render(<Widgets data={res} productNavigation={productNavigation} routers={router} />)
 
+          }
           // res.data.map((item, index) => {
           //   if (res.title) {
           //     if (res.title == 'Articles') {
@@ -488,7 +492,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   //         // let val = document.getElementById('target' + divId[divId.length - 1])
   //         // // val.classList.add('fixed', 'top-0', 'right-[15px]')
   //         // val.classList.add('sticky', 'top-0', 'z-10','bg-white','h-[calc(100vh_-_10px)]','overflow-auto','scrollbar-hide')
-           
+
   //         // scrolls = true
   //         // setScrolls(scrolls)
   //       }
@@ -543,9 +547,9 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   //   const handleScroll = () => {
   //     for (const divId of shareEle) {
   //       const div = document.getElementById(divId);
-  
+
   //       if (!div) continue;
-  
+
   //       const intersectionObserver = new IntersectionObserver(entries => {
   //         if (entries[0].intersectionRatio >= 0 && scrolls) {
   //           // console.log(entries[0])
@@ -556,9 +560,9 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   //           // setScrolls(scrolls)
   //         }
   //       });
-  
+
   //       intersectionObserver?.observe(div);
-  
+
   //       return () => {
   //         intersectionObserver?.unobserve(div)
   //       }
@@ -705,24 +709,52 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               </div>}
 
               {(data.comments && data.disable_comments != 1) && <>
-                <div className={`py-1.5 relative w-[120px] ${styles.profile_div}`}>
-                  {/* id={`cmt${data.route}`} */}
-                  <h6 className={`font-semibold text-[19px] md:text-[15px] ${'cmt' + i}`}>Comments</h6>
-                  <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] max-w-max`}><span className='text-[13px]'>{comments && comments.length ? comments.length : 0}</span></p>
-                </div>
+                {/* <div className={`py-1.5 relative w-[120px] ${styles.profile_div}`}> */}
+                {/* id={`cmt${data.route}`} */}
+                {/* <h6 className={`font-semibold text-[19px] md:text-[15px] ${'cmt' + i}`}>Comments</h6>
+                  <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>{comments && comments.length ? comments.length : 0}</span></p> */}
+                {/* </div> */}
 
                 {(comments && comments.length != 0) &&
                   comments.map((res, i) => {
                     return (
                       <div key={i}>
                         {/* style={{ background: "#efefef" }} */}
-                        {(res.route == data.name && res.data && res.data.length != 0) && <div  className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  mt-3  `}>
+                        {(res.route == data.name && res.data && res.data.length != 0) ? <div className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} rounded-lg relative  `}>
                           {/* {data.comments.map((res, index) => {
                       return ( */}
-                          <Comments cur={data} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 3)} hide_comment={hide} />
+                          <div className={`py-1.5 relative w-[120px] md:w-[105px] ${styles.profile_div}`}>
+                            {/* id={`cmt${data.route}`} */}
+                            <h6 className={`font-semibold text-[19px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
+                            <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>{res.data.length ? res.data.length : 0}</span></p>
+                          </div>
+                          <Comments cur={data} noScroll={(val) => noScroll(val)} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 3)} hide_comment={hide} />
                           {/* )
                     })} */}
-                        </div>}
+                          {isMobile && (res.data && res.data.length != 0) ? <div className='mt-[10px] flex gap-[10px] justify-center'>
+                            <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex`}>{(res.data && res.data.length != 0) ? 'View Comments' : 'Add Comment'}</button>
+                            {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
+                          </div> : <div className={`mt-[10px] flex justify-center`}>
+                            {res.data && res.data.length != 0 && <button onClick={showSidebar} className={`justify-center bg-red text-white p-[10px_20px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex`}>{(res.data && res.data.length != 0) && 'View Comments'} </button>}
+                          </div>}
+                        </div> :
+                          (res.route == data.name && res.data && res.data.length == 0) ? <><div className={`py-1.5 relative w-[120px] md:w-[105px] ${styles.profile_div}`}>
+                            {/* id={`cmt${data.route}`} */}
+                            <h6 className={`font-semibold text-[19px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
+                            <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>0</span></p>
+                          </div>
+
+                            <Comments cur={data} noScroll={(val) => noScroll(val)} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={[]} hide_comment={hide} />
+                            {isMobile && (res.data && res.data.length != 0) ? <div className='mt-[10px] flex gap-[10px] justify-center'>
+                              <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex`}>{(res.data && res.data.length != 0) ? 'View Comments' : 'Add Comment'}</button>
+                              {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
+                            </div> : <div className={`mt-[10px] flex justify-center`}>
+                              {res.data && res.data.length != 0 && <button onClick={showSidebar} className={`justify-center bg-red text-white p-[10px_20px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex`}>{(res.data && res.data.length != 0) && 'View Comments'} </button>}
+                            </div>}
+                          </> : <></>
+
+
+                        }
                       </div>
                     )
                   })
@@ -732,17 +764,16 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
               {/* <div id={`share` + i}></div> */}
 
-              {data.disable_comments != 1 &&
+              {/* {data.disable_comments != 1 &&
                 <>
                   {isMobile ? <div className='mt-[10px] flex gap-[10px] justify-center'>
                     <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'}</button>
-                    {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
                   </div> : <div className={`mt-[10px] flex justify-center`}>
                     <button onClick={showSidebar} className={`justify-center bg-red text-white p-[10px_20px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex`}>{(data.comments && data.comments.length != 0) ? 'View Comments' : 'Add Comment'} </button>
                   </div>}
                 </>
 
-              }
+              } */}
               {(!showComment && data) ? <>
                 <div className='popright'>
                   <Modal visible={true} cur={data} modal={'comments'} hide={sideDrawerClosedHandler} />
@@ -764,10 +795,10 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
             </div>}
           </div>
 
-          {((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) && <div  className={`w_30 md:hidden finding relative`}>
+          {((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) && <div className={`w_30 md:hidden finding relative`}>
             {/* {data.advertisement_tags && data.advertisement_tags.length != 0 && <AdsBaner data={data.advertisement_tags[0]} />} */}
             {(data.place_holders_ads && data.place_holders_ads.length != 0) &&
-            // h-[calc(100vh_-_10px)] scrollbar-hide
+              // h-[calc(100vh_-_10px)] scrollbar-hide
               <div id={'target' + i} className={`sticky h-[calc(100vh_-_10px)] scrollbar-hide top-0 z-10 bg-white  overflow-auto `}><Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : []} productNavigation={productNavigation} /></div>}
           </div>}
         </div>

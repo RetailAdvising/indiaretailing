@@ -889,6 +889,7 @@ input {
       .rodal-close {
         // color: #fff;
         // top: 25px;
+        display: none !important;
       }
 
       // .rodal-close:before,
@@ -931,7 +932,7 @@ input {
   .commentPopup {
     height: calc(85vh - 90px);
     overflow: auto;
-    margin-top: 10px;
+    // margin-top: 10px;
 
     -ms-overflow-style: none !important;
     scrollbar-width: none !important;
@@ -1989,7 +1990,8 @@ strong {
     margin: 0;
     width: 100% !important;
     border-radius: 29px;
-    top: 29%;
+    // top: 29%;
+    top: 25%;
 
     h6 {
       border-top-left-radius: 30px;
@@ -2259,4 +2261,8 @@ span {
     right: 0;
     left: unset !important;
   }
+}
+
+.css-14iyyou[data-disabled] {
+  opacity: 0.8 !important;
 }

@@ -230,7 +230,7 @@ export default function Details({ data, page_route }) {
 
 
 
-    if(router && router.query && router.query.preview != 'true'){
+    if(router && router.query && router.query.preview != 'true' ){
       window.addEventListener('scroll', handleScroll);
       return () => {
         window.removeEventListener('scroll', handleScroll);
@@ -277,6 +277,10 @@ export default function Details({ data, page_route }) {
       //     setNoData(false)
       // }, 200);
     } else {
+      const val = { data: [], route: data.name }
+      // data.comments = val;
+      comments.push(val);
+      setComments(comments)
       // setTimeout(() => {
       //     setNoData(false)
       // }, 200);
