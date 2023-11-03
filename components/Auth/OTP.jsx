@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { send_otp, verify_otp, checkMobile } from '@/libs/api'
+import { send_otp, verify_otp, checkMobile,checkMember } from '@/libs/api'
 import AlertUi from '../common/AlertUi';
 import SignUp from './SignUp';
 import { useDispatch, useSelector } from 'react-redux';
@@ -84,7 +84,9 @@ export default function OTP({ setotp, isModal, hide, auth }) {
                     localStorage['userid'] = val.message.customer_email;
                     localStorage['customer_id'] = val.message.customer_id;
                     localStorage['full_name'] = val.message.customer_name;
+                    checkMember(val.message.roles)
                     localStorage['roles'] = JSON.stringify(val.message.roles);
+                    
                     dispatch(setUser(val))
                     isMobile ? router.push('/') : hide();
                 }

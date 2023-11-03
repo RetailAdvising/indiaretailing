@@ -88,7 +88,7 @@ export default function NewsList({ data }) {
               </div>
             </div>
             {/* justify-between */}
-            <div className='flex md:hidden items-center justify-end gap-[10px] flex-[0_0_calc(25%_-_10px)]'>
+            <div className='flex md:hidden items-center pl-[15px] gap-[10px] flex-[0_0_calc(25%_-_10px)]'>
               <p className='cursor-pointer flex-[0_0_calc(50%_-_10px)]' onClick={() => router.push(`/${res.route}`)}>Preview</p>
               <p className='flex cursor-pointer justify-center items-center seeMore' onClick={() => {showPopup(res, index)}}><span className='primary_text '>Sign Up</span> <Image className='img' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></p>
             </div>

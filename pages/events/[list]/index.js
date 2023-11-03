@@ -98,7 +98,7 @@ export default function EventDetails({ values }) {
             <RootLayout isLanding={false} head={values.title} homeAd={ads ? ads : null} >
             {values && <SEO title={values.title} siteName={'India Reatiling'}/>}
             {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Reatiling'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
-                <div className='p-[30px_0px] md:p-[15px] container '>
+                <div className='md:p-[15px] container '>
                     <div className='flex md:hidden justify-between items-center'>
                         <div className='mt-[20px]'>
                             <Title data={values} />

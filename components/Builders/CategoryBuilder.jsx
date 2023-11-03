@@ -581,7 +581,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     <>
       {/* {console.log('child',data)}   */}
       <div ref={cardref}>
-        <div className={`flex w-full lg:relative lg:gap-[30px] lg:justify-between md:gap-[20px] md:flex-wrap lg:p-[20px_0px] md:p-[15px] ${isMobile ? '' : 'container'}`}>
+        <div className={`flex w-full lg:relative lg:gap-[30px] lg:justify-between md:gap-[20px] md:flex-wrap ${i > 0 ? 'lg:p-[20px_0px]' : ''} md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div id={'parent' + i} className={` md:w-full ${(!data.is_member && data.ir_prime == 1) ? 'w-[calc(80%_-_20px)] m-auto' : 'w_70'}`}>
             <p>
               <Content i={i} res={data} updateShare={(data) => updateShare(data)} noScroll={(val) => noScroll(val)} />

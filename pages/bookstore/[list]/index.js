@@ -68,7 +68,7 @@ export default function BookstoreList({ value }) {
 
                 <div className='container'>
                     {(data && data.length != 0) &&
-                        <div className='py-8 md:p-[15px]'>
+                        <div className='md:p-[15px]'>
                             <Title data={value} />
                             <div className={`grid gap-[30px_20px] gap-y-[30px] grid-cols-5 md:grid-cols-2 justify-between `}>
                                 <Card check={true} data={data} category={router.query.list} isLanding={true} imgClass={'aspect-[2/2.5] w-full'} boxShadow={true} /></div>

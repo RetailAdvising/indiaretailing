@@ -5,15 +5,16 @@ import Link from 'next/link';
 import ImageLoader from '../ImageLoader';
 
 export default function ImageContainer({ data, height, width, isWeb }) {
+    console.log(data,'data Image cont')
     return (
         <>
             {data && <div className='relative pb-[20px]'>
-                <Link href={'/' + data.route}>
+                <Link href={data.type ? '/video/' + data.route : '/' + data.route}>
                     {/* loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' */}
                     {/* onLoad={(e) => setLoad(true)} onLoadingComplete={(img) => changeImg(img)} */}
                     {/* loader={() => ImageLoader(data.thumbnail_imagee ? data.thumbnail_imagee : data.image)} */}
-                    <div >
-                        <ImageLoader style={`rounded-[5px] ${height} ${width}`} src={data.thumbnail_imagee ? data.thumbnail_imagee : data.image} title={data.title} />
+                    <div className='relative'>
+                        <ImageLoader type={data} style={`rounded-[5px] ${height} ${width}`} src={data.thumbnail_imagee ? data.thumbnail_imagee : data.video_image ? data.video_image : data.image} title={data.title} />
                     </div>
                     {/* <Image width={530}  loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur'  className={`rounded-[5px] ${height} ${width}`} alt="image.." src={check_Image(data.thumbnail_imagee ? data.thumbnail_imagee : data.image)} height={329} />                 <div className={`${height ? height : 'h-[350px]'} absolute top-0 w-full bg-[#0000002e]]`}></div> */}
                     <Image className={`${height ? height : 'h-[350px]'} absolute top-0 w-full rounded-[5px]`} src={'/bg-png.png'} height={329} width={530} alt='background...' />

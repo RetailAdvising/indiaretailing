@@ -31,7 +31,7 @@ export const checkMobile = () => {
     }
 }
 
-export const get_ip = async() => {
+export const get_ip = async () => {
     let ip_address = ''
     await fetch('https://jsonip.com/')
         .then((response) => response.json())
@@ -42,7 +42,7 @@ export const get_ip = async() => {
             console.error('Error fetching IP address:', error);
             return error
         });
-        return ip_address
+    return ip_address
 }
 
 
@@ -691,4 +691,16 @@ export async function newsletter_category() {
 export async function newsletter_category_list(data) {
     let api = resourceUrl + `Newsletter?fields=["*"]&filters=[["custom_day","=",${JSON.stringify(data)}]]`
     return await GET_Resource(api)
+}
+
+export const checkMember = (data) => {
+    if (data && data.length != 0) {
+        for (let j = 0; j < data.length; j++) {
+            if (data[j]['role'] == 'Member' || data[j]['role'] == 'Member User') {
+                localStorage['new_user'] ? localStorage.removeItem('new_user') : null;
+                return
+            }
+        }
+        localStorage['new_user'] = localStorage['full_name'] ? localStorage['full_name'] : 'true';
+    }
 }

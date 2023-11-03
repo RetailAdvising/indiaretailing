@@ -13,7 +13,7 @@ export default function index() {
 
       const get_polls=async()=>{
         let ip_address = await get_ip()
-        console.log(ip_address);
+        setIpAddress(ip_address)
         let param = {
             ip_address : ip_address
           }
@@ -22,7 +22,7 @@ export default function index() {
       }
     return (
         <RootLayout>
-        {pollList && pollList.length != 0 ?      
+        {pollList && ipAddress && pollList.length != 0 ?      
         <div className='w-[85%] m-auto py-[20px] lg:flex gap-[20px]'>
          <Poll data={pollList} ipAddress={ipAddress}/>
         </div>

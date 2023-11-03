@@ -126,7 +126,7 @@ export default function NewsLists({ data, Id }) {
     // let resp = await newsletter_category()
     let params = {
       doctype: 'Newsletter Category',
-      fields: ["title", "name", "route", "article_category"],
+      fields: ["title", "name", "route", "article_category","category_name"],
       filters: { 'published': 1 }
     }
     let resp = await getList(params)
@@ -188,14 +188,14 @@ export default function NewsLists({ data, Id }) {
           </label>
 
           {!isChecked ? <>
-            {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] md:flex-wrap justify-between gap-5`}>
+            {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] md:flex-wrap justify-between gap-5 lg:relative`}>
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_0px)]`}>
                 {/* <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.article_detail.title}</h6> */}
                 <p className={`text-[20px] md:text-[16px] font-semibold py-3 md:hidden ${inter.className}`}>{data.article_detail.subject}</p>
                 <div dangerouslySetInnerHTML={{ __html: data.article_detail.message }} className={`contents sub_title py-3 md:hidden`} />
                 <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] block h-[35px] w-[100px]'>subscribe</button>
               </div>
-              <div className={`flex-[0_0_calc(45%_-_10px)] overflow-hidden md:flex-[0_0_calc(100%_-_0px)]`}>
+              <div className={`flex-[0_0_calc(45%_-_10px)] lg:sticky lg:top-[10px]  lg:bg-white lg:h-[400px] overflow-hidden md:flex-[0_0_calc(100%_-_0px)]`}>
                 <Image className={`h-[380px] w-full`} src={check_Image(data.article_detail.image)} height={300} width={500} alt={data.custom_title ? data.custom_title : data.subject ? data.subject : 'newsletter'} />
                 <div dangerouslySetInnerHTML={{ __html: data.article_detail.message }} className={`contents sub_title py-3 lg:hidden`} />
                 {/* <p className='sub_title py-3 lg:hidden'>{data.article_detail.description}</p> */}
@@ -220,7 +220,7 @@ export default function NewsLists({ data, Id }) {
                 {newsCategory && newsCategory.length != 0 && newsCategory.map((res, i) => {
                   return (
                     <div key={i} onClick={() => activeCategory(res, i)} className='cursor-pointer'>
-                      <p className={`${selectedCategory == res.title ? 'tabActive' : ''} pb-[5px] text-[14px] font-semibold capitalize ${inter.className}`}>{res.article_category.split('-').join(" ")}</p>
+                      <p className={`${selectedCategory == res.title ? 'tabActive' : ''} pb-[5px] text-[14px] font-semibold capitalize ${inter.className}`}>{res.category_name.split('-').join(" ")}</p>
                     </div>
                   )
                 })}

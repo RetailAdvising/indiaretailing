@@ -64,7 +64,7 @@ export default function Lists({ data, ads }) {
     return (
         <>
             <RootLayout isLanding={false} homeAd={ads ? ads : null} head={'List'}>
-                <div className='p-[30px_0px] md:p-[15px] container'>
+                <div className=' md:p-[15px] container'>
                     {(pageData && pageData.length != 0) ? <>
                         {/* {!isChecked ? <List fullWidth={true} check={true} isBB={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px]'} data={data} borderRadius={'rounded-[5px]'} />
                                 : <Cards cardClass={"h-[360px]"} check={true} noPrimaryText={false} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"}  width={"w-full"} isBorder={true} data={data} />} */}

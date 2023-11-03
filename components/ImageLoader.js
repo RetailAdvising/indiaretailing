@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import { check_Image } from '@/libs/api'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-export default function ImageLoader({ src, title, style }) {
+import Image from 'next/image'
+export default function ImageLoader({ src, title, style, type }) {
     const [load, setLoad] = useState(false)
-    const [lazy,setLazy] = useState(false)
+    const [lazy, setLazy] = useState(false)
     // useEffect(()=>{
     //     setTimeout(() => {
     //         setLoad(true) 
@@ -32,13 +33,17 @@ export default function ImageLoader({ src, title, style }) {
                     // height: '100%',
                     // objectFit: 'cover',
                 }}
-                afterLoad={() => 
-                        setTimeout(() => {
-                            setLoad(true)
-                }, 250)
-                
-            }
+                afterLoad={() =>
+                    setTimeout(() => {
+                        setLoad(true)
+                    }, 250)
+
+                }
             />
+
+            { type && type.type && type.type == 'video' && <div className='absolute bottom-[25px] z-10 right-[10px] md:bottom-[25px]'>
+                <Image src={'/irprime/youtube.svg'} className='h-[35px] w-[35px] object-contain' height={50} width={50} alt={title + 'video'} />
+            </div>}
 
         </>
     )

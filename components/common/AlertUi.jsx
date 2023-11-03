@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 export default function AlertUi({ isOpen, closeModal, headerMsg, alertMsg, button_1, button_2 }) {
    return (
     <Transition appear show={isOpen} as={Fragment}>
-    <Dialog as="div" className="relative z-10" onClose={closeModal}>
+    <Dialog as="div" className="relative z-[999]" onClose={closeModal}>
       <Transition.Child
         as={Fragment}
         enter="ease-out duration-300"

@@ -9,7 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState, useMemo } from 'react'
-import { websiteSettings, get_article_breadcrumb, get_subscription_plans } from '@/libs/api'
+import { websiteSettings, get_article_breadcrumb, get_subscription_plans,get_customer_info } from '@/libs/api'
 import MobileHead from '@/components/Headers//MobileHead';
 import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
@@ -17,6 +17,7 @@ import 'rodal/lib/rodal.css';
 import Rodal from 'rodal';
 import dynamic from 'next/dynamic'
 const SubscriptionAlert = dynamic(() => import('@/components/common/SubscriptionAlert'))
+const ModPopup = dynamic(() => import('@/components/Category/ModPopup'))
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail }) {
@@ -94,35 +95,56 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   }
 
   const getMembershipPlans = async () => {
-    if (typeof window != 'undefined' && localStorage && localStorage['roles'] && localStorage['apikey'] ) {
-      let val = JSON.parse(localStorage['roles']);
-      // localStorage['new_user'] = localStorage['full_name'] ? localStorage['full_name'] : 'true';
-      if (val && val.length != 0 && !localStorage['new_user']) {
-        console.log(val);
-        for (let i = 0; i < val.length; i++) {
-          if (val[i]['role'] != 'Member' && val[i]['role'] != 'Member User') {
-            localStorage['new_user'] = localStorage['full_name'] ? localStorage['full_name'] : 'true';
-            let data = { "plan_type": "Month", "res_type": "member" }
-            const resp = await get_subscription_plans(data);
-            if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
-              // console.log(resp)
-              if (resp.message.message && resp.message.message.length != 0 && resp.message.message[0]) {
-                // plans.push(resp.message.message[0].features)
-                plans = resp.message.message[0].features
-                setPlans(plans)
-                visible = true
-                setVisible(visible)
-              }
-            }
-          }
+    if (typeof window != 'undefined' && localStorage && localStorage['roles'] && localStorage['apikey'] && localStorage['new_user']) {
 
+      let data = { "plan_type": "Month", "res_type": "member" }
+      const resp = await get_subscription_plans(data);
+      if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
+
+        if (resp.message.message && resp.message.message.length != 0 && resp.message.message[0]) {
+          // plans.push(resp.message.message[0].features)
+          plans = resp.message.message[0].features;
+          setPlans(plans)
+          if(!mand){
+            visible = true
+            setVisible(visible)
+            localStorage.removeItem('new_user')
+          }
         }
       }
     }
   }
 
+  let [mand, setMand] = useState(false)
+  const hides = (val) => {
+    // console.log(val)
+    mand = false
+    setMand(mand)
+  }
+
+  const [customerInfo, setCustomerInfo] = useState();
+  async function customer_info() {
+
+    let data = { guest_id: '', user: localStorage['customer_id'] };
+    const resp = await get_customer_info(data);
+    if (resp && resp.message && resp.message[0]) {
+      setCustomerInfo(resp.message[0]);
+      mand = true
+      setMand(mand)
+    }
+  }
+
+  const checkMandatory = () => {
+    if (typeof window != 'undefined' && localStorage && localStorage['apikey'] && localStorage['company']) {
+      customer_info()
+    }
+  }
+
+
+
   useMemo(() => {
-    if(typeof window != 'undefined'){
+    if (typeof window != 'undefined') {
+      checkMandatory()
       getMembershipPlans()
     }
   }, [user])
@@ -138,7 +160,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
         <div className={``}><Navbar isLanding={isLanding} heading={head} checkout={checkout} /></div>
         {/* {!checkout ? <Navbar isLanding={isLanding} heading={head} /> : <div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={head} /></div> } */}
         {(breadCrumbs && breadCrumbs.length > 1 && breadCrumbs[1] && breadCrumbs[1] != 'newsletters' && breadCrumbs[1].split('?')[0] != 'thankyou' && breadCrumbs[1].split('?')[0] != 'profile' && breadCrumbs[1].split('?')[0] != 'search' && breadCrumbs[1].split('?')[0] != 'tag') &&
-          <div className='container flex  gap-[7px] md:hidden pt-[20px]'>
+          <div className='container flex  gap-[7px] md:hidden py-[20px]'>
             {breadCrumbs.map((bc, index) => {
               let url = index == 3 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] + '/' + breadCrumbs[3] :
                 index == 2 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] :
@@ -173,6 +195,11 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
           {visible && <div className='membAlert'><Rodal visible={visible} animation='slideUp' onClose={hide}>
             <SubscriptionAlert isModal={true} data={plans} />
           </Rodal></div>}
+
+          {(mand && customerInfo) && <div className='mandAlert'><Rodal visible={mand} animation='slideUp' >
+            <ModPopup isModal={true} customerInfo={customerInfo} onClose={(val) => hides(val)} />
+          </Rodal></div>}
+
           {children}
         </main>
 

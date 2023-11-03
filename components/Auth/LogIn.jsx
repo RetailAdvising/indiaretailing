@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import { logIn, checkMobile } from '@/libs/api';
+import { logIn, checkMobile,checkMember } from '@/libs/api';
 import { useRouter } from 'next/router';
 import OTP from './OTP';
 import SignUp from './SignUp';
@@ -90,7 +90,7 @@ export default function LogIn({ isModal, hide, auth }) {
         // script.src = 'https://accounts.google.com/gsi/client';
         google.accounts.id.initialize({
             client_id: "630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com",
-            callback:handleCallbackResponse
+            callback: handleCallbackResponse
         })
 
         google.accounts.id.renderButton(
@@ -102,28 +102,27 @@ export default function LogIn({ isModal, hide, auth }) {
 
         window.fbAsyncInit = function () {
             window.FB.init({
-              appId: '341622788230249',
-              autoLogAppEvents: true,
-              xfbml: true,
-              version: 'v11.0',
+                appId: '341622788230249',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v11.0',
             });
-          };
+        };
 
-          // Load the Facebook SDK asynchronously
-          (function (d, s, id) {
+        // Load the Facebook SDK asynchronously
+        (function (d, s, id) {
             var js,
-              fjs = d.getElementsByTagName(s)[0];
+                fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s);
             js.id = id;
             js.src = 'https://connect.facebook.net/en_US/sdk.js';
             fjs.parentNode.insertBefore(js, fjs);
-          })(document, 'script', 'facebook-jssdk');
+        })(document, 'script', 'facebook-jssdk');
 
     }, [])
 
-    function handleCallbackResponse(response)
-    {
+    function handleCallbackResponse(response) {
         // console.log(response)
     }
 
@@ -133,12 +132,12 @@ export default function LogIn({ isModal, hide, auth }) {
     }
 
     // useEffect(() => {
-  //   gapi.load('auth2', function () {
-  //     gapi.auth2.init({
-  //       client_id: '189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com',
-  //     });
-  //   });
-  // }, []);
+    //   gapi.load('auth2', function () {
+    //     gapi.auth2.init({
+    //       client_id: '189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com',
+    //     });
+    //   });
+    // }, []);
 
     async function login(data) {
         // console.log(data)
@@ -158,8 +157,11 @@ export default function LogIn({ isModal, hide, auth }) {
                 localStorage['userid'] = val.message.user_id;
                 localStorage['customer_id'] = val.message.customer_id;
                 localStorage['full_name'] = val.full_name;
+                // localStorage['company'] = "true"
+                checkMember(val.message.roles)
                 localStorage['roles'] = JSON.stringify(val.message.roles);
                 setWithExpiry('api', val.message.api_key, 90)
+               
                 // const day = new Date();
                 // document.cookie = `apikey=${val.message.api_key};expires=${day.getTime() + 10};`;
                 // document.cookie = `secret=${val.message.api_secret};expires=${day.getTime() + 10};`;
@@ -202,6 +204,9 @@ export default function LogIn({ isModal, hide, auth }) {
         // document.cookie = "sessionTimeout=" + ninetyDaysFromToday.toUTCString() + "; path=/";
         localStorage.setItem(key, JSON.stringify(item))
     }
+
+
+   
 
 
     // function getCookie(cname) {
@@ -270,11 +275,11 @@ export default function LogIn({ isModal, hide, auth }) {
 
     const handleSuccess = (response) => {
         console.log('Google Sign-In success:', response);
-      };
-    
-      const handleFailure = (error) => {
+    };
+
+    const handleFailure = (error) => {
         console.error('Google Sign-In error:', error);
-      };
+    };
 
     // const responseGoogle = (response) => {
     //     console.log(response);
@@ -292,13 +297,13 @@ export default function LogIn({ isModal, hide, auth }) {
     // }, []);
     return (
         <>
-        <ToastContainer position={'bottom-right'} autoClose={2000} />
-        <div>
-            {/* <Script src="https://apis.google.com/js/platform.js" async defer />
+            <ToastContainer position={'bottom-right'} autoClose={2000} />
+            <div>
+                {/* <Script src="https://apis.google.com/js/platform.js" async defer />
             <Script src="https://apis.google.com/js/api.js" async defer /> */}
-            {/* <Script src="https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" */}
-            {/* <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" /> */}
-        </div>
+                {/* <Script src="https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" */}
+                {/* <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" /> */}
+            </div>
             {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='lg:flex container h-full md:h-[calc(100vh_-_50px)] overflow-auto p-[20px] md:p-[0_15px] lg:justify-center gap-[20px] '>
                 {(!isModal || auth) && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border h-full rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`w-full ${auth ? 'h-full object-contain' : ''}`} />

@@ -169,7 +169,11 @@ export default function search({ searchTxt, data }) {
     <>
       <RootLayout checkout={isMobile ? false : true}>
         {/* onKeyPress={()=>{navigateSearchScreen('search')}} */}
-
+        
+        <div className={`${isMobile ? 'hidden' : 'container flex justify-end pt-[15px]'} `}>
+          <Image src={'/categories/close.svg'} onClick={() => router.back()}  className='cursor-pointer ' height={22} width={22} alt='close' />
+        </div>
+        
         <div className={'p-[10px] lg:w-[60%] lg:m-[16px_auto_0px_auto]'}>
           <div className={`flex border  rounded-[10px]`}>
             <input id='search' className={'border-[0px] p-[10px] w-full rounded-[10px]'} onChange={searchText_1} onKeyDown={handleKeyDown} type="text" placeholder='Search here...' spellcheck="false" name="search"></input>
@@ -282,7 +286,7 @@ const AllCategory = ({ data }) => {
       {data.map((res, i) => {
         return (
           <div key={res.title} className=''>
-            <Link href={res.base_route}  className='text-[15px] font-semibold mb-[5px] '>{res.title}</Link>
+            <Link href={res.base_route} className='text-[15px] font-semibold mb-[5px] '>{res.title}</Link>
             {res.data && res.data.length != 0 && res.data.map((resp, index) => {
               return (
                 <Link className='block' href={res.base_route + resp.route} key={resp.title ? resp.title : resp.category_name}>{resp.title ? resp.title : resp.category_name}</Link>

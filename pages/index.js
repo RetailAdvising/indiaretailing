@@ -92,10 +92,11 @@ export default function Home({ data }) {
   }, [])
 
   const [pollList, setPollList] = useState(null);
+  const [ipAddress, setIpAddress] = useState(null);
 
   const get_polls = async () => {
     let ip_address = await get_ip()
-    console.log(ip_address);
+    setIpAddress(ip_address)
     let param = {
       ip_address: ip_address
     }
@@ -284,24 +285,7 @@ export default function Home({ data }) {
     }
   }
 
-  const [pollOption, setPollOption] = useState('')
-  const change_option = ($event) => {
-    console.log($event.target.value);
-    setPollOption($event.target.value)
-  }
 
-  const updatePollOption = (poll_id) => {
-    if (pollOption && poll_id) {
-      let payload = {
-        poll_id: poll_id,
-        answer: pollOption,
-        ip_address: ''
-      }
-      updatePollOptionValue(payload)
-    } else {
-
-    }
-  }
 
 
 
@@ -469,7 +453,7 @@ export default function Home({ data }) {
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Poll") && <>
                             <Title data={{ title: 'India Reatiling Poll' }} route={'/polls'} seeMore={true} />
-                            {pollList && <Poll data={pollList.slice(0, 1)} />}
+                            {(pollList && ipAddress) && <Poll data={pollList.slice(0, 1)} ipAddress={ipAddress}/>}
                             {/* <div className='border-light-gray border  rounded divide-y'>
                               <div className='p-[20px] h-[258px] overflow-auto'>
                                 <div className='font-semibold '>{data.data[c.cid].data[0] && data.data[c.cid].data[0]['question']}</div>
@@ -505,7 +489,7 @@ export default function Home({ data }) {
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Reconnect") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/reconnect'} seeMore={true} />
-                            <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'} cardClass={'h-[310px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
+                            <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'} cardClass={'h-[320px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
                           </>}
                           {(c.cid && c.component_title == "Image" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{ bannerAd: '/no_state.svg' }} /></div>}
                         </div>

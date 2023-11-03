@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import { signUp, logIn, checkMobile } from '@/libs/api';
+import { signUp, logIn, checkMobile,checkMember } from '@/libs/api';
 import { useRouter } from 'next/router';
 import LogIn from './LogIn';
 import { useDispatch } from 'react-redux';
@@ -57,8 +57,10 @@ export default function SignUp({ isModal, hide, auth }) {
                         localStorage['secret'] = val.message.api_secret
                         localStorage['userid'] = val.message.user_id;
                         localStorage['customer_id'] = val.message.customer_id;
-                        localStorage['roles'] = JSON.stringify(val.message.roles)
                         localStorage['full_name'] = val.full_name;
+                        localStorage['company'] = "true"
+                        checkMember(val.message.roles)
+                        localStorage['roles'] = JSON.stringify(val.message.roles)
                         dispatch(setUser(val))
                         isModal || !isMobile ? hide() : router.push('/')
                     } else {
@@ -130,16 +132,18 @@ export default function SignUp({ isModal, hide, auth }) {
                         <div className='flex items-center justify-between pb-[10px] gap-[10px]'>
                             <div className={`flex flex-col relative flex-[0_0_calc(50%_-_10px)]`}>
                                 <label className={`${styles.label} text-[#808D9E]`} htmlFor='first_name' >First Name</label>
-                                <input className={`${styles.input} ${styles.input1}`} {...register('first_name', { required: { value: true, message: 'Full Name is required' } },)} />
+                                <input className={`${styles.input} ${styles.input1}`} {...register('first_name', { required: { value: true, message: 'First Name is required' } },)} />
                                 {/* <Image className={`absolute  right-[10px] h-[20px] w-[24px] ${errors.first_name?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/profile-01.svg'} height={15} width={15} alt={"pass"} /> */}
+                                {errors?.first_name && <p className={`${styles.danger}`}>{errors.first_name.message}</p>}
                             </div>
                             <div className={`flex flex-col relative flex-[0_0_calc(50%_-_10px)]`}>
                                 <label className={`${styles.label} text-[#808D9E]`} htmlFor='last_name' >Last Name</label>
-                                <input className={`${styles.input} ${styles.input1}`} {...register('last_name')} />
+                                <input className={`${styles.input} ${styles.input1}`} {...register('last_name',{ required: { value: true, message: 'Last Name is required' } })} />
                                 {/* <Image className={`absolute  right-[10px] h-[20px] w-[24px] bottom-[25px]`} src={'/login/profile-01.svg'} height={15} width={15} alt={"pass"} /> */}
+                                {errors?.last_name && <p className={`${styles.danger}`}>{errors.last_name.message}</p>}
                             </div>
                         </div>
-                        {errors?.first_name && <p className={`${styles.danger}`}>{errors.first_name.message}</p>}
+                        {/* {errors?.first_name && <p className={`${styles.danger}`}>{errors.first_name.message}</p>} */}
                         <div className={`flex flex-col pb-[10px] relative`}>
                             <label className={`${styles.label} text-[#808D9E]`} htmlFor='mobile' >Mobile Number</label>
                             <input type='number' className={`${styles.input} ${styles.input1}`} {...register('phone', { required: { value: true, message: 'Mobile Number is required' }, pattern: { value: /^\d{10}$/, message: "Please enter a valid Mobile Number" } },)} />
