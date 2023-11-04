@@ -2,6 +2,15 @@ import React from 'react';
 import footer from '@/libs/footer';
 import Image from 'next/image';
 import { check_Image } from '@/libs/api';
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300", "400", "500", "600", "700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+})
 export default function MainFooter({ footerData }) {
     // console.log(footerData)
 
@@ -73,7 +82,7 @@ export default function MainFooter({ footerData }) {
                                             {item.section_name == 'Footer Contact' &&
                                                 <div className={` flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
                                                     <Image src={check_Image(item.logo)} height={66} width={200} alt={"image"} className='mb-[20px]' />
-                                                    <h6 className='font-medium pb-1 text-[13px]'>{item.title}</h6>
+                                                    <h6 className='font-medium pb-1  text-[13px]'>{item.title}</h6>
                                                     <p className='address font-normal text-[13px]'>{item.address_content}</p>
                                                     <span className='flex flex-row mt-2.5 gray-text'>
                                                         <Image src={check_Image(item.phone_icon)} height={18} width={18} alt={"image"} className='mr-2 m-0.5' />
@@ -86,12 +95,12 @@ export default function MainFooter({ footerData }) {
                                                 </div>}
                                             {item.section_name == 'Social Links' &&
                                                 <>
-                                                {/* <><h6 className='font-medium pb-1 pt-2'>Advertise with us</h6 >
+                                                    {/* <><h6 className='font-medium pb-1 pt-2'>Advertise with us</h6 >
                                                     <p className='address font-normal pb-2 text-[14px]'>Showcase your product / solution to digitally savvy decision makers from Retail, eCommerce, D2C, Fashion, Food, shopping centres and grow exponentially.</p>
                                                     <p className='address font-normal text-[14px]'>We have various ways to promote your brand and to know how, please get in touch with Bhavesh Pitroda email : himanshurawal@imagesgroup.in</p>
                                                     </>  */}
                                                     <div className='md:flex-[0_0_calc(100%_-_10px)]' >
-                                                        <h6 className='text-[16px] font-semibold pb-[10px] pt-[20px] '>Our Social Media</h6>
+                                                        <h6 className={`text-[16px] font-[700] pb-[10px] pt-[20px] ${nunito.className}`}>Our Social Media</h6>
                                                         <div className='flex items-center gap-[13px] py-[10px]'>
                                                             {item.social_links && item.social_links.map((res, index) => {
                                                                 return (
@@ -101,7 +110,7 @@ export default function MainFooter({ footerData }) {
                                                         </div>
                                                     </div>
                                                     <div className='md:flex-[0_0_calc(100%_-_10px)]' >
-                                                        <h6 className='text-[16px] font-semibold py-3'>Download Indiaretailing App</h6>
+                                                        <h6 className={`text-[16px] font-[700] py-3 ${nunito.className}`}>Download Indiaretailing App</h6>
                                                         <div className='flex gap-[15px] items-center'>
                                                             <Image src={'/footer/play-store.svg'} className='h-[32px] w-[101px]' height={15} width={20} alt={'app-store'} />
                                                             <Image src={'/footer/app-store.svg'} className='h-[32px] w-[101px]' height={15} width={20} alt={'app-store'} />
@@ -113,10 +122,10 @@ export default function MainFooter({ footerData }) {
 
                                             {item.section_name == "Menu" &&
                                                 <div className={`list_div leading-[2.5] ${(i % 2 == 0) ? 'min-h-[290px]' : ''} md:flex-[0_0_calc(50%_-_20px)] md:min-h-[20px]  md:mr-[20px]`} >
-                                                    <h6 className='text-[15px] font-semibold mb-3'>{item.title}</h6>
+                                                    <h6 className={`text-[15px] font-[700] mb-3 ${nunito.className}`}>{item.title}</h6>
                                                     {(item.menus && item.menus.length != 0) && item.menus.map((item, index) => {
                                                         return (
-                                                            <a target={item.title == 'Events' ? '_blank' : '_self'} href={item.redirect_url} key={index}><p className='sub_title pb-2 hover:text-[red]'>{item.menu_label}</p></a>
+                                                            <a target={item.title == 'Events' ? '_blank' : '_self'} href={item.redirect_url} key={index}><p className={`sub_title pb-2 text-[15px] font-semibold mb-2  hover:text-[red]`}>{item.menu_label}</p></a>
                                                         )
                                                     })}
                                                 </div>

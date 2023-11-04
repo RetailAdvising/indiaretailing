@@ -5,8 +5,16 @@ import Modal from '../common/Modal';
 import AlertUi from '../common/AlertUi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ModPopup from './ModPopup'
 import CommentModal from './CommentModal'
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300", "400", "500", "600", "700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+})
 export default function Comments({ data, isLast, load, comments, route, updatedCmt, cur, isModal, hide, noScroll }) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
@@ -34,8 +42,8 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
 
     const likeCmt = async (comm, index) => {
         // console.log(route)
-        if((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']){
-            setAlertMessage({message: 'Do you want to like this comment ? you need to login.'})
+        if ((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']) {
+            setAlertMessage({ message: 'Do you want to like this comment ? you need to login.' })
             setIsSuccessPopup(true)
             return
         }
@@ -64,8 +72,8 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
     const dislikeCmt = async (comm, index) => {
         // console.log(comment);
         // console.log(route)
-        if((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']){
-            setAlertMessage({message: 'Do you want to dislike this comment ? you need to login.'})
+        if ((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']) {
+            setAlertMessage({ message: 'Do you want to dislike this comment ? you need to login.' })
             setIsSuccessPopup(true)
             return
         }
@@ -98,8 +106,8 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
     }
     const report = async (cur_command) => {
         // noScroll(false);
-        if((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']){
-            setAlertMessage({message: 'Do you want to report this comment ? you need to login.'})
+        if ((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']) {
+            setAlertMessage({ message: 'Do you want to report this comment ? you need to login.' })
             setIsSuccessPopup(true)
             return
         }
@@ -156,8 +164,8 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
     let [showPopup, setShowPopup] = useState(false)
     let [cmtVal, setCmtVal] = useState('')
     async function sendMsg(id) {
-        if((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']){
-            setAlertMessage({message: 'Do you want to comment this article ? you need to login.'})
+        if ((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']) {
+            setAlertMessage({ message: 'Do you want to comment this article ? you need to login.' })
             setIsSuccessPopup(true)
             return
         }
@@ -169,7 +177,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             showPopup = true
             setShowPopup(showPopup)
 
-        }else{
+        } else {
             cmtVal = '';
             setCmtVal(cmtVal)
             showPopup = true
@@ -262,14 +270,14 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             {/* {mod && <ModPopup />} */}
 
             {isModal && <div className={`flex justify-between p-[20px_15px] `}>
-                <h6 className='text-[18px] font-semibold '>All Comments</h6>
+                <h6 className={`text-[18px] font-[700] ${nunito.className}`}>All Comments</h6>
                 <div>
                     <Image src={'/categories/close.svg'} onClick={hide} className='cursor-pointer ' height={22} width={22} alt='close' />
                 </div>
             </div>}
             <div className={`relative ${isModal ? 'mx-[10px]' : ''}`}>
                 {/* onClick={hides} */}
-                <input  onClick={() => sendMsg('cmt')} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id={`cmt` + cur.name} />
+                <input onClick={() => sendMsg('cmt')} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id={`cmt` + cur.name} />
                 <Image src={'/categories/send-01.svg'} onClick={() => sendMsg('cmt')} className='cursor-pointer absolute top-0 m-auto bottom-0 right-[10px]' height={22} width={22} alt='send' />
             </div>
             {showPopup && <CommentModal type={''} hides1={(type, data) => hides1(type, data)} element={cmtVal} msgChange={(val) => msgChange(val)} />}
@@ -281,7 +289,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                 <Image height={45} width={45} className='rounded-full object-contain' alt={res.name} src={'/profit.svg'} />
                             </div>
                             <div className={`${isModal ? 'flex-[0_0_calc(88%_-_10px)]' : 'flex-[0_0_calc(94%_-_10px)] md:flex-[0_0_calc(87%_-_10px)]'}`}>
-                                <h6 className='text-[17px] font-semibold'>{res.comment_by}</h6>
+                                <h6 className={`text-[17px] capitalize ${nunito.className} font-[700]`}>{res.comment_by}</h6>
                                 <div className='pb-[5px] sub_title !text-[14px]' dangerouslySetInnerHTML={{ __html: res.content }} />
                                 <div className='flex justify-between items-center py-[5px]'>
                                     <div className='flex gap-3'>

@@ -6,7 +6,15 @@ import { useRouter } from 'next/router'
 import Dropdowns from './Dropdowns'
 import format from 'date-fns/format'
 import ImageLoader from '../ImageLoader';
-
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 export default function Content({ res, i, updateShare, noScroll }) {
     const router = useRouter()
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
@@ -46,9 +54,9 @@ export default function Content({ res, i, updateShare, noScroll }) {
                 {res.primary_text && <p className={`${res.primary_text ? 'primary_text' : ''}`}>{res.primary_text ? res.primary_text : ''}</p>}
             </div>
 
-            <h1 className='mega_title lg:text-[40px] md:text-[18px] md:leading-[29.23px] leading-[1.3] m-[8px_0] md:my-1 md:mb-[5px]'>{res.title}</h1>
+            <h1 className={`mega_title  lg:text-[40px] md:text-[18px] md:leading-[29.23px] leading-[1.3] m-[8px_0] md:my-1 md:mb-[5px]`}>{res.title}</h1>
 
-            <h6 className='text-gray text-[11px] gray-text pb-[10px]'><span className='text-[12px] text-[#000] font-semibold'>Published On : </span>{dateFormat(res.published_on ? res.published_on : res.modified)}</h6>
+            <h6 className='text-gray text-[11px] gray-text pb-[10px]'><span className={`text-[12px] text-[#000] font-[700] ${nunito.className}`}>Published On : </span>{dateFormat(res.published_on ? res.published_on : res.modified)}</h6>
 
             <div className={`flex items-center justify-between ${styles.profile_div} md:hidden`}>
                 <div className='lg:hidden flex gap-4 items-center'>
@@ -74,7 +82,7 @@ export default function Content({ res, i, updateShare, noScroll }) {
                                 <div key={index} className='flex gap-[8px] items-center inner_line'>
                                     <Image className='rounded-full object-contain w-[30px] h-[30px]' priority={true} src={(r.avatar && r.avatar != '' && r.avatar != '') ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                                     <div className='block'>
-                                        <h6 className="font-semibold text-[12px]">{r.full_name}</h6>
+                                        <h6 className={`font-[700] ${nunito.className} text-[12px]`}>{r.full_name}</h6>
                                         {/* <span className='text-gray text-[11px] gray-text'>{dateFormat(res.published_on)}</span> */}
                                     </div>
 
@@ -150,7 +158,7 @@ export default function Content({ res, i, updateShare, noScroll }) {
             }
 
             {/* <p className='py-3 !leading-[1.74] !text-[15px] !text-justify font-semibold'>{res.blog_intro}</p> */}
-            <p className='py-3 !leading-[1.5] !text-[18px] !text-justify font-semibold'>{res.blog_intro}</p>
+            <p className={`py-3 ${nunito.className} !leading-[1.5] !text-[18px] !text-justify font-[700]`}>{res.blog_intro}</p>
         </>
     )
 }

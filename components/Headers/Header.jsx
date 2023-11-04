@@ -9,7 +9,15 @@ import AuthModal from '../Auth/AuthModal';
 import { useSelector, useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
 import setRole from 'redux/actions/roleAction';
-
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 // import {setUser} from '@/redux/actions/userAction'
 export default function Header({ checkout }) {
     const router = useRouter();
@@ -316,8 +324,8 @@ export default function Header({ checkout }) {
                             {/* !valid && (!user || user != '') */}
                                 {!role ?
                                     <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
-                                        <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub}`}>{head.btn1}</button>
-                                        <button type='button' onClick={show} className={`${styles.btn_sig}`}>{head.btn2}</button>
+                                        <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub} ${nunito.className}`}>{head.btn1}</button>
+                                        <button type='button' onClick={show} className={`${styles.btn_sig} ${nunito.className}`}>{head.btn2}</button>
                                     </div>
                                     :
                                     <div className='flex justify-end'>
@@ -326,7 +334,7 @@ export default function Header({ checkout }) {
                                             <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />
                                             <div>
                                                 {/* (user != '' && user.message && user.message.user_id) ? user.message.user_id : localStorage['userid'] */}
-                                                <p className='cursor-pointer text-[14px] font-[500]'>{role.user ? role.user : (user != '' && user.message && user.message.user_id) ? user.message.user_id : ''}</p>
+                                                <p className={`cursor-pointer text-[14px] font-[700] ${nunito.className}`}>{role.user ? role.user : (user != '' && user.message && user.message.user_id) ? user.message.user_id : ''}</p>
                                             </div>
                                         </div>}
                                         {/* <div>

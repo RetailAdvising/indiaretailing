@@ -20,7 +20,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import Widgets from '../Category/Widgets'
 import ReactDOM from 'react-dom/client';
 import Benefits from '@/components/Membership/benefits';
-import { LinkedInEmbed } from 'react-social-media-embed';
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll, plans }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
@@ -672,7 +680,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               {!isMobile && <div className={`flex flex-row justify-between`}>
                 {/* <p className="gray-text">Previous Post</p> */}
                 <hr></hr>
-                <h6 className={`font15_bold`}>Share this Article</h6>
+                <h6 className={`font15_bold !font-[700] ${nunito.className}`}>Share this Article</h6>
                 <hr></hr>
                 {/* <p className="gray-text">Next Post</p> */}
               </div>}
@@ -726,7 +734,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                       return ( */}
                           <div className={`py-1.5 relative w-[120px] md:w-[105px] ${styles.profile_div}`}>
                             {/* id={`cmt${data.route}`} */}
-                            <h6 className={`font-semibold text-[19px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
+                            <h6 className={`font-[700] ${nunito.className} text-[19px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
                             <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>{res.data.length ? res.data.length : 0}</span></p>
                           </div>
                           <Comments cur={data} noScroll={(val) => noScroll(val)} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 3)} hide_comment={hide} />
@@ -741,7 +749,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                         </div> :
                           (res.route == data.name && res.data && res.data.length == 0) ? <><div className={`py-1.5 relative w-[120px] md:w-[105px] ${styles.profile_div}`}>
                             {/* id={`cmt${data.route}`} */}
-                            <h6 className={`font-semibold text-[19px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
+                            <h6 className={`font-[700] ${nunito.className} text-[19px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
                             <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>0</span></p>
                           </div>
 
@@ -795,9 +803,9 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               </> : (showComment && data && data.doctype == 'Articles' && isLogin && loginModal) ? <div className='authModal'><AuthModal visible={loginModal} hide={hideModal} /></div> : null}
             </div>}
 
-            <div className='flex justify-center linkedinEmbed'>
+            {/* <div className='flex justify-center linkedinEmbed'>
               <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7125803978767892480" height="600" width="600" frameborder="0" allowfullscreen="true" title="Embedded post"></iframe>
-            </div>
+            </div> */}
           </div>
 
           {((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) && <div className={`w_30 md:hidden finding relative`}>

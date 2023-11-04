@@ -7,7 +7,15 @@ import AlertPopup from '../common/AlertPopup';
 import SubscribeNews from './SubscribeNews';
 import AlertUi from '@/components/common/AlertUi';
 import ImageLoader from '../ImageLoader';
-
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 export default function NewsList({ data }) {
   const router = useRouter();
   const [showAlert, setShowAlert] = useState(false);
@@ -79,8 +87,8 @@ export default function NewsList({ data }) {
 
             </div>
             <div  className={`lg:leading-[1.7] md:gap-[5px] md:flex-[0_0_calc(65%_-_5px)] lg:flex-[0_0_calc(60%_-_10px)]`}>
-              <p onClick={() => router.push(`/${res.route}`)} className={`text-[#818181] leading-[17.62px] lg:text-[13px] md:text-[11px] capitalize`}>{res.title}</p>
-              <h6 onClick={() => router.push(`/${res.route}`)} className={`line-clamp-1 font-semibold text-[17px] md:text-[14px] capitalize`}>{res.primary_text}</h6>
+              <p onClick={() => router.push(`/${res.route}`)} className={`text-[#818181] leading-[17.62px] lg:text-[13px] md:text-[11px] capitalize ${nunito.className}`}>{res.title}</p>
+              <h6 onClick={() => router.push(`/${res.route}`)} className={`line-clamp-1 font-[700] text-[17px] md:text-[14px] ${nunito.className} capitalize`}>{res.primary_text}</h6>
               <p onClick={() => router.push(`/${res.route}`)} className={`text-[14px] md:text-[12px] line-clamp-2`}>{res.description}</p>
               <div className='flex lg:hidden items-center md:gap-[10px] gap-[20px]'>
                 {/* <p className='cursor-pointer text-[14px] md:text-[12px] font-semibold' onClick={() => router.push(`/${res.route}`)}>Preview</p> */}
@@ -89,8 +97,8 @@ export default function NewsList({ data }) {
             </div>
             {/* justify-between */}
             <div className='flex md:hidden items-center pl-[15px] gap-[10px] flex-[0_0_calc(25%_-_10px)]'>
-              <p className='cursor-pointer flex-[0_0_calc(50%_-_10px)]' onClick={() => router.push(`/${res.route}`)}>Preview</p>
-              <p className='flex cursor-pointer justify-center items-center seeMore' onClick={() => {showPopup(res, index)}}><span className='primary_text '>Sign Up</span> <Image className='img' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></p>
+              <p className={`cursor-pointer ${nunito.className} flex-[0_0_calc(50%_-_10px)]`} onClick={() => router.push(`/${res.route}`)}>Preview</p>
+              <p className={`flex cursor-pointer ${nunito.className} justify-center items-center seeMore`} onClick={() => {showPopup(res, index)}}><span className='primary_text '>Sign Up</span> <Image className='img' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></p>
             </div>
           </div>
         )

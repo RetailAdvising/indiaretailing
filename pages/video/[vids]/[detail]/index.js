@@ -14,7 +14,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import AdsBaner from '@/components/Baners/AdsBaner'
 import SubscriptionAlert from '@/components/common/SubscriptionAlert';
 import Placeholders from '@/components/common/Placeholders'
-
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 export default function Videos({meta_info, ads_data}) {
     // console.log(meta_info, ads_data)
     const router = useRouter();
@@ -134,7 +142,7 @@ export default function Videos({meta_info, ads_data}) {
                             </div>
 
                             <div className={`flex md:p-[10px] justify-between lg:gap-5 md:gap-[5px] pb-[10px] md:pl-0`}>
-                                <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-semibold`}>{videoDetail.message.title}</h6>
+                                <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-[700] ${nunito.className}`}>{videoDetail.message.title}</h6>
                                 {icons && <><Dropdowns updateShare={(data) => updateShare(data)} link={videoDetail.message} data={icons} share={true} /></>}
                             </div>
 

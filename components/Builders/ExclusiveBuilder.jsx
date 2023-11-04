@@ -9,7 +9,15 @@ import ListSlider from '@/components/Sliders/ListSlider'
 import CustomSlider from '../Sliders/CustomSlider'
 import Video from '../Video/Video'
 import ImageLoader from '../ImageLoader';
-
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 export default function ExclusiveBuilder({ data, ads }) {
     const router = useRouter();
     const [isMobile, setIsMobile] = useState()
@@ -37,10 +45,10 @@ export default function ExclusiveBuilder({ data, ads }) {
                         return (
                             // ${router.asPath.split('/')[1]}/
                             <div key={index} onClick={() => router.push(`/${res.route}`)} className={`md:mb-[10px] mb-5 pb-5 cursor-pointer md:pb-[10px] ${(index == 0 && !isMobile) ? 'border_bottom' : ''}`}>
-                                <h6 className={`${index == 0 ? 'lg:text-[18px] md:text-[17px] font-semibold' : ''}`}>{res.title}</h6>
+                                <h6 className={`${index == 0 ? 'lg:text-[18px] md:text-[17px] ' : ''} font-[700] ${nunito.className}`}>{res.title}</h6>
                                 <ImageLoader style={`${index == 0 ? 'h-[335px] md:h-[320px] w-full mt-[10px] rounded-[5px]' : ''}`} src={res.thumbnail_image ? res.thumbnail_image : res.image} title={res.title ? res.title : 's'} />
                                 {/* <Image className={`${index == 0 ? 'h-[335px] md:h-[320px] w-full mt-[10px] rounded-[5px]' : ''}`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.image)} height={250} width={300} alt={res.title} /> */}
-                                {res.primary_text && <p className={`flex items-center ${index == 0 ? 'pt-[10px]' : ''}`}><span className={`primary_text pr-[10px]`}>{res.primary_text}</span><span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px]`}>{res.secondary_text}</span></p>}
+                                {res.primary_text && <p className={`flex items-center ${index == 0 ? 'pt-[10px]' : ''}`}><span className={`primary_text pr-[10px] ${nunito.className}`}>{res.primary_text}</span><span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px] ${nunito.className}`}>{res.secondary_text}</span></p>}
                                 <p className={`sub_title line-clamp-2 ${index == 0 ? 'pt-[10px]' : ''}`}>{res.blog_intro}</p>
                             </div>
                         )

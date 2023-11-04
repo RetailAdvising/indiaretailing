@@ -112,7 +112,7 @@ export default function Navbar({ heading, isLanding, checkout }) {
                                 </>}
                                 {res.section_name == 'Header Profile Info' && <div className={`text-end items-center ${date && 'lg:flex lg:items-center lg:gap-[5px] lg:justify-end'} md:float-right ${navbar ? 'md:pr-[20px]' : ''}`}>
                                     {/* <Image src={'/Navbar/Date-and-time-01.svg'} className='md:hidden lg1:hidden' height={20} width={20} alt={'weather'} /> */}
-                                    {date && <> <p className='md:hidden text-[#66161] text-[12px] lg1:text-[10px]'>{date ? date : ''}</p></>}
+                                    {date && <> <p className={`md:hidden text-[#66161] text-[12px] lg1:text-[10px] ${nunito.className}`}>{date ? date : ''}</p></>}
                                     <Image className='lg:hidden' style={{ objectFit: 'contain' }} height={50} priority width={24} alt='search' src={'/search.svg'} ></Image>
                                 </div>}
 
