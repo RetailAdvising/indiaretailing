@@ -20,6 +20,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Widgets from '../Category/Widgets'
 import ReactDOM from 'react-dom/client';
 import Benefits from '@/components/Membership/benefits';
+import { LinkedInEmbed } from 'react-social-media-embed';
 export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll, plans }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
@@ -793,6 +794,10 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                 })}
               </> : (showComment && data && data.doctype == 'Articles' && isLogin && loginModal) ? <div className='authModal'><AuthModal visible={loginModal} hide={hideModal} /></div> : null}
             </div>}
+
+            <div className='flex justify-center linkedinEmbed'>
+              <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7125803978767892480" height="600" width="600" frameborder="0" allowfullscreen="true" title="Embedded post"></iframe>
+            </div>
           </div>
 
           {((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) && <div className={`w_30 md:hidden finding relative`}>
@@ -803,6 +808,15 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
           </div>}
         </div>
 
+
+        {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <LinkedInEmbed
+            url="https://www.linkedin.com/embed/feed/update/urn:li:share:7125803978767892480"
+            // postUrl="https://www.linkedin.com/posts/peterdiamandis_5-discoveries-the-james-webb-telescope-will-activity-6898694773406875648-z-D7"
+            width={600}
+            height={650}
+          />
+        </div> */}
 
         {data.latest_news && data.latest_news.length != 0 && <div className={`${isMobile ? '' : 'container'}  ${styles.section_3}`}>
           {/* Slider */}

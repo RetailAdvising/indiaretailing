@@ -31,8 +31,8 @@ function Poll({ data, ipAddress }) {
         }
     }
     return (
-        <>{console.log(pollData)}
-            <ToastContainer position={'top-right'} autoClose={2000} />
+        <>
+            
             {pollData && pollData.map((qsn, index) => (
                 <div key={qsn.name} className='border-light-gray divide-y border rounded flex-[0_0_calc(33.33%_-_20px)] mb-[20px]'>
                     <div className='font-semibold p-[20px]'>{qsn.question}</div>
@@ -67,6 +67,7 @@ function Poll({ data, ipAddress }) {
                     </div>
                 </div>
             ))}
+            <ToastContainer position={'top-right'} autoClose={2000} />
         </>
     );
 }

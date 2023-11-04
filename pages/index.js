@@ -112,6 +112,7 @@ export default function Home({ data }) {
 
   useEffect(() => {
     if (data && data.page_content && data.page_content.length != 0) {
+      // console.log(data.page_content,'data.page_content')
       setValue(data.page_content)
       // console.log('data1234567',data);
       // console.log(ads)
@@ -304,8 +305,8 @@ export default function Home({ data }) {
                   <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-23-00094') ? 'md:mb-[20px]' : 'container'}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} `}>
                     {(res.components && res.components.length != 0) && res.components.map((c, c_index) => {
                       return (
-                        <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:justify-center md:gap-5' : ''}`}>
-                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 3 Stories") && <TopStories data={data.data[c.cid].data.slice(0, 3)} />}
+                        <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3 lg:w-[80%] lg:m-[auto] lg:justify-center md:gap-5' : ''}`}>
+                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 3 Stories") && <TopStories data={data.data[c.cid].data.slice(0, 4)} />}
                           {(c.component_title == "In Focus" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <>
                             {/* <div className={``}> */}
                             <ImageContainer data={data.data[c.cid].data[0]} height={"h-[350px] md:h-[250px]"} width={'w-full'} />
@@ -396,7 +397,7 @@ export default function Home({ data }) {
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Food & Beverage") && <>
                             <Title data={{ title: c.component_title }} route={'/categories/food-beverage'} seeMore={true} />
-                            <div className={`${isMobile ? 'no_scroll' : 'grid gap-5  grid-cols-5'}`}><Cards isHome={'/'} cardClass={"h-[300px] md:h-[290px]"} check={true} data={data.data[c.cid].data.slice(0, 5)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'md:flex-[0_0_calc(75%_-_15px)]'} isBorder={true} /></div>
+                            <div className={`${isMobile ? 'no_scroll' : 'grid gap-5  grid-cols-5'}`}><Cards isHome={'/'} cardClass={"h-[310px] md:h-[300px]"} check={true} data={data.data[c.cid].data.slice(0, 5)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px]"} width={"w-full"} flex={'md:flex-[0_0_calc(75%_-_15px)]'} isBorder={true} /></div>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "E-Commerce" || c.component_title == "People" || c.component_title == "D2C Buzz")) && <div className={`${isMobile ? '' : 'border p-[10px_15px] rounded-[10px]'}`}>
                             {/* {isMobile ? <>

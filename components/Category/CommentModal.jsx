@@ -9,14 +9,15 @@ import {
     useDisclosure,
     ModalCloseButton,
 } from '@chakra-ui/react'
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 export default function CommentModal({ hides1, element, msgChange }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     useEffect(() => {
-        onOpen()
 
+        
         // if (document.readyState === 'complete') {
-            onPageLoad();
+        onPageLoad();
+        onOpen()
         // } else {
         //     window.addEventListener('load', onPageLoad);
         //     // Remove the event listener when component unmounts
@@ -25,16 +26,26 @@ export default function CommentModal({ hides1, element, msgChange }) {
     }, [])
 
     let [msgs, setMsgs] = useState('');
-    let [email,setEmail] = useState('')
-    let [name,setName] = useState('')
+    let [email, setEmail] = useState('')
+    let [name, setName] = useState('')
     const onPageLoad = () => {
-        if (element && localStorage && localStorage['full_name'] && document) {
+        console.log('onPageLoad')
+        if (element && localStorage && localStorage['full_name']) {
             msgs = element
             setMsgs(msgs)
-            setEmail(localStorage['userid'])
-            setName(localStorage['full_name'])
+            email = localStorage['userid']
+            setEmail(email)
+            name = localStorage['full_name']
+            setName(name)
             // console.log(el.value)
 
+        }
+
+        if( localStorage && localStorage['full_name']){
+            email = localStorage['userid']
+            setEmail(email)
+            name = localStorage['full_name']
+            setName(name) 
         }
     }
 
@@ -43,12 +54,12 @@ export default function CommentModal({ hides1, element, msgChange }) {
     }
 
     const changingMessage = (e) => {
-        if(e.target.value && e.target.value != ''){
+        if (e.target.value && e.target.value != '') {
             msgs = e.target.value
             setMsgs(msgs)
             // msgChange(e.target.value)
         }
-        
+
     }
 
     return (
@@ -80,7 +91,7 @@ export default function CommentModal({ hides1, element, msgChange }) {
                     </ModalBody>
 
                     <ModalFooter>
-                        <button className='primary_button h-[35px] w-[85px]'  onClick={() => closeModal('save')}>
+                        <button className='primary_button h-[35px] w-[85px]' onClick={() => closeModal('save')}>
                             Submit
                         </button>
                     </ModalFooter>

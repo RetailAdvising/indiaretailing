@@ -5,7 +5,15 @@ import Link from 'next/link'
 import Tags from '../common/Tags'
 import { useRouter } from 'next/router'
 import ImageLoader from '../ImageLoader';
-
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+  weight: ["300", "400", "500", "600", "700"],
+  display: "block",
+  preload: true,
+  style: 'normal',
+  subsets: ["latin"],
+  variable: '--font-inter',
+})
 export default function SectionList({ data, isHome }) {
   const router = useRouter();
   function navigate(event, res) {
@@ -26,8 +34,8 @@ export default function SectionList({ data, isHome }) {
                   {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`rounded-[5px] h-[90px] w-full`} src={check_Image(res.thumbnail_imagee ? res.thumbnail_imagee : res.image)} height={50} width={150} alt={"image"} ></Image> */}
                 </div>
                 <div className='md:grid'>
-                  <p className='primary_text lg:mb-[8px]'>{res.primary_text}</p>
-                  <h4 className='title line-clamp-2 lg:mb-[5px]'>{res.title}</h4>
+                  <p className={`primary_text lg:mb-[8px] ${nunito.className}`}>{res.primary_text}</p>
+                  <h4 className={`title line-clamp-2 lg:mb-[5px] ${nunito.className}`}>{res.title}</h4>
                   {(res.blog_intro) && <p className={`sub_title lg:mb-[8px] line-clamp-1 md:line-clamp-1 md:!leading-[1.5]`}>{res.blog_intro}</p>}
                   {/* {res.publisher && <p className='light_text'>{res.publisher}</p>} */}
                   {res.tags && <Tags tagClass={'!p-0'} tags={res.tags} />}

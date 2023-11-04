@@ -23,7 +23,7 @@ export default function index() {
     return (
         <RootLayout>
         {pollList && ipAddress && pollList.length != 0 ?      
-        <div className='w-[85%] m-auto py-[20px] lg:flex gap-[20px]'>
+        <div className='w-[85%] m-auto py-[20px] lg:flex gap-[20px] flex-wrap'>
          <Poll data={pollList} ipAddress={ipAddress}/>
         </div>
         : <Skeleton />}

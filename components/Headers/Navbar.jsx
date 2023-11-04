@@ -9,15 +9,24 @@ import setRoutes from 'redux/actions/routesAction'
 import { checkMobile } from '@/libs/api';
 import format from 'date-fns/format'
 import MobileHead from './MobileHead';
-import { Montserrat,Inter } from 'next/font/google'
-const inter = Inter({
-  weight: ["300","400","500","600","700"],
-  display: "block",
-  preload: true,
-  style: 'normal',
-  subsets: ["latin"],
-  variable: '--font-inter'
-})
+// const inter = Inter({
+//   weight: ["300","400","500","600","700"],
+//   display: "block",
+//   preload: true,
+//   style: 'normal',
+//   subsets: ["latin"],
+//   variable: '--font-inter'
+// })
+
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 export default function Navbar({ heading, isLanding, checkout }) {
     const router = useRouter();
     const route = useSelector(state => state.routes)
@@ -88,7 +97,8 @@ export default function Navbar({ heading, isLanding, checkout }) {
                                         {res.menus.map(item => {
                                             return (
                                                 // ${nav1 == item.redirect_url ? header.activeMenu : ''}
-                                                <Link href={item.redirect_url} className={`${header.listKey} font-semibold navigation_c lg:text-[16px] tracking-wide ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''} ${inter.className}`} key={item.menu_label}>
+                                                // tracking-wide
+                                                <Link href={item.redirect_url} className={`${header.listKey} font-[700] navigation_c lg:text-[16px]  ${"/" + router.asPath.split('/')[1] == item.redirect_url ? header.activeMenu : ''} ${nunito.className} tracking-[0]`} key={item.menu_label}>
                                                     {item.menu_label}
                                                 </Link>
                                             )
@@ -112,8 +122,9 @@ export default function Navbar({ heading, isLanding, checkout }) {
                                             // onClick={() => router.push(item.redirect_url)}
                                             // <div key={index} className={`nav-item ${index === activeIndex ? 'active' : ''}`} onClick={() => handleItemClick(index)}>
                                             <Link key={index} href={item.redirect_url} className={`${router.asPath == item.redirect_url ? 'active' : ''} justify-center p-[10px_8px] flex gap-[5px] items-center`} >
-                                                <div className='h-[4px] w-[4px] m-[3px_0_0_0] rounded-full bg-red'></div>
-                                                <p className={`${router.asPath == item.redirect_url ? 'primary_color' : ''} text-[14px]`}>{item.menu_name}</p>
+                                                {/* m-[3px_0_0_0] */}
+                                                <div className='h-[4px] w-[4px]  rounded-full bg-red'></div>
+                                                <p className={`${router.asPath == item.redirect_url ? 'primary_color' : ''} text-[13px] font-[500] ${nunito.className} tracking-[0]`}>{item.menu_name}</p>
                                             </Link>
                                             // </div>
                                         )

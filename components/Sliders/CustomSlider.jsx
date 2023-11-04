@@ -4,14 +4,14 @@ import { check_Image } from '../../libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import ImageLoader from '../ImageLoader';
-import { Montserrat,Inter } from 'next/font/google'
-const inter = Inter({
-  weight: ["300","400","500","600","700"],
-  display: "block",
-  preload: true,
-  style: 'normal',
-  subsets: ["latin"],
-  variable: '--font-inter'
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300", "400", "500", "600", "700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
 })
 export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route, title_class, subtitle_class, primary_text_class, hashtags_class, hide_scroll_button, noPrimaryText, routers, parent, productNavigation }) {
     // let router = routers ? routers : useRouter();
@@ -163,14 +163,15 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                                     <ImageLoader style={`${imgClass} rounded-[10px_10px_0_0]`} src={res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_imagee : res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : res.video_image ? res.video_image : res.product_image ? res.product_image : res.image} title={index + 'image'} />
                                 </div>
                                 <div className={` flex flex-col justify-between p-[10px] `}>
-                                    {(res.primary_text && res.secondary_text && !noPrimaryText) && <p className={`${primary_text_class} flex gap-2 items-center py-[5px]`}><span className={`primary_text leading-normal tracking-wider !text-[10px] line-clamp-1`}>{res.primary_text}</span> <span className="h-[10px] w-[1px] bg-[#6f6f6f]"></span> <span className='secondary_text line-clamp-1'>{res.secondary_text}</span></p>}
-                                    <h4 className={`title  ${title_class ? title_class : 'line-clamp-2'} ${inter.className}`}>{res.title ? res.title : res.item ? res.item : ''}</h4>
+                                    {/* !text-[10px] */}
+                                    {(res.primary_text && res.secondary_text && !noPrimaryText) && <p className={`${primary_text_class} flex gap-2 items-center py-[5px]`}><span className={`primary_text leading-normal tracking-wider  line-clamp-1 ${nunito.className}`}>{res.primary_text}</span> {res.secondary_text && <span className="h-[10px] w-[1px] bg-[#6f6f6f]"></span>} <span className={`secondary_text line-clamp-1 ${nunito.className}`}>{res.secondary_text}</span></p>}
+                                    <h4 className={`title  ${title_class ? title_class : 'line-clamp-2'} ${nunito.className}`}>{res.title ? res.title : res.item ? res.item : ''}</h4>
                                     {res.short_description && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title !mt-[6px] `}>{res.short_description}</p>}
                                     {(res.sub_title || res.blog_intro) && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title !mt-[6px] `}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
-                                    {(res.hashtags || res.publisher) && <p className={`${hashtags_class} hashtags pt-1 line-clamp-1`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}
+                                    {(res.hashtags || res.publisher) && <p className={`${hashtags_class} hashtags pt-1 line-clamp-1 ${nunito.className}`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}
                                     {(res.locations && res.start_date) && <div className={`flex gap-[5px] items-center lg:pt-[5px]`}>
                                         {res.start_date && <div className={`flex items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className='md:object-contain md:h-[15px] md:w-[17px]' objectFit='contain' height={15} width={20} alt={res.title} />  <span className={`light_text`}>{res.start_date}</span></div>}{(res.locations && res.locations.length != 0) && <span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>}
-                                       {(res.locations && res.locations.length != 0 )&& <div className={`flex flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='md:object-contain md:h-[15px] md:w-[17px]' height={15} width={20} alt={res.title} />
+                                        {(res.locations && res.locations.length != 0) && <div className={`flex flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='md:object-contain md:h-[15px] md:w-[17px]' height={15} width={20} alt={res.title} />
                                             {res.locations && res.locations.slice(0, 1).map((item, index) => {
                                                 return (
                                                     <span key={index} className={`light_text`}>{item.event_location}</span>

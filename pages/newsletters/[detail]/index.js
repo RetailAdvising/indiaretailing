@@ -13,9 +13,11 @@ import NewsList from '@/components/Newsletter/NewsList';
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import NoProductFound from '@/components/common/NoProductFound';
 import AlertUi from '@/components/common/AlertUi';
-import { Montserrat,Inter } from 'next/font/google'
+import { Montserrat, Inter } from 'next/font/google'
+import format from 'date-fns/format'
+
 const inter = Inter({
-  weight: ["300","400","500","600","700"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "block",
   preload: true,
   style: 'normal',
@@ -77,7 +79,6 @@ export default function NewsLists({ data, Id }) {
     }
   };
 
-
   useEffect(() => {
     allNews();
     getAd();
@@ -126,7 +127,7 @@ export default function NewsLists({ data, Id }) {
     // let resp = await newsletter_category()
     let params = {
       doctype: 'Newsletter Category',
-      fields: ["title", "name", "route", "article_category","category_name"],
+      fields: ["title", "name", "route", "article_category", "category_name"],
       filters: { 'published': 1 }
     }
     let resp = await getList(params)
@@ -162,6 +163,15 @@ export default function NewsLists({ data, Id }) {
     getCategoryBaseddata(res)
   }
 
+  const changeDateFormat = (data) => {
+    if (data && data != null) {
+      const formattedDate = format(new Date(data), "iii, d LLL yyyy");
+      return formattedDate
+    } else {
+      return data
+    }
+  }
+
 
   return (
     <>
@@ -173,19 +183,19 @@ export default function NewsLists({ data, Id }) {
 
         <SEO title={data.meta_title ? data.meta_title : data.custom_title} ogImage={check_Image(data.custom_image_)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.custom_title} description={data.meta_description ? data.meta_description : data.custom_title} />
         {<div className='container p-[30px_0px] md:p-[15px]'>
-          <label className='themeSwitcherTwo w-full  border_bottom shadow-card relative inline-flex cursor-pointer select-none'>
+          {(data && data.article_detail) && <label className='themeSwitcherTwo w-full  border_bottom shadow-card relative inline-flex cursor-pointer select-none'>
             <input type='checkbox' className='sr-only' checked={isChecked} onChange={handleCheckboxChange} />
             <span
               className={`flex capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-semibold text-[#111111] ${!isChecked ? 'tabActive' : ''
                 }`}>
-              Current edition
+              {(data && data.article_detail && data.article_detail.is_current_edition == 1) ? 'Current edition' : changeDateFormat(data.article_detail.date)}
             </span>
             <span
               className={`flex capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-semibold text-[#111111] ${isChecked ? 'tabActive' : ''
                 }`}>
               All Newsletter
             </span>
-          </label>
+          </label>}
 
           {!isChecked ? <>
             {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] md:flex-wrap justify-between gap-5 lg:relative`}>
@@ -227,8 +237,8 @@ export default function NewsLists({ data, Id }) {
               </div>
 
               <div className={`m-[25px_10px]`}>
-                {newsList && newsList.length != 0 ?<div className='lg:grid grid-cols-4  no_scroll lg:gap-5'><NewsCard data={newsList} imgClass={'h-[215px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[310px] md:h-[280px] md:flex-[0_0_calc(50%_-_10px)]'} /></div> :
-                 <>No Newsletters Found</>}
+                {newsList && newsList.length != 0 ? <div className='lg:grid grid-cols-4  no_scroll lg:gap-5'><NewsCard data={newsList} imgClass={'h-[215px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[310px] md:h-[280px] md:flex-[0_0_calc(50%_-_10px)]'} /></div> :
+                  <>No Newsletters Found</>}
               </div>
             </div>
 

@@ -17,7 +17,7 @@ export default function ContactInfo({contactInfo}){
    
     return (
         <div className="md:flex-col flex rounded-[10px] border lg:mt-10 relative overflow-hidden">
-          <div  className="flex flex-col items-center justify-center p-[20px] rounded-[5px] m-[15px] flex-[0_0_calc(40%_-_30px)]  bg-[url('/contactUs.jpg')] md:flex-[0_0_calc(100%_-_0px)]" style={{backgroundSize: 'cover',backgroundRepeat: 'no-repeat', backgroundPosition: 'center center'}}>
+          <div  className="flex flex-col items-center justify-center p-[20px] rounded-[5px] m-[15px] flex-[0_0_calc(40%_-_15px)]  bg-[url('/contactUs.jpg')] md:flex-[0_0_calc(100%_-_0px)]" style={{backgroundSize: 'cover',backgroundRepeat: 'no-repeat', backgroundPosition: 'center center'}}>
             <Image src={'/contact_us.svg'} height={900} width={400}/>
              {/* <p className="text-[15px] py-[7px] flex items-center gap-[7px]">
                <span className="m-0"><Image className=""  src={check_Image(contactInfo.icon)} height={18} width={18} alt="image"></Image></span>
@@ -34,7 +34,7 @@ export default function ContactInfo({contactInfo}){
                <span className="text-[15px] text-[#fff]  m-0">{contactInfo.phone_no}</span>
              </p> */}
           </div>
-          <div className="md:flex-[0_0_calc(100%_-_0px)] flex-[0_0_calc(70%_-_0px)] ">
+          <div className="md:flex-[0_0_calc(100%_-_0px)] flex-[0_0_calc(60%_-_15px)] ">
             <JoinOurTeam style={style} styles={styles} />
           </div>
 

@@ -5,7 +5,15 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Tags from './Tags'
 import ImageLoader from '../ImageLoader';
-
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+  weight: ["300", "400", "500", "600", "700"],
+  display: "block",
+  preload: true,
+  style: 'normal',
+  subsets: ["latin"],
+  variable: '--font-inter',
+})
 export default function Cards({ searchNavigation,titleOnly, noPrimaryText, data, isHome=undefined, check, contentHeight, flex, border_none, isBorder, width, height, borderRadius, cardClass}) {
   const router = useRouter();
   const navigateDetail = (data) =>{
@@ -45,9 +53,9 @@ export default function Cards({ searchNavigation,titleOnly, noPrimaryText, data,
               <ImageLoader style={`${height} ${width} ${borderRadius} ${styles.card_img} ${border_none ? 'rounded-[5px]' : 'rounded-[10px]'}`} src={res.thumbnail_image ? res.thumbnail_image :res.image ? res.image : res.product_image} title={res.title} />
             </div>
             <div className={`${styles.content} ${isBorder && 'p-[10px] '} ${contentHeight}  flex justify-between flex-col`}>
-              {((res.primary_text && res.secondary_text) && !noPrimaryText) && <p className='flex gap-2 line-clamp-1 items-center'><span className='primary_text fnt_13 line-clamp-1'>{res.primary_text || res.type}</span> <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span> <span className='secondary_text line-clamp-1'>{res.secondary_text}</span></p>}
+              {((res.primary_text && res.secondary_text) && !noPrimaryText) && <p className='flex gap-2 line-clamp-1 items-center'><span className={`primary_text fnt_13 line-clamp-1 ${nunito.className}`}>{res.primary_text || res.type}</span> {res.secondary_text && <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span>} <span className={`secondary_text line-clamp-1 ${nunito.className}`}>{res.secondary_text}</span></p>}
               {(!res.primary_text && res.type) && <p className='flex gap-2 '><span className='primary_text fnt_13'>{res.type}</span></p>}
-              {res.title && <h4 className={`card-title line-clamp-2 lg:min-h-[40px] ${isHome ? '' : 'mt-2'} `}>{res.title ? res.title : ''}</h4>}
+              {res.title && <h4 className={`card-title line-clamp-2 lg:min-h-[40px] ${isHome ? '' : 'mt-2'} ${nunito.className}`}>{res.title ? res.title : ''}</h4>}
               {(res.sub_title || res.blog_intro) && !titleOnly && <p className={`sub_title pt-1 ${(isHome && res.title) ? 'line-clamp-1 lg:pt-[10px]' : (isHome && !res.title) ? 'line-clamp-2' : 'line-clamp-2'}`}>{ res.blog_intro ? res.blog_intro : res.sub_title ? res.sub_title : ''}</p>}
               {/* {((res.publisher) && !noPrimaryText) && <p className={`hashtags pt-[10px]`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>} */}
               {((res.hashtags) && !noPrimaryText) && <p className={`light_text pt-[10px]`}>{res.hashtags ? res.hashtags : ''}</p>}

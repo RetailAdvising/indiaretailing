@@ -28,6 +28,8 @@ export default function ModPopup({ onClose, customerInfo }) {
             setTimeout(() => {
                 onClose('close')
             }, 2000);
+
+            localStorage.removeItem('company')
         }
 
         // console.log(res)

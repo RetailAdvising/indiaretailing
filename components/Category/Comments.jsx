@@ -170,8 +170,10 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             setShowPopup(showPopup)
 
         }else{
-            cmtVal = element.value;
+            cmtVal = '';
             setCmtVal(cmtVal)
+            showPopup = true
+            setShowPopup(showPopup)
         }
     }
 
@@ -266,7 +268,8 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                 </div>
             </div>}
             <div className={`relative ${isModal ? 'mx-[10px]' : ''}`}>
-                <input onClick={hides} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id={`cmt` + cur.name} />
+                {/* onClick={hides} */}
+                <input  onClick={() => sendMsg('cmt')} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id={`cmt` + cur.name} />
                 <Image src={'/categories/send-01.svg'} onClick={() => sendMsg('cmt')} className='cursor-pointer absolute top-0 m-auto bottom-0 right-[10px]' height={22} width={22} alt='send' />
             </div>
             {showPopup && <CommentModal type={''} hides1={(type, data) => hides1(type, data)} element={cmtVal} msgChange={(val) => msgChange(val)} />}
@@ -282,11 +285,11 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                 <div className='pb-[5px] sub_title !text-[14px]' dangerouslySetInnerHTML={{ __html: res.content }} />
                                 <div className='flex justify-between items-center py-[5px]'>
                                     <div className='flex gap-3'>
-                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.likes}</span><Image className='h-[16px] w-[16px]  cursor-pointer' onClick={() => likeCmt(res, i)} src={(res.is_liked && res.is_liked == 1) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
-                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.dislikes}</span><Image className='h-[16px] w-[16px]  cursor-pointer' onClick={() => dislikeCmt(res, i)} src={(res.is_disliked && res.is_disliked == 1) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.likes}</span><Image className='h-[16px] w-[16px]  cursor-pointer' onClick={() => likeCmt(res, i)} src={(res.is_liked && res.is_liked == 1) ? '/categories/like-fill.svg' : '/categories/like-1.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.dislikes}</span><Image className='h-[16px] w-[16px]  cursor-pointer' onClick={() => dislikeCmt(res, i)} src={(res.is_disliked && res.is_disliked == 1) ? '/categories/dislike-fill.svg' : '/categories/dislike-1.svg'} height={20} width={20} alt={""} /></p>
                                     </div>
                                     <div>
-                                        <Image src={'/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={() => report(res)} />
+                                        <Image src={'/categories/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={() => report(res)} />
                                     </div>
                                 </div>
                                 {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { Montserrat,Inter } from 'next/font/google'
+import { Inter,Nunito } from 'next/font/google'
 const inter = Inter({
   weight: ["300","400","500","600","700"],
   display: "block",
@@ -10,6 +10,15 @@ const inter = Inter({
   subsets: ["latin"],
   variable: '--font-inter'
 })
+
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 export default function Title({ data, textClass, seeMore, font, noPadding, isVid, see, route, title_class }) {
   const router = useRouter()
 
@@ -34,7 +43,7 @@ export default function Title({ data, textClass, seeMore, font, noPadding, isVid
           {
             seeMore &&
             <div className='flex items-center gap-[5px] cursor-pointer' onClick={() => goTo(data)}>
-              <p className={`text-[12px] font-normal ${see}`}>View All</p>
+              <p className={`text-[12px] font-normal ${see} ${nunito.className}`}>View All</p>
               <Image className='h-[11px] w-[5px] object-contain' src={see ? '/arrow-white.svg' : '/forwardIcon.svg' } height={5} width={5} alt='View All' />
             </div>
           }
