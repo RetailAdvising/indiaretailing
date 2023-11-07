@@ -120,6 +120,9 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     // console.log(val)
     mand = false
     setMand(mand)
+    if(val == 'yes'){
+      getMembershipPlans()
+    }
   }
 
   const [customerInfo, setCustomerInfo] = useState();
@@ -137,6 +140,8 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   const checkMandatory = () => {
     if (typeof window != 'undefined' && localStorage && localStorage['apikey'] && localStorage['company']) {
       customer_info()
+    }else if(localStorage['new_user'] && localStorage && localStorage['apikey']){
+      getMembershipPlans()
     }
   }
 
@@ -145,7 +150,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   useMemo(() => {
     if (typeof window != 'undefined') {
       checkMandatory()
-      getMembershipPlans()
+      // getMembershipPlans()
     }
   }, [user])
 

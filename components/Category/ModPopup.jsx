@@ -23,10 +23,11 @@ export default function ModPopup({ onClose, customerInfo }) {
             custom_industry: values.industry,
         }
         const res = await insert_doc(data);
+        console.log(res,'res')
         if (res && res.message) {
             toast.success('Profile updated successfully.');
             setTimeout(() => {
-                onClose('close')
+                onClose('yes')
             }, 2000);
 
             localStorage.removeItem('company')

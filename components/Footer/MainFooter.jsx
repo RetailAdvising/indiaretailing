@@ -3,6 +3,7 @@ import footer from '@/libs/footer';
 import Image from 'next/image';
 import { check_Image } from '@/libs/api';
 import { Nunito } from 'next/font/google'
+import {useRouter} from 'next/router';
 const nunito = Nunito({
     weight: ["300", "400", "500", "600", "700"],
     display: "block",
@@ -12,6 +13,7 @@ const nunito = Nunito({
     variable: '--font-inter',
 })
 export default function MainFooter({ footerData }) {
+    const router = useRouter()
     // console.log(footerData)
 
     return (
@@ -74,10 +76,11 @@ export default function MainFooter({ footerData }) {
                 {footerData && <div className={` container flex md:block gap-[20px] py-[20px] md:px-[30px] `}>
                     {footerData.items && footerData.items.map((footer_item, index) => {
                         return (
-                            <div key={index} className={`flex-[0_0_${100 / footerData.items.length}%] ${'md:flex md:flex-wrap md:mb-[10px]'}`}>
+                            // flex-[0_0_calc(${100 / footerData.items.length}%_-_16px)]
+                            <div key={index} className={`${index == 0 ? 'flex-[0_0_calc(20%_-_15px)]'  : 'flex-[0_0_calc(16%_-_15px)]'}  ${'md:flex md:flex-wrap md:mb-[10px]'}`}>
                                 {footer_item.items && footer_item.items.map((item, i) => {
                                     return (
-                                        <div key={i}>
+                                        <div key={i} className={`${item.section_name == 'Footer 1' ? 'relative' : ''}`}>
                                             {/* // <> */}
                                             {item.section_name == 'Footer Contact' &&
                                                 <div className={` flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
@@ -125,10 +128,25 @@ export default function MainFooter({ footerData }) {
                                                     <h6 className={`text-[15px] font-[700] mb-3 ${nunito.className}`}>{item.title}</h6>
                                                     {(item.menus && item.menus.length != 0) && item.menus.map((item, index) => {
                                                         return (
-                                                            <a target={item.title == 'Events' ? '_blank' : '_self'} href={item.redirect_url} key={index}><p className={`sub_title pb-2 text-[15px] font-semibold mb-2  hover:text-[red]`}>{item.menu_label}</p></a>
+                                                            <a target={item.title == 'Events' ? '_blank' : '_self'} href={item.redirect_url} key={index}><p className={`sub_title  text-[15px] font-semibold mb-2  hover:text-[red]`}>{item.menu_label}</p></a>
                                                         )
                                                     })}
                                                 </div>
+                                            }
+
+                                            { item.section_name == 'Footer 1' && <div className={`absolute top-0 left-0 right-[-390px] h-[230px] border p-[10px] rounded-[5px] flex gap-[10px] items-center`}>
+                                                <div className={`flex-[0_0_40%]`}>
+                                                    <Image src={check_Image(item.image)} className={`object-contain w-full`} height={100} width={100} alt={item.primary_text} />
+                                                </div>
+                                                <div>
+                                                    <p className={``}><span className={`font-[700] text-[#e21b22] text-[14px]`}>{item.primary_text}</span>  <span className={`text-[#666666] font-[700] text-[14px]`}>{item.secondary_text}</span></p>
+                                                    <p className={`text-[13px] leading-[1.3] my-[10px]`}>{item.description}</p>
+                                                    <button className={`primary_button h-[35px] p-[0_10px] text-[14px] cursor-pointer w-full`} onClick={()=> router.push('/membership')}>{item.button}</button>
+                                                </div>
+
+
+                                            </div>
+
                                             }
                                         </div>
                                         // {/* </> */ }

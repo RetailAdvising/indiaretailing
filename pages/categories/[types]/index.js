@@ -1,5 +1,5 @@
 // 'use client'
-import React, { useEffect, useState,useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Title from '@/components/common/Title';
 import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
@@ -12,13 +12,13 @@ import Tags from '@/components/common/Tags';
 import ImageLoader from '@/components/ImageLoader';
 import { Nunito } from 'next/font/google'
 const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
+    weight: ["300", "400", "500", "600", "700"],
     display: "block",
     preload: true,
     style: 'normal',
     subsets: ["latin"],
     variable: '--font-inter',
-  })
+})
 export default function CategoryType({ values, ads }) {
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -34,7 +34,9 @@ export default function CategoryType({ values, ads }) {
     useEffect(() => {
         // console.log(values);
         if (values) {
-            setData(values)
+            setTimeout(() => {
+                setData(values)
+            }, 200);
         }
 
         // const handleScroll = () => {
@@ -114,7 +116,7 @@ export default function CategoryType({ values, ads }) {
             <RootLayout isLanding={false} homeAd={ads ? ads : null} head={router.query.types}>
                 <SEO title={router.query.types} siteName={'India Reatiling'} ogType={router.query.types} description={router.query.types} />
                 <div className={`${isMobile ? 'md:p-[15px]' : 'container'}`} id='root' >
-                    {(data && data.length != 0) && <div className={`lg:flex lg:flex-wrap  lg:gap-[20px]`}>
+                    {(data && data.length != 0) ? <div className={`lg:flex lg:flex-wrap  lg:gap-[20px]`}>
                         <div className={`flex-[0_0_calc(65%_-_10px)]  md:flex-[0_0_calc(100%_-_10px)]`}>
                             {/* {!isMobile && <Title data={{ title: router.query.types }} />} */}
                             <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px] cursor-pointer`}>{data && data.slice(0, 1).map((res, index) => {
@@ -135,12 +137,13 @@ export default function CategoryType({ values, ads }) {
                         <div className={`lg:flex-[0_0_calc(35%_-_10px)]  md:pt-[20px] md:flex-[0_0_calc(100%_-_10px)]`}>
                             <div className='border p-[15px] lg:grid md:h-[auto] h-[520px] rounded-[10px]'> <List primary_pb={'mb-[5px]'} hash_bg={'mt-[10px]'} contentWidth={'flex-[0_0_calc(65%_-_10px)]'} titleClamp={'line-clamp-2 '} imgWidth={'w-full'} line={'line-clamp-1 md:hidden'} imgHeight={'h-[90px] md:h-[80px]'} check={true} data={data.slice(1, 5)} borderRadius={'rounded-[5px]'} isReverse={true} /></div>
                         </div>
-                    </div>}
+                    </div> : <Skeleton />}
                     <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:py-8 md:gap-[10px] lg:gap-[20px]`}>
                         {/* contentHeight={'h-[175px]'} */}
                         <Cards cardClass={"lg:h-[315px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data.slice(5, data.length - 1)} />
                     </div>
                 </div>
+
 
                 <div className='more h-[30px]' ref={cardref}></div>
                 {(loading && isMobile) && <div id="wave">
@@ -150,6 +153,61 @@ export default function CategoryType({ values, ads }) {
                 </div>}
             </RootLayout>
         </>
+    )
+}
+
+
+const Skeleton = () => {
+    return (
+        <div className={` lg:p-[30px_0px] md:p-[15px] container`}>
+            <div className='flex gap-[15px] items-center'>
+                <div className='border p-5 md:p-[10px] rounded-[5px]  flex-[0_0_calc(65%_-_10px)] md:basis-full'>
+                    {[0].map((res, i) => {
+                        return (
+                            <div key={i} className={`md:mb-[10px] mb-5 pb-5 cursor-pointer md:pb-[10px] border_bottom`}>
+                                <h6 className={`bg-[#E5E4E2] h-[10px] mt-[10px] w-full rounded-[5px]`}></h6>
+                                <h6 className={`bg-[#E5E4E2] h-[10px] my-[10px] w-[200px] rounded-[5px]`}></h6>
+                                <div className={`h-[350px] bg-[#E5E4E2] md:h-[320px] w-full mt-[10px] rounded-[5px]`} ></div>
+                                <p className={`flex items-center gap-[10px] mt-[10px]`}><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px] `}></span><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px]`}></span></p>
+                                <p className={`bg-[#E5E4E2] h-[6px]  w-full rounded-[5px]  mt-[10px] `}></p>
+                                <p className={`bg-[#E5E4E2] h-[6px]  w-full rounded-[5px]  mt-[10px] `}></p>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className={`overflow-auto  rounded-[5px] flex-[0_0_calc(35%_-_10px)] md:basis-full border p-5 md:p-[10px] `}>
+                    {[0, 1, 2, 3].map((res, index) => {
+                        return (
+                            <div key={index} className='flex gap-[15px] justify-between border_bottom mb-[15px] pb-[15px]'>
+                                <div className='flex-[0_0_calc(65%_-_10px)]'>
+                                    <p className={`flex items-center gap-[10px] mt-[10px]`}><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px] `}></span><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px]`}></span></p>
+                                    <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[10px] `}></p>
+                                    <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[10px] `}></p>
+                                    <p className={`bg-[#E5E4E2] h-[6px]  w-full rounded-[5px]  mt-[15px] `}></p>
+                                </div>
+                                <div className='flex-[0_0_calc(35%_-_10px)] bg-[#E5E4E2] h-[90px] rounded-[5px]'></div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+
+            <div className='grid grid-cols-4 md:grid-cols-2 gap-5 justify-between my-5 items-center'>
+                {[0, 1, 2, 3, 4, 5, 6, 7].map(index => {
+                    return (
+                        <div key={index} className='border rounded-[10px] h-[280px] flex-[0_0_calc(20%_-_10px)]'>
+                            <div className='bg-[#E5E4E2] h-[200px] w-full rounded-[5px_5px_0_0]'></div>
+                            <div className='p-[10px]'>
+                                <p className='flex gap-[10px] items-center'><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span></p>
+                                <p className={`bg-[#E5E4E2] h-[8px] w-[220px] my-[10px] rounded-[5px]`}></p>
+                                <p className={`bg-[#E5E4E2] h-[8px] w-[220px] mb-[10px] rounded-[5px]`}></p>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+
+        </div>
     )
 }
 

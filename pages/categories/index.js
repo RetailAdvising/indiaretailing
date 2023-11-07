@@ -1,7 +1,7 @@
 
 import React, { Suspense, useEffect, useState, useRef } from 'react'
 import RootLayout from '@/layouts/RootLayout';
-import { getAds, getCategoryList, checkMobile } from '@/libs/api';
+import { getAds, getCategoryList, checkMobile, check_Image } from '@/libs/api';
 import SectionBox from '@/components/Category/SectionBox';
 import MultiCarousel from '@/components/Sliders/MultiCarousel';
 
@@ -17,7 +17,7 @@ export default function Categories({ data, ads }) {
     const [activeNav, setActiveNav] = useState()
     const [datas, setDatas] = useState([])
     useEffect(() => {
-        // console.log(data);
+        console.log(data);
         if (data && data.length != 0) {
             setTimeout(() => {
                 setDatas(data)
@@ -224,15 +224,15 @@ export default function Categories({ data, ads }) {
                 <SEO title={'Categories'} siteName={'India Reatiling'} description={'Categories'} />
 
                 <div className={` md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
-                    <Title data={{ title: 'Categories' }} font={'20px'} className='md:hidden' title_class='md:hidden' />
+                    {/* <Title data={{ title: 'Categories' }} font={'20px'} className='md:hidden' title_class='md:hidden' /> */}
                     {(datas && datas.length != 0) ? datas.map((res, index) => {
                         return (
-                            <div key={index} className={`flex md:block md:mb-[10px] lg:mr-[15px] ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>
-                                <div className={`lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)]`} ><SectionBox data={res} /></div>
-                                {/* <div className='lg:w-[calc(75%_-_10px)] categorySlide md:w-[calc(100%_-_0px)] xl:w-[calc(80%_-_10px)] md:p-[10px]'><MultiCarousel cardHeight={'lg:h-[280px] md:h-[200px]'} islanding={true} noPlay={false} check={true} height={'lg:h-[185px] md:h-[140px]'} perView={4} width={'w-full'} data={res.events} /></div> */}
-                                <div className='lg:w-[calc(80%_-_10px)]  md:p-[10px]'>
-                                    {/* <CardCarousel data={res.events} cardClass={'lg:h-[280px] md:h-[220px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /> */}
-                                    <CustomSlider data={res.events} cardClass={'lg:h-[280px]  md:h-[235px]  flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
+                            <div key={index} className={`block md:mb-[10px] p-[15px] lg:mr-[15px] ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} border rounded-[5px] `} style={{backgroundImage: `url(${check_Image(res.background_image)})`,backgroundRepeat:'no-repeat'}}>
+                                {/* lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)] */}
+                                <div className={``} ><SectionBox data={res} /></div>
+                                {/* lg:w-[calc(80%_-_10px)]  md:p-[10px] */}
+                                <div className='lg:w-[97%] lg:m-[auto] py-[15px]'>
+                                    <CustomSlider data={res.events} cardClass={'lg:h-[280px]  md:h-[235px]  flex-[0_0_calc(20%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
                                         slider_id={"slider_id" + index} slider_child_id={"slider_child_id" + index} subtitle_class={'hidden'} hashtags_class={'hidden'} primary_text_class={''} />
                                 </div>
                             </div>
@@ -252,6 +252,14 @@ export default function Categories({ data, ads }) {
         </>
     )
 }
+
+{/* <div key={index} className={`flex md:block md:mb-[10px] lg:mr-[15px] ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>
+    <div className={`lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)]`} ><SectionBox data={res} /></div>
+    <div className='lg:w-[calc(80%_-_10px)]  md:p-[10px]'>
+        <CustomSlider data={res.events} cardClass={'lg:h-[280px]  md:h-[235px]  flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
+            slider_id={"slider_id" + index} slider_child_id={"slider_child_id" + index} subtitle_class={'hidden'} hashtags_class={'hidden'} primary_text_class={''} />
+    </div>
+</div> */}
 
 
 export async function getStaticProps() {

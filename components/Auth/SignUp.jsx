@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import { signUp, logIn, checkMobile,checkMember } from '@/libs/api';
+import { signUp, logIn, checkMobile, checkMember, getList, send_otp,verify_otp } from '@/libs/api';
 import { useRouter } from 'next/router';
 import LogIn from './LogIn';
 import { useDispatch } from 'react-redux';
@@ -17,6 +17,7 @@ export default function SignUp({ isModal, hide, auth }) {
     const [wrong, setWrong] = useState(false);
     const [modal, setModal] = useState('');
     const [show_pass, setShowPass] = useState(false)
+    let [signupData, setSignUpData] = useState()
 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
@@ -40,50 +41,104 @@ export default function SignUp({ isModal, hide, auth }) {
 
     async function signup(data) {
         if (data) {
-
             if (data.new_password === data.confirm_password) {
                 delete data.confirm_password
-                // alert('perfect')
-                const resp = await signUp(data)
-                // console.log(resp)
-                if (resp.message.status == 'Success') {
-                    let datas = {
-                        usr: data.email,
-                        pwd: data.new_password
-                    }
-                    const val = await logIn(datas);
-                    if (val.message.status == 'Success') {
-                        localStorage['apikey'] = val.message.api_key
-                        localStorage['secret'] = val.message.api_secret
-                        localStorage['userid'] = val.message.user_id;
-                        localStorage['customer_id'] = val.message.customer_id;
-                        localStorage['full_name'] = val.full_name;
-                        // localStorage['company'] = "true"
-                        checkMember(val.message.roles)
-                        localStorage['roles'] = JSON.stringify(val.message.roles)
-                        dispatch(setUser(val))
-                        isModal || !isMobile ? hide() : router.push('/')
-                    } else {
-                        setWrong(!wrong);
-                        toast.error(val.message.message)
-                    }
-
-                    // isModal ? hide() : router.push('/')
-                } else {
-                    // console.log(resp.message["message:"])
-                    toast.error(resp.message["message"]);
-                    // alert(resp.message.message)
-                    // setWrong(!wrong);
-                }
+                signupData = data
+                setSignUpData(signupData)
+                checkExistingMobile(data.phone)
             } else {
-                // console.log(data);
                 toast.error('Password and Confirm Password not matched');
-                // alert('check password')
-                // notify();
-                // setIsOpen(true)
-                // setAlertMsg({ message: 'Password and Confirm Password not matched' })
             }
-            //
+           
+        }
+    }
+
+    let [showOtp, setShowOtp] = useState(false)
+    const checkExistingMobile = async (number) => {
+        let params = {
+            doctype: 'Customers',
+            fields: ["name", "phone", "first_name"],
+            filters: { 'phone': number }
+        }
+        let resp = await getList(params);
+        if (resp.message && resp.message.length != 0) {
+            toast.error('Mobile number already exist')
+        } else {
+            let datas = {
+                mobile_no: number
+            }
+            let val = await send_otp(datas);
+            if (val.message.status == 'Success') {
+                toast.success("Otp Sent Successfully");
+                showOtp = true
+                setShowOtp(showOtp)
+                // setAlertMessage({ message: "Otp Sent Successfully" })
+                // setIsSuccessPopup(true)
+                // OTP sent successfully.
+
+            } else {
+                toast.error("Otp Sent Failed");
+                // setWrong(!wrong);
+                // setAlertMessage({ message: "Otp Sent Failed" })
+                // setIsSuccessPopup(true)
+            }
+
+        }
+
+    }
+
+
+    const verifyOtp = async () => {
+        let element = document.getElementById('otp_inputs').value
+        if (element && element != '') {
+            // console.log(signupData,'signupData')
+            let params = {
+                mobile_no: signupData.phone,
+                otp: element,
+                verify_number: true
+            }
+
+            let resp = await verify_otp(params);
+            if (resp.message.status == 'Success') {
+                signUpuser(signupData)
+            }
+            
+        } else {
+            toast.warn("Please enter OTP")
+        }
+
+    }
+
+    const signUpuser = async (data) => {
+        const resp = await signUp(data)
+        if (resp.message.status == 'Success') {
+            let datas = {
+                usr: data.email,
+                pwd: data.new_password
+            }
+            const val = await logIn(datas);
+            if (val.message.status == 'Success') {
+                localStorage['apikey'] = val.message.api_key
+                localStorage['secret'] = val.message.api_secret
+                localStorage['userid'] = val.message.user_id;
+                localStorage['customer_id'] = val.message.customer_id;
+                localStorage['full_name'] = val.full_name;
+                localStorage['company'] = "true"
+                checkMember(val.message.roles)
+                localStorage['roles'] = JSON.stringify(val.message.roles)
+                dispatch(setUser(val))
+                isModal || !isMobile ? hide() : router.push('/')
+            } else {
+                setWrong(!wrong);
+                toast.error(val.message.message)
+            }
+
+            // isModal ? hide() : router.push('/')
+        } else {
+            // console.log(resp.message["message:"])
+            toast.error(resp.message["message"]);
+            // alert(resp.message.message)
+            // setWrong(!wrong);
         }
     }
 
@@ -120,10 +175,7 @@ export default function SignUp({ isModal, hide, auth }) {
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full h-full object-contain`} />
                 </div>}
                 {/* md:mt-[40px] */}
-                <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] '} flex-col gap-5 md:gap-[10px] flex justify-center`}>
-                    {/* {!isModal && <div className='top-0 cursor-pointer left-[10px]'>
-                        <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
-                    </div>} */}
+                {!showOtp && <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] '} flex-col gap-5 md:gap-[10px] flex justify-center`}>
                     {isMobile && <div className=' cursor-pointer'>
                         <Image className='w-full h-[70%] object-contain' onClick={() => router.push('/')} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>}
@@ -138,7 +190,7 @@ export default function SignUp({ isModal, hide, auth }) {
                             </div>
                             <div className={`flex flex-col relative flex-[0_0_calc(50%_-_10px)]`}>
                                 <label className={`${styles.label} text-[#808D9E]`} htmlFor='last_name' >Last Name</label>
-                                <input className={`${styles.input} ${styles.input1}`} {...register('last_name',{ required: { value: true, message: 'Last Name is required' } })} />
+                                <input className={`${styles.input} ${styles.input1}`} {...register('last_name', { required: { value: true, message: 'Last Name is required' } })} />
                                 {/* <Image className={`absolute  right-[10px] h-[20px] w-[24px] bottom-[25px]`} src={'/login/profile-01.svg'} height={15} width={15} alt={"pass"} /> */}
                                 {errors?.last_name && <p className={`${styles.danger}`}>{errors.last_name.message}</p>}
                             </div>
@@ -156,7 +208,7 @@ export default function SignUp({ isModal, hide, auth }) {
                             {/* <Image className={`absolute  right-[10px] h-[20px] w-[25px] ${errors.email?.message ? 'bottom-[50px]' : 'bottom-[25px]'}`} src={'/login/email.svg'} height={15} width={15} alt={"pass"} /> */}
                             {errors?.email && <p className={`${styles.danger}`}>{errors.email.message}</p>}
                         </div>
-                        <div  className='flex items-center pb-[20px] justify-between gap-[10px]'>
+                        <div className='flex items-center pb-[20px] justify-between gap-[10px]'>
                             <div className={`flex flex-col  relative flex-[0_0_calc(50%_-_10px)]`}>
                                 <label className={`text-[#808D9E] ${styles.label}`} htmlFor='password'>Password</label>
                                 <input type={`${(show_pass) ? 'text' : 'password'}`} className={`${styles.input} ${styles.input1}`} {...register('new_password', { required: { value: true, message: 'Password is required' } })} />
@@ -177,34 +229,20 @@ export default function SignUp({ isModal, hide, auth }) {
                         {/* {wrong && <p className={`${styles.danger}`}>Please check your email or password</p>} */}
                     </form>
                     <p className='pt-[10px] text-[14px]'>already have an account? <span onClick={() => auth ? setModal('login') : router.push('/login')} className='text-[#e21b22] text-[13px] font-semibold cursor-pointer'>login</span></p>
-                    {/* <div className='flex items-center pt-[20px] justify-between'><hr style={{ border: '1px dashed #ddd', width: '35%' }} /><span className='text-center  text-[#B5B5BE] w-[30%]'>Instant Login</span><hr style={{ border: '1px dashed #ddd', width: '35%' }} /></div> */}
+                </div>}
 
-                    {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}
-                    {/* <div className='flex gap-[15px] m-[18px_auto] lg:w-[75%] items-center justify-center'>
-                        <div className='flex h-[50px] w-[75px] rounded-[10px] border cursor-pointer items-center justify-center '>
-                            <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='google' src={'/google-login.svg'} />
-                        </div>
-
-                        <div className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
-                            <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/Apple-login.svg'} />
-
-                        </div>
-
-                        <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
-                            <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/login/fb-01.svg'} />
-                        </div>
-                    </div> */}
-                    {/* <div className='flex gap-[10px] cursor-pointer mb-[18px] h-[45px] rounded-[5px] border items-center justify-center '>
-                        <Image height={20} width={20} alt='google' src={'/google-login.svg'} />
-                        <p>Continue with Google</p>
+                {showOtp && <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] '} flex-col gap-5 md:gap-[10px] flex justify-center`}>
+                    <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Verify OTP</h6>
+                    <div className={`flex flex-col pt-[10px] pb-4 relative`}>
+                        <label className={`text-[#808D9E]`} htmlFor='password'>OTP</label>
+                        <input id='otp_inputs' type={`number`} className={`${styles.input} ${styles.input1}`} />
                     </div>
-                    <div className='flex gap-[10px] cursor-pointer items-center h-[45px] rounded-[5px] justify-center border'>
-                        <Image height={20} width={20} alt='apple' src={'/Apple-login.svg'} />
-                        <p>Continue with Apple</p>
-                    </div> */}
-                </div>
+                    <button onClick={() => verifyOtp()} className={`${styles.loginBtn}`}>Submit OTP</button>
+                </div>}
 
             </div> : <><LogIn auth={auth} hide={hide} /></>}
         </>
     )
 }
+
+

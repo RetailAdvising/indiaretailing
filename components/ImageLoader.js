@@ -41,7 +41,7 @@ export default function ImageLoader({ src, title, style, type }) {
                 }
             />
 
-            { type && type.type && type.type == 'video' && <div className='absolute bottom-[25px] z-10 right-[10px] md:bottom-[25px]'>
+            { type && type.video_type && type.video_image && <div className='absolute bottom-[25px] z-10 right-[10px] md:bottom-[25px]'>
                 <Image src={'/irprime/youtube.svg'} className='h-[35px] w-[35px] object-contain' height={50} width={50} alt={title + 'video'} />
             </div>}
 

@@ -3,13 +3,13 @@ import Image from 'next/image'
 import { check_Image } from '@/libs/api'
 import { Nunito } from 'next/font/google'
 const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-  })
+  weight: ["300", "400", "500", "600", "700"],
+  display: "block",
+  preload: true,
+  style: 'normal',
+  subsets: ["latin"],
+  variable: '--font-inter',
+})
 export default function Widgets({ data, index, routers, productNavigation }) {
   // console.log(data)
   const checkRoute = (res, data) => {
@@ -32,11 +32,11 @@ export default function Widgets({ data, index, routers, productNavigation }) {
   }
   return (
     <>
-      <div className='border mb-[10px] rounded-[8px] p-[15px]'>
-        <h6 className={`text-[15px] ${nunito.className} font-[700] mb-[10px]`}>{data.title}</h6>
+      <div className={`${data.title == 'Banner Ad' ||  data.title == 'Custom Widget' ? 'my-[15px]' : 'border mb-[10px] rounded-[8px] p-[15px]'}`}>
+        {data.title != 'Banner Ad' && data.title != 'Custom Widget' && <h6 className={`text-[15px] ${nunito.className} font-[700] mb-[10px]`}>{data.title}</h6>}
         {data.data && data.data.length != 0 &&
-          <div className={`lg:grid lg:gap-5 ${data.title == 'Books' ? 'lg:grid-cols-4 ' : 'lg:grid-cols-3'} md:flex md:items-center md:gap-[15px] md:overflow-auto no_scroll`}>
-            {data.title != 'Videos' && data.title != 'Books' && data.data.slice(0, 6).map((res, i) => {
+          <div className={`lg:grid lg:gap-5 ${data.title == 'Books' ? 'lg:grid-cols-4 ' : data.title == 'Banner Ad' || data.title == 'Custom Widget' ? 'grid-cols-1' : 'lg:grid-cols-3'} md:flex md:items-center md:gap-[15px] md:overflow-auto no_scroll`}>
+            {data.title != 'Videos' && data.title != 'Books' && data.title != 'Banner Ad' && data.title != 'Custom Widget' && data.data.slice(0, 6).map((res, i) => {
               return (
                 <div key={index} onClick={() => checkRoute(res, data)} className='flex cursor-pointer h-[100px] gap-[10px] border rounded-[5px] p-[10px] md:flex-[0_0_calc(100%_-_10px)]'>
                   <div className='flex-[0_0_calc(40%_-_10px)]'>
@@ -71,12 +71,12 @@ export default function Widgets({ data, index, routers, productNavigation }) {
             {data.title == 'Videos' && data.data.slice(0, 3).map((res, i) => {
               return (
                 // <div key={i + res.title}>
-                  <div key={i + res.title} onClick={() => checkRoute(res, data)} className={` lg:mb-[20px] md:flex-[0_0_calc(100%_-_10px)]  cursor-pointer relative`}>
-                    <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.video_image)} className={`!rounded-[5px] !p-0 h-[175px] w-full`} height={150} width={273} alt={res.title} />
-                    {/* <ImageLoader style={`rounded-[5px] ${imgClass ? imgClass : 'h-[175px] w-full'}`} src={res.video_image} title={res.title ? res.title : 's'} /> */}
-                    <Image src={'/irprime/youtube.svg'} className={`absolute bottom-[30px] left-[5px]  md:bottom-[30px]  object-contain h-[20px] w-[30px]`} height={100} width={100} alt={res.title} />
-                    <p className={`pt-[10px] !text-[14px] md:!text-[13px] ${nunito.className} line-clamp-1 font-[500]`}>{res.title}</p>
-                  </div>
+                <div key={i + res.title} onClick={() => checkRoute(res, data)} className={` lg:mb-[20px] md:flex-[0_0_calc(100%_-_10px)]  cursor-pointer relative`}>
+                  <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.video_image)} className={`!rounded-[5px] !p-0 h-[175px] w-full`} height={150} width={273} alt={res.title} />
+                  {/* <ImageLoader style={`rounded-[5px] ${imgClass ? imgClass : 'h-[175px] w-full'}`} src={res.video_image} title={res.title ? res.title : 's'} /> */}
+                  <Image src={'/irprime/youtube.svg'} className={`absolute bottom-[30px] left-[5px]  md:bottom-[30px]  object-contain h-[20px] w-[30px]`} height={100} width={100} alt={res.title} />
+                  <p className={`pt-[10px] !text-[14px] md:!text-[13px] ${nunito.className} line-clamp-1 font-[500]`}>{res.title}</p>
+                </div>
                 // </div>
               )
             })}
@@ -92,6 +92,12 @@ export default function Widgets({ data, index, routers, productNavigation }) {
                 </div>
               )
             })}
+
+            {data.title == 'Banner Ad' && data.data[0] && <a target='_blank' href={data.data[0].banner_link} className={`w-full h-[250px] object-contain`}>
+              <Image src={check_Image(data.data[0].banner_image)} height={200} width={200} alt={data.data[0].title ? data.data[0].title : data.title} />
+            </a>}
+
+            {data.title == 'Custom Widget' && data.data[0] &&  <div className='m-[auto]' dangerouslySetInnerHTML={{__html: data.data[0].snippet}} />}
           </div>}
       </div>
     </>
