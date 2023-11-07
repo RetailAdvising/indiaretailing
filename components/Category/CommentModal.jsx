@@ -14,7 +14,7 @@ export default function CommentModal({ hides1, element, msgChange }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     useEffect(() => {
 
-        
+
         // if (document.readyState === 'complete') {
         onPageLoad();
         onOpen()
@@ -29,7 +29,7 @@ export default function CommentModal({ hides1, element, msgChange }) {
     let [email, setEmail] = useState('')
     let [name, setName] = useState('')
     const onPageLoad = () => {
-        console.log('onPageLoad')
+        // console.log('onPageLoad')
         if (element && localStorage && localStorage['full_name']) {
             msgs = element
             setMsgs(msgs)
@@ -41,23 +41,40 @@ export default function CommentModal({ hides1, element, msgChange }) {
 
         }
 
-        if( localStorage && localStorage['full_name']){
+        if (localStorage && localStorage['full_name']) {
             email = localStorage['userid']
             setEmail(email)
             name = localStorage['full_name']
-            setName(name) 
+            setName(name)
         }
     }
 
+    let [no_data, setNodata] = useState(false)
     const closeModal = async (type) => {
-        hides1(type, msgs)
+        if (type == 'save') {
+            if (msgs && msgs != '') {
+                hides1(type, msgs)
+            } else {
+                no_data = true
+                setNodata(no_data)
+            }
+        }else{
+            hides1(type, msgs)
+        }
     }
 
     const changingMessage = (e) => {
         if (e.target.value && e.target.value != '') {
             msgs = e.target.value
             setMsgs(msgs)
+            no_data = false
+            setNodata(no_data)
             // msgChange(e.target.value)
+        } else {
+            msgs = ''
+            setMsgs(msgs)
+            no_data = true
+            setNodata(no_data)
         }
 
     }
@@ -86,6 +103,7 @@ export default function CommentModal({ hides1, element, msgChange }) {
                             <div className='grid py-[10px]'>
                                 <label htmlFor='message1' className='pb-[5px]'>Message</label>
                                 <textarea type='text' value={msgs} onChange={(e) => changingMessage(e)} className='rounded-[5px] border p-[5px] ' name='message1' id='message1' />
+                                {no_data && <p className={`text-[#e21b22] font-semibold text-[12px] `}>Please enter comment</p>}
                             </div>
                         </div>
                     </ModalBody>

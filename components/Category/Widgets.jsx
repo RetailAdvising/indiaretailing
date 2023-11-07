@@ -71,7 +71,7 @@ export default function Widgets({ data, index, routers, productNavigation }) {
             {data.title == 'Videos' && data.data.slice(0, 3).map((res, i) => {
               return (
                 // <div key={i + res.title}>
-                <div key={i + res.title} onClick={() => checkRoute(res, data)} className={` lg:mb-[20px] md:flex-[0_0_calc(100%_-_10px)]  cursor-pointer relative`}>
+                <div key={i + res.title} onClick={() => checkRoute(res, data)} className={` md:flex-[0_0_calc(100%_-_10px)]  cursor-pointer relative`}>
                   <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.video_image)} className={`!rounded-[5px] !p-0 h-[175px] w-full`} height={150} width={273} alt={res.title} />
                   {/* <ImageLoader style={`rounded-[5px] ${imgClass ? imgClass : 'h-[175px] w-full'}`} src={res.video_image} title={res.title ? res.title : 's'} /> */}
                   <Image src={'/irprime/youtube.svg'} className={`absolute bottom-[30px] left-[5px]  md:bottom-[30px]  object-contain h-[20px] w-[30px]`} height={100} width={100} alt={res.title} />

@@ -15,7 +15,7 @@ const nunito = Nunito({
     subsets: ["latin"],
     variable: '--font-inter',
 })
-export default function Comments({ data, isLast, load, comments, route, updatedCmt, cur, isModal, hide, noScroll }) {
+export default function Comments({ data, isLast, load, comments, route, updatedCmt, cur, isModal, hide, noScroll, no_data }) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
     const [reportComment, setReporComment] = useState()

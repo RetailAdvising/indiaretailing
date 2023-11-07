@@ -9,7 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState, useMemo } from 'react'
-import { websiteSettings, get_article_breadcrumb, get_subscription_plans,get_customer_info } from '@/libs/api'
+import { websiteSettings, get_article_breadcrumb, get_subscription_plans, get_customer_info } from '@/libs/api'
 import MobileHead from '@/components/Headers//MobileHead';
 import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
@@ -19,7 +19,7 @@ import dynamic from 'next/dynamic'
 const SubscriptionAlert = dynamic(() => import('@/components/common/SubscriptionAlert'))
 const ModPopup = dynamic(() => import('@/components/Category/ModPopup'))
 import { useDispatch, useSelector } from 'react-redux';
-
+import AlertUi from '@/components/common/AlertUi'
 export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
@@ -88,7 +88,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
 
   let [plans, setPlans] = useState([])
   let [visible, setVisible] = useState(false)
-
+  let [alrtMsg, setAlrtMsg] = useState(false)
   const hide = () => {
     visible = false
     setVisible(visible)
@@ -105,7 +105,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
           // plans.push(resp.message.message[0].features)
           plans = resp.message.message[0].features;
           setPlans(plans)
-          if(!mand){
+          if (!mand) {
             visible = true
             setVisible(visible)
             localStorage.removeItem('new_user')
@@ -118,29 +118,57 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   let [mand, setMand] = useState(false)
   const hides = (val) => {
     // console.log(val)
-    mand = false
-    setMand(mand)
-    if(val == 'yes'){
+    if (val == 'yes') {
+      mand = false
+      setMand(mand)
       getMembershipPlans()
+    } else {
+      alrtMsg = true
+      setAlrtMsg(alrtMsg)
     }
   }
 
-  const [customerInfo, setCustomerInfo] = useState();
+  let [customerInfo, setCustomerInfo] = useState();
   async function customer_info() {
 
     let data = { guest_id: '', user: localStorage['customer_id'] };
     const resp = await get_customer_info(data);
     if (resp && resp.message && resp.message[0]) {
-      setCustomerInfo(resp.message[0]);
+      customerInfo = resp.message[0]
+      setCustomerInfo(customerInfo);
+      checkInfo(resp.message[0])
+    }
+  }
+
+  const checkInfo = (data) => {
+    if (data['custom_company_name'] && data['custom_job_title'] && data['custom_location'] && data['custom_industry']) {
+      if (data['roles_list'] && data['roles_list'].length != 0) {
+        let val = checkMemberShip(data['roles_list'])
+        if(val){
+          getMembershipPlans()
+        }
+      }
+    } else {
       mand = true
       setMand(mand)
     }
   }
 
+  const checkMemberShip = (data) => {
+
+    for (let j = 0; j < data.length; j++) {
+      if (data[j] == 'Member' || data[j] == 'Member User') {
+        localStorage['new_user'] ? localStorage.removeItem('new_user') : null;
+        return false
+      }
+    }
+    return true
+  }
+
   const checkMandatory = () => {
     if (typeof window != 'undefined' && localStorage && localStorage['apikey'] && localStorage['company']) {
       customer_info()
-    }else if(localStorage['new_user'] && localStorage && localStorage['apikey']){
+    } else if (localStorage['new_user'] && localStorage && localStorage['apikey']) {
       getMembershipPlans()
     }
   }
@@ -201,9 +229,11 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
             <SubscriptionAlert isModal={true} data={plans} />
           </Rodal></div>}
 
-          {(mand && customerInfo) && <div className='mandAlert'><Rodal visible={mand} animation='slideUp' >
-            <ModPopup isModal={true} customerInfo={customerInfo} onClose={(val) => hides(val)} />
-          </Rodal></div>}
+          {(mand && customerInfo) && <div className='mandAlert'>
+            {alrtMsg && <AlertUi isOpen={alrtMsg} closeModal={() => setAlrtMsg(false)} headerMsg={'Alert'} alertMsg={{ message: 'You need to fill this form.' }} button_2={'Ok'} />}
+            <Rodal onClose={() => hides('no')} visible={mand} animation='slideUp' >
+              <ModPopup isModal={true} customerInfo={customerInfo} onClose={(val) => hides(val)} />
+            </Rodal></div>}
 
           {children}
         </main>

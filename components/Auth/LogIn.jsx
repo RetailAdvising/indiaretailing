@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import { logIn, checkMobile,checkMember } from '@/libs/api';
+import { logIn, checkMobile, checkMember,get_customer_info } from '@/libs/api';
 import { useRouter } from 'next/router';
 import OTP from './OTP';
 import SignUp from './SignUp';
@@ -157,11 +157,12 @@ export default function LogIn({ isModal, hide, auth }) {
                 localStorage['userid'] = val.message.user_id;
                 localStorage['customer_id'] = val.message.customer_id;
                 localStorage['full_name'] = val.full_name;
-                // localStorage['company'] = "true"
+                // getCustomerInfo()
+                localStorage['company'] = "true"
                 checkMember(val.message.roles)
                 localStorage['roles'] = JSON.stringify(val.message.roles);
                 setWithExpiry('api', val.message.api_key, 90)
-               
+
                 // const day = new Date();
                 // document.cookie = `apikey=${val.message.api_key};expires=${day.getTime() + 10};`;
                 // document.cookie = `secret=${val.message.api_secret};expires=${day.getTime() + 10};`;
@@ -189,6 +190,20 @@ export default function LogIn({ isModal, hide, auth }) {
         }
     }
 
+    // const getCustomerInfo = async () => {
+    //     let data = { guest_id: '', user: localStorage['customer_id'] };
+    //     const resp = await get_customer_info(data);
+    //     // console.log(resp.message)
+    //     if(resp.message && resp.message.length != 0 && resp.message[0]){
+    //         // console.log(resp.message)
+    //         localStorage['company_name'] = resp.message[0].custom_company_name ? resp.message[0].custom_company_name : undefined
+    //         localStorage['industry'] = resp.message[0].custom_industry ? resp.message[0].custom_industry : undefined
+    //         localStorage['job_title'] = resp.message[0].custom_job_title ? resp.message[0].custom_job_title : undefined
+    //         localStorage['location'] = resp.message[0].custom_location ?  resp.message[0].custom_location : undefined
+    //         localStorage['company'] = "true"
+    //     }
+    // }
+
     function setWithExpiry(key, value, ttl) {
         const now = new Date()
 
@@ -206,7 +221,7 @@ export default function LogIn({ isModal, hide, auth }) {
     }
 
 
-   
+
 
 
     // function getCookie(cname) {

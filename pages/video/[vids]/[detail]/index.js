@@ -59,11 +59,12 @@ export default function Videos({meta_info, ads_data}) {
     }, [router.query,role])
 
     const checkRole = () => {
+        // console.log(role,'role')
         if (role && role != '' && role.message && role.message.length != 0) {
           // console.log(role)
           // if(updateCmts == -1){
           for (let index = 0; index < role.message.length; index++) {
-            if (role.message[index] == 'Member') {
+            if (role.message[index] == 'Member' || role.message[index] == "Member User") {
               setValidator(true);
             }
           }
@@ -121,13 +122,18 @@ export default function Videos({meta_info, ads_data}) {
     }
   }
 
+  const videoLink = (link) => {
+    // console.log(link,'link')
+    return link.video_type == 'Youtube' ? 'https://www.youtube.com/embed/' + link.video_id : 'https://player.vimeo.com/video/' + link.video_id
+}
+
     return (
         <RootLayout homeAd={ads_data ? ads_data : null} isLanding={false} head={'Detail'}>
             {(meta_info && meta_info.message) && <SEO title={meta_info.message.meta_title ? meta_info.message.meta_title : meta_info.message.title} ogImage={check_Image(meta_info.message.video_image)} siteName={'India Retailing'} ogType={meta_info.message.meta_keywords ? meta_info.message.meta_keywords : meta_info.message.title} description={meta_info.message.meta_description ? meta_info.message.meta_description : meta_info.message.title} />}
             {videoDetail ? <>
                 {videoDetail &&
                     <div className='flex gap-[30px] container lg:py-[20px] md:flex-col md:p-[10px]'>
-                        <div className="lg:flex-[0_0_calc(70%_-_30px)]">
+                        <div className={`${!validator && videoDetail.message.ir_prime == 1 ? 'lg:flex-[0_0_calc(80%_-_20px)] lg:m-[auto]' :'lg:flex-[0_0_calc(70%_-_30px)]'}`}>
                             {/* <h6 className='text-[20px] line-clamp-2 font-semibold'>{videoDetail.message.title}</h6> */}
 
                             <div className='flex items-center gap-[10px] mb-[10px]'>
@@ -184,7 +190,8 @@ export default function Videos({meta_info, ads_data}) {
                                     : <iframe
                                         className={`lg:h-[80vh] md:h-[30vh] w-full`}
                                         title={videoDetail.message.title ? videoDetail.message.title : ''}
-                                        src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
+                                        // src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
+                                        src={videoLink(videoDetail.message)}
                                         // width={res.width}
                                         // height={res.height}
                                         frameBorder="2"
@@ -203,7 +210,7 @@ export default function Videos({meta_info, ads_data}) {
 
                         </div>
 
-                        <div className="lg:flex-[0_0_calc(30%_-_0px)] lg:pt-[40px]">
+                        <div className={`${!validator && videoDetail.message.ir_prime == 1 ? 'hidden' : 'lg:flex-[0_0_calc(30%_-_0px)] lg:pt-[40px]'}`}>
 
 
 

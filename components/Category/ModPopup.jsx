@@ -5,7 +5,7 @@ import { insert_doc } from '@/libs/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export default function ModPopup({ onClose, customerInfo }) {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors },setValue } = useForm();
 
     const mandatoryData = async (data) => {
         // console.log(data);
@@ -13,6 +13,15 @@ export default function ModPopup({ onClose, customerInfo }) {
             updateProfile(data)
         }
     }
+
+    useEffect(()=>{
+        if(customerInfo && Object.keys(customerInfo).length != 0){
+            customerInfo['custom_company_name'] && customerInfo['custom_company_name'] != null && setValue('company_name',customerInfo['custom_company_name'])
+            customerInfo['custom_job_title'] && customerInfo['custom_job_title'] != null && setValue('job_title',customerInfo['custom_job_title'])
+            customerInfo['custom_location'] && customerInfo['custom_location'] != null && setValue('location',customerInfo['custom_location'])
+            customerInfo['custom_industry'] && customerInfo['custom_industry'] != null && setValue('industry',customerInfo['custom_industry'])
+        }
+    },[])
 
     async function updateProfile(values) {
         let data = {

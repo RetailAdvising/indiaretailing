@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import { signUp, logIn, checkMobile, checkMember, getList, send_otp,verify_otp } from '@/libs/api';
+import { signUp, logIn, checkMobile, checkMember, getList, send_otp, verify_otp } from '@/libs/api';
 import { useRouter } from 'next/router';
 import LogIn from './LogIn';
 import { useDispatch } from 'react-redux';
@@ -49,7 +49,7 @@ export default function SignUp({ isModal, hide, auth }) {
             } else {
                 toast.error('Password and Confirm Password not matched');
             }
-           
+
         }
     }
 
@@ -102,7 +102,7 @@ export default function SignUp({ isModal, hide, auth }) {
             if (resp.message.status == 'Success') {
                 signUpuser(signupData)
             }
-            
+
         } else {
             toast.warn("Please enter OTP")
         }
@@ -124,7 +124,7 @@ export default function SignUp({ isModal, hide, auth }) {
                 localStorage['customer_id'] = val.message.customer_id;
                 localStorage['full_name'] = val.full_name;
                 localStorage['company'] = "true"
-                checkMember(val.message.roles)
+                // checkMember(val.message.roles)
                 localStorage['roles'] = JSON.stringify(val.message.roles)
                 dispatch(setUser(val))
                 isModal || !isMobile ? hide() : router.push('/')
@@ -165,6 +165,12 @@ export default function SignUp({ isModal, hide, auth }) {
         }
     }
 
+    const backToSignup = () => {
+        showOtp = false
+        setShowOtp(showOtp)
+       
+    }
+
     return (
         <>
             {/* {isOpen && <AlertUi isOpen={isOpen} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />} */}
@@ -174,6 +180,9 @@ export default function SignUp({ isModal, hide, auth }) {
                 {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
                     <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full h-full object-contain`} />
                 </div>}
+
+
+
                 {/* md:mt-[40px] */}
                 {!showOtp && <div className={` ${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] '} flex-col gap-5 md:gap-[10px] flex justify-center`}>
                     {isMobile && <div className=' cursor-pointer'>
@@ -231,7 +240,11 @@ export default function SignUp({ isModal, hide, auth }) {
                     <p className='pt-[10px] text-[14px]'>already have an account? <span onClick={() => auth ? setModal('login') : router.push('/login')} className='text-[#e21b22] text-[13px] font-semibold cursor-pointer'>login</span></p>
                 </div>}
 
-                {showOtp && <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] '} flex-col gap-5 md:gap-[10px] flex justify-center`}>
+                {showOtp && <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] '} relative flex-col gap-5 md:gap-[10px] flex justify-center`}>
+                    <div className='absolute top-0 flex items-center cursor-pointer gap-[5px] ' onClick={backToSignup}>
+                        <div><Image className='h-[15px] w-[15px] object-contain' src={'/login/back.svg'} height={40} width={60} alt='back button' /></div>
+                        <p className={`text-[#959595]`}>Back to signup</p>
+                    </div>
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Verify OTP</h6>
                     <div className={`flex flex-col pt-[10px] pb-4 relative`}>
                         <label className={`text-[#808D9E]`} htmlFor='password'>OTP</label>

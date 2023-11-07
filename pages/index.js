@@ -113,7 +113,9 @@ export default function Home({ data }) {
   useEffect(() => {
     if (data && data.page_content && data.page_content.length != 0) {
       // console.log(data.page_content,'data.page_content')
-      setValue(data.page_content)
+      setTimeout(()=>{
+        setValue(data.page_content)
+      },100)
       // console.log('data1234567',data);
       // console.log(ads)
     }
@@ -295,7 +297,9 @@ export default function Home({ data }) {
       {/*  isLast={index == value.length - 1} */}
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
-        {(value && value.length != 0) && value.map((data, i) => {
+
+        {/* <Skeleton /> */}
+        {(value && value.length != 0) ? value.map((data, i) => {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
             <div key={i} className={`py-[20px] ${data.section == 'PS-23-00094' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00157' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00120' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll ' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px]  md:py-[10px] lg:flex gap-5`}>
@@ -334,7 +338,7 @@ export default function Home({ data }) {
                           </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending" && !isMobile) && <>
-                            <Title data={{ title: c.component_title }}  />
+                            <Title data={{ title: c.component_title }} />
                             <div className='lg:flex  items-center gap-[10px]'>
                               <div className={`flex gap-[10px] flex-[0_0_calc(4%_-_10px)]`}><TrendingBox icons={'left'} parentElement={'trending'} /></div>
                               <div className={`flex gap-[10px] flex-[0_0_calc(92%_-_10px)] overflow-auto trending`}><TrendingBox data={data.data[c.cid].data} /></div>
@@ -454,7 +458,7 @@ export default function Home({ data }) {
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Poll") && <>
                             <Title data={{ title: 'India Reatiling Poll' }} route={'/polls'} seeMore={true} />
-                            {(pollList && ipAddress) && <Poll data={pollList.slice(0, 1)} ipAddress={ipAddress}/>}
+                            {(pollList && ipAddress) && <Poll data={pollList.slice(0, 1)} ipAddress={ipAddress} />}
                             {/* <div className='border-light-gray border  rounded divide-y'>
                               <div className='p-[20px] h-[258px] overflow-auto'>
                                 <div className='font-semibold '>{data.data[c.cid].data[0] && data.data[c.cid].data[0]['question']}</div>
@@ -502,7 +506,7 @@ export default function Home({ data }) {
               })}
             </div>
           )
-        })}
+        }) : <Skeleton />}
         <div className='more h-[30px]' ref={cardref}></div>
         {(loading && isMobile) && <div id="wave">
           <span className="dot"></span>
@@ -511,6 +515,233 @@ export default function Home({ data }) {
         </div>}
       </RootLayout>
     </>
+  )
+}
+
+const Skeleton = () => {
+  return (
+    <div className={` `}>
+      <div className=' bg-[#f8f9fa] '>
+        <div className='lg:p-[30px_0px] md:p-[15px] container flex gap-5 items-center'>
+          {[0, 1, 2, 3].map((res, i) => {
+            return (
+              <div key={i} className='flex flex-[0_0_calc(25%_-_15px)] bg-white h-[85px] p-[10px] rounded-[5px] items-center gap-[10px]'>
+                <div className='flex-[0_0_calc(25%_-_10px)]'>
+                  <div className='w-full bg-[#E5E4E2] h-[60px] rounded-[5px]'></div>
+                </div>
+                <div className='flex-[0_0_calc(75%_-_10px)]'>
+                  <p className={`bg-[#E5E4E2] h-[8px]  w-[100px] rounded-[5px]  mb-[15px] `}></p>
+                  <p className={`bg-[#E5E4E2] h-[8px]  w-[160px] rounded-[5px]  mt-[5px] `}></p>
+                  <p className={`bg-[#E5E4E2] h-[6px]  w-[160px] rounded-[5px]  mt-[5px] `}></p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      <div className={`lg:p-[30px_0px] md:p-[15px] container flex gap-5 `}>
+        <div className={`flex-[0_0_calc(45%_-_15px)]`}>
+          <div className='w-full bg-[#E5E4E2] mb-[20px] h-[350px] rounded-[5px]'></div>
+          <div className='my-[30px]'>
+            {[0, 1, 2].map((res, i) => {
+              return (
+                <div key={i} className='flex mb-[15px] flex-[0_0_calc(25%_-_15px)] rounded-[5px] items-center gap-[10px]'>
+                  <div className='flex-[0_0_calc(30%_-_10px)]'>
+                    <div className='w-full bg-[#E5E4E2] h-[110px] rounded-[5px]'></div>
+                  </div>
+                  <div className='flex-[0_0_calc(70%_-_10px)]'>
+                    <p className={`bg-[#E5E4E2] h-[8px]  w-[100px] rounded-[5px]  mb-[15px] `}></p>
+                    <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[5px] `}></p>
+                    <p className={`bg-[#E5E4E2] h-[6px]  w-[290px] rounded-[5px]  mt-[5px] `}></p>
+                    <p className={`bg-[#E5E4E2] h-[6px]  w-[160px] rounded-[5px]  mt-[10px] `}></p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        <div className={`flex-[0_0_calc(30%_-_15px)]`}>
+          <div>
+            {[0, 1].map((res, i) => {
+              return (
+                <div key={i}>
+                  <div className='w-full bg-[#E5E4E2] h-[240px] rounded-[5px]'></div>
+                  <p className={`bg-[#E5E4E2] h-[8px] my-[10px] w-full rounded-[5px]  mb-[15px] `}></p>
+                </div>
+              )
+            })}
+          </div>
+
+          <div>
+            {[0, 1].map((res, i) => {
+              return (
+                <div key={i} className={`${i == 0 ? 'border_bottom' : 'mt-[15px]'}`}>
+                  <p className='w-full bg-[#E5E4E2] h-[10px] rounded-[5px]'></p>
+                  <p className={`bg-[#E5E4E2] h-[8px] mt-[10px] w-full rounded-[5px]  mb-[15px] `}></p>
+                  <p className={`bg-[#E5E4E2] h-[8px] mt-[5px] w-[250px] rounded-[5px]  mb-[15px] `}></p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        <div className={`flex-[0_0_calc(25%_-_15px)]`}>
+          <div className='w-full bg-[#E5E4E2] h-[250px] rounded-[5px]'></div>
+          <div className='my-[15px] border p-[10px] rounded-[5px]'>
+            {[0, 1, 2].map((res, i) => {
+              return (
+                <div key={i} className='flex mb-[15px] flex-[0_0_calc(25%_-_15px)] rounded-[5px] items-center gap-[10px]'>
+                  <div className='flex-[0_0_calc(30%_-_10px)]'>
+                    <div className='w-full bg-[#E5E4E2] h-[60px] rounded-[5px]'></div>
+                  </div>
+                  <div className='flex-[0_0_calc(70%_-_10px)]'>
+
+                    <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[5px] `}></p>
+                    <p className={`bg-[#E5E4E2] h-[6px]  w-[200px] rounded-[5px]  mt-[5px] `}></p>
+                    <p className={`bg-[#E5E4E2] h-[6px]  w-[140px] rounded-[5px]  mt-[5px] `}></p>
+
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+          <div className='flex my-[15px] border p-[10px] rounded-[5px] items-center gap-[10px]'>
+            <div className='flex-[0_0_calc(30%_-_10px)]'>
+              <div className='w-full bg-[#E5E4E2] h-[80px] rounded-[5px]'></div>
+            </div>
+            <div className='flex-[0_0_calc(70%_-_10px)]'>
+
+              <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[5px] `}></p>
+              <p className={`bg-[#E5E4E2] h-[6px]  w-[200px] rounded-[5px]  mt-[5px] `}></p>
+              <p className={`bg-[#E5E4E2] h-[6px]  w-[140px] rounded-[5px]  mt-[5px] `}></p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className='flex gap-[15px] items-center'>
+        <div className='lg:h-[640px] border p-5 md:p-[10px] rounded-[5px]  flex-[0_0_calc(42%_-_10px)] md:basis-full'>
+          {[0].map((res, i) => {
+            return (
+              <div key={i} className={`md:mb-[10px] mb-5 pb-5 cursor-pointer md:pb-[10px] border_bottom`}>
+                <h6 className={`bg-[#E5E4E2] h-[10px] mt-[10px] w-full rounded-[5px]`}></h6>
+                <h6 className={`bg-[#E5E4E2] h-[10px] my-[10px] w-[200px] rounded-[5px]`}></h6>
+                <div className={`h-[350px] bg-[#E5E4E2] md:h-[320px] w-full mt-[10px] rounded-[5px]`} ></div>
+                <p className={`flex items-center gap-[10px] mt-[10px]`}><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px] `}></span><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px]`}></span></p>
+                <p className={`bg-[#E5E4E2] h-[6px]  w-full rounded-[5px]  mt-[10px] `}></p>
+                <p className={`bg-[#E5E4E2] h-[6px]  w-full rounded-[5px]  mt-[10px] `}></p>
+              </div>
+            )
+          })}
+          <div className='flex gap-[15px] justify-between'>
+            <div className='flex-[0_0_calc(65%_-_10px)]'>
+              <p className={`flex items-center gap-[10px] mt-[10px]`}><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px] `}></span><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px]`}></span></p>
+              <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[10px] `}></p>
+              <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[10px] `}></p>
+              <p className={`bg-[#E5E4E2] h-[6px]  w-full rounded-[5px]  mt-[15px] `}></p>
+            </div>
+            <div className='flex-[0_0_calc(35%_-_10px)] bg-[#E5E4E2] h-[90px] rounded-[5px]'></div>
+          </div>
+        </div>
+        <div className={`overflow-auto customScroll rounded-[5px] flex-[0_0_calc(33%_-_10px)] md:basis-full border p-5 md:p-[10px] lg:h-[640px]`}>
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((res, index) => {
+            return (
+              <div key={index} className='flex gap-[15px] justify-between border_bottom mb-[15px] pb-[15px]'>
+                <div className='flex-[0_0_calc(65%_-_10px)]'>
+                  <p className={`flex items-center gap-[10px] mt-[10px]`}><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px] `}></span><span className={`bg-[#E5E4E2] h-[6px]  w-[80px] rounded-[5px]`}></span></p>
+                  <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[10px] `}></p>
+                  <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[10px] `}></p>
+                  <p className={`bg-[#E5E4E2] h-[6px]  w-full rounded-[5px]  mt-[15px] `}></p>
+                </div>
+                <div className='flex-[0_0_calc(35%_-_10px)] bg-[#E5E4E2] h-[90px] rounded-[5px]'></div>
+              </div>
+            )
+          })}
+        </div>
+        <div className='flex-[0_0_calc(25%_-_10px)] '>
+          
+          <div className='border rounded-[5px] p-[15px] lg:h-[615px]'>
+            {[0, 1, 2, 3].map((res, i) => {
+              return (
+                <div key={i} className='flex items-center gap-[15px] justify-between border_bottom mb-[15px] pb-[15px]'>
+                  <div className='flex-[0_0_calc(40%_-_10px)]'>
+                    <div className='w-full bg-[#E5E4E2] h-[100px] rounded-[5px]'></div>
+                  </div>
+                  <div className='flex-[0_0_calc(65%_-_10px)]'>
+                    <p className={`bg-[#E5E4E2] h-[8px]  w-[100px] rounded-[5px]  mt-[10px] `}></p>
+                    <p className={`bg-[#E5E4E2] h-[8px]  w-[160px] rounded-[5px]  mt-[5px] `}></p>
+                    <p className={`bg-[#E5E4E2] h-[6px]  w-[160px] rounded-[5px]  mt-[5px] `}></p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div> */}
+
+      {/* <div className='flex gap-[15px] justify-between my-5 items-center'>
+        <div className='lg:w-[calc(75%_-_15px)]'>
+          <h6 className={`bg-[#E5E4E2] h-[10px]  w-[140px] rounded-[5px] mb-[15px]`}></h6>
+          <div className=' flex gap-[20px] overflow-auto scroll-smooth scrollbar-hide'>
+            {[0, 1, 2, 3, 4].map(index => {
+              return (
+                <div key={index} className='border rounded-[10px] h-[280px] flex-[0_0_calc(20%_-_10px)]'>
+                  <div className='bg-[#E5E4E2] h-[200px] w-full rounded-[5px_5px_0_0]'></div>
+                  <div className='p-[10px]'>
+                    <p className='flex gap-[10px] items-center'><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span></p>
+                    <p className={`bg-[#E5E4E2] h-[8px] w-[220px] my-[10px] rounded-[5px]`}></p>
+                    <p className={`bg-[#E5E4E2] h-[8px] w-[220px] mb-[10px] rounded-[5px]`}></p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        <div className='lg:w-[calc(25%_-_15px)]'>
+          <div className='bg-[#E5E4E2] h-[280px] w-full rounded-[5px]'></div>
+        </div>
+      </div> */}
+
+      {/* <div>
+        <h6 className={`bg-[#E5E4E2] h-[10px]  w-[140px] rounded-[5px] mb-[15px]`}></h6>
+        <div className='flex items-center gap-[15px]'>
+          {[0, 1, 2, 3].map(index => {
+            return (
+              <div key={index} className=' h-[280px] flex-[0_0_calc(25%_-_10px)]'>
+                <div className='bg-[#E5E4E2] h-[200px] w-full rounded-[5px]'></div>
+                <div className='p-[10px]'>
+                  <p className={`bg-[#E5E4E2] h-[8px] w-full my-[10px] rounded-[5px]`}></p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div> */}
+
+      {/* <div className='flex items-center gap-[15px]'>
+        <div className='flex-[0_0_calc(75%_-_15px)]'>
+          <h6 className={`bg-[#E5E4E2] h-[10px]  w-[140px] rounded-[5px] mb-[15px]`}></h6>
+          {[0, 1, 2].map(index => {
+            return (
+              <div key={index} className='flex items-center border_bottom pb-[15px] mb-[15px]'>
+                <div className='bg-[#E5E4E2] h-[170px] flex-[0_0_calc(30%_-_10px)] w-full rounded-[5px]'></div>
+                <div className='p-[10px]'>
+                  <p className='flex gap-[10px] mb-[20px] items-center'><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span></p>
+                  <p className={`bg-[#E5E4E2] h-[8px] w-[380px] my-[10px] rounded-[5px]`}></p>
+                  <p className={`bg-[#E5E4E2] h-[8px] w-[240px] mb-[20px] rounded-[5px]`}></p>
+                  <p className={`bg-[#E5E4E2] h-[8px] w-[380px] mb-[10px] rounded-[5px]`}></p>
+                  <p className={`bg-[#E5E4E2] h-[8px] w-[240px] mb-[10px] rounded-[5px]`}></p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        <div className='flex-[0_0_calc(25%_-__10px)]'>
+          <div className='bg-[#E5E4E2] h-[600px] w-full rounded-[5px]'></div>
+        </div>
+      </div> */}
+
+    </div>
   )
 }
 

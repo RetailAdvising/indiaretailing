@@ -28,7 +28,7 @@ export default function IRPrime({ data }) {
                             </div>
                         </div>
                         <div>
-                            <p onClick={() => router.push('/IRPrime')} className={`text-[13px] bg-white rounded-full w-[60px] text-center p-[2px] button_text_color md:text-[12px] md:rounded-[50%]`}>See All</p>
+                            <p onClick={() => router.push('/IRPrime')} className={`text-[13px] bg-white rounded-[5px] w-[60px] text-center p-[2px] button_text_color md:text-[12px] `}>View All</p>
                         </div>
                     </div>
                     {data.map((res, index) => {
