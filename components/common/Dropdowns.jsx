@@ -26,7 +26,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
         } else if (data.name == 'Comment') {
             // let el = document.getElementById(element)
             let el = document.getElementsByClassName(element)
-            console.log(el, 'el')
+            // console.log(el, 'el')
             let doc = Array.from(el)
             if (doc && doc.length != 0 && doc[0]) {
                 noScroll(isMobile ? false : true);

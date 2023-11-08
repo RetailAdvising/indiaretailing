@@ -132,7 +132,8 @@ export default function Videos({meta_info, ads_data}) {
             {(meta_info && meta_info.message) && <SEO title={meta_info.message.meta_title ? meta_info.message.meta_title : meta_info.message.title} ogImage={check_Image(meta_info.message.video_image)} siteName={'India Retailing'} ogType={meta_info.message.meta_keywords ? meta_info.message.meta_keywords : meta_info.message.title} description={meta_info.message.meta_description ? meta_info.message.meta_description : meta_info.message.title} />}
             {videoDetail ? <>
                 {videoDetail &&
-                    <div className='flex gap-[30px] container lg:py-[20px] md:flex-col md:p-[10px]'>
+                // lg:py-[20px]
+                    <div className='flex gap-[30px] container  md:flex-col md:p-[10px]'>
                         <div className={`${!validator && videoDetail.message.ir_prime == 1 ? 'lg:flex-[0_0_calc(80%_-_20px)] lg:m-[auto]' :'lg:flex-[0_0_calc(70%_-_30px)]'}`}>
                             {/* <h6 className='text-[20px] line-clamp-2 font-semibold'>{videoDetail.message.title}</h6> */}
 

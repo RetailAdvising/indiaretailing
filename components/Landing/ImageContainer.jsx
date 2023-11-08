@@ -13,7 +13,7 @@ const nunito = Nunito({
     variable: '--font-inter',
   })
 export default function ImageContainer({ data, height, width, isWeb }) {
-    console.log(data,'data Image cont')
+    // console.log(data,'data Image cont')
     return (
         <>
             {data && <div className='relative pb-[20px]'>

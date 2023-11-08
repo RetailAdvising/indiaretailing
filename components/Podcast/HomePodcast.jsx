@@ -4,7 +4,7 @@ import Title from '../common/Title'
 export default function HomePodcast({ data,i }) {
     return (
         <>
-            <div className={`flex md:p-[10px] justify-between flex-wrap  container ${i == 0 ? 'py-[15px]': 'pb-[15px]'}`}>
+            <div className={`flex md:p-[10px] justify-between flex-wrap  container ${i == 0 ? 'py-5': 'pb-5'}`}>
                 {/* { */}
                     {/* // <div className={`w-full md:basis-full`}> */}
                         {/* <div> */}

@@ -27,7 +27,7 @@ export default function AlertPopup({ message, show, data, news, hide, email = un
     
         if(type && type =='button'){
             element = {}
-            element.value = localStorage['userid'] ? localStorage['userid'] : '';
+            element.value =  localStorage['userid'] ? localStorage['userid'] : '';
         }
 
         if (element && element.value != null || element.value != '') {
@@ -38,7 +38,7 @@ export default function AlertPopup({ message, show, data, news, hide, email = un
                     })
                     setInvalid(true)
                     let param = {
-                        email: element.value,
+                        email: email ? email : element.value,
                         group: get_group
                         // group: data.custom_category
                     }

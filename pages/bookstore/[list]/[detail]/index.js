@@ -125,7 +125,7 @@ export default function Bookstoredetail({ value, res }) {
           }
         }
 
-        // console.log(value,'After');
+        console.log(value,'After');
         setData(value);
       }
   
@@ -154,13 +154,18 @@ export default function Bookstoredetail({ value, res }) {
   async function addToCart() {
     setLoader(true);
     // console.log(localStorage['apikey']);
-    if (localStorage['apikey']) {
+    if (localStorage && localStorage['apikey']) {
 
       let val = subs && subs.length != 0 ? subs.find(res => res.active == true) : undefined;
 
       // val.item__type != "Onetime Purchase"
       if (val && val.is_subscription == 1) {
-        insert_subscription(val)
+        if(val.stock > 0){
+          insert_subscription(val)
+        }else{
+          setAlertMsg({message: 'No stock for this book'});
+          setEnableModal(true)
+        }
       } else {
         data['count'] = 1;
         if(data['quantity'] == 0) {

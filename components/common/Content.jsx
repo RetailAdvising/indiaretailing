@@ -37,6 +37,8 @@ export default function Content({ res, i, updateShare, noScroll }) {
         return type == 'yt' ? 'https://www.youtube.com/embed/' + link : 'https://player.vimeo.com/video/' + link
     }
 
+    
+
     return (
         <>
 
@@ -154,7 +156,7 @@ export default function Content({ res, i, updateShare, noScroll }) {
             // allowfullscreen="allowfullscreen"
             ></iframe> :
                 //  <div className={`w-full lg:h-[500px]`}><Image loading="lazy" blurDataURL={'/empty_state.jpg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_image)} height={600} width={1000} alt={res.title} className="py-3 lg:h-full object-contain w-full" /></div>
-                <div className={`w-full lg:h-[500px]`}><ImageLoader style={`py-3 lg:h-full object-contain w-full`} src={res.image ? res.image : res.thumbnail_image} title={res.title ? res.title : res.blog_intro} /></div>
+                <div className={`w-full lg:h-[500px]`}><ImageLoader style={`py-3 lg:h-full object-contain w-full`} isDetail={true} src={res.image ? res.image : res.thumbnail_image} title={res.title ? res.title : res.blog_intro} /></div>
             }
 
             {/* <p className='py-3 !leading-[1.74] !text-[15px] !text-justify font-semibold'>{res.blog_intro}</p> */}

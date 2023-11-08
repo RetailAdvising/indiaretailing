@@ -48,9 +48,9 @@ export default function Widgets({ data, index, routers, productNavigation }) {
                     {res.item && <p className={`line-clamp-2 !mb-0 !text-[14px] title ${nunito.className}`}>{res.item}</p>}
                     {data.title == 'Events' &&
                       <div className={`flex gap-[5px] items-center lg:pt-[10px]`}>
-                        <p className={`flex !mb-0 items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className='md:hidden h-[15px] w-[13px] !p-0' objectFit='contain' height={25} width={20} alt={res.title} />  <span className={`light_text !text-[9px]  ${nunito.className}`}>{res.start_date}</span></p>{res.locations && <span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>}
+                        <p className={`flex !mb-0 items-center gap-[5px] md:flex-direction`}><Image src={'/calendar.svg'} className=' h-[15px] w-[13px] !p-0' objectFit='contain' height={25} width={20} alt={res.title} />  <span className={`light_text !text-[9px]  ${nunito.className}`}>{res.start_date}</span></p>{res.locations && <span className='h-[18px] w-[2px] mx-[6px] bg-[#ddd]'></span>}
                         {res.locations && <>
-                          <p className={`flex !mb-0 flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='md:hidden !p-0' height={15} width={20} alt={res.title} />
+                          <p className={`flex !mb-0 flex-wrap items-center gap-[5px]`}><Image src={'/location.svg'} className='!p-0' height={15} width={20} alt={res.title} />
 
                             {res.locations.slice(0, 1).map((item, index) => {
                               return (
@@ -71,10 +71,10 @@ export default function Widgets({ data, index, routers, productNavigation }) {
             {data.title == 'Videos' && data.data.slice(0, 3).map((res, i) => {
               return (
                 // <div key={i + res.title}>
-                <div key={i + res.title} onClick={() => checkRoute(res, data)} className={` md:flex-[0_0_calc(100%_-_10px)]  cursor-pointer relative`}>
+                <div key={i + res.title} onClick={() => checkRoute(res, data)} className={` md:flex-[0_0_calc(80%_-_10px)]  cursor-pointer relative`}>
                   <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.video_image)} className={`!rounded-[5px] !p-0 h-[175px] w-full`} height={150} width={273} alt={res.title} />
                   {/* <ImageLoader style={`rounded-[5px] ${imgClass ? imgClass : 'h-[175px] w-full'}`} src={res.video_image} title={res.title ? res.title : 's'} /> */}
-                  <Image src={'/irprime/youtube.svg'} className={`absolute bottom-[30px] left-[5px]  md:bottom-[30px]  object-contain h-[20px] w-[30px]`} height={100} width={100} alt={res.title} />
+                  <Image src={'/irprime/youtube.svg'} className={`absolute !p-0 bottom-[45px] left-[5px]  md:bottom-[45px]  object-contain h-[20px] w-[30px]`} height={100} width={100} alt={res.title} />
                   <p className={`pt-[10px] !text-[14px] md:!text-[13px] ${nunito.className} line-clamp-1 font-[500]`}>{res.title}</p>
                 </div>
                 // </div>
@@ -93,8 +93,8 @@ export default function Widgets({ data, index, routers, productNavigation }) {
               )
             })}
 
-            {data.title == 'Banner Ad' && data.data[0] && <a target='_blank' href={data.data[0].banner_link} className={`w-full h-[250px] object-contain`}>
-              <Image src={check_Image(data.data[0].banner_image)} height={200} width={200} alt={data.data[0].title ? data.data[0].title : data.title} />
+            {data.title == 'Banner Ad' && data.data[0] && <a target='_blank' href={data.data[0].banner_link} className={`w-full h-[250px] object-contain md:h-[100px]`}>
+              <Image className='h-[250px] md:h-[100px] w-full !p-0' src={check_Image(data.data[0].banner_image)} height={200} width={200} alt={data.data[0].title ? data.data[0].title : data.title} />
             </a>}
 
             {data.title == 'Custom Widget' && data.data[0] &&  <div className='m-[auto]' dangerouslySetInnerHTML={{__html: data.data[0].snippet}} />}

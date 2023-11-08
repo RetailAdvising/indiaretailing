@@ -13,10 +13,19 @@ const nunito = Nunito({
   variable: '--font-inter',
 })
 export default function Subscribe({ data, height, width, isSubscribe }) {
-  const [email, setEmail] = useState('')
+  let [email, setEmail] = useState('')
+  let [wrong, setWrong] = useState(false)
   async function showPopup() {
-    // console.log(data);
-
+    console.log(email);
+    // let pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    // let val = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+    // console.log(val)
+    if (emailValidation(email)) {
+      show()
+    } else {
+      wrong = true
+      setWrong(wrong)
+    }
     // let get_check = data.filter(res => { return res.selected == 1 })
 
     // if (get_check.length == data.length) {
@@ -35,9 +44,14 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
     //   show();
     // }
     // console.log(email)
-    show();
+
+    // show();
 
 
+  }
+
+  const emailValidation = (email) => {
+    return email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
   }
 
   const [visible, setVisible] = useState(false)
@@ -57,6 +71,27 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
       // setEnableModal(true);
     }
   }
+
+
+  const changingValue = (e) => {
+    if (e.target.value && e.target.value != '') {
+      email = e.target.value
+      setEmail(email)
+
+    } else {
+      email = ''
+      setEmail(email)
+    }
+
+
+    if (!emailValidation(email)) {
+      wrong = true
+      setWrong(wrong)
+    } else {
+      wrong = false
+      setWrong(wrong)
+    }
+  }
   return (
     <>
       {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> bg-[#fbfbfd] */}
@@ -74,11 +109,12 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
           <h5 className={`text-[17px] font-[700] text-center ${nunito.className}`}>Stay tuned !</h5>
           <p className={`text-[13px] font-semibold py-[10px] text-center ${nunito.className}`}>Subscribe our newsletter & get notifications to stay updated</p>
           <div className='relative w-full'>
-            <input placeholder="Your email address" className='rounded-full w-full pl-[10px] h-[35px] text-[14px]' onChange={(e) => setEmail(e.target.value)} />
+            <input placeholder="Your email address" className='rounded-full w-full pl-[10px] h-[35px] text-[14px]' onChange={(e) => changingValue(e)} />
             <div className='absolute top-0 right-0 bg-red w-[25%] rounded-full h-full'>
               <Image src={'/send.svg'} onClick={showPopup} className='absolute top-[50%] left-[50%] cursor-pointer' style={{ transform: 'translate(-50%, -50%)' }} height={30} width={30} alt='send icon' />
             </div>
           </div>
+          {wrong && <p className={`text-[#e21b22] font-semibold text-[12px]`}>Enter valid email</p>}
         </div>
         {/* </div> */}
         {/* <button className={`subscribe`} onClick={showPopup}>Subscribe</button> */}

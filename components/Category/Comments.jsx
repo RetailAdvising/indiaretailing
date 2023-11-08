@@ -106,6 +106,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
     }
     const report = async (cur_command) => {
         // noScroll(false);
+        noScroll(true);
         if ((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']) {
             setAlertMessage({ message: 'Do you want to report this comment ? you need to login.' })
             setIsSuccessPopup(true)
@@ -293,8 +294,8 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                 <div className='pb-[5px] sub_title !text-[14px]' dangerouslySetInnerHTML={{ __html: res.content }} />
                                 <div className='flex justify-between items-center py-[5px]'>
                                     <div className='flex gap-3'>
-                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.likes}</span><Image className='h-[16px] w-[16px]  cursor-pointer' onClick={() => likeCmt(res, i)} src={(res.is_liked && res.is_liked == 1) ? '/categories/like-fill.svg' : '/categories/like-1.svg'} height={20} width={20} alt={""} /></p>
-                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.dislikes}</span><Image className='h-[16px] w-[16px]  cursor-pointer' onClick={() => dislikeCmt(res, i)} src={(res.is_disliked && res.is_disliked == 1) ? '/categories/dislike-fill.svg' : '/categories/dislike-1.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer object-contain' onClick={() => likeCmt(res, i)} src={(res.is_liked && res.is_liked == 1) ? '/categories/like-fill.svg' : '/categories/like-1.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer object-contain' onClick={() => dislikeCmt(res, i)} src={(res.is_disliked && res.is_disliked == 1) ? '/categories/dislike-fill.svg' : '/categories/dislike-1.svg'} height={20} width={20} alt={""} /></p>
                                     </div>
                                     <div>
                                         <Image src={'/categories/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={() => report(res)} />

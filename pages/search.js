@@ -289,9 +289,10 @@ const EmptySection = ({ searchValue }) => {
 
 
 const AllCategory = ({ data }) => {
+  // console.log(data,'data')
   return (
     <div className='grid grid-cols-3 md:grid-cols-2 gap-5 my-5'>
-      {data.map((res, i) => {
+      {data && data.length != 0 && data.map((res, i) => {
         return (
           <div key={res.title} className=''>
             <Link href={res.base_route} className={`text-[15px] font-[700] mb-[5px] ${nunito.className}`}>{res.title}</Link>

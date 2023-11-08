@@ -20,6 +20,15 @@ const SubscriptionAlert = dynamic(() => import('@/components/common/Subscription
 const ModPopup = dynamic(() => import('@/components/Category/ModPopup'))
 import { useDispatch, useSelector } from 'react-redux';
 import AlertUi from '@/components/common/AlertUi'
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
@@ -47,15 +56,22 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   }, [])
 
   const article_breadcrumb = async (route) => {
-    const resp = await get_article_breadcrumb({ article_route: route })
-    if (resp && resp.message && resp.message.length != 0) {
-      // console.log(resp)
-      // resp.message.map((res)=>{
-      //   breadCrumbs.push(res)
-      // })    
-      setBreadCrumbs(resp.message)
+    if (route) {
+      if (router.query.vids || router.query.list) {
+        setBreadCrumbs(router.asPath.split('/'))
+      } else {
+        const resp = await get_article_breadcrumb({ article_route: route })
+        if (resp && resp.message && resp.message.length != 0) {
+          // console.log(resp)
+          // resp.message.map((res)=>{
+          //   breadCrumbs.push(res)
+          // })    
+          setBreadCrumbs(resp.message)
+        }
+      }
     }
   }
+
 
   const get_website_settings = async () => {
     let websiteData = await websiteSettings()
@@ -144,7 +160,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     if (data['custom_company_name'] && data['custom_job_title'] && data['custom_location'] && data['custom_industry']) {
       if (data['roles_list'] && data['roles_list'].length != 0) {
         let val = checkMemberShip(data['roles_list'])
-        if(val){
+        if (val) {
           getMembershipPlans()
         }
       }
@@ -200,13 +216,13 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
                   index == 1 ? router.query.detail ? '/categories/' + breadCrumbs[1] : '/' + breadCrumbs[1] : '/'
               return (<div key={index}  >
                 {index == 0 ? <Link className={`flex gap-[5px] items-center capitalize hover:text-red `} href={url}>
-                  <p className='text-[12px]'> Home</p>
+                  <p className={`text-[12px] font-[500] ${nunito.className}`}> Home</p>
                   <div className='ml-[5px] pt-[4px]'>
                     <Image alt='arrow' src={'/arrow.svg'} width={5} height={5} />
                   </div>
                 </Link> : index == breadCrumbs.length - 1 ?
                   <div className={`flex gap-[5px] items-center capitalize hover:text-red `}>
-                    <p className={`text-[12px] max-w-[250px] line-clamp-1 ${breadCrumbs.length - 1 == index && 'font-semibold'}`}> {bc.replaceAll('-', ' ')}</p>
+                    <p className={`text-[12px] max-w-[250px] line-clamp-1 ${breadCrumbs.length - 1 == index ? 'font-[700]' : 'font-[500]'} ${nunito.className}`}> {bc.replaceAll('-', ' ')}</p>
                     {(index !== 0 && index != breadCrumbs.length - 1) &&
                       <div className='ml-[5px] pt-[4px]'>
                         <Image alt='arrow' src={'/arrow.svg'} width={5} height={5} />
@@ -214,7 +230,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
                     }
                   </div> :
                   <Link className={`flex gap-[5px] items-center capitalize`} href={url}>
-                    <p className={`text-[12px] ${breadCrumbs.length - 1 == index && 'font-semibold'}`}> {bc.replaceAll('-', ' ')}</p>
+                    <p className={`text-[12px] ${breadCrumbs.length - 1 == index ? 'font-[700]' : 'font-[500]'} ${nunito.className}`}> {bc.replaceAll('-', ' ')}</p>
                     {(index !== 0 && index != breadCrumbs.length - 1) &&
                       <div className='ml-[5px] pt-[4px]'>
                         <Image alt='arrow' src={'/arrow.svg'} width={5} height={5} />
@@ -230,7 +246,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
           </Rodal></div>}
 
           {(mand && customerInfo) && <div className='mandAlert'>
-            {alrtMsg && <AlertUi isOpen={alrtMsg} closeModal={() => setAlrtMsg(false)} headerMsg={'Alert'} alertMsg={{ message: 'You need to fill this form.' }} button_2={'Ok'} />}
+            {alrtMsg && <AlertUi isOpen={alrtMsg} closeModal={() => setAlrtMsg(false)} headerMsg={'Alert'} alertMsg={{ message: 'The following things are mandatory' }} button_2={'Ok'} />}
             <Rodal onClose={() => hides('no')} visible={mand} animation='slideUp' >
               <ModPopup isModal={true} customerInfo={customerInfo} onClose={(val) => hides(val)} />
             </Rodal></div>}

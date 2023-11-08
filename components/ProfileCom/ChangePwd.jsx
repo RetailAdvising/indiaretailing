@@ -55,7 +55,7 @@ export default function ChangePwd({ customerInfo }) {
     let data = { key: "", old_password: values.old_password, user: localStorage['userid'], new_password: values.new_password }
     const res = await update_password(data)
     //  console.log(res)
-    if (res.full_name) {
+    if (res.full_name || res.message) {
       setAlertUi(true);
       setAlertMsg({ message: "Password updated successfully" });
     } else {

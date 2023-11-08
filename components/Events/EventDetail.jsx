@@ -53,7 +53,8 @@ export default function EventDetail({ data }) {
 
     return (
         <>
-            {data && <div className={`p-[30px_0px] md:p-[15px] container`}>
+        {/* p-[30px_0px] */}
+            {data && <div className={` md:p-[15px] container`}>
                 <div className=' py-[5px] bg-[#f1f1f130]'>
                     {(data.message.attach_type == 'Video' && data.message.video_type == 'YouTube') ? <iframe
                         className={`h-[500px] md:h-[300px] w-full`}
