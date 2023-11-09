@@ -3,7 +3,15 @@ import { useRouter } from 'next/router'
 import AuthModal from '../Auth/AuthModal';
 import { useState } from 'react'
 
-
+import { Nunito } from 'next/font/google'
+const nunito = Nunito({
+    weight: ["300","400","500","600","700"],
+    display: "block",
+    preload: true,
+    style: 'normal',
+    subsets: ["latin"],
+    variable: '--font-inter',
+  })
 export default function SubscriptionAlert({ data,isModal }) {
     const router = useRouter();
     // console.log(data)
@@ -27,21 +35,21 @@ export default function SubscriptionAlert({ data,isModal }) {
                 </div>
                 <div className={`${isModal ? 'flex-[0_0_calc(65%_-_10px)]' : 'flex-[0_0_calc(70%_-_10px)]'}`}>
                     {!(localStorage && localStorage['apikey']) && <div className="rounded-full justify-center flex gap-[10px] p-[10px] mb-[10px] items-center bg-[#ddd] w-[60%] md:w-[80%] md:p-[8px]">
-                        <p className="text-[16px] md:text-[14px]">Already subscribed to Prime </p>
+                        <p className={`text-[16px] md:text-[14px] ${nunito.className}`}>Already subscribed to Prime </p>
                         <div onClick={show} className='flex cursor-pointer items-center gap-[5px]'>
-                            <span className="text-red text-[16px] md:text-[14px]">Login</span>
+                            <span className={`text-red text-[16px] md:text-[14px] ${nunito.className}`}>Login</span>
                             <div><Image className='img h-[15px] w-[15px] object-contain' src={'/arrowrightprimary.svg'} height={15} width={15} alt='signup' /></div>
                         </div>
                     </div>}
 
                     <div className={`m-[10px] ${isModal ? 'md:h-[250px] md:overflow-auto scrollbar-hide' : ''}`}>
                         <h1 className='font-semibold text-[28px] md:text-[17px]'>Unblock this article by subscribing to Prime</h1>
-                        <h4 className='font-semibold text-[20px] md:text-[16px] my-[10px]'>With this subscription you also get:</h4>
+                        <h4 className={`font-semibold text-[20px] md:text-[16px] my-[10px] ${nunito.className}`}>With this subscription you also get:</h4>
                         {(data && data.length != 0) && data.slice(0,4).map((res, i) => {
                             return (
                                 <div key={i} className='flex items-center py-[10px] gap-[10px]'>
                                     <Image src={'/irprime/list-check-ir.svg'} height={20} width={20} alt='' />
-                                    <p className='md:text-[14px]'>{res.features}</p>
+                                    <p className={`md:text-[14px] ${nunito.className}`}>{res.features}</p>
                                 </div>
                             )
                         })}

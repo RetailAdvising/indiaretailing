@@ -222,17 +222,17 @@ export default function Categories({ data, ads }) {
         <>
             <RootLayout homeAd={ads ? ads : null} head={'Categories'} isLanding={true}>
                 <SEO title={'Categories'} siteName={'India Reatiling'} description={'Categories'} />
-
-                <div className={` md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
+            
+                <div className={`md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
                     {/* <Title data={{ title: 'Categories' }} font={'20px'} className='md:hidden' title_class='md:hidden' /> */}
                     {(datas && datas.length != 0) ? datas.map((res, index) => {
                         return (
-                            <div key={index} className={`block md:mb-[10px] p-[15px] lg:mr-[15px] ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} border rounded-[5px] `} style={{backgroundImage: `url(${check_Image(res.background_image)})`,backgroundRepeat:'no-repeat'}}>
+                            <div key={index} className={`block md:mb-[10px] p-[15px] lg:mr-[15px] ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} border rounded-[5px] `} style={{ backgroundImage: `url(${check_Image(res.background_image)})`, backgroundRepeat: 'no-repeat' }}>
                                 {/* lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)] */}
                                 <div className={``} ><SectionBox data={res} /></div>
                                 {/* lg:w-[calc(80%_-_10px)]  md:p-[10px] */}
                                 <div className='lg:w-[97%] lg:m-[auto] py-[15px]'>
-                                    <CustomSlider data={res.events} cardClass={'lg:h-[280px]  md:h-[235px]  flex-[0_0_calc(20%_-_15px)] md:flex-[0_0_calc(65%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
+                                    <CustomSlider data={res.events} cardClass={'lg:h-[280px]  md:h-[235px]  flex-[0_0_calc(20%_-_16px)] bg-white md:flex-[0_0_calc(65%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
                                         slider_id={"slider_id" + index} slider_child_id={"slider_child_id" + index} subtitle_class={'hidden'} hashtags_class={'hidden'} primary_text_class={''} />
                                 </div>
                             </div>
@@ -280,11 +280,11 @@ export async function getStaticProps() {
 const Skeleton = () => {
     return (
         <>
-            <div >
+            <div className='my-5 container'>
                 {[0, 1, 2, 3, 4].map((res, i) => {
                     return (
-                        <div key={i} className={`flex md:block md:mb-[10px] lg:mr-[15px] ${i == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} md:border md:rounded-[5px] justify-between gap-[15px] md:flex-col`}>
-                            <div className={`lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)]`}>
+                        <div key={i} className={`block md:mb-[10px] m-[auto] p-[15px] w-[97%] ${i == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} border rounded-[5px] `}>
+                            {/* <div className={`lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)]`}>
                                 <div className={`border rounded-[10px] justify-center p-[10px] md:h-auto lg:h-[280px] flex flex-col md:gap-[5px] lg:gap-[15px]`} >
                                     <p className='bg-[#E5E4E2] h-[6px] w-[50px] rounded-[5px]'></p>
                                     <h6 className=' bg-[#E5E4E2] h-[10px] my-5 w-[100px] rounded-[5px]'></h6>
@@ -293,11 +293,15 @@ const Skeleton = () => {
                                     <p className={`bg-[#E5E4E2] h-[6px] w-[200px] rounded-[5px]`}></p>
                                     <p className='bg-[#E5E4E2] h-[6px] mt-[10px] w-[80px] rounded-[5px]' ></p>
                                 </div>
+                            </div> */}
+                            <div className='text-center my-[15px]'>
+                                <p className='bg-[#E5E4E2] h-[8px] w-[150px]'></p>
+                                <p className='bg-[#E5E4E2] h-[5px] w-[300px]'></p>
                             </div>
-                            <div className='lg:w-[calc(80%_-_10px)] flex gap-[20px] overflow-auto scroll-smooth scrollbar-hide md:p-[10px]'>
+                            <div className=' flex gap-[20px] overflow-auto scroll-smooth scrollbar-hide md:p-[10px]'>
                                 {[0, 1, 2, 3, 4].map(index => {
                                     return (
-                                        <div key={index} className='border rounded-[10px] h-[280px] flex-[0_0_calc(20%_-_10px)]'>
+                                        <div key={index} className='border rounded-[10px] h-[280px] flex-[0_0_calc(20%_-_15px)]'>
                                             <div className='bg-[#E5E4E2] h-[200px] w-full rounded-[5px_5px_0_0]'></div>
                                             <div className='p-[10px]'>
                                                 <p className='flex gap-[10px] items-center'><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span><span className='bg-[#E5E4E2] h-[6px] w-[100px] rounded-[5px]'></span></p>

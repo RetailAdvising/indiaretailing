@@ -172,7 +172,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
         }
         let element = document.getElementById(id + cur.name);
         // console.log(element, 'element')
-        if (element.value && element.value != '') {
+        if (element?.value && element?.value != '') {
             cmtVal = element.value;
             setCmtVal(cmtVal)
             showPopup = true
@@ -201,7 +201,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
     const submitMsg = async (data) => {
         // let param = { article: cur.name, comment: element.value };
         let element = document.getElementById('cmt' + cur.name);
-        element.value = data
+        if(element) element.value = data
         let param = { article: cur.name, comment: data };
         let resp = await addComment(param);
         if (resp.message) {
@@ -209,7 +209,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             toast.success("The comment will appear once it's been approved by IndiaRetailing");
 
             setTimeout(() => {
-                element.value = '';
+                if(element) element.value = '';
             }, 200);
             // console.log(resp.message);
             // resp.message["is_liked"] = 0
@@ -276,10 +276,17 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                     <Image src={'/categories/close.svg'} onClick={hide} className='cursor-pointer ' height={22} width={22} alt='close' />
                 </div>
             </div>}
-            <div className={`relative ${isModal ? 'mx-[10px]' : ''}`}>
+            <div className={`relative ${isModal ? 'mx-[10px]' : ''} flex justify-between border rounded-[10px] lg:p-[15px] md:p-[10px]`}>
                 {/* onClick={hides} */}
-                <input onClick={() => sendMsg('cmt')} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id={`cmt` + cur.name} />
-                <Image src={'/categories/send-01.svg'} onClick={() => sendMsg('cmt')} className='cursor-pointer absolute top-0 m-auto bottom-0 right-[10px]' height={22} width={22} alt='send' />
+                {/* <input onClick={() => sendMsg('cmt')} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id={`cmt` + cur.name} />
+                <Image src={'/categories/send-01.svg'} onClick={() => sendMsg('cmt')} className='cursor-pointer absolute top-0 m-auto bottom-0 right-[10px]' height={22} width={22} alt='send' /> */}
+                <div className='flex gap-5 items-center'>
+                    <Image src={'/categories/send-01.svg'} className='cursor-pointer ' height={22} width={22} alt='send' />
+                    <p className={`${nunito.className}`}>Be the first to comment</p>
+                </div>
+
+                <button onClick={() => sendMsg('cmt')} className={`primary_button h-[35px] w-[120px] !rounded-full text-[13px]`}>Comment Now</button>
+
             </div>
             {showPopup && <CommentModal type={''} hides1={(type, data) => hides1(type, data)} element={cmtVal} msgChange={(val) => msgChange(val)} />}
             {data && data.length != 0 && <div className={`${isModal ? '' : 'border rounded-[5px]'} p-[10px]  my-[10px]`}>

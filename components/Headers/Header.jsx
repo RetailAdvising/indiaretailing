@@ -278,7 +278,7 @@ export default function Header({ checkout }) {
 
                         <div onClick={searchFn} className={`flex w-max items-center cursor-pointer gap-[2px] search_hover px-[10px] py-[5px] rounded-lg`}>
                             <Image style={{ objectFit: 'contain' }} height={60} priority width={24} alt='search' src={'/search.svg'} className="h-[18px]"></Image>
-                            <p className='text-[14px]'>Search</p>
+                            <p className={`text-[14px] ${nunito.className}`}>Search</p>
                             {/* <input id="myInput" className={styles.input1} type="text" placeholder='Search here...' name="search"></input> */}
                         </div>
 

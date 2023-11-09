@@ -125,7 +125,7 @@ export default function Bookstoredetail({ value, res }) {
           }
         }
 
-        console.log(value,'After');
+        // console.log(value,'After');
         setData(value);
       }
   
@@ -702,7 +702,7 @@ const  getCarts = async (type) => {
               <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
                 <h6 className={`lg:min-h-[60px] md:text-[16px] line-clamp-2 leading-[1.5] lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-[700] ${nunito.className}`}>{data.item_title}</h6>
                 {/* {route: router.asPath.split('/')[2]+'/'+data.route} */}
-                {icons && <Dropdowns share={true} updateShare={(data) => updateShare(data)} link={data} width={'w-[170px]'} data={icons} type={'books'} />}
+                {icons && <Dropdowns share={true} updateShare={(data) => updateShare(data)} link={data} width={'w-[170px]'} btnClass={'md:w-[32px]'} data={icons} type={'books'} />}
 
                 {/* <div className='dropdowns md:w-[calc(10%_-_0px)] lg:w-[130px] md:h-[15px] md:relative cursor-pointer lg:pr-[40px] md:justify-end md:flex'>
                   <Image onClick={share} ref={ref} className={`dropdowns transition-all delay-500 lg:pt-[6px]`} src={'/share.svg'} height={10} width={15} alt={'share'} /> */}

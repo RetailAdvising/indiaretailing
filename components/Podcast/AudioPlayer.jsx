@@ -20,7 +20,7 @@ function AudioPlayer(data) {
         <h6 className={`text-[32px] font-[700] ${nunito.className} pb-2 md:text-[18px] md:pt-[20px]`}>{data.data.title}</h6>
         <p className={`${nunito.className} font-semibold`}>{data.data.category}</p>
         <p className={`p-[10px_0px]`} dangerouslySetInnerHTML={{ __html: data.data.description }}></p>
-        <audio className="w-[100%] md:w-90" controls id="audio-element" src={check_Image(data.data.sound)}></audio>
+        <audio className="w-[100%] md:w-90" controls id="audio-element" controlsList='nodownload noplaybackrate'  src={check_Image(data.data.sound)}></audio>
       </div>
     </div>
   );

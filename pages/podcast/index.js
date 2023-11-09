@@ -40,7 +40,7 @@ export default function Podcast({ data, ads_data, slider_data }) {
                 </div>
                 {(values && values.length != 0) ? values.map((res, index) => {
                     return (
-                        <HomePodcast key={index} i={index} data={res} />
+                        <HomePodcast key={index} isLanding={true} i={index} data={res} />
                     )
                 }) : <Skeleton />}
             </RootLayout>

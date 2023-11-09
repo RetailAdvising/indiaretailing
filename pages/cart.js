@@ -16,7 +16,7 @@ export default function cart() {
     let [cart_items, setCartItems] = useState({});
     const [cartTotal, setCartTotal] = useState(0);
     const [load, setload] = useState(false);
-    const[skeleton,setSkeleton] = useState(false)
+    const [skeleton, setSkeleton] = useState(false)
     const [indexs, setIndex] = useState(-1)
     const router = useRouter();
     const formatter = new Intl.NumberFormat('en-US', {
@@ -41,16 +41,16 @@ export default function cart() {
     // }
 
     useEffect(() => {
-        if(typeof window !== 'undefined'){
+        if (typeof window !== 'undefined') {
             getCarts('loader');
             checkIsMobile();
-            window.addEventListener('resize',checkIsMobile)
+            window.addEventListener('resize', checkIsMobile)
             return () => {
-              window.removeEventListener('resize', checkIsMobile);
+                window.removeEventListener('resize', checkIsMobile);
             };
         }
 
-    },[])
+    }, [])
 
     let [isMobile, setIsmobile] = useState();
 
@@ -62,77 +62,77 @@ export default function cart() {
         setSkeleton(false)
     }
 
-    const  checkIsMobile = async () => {
+    const checkIsMobile = async () => {
         isMobile = await checkMobile();
         setIsmobile(isMobile);
-      }
+    }
 
 
-    async function update_cart(dataValue,type){
+    async function update_cart(dataValue, type) {
 
         let param = {
-          name: dataValue.name,
-        //   qty: check_count(dataValue['quantity'],type),
-          qty: type == 'inc' ? (dataValue['quantity'] + 1) : (dataValue['quantity'] - 1),
-          "business": dataValue.business ? dataValue.business : '',
-          qty_type: ""
+            name: dataValue.name,
+            //   qty: check_count(dataValue['quantity'],type),
+            qty: type == 'inc' ? (dataValue['quantity'] + 1) : (dataValue['quantity'] - 1),
+            "business": dataValue.business ? dataValue.business : '',
+            qty_type: ""
         }
-      
+
         const resp = await updateCartItems(param);
         if (resp.message.status == 'success') {
             getCarts('');
             setload(false)
-        }else{
+        } else {
             setload(false);
-            setAlertMsg({message:resp.message.message ? resp.message.message : 'Something went wrong try again later'});
+            setAlertMsg({ message: resp.message.message ? resp.message.message : 'Something went wrong try again later' });
             setEnableModal_1(true);
         }
-      }
-      
+    }
+
 
     const updateCart = async (dataValue, type, i) => {
 
         setload(true);
-      
-        if(type == 'dec' && dataValue['quantity'] == 1){
-            dltCart(dataValue,i)
-         }else  if(dataValue['quantity'] > 0){
-           update_cart(dataValue,type);
-         }
-          
-      }
+
+        if (type == 'dec' && dataValue['quantity'] == 1) {
+            dltCart(dataValue, i)
+        } else if (dataValue['quantity'] > 0) {
+            update_cart(dataValue, type);
+        }
+
+    }
 
 
-  const [enableModal,setEnableModal] = useState(false)
-  const [enableModal_1,setEnableModal_1] = useState(false)
+    const [enableModal, setEnableModal] = useState(false)
+    const [enableModal_1, setEnableModal_1] = useState(false)
 
-  const [alertMsg, setAlertMsg] = useState({})
+    const [alertMsg, setAlertMsg] = useState({})
 
-    async function dltCart(data,index) {
-        setAlertMsg({message:'Do you want to delete the item',name:data.name,index:index});
+    async function dltCart(data, index) {
+        setAlertMsg({ message: 'Do you want to delete the item', name: data.name, index: index });
         setEnableModal(true);
     }
 
-    async function closeModal(value){
+    async function closeModal(value) {
         setEnableModal(false);
         setEnableModal_1(false);
         setload(false);
-            if(value == 'Yes'){
-              let param = { name: alertMsg.name }
-              const resp = await deleteCartItems(param);
-                if (resp.message.status == 'success') {
-                    getCarts('');
-                    setAlertMsg({});
-                }
+        if (value == 'Yes') {
+            let param = { name: alertMsg.name }
+            const resp = await deleteCartItems(param);
+            if (resp.message.status == 'success') {
+                getCarts('');
+                setAlertMsg({});
             }
+        }
     }
 
 
-    const [loader,setLoader] = useState(false)
+    const [loader, setLoader] = useState(false)
 
-    const buttonClick = () =>{
-      setLoader(true)
-      router.push('/checkout')
+    const buttonClick = () => {
+        setLoader(true)
+        router.push('/checkout')
     }
 
 
@@ -140,47 +140,47 @@ export default function cart() {
         <>
             <RootLayout>
 
-            {enableModal && 
-              <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} /> 
-            }
+                {enableModal &&
+                    <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} />
+                }
 
-           { enableModal_1 &&   <AlertUi isOpen={enableModal_1} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+                {enableModal_1 && <AlertUi isOpen={enableModal_1} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
 
                 <div className={`${isMobile ? null : 'container'} lg:p-[30px]`}>
-                    {! isMobile && <Title data={{ title: 'Shopping Cart' }} /> }
+                    {!isMobile && <Title data={{ title: 'Shopping Cart' }} />}
                     {/* {load && <div className='overlay'><Image src={'/cart/loading.gif'} className='h-[100px] w-full'  height={40} width={40} alt='loading' /></div>} */}
                     {(!skeleton && cart_items && cart_items.marketplace_items && cart_items.marketplace_items.length != 0) ? <div className={`flex items-baseline justify-between md:flex-wrap gap-[15px]`}>
                         <div className={`lg:border lg:border-slate-100 lg:p-[20px] lg:rounded-[5px] flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]`}>
                             <div className='flex md:hidden pb-[2px] items-center gap-5 justify-between '>
-                                <p className='flex-[0_0_calc(20%_-_0px)]  font-semibold text-center'>Products</p>
-                                
-                                <div className='flex flex-[0_0_calc(80%_-_10px)] '>
-                                 <p className='flex-[0_0_calc(35%_-_0px)] font-semibold text-center'></p>
-                                 <p className='flex-[0_0_calc(20%_-_0px)] font-semibold text-center'>Price</p>
-                                 <p className='flex-[0_0_calc(25%_-_0px)] font-semibold text-center'>Quantity</p>
-                                 <p className='flex-[0_0_calc(20%_-_0px)] font-semibold text-center'>Total</p>
-                                </div>   
+                                <p className='flex-[0_0_calc(45%_-_0px)]  font-semibold text-center'>Products</p>
+
+                                <div className='flex flex-[0_0_calc(55%_-_10px)] '>
+                                    {/* <p className='flex-[0_0_calc(35%_-_0px)] font-semibold text-center'></p> */}
+                                    <p className='flex-[0_0_calc(20%_-_0px)] font-semibold text-center'>Price</p>
+                                    <p className='flex-[0_0_calc(45%_-_0px)] font-semibold text-center'>Quantity</p>
+                                    <p className='flex-[0_0_calc(20%_-_0px)] font-semibold text-center'>Total</p>
+                                </div>
 
                             </div>
                             {cart_items.marketplace_items.map((res, index) => {
                                 return (
                                     <div key={index} className={`flex items-center justify-between ${index != cart_items.marketplace_items.length - 1 ? 'border_bottom' : ''} md:p-[10px] lg:py-[10px]`}>
 
-                                        <div className='flex-[0_0_calc(5%_-_0px)] mr-[10px]'> 
-                                           <Image className='cursor-pointer' onClick={() => dltCart(res,index)} src={'/cart/Remove.svg'} height={20} width={20} alt={res.name} />
-                                        </div>
+                                       {isMobile && <div className='flex-[0_0_calc(5%_-_0px)] mr-[10px] lg:hidden'>
+                                            <Image className='cursor-pointer h-[30px] w-[30px] object-contain' onClick={() => dltCart(res, index)} src={'/cart/delete.svg'} height={20} width={20} alt={res.name} />
+                                        </div>}
 
                                         <div className='lg:flex-[0_0_calc(15%_-_0px)] md:flex-[0_0_calc(25%_-_0px)]'>
-                                         <Image className='md:h-[120px] lg:h-[135px]' src={check_Image(res.image)} height={80} width={100} alt={res.name} />
-                                        </div>    
-                                        
+                                            <Image className='md:h-[120px] lg:h-[135px]' src={check_Image(res.image)} height={80} width={100} alt={res.name} />
+                                        </div>
+
                                         <div className='lg:flex-[0_0_calc(80%_-_20px)] md:flex-[0_0_calc(70%_-_20px)] lg:flex mx-[10px]'>
 
-                                           <div className='lg:flex-[0_0_calc(40%_-_0px)]'>
-                                             <p className='text-[16px] line-clamp-2 font-semibold'>{res.product_name}</p>
-                                             {res.attribute_description && <p className='text-[12px] gray_color'>{res.attribute_description}</p>}
-                                           </div> 
+                                            <div className='lg:flex-[0_0_calc(40%_-_0px)]'>
+                                                <p className='text-[16px] line-clamp-2 font-semibold'>{res.product_name}</p>
+                                                {res.attribute_description && <p className='text-[12px] gray_color'>{res.attribute_description}</p>}
+                                            </div>
                                             <p className='lg:flex-[0_0_calc(20%_-_10px)] lg:mx-[5px] md:hidden text-[15px] font-semibold'>{formatter.format(res.price)}</p>
 
                                             <div className='lg:flex-[0_0_calc(40%_-_0px)] lg:justify-around lg:flex lg:items-center md:flex md:flex-row-reverse py-[6px] w-full md:justify-between'>
@@ -188,16 +188,20 @@ export default function cart() {
                                                     <Image onClick={() => (load) ? null : updateCart(res, 'dec', index)} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/_.svg'} height={20} width={20} alt='minus' />
                                                     {(load) ? <div class="animate-spin rounded-full h-[15px] w-[15px] border-l-2 border-t-2 border-black"></div> : <p className='font-semibold'>{res.quantity}</p>}
                                                     {/* {(load && index == indexs) ? <Image src={'/cart/loading.gif'} className='h-[75px] w-[40px]' height={40} width={40} alt='loading' /> : <p className='font-semibold'>{res.quantity}</p>} */}
-                                                    <Image onClick={() => (load) ? null :  updateCart(res, 'inc', index)} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/+.svg'} height={20} width={20} alt='plus' />
+                                                    <Image onClick={() => (load) ? null : updateCart(res, 'inc', index)} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/+.svg'} height={20} width={20} alt='plus' />
                                                 </div>
-                                                <p className='text-center font-semibold text-[15px]'>{isMobile ? formatter.format(res.price) : formatter.format(res.total)}</p> 
-                                            </div>    
-                                            
-                                        </div>    
-                                       
-  
+                                                <p className='text-center font-semibold text-[15px]'>{isMobile ? formatter.format(res.price) : formatter.format(res.total)}</p>
+                                            </div>
 
-                                       
+                                        </div>
+
+                                        {!isMobile && <div className='flex-[0_0_calc(5%_-_0px)] md:hidden'>
+                                            <Image className='cursor-pointer h-[30px] w-[30px] object-contain' onClick={() => dltCart(res, index)} src={'/cart/delete.svg'} height={20} width={20} alt={res.name} />
+                                        </div>}
+
+
+
+
                                         {/* <Image className='flex-[0_0_calc(5%_-_10px)] cursor-pointer' onClick={() => dltCart(res)} src={'/cart/Remove.svg'} height={20} width={20} alt={res.name} />
                                         <Image className='flex-[0_0_calc(15%_-_10px)] h-[150px] w-[100px]' src={check_Image(res.image)} height={80} width={100} alt={res.name} />
                                         
@@ -215,7 +219,7 @@ export default function cart() {
                         </div>
                         {cart_items && <div className={`border md:flex-[0_0_calc(100%_-_20px)] rounded-[5px] lg:flex-[0_0_calc(30%_-_10px)]  md:m-[10px]`}>
                             <p className='p-[8px] pb-[10px] md:mb-[5px] lg:text-[18px] font-semibold border_bottom'>Payment details</p>
-                            <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='flex gap-[10px] text-[15px] items-center'>Total Item</span><span>{cart_items.marketplace_items ? cart_items.marketplace_items.length : 0 }</span></p>
+                            <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='flex gap-[10px] text-[15px] items-center'>Total Item</span><span>{cart_items.marketplace_items ? cart_items.marketplace_items.length : 0}</span></p>
                             <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='flex gap-[10px] text-[15px] items-center'>Subtotal <Image className='rounded-full h-[15px] w-[20px] object-contain' src={'/cart/question.svg'} height={10} width={10} alt='qns' /></span><span>{formatter.format(cart_items.total)}</span></p>
                             <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='text-[15px]'>Shipping</span><span className='text-[15px] '>Free</span></p>
                             <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='text-[15px]'>GST</span><span className='text-[15px]'>{formatter.format(cart_items.tax_rate)}</span></p>
@@ -225,11 +229,11 @@ export default function cart() {
                             {/* <button className='capitalize primary_btn text-[14px] h-[40px] md:w-[calc(100%_-_10px)] md:m-[7px_5px]' onClick={() => router.push('/checkout')}>Proceed to checkout</button> */}
                         </div>}
                     </div> : skeleton ? <Skeleton /> :
-                    <div className='md:h-[50vh] lg:h-[60vh] grid place-content-center'>
-                        <Image src={'/cart/no_cart.svg'} height={100} width={100} alt='no cart'  className='md:h-[200px] md:w-[220px] lg:h-[270px] lg:w-[300px]'/>
-                        <p className='p-[10px] text-center font-semibold text-[18px]'>Your Cart is Empty</p>
-                        <button className='primary_button lg:h-[40px] md:h-[35px]' onClick={() => router.push('/bookstore')}>Return shop</button>
-                    </div>}
+                        <div className='md:h-[50vh] lg:h-[60vh] grid place-content-center'>
+                            <Image src={'/cart/no_cart.svg'} height={100} width={100} alt='no cart' className='md:h-[200px] md:w-[220px] lg:h-[270px] lg:w-[300px]' />
+                            <p className='p-[10px] text-center font-semibold text-[18px]'>Your Cart is Empty</p>
+                            <button className='primary_button lg:h-[40px] md:h-[35px]' onClick={() => router.push('/bookstore')}>Return shop</button>
+                        </div>}
                 </div>
             </RootLayout>
         </>

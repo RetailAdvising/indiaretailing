@@ -77,10 +77,10 @@ export default function MainFooter({ footerData }) {
                     {footerData.items && footerData.items.map((footer_item, index) => {
                         return (
                             // flex-[0_0_calc(${100 / footerData.items.length}%_-_16px)]
-                            <div key={index} className={`${index == 0 ? 'flex-[0_0_calc(20%_-_15px)]'  : 'flex-[0_0_calc(16%_-_15px)]'}  ${'md:flex md:flex-wrap md:mb-[10px]'}`}>
+                            <div key={index} className={`${index == 0 ? 'flex-[0_0_calc(20%_-_15px)]'  : 'flex-[0_0_calc(16%_-_15px)]'}  ${'md:grid md:grid-cols-2  md:justify-between md:mb-[10px]'}`}>
                                 {footer_item.items && footer_item.items.map((item, i) => {
                                     return (
-                                        <div key={i} className={`${item.section_name == 'Footer 1' ? 'relative' : ''}`}>
+                                        <div key={i} className={`${item.section_name == 'Footer 1' ? 'relative md:hidden' : ''}`}>
                                             {/* // <> */}
                                             {item.section_name == 'Footer Contact' &&
                                                 <div className={` flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
@@ -143,11 +143,7 @@ export default function MainFooter({ footerData }) {
                                                     <p className={`text-[13px] leading-[1.3] my-[10px]`}>{item.description}</p>
                                                     <button className={`primary_button h-[35px] p-[0_10px] text-[14px] cursor-pointer w-full`} onClick={()=> router.push('/membership')}>{item.button}</button>
                                                 </div>
-
-
-                                            </div>
-
-                                            }
+                                            </div>}
                                         </div>
                                         // {/* </> */ }
                                     )

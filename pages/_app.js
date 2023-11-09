@@ -43,7 +43,28 @@ export default function App({ Component, pageProps }) {
     let tabs = document.getElementById('tabs')
     setTabHeight(tabs && tabs.clientHeight)
     get_website_settings()
+
+    // const handleBackButton = (event) => {
+    //   if (event.type === 'popstate') {
+    //     const historyState = event.state;
+    //     // console.log(historyState,'historyState')
+    //     if (historyState && historyState.hrefStack && historyState.hrefStack.length > 0) {
+    //       const previousHrefs = historyState.hrefStack;
+    //       // Perform any necessary action with the previous hrefs
+    //       // console.log(previousHrefs,'previousHrefs');
+    //     }
+    //   }
+    //   // console.log(window.location,'window.location')
+    // }
+
+    // window.addEventListener('popstate', handleBackButton);
+
+    // return () => {
+    //   window.removeEventListener('popstate', handleBackButton);
+    // };
   }, [])
+
+  
 
   const get_website_settings = async () => {
     let websiteData = await websiteSettings()
