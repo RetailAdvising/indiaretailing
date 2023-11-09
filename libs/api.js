@@ -278,6 +278,11 @@ export async function HomePage(data) {
     return await postMethod(api, data)
 }
 
+export async function HomePageAds() {
+    let api = domainUrl + 'home_page_ads';
+    return await GET(api)
+}
+
 export async function websiteSettings(data) {
     let api = 'go1_cms.go1_cms.api.get_all_website_settings';
     return await postMethod(api, data)

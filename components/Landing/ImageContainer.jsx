@@ -16,7 +16,7 @@ export default function ImageContainer({ data, height, width, isWeb }) {
     // console.log(data,'data Image cont')
     return (
         <>
-            {data && <div className='relative pb-[20px]'>
+            {data && <div className='relative '>
                 <Link href={data.video_type && data.video_image ? '/video/' + data.route : '/' + data.route}>
                     {/* loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' */}
                     {/* onLoad={(e) => setLoad(true)} onLoadingComplete={(img) => changeImg(img)} */}

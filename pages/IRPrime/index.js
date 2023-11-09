@@ -29,7 +29,7 @@ export default function IRPrime({ data, ads }) {
 
 const Skeleton = () => {
     return (
-        <div className={` lg:p-[30px_0px] md:p-[15px] container`}>
+        <div className={`md:p-[15px] container`}>
             <div className='flex gap-[15px] items-center'>
                 <div className='lg:h-[640px] border p-5 md:p-[10px] rounded-[5px]  flex-[0_0_calc(42%_-_10px)] md:basis-full'>
                     {[0].map((res, i) => {

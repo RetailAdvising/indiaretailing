@@ -294,7 +294,7 @@ const Skeleton = () => {
                                     <p className='bg-[#E5E4E2] h-[6px] mt-[10px] w-[80px] rounded-[5px]' ></p>
                                 </div>
                             </div> */}
-                            <div className='text-center my-[15px]'>
+                            <div className='text-center my-[15px] grid place-content-center gap-[10px]'>
                                 <p className='bg-[#E5E4E2] h-[8px] w-[150px]'></p>
                                 <p className='bg-[#E5E4E2] h-[5px] w-[300px]'></p>
                             </div>

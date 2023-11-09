@@ -128,7 +128,7 @@ export default function MainFooter({ footerData }) {
                                                     <h6 className={`text-[15px] font-[700] mb-3 ${nunito.className}`}>{item.title}</h6>
                                                     {(item.menus && item.menus.length != 0) && item.menus.map((item, index) => {
                                                         return (
-                                                            <a target={item.title == 'Events' ? '_blank' : '_self'} href={item.redirect_url} key={index}><p className={`sub_title  text-[15px] font-semibold mb-2  hover:text-[red]`}>{item.menu_label}</p></a>
+                                                            <a target={item.title == 'Events' ? '_blank' : '_self'} href={item.redirect_url} key={index}><p className={`sub_title  text-[15px] font-semibold mb-2  hover:text-[red] ${nunito.className}`}>{item.menu_label}</p></a>
                                                         )
                                                     })}
                                                 </div>
@@ -139,8 +139,8 @@ export default function MainFooter({ footerData }) {
                                                     <Image src={check_Image(item.image)} className={`object-contain w-full`} height={100} width={100} alt={item.primary_text} />
                                                 </div>
                                                 <div>
-                                                    <p className={``}><span className={`font-[700] text-[#e21b22] text-[14px]`}>{item.primary_text}</span>  <span className={`text-[#666666] font-[700] text-[14px]`}>{item.secondary_text}</span></p>
-                                                    <p className={`text-[13px] leading-[1.3] my-[10px]`}>{item.description}</p>
+                                                    <p className={``}><span className={`font-[700] text-[#e21b22] text-[14px] ${nunito.className}`}>{item.primary_text}</span>  <span className={`text-[#666666] font-[700] text-[14px] ${nunito.className}`}>{item.secondary_text}</span></p>
+                                                    <p className={`text-[13px] leading-[1.3] my-[10px] ${nunito.className}`}>{item.description}</p>
                                                     <button className={`primary_button h-[35px] p-[0_10px] text-[14px] cursor-pointer w-full`} onClick={()=> router.push('/membership')}>{item.button}</button>
                                                 </div>
                                             </div>}
