@@ -125,7 +125,7 @@ export default function Bookstoredetail({ value, res }) {
           }
         }
 
-        // console.log(value,'After');
+        console.log(value,'After');
         setData(value);
       }
   

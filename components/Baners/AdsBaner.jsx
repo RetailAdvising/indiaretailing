@@ -18,7 +18,7 @@ export default function AdsBaner({ data, height, Class, style, width, homeAd, fo
   return (
     <>
       {
-        data && <div style={style} onClick={() => window.open(data.banner_link, '_blank')} className={`${Class}`}>
+        data && <div style={style} onClick={() => window.open(data.banner_link ? data.banner_link : data.ad_link, '_blank')} className={`${Class}`}>
           {/* {data &&
             <div className='flex items-center justify-center gap-[5px]'>
               <span className='bg-[#00000066] h-[1px] w-[10px] rounded-[5px]'></span>
@@ -28,7 +28,7 @@ export default function AdsBaner({ data, height, Class, style, width, homeAd, fo
             //  <h6 className='fnt_12 text-center ads_line relative text-[#0000009c]'>{data.title ? data.title : 'Advertisement'}</h6>
           } */}
           {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur'  src={data.ad_image || check_Image(data.banner_image)} height={250} className={`${height} ${width} `} width={970} alt='ad' /> */}
-          <ImageLoader style={`${height} ${width}`} src={data.ad_image ? data.ad_image : data.banner_image ? data.banner_image : null} title={data.title ? data.title : 's'} />
+          <ImageLoader style={`${height} ${width}`} src={data.ad_image ? data.ad_image : data.banner_image ? data.banner_image : data.web_image ? data.web_image : null} title={data.title ? data.title : 's'} />
         </div>
       }
       {

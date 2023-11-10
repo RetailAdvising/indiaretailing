@@ -2337,6 +2337,25 @@ span {
   border-radius:10px;
 }
 
-.pregress_active{
 
+.sidebar_1 {
+  grid-area: sidebar_1;
+}
+
+.right_1 {
+  grid-area: right_1;
+}
+
+.right_2 {
+  grid-area: right_2;
+}
+
+
+.wrapper {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 45%  55% ;
+  grid-template-areas:
+             "sidebar_1 right_1 "
+             "sidebar_1 right_2 ";
 }
