@@ -1,12 +1,13 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, { useEffect,useState } from 'react'
-import { primeLanding, getAds } from '@/libs/api'
+import { primeLanding, getAds,getAdvertisements } from '@/libs/api'
 import ExclusiveBuilder from '@/components/Builders/ExclusiveBuilder'
 import SEO from '@/components/common/SEO'
 
 
-export default function IRPrime({ data, ads }) {
+export default function IRPrime({ data,ads }) {
     const [value, setValue] = useState()
+    // let [ads,setAds] = useState()
 
     useEffect(() => {
         if (data && data.message && data.message.length != 0) {
@@ -15,6 +16,7 @@ export default function IRPrime({ data, ads }) {
             }, 200);
         }
     }, [])
+
     // console.log('dadad', data, ads)
     return (
         <>
@@ -168,12 +170,12 @@ export async function getStaticProps() {
     }
     const res = await primeLanding(params);
     const data = await res;
-
-    let param = { doctype: 'Articles', page_type: 'Home' }
-    const resp = await getAds(param);
-    const ads = resp.message;
+    let param = { page: 'IR Prime', page_type: 'Landing' }
+    const resp = await getAdvertisements(param);
+    let ads = resp.message
+       
     return {
-        props: { data, ads }, revalidate: 50,
+        props: { data,ads }, revalidate: 50,
     }
 }
 

@@ -1,4 +1,5 @@
 import AdsBaner from '@/components/Baners/AdsBaner'
+import Advertisement from '@/components/Baners/Advertisement'
 import MainFooter from '@/components/Footer/MainFooter'
 import Header from '@/components/Headers/Header'
 import Navbar from '@/components/Headers/Navbar'
@@ -201,7 +202,8 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   return (
     <>
       {/* <SEO /> */}
-      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
+      {/* {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>} */}
+      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.header) && homeAd.header} style={styles} height={'h-full'} width={'500px'} /></div>}
       {/* <PdfViewer/> */}
       <>
         <Header checkout={checkout} />
@@ -254,7 +256,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
           {children}
         </main>
 
-        {(!checkout && !is_detail) && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><AdsBaner footerAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>}
+        {(!checkout && !is_detail) && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.footer) && homeAd.footer} style={styles} height={'h-full'} width={'500px'} /></div>}
         {!checkout && <MainFooter footerData={footerData} />}
         {/* <div className='lg:hidden' >
           <BottomTabs />

@@ -12,6 +12,7 @@ export default function ImageLoader({ src, title, style, type,isDetail }) {
     //         setLoad(true) 
     //     }, 500);
     // },[])
+    // console.log(src,'src')
     const check_Images = (Image) => {
         let baseUrl = `https://${domain}`
         if (Image) {
@@ -55,7 +56,7 @@ export default function ImageLoader({ src, title, style, type,isDetail }) {
                 }
             />
 
-            {type && type.video_type && type.video_image && <div className='absolute bottom-[25px] z-10 right-[10px] md:bottom-[25px]'>
+            {type && type.video_type && type.video_image && <div className='absolute bottom-[70px] z-10 right-[10px] md:bottom-[65px]'>
                 <Image src={'/irprime/youtube.svg'} className='h-[35px] w-[35px] object-contain' height={50} width={50} alt={title + 'video'} />
             </div>}
 

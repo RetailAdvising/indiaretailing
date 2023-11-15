@@ -283,6 +283,11 @@ export async function HomePageAds() {
     return await GET(api)
 }
 
+export async function getAdvertisements(data) {
+    let api = domainUrl + 'advertisement';
+    return await postMethod(api,data)
+}
+
 export async function websiteSettings(data) {
     let api = 'go1_cms.go1_cms.api.get_all_website_settings';
     return await postMethod(api, data)

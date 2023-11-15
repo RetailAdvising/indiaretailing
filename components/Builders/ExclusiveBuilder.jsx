@@ -3,6 +3,7 @@ import List from '../common/List'
 import { check_Image, checkMobile } from '@/libs/api'
 import Image from 'next/image'
 import AdsBaner from '../Baners/AdsBaner'
+import Advertisement from '../Baners/Advertisement'
 import Title from '../common/Title'
 import { useRouter } from 'next/router'
 import ListSlider from '@/components/Sliders/ListSlider'
@@ -91,7 +92,7 @@ export default function ExclusiveBuilder({ data, ads }) {
                     </div>
                 </div>
 
-                {(ads.right && ads.right.length != 0 && ads.right[0] && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><AdsBaner height={'h-[280px] '} Class={'pt-[40px]'} width={'w-full'} data={ads.right[0]} /></div>}
+                {(ads.right_first && Object.keys(ads.right_first).length != 0  && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><Advertisement height={'h-[280px]'} Class={'pt-[40px]'} width={'w-[336px]'} data={ads.right_first} /></div>}
             </div>}
 
             {/* Section - 3 p-[20px_30px]*/}
@@ -126,7 +127,7 @@ export default function ExclusiveBuilder({ data, ads }) {
                     <List fullWidth={true} check={true} isBB={true} titleClamp={'line-clamp-2'} contentWidth={'gap-[5px] w-[520px] md:w-[auto]'} flex={'gap-[25px] items-center mb-[20px] pb-[20px]'}
                         imgFlex={'flex-[0_0_calc(28%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px] md:h-[130px]'} data={data.sec2.data.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                 </div>
-                {(ads.right && ads.right.length != 0 && ads.right[1] && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><AdsBaner height={'h-[600px] '} width={'w-full'} data={ads.right[1]} /></div>}
+                {/* {(ads.right && ads.right.length != 0 && ads.right[1] && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><AdsBaner height={'h-[600px] '} width={'w-full'} data={ads.right[1]} /></div>} */}
 
                 {/* {(val.section_4 && val.section_4.col_2 && !isMobile) && <div className='flex-[0_0_calc(25%_-_10px)] md:basis-full'> <AdsBaner height={'h-[567px]'} width={'w-full'} data={val.section_4.col_2} /></div>} */}
             </div>}

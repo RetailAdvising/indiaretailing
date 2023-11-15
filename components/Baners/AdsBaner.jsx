@@ -1,11 +1,25 @@
-import { check_Image } from '@/libs/api'
+import { check_Image,checkMobile } from '@/libs/api'
 import Image from 'next/image'
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import ImageLoader from '../ImageLoader';
 
 export default function AdsBaner({ data, height, Class, style, width, homeAd, footerAd }) {
   const router = useRouter()
+  let [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile)
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, [])
+
+  const checkIsMobile = async () => {
+    let is_mobile = await checkMobile();
+    isMobile = is_mobile
+    setIsMobile(isMobile);
+  }
 
   // const load = (img, image) => {
   //   // let loaded = check_Image(image);
@@ -28,7 +42,7 @@ export default function AdsBaner({ data, height, Class, style, width, homeAd, fo
             //  <h6 className='fnt_12 text-center ads_line relative text-[#0000009c]'>{data.title ? data.title : 'Advertisement'}</h6>
           } */}
           {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur'  src={data.ad_image || check_Image(data.banner_image)} height={250} className={`${height} ${width} `} width={970} alt='ad' /> */}
-          <ImageLoader style={`${height} ${width}`} src={data.ad_image ? data.ad_image : data.banner_image ? data.banner_image : data.web_image ? data.web_image : null} title={data.title ? data.title : 's'} />
+          <ImageLoader style={`${height} ${width}`} src={isMobile ? data.mobile_image : data.ad_image ? data.ad_image : data.banner_image ? data.banner_image : data.web_image} title={data.title ? data.title : 's'} />
         </div>
       }
       {

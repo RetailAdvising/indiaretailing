@@ -127,6 +127,11 @@ export default function cart() {
         }
     }
 
+    async function closeModal_1(value) {
+        setEnableModal_1(false);
+        setload(false);
+    }
+
 
     const [loader, setLoader] = useState(false)
 
@@ -144,7 +149,7 @@ export default function cart() {
                     <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} />
                 }
 
-                {enableModal_1 && <AlertUi isOpen={enableModal_1} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+                {enableModal_1 && <AlertUi isOpen={enableModal_1} closeModal={(value) => closeModal_1(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
 
                 <div className={`${isMobile ? null : 'container'} lg:p-[30px]`}>

@@ -1,12 +1,13 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares, checkMobile, get_subscription_plans } from '@/libs/api';
+import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares, checkMobile, get_subscription_plans,getAdvertisements } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import SeoArticles from '@/components/common/SeoArticles'
 import AdsBaner from '@/components/Baners/AdsBaner'
+import Advertisement from '@/components/Baners/Advertisement'
 import { useSelector, useDispatch } from 'react-redux';
 // import { NextSeo } from 'next-seo'
 import setComments from 'redux/actions/commentsReducer'
@@ -88,8 +89,13 @@ export default function Details({ data, page_route }) {
   }
 
   const ads = async () => {
-    let param = { doctype: 'Articles', page_type: 'Detail' }
-    const resp = await getAds(param);
+    // let param = { doctype: 'Articles', page_type: 'Detail' }
+    // const resp = await getAds(param);
+    // const ads = resp.message;
+    // setAds(ads)
+
+    let param = { page: 'Categories', page_type: 'Detail' }
+    const resp = await getAdvertisements(param);
     const ads = resp.message;
     setAds(ads)
   }
@@ -384,7 +390,7 @@ export default function Details({ data, page_route }) {
               <div id={'div' + index} key={index} className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
                 <CategoryBuilder productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data) => updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} noScroll={(val) => noScroll(val)} plans={(plans && plans.length != 0) ? plans : []} />
-                <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><AdsBaner footerAd={advertisement ? advertisement : null} height={'h-full'} width={'500px'} /></div>
+                <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><Advertisement data={advertisement && advertisement.footer && advertisement.footer} height={'h-full'} width={'500px'} /></div>
                 {!(index == values.length - 1) && <div className={`flex md:gap-[10px]  lg:m-[20px_auto_0] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] container`}>
                   <h6 className={`flex-[0_0_auto] lg:text-[18px] md:text-[14px] font-semibold`}>Next Post</h6>
                   <div className='lg:bg-[#999] w-full lg:h-[2px] md:bg-stone-200 md:h-[3px]'></div>

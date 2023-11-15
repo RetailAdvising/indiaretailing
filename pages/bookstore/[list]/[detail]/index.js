@@ -107,7 +107,7 @@ export default function Bookstoredetail({ value, res }) {
 
         if(value.product_variant_group && value.product_variant_group.length != 0){
           if(value.has_variants == 1){
-            value.attribute_ids = value.product_variant_group[0].attribute;
+            value.attribute_ids = value.product_variant_group[0].attribute_id;
             value.business = value.restaurant;
             value.attribute = value.product_variant_group[0].attribute;
 
@@ -157,24 +157,28 @@ export default function Bookstoredetail({ value, res }) {
     if (localStorage && localStorage['apikey']) {
 
       let val = subs && subs.length != 0 ? subs.find(res => res.active == true) : undefined;
-
-      // val.item__type != "Onetime Purchase"
-      if (val && val.is_subscription == 1) {
-        if(val.stock > 0){
-          insert_subscription(val)
-        }else{
-          setAlertMsg({message: 'No stock for this book'});
+      if(val.stock > 0){
+        if (val && val.is_subscription == 1) {
+          if(val.stock > 0){
+            insert_subscription(val)
+          }else{
+            setAlertMsg({message: 'No stock for this book'});
+            setEnableModal(true)
+          }
+        } else {
+          data['count'] = 1;
+          if(data['quantity'] == 0) {
+            insert_cart(data,'buy_now',val ? val : undefined)
+          }else{
+            updateCart(data,'inc')
+          }
+  
+        }
+      }else{
+        setAlertMsg({message: 'No stock for this book'});
           setEnableModal(true)
-        }
-      } else {
-        data['count'] = 1;
-        if(data['quantity'] == 0) {
-          insert_cart(data,'buy_now',val ? val : undefined)
-        }else{
-          updateCart(data,'inc')
-        }
-
       }
+      // val.item__type != "Onetime Purchase"
     } else {
       setVisible(!visible);
       setLoader(false);
@@ -441,16 +445,18 @@ const  getCarts = async (type) => {
  const setOnetimeAsDefault = (val) =>{
   // res.map((e,i)=>{if(e.item__type == "Onetime Purchase"){ handleSubs(res,e,i) }})
   if(val && val.length != 0){
+    let isTrue = false
     // console.log(val)
     val.map((res,i)=> {
       if(res.is_subscription != 1){
+        isTrue = true
          handleSubs(val,res,i)
           // Modified john 26-11-23
          return -1; 
         }
     })
  // Modified john 26-11-23
-    handleSubs(val,val[0],0)
+ !isTrue && handleSubs(val,val[0],0)
   }
  } 
 
@@ -463,9 +469,9 @@ const  getCarts = async (type) => {
     // data.price = e.product_price;
     // data.old_price = e.old_price;
 
-    data.attribute_ids = e.attribute;
+    data.attribute_ids = e.attribute_id;
     data.attribute = e.attribute ;
-    // data.price = e.product_price;
+    // data.price = e.price;
     // data.old_price = e.old_price;
 
     setData(data);
@@ -787,7 +793,7 @@ const  getCarts = async (type) => {
                 return(
                   <div key={index}>
                  {res.attribute && <div onClick={() => selectMethod(res,index,res.value)} className={`flex ${styles.payment_sec} ${(data.attribute_ids == res.attribute ) ? 'active_border' : null} lg:h-[45px] md:h-[40px] cursor-pointer gap-[5px] items-center border rounded-[5px] p-[4px_12px] `}>
-                    <input className={styles.input_radio} checked={res.attribute == data.attribute_ids} type="radio"/>
+                    <input className={styles.input_radio} checked={res.attribute == data.attribute} type="radio"/>
                     <p className='text-[12px]'>{res.attribute}</p>
                   </div>}
                   </div>
@@ -832,7 +838,7 @@ const  getCarts = async (type) => {
                     {subs.map((item, index) => {
                       return (
                         <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(subs, item, index)} key={index}>
-                          <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.subscription_plan}</p>
+                          <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.is_subscription && item.subscription_plan ? item.subscription_plan : 'One time purchase'}</p>
                           {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.attribute}</p> */}
                           <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.price)}</h6>
                           {/* {item.features && item.features.map((f, index) => {
