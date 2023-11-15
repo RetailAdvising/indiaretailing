@@ -5,7 +5,7 @@ import Card from '@/components/Bookstore/Card';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import { useRouter } from 'next/router';
-import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, make_payment_entry, insert_cart_items, updateCartItems, getCartItem, deleteCartItems , get_razorpay_settings, subscriptionPlans, get_subscription_plans,update_no_of_shares } from '@/libs/api';
+import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, make_payment_entry, insert_cart_items, updateCartItems, getCartItem, deleteCartItems , get_razorpay_settings, subscriptionPlans, get_subscription_plans,update_no_of_shares,getAdvertisements } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import Modal from '@/components/common/Modal';
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
@@ -28,7 +28,7 @@ const nunito = Nunito({
     subsets: ["latin"],
     variable: '--font-inter',
   })
-export default function Bookstoredetail({ value, res }) {
+export default function Bookstoredetail({ value, res,ads }) {
 
   const [subs, setSubs] = useState();
   const [indexs, setIndex] = useState(-1);
@@ -125,7 +125,7 @@ export default function Bookstoredetail({ value, res }) {
           }
         }
 
-        console.log(value,'After');
+        // console.log(value,'After');
         setData(value);
       }
   
@@ -646,7 +646,7 @@ const  getCarts = async (type) => {
 
   return (
     <>
-      <RootLayout>
+      <RootLayout homeAd={ads ? ads : null}>
       { value && <SEO title={value.meta_title ? value.meta_title : value.item_title} ogImage={check_Image(value.image)} siteName={'India Reatiling'} ogType={value.meta_keywords ? value.meta_keywords : value.item_title} description={value.meta_description ? value.meta_description : value.item_title}/>}
       {/* <div className='md:hidden'>
         <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>
@@ -975,8 +975,13 @@ export async function getServerSideProps({ params }) {
    
   } 
 
+  let para = { page: 'Books', page_type: 'List' }
+    let response = await getAdvertisements(para)
+    let ads = response.message;
+
+
   return {
-    props: { value, res }
+    props: { value, res,ads }
   }
 }
 

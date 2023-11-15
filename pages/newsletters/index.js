@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react'
 import NewsList from '@/components/Newsletter/NewsList';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
+import Advertisement from '@/components/Baners/Advertisement';
 import Subscribe from '@/components/Landing/Subscribe';
-import { newsLanding, checkMobile, getAds, stored_customer_info } from '@/libs/api';
+import { newsLanding, checkMobile, getAds, stored_customer_info,getAdvertisements } from '@/libs/api';
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import AlertUi from '@/components/common/AlertUi';
 import SEO from '@/components/common/SEO'
@@ -80,8 +81,8 @@ export default function newsletter({ ads }) {
 
                 {!isMobile &&
                   <div className='flex-[0_0_calc(30%_-_15px)] md:mt-[15px] md:flex-[0_0_calc(100%_-_0px)]'>
-                    {(ads.right && ads.right.length != 0 && ads.right[0]) && <div className='pb-[20px]'>
-                      <AdsBaner data={ads.right[0]} />
+                    {(ads.right_first && Object.keys(ads.right_first).length != 0) && <div className='pb-[20px]'>
+                      <Advertisement divClass={'h-[250px] w-[300px] m-auto'} data={ads.right_first} />
                     </div>}
                     <Subscribe />
                   </div>
@@ -116,8 +117,8 @@ export async function getStaticProps() {
 
 
 
-  let ads_param = { doctype: 'News Letter', page_type: 'Home' }
-  const resp = await getAds(ads_param);
+  let ads_param = { page: 'Newsletters', page_type: 'Landing' }
+  const resp = await getAdvertisements(ads_param);
   const ads = resp.message;
   return {
     props: { ads }, revalidate: 50,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import { checkMobile, update_no_of_shares,get_subscription_plans,check_Image } from '@/libs/api';
-import { video_details, getAds } from '@/libs/api';
+import { video_details, getAdvertisements } from '@/libs/api';
 import { useRouter } from 'next/router';
 // import { check_Image } from '@/libs/common'
 import Image from 'next/image';
@@ -387,8 +387,8 @@ export async function getServerSideProps({ params }) {
     let res = await video_details(data);
     let meta_info = res;
 
-    let ads_params = { doctype: 'Video', page_type: 'Detail' }
-    const res_ads = await getAds(ads_params);
+    let ads_params = { page: 'Videos', page_type: 'Detail' }
+    const res_ads = await getAdvertisements(ads_params);
     const ads_data = res_ads.message;
     return {
         props: { meta_info, ads_data }

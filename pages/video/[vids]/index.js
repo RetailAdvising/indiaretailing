@@ -1,6 +1,6 @@
 import RootLayout from '@/layouts/RootLayout'
 import React from 'react'
-import { getAds,video_list } from '@/libs/api'
+import { getAdvertisements,video_list } from '@/libs/api'
 import Video from '@/components/Video/Video'
 import { useRouter } from 'next/router'
 export default function Videos({data,ads}) {
@@ -29,8 +29,8 @@ export async function getServerSideProps({ params }) {
     let value = await video_list(param);
     let data = value.message;
 
-    let param1 = { doctype: 'Video', page_type: 'List', category_route: params.vids }
-    const resp = await getAds(param1);
+    let param1 = { page: 'Videos', page_type: 'List'}
+    const resp = await getAdvertisements(param1);
     const ads = resp.message;
 
     return {

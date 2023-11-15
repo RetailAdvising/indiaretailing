@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Title from '@/components/common/Title'
 import Sliders from '@/components/Sliders/index'
 import EventCards from '@/components/Events/EventCards'
-import { getCategoryList, sliders, getAds, checkMobile } from '@/libs/api'
+import { getCategoryList, sliders, getAds, checkMobile,getAdvertisements } from '@/libs/api'
 import SEO from '@/components/common/SEO'
 
 export default function Events({ data, slider_data, ads_data }) {
@@ -153,8 +153,8 @@ export async function getStaticProps() {
     const data = resp.message;
     const slider_data = res.message
 
-    let ads_params = { doctype: 'Community Event', page_type: 'Home' }
-    const res_ads = await getAds(ads_params);
+    let ads_params = { page: 'Events', page_type: 'Landing' }
+    const res_ads = await getAdvertisements(ads_params);
     const ads_data = res_ads.message;
     return {
         props: { data, slider_data, ads_data }, revalidate: 50,

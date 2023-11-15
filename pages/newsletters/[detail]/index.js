@@ -5,7 +5,7 @@ import Title from '@/components/common/Title';
 import NewsCard from '@/components/Newsletter/NewsCard';
 import Tabs from '@/components/common/Tabs';
 import AlertPopup from '@/components/common/AlertPopup';
-import { get_all_newsletter, newsDetail, newsLanding, getAds, newsletter_category, newsletter_category_list, getList } from '@/libs/api';
+import { get_all_newsletter, newsDetail, newsLanding, getAdvertisements, newsletter_category, newsletter_category_list, getList } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -112,8 +112,8 @@ export default function NewsLists({ data, Id }) {
   const [ads, setAds] = useState()
 
   const getAd = async () => {
-    let params = { doctype: 'News letter', page_type: 'Detail' }
-    const res = await getAds(params);
+    let params = { page: 'Newsletters', page_type: 'Detail' }
+    const res = await getAdvertisements(params);
     const ads = res.message;
     if (ads) {
       setAds(ads)

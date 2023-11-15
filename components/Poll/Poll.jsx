@@ -11,9 +11,20 @@ function Poll({ data, ipAddress }) {
         qsn.ans = $event
     }
     useEffect(() => {
-        pollData = data
-        setPollData(pollData)
-    }, [pollData])
+        if (data) {
+            pollData = data
+            setPollData(pollData)
+            activateInitialScore(data)
+        }
+    }, [])
+
+    const activateInitialScore = (data) => {
+        // console.log(data)
+        for (let i = 0; i < data.length; i++) {
+            activateProgress(data[i])
+        }
+    }
+
     const updatePollOption = async (event, qsn) => {
         // console.log(qsn);
         if (qsn && qsn.ans) {
@@ -37,11 +48,11 @@ function Poll({ data, ipAddress }) {
     }
 
     const activateProgress = (qns) => {
-        // console.log(qns.options)
+        console.log(qns.options)
         setTimeout(() => {
             if (qns.options && qns.options.length != 0) {
                 for (let i = 0; i < qns.options.length; i++) {
-                    let el = document.getElementById(qns.options[i]['option'])
+                    let el = document.getElementById(qns.options[i]['option']+qns.name)
                     // el.style.width = qns.options[i]['voting_percentage'] + "%"
                     let width = 1;
                     let max = qns.options[i]['voting_percentage']
@@ -50,7 +61,7 @@ function Poll({ data, ipAddress }) {
                             clearInterval();
                         } else if (max >= width) {
                             width++;
-                            el.style.width = width + "%";
+                            if(el) el.style.width = width + "%";
                         }
                     }, 10);
                 }
@@ -64,7 +75,7 @@ function Poll({ data, ipAddress }) {
                 <div key={qsn.name} className='border-light-gray divide-y border rounded flex-[0_0_calc(33.33%_-_20px)] mb-[20px] overflow-hidden'>
                     <div className='font-semibold p-[20px]'>{qsn.question}</div>
                     <div className='h-[200px] overflow-y-auto overflow-x-hidden px-[15px] pb-[10px]'>
-                        {!qsn.voted && <RadioGroup onChange={($event) => change_option($event, qsn)} defaultValue={qsn.answer} className='pt-[10px]'>
+                        {!qsn.voted && qsn.poll_status != 1 && <RadioGroup onChange={($event) => change_option($event, qsn)} defaultValue={qsn.answer} className='pt-[10px]'>
                             <Stack spacing={5} direction='column'>
                                 {qsn.options.map((ans, opt_index) =>
                                 (
@@ -83,7 +94,7 @@ function Poll({ data, ipAddress }) {
                             </Stack>
                         </RadioGroup>}
 
-                        {qsn.voted && qsn.options.map((ans, opt_index) =>
+                        {(qsn.voted || qsn.poll_status == 1) && qsn.options.map((ans, opt_index) =>
                         (
                             <div key={ans + opt_index} className='px-[15px] rounded py-[5px]'>
                                 <div className='flex pb-[5px] justify-between'>
@@ -92,9 +103,9 @@ function Poll({ data, ipAddress }) {
                                 </div>
 
                                 <div className="myProgress">
-                                    <div id={ans.option} className={`myBar ${ans.option}`}></div>
+                                    <div id={ans.option+qsn.name} className={`myBar ${ans.option}`}></div>
                                 </div>
-                               
+
                             </div>
 
                         ))}

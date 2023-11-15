@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import AdsBaner from '../Baners/AdsBaner'
+import Advertisement from '../Baners/Advertisement'
 import List from '../common/List'
 import { useState } from 'react'
 import Content from '../common/Content'
@@ -22,14 +23,14 @@ import ReactDOM from 'react-dom/client';
 import Benefits from '@/components/Membership/benefits';
 import { Nunito } from 'next/font/google'
 const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-  })
-export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll, plans }) {
+  weight: ["300", "400", "500", "600", "700"],
+  display: "block",
+  preload: true,
+  style: 'normal',
+  subsets: ["latin"],
+  variable: '--font-inter',
+})
+export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll, plans,ads_data }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
   // const [data, setdatas] = useState(datas);
@@ -810,10 +811,16 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
           {((data.is_member && data.ir_prime == 1) || data.ir_prime == 0) && <div className={`w_30 md:hidden finding relative`}>
             {/* {data.advertisement_tags && data.advertisement_tags.length != 0 && <AdsBaner data={data.advertisement_tags[0]} />} */}
-            {(data.place_holders_ads && data.place_holders_ads.length != 0) &&
+            {(data.place_holders_ads && data.place_holders_ads.length != 0) ?
               // h-[calc(100vh_-_10px)] scrollbar-hide
               // sticky h-[calc(100vh_-_10px)] scrollbar-hide top-0 z-10 bg-white  overflow-auto
-              <div id={'target' + i} className={` sticky h-[calc(100vh_-_10px)] scrollbar-hide top-0 z-10 bg-white  overflow-auto`}><Placeholders placeholder={data.place_holders_ads} tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : []} productNavigation={productNavigation} /></div>}
+              <div id={'target' + i} className={` sticky h-[calc(100vh_-_10px)] scrollbar-hide top-0 z-10 bg-white  overflow-auto`}><Placeholders placeholder={data.place_holders_ads} ads_data={ads_data ? ads_data : null} tagbasedAd={data.banner_ad && Object.keys(data.banner_ad).length != 0 && data.banner_ad}  productNavigation={productNavigation} /></div>
+              : <>
+                {ads_data && ads_data.right_first && <Advertisement data={ads_data.right_first} divClass={`h-[250px] w-[300px]`} />}
+                {ads_data && ads_data.right_second && <Advertisement data={ads_data.right_second} divClass={`h-[250px] w-[300px]`} />}
+
+              </>
+            }
           </div>}
         </div>
 

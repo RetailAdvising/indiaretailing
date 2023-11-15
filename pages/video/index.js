@@ -1,7 +1,7 @@
 // import React, { useState, useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect } from 'react'
-import { video_list_with_categoies, getAds, checkMobile, sliders } from '@/libs/api'
+import { video_list_with_categoies, getAdvertisements, checkMobile, sliders } from '@/libs/api'
 import Video from '@/components/Video/Video'
 import Title from '@/components/common/Title'
 import Tabs from '@/components/Landing/Tabs'
@@ -108,8 +108,8 @@ export async function getStaticProps() {
   const ress = await sliders(slider_params)
   const slider_data = ress.message
 
-  let param = { doctype: 'Video', page_type: 'Home' }
-  const resp = await getAds(param);
+  let param = { page: 'Videos', page_type: 'Landing' }
+  const resp = await getAdvertisements(param);
   const ads = resp.message;
   return {
     props: { data, slider_data, ads }, revalidate: 50,

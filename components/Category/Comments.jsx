@@ -201,7 +201,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
     const submitMsg = async (data) => {
         // let param = { article: cur.name, comment: element.value };
         let element = document.getElementById('cmt' + cur.name);
-        if(element) element.value = data
+        if (element) element.value = data
         let param = { article: cur.name, comment: data };
         let resp = await addComment(param);
         if (resp.message) {
@@ -209,7 +209,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             toast.success("The comment will appear once it's been approved by IndiaRetailing");
 
             setTimeout(() => {
-                if(element) element.value = '';
+                if (element) element.value = '';
             }, 200);
             // console.log(resp.message);
             // resp.message["is_liked"] = 0
@@ -270,26 +270,44 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
 
             {/* {mod && <ModPopup />} */}
 
-            {isModal && <div className={`flex justify-between p-[20px_15px] `}>
+            {/* {isModal && <div className={`flex justify-between p-[20px_15px] `}>
                 <h6 className={`text-[18px] font-[700] ${nunito.className}`}>All Comments</h6>
                 <div>
                     <Image src={'/categories/close.svg'} onClick={hide} className='cursor-pointer ' height={22} width={22} alt='close' />
                 </div>
+            </div>} */}
+
+            {isModal && <div className={`mx-[10px]`}>
+                <h1 className={`lg:text-[24px] md:text-[16px] md:leading-[29.23px] font-semibold leading-[1.3] m-[8px_0] md:my-1 md:mb-[5px]`}>{cur.title}</h1>
+
+                <div className={`flex items-center gap-[8px] flex-wrap`}>
+                    {cur.publisher && cur.publisher.length != 0 &&
+                        cur.publisher.slice(0,2).map((r, index) => {
+                            return (
+                                <h6 key={index} className={`font-[700] ${nunito.className} text-[14px] md:text-[13px]`}>by {r.full_name}</h6>
+                            )
+                        })
+                    }
+                </div>
+
+                <div className='flex my-[15px] lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden'>
+                    <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{cur.views ? cur.views : cur.no_of_views ? cur.no_of_views : 1} Views</span></div>
+                    <div className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{cur.no_of_shares + ' shares'}</span></div>
+                    <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{cur.read_time} </span></div>
+                </div>
             </div>}
-            <div className={`relative ${isModal ? 'mx-[10px]' : ''} flex justify-between border rounded-[10px] lg:p-[15px] md:p-[10px]`}>
-                {/* onClick={hides} */}
-                {/* <input onClick={() => sendMsg('cmt')} type='text' autoComplete='off' placeholder='Add a Comment' className={`w-full h-[45px] rounded-[5px] p-[0_10px]`} id={`cmt` + cur.name} />
-                <Image src={'/categories/send-01.svg'} onClick={() => sendMsg('cmt')} className='cursor-pointer absolute top-0 m-auto bottom-0 right-[10px]' height={22} width={22} alt='send' /> */}
+            {/* <div className={`relative ${isModal ? 'mx-[10px]' : ''} flex justify-between border rounded-[10px] lg:p-[15px] md:p-[10px]`}>
                 <div className='flex gap-5 items-center'>
                     <Image src={'/categories/send-01.svg'} className='cursor-pointer ' height={22} width={22} alt='send' />
                     <p className={`${nunito.className}`}>Be the first to comment</p>
                 </div>
 
                 <button onClick={() => sendMsg('cmt')} className={`primary_button h-[35px] w-[120px] !rounded-full text-[13px]`}>Comment Now</button>
-
-            </div>
-            {showPopup && <CommentModal type={''} hides1={(type, data) => hides1(type, data)} element={cmtVal} msgChange={(val) => msgChange(val)} />}
-            {data && data.length != 0 && <div className={`${isModal ? '' : 'border rounded-[5px]'} p-[10px]  my-[10px]`}>
+            </div> */}
+            {/* {showPopup && <CommentModal type={''} hides1={(type, data) => hides1(type, data)} element={cmtVal} msgChange={(val) => msgChange(val)} />} */}
+            
+            {data && data.length != 0 && <div className={`${isModal ? 'rounded-[30px_30px_0_0] h-[calc(100vh_-_230px)] overflow-auto scrollbar-hide p-[15px]' : ' rounded-[5px] p-[10px]'} border  my-[10px]`}>
+               {isModal && <p className={`${nunito.className} text-[20px] mb-5 font-[700]`}>{data.length + ' Comments'}</p>}
                 {data.map((res, i) => {
                     return (
                         <div key={res.comment_by + i} className={`flex gap-[10px]  mb-[10px] ${i != data.length - 1 ? 'border_bottom pb-[10px]' : ''}`}>
@@ -301,11 +319,11 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                 <div className='pb-[5px] sub_title !text-[14px]' dangerouslySetInnerHTML={{ __html: res.content }} />
                                 <div className='flex justify-between items-center py-[5px]'>
                                     <div className='flex gap-3'>
-                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer object-contain' onClick={() => likeCmt(res, i)} src={(res.is_liked && res.is_liked == 1) ? '/categories/like-fill.svg' : '/categories/like-1.svg'} height={20} width={20} alt={""} /></p>
-                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer object-contain' onClick={() => dislikeCmt(res, i)} src={(res.is_disliked && res.is_disliked == 1) ? '/categories/dislike-fill.svg' : '/categories/dislike-1.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.likes}</span><Image className='h-[25px] w-[25px]  cursor-pointer object-contain' onClick={() => likeCmt(res, i)} src={(res.is_liked && res.is_liked == 1) ? '/categories/like-fill.svg' : '/categories/like-1.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.dislikes}</span><Image className='h-[25px] w-[25px]  cursor-pointer object-contain' onClick={() => dislikeCmt(res, i)} src={(res.is_disliked && res.is_disliked == 1) ? '/categories/dislike-fill.svg' : '/categories/dislike-1.svg'} height={20} width={20} alt={""} /></p>
                                     </div>
                                     <div>
-                                        <Image src={'/categories/flag.svg'} height={16} width={16} alt={"image"} className='cursor-pointer' onClick={() => report(res)} />
+                                        <Image src={'/categories/flag.svg'} height={16} width={16} alt={"image"} className='h-[25px] w-[25px]  cursor-pointer object-contain' onClick={() => report(res)} />
                                     </div>
                                 </div>
                                 {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}

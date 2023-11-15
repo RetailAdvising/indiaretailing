@@ -308,7 +308,7 @@ export default function Home({ data }) {
   return (
     <>
       {/*  isLast={index == value.length - 1} */}
-      <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads.header : null}>
+      <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
         {/* <Skeleton /> */}

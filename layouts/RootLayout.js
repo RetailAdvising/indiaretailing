@@ -56,6 +56,8 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     // ads.classList.remove('hidden')
   }, [])
 
+  // console.log(homeAd,'homeAd')
+
   const article_breadcrumb = async (route) => {
     if (route) {
       if (router.query.vids || router.query.list) {
@@ -203,7 +205,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     <>
       {/* <SEO /> */}
       {/* {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>} */}
-      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.header) && homeAd.header} style={styles} height={'h-full'} width={'500px'} /></div>}
+      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.header) && homeAd.header}  divClass={'h-[90px] w-[728px] m-auto'}  /></div>}
       {/* <PdfViewer/> */}
       <>
         <Header checkout={checkout} />

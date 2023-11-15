@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { postMethod, eventList, getAds } from '@/libs/api.js';
+import { eventList,getAdvertisements } from '@/libs/api.js';
 import RootLayout from '@/layouts/RootLayout';
 import EventList from '@/components/Events/EventList';
 import Title from '@/components/common/Title';
@@ -85,8 +85,8 @@ export default function EventDetails({ values }) {
     const [ads,setAds] = useState()
 
     const getAd = async () => {
-        let params = { doctype: 'Community Event', page_type: 'List',category_route:router.query.list }
-        const res = await getAds(params);
+        let params = { page: 'Events', page_type: 'List' }
+        const res = await getAdvertisements(params);
         const ads = res.message;
         if(ads){
           setAds(ads)

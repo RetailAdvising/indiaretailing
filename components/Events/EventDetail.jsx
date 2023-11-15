@@ -18,7 +18,7 @@ const nunito = Nunito({
     subsets: ["latin"],
     variable: '--font-inter',
   })
-export default function EventDetail({ data }) {
+export default function EventDetail({ data,ads_data }) {
     const router = useRouter();
 
     const redirectTo = () => {

@@ -3,7 +3,7 @@ import RootLayout from '@/layouts/RootLayout'
 import Sliders from '@/components/Sliders/index'
 
 import HomePodcast from '@/components/Podcast/HomePodcast'
-import { podcastLanding, getAds, sliders, checkMobile } from '@/libs/api'
+import { podcastLanding, getAdvertisements, sliders, checkMobile } from '@/libs/api'
 import SEO from '@/components/common/SEO'
 
 export default function Podcast({ data, ads_data, slider_data }) {
@@ -89,8 +89,8 @@ export async function getStaticProps() {
     const res = await sliders(slider_params)
     const slider_data = res.message
 
-    let ads_params = { doctype: 'Podcast', page_type: 'Home', position: 'Header' }
-    const res_ads = await getAds(ads_params);
+    let ads_params = { page: 'Podcasts', page_type: 'Landing' }
+    const res_ads = await getAdvertisements(ads_params);
     const ads_data = res_ads.message;
     return {
         props: { data, ads_data, slider_data }, revalidate: 10,
