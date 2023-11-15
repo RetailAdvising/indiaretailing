@@ -1,7 +1,7 @@
 
 import React, { Suspense, useEffect, useState, useRef } from 'react'
 import RootLayout from '@/layouts/RootLayout';
-import { getAds, getCategoryList, checkMobile, check_Image } from '@/libs/api';
+import { getAdvertisements, getCategoryList, checkMobile, check_Image } from '@/libs/api';
 import SectionBox from '@/components/Category/SectionBox';
 import MultiCarousel from '@/components/Sliders/MultiCarousel';
 
@@ -269,8 +269,8 @@ export async function getStaticProps() {
     const res = await getCategoryList(params);
     const data = res.message;
 
-    let param = { doctype: 'Articles', page_type: 'Home' }
-    const resp = await getAds(param);
+    let param = { page: 'Categories', page_type: 'Landing' }
+    const resp = await getAdvertisements(param);
     const ads = resp.message;
     return {
         props: { data, ads }, revalidate: 50,

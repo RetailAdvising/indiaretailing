@@ -5,7 +5,7 @@ import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
 import List from '@/components/common/List';
 import Cards from '@/components/common/Cards';
-import { getList, articlesList, checkMobile, check_Image, getAds, trending } from '@/libs/api';
+import { getList, articlesList, checkMobile, check_Image, getAdvertisements, trending } from '@/libs/api';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import Tags from '@/components/common/Tags';
@@ -228,8 +228,8 @@ export async function getServerSideProps({ params }) {
     let value = await articlesList(param);
     let values = value.message;
 
-    let param1 = { doctype: 'Articles', page_type: 'List', category_route: Id }
-    const resp = await getAds(param1);
+    let param1 = { page: 'Categories', page_type: 'List' }
+    const resp = await getAdvertisements(param1);
     const ads = resp.message;
 
     return {
