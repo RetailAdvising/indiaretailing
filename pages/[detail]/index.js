@@ -391,9 +391,9 @@ export default function Details({ data, page_route }) {
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
                 <CategoryBuilder ads_data={advertisement ? advertisement : null} productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data) => updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} noScroll={(val) => noScroll(val)} plans={(plans && plans.length != 0) ? plans : []} />
                 <div className="md:hidden my-5 lg:grid lg:justify-center"><Advertisement data={advertisement && advertisement.footer && advertisement.footer} height={'h-full'} width={'500px'} /></div>
-                {!(index == values.length - 1) && <div className={`flex md:gap-[10px]  lg:m-[20px_auto_0] lg:gap-[20px] items-center md:p-[10px_15px] lg:p-[15px 0] container`}>
-                  <h6 className={`flex-[0_0_auto] lg:text-[18px] md:text-[14px] font-semibold`}>Next Post</h6>
-                  <div className='lg:bg-[#999] w-full lg:h-[2px] md:bg-stone-200 md:h-[3px]'></div>
+                {!(index == values.length - 1) && <div className={` lg:m-[20px_auto_0]  md:p-[10px_15px] lg:p-[15px 0] container`}>
+                  <h6 className={`flex-[0_0_auto] lg:text-[18px] md:text-[14px] font-semibold pb-[10px]`}>Next Post</h6>
+                  <div style={{background: 'linear-gradient(90deg, #E21B22 0%, #E1252C 9.73%, #D8D8D8 10.3%, #D8D8D8 97.95%)'}} className='lg:bg-[#999] w-full h-[3px] md:bg-stone-200'></div>
                 </div>}
               </div>
             )

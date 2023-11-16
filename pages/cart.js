@@ -82,18 +82,25 @@ export default function cart() {
         if (resp.message.status == 'success') {
             getCarts('');
             setload(false)
+            loadAttr = ''
+            setLoadAttr(loadAttr)
         } else {
             setload(false);
+            loadAttr = ''
+            setLoadAttr(loadAttr)
             setAlertMsg({ message: resp.message.message ? resp.message.message : 'Something went wrong try again later' });
             setEnableModal_1(true);
         }
     }
 
 
+    let [loadAttr, setLoadAttr] = useState('')
     const updateCart = async (dataValue, type, i) => {
 
         setload(true);
-
+        console.log(dataValue, 'dataValue')
+        loadAttr = dataValue.name
+        setLoadAttr(loadAttr)
         if (type == 'dec' && dataValue['quantity'] == 1) {
             dltCart(dataValue, i)
         } else if (dataValue['quantity'] > 0) {
@@ -117,6 +124,8 @@ export default function cart() {
         setEnableModal(false);
         setEnableModal_1(false);
         setload(false);
+        loadAttr = ''
+        setLoadAttr(loadAttr)
         if (value == 'Yes') {
             let param = { name: alertMsg.name }
             const resp = await deleteCartItems(param);
@@ -152,7 +161,7 @@ export default function cart() {
                 {enableModal_1 && <AlertUi isOpen={enableModal_1} closeModal={(value) => closeModal_1(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
 
-                <div className={`${isMobile ? null : 'container'} lg:p-[30px]`}>
+                <div className={`${isMobile ? 'p-[15px]' : 'container'} `}>
                     {!isMobile && <Title data={{ title: 'Shopping Cart' }} />}
                     {/* {load && <div className='overlay'><Image src={'/cart/loading.gif'} className='h-[100px] w-full'  height={40} width={40} alt='loading' /></div>} */}
                     {(!skeleton && cart_items && cart_items.marketplace_items && cart_items.marketplace_items.length != 0) ? <div className={`flex items-baseline justify-between md:flex-wrap gap-[15px]`}>
@@ -172,7 +181,7 @@ export default function cart() {
                                 return (
                                     <div key={index} className={`flex items-center justify-between ${index != cart_items.marketplace_items.length - 1 ? 'border_bottom' : ''} md:p-[10px] lg:py-[10px]`}>
 
-                                       {isMobile && <div className='flex-[0_0_calc(5%_-_0px)] mr-[10px] lg:hidden'>
+                                        {isMobile && <div className='flex-[0_0_calc(5%_-_0px)] mr-[10px] lg:hidden'>
                                             <Image className='cursor-pointer h-[30px] w-[30px] object-contain' onClick={() => dltCart(res, index)} src={'/cart/delete.svg'} height={20} width={20} alt={res.name} />
                                         </div>}
 
@@ -190,10 +199,10 @@ export default function cart() {
 
                                             <div className='lg:flex-[0_0_calc(40%_-_0px)] lg:justify-around lg:flex lg:items-center md:flex md:flex-row-reverse py-[6px] w-full md:justify-between'>
                                                 <div className='flex items-center justify-between p-[10px] border border-slate-100 rounded-[5px] h-[30px] w-[85px] gap-[10px]'>
-                                                    <Image onClick={() => (load) ? null : updateCart(res, 'dec', index)} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/_.svg'} height={20} width={20} alt='minus' />
-                                                    {(load) ? <div class="animate-spin rounded-full h-[15px] w-[15px] border-l-2 border-t-2 border-black"></div> : <p className='font-semibold'>{res.quantity}</p>}
+                                                    <Image onClick={() => (load && loadAttr == res.name) ? null : updateCart(res, 'dec', index)} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/_.svg'} height={20} width={20} alt='minus' />
+                                                    {(load && loadAttr == res.name) ? <div class="animate-spin rounded-full h-[15px] w-[15px] border-l-2 border-t-2 border-black"></div> : <p className='font-semibold'>{res.quantity}</p>}
                                                     {/* {(load && index == indexs) ? <Image src={'/cart/loading.gif'} className='h-[75px] w-[40px]' height={40} width={40} alt='loading' /> : <p className='font-semibold'>{res.quantity}</p>} */}
-                                                    <Image onClick={() => (load) ? null : updateCart(res, 'inc', index)} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/+.svg'} height={20} width={20} alt='plus' />
+                                                    <Image onClick={() => (load && loadAttr == res.name) ? null : updateCart(res, 'inc', index)} className='h-[20px] cursor-pointer w-[10px]' src={'/cart/+.svg'} height={20} width={20} alt='plus' />
                                                 </div>
                                                 <p className='text-center font-semibold text-[15px]'>{isMobile ? formatter.format(res.price) : formatter.format(res.total)}</p>
                                             </div>
@@ -227,8 +236,8 @@ export default function cart() {
                             <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='flex gap-[10px] text-[15px] items-center'>Total Item</span><span>{cart_items.marketplace_items ? cart_items.marketplace_items.length : 0}</span></p>
                             <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='flex gap-[10px] text-[15px] items-center'>Subtotal <Image className='rounded-full h-[15px] w-[20px] object-contain' src={'/cart/question.svg'} height={10} width={10} alt='qns' /></span><span>{formatter.format(cart_items.total)}</span></p>
                             <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='text-[15px]'>Shipping</span><span className='text-[15px] '>Free</span></p>
-                            <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='text-[15px]'>GST</span><span className='text-[15px]'>{formatter.format(cart_items.tax_rate)}</span></p>
-                            <p style={{ borderTop: '1px solid #EEEEEE' }} className='px-[8px] flex justify-between mt-[10px] leading-[2.0] text-[15px] border_bottom py-[6px]'><span className='text-[15px]'>Total</span><span className='text-[15px]'>{formatter.format(cart_items.total + cart_items.tax_rate)}</span></p>
+                            <p className='px-[8px] flex justify-between leading-[2.0] text-[15px]'><span className='text-[15px]'>GST</span><span className='text-[15px]'>{formatter.format(cart_items.tax)}</span></p>
+                            <p style={{ borderTop: '1px solid #EEEEEE' }} className='px-[8px] flex justify-between mt-[10px] leading-[2.0] text-[15px] border_bottom py-[6px]'><span className='text-[15px]'>Total</span><span className='text-[15px]'>{formatter.format(cart_items.total + cart_items.tax)}</span></p>
                             <LoaderButton loader={loader} buttonClick={buttonClick} width={'w-[calc(100%_-_10px)] m-[7px_5px]'} button_name={'Proceed to checkout'} />
 
                             {/* <button className='capitalize primary_btn text-[14px] h-[40px] md:w-[calc(100%_-_10px)] md:m-[7px_5px]' onClick={() => router.push('/checkout')}>Proceed to checkout</button> */}

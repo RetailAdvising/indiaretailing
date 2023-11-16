@@ -164,6 +164,7 @@ export default function Bookstoredetail({ value, res,ads }) {
           }else{
             setAlertMsg({message: 'No stock for this book'});
             setEnableModal(true)
+            setLoader(false);
           }
         } else {
           data['count'] = 1;
@@ -177,6 +178,7 @@ export default function Bookstoredetail({ value, res,ads }) {
       }else{
         setAlertMsg({message: 'No stock for this book'});
           setEnableModal(true)
+          setLoader(false);
       }
       // val.item__type != "Onetime Purchase"
     } else {
@@ -897,7 +899,7 @@ const  getCarts = async (type) => {
                 <div className={`px-[10px] border_bottom pb-[20px] mb-[20px] ${(subs && subs.length != 0) ? '' : 'mt-5'}`}>
                   <h6 className={`pb-[10px] font-[700] ${nunito.className}`}>This Issue</h6>
                   {/* <div className='line-clamp-[10]' dangerouslySetInnerHTML={{__html:data.full_description}} ></div> */}
-                  <div className='line-clamp-[8]' dangerouslySetInnerHTML={{ __html: data.full_description }} />
+                  <div className='' dangerouslySetInnerHTML={{ __html: data.full_description }} />
                   {/* <p className='font-semibold'>Read More...</p> */}
                 </div>
               }

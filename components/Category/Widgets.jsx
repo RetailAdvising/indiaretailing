@@ -1,6 +1,6 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Image from 'next/image'
-import { check_Image } from '@/libs/api'
+import { check_Image,checkMobile } from '@/libs/api'
 import { Nunito } from 'next/font/google'
 const nunito = Nunito({
   weight: ["300", "400", "500", "600", "700"],
@@ -30,6 +30,23 @@ export default function Widgets({ data, index, routers, productNavigation }) {
       routers.push(res.route)
     }
   }
+
+  let [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile)
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, [])
+
+  const checkIsMobile = async () => {
+    let is_mobile = await checkMobile();
+    isMobile = is_mobile
+    setIsMobile(isMobile);
+  }
+
+
   return (
     <>
       <div className={`${data.title == 'Banner Ad' ||  data.title == 'Custom Widget' ? 'my-[15px]' : 'border mb-[10px] rounded-[8px] p-[15px]'}`}>
@@ -93,8 +110,8 @@ export default function Widgets({ data, index, routers, productNavigation }) {
               )
             })}
 
-            {data.title == 'Banner Ad' && data.data[0] && <a target='_blank' href={data.data[0].banner_link} className={`w-full h-[250px] object-contain md:h-[100px]`}>
-              <Image className='h-[250px] md:h-[100px] w-full !p-0' src={check_Image(data.data[0].banner_image)} height={200} width={200} alt={data.data[0].title ? data.data[0].title : data.title} />
+            {data.title == 'Banner Ad' && data.data[0] && <a target='_blank' href={data.data[0].ad_link} className={`w-[728px] !m-auto h-[90px] object-contain md:w-[80%]`}>
+              <Image className='h-full w-full !p-0' src={check_Image(isMobile ? data.data[0].mobile_image : data.data[0].web_image)} height={200} width={200} alt={data.data[0].title ? data.data[0].title : data.title} />
             </a>}
 
             {data.title == 'Custom Widget' && data.data[0] &&  <div className='m-[auto]' dangerouslySetInnerHTML={{__html: data.data[0].snippet}} />}

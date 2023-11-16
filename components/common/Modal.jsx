@@ -143,7 +143,7 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
                         <Rodal visible={visible} animation='slideUp' onClose={hide}>
                             <SignUp hide={hide} isModal={true} />
                         </Rodal>
-                        : modal == 'comments' ? <Rodal visible={visible} animation='slideRight' onClose={hide}>
+                        : modal == 'comments' ? <Rodal visible={visible} animation='zoom' onClose={hide}>
                             {/* <div className={`flex justify-between py-[20px] px-[15px]  bg-[#e21b22]`}>
                                 <h6 className='text-[18px] font-semibold text-[#fff]'>All Comments</h6>
                             </div> */}
@@ -156,8 +156,9 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
                                     </div>
                                 </div>
                             </div> */}
-                            {(comments && comments.length != 0 && !noData) ?
-                                <div className='commentPopup '>
+                            {(comments && !noData) ?
+                            // commentPopup
+                                <div className=' '>
                                     <Comments isModal={true} hide={hide} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} cur={cur} load={loadMore} route={route} data={comments} />
                                 </div>
                                 : noData ? <div className='mt-[15px] h-[70vh] overflow-auto'>

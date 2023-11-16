@@ -4,7 +4,6 @@ import AdsBaner from '../Baners/AdsBaner'
 import Advertisement from '../Baners/Advertisement'
 import List from '../Bookstore/List'
 export default function Placeholders({ placeholder, tagbasedAd,productNavigation,ads_data }) {
-    console.log(tagbasedAd,'tagbasedAd')
     return (
         <>
             {(placeholder && placeholder.length != 0) ?

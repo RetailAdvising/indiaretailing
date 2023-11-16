@@ -242,7 +242,7 @@ export default function checkout() {
       setLoadSpinner(false);
       setAlertMsg({ message: 'Order inserted successfully', navigate: true,order_id:order_id });
       alert_dispatch(alertAction(true));
-      toast.success('Order inserted successfully');
+      // toast.success('Order inserted successfully');
       router.push('/thankyou?order_id=' + order_id);
       // setEnableModal(true);
     }else{
@@ -404,7 +404,7 @@ export default function checkout() {
           <AlertUi isOpen={addressDelete} closeModal={(value) => address_closeModal(value)} headerMsg={'Alert'} button_1={'No'} button_2={'Yes'} alertMsg={alertMsg} />
         }
 
-        <div className='lg:pt-[25px]'>
+        <div className='md:p-[15px]'>
           <div className={`flex ${styles.container_} md:gap-8px lg:gap-[20px] md:flex-col py-[10px] container`}>
 
             <div className={`${styles.box_1}`}>
@@ -540,10 +540,10 @@ export default function checkout() {
                     <h6 className='w-3/6 text-[14px] pb-[5px]'>Shipping</h6>
                     <h6 className='w-3/6 text-[14px] text-end pb-[5px] text-medium'>Free</h6>
                     <h6 className='w-3/6 text-[14px] pb-[5px]'>GST</h6>
-                    <h6 className='w-3/6 text-[14px] text-end pb-[5px] text-medium'>{formatter.format(cart_items.tax_rate)}</h6>
+                    <h6 className='w-3/6 text-[14px] text-end pb-[5px] text-medium'>{formatter.format(cart_items.tax)}</h6>
 
                     <h6 className='w-3/6 text-[14px] border-y-[1px] border-slate-200 my-[8px] py-[8px]'>Total</h6>
-                    <h6 className='w-3/6 text-[14px] border-y-[1px] border-slate-200 text-end my-[8px] py-[8px] text-medium'>{formatter.format(cart_items.total + cart_items.tax_rate)}</h6>
+                    <h6 className='w-3/6 text-[14px] border-y-[1px] border-slate-200 text-end my-[8px] py-[8px] text-medium'>{formatter.format(cart_items.total + cart_items.tax)}</h6>
 
                   </div>
 

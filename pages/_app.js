@@ -10,9 +10,10 @@ import { websiteSettings } from '@/libs/api'
 import MobileHead from '@/components/Headers/MobileHead'
 import BottomTabs from '@/components/common/BottomTabs'
 import Header from '@/components/Headers/Header'
-import { useRouter } from 'next/router'
 import { ChakraProvider } from '@chakra-ui/react'
-
+import nProgress from "nprogress";
+import { Router, useRouter } from "next/router";
+import "nprogress/nprogress.css"
 // import Loader from '@/components/Loader'
 // const inter = Inter({
 //   weight: ["200", "300", "400", "500", "600", '700'],
@@ -64,7 +65,7 @@ export default function App({ Component, pageProps }) {
     // };
   }, [])
 
-  
+
 
   const get_website_settings = async () => {
     let websiteData = await websiteSettings()
@@ -78,6 +79,29 @@ export default function App({ Component, pageProps }) {
     // console.log(tab_data);
     setActiveTab(tab_data)
   }
+
+  useEffect(() => {
+    // NProgress.configure({ showSpinner: false });
+    nProgress.configure({ showSpinner: false })
+    const handleStart = () => {
+      nProgress.start()
+    };
+    const handleComplete = () => {
+      nProgress.done()
+    };
+
+    if (!router.query.detail) {
+      router.events.on("routeChangeStart", handleStart);
+      router.events.on("routeChangeComplete", handleComplete);
+      router.events.on("routeChangeError", handleComplete);
+
+      return () => {
+        router.events.off("routeChangeStart", handleStart);
+        router.events.off("routeChangeComplete", handleComplete);
+        router.events.off("routeChangeError", handleComplete);
+      };
+    }
+  }, [router])
 
   // const getRoutes = (route) => {
   //   console.log(route,'actives route')
