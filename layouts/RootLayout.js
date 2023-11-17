@@ -34,7 +34,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
   const [headerData, setHeaderData] = useState([]);
-  const [footerData, setFooterData] = useState([]);
+  let [footerData, setFooterData] = useState([]);
   const user = useSelector(s => s.user);
   const router = useRouter();
   const styles = {
@@ -80,7 +80,8 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     let websiteData = await websiteSettings()
     if (websiteData) {
       setHeaderData(websiteData.message.header_template)
-      setFooterData(websiteData.message.footer_template)
+      footerData = websiteData.message.footer_template
+      setFooterData(footerData)
     }
   }
   // const [loading, setLoading] = useState(false);
@@ -259,7 +260,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
         </main>
 
         {(!checkout && !is_detail) && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.footer) && homeAd.footer} style={styles} height={'h-full'} width={'500px'} /></div>}
-        {!checkout && <MainFooter footerData={footerData} />}
+        {!checkout && footerData && footerData.length != 0 && <MainFooter footerData={footerData} />}
         {/* <div className='lg:hidden' >
           <BottomTabs />
         </div> */}

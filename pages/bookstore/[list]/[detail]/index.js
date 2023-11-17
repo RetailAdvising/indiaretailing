@@ -867,7 +867,7 @@ const  getCarts = async (type) => {
                       return (
                         <div key={index} onClick={() => handleSubs(subs, item, index)} className={`flex cursor-pointer gap-[5px] pb-[7px] last:pb-[0px] items-center`}>
                           <input className={styles.input_radio} checked={index == indexs} type="radio"/>
-                          <p className='text-[13px]'>{item.subscription_plan}</p>
+                          <p className='text-[13px] font-semibold'>{item.is_subscription && item.subscription_plan ? item.subscription_plan : 'One time purchase'}</p>
                           {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.attribute}</p> */}
                           <p className='text-[13px] font-semibold'>({formatter.format(item.price)})</p>
                         </div>

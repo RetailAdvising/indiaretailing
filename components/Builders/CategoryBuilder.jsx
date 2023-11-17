@@ -792,7 +792,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                 {comments && comments.length != 0 && comments.map((res, i) => {
                   return (
                     <div key={i}>
-                      {(res.route == data.name && res.data && (res.data.length != 0 || res.data.length == 0)) && <div className='popright_1'>
+                      {(res.route == data.name && res.data && (res.data.length != 0 || res.data.length == 0)) && <div className={`${isMobile ? 'popright' : 'popright_1'}`}>
                         {/* <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur) => store_comments(cur)} hide={sideDrawerClosedHandler} /> */}
                         <Modal updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} cur={data} visible={true} modal={'comments'} route={res.route} comments={res.data} hide={sideDrawerClosedHandler} />
                         {/* scrolling="no" */}

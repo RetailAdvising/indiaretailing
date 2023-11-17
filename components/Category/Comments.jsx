@@ -365,7 +365,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             {data && data.length != 0 &&
                 <>
                     {isModal && <div>
-                        <p className={`${nunito.className} text-[16px] px-[20px] font-[700]`}>{data.length + ' Comments'}</p>
+                        <p className={`${nunito.className} text-[16px] md:text-[15px] md:pt-[5px] px-[20px] font-[700]`}>{data.length + ' Comments'}</p>
                     </div>}
                     <div id='scroll' className={`${isModal ? ' h-[calc(100vh_-_440px)] border !border-b-0 rounded-[30px_30px_0_0] overflow-auto customScroll p-[15px]' : ' rounded-[5px] p-[10px]'}  my-[10px]`}>
                         {/* {isModal && <p className={`${nunito.className} text-[20px] mb-5 font-[700]`}>{data.length + ' Comments'}</p>} */}
@@ -399,9 +399,9 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
 
             {isModal && <div className={`flex items-center border mx-[10px] h-[40px] bg-[#EEEEEE] rounded-full justify-between`}>
                 {/* <div> */}
-                <input id={'cmt' + cur.name} type='text' placeholder="What's on your mind" autoComplete='off' className={`h-full w-full flex-[0_0_calc(80%_-_10px)] text-[13px] !border-0 bg-[#EEEEEE] px-[10px] rounded-full`} />
+                <input id={'cmt' + cur.name} type='text' placeholder="What's on your mind" autoComplete='off' className={`h-full w-full flex-[0_0_calc(83%_-_10px)] md:flex-[0_0_calc(75%_-_10px)] ${nunito.className} text-[13px] !border-0 bg-[#EEEEEE] px-[10px] rounded-full`} />
                 {/* </div> */}
-                <div className={`p-[5px] w-full h-full`}><button onClick={submitMsg} className={`primary_button cursor-pointer w-full h-full  text-[13px] !rounded-full`}>Post comment</button></div>
+                <div className={`p-[5px] w-full h-full`}><button onClick={submitMsg} className={`primary_button cursor-pointer w-full h-full  text-[13px] md:text-[12px] ${nunito.className} !rounded-full`}>Post comment</button></div>
             </div>}
         </>
     )

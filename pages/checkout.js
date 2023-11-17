@@ -175,7 +175,7 @@ export default function checkout() {
       setLoader(false);
       await setAlertMsg({ message: 'Please select Billing address' });
       alert_dispatch(alertAction(true))
-     toast.error('Please select Billing address');
+      toast.error('Please select Billing address');
 
       // openModal();
       // dispatch(openDialog('OPEN_DIALOG'))
@@ -183,7 +183,7 @@ export default function checkout() {
       setLoader(false);
       await setAlertMsg({ message: 'Please select Payment Method' });
       alert_dispatch(alertAction(true))
-       toast.error('Please select Payment Method');
+      toast.error('Please select Payment Method');
       // openModal()
     } else {
       pay(check_address)
@@ -215,7 +215,7 @@ export default function checkout() {
       orders_Id = data.order.name
       load_razorpay(data.order.outstanding_amount, 'Order', data.order.name);
     }
-    else{
+    else {
       setLoader(false);
       toast.error(resp.message.message);
       // setAlertMsg({ message: resp.message.message });  
@@ -224,8 +224,8 @@ export default function checkout() {
 
   }
 
-  function payment_error_callback(error,order_id) {
-    setAlertMsg({ message: 'Payment failed', navigate: true,order_id:order_id});
+  function payment_error_callback(error, order_id) {
+    setAlertMsg({ message: 'Payment failed', navigate: true, order_id: order_id });
     alert_dispatch(alertAction(true))
     toast.error('Payment failed');
     router.push('/thankyou?order_id=' + order_id);
@@ -240,12 +240,12 @@ export default function checkout() {
     const resp = await update_order_status(params);
     if (resp && resp.message && resp.message.status && resp.message.status == true) {
       setLoadSpinner(false);
-      setAlertMsg({ message: 'Order inserted successfully', navigate: true,order_id:order_id });
+      setAlertMsg({ message: 'Order inserted successfully', navigate: true, order_id: order_id });
       alert_dispatch(alertAction(true));
       // toast.success('Order inserted successfully');
       router.push('/thankyou?order_id=' + order_id);
       // setEnableModal(true);
-    }else{
+    } else {
       setLoadSpinner(false);
     }
   }
@@ -263,14 +263,14 @@ export default function checkout() {
       "image": (razorpay_settings.site_logo ? check_Image(razorpay_settings.site_logo) : null),
       "prefill": { "name": localStorage['full_name'], "email": localStorage['userid'] },
       "theme": { "color": r_pay_color },
-      "modal": { "backdropclose": false, "ondismiss": () => { payment_error_callback(description,order_id) } },
+      "modal": { "backdropclose": false, "ondismiss": () => { payment_error_callback(description, order_id) } },
       "handler": async (response, error) => {
         if (response) {
           setLoadSpinner(true);
           payment_Success_callback(response, amount, order_id)
           // response.razorpay_payment_id
         } else if (error) {
-          payment_error_callback(error,order_id)
+          payment_error_callback(error, order_id)
         }
 
       }
@@ -392,9 +392,9 @@ export default function checkout() {
 
   return (
     <>
-       {loadSpinner && <Backdrop />}
-       <RootLayout checkout={isMobile ? false : true}>
-        <ToastContainer position={'bottom-right'} autoClose={2000}  />
+      {loadSpinner && <Backdrop />}
+      <RootLayout checkout={isMobile ? false : true}>
+        <ToastContainer position={'bottom-right'} autoClose={2000} />
 
         {/* {alert.isOpen &&
           <AlertUi isOpen={alert.isOpen} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />
@@ -427,15 +427,17 @@ export default function checkout() {
                   <h6 className='text-[16px] font-semibold' >Billing Address</h6>
                 </div>
                 {customerInfo && customerInfo.address && customerInfo.address.length != 0 &&
-                  <button className={`${styles.add_new} ${isMobile ? 'text-[14px] font-semibold primary_color' : 'border rounded-[5px] py-[2px] px-[7px] text-[14px] text-medium'}`} onClick={() => isMobile ? goToAddres() : edit_address(undefined, 'New', '')} >{isMobile ? 'Edit' : 'Add New'}</button>
+                  // isMobile ? 'Edit' : isMobile ? 'text-[14px] font-semibold primary_color' :
+                  <button className={`${styles.add_new} ${'border rounded-[5px] py-[2px] px-[7px] text-[14px] text-medium'}`} onClick={() => isMobile ? goToAddres() : edit_address(undefined, 'New', '')} >{'Add New'}</button>
                 }
               </div>
 
               {customerInfo && customerInfo.address && customerInfo.address.length != 0 && customerInfo.address.map((res, index) => (
 
-                <div key={index} className={`${styles.address_sec} ${(isMobile && res.is_default != 1) ? 'hidden' : null}  flex cursor-pointer justify-between ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto] '} md:border-b-[1px] md:border-slate-200 md:mb-[8px] md:px-[10px] py-[10px] gap-[5px]`}>
+                //                                                    isMobile ${(isMobile && res.is_default != 1) ? 'hidden' : null}
+                <div key={index} className={`${styles.address_sec}   flex cursor-pointer justify-between ${isMobile ? null : 'w-[95%] m-[0px_8px_auto_auto] '} md:border-b-[1px] md:border-slate-200 md:mb-[8px] md:px-[10px] py-[10px] gap-[5px]`}>
                   <div onClick={() => { selectAddress(customerInfo.address, index) }} className={`flex w-full justify-between cursor-pointer gap-[10px]`}>
-                    {!isMobile && <input className={styles.input_radio} checked={res.is_default} type="radio" />}
+                    <input className={styles.input_radio} checked={res.is_default} type="radio" />
                     <div className='w-full'>
                       <span className='flex justify-between items-center'>
                         <h6 className={`${isMobile ? 'sub_title' : null} m-0 text-[15px]  capitalize font-semibold`}>{res.first_name + ' ' + res.last_name}</h6>
@@ -444,19 +446,19 @@ export default function checkout() {
                     </div>
                   </div>
 
-                  {!isMobile &&
-                    <div className='flex items-center'>
-                      <div onClick={() => { edit_address(res, 'Edit', index) }} className='flex cursor-pointer mr-[15px] items-center'>
-                        <span className={`${styles.edit_text}  text-[12px] mr-[5px]`}>Edit</span>
-                        <Image className='h-[14px]' src="/edit.svg" height={14} width={15} layout="fixed" alt="Edit" />
-                      </div>
-                      <div onClick={() => { edit_address(res, 'Delete', index) }} className='flex cursor-pointer  items-center'>
-                        <span className={`${styles.delete_text} text-[12px] mr-[5px]`}>Delete</span>
-                        <Image className='h-[14px]' src="/delete.svg" height={14} width={15} layout="fixed" alt="Ddelete" />
-                      </div>
 
+                  <div className='flex items-center'>
+                    <div onClick={() => { edit_address(res, 'Edit', index) }} className='flex cursor-pointer mr-[15px] items-center'>
+                      <span className={`${styles.edit_text}  text-[12px] mr-[5px]`}>Edit</span>
+                      <Image className='h-[14px]' src="/edit.svg" height={14} width={15} layout="fixed" alt="Edit" />
                     </div>
-                  }
+                    <div onClick={() => { edit_address(res, 'Delete', index) }} className='flex cursor-pointer  items-center'>
+                      <span className={`${styles.delete_text} text-[12px] mr-[5px]`}>Delete</span>
+                      <Image className='h-[14px]' src="/delete.svg" height={14} width={15} layout="fixed" alt="Ddelete" />
+                    </div>
+
+                  </div>
+
                 </div>
 
               ))}
@@ -502,7 +504,7 @@ export default function checkout() {
             </div>
 
             <div className={`${styles.box_2}`}>
-{/* lg:h-[calc(100vh_-_450px)] */}
+              {/* lg:h-[calc(100vh_-_450px)] */}
               <div className='lg:border lg:rounded-[10px] md:border-b-[1px] border-slate-200 md:mb-[8px] lg:overflow-auto lg:hide-scrollbar lg:h-[calc(100vh_-_450px)]'>
 
                 <h6 className='text-[16px] lg:sticky lg:z-[9] lg:bg-white lg:top-0 pt-[10px] px-[10px] font-semibold'>Your Orders</h6>
@@ -561,13 +563,13 @@ export default function checkout() {
 
           </div>
 
-  
+
 
         </div>
 
 
 
-       </RootLayout>
+      </RootLayout>
     </>
   )
 }
@@ -575,10 +577,10 @@ export default function checkout() {
 const Backdrop = () => {
   return (
     <div className='backdrop'>
-       <div className="h-[100%] flex flex-col gap-[10px] items-center  justify-center">
-         <div class="animate-spin rounded-full h-[40px] w-[40px] border-l-2 border-t-2 border-black"></div>
-          <span className='text-[15px]'>Loading...</span>
-       </div>
+      <div className="h-[100%] flex flex-col gap-[10px] items-center  justify-center">
+        <div class="animate-spin rounded-full h-[40px] w-[40px] border-l-2 border-t-2 border-black"></div>
+        <span className='text-[15px]'>Loading...</span>
+      </div>
     </div>
   )
 }

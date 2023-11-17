@@ -160,7 +160,8 @@ export default function AddAddress() {
               </div>
             </div>
           ))}
-          <div onClick={() =>edit_address(undefined, 'New', '')} onMouseEnter={() => setAddNew(true)} onMouseLeave={() => setAddNew(false)} className={`${styles.address_sec} ${addNew ? 'addressActive' : ''} min-h-[85px] md:hidden border-slate-100 border-solid border-[1px] flex items-center lg:flex-[0_0_calc(50%_-_5px)] lg:rounded-[5px] cursor-pointer p-[10px_20px] gap-[15px]`}>
+          {/* md:hidden */}
+          <div onClick={() =>edit_address(undefined, 'New', '')} onMouseEnter={() => setAddNew(true)} onMouseLeave={() => setAddNew(false)} className={`${styles.address_sec} ${addNew ? 'addressActive' : ''} min-h-[85px]  border-slate-100 border-solid border-[1px] flex items-center lg:flex-[0_0_calc(50%_-_5px)] lg:rounded-[5px] cursor-pointer p-[10px_20px] gap-[15px]`}>
             <Image className='w-[20px]' src={addNew ? "/Address/plus-red.svg" : "/Address/plus.svg"} height={20} width={18} layout="fixed" alt="Ddelete" />
             <h6 className='text-[15px] hover:text-[#e21b22]'>Add new billing address</h6>
           </div>

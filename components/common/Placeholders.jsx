@@ -10,7 +10,7 @@ export default function Placeholders({ placeholder, tagbasedAd,productNavigation
                 placeholder.map((resp, index) => {
                     return (
                         <div key={index} className={`my-[10px]`}>
-                            {(tagbasedAd && Object.keys(tagbasedAd).length != 0) ? <Advertisement data={tagbasedAd} /> : (resp.placeholder_type == 'banner_ad' && resp.data && resp.data.length != 0 && resp.data[0].banner_ad_item && resp.data[0].banner_ad_item[0]) ? <AdsBaner data={resp.data[0].banner_ad_item[0]} height={'260px'} width={'300px'} /> : ads_data && ads_data.right_first ? <Advertisement data={ads_data.right_first} divClass={`h-[250px] w-[300px] m-auto`} /> : <></>}
+                            {(tagbasedAd && Object.keys(tagbasedAd).length != 0 && index==0) ? <Advertisement data={tagbasedAd} /> : (resp.placeholder_type == 'Banner Ad' && resp.data && resp.data.length != 0 && resp.data[0].web_image ) ? <Advertisement divClass={`h-[250px] w-[300px] m-auto`} data={resp.data[0]} height={'h-[250px]'} width={'w-[300px]'} /> : ads_data && ads_data.right_first ? <Advertisement data={ads_data.right_first} divClass={`h-[250px] w-[300px] m-auto`} /> : <></>}
                             {(resp.placeholder_type == 'google_ad' && resp.data && resp.data.length != 0) && <Advertisement data={resp.data[0]} height={'260px'} width={'300px'} />}
                             {(resp.placeholder_type == 'list' && resp.data && resp.data.length != 0) &&
                                 <div className='border rounded-[5px] p-[10px_15px_15px]'>

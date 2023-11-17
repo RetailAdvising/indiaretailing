@@ -18,14 +18,14 @@ export default function SideBar({ data, close, navbar,emit_item }) {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            localStorage['apikey'] ? setValid(!valid) : null;
+            localStorage['apikey'] ? setValid(true) : null;
             // roleMember()
             checkRole()
             // let val = roleMember();
         }
 
         if (user) {
-            localStorage['apikey'] ? setValid(!valid) : null;
+            localStorage['apikey'] ? setValid(true) : null;
             // roleMember()
             checkRole()
         }

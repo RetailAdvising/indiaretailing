@@ -14,6 +14,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import nProgress from "nprogress";
 import { Router, useRouter } from "next/router";
 import "nprogress/nprogress.css"
+import { SessionProvider,useSession } from "next-auth/react"
 // import Loader from '@/components/Loader'
 // const inter = Inter({
 //   weight: ["200", "300", "400", "500", "600", '700'],
@@ -37,6 +38,8 @@ const inter = Faustina({
 export default function App({ Component, pageProps }) {
   const [tabHeight, setTabHeight] = useState(0)
   const [activeTab, setActiveTab] = useState(0)
+  const  session  = useSession()
+  console.log(session)
 
   const router = useRouter()
 
@@ -175,14 +178,16 @@ export default function App({ Component, pageProps }) {
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <ChakraProvider>
-            <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
-              <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
-              {/* <Header/> */}
-              <Component {...pageProps} />
-              <div className='lg:hidden'>
-                <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
-              </div>
-            </main>
+            <SessionProvider>
+              <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
+                <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
+                {/* <Header/> */}
+                <Component {...pageProps} />
+                <div className='lg:hidden'>
+                  <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
+                </div>
+              </main>
+            </SessionProvider>
           </ChakraProvider>
         </Provider>
       </ErrorBoundary>

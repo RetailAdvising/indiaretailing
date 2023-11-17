@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import { logIn, checkMobile, checkMember,get_customer_info } from '@/libs/api';
+import { logIn, checkMobile, checkMember, get_customer_info } from '@/libs/api';
 import { useRouter } from 'next/router';
 import OTP from './OTP';
 import SignUp from './SignUp';
@@ -46,6 +46,9 @@ import setUser from 'redux/actions/userAction';
 
 // const REDIRECT_URI =
 //     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
+
+import { useSession, signIn, signOut } from "next-auth/react"
+
 export default function LogIn({ isModal, hide, auth }) {
     // const config = {
     // providers: [
@@ -310,6 +313,8 @@ export default function LogIn({ isModal, hide, auth }) {
     // const onLoginStart = useCallback(() => {
     //     alert('login start');
     // }, []);
+    const  session  = useSession()
+    console.log(session)
     return (
         <>
             <ToastContainer position={'bottom-right'} autoClose={2000} />
@@ -374,7 +379,8 @@ export default function LogIn({ isModal, hide, auth }) {
                             {/* <p>Continue with Google</p> onClick={() => signIn('google')} */}
                             {/* {<GoogleLogin buttonText="" clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>} */}
                             {/* <GoogleOAuthProvider clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"></GoogleOAuthProvider>; */}
-                            <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} />
+                            {/* <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} /> */}
+                            <button onClick={() => signIn("google")}>Login with Google</button>
                         </div>
 
                         <div id="apple" className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
@@ -397,6 +403,7 @@ export default function LogIn({ isModal, hide, auth }) {
                                 />
                             }
                         </div>
+                        <button onClick={() => signIn("google")}>Sign in</button>
                     </div>
 
                     <div onClick={() => setOtp(!otp)} className='flex gap-[10px]  w-[75%] md:w-full m-[0_auto] h-[45px] cursor-pointer rounded-[5px] border items-center justify-center '>
@@ -408,10 +415,27 @@ export default function LogIn({ isModal, hide, auth }) {
             </div> : (modal == 'signup' && !otp) ? <><SignUp auth={auth} hide={hide} /></> : (modal == 'forget' && !otp) ? <><Forget auth={auth} hide={hide} /></> : <OTP hide={hide} auth={auth} isModal={isModal} setotp={() => setOtp(!otp)} />
             }
 
+           
+
 
         </>
     )
 }
+
+// import GoogleProvider from "next-auth/providers/google" 
+// import NextAuth from "next-auth"
+
+// const handler = NextAuth({
+//     providers: [
+//         GoogleProvider({
+//           clientId: process.env.GOOGLE_CLIENT_ID,
+//           clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//         }),
+//         // ...add more providers here
+//       ],
+// })
+
+// export { handler as GET, handler as POST }
 
 
 // Login Social
