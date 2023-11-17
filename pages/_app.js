@@ -14,7 +14,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import nProgress from "nprogress";
 import { Router, useRouter } from "next/router";
 import "nprogress/nprogress.css"
-import { SessionProvider,useSession } from "next-auth/react"
+import { SessionProvider } from "next-auth/react"
 // import Loader from '@/components/Loader'
 // const inter = Inter({
 //   weight: ["200", "300", "400", "500", "600", '700'],
@@ -38,8 +38,6 @@ const inter = Faustina({
 export default function App({ Component, pageProps }) {
   const [tabHeight, setTabHeight] = useState(0)
   const [activeTab, setActiveTab] = useState(0)
-  const  session  = useSession()
-  console.log(session)
 
   const router = useRouter()
 
