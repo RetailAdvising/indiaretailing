@@ -21,7 +21,7 @@ export default function MainFooter({ footerData }) {
             let val = setFooter1(footerData.items)
             subsBox = val ? val : undefined;
             setSubsBox(subsBox)
-            console.log(val)
+            // console.log(val)
         }
 
 

@@ -124,7 +124,7 @@ export default function Videos({meta_info, ads_data}) {
 
   const videoLink = (link) => {
     // console.log(link,'link')
-    return link.video_type == 'Youtube' ? 'https://www.youtube.com/embed/' + link.video_id : 'https://player.vimeo.com/video/' + link.video_id
+    return link.video_type.toLowerCase() == 'youtube' ? 'https://www.youtube.com/embed/' + link.video_id : 'https://player.vimeo.com/video/' + link.video_id
 }
 
     return (

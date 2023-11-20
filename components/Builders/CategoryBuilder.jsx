@@ -218,11 +218,26 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     //   // shareEle.push('share' + i)
     //   // setShareEle(shareEle)
     // }
+
+    // if(data){
+    //   let el = document.getElementById(`innerHtml${i}`).querySelectorAll('p')[1];
+    //   let newEl = document.createElement('div')
+    //   el.after(newEl)
+    //   const root = ReactDOM.createRoot(newEl)
+    //   root.render(<Advertisement data={{ web_image: data.image }} divClass={'h-[90px] w-[728px] m-[auto]'} />)
+    // }
+
     if ((data && data.article_sections && data.article_sections.length != 0)) {
+      // for (let j = 0; j < 5; j++) {
+     
+      // console.log(el, 'el+', i)
+      // }
       // console.log('data.article_sections', data.article_sections);
-      data.article_sections.map((res, i) => {
+      data.article_sections.map((res, index) => {
         if (res.data && res.data.length != 0) {
           let element = document.getElementById(`${res.placeholder_key}`);
+          // let el = document.getElementById(`innerHtml${i}`).querySelectorAll('p')[1]
+          // console.log(el,'el')
           // element && ReactDOM.render( <SubscriptionAlert />,element)
           // console.log(element)
           // element?.classList.add('placeholder')
@@ -391,7 +406,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
       let doc = parser.parseFromString(cleanedHtml, 'text/html');
 
       // Remove all elements that do not have any content (including nested content)
-      const emptyElements = doc.querySelectorAll('*:empty:not(br):not(img):not(div)');
+      const emptyElements = doc.querySelectorAll('*:empty:not(br):not(img):not(div):not(iframe)');
       for (const element of emptyElements) {
         element.parentNode.removeChild(element);
       }
@@ -598,7 +613,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               <Content i={i} res={data} updateShare={(data) => updateShare(data)} noScroll={(val) => noScroll(val)} />
             </p>
             <div className='relative article_content overflow-hidden'>
-              {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`${i}`} className={`contents ${(data.ir_prime == 1 && !data.is_member) && 'prime-article'}`} />}
+              {data.content && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(data.content) }} id={`innerHtml${i}`} className={`contents ${'innerHtml' + i} ${(data.ir_prime == 1 && !data.is_member) && 'prime-article'}`} />}
               {(!data.is_member && data.ir_prime == 1) && <div className='prime-article-after'></div>}
             </div>
             {/* {(isPrime && !validator) && <div className='border-0 p-[20px] my-[20px] rounded-md bg-[#e21b22] mt-6'> */}
@@ -689,24 +704,24 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               {!isMobile && <div className='flex flex-row gap-3 items-center justify-center py-5'>
                 {socials.map((res, index) => {
                   return (
-                    <div key={index} onClick={() => updateShare(res)}>
+                    <div key={index} onClick={() => updateShare(data)}>
                       {
-                        res.name == 'fb' ? <FacebookShareButton url={`${true ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
+                        res.name == 'fb' ? <FacebookShareButton url={`${'https://indiaretail.vercel.app/' + data.route}`}>
                           <div key={index} className={`rounded-full bg-light-gray p-2`}>
                             <Image src={res.icon} alt={res.name} height={25} width={20} />
                           </div>
                         </FacebookShareButton>
-                          : res.name == 'ws' ? <WhatsappShareButton url={`${true ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
+                          : res.name == 'ws' ? <WhatsappShareButton url={`${'https://indiaretail.vercel.app/' + data.route }`}>
                             <div key={index} className={`rounded-full bg-light-gray p-2`}>
                               <Image src={res.icon} alt={res.name} height={25} width={20} />
                             </div>
                           </WhatsappShareButton>
-                            : res.name == 'linkedin' ? <LinkedinShareButton url={`${true ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
+                            : res.name == 'linkedin' ? <LinkedinShareButton url={`${'https://indiaretail.vercel.app/' + data.route}`}>
                               <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                 <Image src={res.icon} alt={res.name} height={25} width={20} />
                               </div>
                             </LinkedinShareButton>
-                              : res.name == 'twitter' ? <TwitterShareButton url={`${true ? '/categories/' + router.query.types + '/' + data.name : '/IRPrime/' + router.query.list + '/' + router.query.detail}`}>
+                              : res.name == 'twitter' ? <TwitterShareButton url={`${'https://indiaretail.vercel.app/' + data.route}`}>
                                 <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                   <Image src={res.icon} alt={res.name} height={25} width={20} />
                                 </div>
@@ -732,17 +747,17 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                       <div key={i}>
                         {/* style={{ background: "#efefef" }} */}
                         {(res.route == data.name && res.data && res.data.length != 0) ? <div className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} relative p-[10px]  border rounded-[5px]`}>
-                       
-                       {/* w-[120px] md:w-[105px] */}
+
+                          {/* w-[120px] md:w-[105px] */}
                           <div className={`py-1.5 flex items-center gap-[10px] relative  ${styles.profile_div}`}>
                             {/* id={`cmt${data.route}`} */}
                             <div><Image src={'/categories/Comments-01.svg'} className='h-[20px] w-[20px] object-contain' height={25} width={25} alt='cmts' /></div>
                             <h6 className={`font-[700] ${nunito.className} text-[17px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
                             {/* <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>{res.data.length ? res.data.length : 0}</span></p> */}
                           </div>
-                          <Comments cur={data} noScroll={(val) => noScroll(val)} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 2)} hide_comment={hide} />
-                         
-                            {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
+                          <Comments cur={data} showSidebar={() => showSidebar()} noScroll={(val) => noScroll(val)} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 2)} hide_comment={hide} />
+
+                          {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
                           {/* {isMobile && (res.data && res.data.length != 0) ? <div className='mt-[10px] flex gap-[10px] justify-center'>
                             <button onClick={showSidebar} className={`justify-center rounded-full bg-red text-white h-[45px]  items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex`}>{(res.data && res.data.length != 0) ? 'View Comments' : 'Add Comment'}</button>
                           </div> : <div className={`mt-[10px] flex justify-center`}>

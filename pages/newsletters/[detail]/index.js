@@ -5,7 +5,7 @@ import Title from '@/components/common/Title';
 import NewsCard from '@/components/Newsletter/NewsCard';
 import Tabs from '@/components/common/Tabs';
 import AlertPopup from '@/components/common/AlertPopup';
-import { get_all_newsletter, newsDetail, newsLanding, getAdvertisements, newsletter_category, newsletter_category_list, getList } from '@/libs/api';
+import { get_all_newsletter, newsDetail, newsLanding, getAdvertisements, newsletter_category, newsletter_category_list, getList,checkMobile } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -157,7 +157,28 @@ export default function NewsLists({ data, Id }) {
     }
   }
 
+  let [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    checkIsMobile();
+
+    window.addEventListener('resize', checkIsMobile)
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, [])
+
+  const checkIsMobile = async () => {
+    let is_mobile = await checkMobile();
+    isMobile = is_mobile
+    setIsMobile(isMobile);
+  }
+
+
   const activeCategory = async (res, index) => {
+    // if(isMobile){
+    //   let ele = document.getElementById('category'+index)
+    //   ele.scrollIntoView(true)
+    // }
     selectedCategory = res.title;
     setSelectedCategory(selectedCategory)
     getCategoryBaseddata(res)
@@ -226,10 +247,10 @@ export default function NewsLists({ data, Id }) {
             </div>} */}
 
             <div className='border p-[10px] rounded-[5px]'>
-              <div className={`flex items-center m-[10px] gap-[15px]`}>
+              <div className={`flex items-center m-[10px] gap-[15px] overflow-auto scrollbar-hide`}>
                 {newsCategory && newsCategory.length != 0 && newsCategory.map((res, i) => {
                   return (
-                    <div key={i} onClick={() => activeCategory(res, i)} className='cursor-pointer'>
+                    <div key={i} id={'category'+i} onClick={() => activeCategory(res, i)} className='cursor-pointer flex-[0_0_auto]'>
                       <p className={`${selectedCategory == res.title ? 'tabActive' : ''} pb-[5px] text-[14px] font-semibold capitalize ${nunito.className}`}>{res.category_name.split('-').join(" ")}</p>
                     </div>
                   )
@@ -237,7 +258,7 @@ export default function NewsLists({ data, Id }) {
               </div>
 
               <div className={`m-[25px_10px]`}>
-                {newsList && newsList.length != 0 ? <div className='lg:grid grid-cols-4  no_scroll lg:gap-5'><NewsCard data={newsList} imgClass={'h-[215px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[310px] md:h-[280px] md:flex-[0_0_calc(50%_-_10px)]'} /></div> :
+                {newsList && newsList.length != 0 ? <div className='lg:grid lg:grid-cols-4  no_scroll lg:gap-5'><NewsCard data={newsList} imgClass={'h-[215px] md:h-[180px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[310px] md:h-[280px] md:flex-[0_0_calc(70%_-_10px)]'} /></div> :
                   <>No Newsletters Found</>}
               </div>
             </div>

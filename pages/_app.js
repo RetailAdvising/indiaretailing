@@ -1,3 +1,4 @@
+'use client'
 import '@/styles/globals.scss'
 import store from '../redux/store'
 import { Inter, Roboto, Faustina } from 'next/font/google'

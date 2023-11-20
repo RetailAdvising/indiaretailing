@@ -350,7 +350,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                     <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{cur.read_time} </span></div>
                 </div>
             </div>}
-            {(!isModal && data && data.length == 0) && <div className={`relative bg-[#EEEEEE] mt-[10px] rounded-full flex justify-between border p-[5px]`}>
+            {!isModal  && <div className={`relative bg-[#EEEEEE] mt-[10px] rounded-full flex justify-between border p-[5px]`}>
                 {/* <div className='flex gap-5 items-center'> */}
                 {/* <Image src={'/categories/send-01.svg'} className='cursor-pointer ' height={22} width={22} alt='send' /> */}
                 <p className={`${nunito.className} p-[5px_10px]`}>Be the first to comment</p>

@@ -16,6 +16,8 @@ const nextConfig = {
   //   // includePaths: [path.join(__dirname, 'styles')],
   //   prependData: `@import "@styles/Variable.scss";`,
   // }
+  swcMinify: false // it should be false by default 
+    
 }
 
 module.exports = nextConfig

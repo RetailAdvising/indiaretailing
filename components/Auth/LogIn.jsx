@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
@@ -379,8 +380,8 @@ export default function LogIn({ isModal, hide, auth }) {
                             {/* <p>Continue with Google</p> onClick={() => signIn('google')} */}
                             {/* {<GoogleLogin buttonText="" clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>} */}
                             {/* <GoogleOAuthProvider clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"></GoogleOAuthProvider>; */}
-                            {/* <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} /> */}
-                            <button onClick={() => signIn("google")}>Login with Google</button>
+                            <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} />
+                            {/* <button onClick={() => signIn("google")}>Login with Google</button> */}
                         </div>
 
                         <div id="apple" className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
@@ -403,7 +404,7 @@ export default function LogIn({ isModal, hide, auth }) {
                                 />
                             }
                         </div>
-                        <button onClick={() => signIn("google")}>Sign in</button>
+                        {/* <button onClick={() => signIn("google")}>Sign in</button> */}
                     </div>
 
                     <div onClick={() => setOtp(!otp)} className='flex gap-[10px]  w-[75%] md:w-full m-[0_auto] h-[45px] cursor-pointer rounded-[5px] border items-center justify-center '>
