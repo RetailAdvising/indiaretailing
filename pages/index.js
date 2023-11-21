@@ -323,8 +323,8 @@ export default function Home({ data,ads }) {
                   <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-23-00094') ? 'md:mb-[20px]' : 'container'}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} ${data.section == 'PS-23-00166' ? 'container' : ''}`}>
                     {(res.components && res.components.length != 0) && res.components.map((c, c_index) => {
                       return (
-                        <div key={c.component_title} className={`${c.component_title == "Top 3 Stories" ? 'top3  lg:justify-center md:gap-5' : ''}`}>
-                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 3 Stories") && <TopStories data={data.data[c.cid].data.slice(0, 4)} />}
+                        <div key={c.component_title} className={`${c.component_title == "Top 4 Stories" ? 'top3  lg:justify-center md:gap-5' : ''}`}>
+                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 4 Stories") && <TopStories data={data.data[c.cid].data.slice(0, 4)} />}
                           {(c.component_title == "In Focus" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <>
                             {/* <div className={``}> */}
                             <ImageContainer data={data.data[c.cid].data[0]} height={"h-[350px] md:h-[250px]"} contStyle={'mb-[15px]'} width={'w-full'} />
