@@ -23,13 +23,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import AlertUi from '@/components/common/AlertUi'
 import { Nunito } from 'next/font/google'
 const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-  })
+  weight: ["300", "400", "500", "600", "700"],
+  display: "block",
+  preload: true,
+  style: 'normal',
+  subsets: ["latin"],
+  variable: '--font-inter',
+})
 export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
@@ -115,7 +115,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   }
 
   const getMembershipPlans = async () => {
-    if (typeof window != 'undefined' && localStorage && localStorage['roles'] && localStorage['apikey'] && localStorage['new_user']) {
+    if (typeof window != 'undefined' && localStorage && localStorage['roles'] && localStorage['apikey'] ) {
 
       let data = { "plan_type": "Month", "res_type": "member" }
       const resp = await get_subscription_plans(data);
@@ -142,7 +142,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       mand = false
       setMand(mand)
       let val = checkMemberShip(customerInfo['roles_list'])
-      val && getMembershipPlans()
+      if (val) { getMembershipPlans() }
     } else {
       alrtMsg = true
       setAlrtMsg(alrtMsg)
@@ -207,7 +207,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     <>
       {/* <SEO /> */}
       {/* {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>} */}
-      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.header) && homeAd.header}  divClass={'h-[90px] w-[728px] m-auto'}  /></div>}
+      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] w-[728px] m-auto'} /></div>}
       {/* <PdfViewer/> */}
       <>
         <Header checkout={checkout} />
