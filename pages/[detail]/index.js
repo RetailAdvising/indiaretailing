@@ -354,18 +354,17 @@ export default function Details({ data, page_route }) {
         {/* <SEO  /> */}
         {/* {(data) && <SeoArticles meta={data} meta_data={meta_info} />} */}
         <Head>
-        
-          <title key="title">{data.meta_title ? data.meta_title : 'India Retailing'}</title>
-          <meta name="description" content={data.meta_description} />
+          <title key="title">{data?.meta_title}</title>
+          <meta name="description" content={data?.meta_description} />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
           <meta name="theme-color" content="#e21b22" />
           <meta property="og:type" content={'Article'} />
-          <meta property="og:title" content={data.meta_title} />
-          <meta property="og:description" content={data.meta_description} />
+          <meta property="og:title" content={data?.meta_title} />
+          <meta property="og:description" content={data?.meta_description} />
           <meta property="og:locale" content="en_IE" />
-          <meta property="og:site_name" content={'IndiaRetailing'} />
+          {/* <meta property="og:site_name" content={'IndiaRetailing'} />
          
-          <meta property="og:site_name" content={'IndiaRetailing'} />
+          <meta property="og:site_name" content={'IndiaRetailing'} /> */}
           <meta
 
             property="og:image"
@@ -375,12 +374,12 @@ export default function Details({ data, page_route }) {
           <meta
 
             property="og:image:alt"
-            content={`${data.title ? data.title : 'IndiaRetailing'} | ${'IndiaRetailing'}`}
+            content={`${data?.title } | ${'IndiaRetailing'}`}
           />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
+          {/* <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" /> */}
 
-          <meta name="robots" content="index,follow" />
+          {/* <meta name="robots" content="index,follow" />
 
           <meta
 
@@ -411,7 +410,7 @@ export default function Details({ data, page_route }) {
 
          
 
-          <link rel="canonical" href={'https://indiaretail.vercel.app/'} />
+          <link rel="canonical" href={'https://indiaretail.vercel.app/'} /> */}
 
           <link rel="shortcut icon" href="/ir_2023.png" />
         </Head>
