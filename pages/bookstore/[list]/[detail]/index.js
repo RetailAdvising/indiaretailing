@@ -21,6 +21,7 @@ import Dropdowns from '@/components/common/Dropdowns'
 // import BreadCrumb from '@/components/common/BreadCrumb';
 // import Razorpay from 'razorpay';
 import { Nunito } from 'next/font/google'
+import Head from 'next/head'
 const nunito = Nunito({
     weight: ["300","400","500","600","700"],
     display: "block",
@@ -40,6 +41,7 @@ export default function Bookstoredetail({ value, res,ads }) {
   const [data, setData] = useState();
   const [razorpay_settings, setRazorpay_settings] = useState({}) ;
 
+  // console.log(value,'value')
   const ref = useRef(null);
   const [loader,setLoader] = useState(false)
   // const [variants,setVariants] = useState([{'name':'PDF','selected':true},{'name':'PRINT','selected':false}])
@@ -653,7 +655,68 @@ const  getCarts = async (type) => {
   return (
     <>
       <RootLayout homeAd={ads ? ads : null}>
-      { value && <SEO title={value.meta_title ? value.meta_title : value.item_title} ogImage={check_Image(value.image)} siteName={'India Reatiling'} ogType={value.meta_keywords ? value.meta_keywords : value.item_title} description={value.meta_description ? value.meta_description : value.item_title}/>}
+      <Head>
+          <title key="title">{value?.meta_title}</title>
+          <meta name="description" content={value?.meta_description} />
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+          <meta name="theme-color" content="#e21b22" />
+          <meta property="og:type" content={'Article'} />
+          <meta property="og:title" content={value?.meta_title} />
+          <meta property="og:description" content={value?.meta_description} />
+          <meta property="og:locale" content="en_IE" />
+          {/* <meta property="og:site_name" content={'IndiaRetailing'} />
+         
+          <meta property="og:site_name" content={'IndiaRetailing'} /> */}
+          <meta
+
+            property="og:image"
+            itemprop="image"
+            content={check_Image(value?.image)}
+          />
+          <meta
+
+            property="og:image:alt"
+            content={`${value?.title } | ${'IndiaRetailing'}`}
+          />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+
+          <meta name="robots" content="index,follow" />
+
+          <meta
+
+            name="twitter:card"
+            content="summary_large_image"
+          />
+          <meta
+
+            name="twitter:site"
+            content={'@d__indiaRetail'}
+          />
+          <meta
+
+            name="twitter:creator"
+            content={'@d__indiaRetail'}
+          />
+          <meta property="twitter:image" content={check_Image(value?.image )} />
+          <meta
+
+            property="twitter:title"
+            content={value?.title}
+          />
+          <meta
+
+            property="twitter:description"
+            content={value?.meta_description}
+          />
+
+         
+
+          {/* <link rel="canonical" href={'https://indiaretail.vercel.app/'} /> */}
+
+          <link rel="shortcut icon" href="/ir_2023.png" />
+        </Head>
+      {/* { value && <SEO title={value.meta_title ? value.meta_title : value.item_title} ogImage={check_Image(value.image)} siteName={'India Reatiling'} ogType={value.meta_keywords ? value.meta_keywords : value.item_title} description={value.meta_description ? value.meta_description : value.item_title}/>} */}
       {/* <div className='md:hidden'>
         <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>
       </div> */}
@@ -982,7 +1045,7 @@ export async function getServerSideProps({ params }) {
    
   } 
 
-  let para = { page: 'Books', page_type: 'List' }
+  let para = { page: 'Books', page_type: 'Detail' }
     let response = await getAdvertisements(para)
     let ads = response.message;
 

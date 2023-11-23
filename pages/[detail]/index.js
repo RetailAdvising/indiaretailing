@@ -369,17 +369,17 @@ export default function Details({ data, page_route }) {
 
             property="og:image"
             itemprop="image"
-            content={check_Image(data.meta_image)}
+            content={check_Image(data.meta_image ? data.meta_image : data.thumbnail_imagee)}
           />
           <meta
 
             property="og:image:alt"
             content={`${data?.title } | ${'IndiaRetailing'}`}
           />
-          {/* <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" /> */}
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
 
-          {/* <meta name="robots" content="index,follow" />
+          <meta name="robots" content="index,follow" />
 
           <meta
 
@@ -396,21 +396,21 @@ export default function Details({ data, page_route }) {
             name="twitter:creator"
             content={'@d__indiaRetail'}
           />
-          <meta property="twitter:image" content={check_Image(data.meta_image)} />
+          <meta property="twitter:image" content={check_Image(data.meta_image ? data.meta_image : data.thumbnail_imagee)} />
           <meta
 
             property="twitter:title"
-            content={data.title ? data.title : 'IndiaRetailing'}
+            content={data?.title}
           />
           <meta
 
             property="twitter:description"
-            content={data.meta_description}
+            content={data?.meta_description}
           />
 
          
 
-          <link rel="canonical" href={'https://indiaretail.vercel.app/'} /> */}
+          {/* <link rel="canonical" href={'https://indiaretail.vercel.app/'} /> */}
 
           <link rel="shortcut icon" href="/ir_2023.png" />
         </Head>

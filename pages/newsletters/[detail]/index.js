@@ -14,7 +14,7 @@ import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import NoProductFound from '@/components/common/NoProductFound';
 import AlertUi from '@/components/common/AlertUi';
 import format from 'date-fns/format'
-
+import Head from 'next/head'
 import { Nunito } from 'next/font/google'
 const nunito = Nunito({
     weight: ["300","400","500","600","700"],
@@ -26,6 +26,7 @@ const nunito = Nunito({
   })
 export default function NewsLists({ data, Id }) {
   const tabs = [{ name: 'Current edition' }, { name: 'All Newsletter' }]
+  // console.log(data,'data')
   const [isChecked, setIsChecked] = useState(false);
   const [allNewsLetter, setAllNewsLetter] = useState([])
   const [page_no, setPageno] = useState(1)
@@ -197,12 +198,72 @@ export default function NewsLists({ data, Id }) {
   return (
     <>
       <RootLayout isLanding={false} homeAd={ads ? ads : null} head={'Newsletters'}>
+      <Head>
+          <title key="title">{data?.article_detail.subject}</title>
+          <meta name="description" content={data?.article_detail.subject} />
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+          <meta name="theme-color" content="#e21b22" />
+          <meta property="og:type" content={'Article'} />
+          <meta property="og:title" content={data?.article_detail.subject} />
+          <meta property="og:description" content={data?.article_detail.subject} />
+          <meta property="og:locale" content="en_IE" />
+          {/* <meta property="og:site_name" content={'IndiaRetailing'} />
+         
+          <meta property="og:site_name" content={'IndiaRetailing'} /> */}
+          <meta
 
+            property="og:image"
+            itemprop="image"
+            content={check_Image(data?.article_detail.image)}
+          />
+          <meta
+
+            property="og:image:alt"
+            content={`${data?.article_detail.title } | ${'IndiaRetailing'}`}
+          />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+
+          <meta name="robots" content="index,follow" />
+
+          <meta
+
+            name="twitter:card"
+            content="summary_large_image"
+          />
+          <meta
+
+            name="twitter:site"
+            content={'@d__indiaRetail'}
+          />
+          <meta
+
+            name="twitter:creator"
+            content={'@d__indiaRetail'}
+          />
+          <meta property="twitter:image" content={check_Image(data?.article_detail.image)} />
+          <meta
+
+            property="twitter:title"
+            content={data?.article_detail.subject}
+          />
+          <meta
+
+            property="twitter:description"
+            content={data?.article_detail.subject}
+          />
+
+         
+
+          {/* <link rel="canonical" href={'https://indiaretail.vercel.app/'} /> */}
+
+          <link rel="shortcut icon" href="/ir_2023.png" />
+        </Head>
         {enableModal &&
           <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'ok'} alertMsg={alertMsg} />
         }
 
-        <SEO title={data.meta_title ? data.meta_title : data.custom_title} ogImage={check_Image(data.custom_image_)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.custom_title} description={data.meta_description ? data.meta_description : data.custom_title} />
+        {/* <SEO title={data.meta_title ? data.meta_title : data.custom_title} ogImage={check_Image(data.custom_image_)} siteName={'India Reatiling'} ogType={data.meta_keywords ? data.meta_keywords : data.custom_title} description={data.meta_description ? data.meta_description : data.custom_title} /> */}
         {<div className='container p-[30px_0px] md:p-[15px]'>
           {(data && data.article_detail) && <label className='themeSwitcherTwo w-full  border_bottom shadow-card relative inline-flex cursor-pointer select-none'>
             <input type='checkbox' className='sr-only' checked={isChecked} onChange={handleCheckboxChange} />

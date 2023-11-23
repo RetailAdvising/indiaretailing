@@ -1,22 +1,82 @@
 import React from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import AudioPlayer from '@/components/Podcast/AudioPlayer';
-import { podcast_details, getAdvertisements, podcast_list } from '@/libs/api'
+import { podcast_details, getAdvertisements, podcast_list, check_Image } from '@/libs/api'
 import SEO from '@/components/common/SEO'
-import { check_Image } from '@/libs/common';
 import Title from '@/components/common/Title'
 import Cards from '@/components/common/Cards'
 import List from '@/components/common/List'
 import Advertisement from '@/components/Baners/Advertisement'
 import Placeholders from '@/components/common/Placeholders'
-
+import Head from 'next/head'
 export default function PodcastDetail({ data, ads_data }) {
     // const {data,ads_data} = data
-    console.log(data);
+    // console.log(data);
     return (
         <>
+            <Head>
+                <title key="title">{data?.message.meta_title}</title>
+                <meta name="description" content={data?.message.meta_description} />
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+                <meta name="theme-color" content="#e21b22" />
+                <meta property="og:type" content={'Article'} />
+                <meta property="og:title" content={data?.message.meta_title} />
+                <meta property="og:description" content={data?.message.meta_description} />
+                <meta property="og:locale" content="en_IE" />
+                {/* <meta property="og:site_name" content={'IndiaRetailing'} />
+         
+          <meta property="og:site_name" content={'IndiaRetailing'} /> */}
+                <meta
+
+                    property="og:image"
+                    itemprop="image"
+                    content={check_Image(data?.message.meta_image)}
+                />
+                <meta
+
+                    property="og:image:alt"
+                    content={`${data?.message.title} | ${'IndiaRetailing'}`}
+                />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+
+                <meta name="robots" content="index,follow" />
+
+                <meta
+
+                    name="twitter:card"
+                    content="summary_large_image"
+                />
+                <meta
+
+                    name="twitter:site"
+                    content={'@d__indiaRetail'}
+                />
+                <meta
+
+                    name="twitter:creator"
+                    content={'@d__indiaRetail'}
+                />
+                <meta property="twitter:image" content={check_Image(data?.message.meta_image)} />
+                <meta
+
+                    property="twitter:title"
+                    content={data?.message.title}
+                />
+                <meta
+
+                    property="twitter:description"
+                    content={data?.message.meta_description}
+                />
+
+
+
+                {/* <link rel="canonical" href={'https://indiaretail.vercel.app/'} /> */}
+
+                <link rel="shortcut icon" href="/ir_2023.png" />
+            </Head>
             {data && <RootLayout homeAd={ads_data ? ads_data : null} head={data.message.title}>
-                <SEO title={data.message.meta_title ? data.message.meta_title : data.message.title} ogImage={check_Image(data.message.image)} siteName={'India Retailing'} ogType={data.message.meta_keywords ? data.message.meta_keywords : data.message.title} description={data.message.meta_description ? data.message.meta_description : data.message.title} />
+                {/* <SEO title={data.message.meta_title ? data.message.meta_title : data.message.title} ogImage={check_Image(data.message.image)} siteName={'India Retailing'} ogType={data.message.meta_keywords ? data.message.meta_keywords : data.message.title} description={data.message.meta_description ? data.message.meta_description : data.message.title} /> */}
                 <div className={`flex md:p-[15px] justify-between flex-wrap gap-[25px] container`}>
                     {/* {
                         <div className="w-full">
@@ -44,8 +104,8 @@ export default function PodcastDetail({ data, ads_data }) {
                                             :
                                             <div className={`border p-[15px] rounded-[5px]`}>
                                                 <Title data={data.other_category} seeMore={false} />
-                                                
-                                                <List isHome={'/podcast/'} isDesc={true}  imgFlex={`flex-[0_0_calc(40%_-_10px)]`} imgHeight={`h-[90px]`} borderRadius={'rounded-[5px]'} titleClamp={'line-clamp-2'} imgWidth={`w-full`} data={data.other_category.data} check={true} />
+
+                                                <List isHome={'/podcast/'} isDesc={true} imgFlex={`flex-[0_0_calc(40%_-_10px)]`} imgHeight={`h-[90px]`} borderRadius={'rounded-[5px]'} titleClamp={'line-clamp-2'} imgWidth={`w-full`} data={data.other_category.data} check={true} />
                                             </div>
                                     }
                                 </div>

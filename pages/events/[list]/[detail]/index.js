@@ -2,20 +2,81 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout';
 import EventDetail from '@/components/Events/EventDetail';
-import { postMethod, getAds,getAdvertisements } from '@/libs/api';
+import { postMethod, getAds, getAdvertisements,check_Image } from '@/libs/api';
 import SEO from '@/components/common/SEO'
-import { check_Image } from '@/libs/common';
+import Head from 'next/head'
 
 export default function EventDetails({ data, ads_data }) {
     const router = useRouter();
-    useEffect(()=>{
+    useEffect(() => {
 
-    },[router.query])
+    }, [router.query])
     // console.log(data, 'detaial')
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null} isLanding={false} head={'Events'}>
-                {data && data.message && <SEO title={data.message.meta_title ? data.message.meta_title : data.message.title} ogImage={check_Image(data.message.meta_image ? data.message.meta_image : data.message.image_path)} siteName={'India Reatiling'} ogType={data.message.meta_keywords ? data.message.meta_keywords : data.message.title} description={data.message.meta_description ? data.message.meta_description : data.message.title} />}
+                <Head>
+                    <title key="title">{data?.message.meta_title}</title>
+                    <meta name="description" content={data?.meta_description} />
+                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+                    <meta name="theme-color" content="#e21b22" />
+                    <meta property="og:type" content={'Article'} />
+                    <meta property="og:title" content={data?.message.meta_title} />
+                    <meta property="og:description" content={data?.message.meta_description} />
+                    <meta property="og:locale" content="en_IE" />
+                    {/* <meta property="og:site_name" content={'IndiaRetailing'} />
+         
+          <meta property="og:site_name" content={'IndiaRetailing'} /> */}
+                    <meta
+
+                        property="og:image"
+                        itemprop="image"
+                        content={check_Image(data.message.meta_image ? data.message.meta_image : data.message.thumbnail_path)}
+                    />
+                    <meta
+
+                        property="og:image:alt"
+                        content={`${data?.title} | ${'IndiaRetailing'}`}
+                    />
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" />
+
+                    <meta name="robots" content="index,follow" />
+
+                    <meta
+
+                        name="twitter:card"
+                        content="summary_large_image"
+                    />
+                    <meta
+
+                        name="twitter:site"
+                        content={'@d__indiaRetail'}
+                    />
+                    <meta
+
+                        name="twitter:creator"
+                        content={'@d__indiaRetail'}
+                    />
+                    <meta property="twitter:image" content={check_Image(data.message.meta_image ? data.message.meta_image : data.message.thumbnail_path)} />
+                    <meta
+
+                        property="twitter:title"
+                        content={data?.message.title}
+                    />
+                    <meta
+
+                        property="twitter:description"
+                        content={data?.message.meta_description}
+                    />
+
+
+
+                    {/* <link rel="canonical" href={'https://indiaretail.vercel.app/'} /> */}
+
+                    <link rel="shortcut icon" href="/ir_2023.png" />
+                </Head>
+                {/* {data && data.message && <SEO title={data.message.meta_title ? data.message.meta_title : data.message.title} ogImage={check_Image(data.message.meta_image ? data.message.meta_image : data.message.image_path)} siteName={'India Reatiling'} ogType={data.message.meta_keywords ? data.message.meta_keywords : data.message.title} description={data.message.meta_description ? data.message.meta_description : data.message.title} />} */}
                 {data && <EventDetail data={data} ads_data={ads_data} />}
             </RootLayout>
         </>
