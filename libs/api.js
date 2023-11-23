@@ -285,7 +285,7 @@ export async function HomePageAds() {
 
 export async function getAdvertisements(data) {
     let api = domainUrl + 'advertisement';
-    return await postMethod(api,data)
+    return await postMethod(api, data)
 }
 
 export async function websiteSettings(data) {
@@ -714,3 +714,26 @@ export const checkMember = (data) => {
         localStorage['new_user'] = localStorage['full_name'] ? localStorage['full_name'] : 'true';
     }
 }
+
+
+
+// export const getLinkedinPost = async (YOUR_POST_ID) => {
+//     let api = `https://api.linkedin.com/v2/shares?q=owners&owners=urn:li:share:${YOUR_POST_ID}`;
+//     let apikey;
+//     let secret;
+//     if (typeof window !== 'undefined') {
+//         // Perform localStorage action
+//         // apikey = localStorage['apikey'] ? localStorage['apikey'] : "955e1e58eaa8a8e";
+//         // secret = localStorage['secret'] ? localStorage['secret'] : "6b5ba30c64e937e";
+//         apikey = localStorage['apikey'] ? localStorage['apikey'] : undefined;
+//         secret = localStorage['secret'] ? localStorage['secret'] : undefined;
+//     }
+//     const myHead = new Headers((apikey && secret) ? { "Authorization": 'token ' + apikey + ':' + secret, "Content-Type": "application/json" } : { "Content-Type": "application/json" })
+//     // const myHead = new Headers()
+//     // myHead.append('Content-Type', 'application/json');
+//     const response = await fetch(api,
+//         // cache: 'force-cache'
+//         { method: 'GET', headers: myHead, })
+//     const data = await response.json();
+//     return data
+// }

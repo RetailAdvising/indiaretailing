@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, make_payment_entry, insert_cart_items, updateCartItems, getCartItem, deleteCartItems , get_razorpay_settings, subscriptionPlans, get_subscription_plans,update_no_of_shares,getAdvertisements } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import Modal from '@/components/common/Modal';
+import AuthModal from '@/components/Auth/AuthModal';
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import LoaderButton from '@/components/common/LoaderButton';
 import styles from '@/styles/checkout.module.scss';
@@ -57,15 +58,17 @@ export default function Bookstoredetail({ value, res,ads }) {
 
   // Modal Popup
   const [modal, setModal] = useState('login')
-  const [visible, setVisible] = useState(false)
+  let [visible, setVisible] = useState(false)
   let [cart_items, setCartItems] = useState({});
 
   function show() {
-    setVisible(!visible);
+    visible = true
+    setVisible(visible);
   }
 
   function hide() {
-    setVisible(!visible)
+    visible = false
+    setVisible(visible);
     if (localStorage['apikey']) {
       router.reload();
     }
@@ -182,7 +185,8 @@ export default function Bookstoredetail({ value, res,ads }) {
       }
       // val.item__type != "Onetime Purchase"
     } else {
-      setVisible(!visible);
+      // setVisible(!visible);
+      show()
       setLoader(false);
       setModal('login')
     }
@@ -893,7 +897,8 @@ const  getCarts = async (type) => {
                </div>
               </div>}
 
-              <Modal modal={modal} show={show} visible={visible} hide={hide} />
+              {/* <Modal modal={modal} show={show} visible={visible} hide={hide} /> */}
+              {visible && <div className='authModal'><AuthModal modal={modal} show={show} visible={visible} hide={hide} /></div>}
 
               {data.full_description &&
                 <div className={`px-[10px] border_bottom pb-[20px] mb-[20px] ${(subs && subs.length != 0) ? '' : 'mt-5'}`}>

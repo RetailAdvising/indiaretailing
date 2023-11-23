@@ -85,6 +85,7 @@ export default function OTP({ setotp, isModal, hide, auth }) {
                     localStorage['customer_id'] = val.message.customer_id;
                     localStorage['full_name'] = val.message.customer_name;
                     checkMember(val.message.roles)
+                    localStorage['company'] = "true"
                     localStorage['roles'] = JSON.stringify(val.message.roles);
                     
                     dispatch(setUser(val))

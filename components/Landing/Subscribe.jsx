@@ -96,22 +96,24 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
     <>
       {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> bg-[#fbfbfd] */}
       {/* h-[240px] */}
-      <div className={`flex items-center h-[210px] gap-[10px] justify-center  rounded-[10px] border p-[10px]`} >
+      <div className={`items-center h-[210px] gap-[10px] justify-center  rounded-[10px] border`} >
         {/* <div className={``}> */}
         {/* <p className={`absolute top-[35px] right-[120px] font-semibold text-[20px]`}>Subscribe</p>
           // <Image src={'/newsletter1.svg'} className={`${height} ${width}`} height={30} width={50} alt="" /> */}
         {/* <input placeholder="Your email address" onChange={(e) => setEmail(e.target.value)} className={`subscribe_input`} style={{ border: 'none' }} /> */}
         <div >
           {/* className='flex-[0_0_calc(30%_-_10px)]' */}
-          <Image src={'/Newsletter-subscription.svg'} className={` object-contain h-full w-full`} height={30} width={50} alt="" />
+          {/* <Image src={'/Newsletter-subscription.svg'} className={` object-contain h-full w-full`} height={30} width={50} alt="" /> */}
+          <Image src={'/Subscribe-01.svg'} className={` object-contain h-[100px] w-full`} height={30} width={50} alt="" />
         </div>
         <div className='flex-[0_0_calc(70%_-_10px)]'>
-          <h5 className={`text-[17px] font-[700] text-center ${nunito.className}`}>Stay tuned !</h5>
-          <p className={`text-[13px] font-semibold py-[10px] text-center ${nunito.className}`}>Subscribe our newsletter & get notifications to stay updated</p>
-          <div className='relative w-full'>
-            <input placeholder="Your email address" className='rounded-full w-full pl-[10px] h-[35px] text-[14px]' onChange={(e) => changingValue(e)} />
-            <div className='absolute top-0 right-0 bg-red w-[25%] rounded-full h-full'>
-              <Image src={'/send.svg'} onClick={showPopup} className='absolute top-[50%] left-[50%] cursor-pointer' style={{ transform: 'translate(-50%, -50%)' }} height={30} width={30} alt='send icon' />
+          <h5 className={`text-[17px] font-[700] text-center ${nunito.className}`}>Subscribe</h5>
+          <p className={`text-[12px] font-[400] p-[5px_10px] text-center `}>Subscripe our newsletter and get notifications to stay update</p>
+          <div className='relative w-full text-center px-[10px]'>
+            <input placeholder="Your email address" className='rounded-full w-[85%] pl-[10px] h-[30px] text-[13px] !border-none bg-[#EFF4F4]' onChange={(e) => changingValue(e)} />
+            <div className='absolute top-0 right-[30px]  w-[15%] rounded-full h-full'>
+              {/* <Image src={'/send.svg'} onClick={showPopup} className='absolute top-[50%] left-[50%] cursor-pointer' style={{ transform: 'translate(-50%, -50%)' }} height={30} width={30} alt='send icon' /> */}
+              <Image src={'/categories/send-01.svg'} onClick={showPopup} className='absolute top-[50%] left-[50%] cursor-pointer h-[25px] w-[25px] object-contain' style={{ transform: 'translate(-50%, -50%)' }} height={30} width={30} alt='send icon' />
             </div>
           </div>
           {wrong && <p className={`text-[#e21b22] font-semibold text-[12px]`}>Enter valid email</p>}

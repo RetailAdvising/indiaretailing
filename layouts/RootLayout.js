@@ -141,7 +141,8 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     if (val == 'yes') {
       mand = false
       setMand(mand)
-      getMembershipPlans()
+      let val = checkMemberShip(customerInfo['roles_list'])
+      val && getMembershipPlans()
     } else {
       alrtMsg = true
       setAlrtMsg(alrtMsg)
