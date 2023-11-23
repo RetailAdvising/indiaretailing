@@ -129,6 +129,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
             visible = true
             setVisible(visible)
             localStorage.removeItem('new_user')
+            localStorage.removeItem('company')
           }
         }
       }
@@ -189,9 +190,11 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   const checkMandatory = () => {
     if (typeof window != 'undefined' && localStorage && localStorage['apikey'] && localStorage['company']) {
       customer_info()
-    } else if (localStorage['new_user'] && localStorage && localStorage['apikey']) {
-      getMembershipPlans()
-    }
+    } 
+    
+    // else if (localStorage['new_user'] && localStorage && localStorage['apikey']) {
+    //   getMembershipPlans()
+    // }
   }
 
 
