@@ -1,7 +1,7 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares, checkMobile, get_subscription_plans,getAdvertisements } from '@/libs/api';
+import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares, checkMobile, get_subscription_plans, getAdvertisements } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -9,6 +9,7 @@ import SeoArticles from '@/components/common/SeoArticles'
 import AdsBaner from '@/components/Baners/AdsBaner'
 import Advertisement from '@/components/Baners/Advertisement'
 import { useSelector, useDispatch } from 'react-redux';
+import Head from 'next/head'
 // import { NextSeo } from 'next-seo'
 import setComments from 'redux/actions/commentsReducer'
 export default function Details({ data, page_route }) {
@@ -22,6 +23,7 @@ export default function Details({ data, page_route }) {
   const [comments, setComments] = useState([]);
   const [scrollEle, setScrollEle] = useState(true)
   // const comment = useSelector(s => s.comments);
+  console.log(data,'data')
   // const dispatch = useDispatch();
   const generateMetaData = (data) => {
     // return{
@@ -67,7 +69,7 @@ export default function Details({ data, page_route }) {
           // data._user_tags = [];
           data ? data._user_tags = [] : null;
         }
-        if(router.query.preview != 'true'){
+        if (router.query.preview != 'true') {
           routeList.push(data.route)
           setRouteList(routeList)
         }
@@ -220,6 +222,9 @@ export default function Details({ data, page_route }) {
                 // val?.classList.remove('sticky', 'top-0', 'z-10','bg-white','h-[calc(100vh_-_10px)]','overflow-auto','scrollbar-hide')
                 // generateMetaData(values[ind])
                 if (values && values.length > 0 && values[ind]) {
+                  data['meta_title'] = values[ind]['meta_title']
+                  data['meta_image'] = values[ind]['meta_image']
+                  data['meta_description'] = values[ind]['meta_description']
                   setMetaInfo(values[ind]);
                   // console.log(ind)
                   // document.title = values[ind].meta_title ? values[ind].meta_title : 'Updated Title';
@@ -236,7 +241,7 @@ export default function Details({ data, page_route }) {
 
 
 
-    if(router && router.query && router.query.preview != 'true' ){
+    if (router && router.query && router.query.preview != 'true') {
       window.addEventListener('scroll', handleScroll);
       return () => {
         window.removeEventListener('scroll', handleScroll);
@@ -347,7 +352,69 @@ export default function Details({ data, page_route }) {
 
         {/* {(meta_info) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />} */}
         {/* <SEO  /> */}
-        {(data) && <SeoArticles meta={data} meta_data={meta_info} />}
+        {/* {(data) && <SeoArticles meta={data} meta_data={meta_info} />} */}
+        <Head>
+        
+          <title key="title">{data.meta_title ? data.meta_title : 'India Retailing'}</title>
+          <meta name="description" content={data.meta_description} />
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+          <meta name="theme-color" content="#e21b22" />
+          <meta property="og:type" content={'Article'} />
+          <meta property="og:title" content={data.meta_title} />
+          <meta property="og:description" content={data.meta_description} />
+          <meta property="og:locale" content="en_IE" />
+          <meta property="og:site_name" content={'IndiaRetailing'} />
+         
+          <meta property="og:site_name" content={'IndiaRetailing'} />
+          <meta
+
+            property="og:image"
+            itemprop="image"
+            content={check_Image(data.meta_image)}
+          />
+          <meta
+
+            property="og:image:alt"
+            content={`${data.title ? data.title : 'IndiaRetailing'} | ${'IndiaRetailing'}`}
+          />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+
+          <meta name="robots" content="index,follow" />
+
+          <meta
+
+            name="twitter:card"
+            content="summary_large_image"
+          />
+          <meta
+
+            name="twitter:site"
+            content={'@d__indiaRetail'}
+          />
+          <meta
+
+            name="twitter:creator"
+            content={'@d__indiaRetail'}
+          />
+          <meta property="twitter:image" content={check_Image(data.meta_image)} />
+          <meta
+
+            property="twitter:title"
+            content={data.title ? data.title : 'IndiaRetailing'}
+          />
+          <meta
+
+            property="twitter:description"
+            content={data.meta_description}
+          />
+
+         
+
+          <link rel="canonical" href={'https://indiaretail.vercel.app/'} />
+
+          <link rel="shortcut icon" href="/ir_2023.png" />
+        </Head>
         {/* {(meta_info && Object.keys(meta_info).length > 0) &&
           <NextSeo
             title={meta_info.meta_title ? meta_info.meta_title : meta_info.title}
@@ -393,7 +460,7 @@ export default function Details({ data, page_route }) {
                 <div className="md:hidden my-5 lg:grid lg:justify-center"><Advertisement data={advertisement && advertisement.footer && advertisement.footer} height={'h-full'} width={'500px'} /></div>
                 {!(index == values.length - 1) && <div className={` lg:m-[20px_auto_0]  md:p-[10px_15px] lg:p-[15px 0] container`}>
                   <h6 className={`flex-[0_0_auto] lg:text-[18px] md:text-[14px] font-semibold pb-[10px]`}>Next Post</h6>
-                  <div style={{background: 'linear-gradient(90deg, #E21B22 0%, #E1252C 9.73%, #D8D8D8 10.3%, #D8D8D8 97.95%)'}} className='lg:bg-[#999] w-full h-[3px] md:bg-stone-200'></div>
+                  <div style={{ background: 'linear-gradient(90deg, #E21B22 0%, #E1252C 9.73%, #D8D8D8 10.3%, #D8D8D8 97.95%)' }} className='lg:bg-[#999] w-full h-[3px] md:bg-stone-200'></div>
                 </div>}
               </div>
             )

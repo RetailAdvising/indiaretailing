@@ -17,7 +17,7 @@ export default function Categories({ data, ads }) {
     const [activeNav, setActiveNav] = useState()
     const [datas, setDatas] = useState([])
     useEffect(() => {
-        console.log(data);
+        // console.log(data);
         if (data && data.length != 0) {
             setTimeout(() => {
                 setDatas(data)
