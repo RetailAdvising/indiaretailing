@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import RootLayout from '@/layouts/RootLayout'
-import { checkMobile, update_no_of_shares,get_subscription_plans,check_Image } from '@/libs/api';
+import { checkMobile, update_no_of_shares, get_subscription_plans, check_Image,seo_Image,getCurrentUrl } from '@/libs/api';
 import { video_details, getAdvertisements } from '@/libs/api';
 import { useRouter } from 'next/router';
 // import { check_Image } from '@/libs/common'
@@ -17,14 +17,14 @@ import Placeholders from '@/components/common/Placeholders'
 import { Nunito } from 'next/font/google'
 import Head from 'next/head'
 const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
+    weight: ["300", "400", "500", "600", "700"],
     display: "block",
     preload: true,
     style: 'normal',
     subsets: ["latin"],
     variable: '--font-inter',
-  })
-export default function Videos({meta_info, ads_data}) {
+})
+export default function Videos({ meta_info, ads_data }) {
     // console.log(meta_info, ads_data)
     const router = useRouter();
     let [isMobile, setIsmobile] = useState();
@@ -57,23 +57,23 @@ export default function Videos({meta_info, ads_data}) {
                 window.removeEventListener('resize', checkIsMobile);
             };
         }
-    }, [router.query,role])
+    }, [router.query, role])
 
     const checkRole = () => {
         // console.log(role,'role')
         if (role && role != '' && role.message && role.message.length != 0) {
-          // console.log(role)
-          // if(updateCmts == -1){
-          for (let index = 0; index < role.message.length; index++) {
-            if (role.message[index] == 'Member' || role.message[index] == "Member User") {
-              setValidator(true);
+            // console.log(role)
+            // if(updateCmts == -1){
+            for (let index = 0; index < role.message.length; index++) {
+                if (role.message[index] == 'Member' || role.message[index] == "Member User") {
+                    setValidator(true);
+                }
             }
-          }
-          // }
+            // }
         }
 
         getMembershipPlans()
-      }
+    }
 
     const checkIsMobile = async () => {
         isMobile = await checkMobile();
@@ -107,30 +107,30 @@ export default function Videos({meta_info, ads_data}) {
         }
     }
 
-    const [plans,setPlans] = useState([])
+    const [plans, setPlans] = useState([])
 
-  const getMembershipPlans = async () => {
-    if(!validator){
-        let data = { "plan_type":  "Month" , "res_type": "member" }
-        const resp = await get_subscription_plans(data);
-        if(resp && resp.message && resp.message.status && resp.message.status == 'success'){
-          // console.log(resp)
-          if(resp.message.message && resp.message.message.length != 0 && resp.message.message[0]){
-            // plans.push(resp.message.message[0].features)
-            setPlans(resp.message.message[0].features)
-          }
+    const getMembershipPlans = async () => {
+        if (!validator) {
+            let data = { "plan_type": "Month", "res_type": "member" }
+            const resp = await get_subscription_plans(data);
+            if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
+                // console.log(resp)
+                if (resp.message.message && resp.message.message.length != 0 && resp.message.message[0]) {
+                    // plans.push(resp.message.message[0].features)
+                    setPlans(resp.message.message[0].features)
+                }
+            }
         }
     }
-  }
 
-  const videoLink = (link) => {
-    // console.log(link,'link')
-    return link.video_type.toLowerCase() == 'youtube' ? 'https://www.youtube.com/embed/' + link.video_id : 'https://player.vimeo.com/video/' + link.video_id
-}
+    const videoLink = (link) => {
+        // console.log(link,'link')
+        return link.video_type.toLowerCase() == 'youtube' ? 'https://www.youtube.com/embed/' + link.video_id : 'https://player.vimeo.com/video/' + link.video_id
+    }
 
     return (
         <RootLayout homeAd={ads_data ? ads_data : null} isLanding={false} head={'Detail'}>
-                        <Head>
+            <Head>
                 <title key="title">{meta_info?.message.meta_title}</title>
                 <meta name="description" content={meta_info?.message.meta_description} />
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -139,6 +139,7 @@ export default function Videos({meta_info, ads_data}) {
                 <meta property="og:title" content={meta_info?.message.meta_title} />
                 <meta property="og:description" content={meta_info?.message.meta_description} />
                 <meta property="og:locale" content="en_IE" />
+                <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
                 {/* <meta property="og:site_name" content={'IndiaRetailing'} />
          
           <meta property="og:site_name" content={'IndiaRetailing'} /> */}
@@ -146,7 +147,7 @@ export default function Videos({meta_info, ads_data}) {
 
                     property="og:image"
                     itemprop="image"
-                    content={check_Image(meta_info?.message.meta_image)}
+                    content={seo_Image(meta_info?.message.meta_image)}
                 />
                 <meta
 
@@ -173,7 +174,7 @@ export default function Videos({meta_info, ads_data}) {
                     name="twitter:creator"
                     content={'@d__indiaRetail'}
                 />
-                <meta property="twitter:image" content={check_Image(meta_info?.message.meta_image)} />
+                <meta property="twitter:image" content={seo_Image(meta_info?.message.meta_image)} />
                 <meta
 
                     property="twitter:title"
@@ -194,9 +195,9 @@ export default function Videos({meta_info, ads_data}) {
             {/* {(meta_info && meta_info.message) && <SEO title={meta_info.message.meta_title ? meta_info.message.meta_title : meta_info.message.title} ogImage={check_Image(meta_info.message.video_image)} siteName={'India Retailing'} ogType={meta_info.message.meta_keywords ? meta_info.message.meta_keywords : meta_info.message.title} description={meta_info.message.meta_description ? meta_info.message.meta_description : meta_info.message.title} />} */}
             {videoDetail ? <>
                 {videoDetail &&
-                // lg:py-[20px]
+                    // lg:py-[20px]
                     <div className='flex gap-[30px] container  md:flex-col md:p-[10px]'>
-                        <div className={`${!validator && videoDetail.message.ir_prime == 1 ? 'lg:flex-[0_0_calc(80%_-_20px)] lg:m-[auto]' :'lg:flex-[0_0_calc(70%_-_30px)]'}`}>
+                        <div className={`${!validator && videoDetail.message.ir_prime == 1 ? 'lg:flex-[0_0_calc(80%_-_20px)] lg:m-[auto]' : 'lg:flex-[0_0_calc(70%_-_30px)]'}`}>
                             {/* <h6 className='text-[20px] line-clamp-2 font-semibold'>{videoDetail.message.title}</h6> */}
 
                             <div className='flex items-center gap-[10px] mb-[10px]'>

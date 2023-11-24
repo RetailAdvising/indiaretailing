@@ -5,7 +5,7 @@ import Card from '@/components/Bookstore/Card';
 import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import { useRouter } from 'next/router';
-import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, make_payment_entry, insert_cart_items, updateCartItems, getCartItem, deleteCartItems , get_razorpay_settings, subscriptionPlans, get_subscription_plans,update_no_of_shares,getAdvertisements } from '@/libs/api';
+import { getProductDetail, insertCartItems, insertSubscription,insert_member_subscription, make_payment_entry, insert_cart_items, updateCartItems, getCartItem, deleteCartItems , get_razorpay_settings, subscriptionPlans, get_subscription_plans,update_no_of_shares,getAdvertisements,getCurrentUrl,seo_Image } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import Modal from '@/components/common/Modal';
 import AuthModal from '@/components/Auth/AuthModal';
@@ -664,6 +664,7 @@ const  getCarts = async (type) => {
           <meta property="og:title" content={value?.meta_title} />
           <meta property="og:description" content={value?.meta_description} />
           <meta property="og:locale" content="en_IE" />
+          <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
           {/* <meta property="og:site_name" content={'IndiaRetailing'} />
          
           <meta property="og:site_name" content={'IndiaRetailing'} /> */}
@@ -671,7 +672,7 @@ const  getCarts = async (type) => {
 
             property="og:image"
             itemprop="image"
-            content={check_Image(value?.image)}
+            content={seo_Image(value?.image)}
           />
           <meta
 
@@ -698,7 +699,7 @@ const  getCarts = async (type) => {
             name="twitter:creator"
             content={'@d__indiaRetail'}
           />
-          <meta property="twitter:image" content={check_Image(value?.image )} />
+          <meta property="twitter:image" content={seo_Image(value?.image )} />
           <meta
 
             property="twitter:title"

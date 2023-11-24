@@ -1,7 +1,7 @@
 import React from 'react'
 import RootLayout from '@/layouts/RootLayout'
 import AudioPlayer from '@/components/Podcast/AudioPlayer';
-import { podcast_details, getAdvertisements, podcast_list, check_Image } from '@/libs/api'
+import { podcast_details, getAdvertisements, getCurrentUrl,seo_Image } from '@/libs/api'
 import SEO from '@/components/common/SEO'
 import Title from '@/components/common/Title'
 import Cards from '@/components/common/Cards'
@@ -9,7 +9,9 @@ import List from '@/components/common/List'
 import Advertisement from '@/components/Baners/Advertisement'
 import Placeholders from '@/components/common/Placeholders'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 export default function PodcastDetail({ data, ads_data }) {
+    const router = useRouter()
     // const {data,ads_data} = data
     // console.log(data);
     return (
@@ -30,8 +32,9 @@ export default function PodcastDetail({ data, ads_data }) {
 
                     property="og:image"
                     itemprop="image"
-                    content={check_Image(data?.message.meta_image)}
+                    content={seo_Image(data?.message.meta_image)}
                 />
+                 <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
                 <meta
 
                     property="og:image:alt"
@@ -57,7 +60,7 @@ export default function PodcastDetail({ data, ads_data }) {
                     name="twitter:creator"
                     content={'@d__indiaRetail'}
                 />
-                <meta property="twitter:image" content={check_Image(data?.message.meta_image)} />
+                <meta property="twitter:image" content={seo_Image(data?.message.meta_image)} />
                 <meta
 
                     property="twitter:title"

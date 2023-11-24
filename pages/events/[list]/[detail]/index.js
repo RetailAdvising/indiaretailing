@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import RootLayout from '@/layouts/RootLayout';
 import EventDetail from '@/components/Events/EventDetail';
-import { postMethod, getAds, getAdvertisements,check_Image } from '@/libs/api';
+import { postMethod, getAds, getAdvertisements,check_Image,getCurrentUrl,seo_Image } from '@/libs/api';
 import SEO from '@/components/common/SEO'
 import Head from 'next/head'
 
@@ -24,6 +24,7 @@ export default function EventDetails({ data, ads_data }) {
                     <meta property="og:title" content={data?.message.meta_title} />
                     <meta property="og:description" content={data?.message.meta_description} />
                     <meta property="og:locale" content="en_IE" />
+                    <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
                     {/* <meta property="og:site_name" content={'IndiaRetailing'} />
          
           <meta property="og:site_name" content={'IndiaRetailing'} /> */}
@@ -31,7 +32,7 @@ export default function EventDetails({ data, ads_data }) {
 
                         property="og:image"
                         itemprop="image"
-                        content={check_Image(data.message.meta_image ? data.message.meta_image : data.message.thumbnail_path)}
+                        content={seo_Image(data?.message.meta_image)}
                     />
                     <meta
 
@@ -58,7 +59,7 @@ export default function EventDetails({ data, ads_data }) {
                         name="twitter:creator"
                         content={'@d__indiaRetail'}
                     />
-                    <meta property="twitter:image" content={check_Image(data.message.meta_image ? data.message.meta_image : data.message.thumbnail_path)} />
+                    <meta property="twitter:image" content={seo_Image(data?.message.meta_image)} />
                     <meta
 
                         property="twitter:title"

@@ -5,7 +5,7 @@ import Title from '@/components/common/Title';
 import NewsCard from '@/components/Newsletter/NewsCard';
 import Tabs from '@/components/common/Tabs';
 import AlertPopup from '@/components/common/AlertPopup';
-import { get_all_newsletter, newsDetail, newsLanding, getAdvertisements, newsletter_category, newsletter_category_list, getList,checkMobile } from '@/libs/api';
+import { get_all_newsletter, newsDetail, newsLanding, getAdvertisements, getCurrentUrl,seo_Image, getList,checkMobile } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -214,8 +214,9 @@ export default function NewsLists({ data, Id }) {
 
             property="og:image"
             itemprop="image"
-            content={check_Image(data?.article_detail.image)}
+            content={seo_Image(data?.article_detail.image)}
           />
+           <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
           <meta
 
             property="og:image:alt"
@@ -241,7 +242,7 @@ export default function NewsLists({ data, Id }) {
             name="twitter:creator"
             content={'@d__indiaRetail'}
           />
-          <meta property="twitter:image" content={check_Image(data?.article_detail.image)} />
+          <meta property="twitter:image" content={seo_Image(data?.article_detail.image)} />
           <meta
 
             property="twitter:title"

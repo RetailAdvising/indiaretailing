@@ -1,4 +1,4 @@
-import { domain } from "./config/siteConfig"
+import { domain,website } from "./config/siteConfig"
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
 const domainUrl = `india_retailing.india_retailing.api.`;
@@ -87,6 +87,23 @@ export const check_Image = (Image) => {
         // return '/empty_state.svg'
         return '/empty_state.jpg'
     }
+}
+
+export const seo_Image = (Image) => {
+    let baseUrl = `https://${domain}`
+    if (Image) {
+        if (Image.indexOf('https') == -1) {
+            return baseUrl + Image;
+        } else if (Image.indexOf('https') == 0) {
+            return Image;
+        }
+    } else {
+        return website + '/empty-states.jpg'
+    }
+}
+
+export const getCurrentUrl = (URl) => {
+    return website + URl
 }
 
 

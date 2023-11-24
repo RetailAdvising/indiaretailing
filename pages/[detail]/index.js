@@ -1,7 +1,7 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares, checkMobile, get_subscription_plans, getAdvertisements } from '@/libs/api';
+import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares, checkMobile, get_subscription_plans, getAdvertisements,seo_Image,getCurrentUrl } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -361,6 +361,7 @@ export default function Details({ data, page_route }) {
           <meta property="og:type" content={'Article'} />
           <meta property="og:title" content={data?.meta_title} />
           <meta property="og:description" content={data?.meta_description} />
+          <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
           <meta property="og:locale" content="en_IE" />
           {/* <meta property="og:site_name" content={'IndiaRetailing'} />
          
@@ -369,7 +370,7 @@ export default function Details({ data, page_route }) {
 
             property="og:image"
             itemprop="image"
-            content={check_Image(data.meta_image ? data.meta_image : data.thumbnail_imagee)}
+            content={seo_Image(data.meta_image ? data.meta_image : data.thumbnail_imagee)}
           />
           <meta
 
@@ -396,7 +397,7 @@ export default function Details({ data, page_route }) {
             name="twitter:creator"
             content={'@d__indiaRetail'}
           />
-          <meta property="twitter:image" content={check_Image(data.meta_image ? data.meta_image : data.thumbnail_imagee)} />
+          <meta property="twitter:image" content={seo_Image(data?.meta_image)} />
           <meta
 
             property="twitter:title"
