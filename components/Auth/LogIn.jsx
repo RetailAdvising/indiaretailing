@@ -273,13 +273,13 @@ export default function LogIn({ isModal, hide, auth }) {
 
     //   const FacebookLoginButton = () => {
     const responseFacebook = (response) => {
-        console.log(response)
+        console.log(response,"response")
         if (response.status === 'connected') {
             // The user is logged in and authorized your app
-            // console.log('Logged in and authorized:', response);
+            console.log('Logged in and authorized:', response);
         } else {
             // The user is not logged in or did not authorize your app
-            // console.log('Not logged in or not authorized:', response);
+            console.log('Not logged in or not authorized:', response);
         }
     };
     // };
@@ -314,7 +314,7 @@ export default function LogIn({ isModal, hide, auth }) {
     // const onLoginStart = useCallback(() => {
     //     alert('login start');
     // }, []);
-    const  session  = useSession()
+    const session = useSession()
     console.log(session)
     return (
         <>
@@ -394,8 +394,10 @@ export default function LogIn({ isModal, hide, auth }) {
                             {/* <p>Continue with Facebook</p> */}
                             {
                                 <FacebookLogin
-                                    textButton="Login with Facebook"
-                                    cssClass="my-facebook-button-class  p-[8px_40px] flex items-center gap-[10px] text-[13px] border rounded-[3px]"
+                                    // Login with Facebook
+                                    textButton=""
+                                    // p-[8px_40px] flex items-center gap-[10px] text-[13px] border rounded-[3px]
+                                    cssClass="my-facebook-button-class  "
                                     icon="fa-facebook"
                                     appId="341622788230249"
                                     autoLoad={false} // Set to true if you want auto-login on page load
@@ -416,7 +418,7 @@ export default function LogIn({ isModal, hide, auth }) {
             </div> : (modal == 'signup' && !otp) ? <><SignUp auth={auth} hide={hide} /></> : (modal == 'forget' && !otp) ? <><Forget auth={auth} hide={hide} /></> : <OTP hide={hide} auth={auth} isModal={isModal} setotp={() => setOtp(!otp)} />
             }
 
-           
+
 
 
         </>
