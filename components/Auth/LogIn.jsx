@@ -11,7 +11,7 @@ import Forget from './Forget'
 // import GoogleLogin from './GoogleLogin';
 // import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
-import Script from 'next/script';
+// import Script from 'next/script';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -394,8 +394,8 @@ export default function LogIn({ isModal, hide, auth }) {
                             {/* <p>Continue with Facebook</p> */}
                             {
                                 <FacebookLogin
-                                    textButton=""
-                                    cssClass="my-facebook-button-class"
+                                    textButton="Login with Facebook"
+                                    cssClass="my-facebook-button-class  p-[8px_40px] flex items-center gap-[10px] text-[13px] border rounded-[3px]"
                                     icon="fa-facebook"
                                     appId="341622788230249"
                                     autoLoad={false} // Set to true if you want auto-login on page load
