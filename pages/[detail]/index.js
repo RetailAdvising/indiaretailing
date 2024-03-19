@@ -1,17 +1,13 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getAds, check_Image, getList, commentList, update_no_of_shares, checkMobile, get_subscription_plans, getAdvertisements,seo_Image,getCurrentUrl } from '@/libs/api';
+import { articlesDetail, getList, commentList, update_no_of_shares, get_subscription_plans, getAdvertisements,seo_Image,getCurrentUrl } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
-import SEO from '@/components/common/SEO'
-import SeoArticles from '@/components/common/SeoArticles'
-import AdsBaner from '@/components/Baners/AdsBaner'
 import Advertisement from '@/components/Baners/Advertisement'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Head from 'next/head'
 // import { NextSeo } from 'next-seo'
-import setComments from 'redux/actions/commentsReducer'
 export default function Details({ data, page_route }) {
   const router = useRouter();
   const [values, setValues] = useState([])
@@ -22,20 +18,10 @@ export default function Details({ data, page_route }) {
   const [meta_info, setMetaInfo] = useState();
   const [comments, setComments] = useState([]);
   const [scrollEle, setScrollEle] = useState(true)
-  // const comment = useSelector(s => s.comments);
-  console.log(data,'data')
-  // const dispatch = useDispatch();
+
   const generateMetaData = (data) => {
-    // return{
-    //   title: data.meta_title ? data.meta_title : data.title,
-    //   openGraph: {
-    //     title: data.meta_title ? data.meta_title : data.title,
-    //     images: check_Image(data.meta_image ? data.meta_image : data.image),
-    //     description: data.meta_description ? data.meta_description : data.title
-    //   },
-    // }
-    // console.log(data,'from memo')
   }
+  
   const meta_inf = useMemo(() => generateMetaData(meta_info), [meta_info])
 
   // const meta_inf0s = useMemo(() => generateMetaData(comments), [comments])
@@ -348,11 +334,6 @@ export default function Details({ data, page_route }) {
   return (
     <>
       <RootLayout isLanding={true} is_detail={true} homeAd={advertisement ? advertisement : null} head={''}>
-        {/* {(values && values.length != 0 && meta_info) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].meta_image ? values[0].meta_image : values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title} description={values[0].meta_description ? values[0].meta_description : values[0].title} />} */}
-
-        {/* {(meta_info) && <SEO title={meta_info.meta_title ? meta_info.meta_title : meta_info.title} ogImage={check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image)} siteName={'India Reatiling'} ogType={meta_info.meta_keywords ? meta_info.meta_keywords : meta_info.title} description={meta_info.meta_description ? meta_info.meta_description : meta_info.title} />} */}
-        {/* <SEO  /> */}
-        {/* {(data) && <SeoArticles meta={data} meta_data={meta_info} />} */}
         <Head>
           <title key="title">{data?.meta_title}</title>
           <meta name="description" content={data?.meta_description} />
@@ -415,42 +396,7 @@ export default function Details({ data, page_route }) {
 
           <link rel="shortcut icon" href="/ir_2023.png" />
         </Head>
-        {/* {(meta_info && Object.keys(meta_info).length > 0) &&
-          <NextSeo
-            title={meta_info.meta_title ? meta_info.meta_title : meta_info.title}
-            description={meta_info.meta_description ? meta_info.meta_description : meta_info.title}
-            canonical="https://indiaretail.vercel.app/"
-            openGraph={{
-              type: 'article',
-              article: {
-                publishedTime: meta_info.published_on,
-                modifiedTime: meta_info.modified,
-                authors: [
-                  'https://www.example.com/authors/@firstnameA-lastnameA',
-                  'https://www.example.com/authors/@firstnameB-lastnameB',
-                ],
-                tags: meta_info._user_tags,
-              },
-              url: 'https://indiaretail.vercel.app' + router.asPath,
-              // images: {
-              //   url: check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image),
-              //   width: 850,
-              //   height: 650,
-              //   alt: 'India Reatiling',
-              // },
-              images: [
-                {
-                  url:check_Image(meta_info.meta_image ? meta_info.meta_image : meta_info.image) ,
-                  alt: 'Open Graph Image Alt Text',
-                }
-              ],
-              site_name: 'India Reatiling'
-            }}
-          />} */}
-
-
-
-        {/* { (values && values.length != 0) && <SEO title={values[0].meta_title ? values[0].meta_title : values[0].title} ogImage={check_Image(values[0].image)} siteName={'India Reatiling'} ogType={values[0].meta_keywords ? values[0].meta_keywords : values[0].title } description={values[0].meta_description ? values[0].meta_description : values[0].title }/>} */}
+        
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (
