@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
@@ -8,10 +8,8 @@ import { useRouter } from 'next/router';
 import OTP from './OTP';
 import SignUp from './SignUp';
 import Forget from './Forget'
-// import GoogleLogin from './GoogleLogin';
-// import { GoogleLogin } from 'react-google-login';
+
 import FacebookLogin from 'react-facebook-login';
-// import Script from 'next/script';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -19,36 +17,12 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { GoogleLogin } from '@react-oauth/google';
 import GoogleSignInButton from './GoogleSignInButton';
 
-// import NextAuth from 'next-auth';
-// import Providers from 'next-auth/providers';
-// import GoogleProvider from "next-auth/providers/google"
-// import Google from "next-auth/providers/google"
-// import { signIn } from 'next-auth/react';
-
-// import { signIn, useSession } from 'next-auth/react';
-
-// import { LoginSocialGoogle } from 'reactjs-social-login';
-// import { GoogleLoginButton } from "reactjs-social-login";
-
 import { useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
-// import { cookies } from 'next/cookies'
-// import {
-//     LoginSocialGoogle,
-//     LoginSocialFacebook,
-//     LoginSocialApple,
-// } from 'reactjs-social-login';
-
-// import {
-//     FacebookLoginButton,
-//     GoogleLoginButton,
-//     AppleLoginButton,
-// } from 'react-social-login-buttons';
 
 // const REDIRECT_URI =
 //     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
 
-import { useSession, signIn, signOut } from "next-auth/react"
 
 export default function LogIn({ isModal, hide, auth }) {
     // const config = {
@@ -314,8 +288,6 @@ export default function LogIn({ isModal, hide, auth }) {
     // const onLoginStart = useCallback(() => {
     //     alert('login start');
     // }, []);
-    const session = useSession()
-    console.log(session)
     return (
         <>
             <ToastContainer position={'bottom-right'} autoClose={2000} />
