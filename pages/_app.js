@@ -11,11 +11,11 @@ import dynamic from 'next/dynamic'
 const ErrorBoundary = dynamic(()=> import('@/components/Exception/ErrorBoundary'))
 const MobileHead = dynamic(()=> import('@/components/common/BottomTabs'))
 const BottomTabs = dynamic(()=> import('@/components/common/BottomTabs'))
-const nProgress = dynamic(()=> import('nprogress'))
+// const nProgress = dynamic(()=> import('nprogress'))
 // import ErrorBoundary from '@/components/Exception/ErrorBoundary'
 // import MobileHead from '@/components/Headers/MobileHead'
 // import BottomTabs from '@/components/common/BottomTabs'
-// import nProgress from "nprogress";
+import nProgress from "nprogress";
 // import Header from '@/components/Headers/Header'
 import { ChakraProvider } from '@chakra-ui/react'
 import { useRouter } from "next/router";
