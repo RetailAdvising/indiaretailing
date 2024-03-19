@@ -1,7 +1,7 @@
 'use client'
 import '@/styles/globals.scss'
 import store from '../redux/store'
-import { Inter, Roboto, Faustina } from 'next/font/google'
+import { Faustina } from 'next/font/google'
 import { useDispatch, useSelector, Provider } from 'react-redux'
 // import userAction from 'redux/actions/userAction'
 import ErrorBoundary from '@/components/Exception/ErrorBoundary'
@@ -171,7 +171,6 @@ export default function App({ Component, pageProps }) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-thumbnail/1.1.0/lg-thumbnail.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-fullscreen/1.1.0/lg-fullscreen.min.js"></script>
-
       </Head>
       <ErrorBoundary >
         <Provider store={store} >

@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import RootLayout from '@/layouts/RootLayout'
 // import { useDispatch, useSelector } from 'react-redux'
 // import { useRouter } from 'next/router'
@@ -17,12 +16,12 @@ import LatestNews from '@/components/Landing/LatestNews'
 import AdsBaner from '@/components/Baners/AdsBaner'
 import IRPrime from '@/components/Landing/IRPrime'
 import Subscribe from '@/components/Landing/Subscribe'
-import BulletList from '@/components/Landing/BulletList'
-import TrendingBox from '@/components/Landing/TrendingBox'
-import Title from '@/components/common/Title'
-import Video from '@/components/Video/Video'
-import CustomSlider from '@/components/Sliders/CustomSlider';
-import Poll from '@/components/Poll/Poll';
+// import BulletList from '@/components/Landing/BulletList'
+// import TrendingBox from '@/components/Landing/TrendingBox'
+// import Title from '@/components/common/Title'
+// import Video from '@/components/Video/Video'
+// import CustomSlider from '@/components/Sliders/CustomSlider';
+// import Poll from '@/components/Poll/Poll';
 // import ListSlider from '../Sliders/ListSlider'
 // import ImageGroupEvents from '../Landing/ImageGroupEvents'
 // import EventList from '../Events/EventList'
@@ -37,12 +36,18 @@ import Poll from '@/components/Poll/Poll';
 
 const List = dynamic(() => import('@/components/common/List'))
 const Cards = dynamic(() => import('@/components/common/Cards'))
-const CardCarousel = dynamic(() => import('@/components/Sliders/CardCarousel'))
+// const CardCarousel = dynamic(() => import('@/components/Sliders/CardCarousel'))
 const ImageGroupEvents = dynamic(() => import('@/components/Landing/ImageGroupEvents'))
 const EventList = dynamic(() => import('@/components/Events/EventList'))
 const ListSlider = dynamic(() => import('@/components/Sliders/ListSlider'));
 const Card = dynamic(() => import('@/components/Bookstore/Card'))
 const IrVideoWall = dynamic(() => import('@/components/Video/IrVideoWall'))
+const Poll = dynamic(() => import('@/components/Poll/Poll'))
+const CustomSlider = dynamic(() => import('@/components/Sliders/CustomSlider'))
+const Video = dynamic(() => import('@/components/Video/Video'))
+const TrendingBox = dynamic(() => import('@/components/Landing/TrendingBox'))
+const Title = dynamic(() => import('@/components/common/Title'))
+const BulletList = dynamic(() => import('@/components/Landing/BulletList'))
 // import SubscriptionAlert from '../common/SubscriptionAlert'
 
 export default function Home({ data,ads }) {
@@ -276,17 +281,6 @@ export default function Home({ data,ads }) {
 
   }
 
-  //   function WriteCookie() {
-  //     var now = new Date();
-  //     now = now.getTime() + 300;
-
-  //     document.cookie="name=john";
-  //     document.cookie = "expires=" + now + ";"
-  //     console.log ("Setting Cookies : " + "name=john"  );
-  //  }
-
-
-
   const getBooks = async () => {
     const params = {
       doctype: 'Product',
@@ -311,7 +305,7 @@ export default function Home({ data,ads }) {
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
-        {/* <Skeleton /> */}
+       
         {(value && value.length != 0) ? value.map((data, i) => {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
@@ -503,7 +497,7 @@ export default function Home({ data,ads }) {
                             </div> */}
 
                           </>}
-                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IMAGES Group Events") && <>
+                          {(c.cid && data.data[c.cid] && data.data[c.cid].data && data.data[c.cid].data.length > 0 && c.component_title == "IMAGES Group Events") && <>
                             <Title data={{ title: c.component_title }} route={'/events'} seeMore={true} />
                             {isMobile ? <div className='eventSlide'><ListSlider route={'/events/'} isEvent={true} noDots={true} auto={false} data={data.data[c.cid].data} /></div> : <div className='flex gap-5 lg:pb-[30px]'>
                               <div className={`flex-[0_0_calc(30%_-_10px)]`}><ImageGroupEvents isHome={'/events/'} data={data.data[c.cid].data.slice(0, 1)} height={"h-[85%]"} width={"w-[80%]"} /></div>
@@ -553,14 +547,14 @@ const Skeleton = () => {
         <div className='lg:p-[30px_0px] md:p-[15px] container flex gap-5 items-center'>
           {[0, 1, 2, 3].map((res, i) => {
             return (
-              <div key={i} className='flex flex-[0_0_calc(25%_-_15px)] bg-white h-[85px] p-[10px] rounded-[5px] items-center gap-[10px]'>
-                <div className='flex-[0_0_calc(25%_-_10px)]'>
+              <div key={i} className='flex flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(70%_-_10px)] bg-white h-[85px] p-[10px] rounded-[5px] items-center gap-[10px]'>
+                <div className='flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(30%_-_10px)]'>
                   <div className='w-full bg-[#E5E4E2] h-[60px] rounded-[5px]'></div>
                 </div>
-                <div className='flex-[0_0_calc(75%_-_10px)]'>
-                  <p className={`bg-[#E5E4E2] h-[8px]  w-[100px] rounded-[5px]  mb-[15px] `}></p>
-                  <p className={`bg-[#E5E4E2] h-[8px]  w-[160px] rounded-[5px]  mt-[5px] `}></p>
-                  <p className={`bg-[#E5E4E2] h-[6px]  w-[160px] rounded-[5px]  mt-[5px] `}></p>
+                <div className='flex-[0_0_calc(70%_-_10px)]'>
+                  <p className={`bg-[#E5E4E2] h-[8px]  w-[100px] md:w-[60px] rounded-[5px]  mb-[15px] `}></p>
+                  <p className={`bg-[#E5E4E2] h-[8px]  w-[160px] md:w-[140px] rounded-[5px]  mt-[5px] `}></p>
+                  <p className={`bg-[#E5E4E2] h-[6px]  w-[160px] md:w-[110px] rounded-[5px]  mt-[5px] `}></p>
                 </div>
               </div>
             )
@@ -568,20 +562,20 @@ const Skeleton = () => {
         </div>
       </div>
 
-      <div className={`lg:p-[30px_0px] md:p-[15px] container flex gap-5 `}>
+      <div className={`lg:p-[30px_0px] md:p-[15px] container flex gap-5 md:flex-col`}>
         <div className={`flex-[0_0_calc(45%_-_15px)]`}>
-          <div className='w-full bg-[#E5E4E2] mb-[20px] h-[350px] rounded-[5px]'></div>
+          <div className='w-full bg-[#E5E4E2] mb-[20px] h-[350px] md:h-[250px] rounded-[5px]'></div>
           <div className='my-[30px]'>
             {[0, 1, 2].map((res, i) => {
               return (
                 <div key={i} className='flex mb-[15px] flex-[0_0_calc(25%_-_15px)] rounded-[5px] items-center gap-[10px]'>
                   <div className='flex-[0_0_calc(30%_-_10px)]'>
-                    <div className='w-full bg-[#E5E4E2] h-[110px] rounded-[5px]'></div>
+                    <div className='w-full bg-[#E5E4E2] h-[110px] md:h-[95px] rounded-[5px]'></div>
                   </div>
                   <div className='flex-[0_0_calc(70%_-_10px)]'>
                     <p className={`bg-[#E5E4E2] h-[8px]  w-[100px] rounded-[5px]  mb-[15px] `}></p>
-                    <p className={`bg-[#E5E4E2] h-[8px]  w-full rounded-[5px]  mt-[5px] `}></p>
-                    <p className={`bg-[#E5E4E2] h-[6px]  w-[290px] rounded-[5px]  mt-[5px] `}></p>
+                    <p className={`bg-[#E5E4E2] h-[8px]  w-full md:w-[220px] rounded-[5px]  mt-[5px] `}></p>
+                    <p className={`bg-[#E5E4E2] h-[6px]  w-[290px] md:w-[200px] rounded-[5px]  mt-[5px] `}></p>
                     <p className={`bg-[#E5E4E2] h-[6px]  w-[160px] rounded-[5px]  mt-[10px] `}></p>
                   </div>
                 </div>
@@ -589,7 +583,7 @@ const Skeleton = () => {
             })}
           </div>
         </div>
-        <div className={`flex-[0_0_calc(30%_-_15px)]`}>
+        <div className={`flex-[0_0_calc(30%_-_15px)] md:hidden`}>
           <div>
             {[0, 1].map((res, i) => {
               return (
@@ -613,7 +607,7 @@ const Skeleton = () => {
             })}
           </div>
         </div>
-        <div className={`flex-[0_0_calc(25%_-_15px)]`}>
+        <div className={`flex-[0_0_calc(25%_-_15px)] md:hidden`}>
           <div className='w-full bg-[#E5E4E2] h-[250px] rounded-[5px]'></div>
           <div className='my-[15px] border p-[10px] rounded-[5px]'>
             {[0, 1, 2].map((res, i) => {
