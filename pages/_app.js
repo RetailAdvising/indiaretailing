@@ -2,20 +2,25 @@
 import '@/styles/globals.scss'
 import store from '../redux/store'
 import { Faustina } from 'next/font/google'
-import { useDispatch, useSelector, Provider } from 'react-redux'
+import { Provider } from 'react-redux'
 // import userAction from 'redux/actions/userAction'
-import ErrorBoundary from '@/components/Exception/ErrorBoundary'
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { websiteSettings } from '@/libs/api'
-import MobileHead from '@/components/Headers/MobileHead'
-import BottomTabs from '@/components/common/BottomTabs'
-import Header from '@/components/Headers/Header'
+import dynamic from 'next/dynamic'
+const ErrorBoundary = dynamic(()=> import('@/components/Exception/ErrorBoundary'))
+const MobileHead = dynamic(()=> import('@/components/common/BottomTabs'))
+const BottomTabs = dynamic(()=> import('@/components/common/BottomTabs'))
+const nProgress = dynamic(()=> import('nprogress'))
+// import ErrorBoundary from '@/components/Exception/ErrorBoundary'
+// import MobileHead from '@/components/Headers/MobileHead'
+// import BottomTabs from '@/components/common/BottomTabs'
+// import nProgress from "nprogress";
+// import Header from '@/components/Headers/Header'
 import { ChakraProvider } from '@chakra-ui/react'
-import nProgress from "nprogress";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import "nprogress/nprogress.css"
-import { SessionProvider } from "next-auth/react"
+// import { SessionProvider } from "next-auth/react"
 // import Loader from '@/components/Loader'
 // const inter = Inter({
 //   weight: ["200", "300", "400", "500", "600", '700'],
@@ -161,22 +166,22 @@ export default function App({ Component, pageProps }) {
       <Head>
         {/* <link href="https://indiaretailing.go1cms/files/default-theme.css" rel="stylesheet"/> */}
 
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.12/css/lightgallery.min.css"
-        />
+        /> */}
         <script src="https://apis.google.com/js/api.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+        {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-thumbnail/1.1.0/lg-thumbnail.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-fullscreen/1.1.0/lg-fullscreen.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-fullscreen/1.1.0/lg-fullscreen.min.js"></script> */}
       </Head>
       <ErrorBoundary >
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <ChakraProvider>
-            <SessionProvider>
+            {/* <SessionProvider> */}
               <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
                 <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
                 {/* <Header/> */}
@@ -185,7 +190,7 @@ export default function App({ Component, pageProps }) {
                   <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
                 </div>
               </main>
-            </SessionProvider>
+            {/* </SessionProvider> */}
           </ChakraProvider>
         </Provider>
       </ErrorBoundary>

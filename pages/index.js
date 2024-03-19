@@ -5,7 +5,8 @@ import RootLayout from '@/layouts/RootLayout'
 // import {setRoutes} from 'redux/actions/routesAction';
 // import PageData from '@/libs/buider'
 // import HomePageBuilder from '@/components/Builders/HomePageBuilder';
-import { HomePage, getAds, newsLanding, checkMobile, getList, updatePollOptionValue, getPollsList, get_ip, HomePageAds } from '../libs/api';
+// getAds updatePollOptionValue
+import { HomePage, newsLanding, checkMobile, getList, getPollsList, get_ip, HomePageAds } from '../libs/api';
 import { useEffect, useState, useRef,useMemo } from 'react';
 import SEO from '@/components/common/SEO'
 import dynamic from 'next/dynamic'

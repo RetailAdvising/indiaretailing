@@ -665,6 +665,9 @@ const  getCarts = async (type) => {
           <meta property="og:description" content={value?.meta_description} />
           <meta property="og:locale" content="en_IE" />
           <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
+          <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.12/css/lightgallery.min.css"/>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery.min.js"></script>
           {/* <meta property="og:site_name" content={'IndiaRetailing'} />
          
           <meta property="og:site_name" content={'IndiaRetailing'} /> */}
