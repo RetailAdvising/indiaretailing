@@ -13,7 +13,7 @@ export const authOptions = ({
             // authorizationUrl: 'https://www.facebook.com/v13.0/dialog/oauth',
             // scope: 'email',
             // redirectUri: process.env.NEXTAUTH_URL + '/api/auth/callback/facebook',
-            // authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook" }},
+            authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook" }},
             // clientId: "341622788230249",
             // clientSecret: "53a83436a46c089d62799997af80a031",
         }),
