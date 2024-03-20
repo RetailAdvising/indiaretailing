@@ -8,7 +8,7 @@ const FbBtn = () => {
     <>
       {!session ? (
         <button onClick={async () => {await signIn('facebook',{
-            callbackUrl: `${window.location.origin}`,
+            // callbackUrl: `${window.location.origin}`,
         })}}>Sign in with Facebook</button>
       ) : (
         <button onClick={() => signOut()}>Sign out</button>
