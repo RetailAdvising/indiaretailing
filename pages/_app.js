@@ -30,6 +30,7 @@ import "nprogress/nprogress.css"
 //   subsets: ["latin"],
 //   variable: '--font-inter'
 // })
+import AuthSessionProvider from './auth/auth-session-provider'
 
 const inter = Faustina({
   weight: ["300", "400", "500", "600", '700'],
@@ -181,7 +182,7 @@ export default function App({ Component, pageProps }) {
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <ChakraProvider>
-            {/* <SessionProvider> */}
+            <AuthSessionProvider>
               <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
                 <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
                 {/* <Header/> */}
@@ -190,7 +191,7 @@ export default function App({ Component, pageProps }) {
                   <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
                 </div>
               </main>
-            {/* </SessionProvider> */}
+            </AuthSessionProvider>
           </ChakraProvider>
         </Provider>
       </ErrorBoundary>
