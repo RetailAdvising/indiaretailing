@@ -50,6 +50,7 @@ const TrendingBox = dynamic(() => import('@/components/Landing/TrendingBox'))
 const Title = dynamic(() => import('@/components/common/Title'))
 const BulletList = dynamic(() => import('@/components/Landing/BulletList'))
 // import SubscriptionAlert from '../common/SubscriptionAlert'
+import { useSession } from 'next-auth/react'
 
 export default function Home({ data,ads }) {
   // console.log(data);
@@ -62,7 +63,8 @@ export default function Home({ data,ads }) {
   let [noProduct, setNoProduct] = useState(false)
   let page_no = 1;
 
-
+  const { data: session, status } = useSession()
+  console.log(session,'session signin')
 
 
   // const userInfo = useSelector(s=>s.user);
