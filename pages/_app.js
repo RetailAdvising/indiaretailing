@@ -30,8 +30,8 @@ import "nprogress/nprogress.css"
 //   subsets: ["latin"],
 //   variable: '--font-inter'
 // })
-import AuthSessionProvider from './auth/auth-session-provider'
-
+// import AuthSessionProvider from './auth/auth-session-provider'
+import { SessionProvider } from 'next-auth/react'
 const inter = Faustina({
   weight: ["300", "400", "500", "600", '700'],
   display: "block",
@@ -42,7 +42,7 @@ const inter = Faustina({
 })
 
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps:{session,...pageProps} }) {
   const [tabHeight, setTabHeight] = useState(0)
   const [activeTab, setActiveTab] = useState(0)
 
@@ -182,7 +182,7 @@ export default function App({ Component, pageProps }) {
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <ChakraProvider>
-            <AuthSessionProvider session={pageProps.session}>
+            <SessionProvider session={session}>
               <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
                 <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
                 {/* <Header/> */}
@@ -191,7 +191,7 @@ export default function App({ Component, pageProps }) {
                   <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
                 </div>
               </main>
-            </AuthSessionProvider>
+            </SessionProvider>
           </ChakraProvider>
         </Provider>
       </ErrorBoundary>
