@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import OTP from './OTP';
 import SignUp from './SignUp';
 import Forget from './Forget'
-
+import { signIn, signOut, useSession } from 'next-auth/react'
 import FacebookLogin from 'react-facebook-login';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -248,7 +248,7 @@ export default function LogIn({ isModal, hide, auth }) {
 
     //   const FacebookLoginButton = () => {
     const responseFacebook = (response) => {
-        console.log(response,"response")
+        console.log(response, "response")
         if (response.status === 'connected') {
             // The user is logged in and authorized your app
             console.log('Logged in and authorized:', response);
@@ -348,7 +348,7 @@ export default function LogIn({ isModal, hide, auth }) {
                     {/* <p className='text-center pt-[20px] text-[#B5B5BE]'>Instant Login</p> */}
 
                     <div className='flex gap-[15px] m-[18px_auto] lg:w-[75%] items-center justify-center'>
-                        <div className='flex h-[50px] w-[75px] rounded-[10px] border cursor-pointer items-center justify-center '>
+                        <div className='flex h-[50px] w-[75px] rounded-[10px] border cursor-pointer googleBtn items-center justify-center '>
                             {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='google' src={'/google-login.svg'} /> */}
                             {/* <p>Continue with Google</p> onClick={() => signIn('google')} */}
                             {/* {<GoogleLogin buttonText="" clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>} */}
@@ -358,7 +358,12 @@ export default function LogIn({ isModal, hide, auth }) {
                         </div>
 
                         <div id="apple" className='flex items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
-                            <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/Apple-login.svg'} />
+                            <Image height={20} onClick={async () => {
+                                await signIn('apple', {
+                                    callbackUrl: `${window.location.origin}`,
+                                    redirect: true,
+                                })
+                            }} className='h-[25px] w-[25px] object-contain cursor-pointer' width={20} alt='apple' src={'/Apple-login.svg'} />
                             {/* <p>Continue with Apple</p> */}
                         </div>
 
