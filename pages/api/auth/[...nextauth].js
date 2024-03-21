@@ -2,32 +2,7 @@
 import nextAuth from 'next-auth';
 import FacebookProvider from 'next-auth/providers/facebook';
 
-// export const authOptions = ({
-//     // pages: {
-//     //     signIn: '/auth/signin',
-//     // },
-//     providers: [
-//         FacebookProvider({
-//             clientId: process.env.FACEBOOK_CLIENT_ID,
-//             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-//             authorization: { params: { scope: 'email', redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/facebook` } },
-//             // clientId: "341622788230249",
-//             // clientSecret: "53a83436a46c089d62799997af80a031",
-//             // authorization: { params: { scope: 'email', redirect_uri: "https://indiaretail.vercel.app/api/auth/callback/facebook" } },
-//         }),
-//     ],
-//     secret: process.env.AUTH_CLIENT_SECRET
-//     // secret: "53a83436a46c089d62799997af80a031341622788230249"
-//     // Add additional NextAuth.js configurations as needed
-// });
-
-// // const handler = nextAuth(authOptions);
-// export default (req, res) => nextAuth(req, res, authOptions)
-
-// export { handler as GET, handler as POST }
-
-export default nextAuth({
-    // export const authOptions = ({
+export const authOptions = ({
     // pages: {
     //     signIn: '/auth/signin',
     // },
@@ -35,22 +10,68 @@ export default nextAuth({
         FacebookProvider({
             clientId: process.env.FACEBOOK_CLIENT_ID,
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-            authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook",response_type: 'code' }},
+            authorization: { params: { scope: 'email', redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/facebook` } },
+            // clientId: "341622788230249",
+            // clientSecret: "53a83436a46c089d62799997af80a031",
+            // authorization: { params: { scope: 'email', redirect_uri: "https://indiaretail.vercel.app/api/auth/callback/facebook" } },
         }),
     ],
     secret: process.env.AUTH_CLIENT_SECRET,
     debug: true,
-    // jwt: false,
-
     callbacks: {
-        async signIn({ user }) {
-          // Access user data from Facebook, e.g., user.email, user.name
-          console.log("User signed in:", user);
-            
-          // You can store additional user data in your database here
-    
-          return true; // Return true to allow sign in
+        session: async (session, token) => {
+          session.user = token.user;
+          return session;
         },
+
+        signIn: async (user, account, profile) => {
+            // Handle successful sign-in
+            // You can perform additional actions here, such as logging or sending analytics events
+            return true; // Return true to allow sign-in to proceed
+        },
+        signInError: async (error) => {
+            // Handle sign-in errors
+            // You can log the error or perform any necessary actions
+            console.error('Sign-in error:', error);
+            return false; // Return false to prevent sign-in from proceeding
+        },
+        
       },
+    // secret: "53a83436a46c089d62799997af80a031341622788230249"
     // Add additional NextAuth.js configurations as needed
 });
+
+
+// const handler = nextAuth(authOptions);
+export default (req, res) => nextAuth(req, res, authOptions)
+
+// export { handler as GET, handler as POST }
+
+// export default nextAuth({
+//     // export const authOptions = ({
+//     // pages: {
+//     //     signIn: '/auth/signin',
+//     // },
+//     providers: [
+//         FacebookProvider({
+//             clientId: process.env.FACEBOOK_CLIENT_ID,
+//             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+//             authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook",response_type: 'code' }},
+//         }),
+//     ],
+//     secret: process.env.AUTH_CLIENT_SECRET,
+//     debug: true,
+//     // jwt: false,
+
+//     callbacks: {
+//         async signIn({ user }) {
+//           // Access user data from Facebook, e.g., user.email, user.name
+//           console.log("User signed in:", user);
+            
+//           // You can store additional user data in your database here
+    
+//           return true; // Return true to allow sign in
+//         },
+//       },
+//     // Add additional NextAuth.js configurations as needed
+// });
