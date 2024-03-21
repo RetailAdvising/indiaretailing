@@ -41,6 +41,31 @@ export default nextAuth({
         }),
     ],
     secret: process.env.AUTH_CLIENT_SECRET,
+    debug: true,
+    session:{
+        strategy:'jwt'
+    },
+    logger:(method, message, ...args)=>{
+        console.log(`NEXTAUTH LOGGER ${method}: ${message}`, ...args);
+    },
+    callbacks: {
+        async jwt(token, user, account, profile, isNewUser) {
+          if (user) {
+              token.userId = user.id;
+          }
+          return token;
+      },
+      async session(session, token) {
+          session.user = token.user;
+          delete session.error;
+          return session;
+      },
+      async redirect(url, baseUrl) {
+          return "/";
+      },
+  },
+  
+    
     // jwt: false,
 
     // Add additional NextAuth.js configurations as needed

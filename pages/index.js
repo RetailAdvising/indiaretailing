@@ -307,7 +307,7 @@ export default function Home({ data,ads }) {
       {/*  isLast={index == value.length - 1} */}
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
-
+        <h5>New</h5>
        
         {(value && value.length != 0) ? value.map((data, i) => {
           return (
