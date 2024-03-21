@@ -37,11 +37,10 @@ export default nextAuth({
         FacebookProvider({
             clientId: process.env.FACEBOOK_CLIENT_ID,
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-            authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook",response_type: 'code' }},
+            // authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook",response_type: 'code' }},
         }),
     ],
     secret: process.env.AUTH_CLIENT_SECRET,
-    debug: true,
     // jwt: false,
 
     // Add additional NextAuth.js configurations as needed

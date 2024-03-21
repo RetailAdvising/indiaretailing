@@ -56,7 +56,7 @@ export default function App({ Component, pageProps:{session,...pageProps} }) {
     // const handleBackButton = (event) => {
     //   if (event.type === 'popstate') {
     //     const historyState = event.state;
-    //     // console.log(historyState,'historyState')
+    //     // console.log(historyS tate,'historyState')
     //     if (historyState && historyState.hrefStack && historyState.hrefStack.length > 0) {
     //       const previousHrefs = historyState.hrefStack;
     //       // Perform any necessary action with the previous hrefs

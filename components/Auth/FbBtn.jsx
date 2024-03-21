@@ -10,6 +10,7 @@ const FbBtn = () => {
         <button onClick={async () => {
           await signIn('facebook', {
             callbackUrl: `${window.location.origin}`,
+            redirect: true,
           })
         }}>Sign in with Facebook</button>
       ) : (
