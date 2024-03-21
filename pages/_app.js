@@ -182,7 +182,7 @@ export default function App({ Component, pageProps }) {
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <ChakraProvider>
-            <AuthSessionProvider>
+            <AuthSessionProvider session={pageProps.session}>
               <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
                 <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
                 {/* <Header/> */}
