@@ -19,6 +19,7 @@ import GoogleSignInButton from './GoogleSignInButton';
 
 import { useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
+import FbBtn from './FbBtn';
 
 // const REDIRECT_URI =
 //     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
@@ -363,19 +364,20 @@ export default function LogIn({ isModal, hide, auth }) {
 
                         <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
                             {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/login/fb-01.svg'} /> */}
+                            <FbBtn />
                             {/* <p>Continue with Facebook</p> */}
                             {
-                                <FacebookLogin
-                                    // Login with Facebook
-                                    textButton=""
-                                    // p-[8px_40px] flex items-center gap-[10px] text-[13px] border rounded-[3px]
-                                    cssClass="my-facebook-button-class  "
-                                    icon="fa-facebook"
-                                    appId="341622788230249"
-                                    autoLoad={false} // Set to true if you want auto-login on page load
-                                    fields="name,email,picture"
-                                    callback={responseFacebook}
-                                />
+                                // <FacebookLogin
+                                //     // Login with Facebook
+                                //     textButton=""
+                                //     // p-[8px_40px] flex items-center gap-[10px] text-[13px] border rounded-[3px]
+                                //     cssClass="my-facebook-button-class  "
+                                //     icon="fa-facebook"
+                                //     appId="341622788230249"
+                                //     autoLoad={false} // Set to true if you want auto-login on page load
+                                //     fields="name,email,picture"
+                                //     callback={responseFacebook}
+                                // />
                             }
                         </div>
                         {/* <button onClick={() => signIn("google")}>Sign in</button> */}

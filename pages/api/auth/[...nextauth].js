@@ -1,7 +1,7 @@
 // pages/api/auth/[...nextauth].js
 import nextAuth from 'next-auth';
 import FacebookProvider from 'next-auth/providers/facebook';
-
+import AppleProvider from 'next-auth/providers/apple'
 // export const authOptions = ({
 //     // pages: {
 //     //     signIn: '/auth/signin',
@@ -39,33 +39,56 @@ export default nextAuth({
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
             // authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook",response_type: 'code' }},
         }),
+        AppleProvider({
+            clientId: process.env.APPLE_CLIENT_ID,
+            clientSecret: process.env.APPLE_CLIENT_SECRET,
+        })
+
     ],
     secret: process.env.AUTH_CLIENT_SECRET,
     debug: true,
-    session:{
-        strategy:'jwt'
+    // session: {
+    //     strategy: 'jwt'
+    // },
+    // logger:(method, message, ...args)=>{
+    //     console.log(`NEXTAUTH LOGGER ${method}: ${message}`, ...args);
+    // },
+    //     callbacks: {
+    //         async jwt(token, user, account, profile, isNewUser) {
+    //           if (user) {
+    //               token.userId = user.id;
+    //           }
+    //           return token;
+    //       },
+    //       async session(session, token) {
+    //           session.user = token.user;
+    //           delete session.error;
+    //           return session;
+    //       },
+    //       async redirect(url, baseUrl) {
+    //           return "/";
+    //       },
+    //   },
+    cookies:{
+        pkceCodeVerifier:{
+            name: "next-auth.pkce.code_verifier", 
+            options:{
+                httpOnly:true, 
+                sameSite:"none",
+                path: '/',
+                secure: true
+            },
+        },
     },
-    logger:(method, message, ...args)=>{
-        console.log(`NEXTAUTH LOGGER ${method}: ${message}`, ...args);
-    },
-    callbacks: {
-        async jwt(token, user, account, profile, isNewUser) {
-          if (user) {
-              token.userId = user.id;
-          }
-          return token;
-      },
-      async session(session, token) {
-          session.user = token.user;
-          delete session.error;
-          return session;
-      },
-      async redirect(url, baseUrl) {
-          return "/";
-      },
-  },
-  
-    
+    callbacks:{
+        session: async  function({session, token}){
+            // session.user=token.user;
+            session.customValue = new Date().toISOString()
+            return Promise.resolve(session);
+        }
+    }
+
+
     // jwt: false,
 
     // Add additional NextAuth.js configurations as needed
