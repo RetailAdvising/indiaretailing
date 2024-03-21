@@ -64,7 +64,7 @@ export default function Home({ data,ads }) {
   let page_no = 1;
 
   const { data: session, status } = useSession()
-  console.log(session,'session signin')
+  // console.log(session,'session signin')
 
 
   // const userInfo = useSelector(s=>s.user);
@@ -307,8 +307,7 @@ export default function Home({ data,ads }) {
       {/*  isLast={index == value.length - 1} */}
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
-        <h5>New</h5>
-       
+               
         {(value && value.length != 0) ? value.map((data, i) => {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />

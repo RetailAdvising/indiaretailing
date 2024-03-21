@@ -5,8 +5,8 @@ import { useSession } from 'next-auth/react'
 
 const signin = () => {
   const { data: session, status } = useSession()
-  console.log(session,'session signin')
-  console.log(status,'status signin')
+  // console.log(session,'session signin')
+  // console.log(status,'status signin')
   return (
     <>
       <FbBtn />

@@ -3,7 +3,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 const FbBtn = () => {
   const { data: session } = useSession();
   // console.log(data,'data')
-  console.log(session, 'session')
+  // console.log(session, 'session')
   return (
     <>
       {!session ? (
