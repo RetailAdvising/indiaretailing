@@ -400,6 +400,11 @@ export async function logIn(data) {
     return await postMethod(api, data)
 }
 
+export async function social_login(data) {
+    let api = methodUrl + "ecommerce_business_store.ecommerce_business_store.mobileapi.social_login_customer"
+    return await postMethod(api, data)
+}
+
 export async function signUp(data) {
     let api = domainUrl + 'user_registration';
     return await postMethod(api, data)

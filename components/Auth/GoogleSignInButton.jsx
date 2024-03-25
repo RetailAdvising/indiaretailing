@@ -28,7 +28,8 @@ import React, { useEffect } from 'react';
 import Script from 'next/script';
 
 // import { GoogleLogin } from '@react-oauth/google';
-import { GoogleLogin } from 'react-google-login';
+// import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from '@react-oauth/google';
 const GoogleSignInButton = ({ onSuccess, onFailure }) => {
   // useEffect(() => {
   //   gapi.load('auth2', function () {
@@ -45,11 +46,12 @@ const GoogleSignInButton = ({ onSuccess, onFailure }) => {
 
   return (
     <GoogleLogin
-      clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"
-      buttonText=""
+      clientId= {"189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"}
       onSuccess={onSuccess}
       onFailure={onFailure}
-      cookiePolicy="single_host_origin"
+      shape='square'
+      text='signin'
+      size='medium'
     />
   );
 };

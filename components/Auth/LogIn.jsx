@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
-import { logIn, checkMobile, checkMember, get_customer_info } from '@/libs/api';
+import { logIn, checkMobile, checkMember, get_customer_info, social_login } from '@/libs/api';
 import { useRouter } from 'next/router';
 import OTP from './OTP';
 import SignUp from './SignUp';
@@ -20,6 +20,7 @@ import GoogleSignInButton from './GoogleSignInButton';
 import { useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
 import FbBtn from './FbBtn';
+import { GoogleLogin } from '@react-oauth/google';
 
 // const REDIRECT_URI =
 //     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
@@ -267,13 +268,79 @@ export default function LogIn({ isModal, hide, auth }) {
     //     }
     // };
 
+    // Google Login
     const handleSuccess = (response) => {
-        console.log('Google Sign-In success:', response);
+        // console.log(parseJwt(response.credential))
+        socialLogin(parseJwt(response.credential))
     };
 
     const handleFailure = (error) => {
         console.error('Google Sign-In error:', error);
     };
+
+    const parseJwt = (token) => {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+
+        return JSON.parse(jsonPayload);
+    }
+
+    const socialLogin = async (data) => {
+        let payload = {
+            data: JSON.stringify({
+                email: data.email,
+                user_name: data.given_name,
+                uid: data.jti,
+                phone: data.phone ? data.phone : '',
+                provider: "oauth-google"
+            }),
+            get_user_token: 1
+        }
+
+        const resp = await social_login(payload)
+        // console.log(resp,"resp")
+        if (resp.message && resp.message.message && resp.message.message == 'Logged In') {
+            localStorage['api_key'] = resp.message.api_key
+            localStorage['api_secret'] = resp.message.api_secret
+
+            // getCustomerInfo({ email: data.email, guest_id: localStorage['customerRefId'] }, datas)
+            // let mail = {
+            //     email: data.email,
+            //     guest_id: localStorage['customerRefId']
+            // }
+            // const res = await get_customer_info(mail);
+            // if (res.message && res.message.length != 0) {
+            //     storeCustomerInfo(res);
+            //     dispatch(setCustomerInfo(res.message[0]));
+            //     dispatch(setDetail(res.message[0]))
+            //     localStorage['roles'] = JSON.stringify(res.message[0].roles_list);
+            // }
+            // // localStorage['customerUser_id'] = val.message.user_id;
+            // // localStorage['customer_id'] = val.message.customer_id;
+            // localStorage['full_name'] = resp.full_name;
+            // hide()
+
+            // getCustomerInfo()
+            localStorage['company'] = "true"
+            // checkMember(val.message.roles)
+            // localStorage['roles'] = JSON.stringify(val.message.roles);
+            setWithExpiry('api', val.message.api_key, 90)
+            dispatch(setUser(val));
+            (isModal || !isMobile) ? hide() : router.push('/')
+        } else {
+            // msg = { message: (val.message && val.message.message) ? val.message.message : 'Something wen wrong try again later' }
+            // setMsg(msg)
+            // headerMsg = 'Alert'
+            // setHeaderMsg(headerMsg)
+            // setShowAlert(true)
+            toast.error(val.message.message)
+        }
+
+    }
 
     // const responseGoogle = (response) => {
     //     console.log(response);
@@ -353,7 +420,12 @@ export default function LogIn({ isModal, hide, auth }) {
                             {/* <p>Continue with Google</p> onClick={() => signIn('google')} */}
                             {/* {<GoogleLogin buttonText="" clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>} */}
                             {/* <GoogleOAuthProvider clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"></GoogleOAuthProvider>; */}
-                            <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} />
+                            {/* <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} /> */}
+                            <GoogleLogin shape='square'
+                                text='signin'
+                                size='large'
+                                onSuccess={handleSuccess}
+                                onFailure={handleFailure} />
                             {/* <button onClick={() => signIn("google")}>Login with Google</button> */}
                         </div>
 

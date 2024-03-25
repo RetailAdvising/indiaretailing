@@ -8,9 +8,9 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { websiteSettings } from '@/libs/api'
 import dynamic from 'next/dynamic'
-const ErrorBoundary = dynamic(()=> import('@/components/Exception/ErrorBoundary'))
+const ErrorBoundary = dynamic(() => import('@/components/Exception/ErrorBoundary'))
 // const MobileHead = dynamic(()=> import('@/components/common/BottomTabs'))
-const BottomTabs = dynamic(()=> import('@/components/common/BottomTabs'))
+const BottomTabs = dynamic(() => import('@/components/common/BottomTabs'))
 // const nProgress = dynamic(()=> import('nprogress'))
 // import ErrorBoundary from '@/components/Exception/ErrorBoundary'
 import MobileHead from '@/components/Headers/MobileHead'
@@ -32,6 +32,7 @@ import "nprogress/nprogress.css"
 // })
 // import AuthSessionProvider from './auth/auth-session-provider'
 import { SessionProvider } from 'next-auth/react'
+import { GoogleOAuthProvider } from '@react-oauth/google';
 const inter = Faustina({
   weight: ["300", "400", "500", "600", '700'],
   display: "block",
@@ -42,7 +43,7 @@ const inter = Faustina({
 })
 
 
-export default function App({ Component, pageProps:{session,...pageProps} }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const [tabHeight, setTabHeight] = useState(0)
   const [activeTab, setActiveTab] = useState(0)
 
@@ -182,16 +183,18 @@ export default function App({ Component, pageProps:{session,...pageProps} }) {
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <ChakraProvider>
-            <SessionProvider session={session}>
-              <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
-                <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
-                {/* <Header/> */}
-                <Component {...pageProps} />
-                <div className='lg:hidden'>
-                  <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
-                </div>
-              </main>
-            </SessionProvider>
+            <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+              <SessionProvider session={session}>
+                <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
+                  <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
+                  {/* <Header/> */}
+                  <Component {...pageProps} />
+                  <div className='lg:hidden'>
+                    <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
+                  </div>
+                </main>
+              </SessionProvider>
+            </GoogleOAuthProvider>
           </ChakraProvider>
         </Provider>
       </ErrorBoundary>
