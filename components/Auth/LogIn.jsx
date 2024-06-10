@@ -328,7 +328,7 @@ export default function LogIn({ isModal, hide, auth }) {
             localStorage['company'] = "true"
             // checkMember(val.message.roles)
             // localStorage['roles'] = JSON.stringify(val.message.roles);
-            setWithExpiry('api', val.message.api_key, 90)
+            setWithExpiry('api', resp.message.api_key, 90)
             dispatch(setUser(val));
             (isModal || !isMobile) ? hide() : router.push('/')
         } else {
@@ -337,7 +337,8 @@ export default function LogIn({ isModal, hide, auth }) {
             // headerMsg = 'Alert'
             // setHeaderMsg(headerMsg)
             // setShowAlert(true)
-            toast.error(val.message.message)
+
+            toast.error(resp.message.message)
         }
 
     }
@@ -424,6 +425,7 @@ export default function LogIn({ isModal, hide, auth }) {
                             <GoogleLogin shape='square'
                                 text='signin'
                                 size='large'
+                                width={'50px'}
                                 onSuccess={handleSuccess}
                                 onFailure={handleFailure} />
                             {/* <button onClick={() => signIn("google")}>Login with Google</button> */}

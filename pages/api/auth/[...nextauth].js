@@ -35,17 +35,17 @@ export default nextAuth({
     // },
     providers: [
         FacebookProvider({
-            clientId: process.env.FACEBOOK_CLIENT_ID,
-            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+            clientId: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_SECRET,
             // authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook",response_type: 'code' }},
         }),
         AppleProvider({
-            clientId: process.env.APPLE_CLIENT_ID,
-            clientSecret: process.env.APPLE_CLIENT_SECRET,
+            clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_APPLE_CLIENT_SECRET,
         })
 
     ],
-    secret: process.env.AUTH_CLIENT_SECRET,
+    secret: process.env.NEXT_PUBLIC_AUTH_CLIENT_SECRET,
     debug: true,
     // session: {
     //     strategy: 'jwt'

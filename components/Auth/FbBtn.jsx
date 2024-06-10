@@ -21,7 +21,7 @@ const FbBtn = () => {
             callbackUrl: `${window.location.origin}`,
             redirect: true,
           })
-        }} className='h-[25px] w-[25px] object-contain cursor-pointer' width={20} alt='apple' src={'/login/fb-01.svg'} />
+        }} className='h-[25px] w-[25px] object-contain cursor-pointer' width={20} alt='facebook' src={'/login/fb-01.svg'} />
     </>
   )
 }

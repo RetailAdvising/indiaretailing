@@ -2206,10 +2206,28 @@ $nav-height: 55px;
       margin: 0 !important;
       padding: 0 !important;
       background: none !important;
+      width: 50px !important;
     }
     span{
       padding: 0 !important;
     }
+  }
+  div{
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    width: 50px !important;
+    border: none !important;
+  }
+  iframe{
+    width: 44px !important;
+    div[role=button]{
+      border: none !important;
+    }
+  }
+
+  div[role=button]{
+    border: none !important;
   }
 }
 

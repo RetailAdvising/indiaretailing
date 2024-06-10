@@ -401,7 +401,7 @@ export async function logIn(data) {
 }
 
 export async function social_login(data) {
-    let api = methodUrl + "ecommerce_business_store.ecommerce_business_store.mobileapi.social_login_customer"
+    let api = "ecommerce_business_store.ecommerce_business_store.mobileapi.social_login_customer"
     return await postMethod(api, data)
 }
 
