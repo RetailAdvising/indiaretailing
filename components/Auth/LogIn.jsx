@@ -291,6 +291,8 @@ export default function LogIn({ isModal, hide, auth }) {
         const isValid = pattern.test($event.target.value);
         if(isValid){
             setThrow_err(false)
+        }else{
+            setThrow_err(true)
         }
     }
     
