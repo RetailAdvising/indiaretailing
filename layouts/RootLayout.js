@@ -188,7 +188,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   }
 
   const checkMandatory = () => {
-    if (typeof window != 'undefined' && localStorage && localStorage['apikey'] && localStorage['company']) {
+    if (typeof window != 'undefined' && localStorage && (localStorage['apikey'] || localStorage['api_key']) && localStorage['company']) {
       customer_info()
     } 
     
