@@ -417,7 +417,7 @@ export default function LogIn({ isModal, hide, auth }) {
                     <>
                         <div className='flex-[0_0_calc(40%_-_10px)] flex flex-col justify-center'>
                             <h5 className='text-[20px] font-semibold text-center '>Please enter mobile number to continue</h5>
-                            <Image src={'/login/reset password.svg'} className='h-[250px] w-full my-[15px] object-contain' height={100} width={100} alt='reset' />
+                            <Image src={'/login/login.svg'} className='h-[250px] w-full my-[15px] object-contain' height={100} width={100} alt='reset' />
                             <div className={`flex flex-col py-5 relative`}>
                                 <label className={`${styles.label} text-[#808D9E]`} htmlFor='mobile' >Mobile Number</label>
                                 <input id='mobile_no' onChange={mobileChange} type='number' className={`${styles.input} ${styles.input1} p-[5px_10px] rounded-[5px] h-[45px] `} style={{ border: '1px solid #EEEE' }} />
