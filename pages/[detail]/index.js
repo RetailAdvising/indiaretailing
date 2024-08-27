@@ -10,6 +10,7 @@ import Head from 'next/head'
 // import { NextSeo } from 'next-seo'
 export default function Details({ data, page_route }) {
   const router = useRouter();
+  console.log(router,"router")
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);
@@ -45,7 +46,6 @@ export default function Details({ data, page_route }) {
       }
       let value = await articlesDetail(param);
       let data = await value.message;
-      // console.log(data)
       if (data.status == "Success") {
         if (data && data._user_tags && data._user_tags != '') {
           let tags = data._user_tags.split(',');
@@ -396,7 +396,6 @@ export default function Details({ data, page_route }) {
 
           <link rel="shortcut icon" href="/ir_2023.png" />
         </Head>
-        
         {(values && values.length != 0) ? <>
           {values.map((res, index) => {
             return (

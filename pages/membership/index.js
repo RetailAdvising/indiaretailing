@@ -293,7 +293,7 @@ export default function Membership() {
         <ConfirmationScreen membershipDetails={memberShipDetails} visible={visible} hide={(obj) => hide(obj)} startPlan={(membership, index) => startPlan(membership, index)} btnState={btnState} handleClick={handleClick} />
       }
 
-      <Modal modal={modal} show={show} visible={visible_} hide={hide_1} />
+      <Modal modal={modal} show={show} visible={visible_} hide={hide_1} member={"membership_login"} membership={"membership"}/>
 
       <div className="pt-[30px] bg-[url('/membership/bg_membership.svg')] bg-no-repeat bg-contain">
         <div className="max-w-[1300px] m-[0px_auto]">

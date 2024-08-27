@@ -236,6 +236,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
       data.article_sections.map((res, index) => {
         if (res.data && res.data.length != 0) {
           let element = document.getElementById(`${res.placeholder_key}`);
+          // console.log(element,"element")
           // let el = document.getElementById(`innerHtml${i}`).querySelectorAll('p')[1]
           // console.log(el,'el')
           // element && ReactDOM.render( <SubscriptionAlert />,element)
@@ -605,7 +606,6 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
   return (
     <>
-      {/* {console.log('child',data)}   */}
       <div ref={cardref}>
         <div className={`flex w-full lg:relative lg:gap-[30px] lg:justify-between md:gap-[20px] md:flex-wrap ${i > 0 ? 'lg:p-[20px_0px]' : ''} md:p-[15px] ${isMobile ? '' : 'container'}`}>
           <div id={'parent' + i} className={` md:w-full ${(!data.is_member && data.ir_prime == 1) ? 'w-[calc(80%_-_20px)] m-auto' : 'w_70'}`}>

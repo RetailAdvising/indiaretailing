@@ -2,6 +2,7 @@
 import nextAuth from 'next-auth';
 import FacebookProvider from 'next-auth/providers/facebook';
 import AppleProvider from 'next-auth/providers/apple'
+import LinkedInProvider from 'next-auth/providers/linkedin';
 // export const authOptions = ({
 //     // pages: {
 //     //     signIn: '/auth/signin',
@@ -42,7 +43,11 @@ export default nextAuth({
         AppleProvider({
             clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID,
             clientSecret: process.env.NEXT_PUBLIC_APPLE_CLIENT_SECRET,
-        })
+        }),
+        LinkedInProvider({
+            clientId: process.env.LINKEDIN_CLIENT_ID,
+            clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+        }),
 
     ],
     secret: process.env.NEXT_PUBLIC_AUTH_CLIENT_SECRET,
@@ -69,19 +74,19 @@ export default nextAuth({
     //           return "/";
     //       },
     //   },
-    cookies:{
-        pkceCodeVerifier:{
-            name: "next-auth.pkce.code_verifier", 
-            options:{
-                httpOnly:true, 
-                sameSite:"none",
+    cookies: {
+        pkceCodeVerifier: {
+            name: "next-auth.pkce.code_verifier",
+            options: {
+                httpOnly: true,
+                sameSite: "none",
                 path: '/',
                 secure: true
             },
         },
     },
-    callbacks:{
-        session: async  function({session, token}){
+    callbacks: {
+        session: async function ({ session, token }) {
             // session.user=token.user;
             session.customValue = new Date().toISOString()
             return Promise.resolve(session);

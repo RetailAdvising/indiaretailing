@@ -43,6 +43,7 @@ export default function ExclusiveBuilder({ data, ads }) {
                 {/* lg:h-[685px] */}
                 {(data.message && data.message.length != 0) && <div className={`lg:h-[640px] ${isMobile ? '' : 'border p-5 md:p-[10px]'} rounded-[5px]  flex-[0_0_calc(42%_-_10px)] md:basis-full`}>
                     {data.message.slice(0, 1).map((res, index) => {
+                        
                         return (
                             // ${router.asPath.split('/')[1]}/
                             <div key={index} onClick={() => router.push(`/${res.route}`)} className={`md:mb-[10px] mb-5 pb-5 cursor-pointer md:pb-[10px] ${(index == 0 && !isMobile) ? 'border_bottom' : ''}`}>

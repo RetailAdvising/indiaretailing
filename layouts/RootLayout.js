@@ -47,7 +47,11 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
       // console.log(router);
       if (router.query.detail) {
         article_breadcrumb(router.query.detail)
-      } else setBreadCrumbs(router.asPath.split('/'))
+      } else {
+        // setBreadCrumbs(removeSpecialCharacters(router.asPath))
+        setBreadCrumbs(router.asPath.split('/'))
+      }
+      // } else setBreadCrumbs(router.asPath.split('/'))
     }
 
     let ads = document.getElementById('ads')
@@ -56,11 +60,31 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     // ads.classList.remove('hidden')
   }, [])
 
+  const removeSpecialCharacters = (value) => {
+    // Regular expression to match any character that is not a letter, number, or space
+    // const regex = /[^a-zA-Z0-9\s%-_]/g;
+    const regex = /[%\-]/g;
+    
+    let array = value.split('/')
+    // Replace matched characters with an empty string
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] != "") {
+        array[i] = array[i].replace(regex, '');
+      }
+    }
+
+    return array;
+  
+  }
+
   // console.log(homeAd,'homeAd')
 
   const article_breadcrumb = async (route) => {
+    // console.log(route,"route")
     if (route) {
       if (router.query.vids || router.query.list) {
+        // console.log(router.asPath.split('/'), "router.asPath")
+        // setBreadCrumbs(removeSpecialCharacters(router.asPath))
         setBreadCrumbs(router.asPath.split('/'))
       } else {
         const resp = await get_article_breadcrumb({ article_route: route })
@@ -115,7 +139,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   }
 
   const getMembershipPlans = async () => {
-    if (typeof window != 'undefined' && localStorage && localStorage['roles'] && localStorage['apikey'] ) {
+    if (typeof window != 'undefined' && localStorage && localStorage['roles'] && localStorage['apikey']) {
 
       let data = { "plan_type": "Month", "res_type": "member" }
       const resp = await get_subscription_plans(data);
@@ -190,8 +214,8 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   const checkMandatory = () => {
     if (typeof window != 'undefined' && localStorage && (localStorage['apikey'] || localStorage['api_key']) && localStorage['company']) {
       customer_info()
-    } 
-    
+    }
+
     // else if (localStorage['new_user'] && localStorage && localStorage['apikey']) {
     //   getMembershipPlans()
     // }

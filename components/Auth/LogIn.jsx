@@ -25,6 +25,9 @@ import { GoogleLogin } from '@react-oauth/google';
 // const REDIRECT_URI =
 //     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
 
+import { useLinkedIn, LinkedIn } from 'react-linkedin-login-oauth2';
+// You can use provided image shipped by this package or using your own
+import linkedin from 'react-linkedin-login-oauth2/assets/linkedin.png';
 
 export default function LogIn({ isModal, hide, auth }) {
     // const config = {
@@ -281,7 +284,7 @@ export default function LogIn({ isModal, hide, auth }) {
             setShowMob(true)
         }
     };
-    const [mob,setMob] = useState()
+    const [mob, setMob] = useState()
 
     const mobileChange = ($event) => {
         // console.log($event, "event")
@@ -289,28 +292,28 @@ export default function LogIn({ isModal, hide, auth }) {
         setMob($event.target.value)
         // Validate phone number and update message
         const isValid = pattern.test($event.target.value);
-        if(isValid){
+        if (isValid) {
             setThrow_err(false)
-        }else{
+        } else {
             setThrow_err(true)
         }
     }
-    
-    const [submitted,setSubmitted] = useState(false)
-    const [throw_err,setThrow_err] = useState(false)
+
+    const [submitted, setSubmitted] = useState(false)
+    const [throw_err, setThrow_err] = useState(false)
     const submitMobile = () => {
         setSubmitted(true)
         const pattern = /^\d{10}$/;
         // Validate phone number and update message
         const isValid = pattern.test(mob);
-        if(isValid){
-            let val = {phone: mob}
-            val = {...credential,...val}
-            setCredential({...credential,...val})
+        if (isValid) {
+            let val = { phone: mob }
+            val = { ...credential, ...val }
+            setCredential({ ...credential, ...val })
             setTimeout(() => {
                 socialLogin(val)
             }, 400);
-        }else{
+        } else {
             setThrow_err(true)
         }
     }
@@ -340,7 +343,7 @@ export default function LogIn({ isModal, hide, auth }) {
             }),
             get_user_token: 1
         }
-        
+
         const resp = await social_login(payload)
         // console.log(resp,"resp")
         if (resp.message && resp.message.message && resp.message.message == 'Logged In') {
@@ -397,6 +400,20 @@ export default function LogIn({ isModal, hide, auth }) {
     // const onLoginStart = useCallback(() => {
     //     alert('login start');
     // }, []);
+
+
+    // const { linkedInLogin } = useLinkedIn({
+    //     clientId: '8676pxylpkogss',
+    //     redirectUri: `${window.location.origin}/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
+    //     onSuccess: (code) => {
+    //         console.log(code);
+    //     },
+    //     onError: (error) => {
+    //         console.log(error);
+    //     },
+    // });
+
+
     return (
         <>
             <ToastContainer position={'bottom-right'} autoClose={2000} />
@@ -517,6 +534,33 @@ export default function LogIn({ isModal, hide, auth }) {
                                     //     callback={responseFacebook}
                                     // />
                                 }
+                            </div>
+
+                            <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
+
+                                <LinkedIn
+                                    clientId="8676pxylpkogss"
+                                    // redirectUri={`http://localhost:3000/auth/signin`}
+                                    redirectUri={`${window.location.origin}/auth/linkedin`}
+                                    // redirectUri={`${window.location.origin}/linkedin`}
+                                    onSuccess={(code) => {
+                                        console.log(code);
+                                    }}
+                                    onError={(error) => {
+                                        console.log(error);
+                                    }}
+                                >
+                                    {({ linkedInLogin }) => (
+                                        <img
+                                            onClick={linkedInLogin}
+                                            src={linkedin}
+                                            alt="Sign in with Linked In"
+                                            style={{ maxWidth: '180px', cursor: 'pointer' }}
+                                        />
+                                    )}
+                                </LinkedIn>
+
+                                {/* <FbBtn /> */}
                             </div>
                             {/* <button onClick={() => signIn("google")}>Sign in</button> */}
                         </div>

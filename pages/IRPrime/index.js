@@ -12,8 +12,8 @@ export default function IRPrime({ data,ads }) {
     useEffect(() => {
         if (data && data.message && data.message.length != 0) {
             setTimeout(() => {
-                console.log(data,'data')
-                console.log(ads,'ads')
+                // console.log(data,'data')
+                // console.log(ads,'ads')
                 setValue(data)
             }, 200);
         }

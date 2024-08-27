@@ -1266,6 +1266,16 @@ input {
     }
   }
 
+  // .membership {
+  //   .rodal-dialog {
+  //     // height: 575px !important;
+  //     // width: 1000px !important;
+  //     height: 90vh !important;
+  //     width: 50% !important;
+  //     padding: 0 !important;
+  //   }
+  // }
+
   .primary_text {
     color: $primary-color;
     font-weight: 700;
@@ -2525,4 +2535,19 @@ span {
     margin: 0 !important;
     padding: 0 !important;
   }
+}
+
+.css-1hb7zxy-IndicatorsContainer:focus-visible{
+  border: none !important;
+  outline: none !important;
+}
+
+.react-select__control {
+  border: 1px solid #ccc; /* Default border color */
+  box-shadow: none; /* Remove box-shadow */
+}
+
+.react-select__control--is-focused {
+  border: 1px solid #ccc; /* Maintain border color when focused */
+  box-shadow: none; /* Remove box-shadow when focused */
 }

@@ -95,7 +95,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i, val, news }
                                                 <SectionList data={data.data[c.cid].data.slice(1, 4)} /></div>
                                             <div className={`flex-[0_0_calc(40%_-_10px)]`}>
                                                 <Title data={{ title: 'Latest News' }} />
-                                                {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(0,4)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(6, 8)} /></> : <LatestNews height={'h-[222px]'} width={'w-full'} data={data.data[c.cid].data.slice(4, 8)} />}
+                                                {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(6, 8)} /></> : <LatestNews height={'h-[222px]'} width={'w-full'} data={data.data[c.cid].data.slice(4, 8)} />}
                                             </div>
                                         </div>}
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Advertisement") && <AdsBaner data={data.data[c.cid].data[0]} height={'h-[250px]'} />}
@@ -133,7 +133,7 @@ export default function HomePageBuilder({ data, isLast, loadMore, i, val, news }
                                         {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Research") && <>
                                             {/* route={'/categories/'} seeMore={true} */}
                                             <Title data={{ title: c.component_title }} />
-                                            {data.data[c.cid].data && isMobile ? 
+                                            {data.data[c.cid].data && isMobile ?
                                                 <div className='mb-[10px] research'><ListSlider route={'/categories/'} noDots={true} auto={false} data={data.data[c.cid].data} /></div> :
                                                 <div className='overflow-auto scrollbar-hide gap-[15px] flex '><CardCarousel isHome={'/categories/'} data={data.data[c.cid].data} cardClass={'h-[310px] md:h-[220px] flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'} /></div>
 

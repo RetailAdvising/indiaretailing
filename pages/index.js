@@ -511,6 +511,7 @@ export default function Home({ data,ads }) {
                                         <div className={`flex flex-wrap gap-5 justify-between`}><Cards data={resp.data.data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[330px]"} width={"w-full"} flex={'flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} isBorder={true} /></div>
                                     </>} */}
                           {(c.cid && books && books.length != 0 && c.component_title == "Book Store") && <>
+                          {console.log(c.component_title,"component")}
                             <Title data={{ title: c.component_title }} route={'/bookstore'} seeMore={true} />
                             <div className={`lg:grid lg:gap-5 lg:grid-cols-5 no_scroll`}><Card isHome={true} imgClass={'lg:h-[300px] md:h-[225px] mouse'} check={true} flex={'md:flex-[0_0_calc(50%_-_10px)]'} data={books} boxShadow={true} /></div>
                           </>}
