@@ -517,7 +517,7 @@ export default function LogIn({ isModal, hide, auth }) {
                                 {/* <p>Continue with Apple</p> */}
                             </div>
 
-                            <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
+                           { false && <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
                                 {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/login/fb-01.svg'} /> */}
                                 <FbBtn />
                                 {/* <p>Continue with Facebook</p> */}
@@ -534,7 +534,7 @@ export default function LogIn({ isModal, hide, auth }) {
                                     //     callback={responseFacebook}
                                     // />
                                 }
-                            </div>
+                            </div>}
 
                             <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
 
@@ -551,12 +551,13 @@ export default function LogIn({ isModal, hide, auth }) {
                                     }}
                                 >
                                     {({ linkedInLogin }) => (
-                                        <img
-                                            onClick={linkedInLogin}
-                                            src={linkedin}
-                                            alt="Sign in with Linked In"
-                                            style={{ maxWidth: '180px', cursor: 'pointer' }}
-                                        />
+                                        // <img
+                                        //     onClick={linkedInLogin}
+                                        //     src={linkedin}
+                                        //     alt=" with Linked In"
+                                        //     style={{ maxWidth: '180px', cursor: 'pointer' }}
+                                        // />
+                                        <p  onClick={linkedInLogin}>Linked In</p>
                                     )}
                                 </LinkedIn>
 
