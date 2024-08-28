@@ -33,6 +33,7 @@ import "nprogress/nprogress.css"
 // import AuthSessionProvider from './auth/auth-session-provider'
 import { SessionProvider } from 'next-auth/react'
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Script from 'next/script'
 const inter = Faustina({
   weight: ["300", "400", "500", "600", '700'],
   display: "block",
@@ -68,33 +69,36 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
 
     if (typeof window !== 'undefined') {
       // Ensure the script is loaded and initialized properly
-      const script = document.createElement('script');
-      script.src = 'path-to-tracking-two-library.js'; // Replace with actual URL or path
-      script.async = true;
-      script.onload = () => {
-        // Initialize TrackingTwo after script is loaded
-        const initialPageInstance = {
-          pageTitle: document.title,
-          pageUrl: window.location.href,
-          // Other properties if needed
-        };
+      // const script = document.createElement('script');
+      // script.src = 'path-to-tracking-two-library.js'; // Replace with actual URL or path
+      // script.async = true;
+      // script.onload = () => {
+      //   // Initialize TrackingTwo after script is loaded
+      //   const initialPageInstance = {
+      //     pageTitle: document.title,
+      //     pageUrl: window.location.href,
+      //     // Other properties if needed
+      //   };
 
-        // Assuming global TrackingTwo is available after script load
-        if (window.TrackingTwo) {
-          const trackingInstance = new window.TrackingTwo({
-            initialPageInstance,
-            // Other options
-          });
-          trackingInstance.initialize();
-        }
-      };
+      //   // Assuming global TrackingTwo is available after script load
+      //   if (window.TrackingTwo) {
+      //     const trackingInstance = new window.TrackingTwo({
+      //       initialPageInstance,
+      //       // Other options
+      //     });
+      //     trackingInstance.initialize();
+      //   }
+      // };
 
-      document.body.appendChild(script);
+      // document.body.appendChild(script);
 
-      // Cleanup script on component unmount
-      return () => {
-        document.body.removeChild(script);
-      };
+      // // Cleanup script on component unmount
+      // return () => {
+      //   document.body.removeChild(script);
+      // };
+      
+     
+      // window.adsbygoogle = window.adsbygoogle || [];
     }
 
     // const handleBackButton = (event) => {
@@ -208,6 +212,26 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   // }
   return (
     <>
+    {/* Load AdSense script */}
+    {/* <Script
+        strategy="beforeInteractive"
+        id="adsense-script"
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
+      /> */}
+      {/* Replace with your AdSense client ID */}
+      {/* <Script
+        strategy="beforeInteractive"
+        id="adsense-setup"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "div-gpt-ad-1617096742911-0",
+              enable_page_level_ads: true
+            });
+          `,
+        }}
+      /> */}
       <Head>
         {/* <link href="https://indiaretailing.go1cms/files/default-theme.css" rel="stylesheet"/> */}
 

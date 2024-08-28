@@ -7,7 +7,7 @@ import RootLayout from '@/layouts/RootLayout'
 // import HomePageBuilder from '@/components/Builders/HomePageBuilder';
 // getAds updatePollOptionValue
 import { HomePage, newsLanding, checkMobile, getList, getPollsList, get_ip, HomePageAds } from '../libs/api';
-import { useEffect, useState, useRef,useMemo } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import SEO from '@/components/common/SEO'
 import dynamic from 'next/dynamic'
 import TopStories from '@/components/Landing/TopStories'
@@ -51,8 +51,10 @@ const Title = dynamic(() => import('@/components/common/Title'))
 const BulletList = dynamic(() => import('@/components/Landing/BulletList'))
 // import SubscriptionAlert from '../common/SubscriptionAlert'
 import { useSession } from 'next-auth/react'
+import Script from 'next/script';
+import GoogleAds from '@/components/Baners/GoogleAds';
 
-export default function Home({ data,ads }) {
+export default function Home({ data, ads }) {
   // console.log(data);
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
@@ -95,15 +97,22 @@ export default function Home({ data,ads }) {
   //   }
   // }
 
-  useMemo(()=>{
+  useMemo(() => {
 
-  },[ads,loading,pageNo,noProduct,news,value])
+  }, [ads, loading, pageNo, noProduct, news, value])
 
   let cardref = useRef();
   let no_product = false;
 
   let [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
+    if (window.googletag) {
+      window.googletag.cmd = window.googletag.cmd || [];
+      window.googletag.cmd.push(function () {
+        window.googletag.display('div-gpt-ad-1617096742911-0');
+      });
+    }
+
     checkIsMobile();
     get_polls()
     window.addEventListener('resize', checkIsMobile)
@@ -305,9 +314,49 @@ export default function Home({ data,ads }) {
   return (
     <>
       {/*  isLast={index == value.length - 1} */}
+
+      {/* AdSense ad unit */}
+      {/* <ins className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client="div-gpt-ad-1617096742911-0"
+        data-ad-slot="XXXXXX"
+        data-ad-format="auto"></ins>
+      <Script
+        strategy="afterInteractive"
+        id="adsense-ads"
+        dangerouslySetInnerHTML={{
+          __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
+        }}
+      /> */}
+      <GoogleAds
+        script={`
+          <script
+          async
+          src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+          ></script>
+          <ins
+          style="display: block;overflow:hidden;height:190px;" 
+          data-full-width-responsive="true"
+          className="adsbygoogle adbanner-customize"
+          data-ad-client="div-gpt-ad-1617096742911-0"
+          data-ad-slot="7434970023"
+          data-ad-format="auto">
+          </ins>
+          <script>
+          (adsbygoogle = window.adsbygoogle || []).push({})
+          </script>
+          `}
+        data-ad-slot="7434970023"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+        className="adsbygoogle adbanner-customize"
+      />
+
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
-               
+
         {(value && value.length != 0) ? value.map((data, i) => {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
@@ -331,11 +380,11 @@ export default function Home({ data,ads }) {
                             <Title data={{ title: 'Latest News' }} seeMore={true} route={'/categories/latest-news'} />
                             {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(4, 6)} /></> : <LatestNews height={'md:h-[222px] lg:h-[240px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} />}
                           </>}
-                          {(ads && ads.infocus  && c.component_title == "Infocus Ad" && data.section == 'Infocus' && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.infocus.section) && 
-                          <>
-                          {/* {console.log(ads.infocus,'ads.infocus')} */}
-                          <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} />
-                          </>
+                          {(ads && ads.infocus && c.component_title == "Infocus Ad" && data.section == 'Infocus' && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.infocus.section) &&
+                            <>
+                              {/* {console.log(ads.infocus,'ads.infocus')} */}
+                              <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} />
+                            </>
                           }
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive" && !isMobile) && <Subscribe height={"h-[125px] "} data={news} width={"w-full"} />}
@@ -388,7 +437,7 @@ export default function Home({ data,ads }) {
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Video Wall") && <>
                             <Title data={{ title: c.component_title }} textClass={'text-white'} see={'text-white'} route={'/video'} seeMore={true} />
-                            <><IrVideoWall data={data.data[c.cid].data} isHome={'/video/'}  imgClass={'h-[460px] w-full md:h-[200px]'} /></>
+                            <><IrVideoWall data={data.data[c.cid].data} isHome={'/video/'} imgClass={'h-[460px] w-full md:h-[200px]'} /></>
                           </>}
                           {/* {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Retail with Rasul Bailay") && <>
                             <Title data={{ title: c.component_title }} textClass={'text-white'} />
@@ -453,7 +502,7 @@ export default function Home({ data,ads }) {
                           </>}
 
                           {(ads && ads.shopping_centre_below && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.shopping_centre_below.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.shopping_centre_below} height={"h-[90px] w-[728px] object-contain m-[auto]"} /></>}
-                          
+
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>
                             <Title data={{ title: c.component_title }} route={c.component_title == "Supply Chain" ? '/categories/supply-chain' : c.component_title == "Marketing" ? '/categories/marketting' : null} seeMore={true} />
                             <div className='md:flex md:flex-col md:gap-[5px]'><List isHome={'/'} primary_pb={'lg:pb-[5px]'} mb={true} data={data.data[c.cid].data.slice(0, 3)} titleClamp={'line-clamp-2'} line={'line-clamp-1 md:line-clamp-1'} hash_bg={'pt-[10px] md:pt-[10px]'} check={true} imgFlex={'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={"w-full"} imgHeight={"h-[125px] md:h-[115px]"} borderRadius={"rounded-[10px]"} /></div>
@@ -511,7 +560,7 @@ export default function Home({ data,ads }) {
                                         <div className={`flex flex-wrap gap-5 justify-between`}><Cards data={resp.data.data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[330px]"} width={"w-full"} flex={'flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} isBorder={true} /></div>
                                     </>} */}
                           {(c.cid && books && books.length != 0 && c.component_title == "Book Store") && <>
-                          {console.log(c.component_title,"component")}
+                            {console.log(c.component_title, "component")}
                             <Title data={{ title: c.component_title }} route={'/bookstore'} seeMore={true} />
                             <div className={`lg:grid lg:gap-5 lg:grid-cols-5 no_scroll`}><Card isHome={true} imgClass={'lg:h-[300px] md:h-[225px] mouse'} check={true} flex={'md:flex-[0_0_calc(50%_-_10px)]'} data={books} boxShadow={true} /></div>
                           </>}
@@ -786,7 +835,7 @@ export async function getStaticProps() {
   let ads = res.message
 
   return {
-    props: { data,ads }, revalidate: 10
+    props: { data, ads }, revalidate: 10
   }
 
 }

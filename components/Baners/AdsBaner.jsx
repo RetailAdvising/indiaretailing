@@ -1,4 +1,4 @@
-import { check_Image,checkMobile } from '@/libs/api'
+import { check_Image, checkMobile } from '@/libs/api'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
