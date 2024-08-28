@@ -29,7 +29,7 @@ const FbBtn = () => {
         // {callbackUrl: `http://localhost:3000/api/auth/callback/linkedin`}
         await signIn('linkedin')
         // await signIn('linkedin',{callbackUrl: `http://localhost:3000/auth/signin`})
-      }} className='h-[25px] w-[25px] object-contain cursor-pointer' width={20} alt='facebook' src={'/login/fb-01.svg'} />
+      }} className='h-[25px] w-[25px] object-contain cursor-pointer' width={20} alt='facebook' src={'/login/linkedin.webp'} />
 
 
       {/* <Image height={20} onClick={async () => {

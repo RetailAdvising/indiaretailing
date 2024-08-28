@@ -2551,3 +2551,10 @@ span {
   border: 1px solid #ccc; /* Maintain border color when focused */
   box-shadow: none; /* Remove box-shadow when focused */
 }
+
+div[role=button]{
+  border: none !important;
+  .nsm7Bb-HzV7m-LgbsSe-BPrWId,span{
+    display: none !important;
+  }
+}

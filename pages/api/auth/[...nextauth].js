@@ -4,6 +4,13 @@ import FacebookProvider from 'next-auth/providers/facebook';
 import AppleProvider from 'next-auth/providers/apple'
 import LinkedInProvider from 'next-auth/providers/linkedin';
 
+// export const { handlers, auth, signIn, signOut } = nextAuth({
+//     providers: [LinkedInProvider({
+//         clientId: process.env.LINKEDIN_CLIENT_ID,
+//         clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+//     }),],
+// })
+
 export default nextAuth({
     // export const authOptions = ({
     // pages: {
@@ -28,14 +35,14 @@ export default nextAuth({
             clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
             // clientId: "8676pxylpkogss",
             // clientSecret: "bZFGBR3zxHzHg8Nc",
-            // callbackUrl: "http://localhost:3000/api/auth/callback/linkedin",
-            callbackUrl: "https://indiaretail.vercel.app/api/auth/callback/linkedin",
+            // callbackUrl: "http://localhost:3000/",
+            // callbackUrl: "https://indiaretail.vercel.app/api/auth/callback/linkedin",
             // authorization: {
             //     params: {
             //         scope: 'r_liteprofile r_emailaddress',
             //     },
             // },
-            scope: ["r_basicprofile","r_emailaddress"],
+            // scope: ["r_basicprofile","r_emailaddress"],
         }),
     ],
     // secret: "53a83436a46c089d62799997af80a031341622788230249",

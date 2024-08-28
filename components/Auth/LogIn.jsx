@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import Image from 'next/image';
@@ -410,6 +410,41 @@ export default function LogIn({ isModal, hide, auth }) {
     //     },
     // });
 
+    const iframeRef = useRef(null)
+
+    useEffect(() => {
+        if (document.readyState === 'complete') {
+            onPageLoad();
+        } else {
+            window.addEventListener('load', onPageLoad);
+            // Remove the event listener when component unmounts
+            return () => window.removeEventListener('load', onPageLoad);
+        }
+
+        setTimeout(() => {
+            onPageLoad();
+        }, 10000);
+    }, [iframeRef])
+
+    function onPageLoad() {
+        let iframe = document.querySelector('iframe')
+        if (iframe) {
+            if (iframe.contentDocument) {
+                // console.log(iframe.contentDocument, "iframe.contentDocument")
+                let val = iframe.contentDocument ? iframe.contentDocument : document
+
+                const divElement = val.querySelector('div[role=button]');
+                // const divElement = val?.querySelector('div[role=button]');
+
+                if (divElement) {
+                    divElement.style.border = 'none';
+                    divElement.querySelector('.nsm7Bb-HzV7m-LgbsSe-BPrWId').style.display = 'none';
+                    divElement.querySelector('span').style.display = 'none';
+                }
+            }
+        }
+    }
+
 
     return (
         <>
@@ -495,10 +530,11 @@ export default function LogIn({ isModal, hide, auth }) {
                                 {/* {<GoogleLogin buttonText="" clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>} */}
                                 {/* <GoogleOAuthProvider clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"></GoogleOAuthProvider>; */}
                                 {/* <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} /> */}
-                                <GoogleLogin shape='square'
-                                    text='signin'
+                                <GoogleLogin shape='square' ref={iframeRef}
+                                    text=' '
                                     size='large'
                                     width={'50px'}
+                                    style={{border:'none !important'}}
                                     onSuccess={handleSuccess}
                                     onFailure={handleFailure} />
                                 {/* <button onClick={() => signIn("google")}>Login with Google</button> */}
@@ -514,7 +550,7 @@ export default function LogIn({ isModal, hide, auth }) {
                                 {/* <p>Continue with Apple</p> */}
                             </div>
 
-                           { false && <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
+                            {false && <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
                                 {/* <Image height={20} className='h-[25px] w-[25px] object-contain' width={20} alt='apple' src={'/login/fb-01.svg'} /> */}
                                 <FbBtn />
                                 {/* <p>Continue with Facebook</p> */}

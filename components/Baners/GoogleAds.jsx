@@ -15,7 +15,8 @@ const GoogleAds = (props) => {
             {props.script && <div dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
-            {(!props.script && props.data-ad-slot) && <div className="bg-black">
+{/* && props.data-ad-slot */}
+            {(!props.script ) && <div className="bg-black">
                 <ins
                     style={{
                         display: 'block',
