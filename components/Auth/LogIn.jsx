@@ -25,9 +25,6 @@ import { GoogleLogin } from '@react-oauth/google';
 // const REDIRECT_URI =
 //     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
 
-import { useLinkedIn, LinkedIn } from 'react-linkedin-login-oauth2';
-// You can use provided image shipped by this package or using your own
-import linkedin from 'react-linkedin-login-oauth2/assets/linkedin.png';
 
 export default function LogIn({ isModal, hide, auth }) {
     // const config = {
@@ -537,32 +534,9 @@ export default function LogIn({ isModal, hide, auth }) {
                             </div>}
 
                             <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
-
-                                <LinkedIn
-                                    clientId="8676pxylpkogss"
-                                    // redirectUri={`http://localhost:3000/auth/signin`}
-                                    redirectUri={`${window.location.origin}/auth/linkedin`}
-                                    // redirectUri={`${window.location.origin}/linkedin`}
-                                    onSuccess={(code) => {
-                                        console.log(code);
-                                    }}
-                                    onError={(error) => {
-                                        console.log(error);
-                                    }}
-                                >
-                                    {({ linkedInLogin }) => (
-                                        // <img
-                                        //     onClick={linkedInLogin}
-                                        //     src={linkedin}
-                                        //     alt=" with Linked In"
-                                        //     style={{ maxWidth: '180px', cursor: 'pointer' }}
-                                        // />
-                                        <p  onClick={linkedInLogin}>Linked In</p>
-                                    )}
-                                </LinkedIn>
-
-                                {/* <FbBtn /> */}
+                                <FbBtn />
                             </div>
+
                             {/* <button onClick={() => signIn("google")}>Sign in</button> */}
                         </div>
 
@@ -574,9 +548,6 @@ export default function LogIn({ isModal, hide, auth }) {
 
             </div> : (modal == 'signup' && !otp) ? <><SignUp auth={auth} hide={hide} /></> : (modal == 'forget' && !otp) ? <><Forget auth={auth} hide={hide} /></> : <OTP hide={hide} auth={auth} isModal={isModal} setotp={() => setOtp(!otp)} />
             }
-
-
-
 
         </>
     )

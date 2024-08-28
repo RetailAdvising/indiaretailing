@@ -20,8 +20,8 @@ const FbBtn = () => {
 
       <Image height={20} onClick={async () => {
         await signIn('linkedin', {
-          callbackUrl: `http://localhost:3000/auth/signin`,
-          // callbackUrl: `${window.location.origin}`,
+          // callbackUrl: `http://localhost:3000/auth/signin`,
+          callbackUrl: `${window.location.origin}/auth/signin`,
           redirect: true,
         })
 

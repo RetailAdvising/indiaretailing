@@ -48,7 +48,6 @@ export default nextAuth({
             clientId: process.env.LINKEDIN_CLIENT_ID,
             clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
         }),
-
     ],
     secret: process.env.NEXT_PUBLIC_AUTH_CLIENT_SECRET,
     debug: true,
