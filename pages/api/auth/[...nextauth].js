@@ -3,31 +3,6 @@ import nextAuth from 'next-auth';
 import FacebookProvider from 'next-auth/providers/facebook';
 import AppleProvider from 'next-auth/providers/apple'
 import LinkedInProvider from 'next-auth/providers/linkedin';
-// export const authOptions = ({
-//     // pages: {
-//     //     signIn: '/auth/signin',
-//     // },
-//     providers: [
-//         FacebookProvider({
-//             clientId: process.env.FACEBOOK_CLIENT_ID,
-//             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-//             authorization: { params: { scope: 'email', redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/facebook` } },
-//             // clientId: "341622788230249",
-//             // clientSecret: "53a83436a46c089d62799997af80a031",
-//             // authorization: { params: { scope: 'email', redirect_uri: "https://indiaretail.vercel.app/api/auth/callback/facebook" } },
-//         }),
-//     ],
-//     secret: process.env.AUTH_CLIENT_SECRET,
-//     debug: true,
-//     // secret: "53a83436a46c089d62799997af80a031341622788230249"
-//     // Add additional NextAuth.js configurations as needed
-// });
-
-
-// // const handler = nextAuth(authOptions);
-// export default (req, res) => nextAuth(req, res, authOptions)
-
-// export { handler as GET, handler as POST }
 
 export default nextAuth({
     // export const authOptions = ({
@@ -35,20 +10,35 @@ export default nextAuth({
     //     signIn: '/auth/signin',
     // },
     providers: [
-        FacebookProvider({
-            clientId: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID,
-            clientSecret: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_SECRET,
-            // authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook",response_type: 'code' }},
-        }),
+        // FacebookProvider({
+        //     clientId: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID,
+        //     clientSecret: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_SECRET,
+        //     // authorization: { params: { scope: 'email',redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback/facebook",response_type: 'code' }},
+        // }),
         AppleProvider({
             clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID,
             clientSecret: process.env.NEXT_PUBLIC_APPLE_CLIENT_SECRET,
         }),
+        // LinkedInProvider({
+        //     clientId: process.env.LINKEDIN_CLIENT_ID,
+        //     clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+        // }),
         LinkedInProvider({
             clientId: process.env.LINKEDIN_CLIENT_ID,
             clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+            // clientId: "8676pxylpkogss",
+            // clientSecret: "bZFGBR3zxHzHg8Nc",
+            // callbackUrl: "http://localhost:3000/api/auth/callback/linkedin",
+            callbackUrl: "https://indiaretail.vercel.app/api/auth/callback/linkedin",
+            // authorization: {
+            //     params: {
+            //         scope: 'r_liteprofile r_emailaddress',
+            //     },
+            // },
+            scope: ["r_basicprofile","r_emailaddress"],
         }),
     ],
+    // secret: "53a83436a46c089d62799997af80a031341622788230249",
     secret: process.env.NEXT_PUBLIC_AUTH_CLIENT_SECRET,
     debug: true,
     // session: {
@@ -85,11 +75,23 @@ export default nextAuth({
         },
     },
     callbacks: {
-        session: async function ({ session, token }) {
-            // session.user=token.user;
-            session.customValue = new Date().toISOString()
-            return Promise.resolve(session);
-        }
+        // session: async function ({ session, token }) {
+        //     // session.user=token.user;
+        //     console.log(session,"session callbacks")
+        //     console.log(token,"token callbacks")
+        //     session.customValue = new Date().toISOString()
+        //     return Promise.resolve(session);
+        // }
+        async jwt({ token, account }) {
+            if (account) {
+                token.accessToken = account.access_token;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            session.accessToken = token.accessToken;
+            return session;
+        },
     }
 
 

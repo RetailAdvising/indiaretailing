@@ -54,6 +54,49 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     setTabHeight(tabs && tabs.clientHeight)
     get_website_settings()
 
+    // if (typeof window !== 'undefined') {
+    //   const TrackingTwo = require('tracking-two'); // Replace with actual import if needed
+    //   const initialPageInstance = {
+    //     pageTitle: document.title,
+    //     pageUrl: window.location.href,
+    //     // Add other properties as required by TrackingTwo
+    //   };
+
+    //   const trackingInstance = new TrackingTwo(initialPageInstance);
+    //   trackingInstance.initialize();
+    // }
+
+    if (typeof window !== 'undefined') {
+      // Ensure the script is loaded and initialized properly
+      const script = document.createElement('script');
+      script.src = 'path-to-tracking-two-library.js'; // Replace with actual URL or path
+      script.async = true;
+      script.onload = () => {
+        // Initialize TrackingTwo after script is loaded
+        const initialPageInstance = {
+          pageTitle: document.title,
+          pageUrl: window.location.href,
+          // Other properties if needed
+        };
+
+        // Assuming global TrackingTwo is available after script load
+        if (window.TrackingTwo) {
+          const trackingInstance = new window.TrackingTwo({
+            initialPageInstance,
+            // Other options
+          });
+          trackingInstance.initialize();
+        }
+      };
+
+      document.body.appendChild(script);
+
+      // Cleanup script on component unmount
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+
     // const handleBackButton = (event) => {
     //   if (event.type === 'popstate') {
     //     const historyState = event.state;
