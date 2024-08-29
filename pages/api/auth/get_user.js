@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
     const { accessToken } = req.body
-    const url = 'https://api.linkedin.com/v2/clientAwareMemberHandles?q=members&projection=(elements*(primary,type,handle~))';
-    // const url = 'https://api.linkedin.com/v2/me';
+    // const url = 'https://api.linkedin.com/v2/clientAwareMemberHandles?q=members&projection=(elements*(primary,type,handle~))';
+    const url = 'https://api.linkedin.com/v2/userinfo';
     try {
         const response = await fetch(url, {
             method: 'GET',

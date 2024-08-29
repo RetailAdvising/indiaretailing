@@ -334,9 +334,9 @@ export default function LogIn({ isModal, hide, auth }) {
             data: JSON.stringify({
                 email: data.email,
                 user_name: data.given_name,
-                uid: data.jti,
+                uid: data.linkedin ? data.sub : data.jti,
                 phone: data.phone ? data.phone : '',
-                provider: "oauth-google"
+                provider: data.linkedin ? 'linkedin-login-oauth2' : "oauth-google"
             }),
             get_user_token: 1
         }
@@ -570,7 +570,7 @@ export default function LogIn({ isModal, hide, auth }) {
                             </div>}
 
                             <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
-                                <FbBtn />
+                                <FbBtn socialLogin={socialLogin} />
                             </div>
 
                             {/* <button onClick={() => signIn("google")}>Sign in</button> */}

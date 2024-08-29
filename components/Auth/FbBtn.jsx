@@ -5,7 +5,7 @@ import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const FbBtn = () => {
+const FbBtn = ({ socialLogin }) => {
   const { data: session } = useSession();
   // console.log(data,'data')
   // console.log(session, 'session')
@@ -21,8 +21,9 @@ const FbBtn = () => {
     onSuccess: async (code) => {
       // console.log(code);
       const accessToken = await handleLogin(code)
-      if(accessToken){
-        await getUserEmail(accessToken)
+      if (accessToken) {
+        let values = await getUserEmail(accessToken)
+        userLogin(values)
       }
       // console.log(await getAuthorization(),"getAuthorization")
       // console.log(await getAccessToken(code), "code accesss")
@@ -31,19 +32,17 @@ const FbBtn = () => {
       console.log(error);
     },
   });
-  
+
+  const userLogin = (data) => {
+    if (data && data.email) {
+      data['linkedin'] = true
+      socialLogin(data)
+    } else {
+      toast.error(`Register your email with the linkedin...!`)
+    }
+  }
+
   const handleLogin = async (code) => {
-    const clientId = '86b4qk3ibf9z8c';
-    const redirectUri = 'http://localhost:3000/auth/signin'; // Your server-side callback
-    const scope = 'profile email';
-    const code1 = code
-    const state = '86b4qk3ibf9z8c'; // Optional state parameter
-
-    // const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_secret=6Mt84X5h8156yGS2&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&state=${state}&code=${code1}`;
-
-    // window.location.href = authUrl;
-
-    // ?code=${code1}
     // let url = `http://localhost:3000/api/auth/signin`;
     let url = "https://indiaretail.vercel.app/api/auth/signin"
     try {
@@ -53,7 +52,7 @@ const FbBtn = () => {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-          code: code1
+          code: code
         })
       });
 
@@ -66,9 +65,9 @@ const FbBtn = () => {
 
       const data = await response.json();
       // console.log(data,"data")
-      if(data.status == "Success"){
+      if (data.status == "Success") {
         return data.access_token;
-      }else{
+      } else {
         toast.error(data.error)
         return undefined
       }
@@ -80,116 +79,7 @@ const FbBtn = () => {
 
   };
 
-  async function getAuthorization() {
-    // const { LINKEDIN_CLIENT_ID, LINKEDIN_CLIENT_SECRET, NEXTAUTH_URL } = process.env;
-    const tokenUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86b4qk3ibf9z8c&redirect_uri=http://localhost:3000/auth/signin&scope=profile email`;
-    // const tokenUrl = 'https://www.linkedin.com/oauth/v2/accessToken';
-
-    try {
-      const response = await fetch(tokenUrl, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Error fetching access Authorization:', errorData);
-        throw new Error(`Failed to fetch access Authorization: ${errorData.error_description}`);
-      }
-
-      const data = await response.json();
-      return data;
-
-    } catch (error) {
-      console.error('Error in Authorization:', error);
-      throw error; // Re-throw the error after logging it
-    }
-  }
-
-  
-
-  async function getAccessToken(code) {
-    // const { LINKEDIN_CLIENT_ID, LINKEDIN_CLIENT_SECRET, NEXTAUTH_URL } = process.env;
-    const tokenUrl = `https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&client_id=86b4qk3ibf9z8c&client_secret=6Mt84X5h8156yGS2&code=${code}&redirect_uri=http://localhost:3000/auth/signin`;
-    // const tokenUrl = 'https://www.linkedin.com/oauth/v2/accessToken';
-
-    try {
-      // const response = await fetch(tokenUrl, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/x-www-form-urlencoded'
-      //   },
-      //   body: new URLSearchParams({
-      //     grant_type: 'authorization_code',
-      //     code,
-      //     redirect_uri: `http://localhost:3000/auth/signin`,
-      //     client_id: "86b4qk3ibf9z8c",
-      //     client_secret: "6Mt84X5h8156yGS2"
-      //   })
-      // });
-
-      const response = await fetch(tokenUrl, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Error fetching access token:', errorData);
-        throw new Error(`Failed to fetch access token: ${errorData.error_description}`);
-      }
-
-      const data = await response.json();
-      return data.access_token; // Extract the access token
-
-    } catch (error) {
-      console.error('Error in getAccessToken:', error);
-      throw error; // Re-throw the error after logging it
-    }
-  }
-
   async function getUserEmail(accessToken) {
-    // const emailUrl = 'https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))';
-    // const emailUrl = 'https://api.linkedin.com/v2/clientAwareMemberHandles?q=members&projection=(elements*(primary,type,handle~))';
-
-    // const response = await fetch(emailUrl, {
-    //   method:'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${accessToken}`
-    //   }
-    // });
-
-    // const data = await response.json();
-    // console.log(data,"data")
-    // return data.elements[0]['handle~'].emailAddress; // Extract the email address
-
-    // try {
-    //   const response = await fetch(emailUrl, {
-    //     method: 'GET',
-    //     headers: {
-    //       'Authorization': `Bearer ${accessToken}`,
-    //       'Content-Type': 'application/json'
-    //     }
-    //   });
-  
-    //   if (!response.ok) {
-    //     const errorData = await response.json();
-    //     throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message}`);
-    //   }
-  
-    //   const data = await response.json();
-    //   console.log('Member Handles Data:', data);
-    //   return data;
-  
-    // } catch (error) {
-    //   console.error('Error fetching member handles:', error);
-    //   throw error;
-    // }
 
     // let url = `http://localhost:3000/api/auth/get_user`;
     let url = `https://indiaretail.vercel.app/api/auth/get_user`;
@@ -213,10 +103,10 @@ const FbBtn = () => {
       }
 
       const data = await response.json();
-      console.log(data,"data")
-      if(data.status == "Success"){
-        return data;
-      }else{
+      // console.log(data,"data")
+      if (data.status == "Success") {
+        return data.data;
+      } else {
         toast.error(data.error)
         return undefined
       }
@@ -230,7 +120,7 @@ const FbBtn = () => {
 
   return (
     <>
-    <ToastContainer position={'bottom-right'} autoClose={2000} />
+      <ToastContainer position={'bottom-right'} autoClose={2000} />
       {/* {!session ? (
         <button onClick={async () => {
           await signIn('facebook', {
