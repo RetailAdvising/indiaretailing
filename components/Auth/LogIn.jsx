@@ -428,19 +428,56 @@ export default function LogIn({ isModal, hide, auth }) {
 
     function onPageLoad() {
         let iframe = document.querySelector('iframe')
-        if (iframe) {
-            if (iframe.contentDocument) {
-                // console.log(iframe.contentDocument, "iframe.contentDocument")
-                let val = iframe.contentDocument ? iframe.contentDocument : document
+        if (iframe && (iframe.contentDocument || iframe.contentWindow)) {
+            // if (iframe.contentDocument) {
+            //     // console.log(iframe.contentDocument, "iframe.contentDocument")
+            //     let val = iframe.contentDocument ? iframe.contentDocument : document
 
-                const divElement = val.querySelector('div[role=button]');
-                // const divElement = val?.querySelector('div[role=button]');
+            //     const divElement = val.querySelector('div[role=button]');
+            //     // const divElement = val?.querySelector('div[role=button]');
 
-                if (divElement) {
-                    divElement.style.border = 'none';
-                    divElement.querySelector('.nsm7Bb-HzV7m-LgbsSe-BPrWId').style.display = 'none';
-                    divElement.querySelector('span').style.display = 'none';
-                }
+            //     if (divElement) {
+            //         divElement.style.border = 'none';
+            //         divElement.querySelector('.nsm7Bb-HzV7m-LgbsSe-BPrWId').style.display = 'none';
+            //         divElement.querySelector('span').style.display = 'none';
+            //     }
+            // }
+            const doc = iframe.contentDocument || iframe.contentWindow;
+
+            if (iframe.contentWindow && iframe.contentWindow.document) {
+                // console.log(iframe.contentWindow, "document")
+                // const divElement = iframe?.contentWindow?.document?.querySelector('div[role=button]');
+
+                // if (divElement) {
+                //     divElement.style.border = 'none';
+                //     const buttonClassElement = divElement.querySelector('.nsm7Bb-HzV7m-LgbsSe-BPrWId');
+                //     const spanElement = divElement.querySelector('span');
+
+                //     if (buttonClassElement) {
+                //         buttonClassElement.style.display = 'none';
+                //     }
+                //     if (spanElement) {
+                //         spanElement.style.display = 'none';
+                //     }
+                // }
+
+            } else {
+                iframe.addEventListener('load', () => {
+                    const divElement = doc.querySelector('div[role=button]');
+
+                    if (divElement) {
+                        divElement.style.border = 'none';
+                        const buttonClassElement = divElement.querySelector('.nsm7Bb-HzV7m-LgbsSe-BPrWId');
+                        const spanElement = divElement.querySelector('span');
+
+                        if (buttonClassElement) {
+                            buttonClassElement.style.display = 'none';
+                        }
+                        if (spanElement) {
+                            spanElement.style.display = 'none';
+                        }
+                    }
+                });
             }
         }
     }
@@ -534,7 +571,7 @@ export default function LogIn({ isModal, hide, auth }) {
                                     text=' '
                                     size='large'
                                     width={'50px'}
-                                    style={{border:'none !important'}}
+                                    style={{ border: 'none !important' }}
                                     onSuccess={handleSuccess}
                                     onFailure={handleFailure} />
                                 {/* <button onClick={() => signIn("google")}>Login with Google</button> */}
