@@ -43,7 +43,6 @@ const inter = Faustina({
   variable: '--font-faustina'
 })
 
-
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const [tabHeight, setTabHeight] = useState(0)
   const [activeTab, setActiveTab] = useState(0)

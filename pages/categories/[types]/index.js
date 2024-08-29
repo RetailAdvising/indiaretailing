@@ -60,6 +60,7 @@ export default function CategoryType({ values, ads }) {
 
         const intersectionObserver = new IntersectionObserver(entries => {
             if (entries[0].intersectionRatio <= 0) return;
+            // console.log(entries[0].intersectionRatio,"entries[0].intersectionRatio")
             if (!no_product) {
                 page_no > 1 ? loadMore() : null
                 page_no = page_no + 1
@@ -72,7 +73,7 @@ export default function CategoryType({ values, ads }) {
             cardref?.current && intersectionObserver?.unobserve(cardref?.current)
         }
 
-    }, [router.query]);
+    }, [router.query,cardref]);
 
     async function loadMore() {
         setLoading(true)

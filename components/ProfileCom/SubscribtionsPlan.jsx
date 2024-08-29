@@ -72,7 +72,8 @@ const formatter = new Intl.NumberFormat('en-US', {
       {!Skeleton  &&
        <>
        {planList && planList.length == 0 ? 
-         <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-subscriptions.svg'} heading={type == 'member'  ? 'No Membership Found' : 'No Subscription Found'} button={type == 'member' ? true : false} btnName={'Go to membership'} route={'/membership'}/>
+      //  h-[calc(100vh_-_220px)]
+         <NoProductFound cssClass={'flex-col '} empty_icon={'/empty_states/no-subscriptions.svg'} heading={type == 'member'  ? 'No Membership Found' : 'No Subscription Found'} button={type == 'member' ? true : false} btnName={'Go to membership'} route={'/membership'}/>
         :
          planList.map((res,index)=>{
             return(
