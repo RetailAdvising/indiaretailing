@@ -45,7 +45,7 @@ const FbBtn = () => {
 
     // ?code=${code1}
     // let url = `http://localhost:3000/api/auth/signin`;
-    let url = "https://indiaretail.vercel.app/auth/signin"
+    let url = "https://indiaretail.vercel.app/api/auth/signin"
     try {
       const response = await fetch(url, {
         method: 'POST',
