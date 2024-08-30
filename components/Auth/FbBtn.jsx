@@ -62,7 +62,7 @@ const FbBtn = ({ socialLogin }) => {
         },
         body: new URLSearchParams({
           code: code,
-          redirect_uri: url
+          redirect_uri: `${doamin_url}/auth/signin`
         })
       });
 
