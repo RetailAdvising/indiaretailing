@@ -1,20 +1,28 @@
-import { signIn, signOut, useSession } from 'next-auth/react'
+// import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { useLinkedIn } from 'react-linkedin-login-oauth2';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const FbBtn = ({ socialLogin }) => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   // console.log(data,'data')
   // console.log(session, 'session')
+  const [doamin_url, setDomainUrl] = useState()
+
+  useEffect(()=>{
+    if(typeof window !== 'undefined'){
+      setDomainUrl(window.location.origin)
+    }
+  },[])
+
   const { linkedInLogin } = useLinkedIn({
     clientId: "86b4qk3ibf9z8c",
-    redirectUri: `https://indiaretail.vercel.app/auth/signin`,
+    // redirectUri: `https://indiaretail.vercel.app/auth/signin`,
     // redirectUri: `http://localhost:3000/auth/signin`,
-    // redirectUri: `http://localhost:3000/api/auth/callback/linkedin`,
-    // redirectUri: `${window.location.origin}/linkedin`,
+    redirectUri: `${doamin_url}/auth/signin`,
     scope: "email profile w_member_social openid",
     state: "86b4qk3ibf9z8c",
     // email profile
@@ -44,7 +52,8 @@ const FbBtn = ({ socialLogin }) => {
 
   const handleLogin = async (code) => {
     // let url = `http://localhost:3000/api/auth/signin`;
-    let url = "https://indiaretail.vercel.app/api/auth/signin"
+    let url = `${doamin_url}/api/auth/signin`
+    // let url = "https://indiaretail.vercel.app/api/auth/signin"
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -52,7 +61,8 @@ const FbBtn = ({ socialLogin }) => {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-          code: code
+          code: code,
+          redirect_uri: url
         })
       });
 
@@ -82,7 +92,8 @@ const FbBtn = ({ socialLogin }) => {
   async function getUserEmail(accessToken) {
 
     // let url = `http://localhost:3000/api/auth/get_user`;
-    let url = `https://indiaretail.vercel.app/api/auth/get_user`;
+    let url = `${doamin_url}/api/auth/get_user`;
+    // let url = `https://indiaretail.vercel.app/api/auth/get_user`;
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -124,7 +135,7 @@ const FbBtn = ({ socialLogin }) => {
       {/* {!session ? (
         <button onClick={async () => {
           await signIn('facebook', {
-            callbackUrl: `${window.location.origin}`,
+            callbackUrl: `${doamin_url}`,
             redirect: true,
           })
         }}>Sign in with Facebook</button>
@@ -135,7 +146,7 @@ const FbBtn = ({ socialLogin }) => {
 
       {/* await signIn('linkedin', {
           // callbackUrl: `http://localhost:3000/auth/signin`,
-          callbackUrl: `${window.location.origin}/auth/signin`,
+          callbackUrl: `${doamin_url}/auth/signin`,
           redirect: true,
         }) */}
 
@@ -151,7 +162,7 @@ const FbBtn = ({ socialLogin }) => {
 
       {/* <Image height={20} onClick={async () => {
           await signIn('facebook', {
-            callbackUrl: `${window.location.origin}`,
+            callbackUrl: `${doamin_url}`,
             redirect: true,
           })
         }} className='h-[25px] w-[25px] object-contain cursor-pointer' width={20} alt='facebook' src={'/login/fb-01.svg'} /> */}

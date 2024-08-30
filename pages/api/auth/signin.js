@@ -5,7 +5,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const { code } = req.body; // Read code from the body
+    const { code,redirect_uri } = req.body; // Read code from the body
     const { LINKEDIN_CLIENT_ID, LINKEDIN_CLIENT_SECRET, NEXTAUTH_URL } = process.env;
 
     if (!code) {
@@ -21,7 +21,8 @@ export default async function handler(req, res) {
             body: new URLSearchParams({
                 grant_type: 'authorization_code',
                 code: code,
-                redirect_uri: `https://indiaretail.vercel.app/auth/signin`, // Ensure this matches what you registered with LinkedIn
+                redirect_uri: redirect_uri, // Ensure this matches what you registered with LinkedIn
+                // redirect_uri: `https://indiaretail.vercel.app/auth/signin`, // Ensure this matches what you registered with LinkedIn
                 // redirect_uri: `http://localhost:3000/auth/signin`, // Ensure this matches what you registered with LinkedIn
                 client_id: LINKEDIN_CLIENT_ID,
                 client_secret: LINKEDIN_CLIENT_SECRET
