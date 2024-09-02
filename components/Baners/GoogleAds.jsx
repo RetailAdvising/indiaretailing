@@ -83,7 +83,7 @@ const GoogleAds = (props) => {
                 src="https://www.googletagservices.com/tag/js/gpt.js"
                 strategy="beforeInteractive"
             />
-            
+
             {props.script && <div dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
@@ -94,6 +94,7 @@ const GoogleAds = (props) => {
                         display: 'block',
                         overflow: 'hidden',
                     }}
+                    data-ad-slot="/21631575671/IR-728x90-Leaderboard"
                     data-ad-format={"responsive"}
                     data-full-width-responsive={true}
                     data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}

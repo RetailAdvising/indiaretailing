@@ -328,11 +328,11 @@ export default function Home({ data, ads }) {
           __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
         }}
       /> */}
-      <GoogleAds
-        script={`
+          {/* // src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID} */}
+          {/* script={`
           <script
           async
-          src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
+          src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=div-gpt-ad-1617096742911-0
           strategy="lazyOnload"
           crossOrigin="anonymous"
           ></script>
@@ -351,8 +351,8 @@ export default function Home({ data, ads }) {
         data-ad-slot="/21631575671/IR-728x90-Leaderboard"
         data-ad-format="auto"
         data-full-width-responsive="true"
-        className="adsbygoogle adbanner-customize"
-      />
+        className="adsbygoogle adbanner-customize" */}
+      <GoogleAds data-ad-slot={"/21631575671/IR-728x90-Leaderboard"} />
 
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
