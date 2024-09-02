@@ -120,16 +120,16 @@ export default function OTP({ setotp, isModal, hide, auth }) {
     return (
         <>
             {otp && <ToastContainer position={'bottom-right'} autoClose={2000} />}
-            {(auth && modal != 'signup') || isMobile ? <div className='flex container md:justify-center md:p-[15px] p-[20px] h-full gap-[20px] '>
+            {(auth && modal != 'signup') || isMobile ? <div className='flex container !m-0 md:justify-center md:p-[15px] h-full gap-[20px] '>
                 {!isMobile && <div className={` ${(isModal) ? 'flex-[0_0_calc(100%_-_10px)]' : auth ? 'flex-[0_0_calc(60%_-_10px)]' : 'flex-[0_0_calc(35%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] md:mt-[40px] flex-col justify-center'}  flex `}>
                     {/* {!isModal && <div className=' cursor-pointer '> 
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>} */}
-                    {(!isModal && auth) && <div className='flex-[0_0_calc(100%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
-                        <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`h-full w-full object-contain `} />
+                    {(!isModal && auth) && <div className='flex-[0_0_calc(100%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] '>
+                        <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`h-full w-full object-contain p-[20px]`} />
                     </div>}
                 </div>}
-                <div className='flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+                <div className='flex-[0_0_calc(40%_-_10px)] lg:p-[20px_20px_20px_0] md:flex-[0_0_calc(100%_-_10px)]'>
                     <h6 className='text-[20px] pb-[10px] font-semibold text-center'>Log In</h6>
                     {isMobile && <div className=' cursor-pointer'>
                         <Image className='w-full h-[70%] object-contain' onClick={() => router.push('/')} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />

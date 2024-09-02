@@ -6,7 +6,7 @@ import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const FbBtn = ({ socialLogin }) => {
+const FbBtn = ({ socialLogin,setCredential,setShowMob }) => {
   // const { data: session } = useSession();
   // console.log(data,'data')
   // console.log(session, 'session')
@@ -44,7 +44,12 @@ const FbBtn = ({ socialLogin }) => {
   const userLogin = (data) => {
     if (data && data.email) {
       data['linkedin'] = true
-      socialLogin(data)
+      setCredential(data)
+      if(data.phone){
+        socialLogin(data)
+      }else{
+        setShowMob(true)
+      }
     } else {
       toast.error(`Register your email with the linkedin...!`)
     }

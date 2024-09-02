@@ -41,11 +41,11 @@ const Forget = ({ auth,hide }) => {
     }
     return (
         <>
-            {(modal != 'login' && auth) || isMobile ? <div className='flex h-full container md:flex-wrap justify-between p-[30px] '>
-                <div className='flex-[0_0_calc(60%_-_10px)] md:hidden md:flex-[0_0_calc(100%_-_10px)] bg-[#E9ECF2] border rounded-[5px] p-[20px]'>
-                    <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={` w-full`} />
+            {(modal != 'login' && auth) || isMobile ? <div className='flex h-full !m-0 container md:flex-wrap justify-between p-[30px] '>
+                <div className='flex-[0_0_calc(60%_-_10px)] md:hidden md:flex-[0_0_calc(100%_-_10px)] bg-[#E9ECF2] border rounded-[5px] '>
+                    <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`p-[20px] w-full`} />
                 </div>
-                <div className='flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'>
+                <div className='flex-[0_0_calc(40%_-_10px)] lg:p-[20px_20px_20px_0] md:flex-[0_0_calc(100%_-_10px)]'>
                     {/* <div className=' cursor-pointer '>
                         <Image src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div> */}

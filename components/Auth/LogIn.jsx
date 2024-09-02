@@ -486,22 +486,22 @@ export default function LogIn({ isModal, hide, auth }) {
     return (
         <>
             <ToastContainer position={'bottom-right'} autoClose={2000} />
-            <div>
+            {/* <div> */}
                 {/* <Script src="https://apis.google.com/js/platform.js" async defer />
             <Script src="https://apis.google.com/js/api.js" async defer /> */}
                 {/* <Script src="https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" */}
                 {/* <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" /> */}
-            </div>
-            {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='lg:flex container h-full md:h-[calc(100vh_-_50px)] overflow-auto p-[20px] md:p-[0_15px] lg:justify-center gap-[20px] '>
-                {(!isModal || auth) && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border h-full rounded-[5px] p-[20px]'>
-                    <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`w-full ${auth ? 'h-full object-contain' : ''}`} />
+            {/* </div> */}
+            {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='lg:flex container h-full md:h-[calc(100vh_-_50px)] !m-0 overflow-auto md:p-[0_15px] lg:justify-center gap-[20px] '>
+                {(!isModal || auth) && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border h-full rounded-[5px] '>
+                    <Image src={'/image.png'} height={200} width={400} alt={'image retail'} className={`w-full p-[20px] ${auth ? 'h-full object-contain' : ''}`} />
                 </div>}
 
 
                 {show_mob ?
 
                     <>
-                        <div className='flex-[0_0_calc(40%_-_10px)] flex flex-col justify-center'>
+                        <div className='flex-[0_0_calc(40%_-_10px)] p-[20px_20px_20px_0] flex flex-col justify-center'>
                             <h5 className='text-[20px] font-semibold text-center '>Please enter mobile number to continue</h5>
                             <Image src={'/login/login.svg'} className='h-[250px] w-full my-[15px] object-contain' height={100} width={100} alt='reset' />
                             <div className={`flex flex-col py-5 relative`}>
@@ -515,7 +515,7 @@ export default function LogIn({ isModal, hide, auth }) {
 
                     </>
 
-                    : <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] relative h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] '} flex-col flex justify-center`}>
+                    : <div className={`${isModal ? 'flex-[0_0_calc(100%_-_10px)] relative h-[calc(87vh_-_10px)] overflow-auto' : 'flex-[0_0_calc(40%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] lg:p-[20px_20px_20px_0]'} flex-col flex justify-center`}>
                         {/* {!isModal && <div className=' top-0 left-[10px] cursor-pointer'>
                         <Image onClick={() => go_to_home()} src={'/login/indiaretail-logo.png'} height={100} width={200} alt='logo' />
                     </div>} */}
@@ -607,7 +607,7 @@ export default function LogIn({ isModal, hide, auth }) {
                             </div>}
 
                             <div className='flex  items-center h-[50px] w-[75px] rounded-[10px] cursor-pointer justify-center border'>
-                                <FbBtn socialLogin={socialLogin} />
+                                <FbBtn socialLogin={socialLogin} setCredential={setCredential} setShowMob={setShowMob} />
                             </div>
 
                             {/* <button onClick={() => signIn("google")}>Sign in</button> */}
