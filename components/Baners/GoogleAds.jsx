@@ -3,13 +3,15 @@ import { useEffect } from "react";
 
 const GoogleAds = (props) => {
 
-    // useEffect(() => {
-    //     try {
-    //         (window.adsbygoogle = window.adsbygoogle || []).push({});
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }, [])
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }, [])
 
     // useEffect(() => {
     //     const gptInit = () => {
@@ -49,13 +51,13 @@ const GoogleAds = (props) => {
     //     //       .addSize([768, 0], [728, 90])
     //     //       .addSize([1024, 0], [970, 250])
     //     //       .build();
-    
+
     //     //     googletag.cmd.push(() => {
     //     //       googletag.defineSlot('/21631575671/IR-728x90-Leaderboard', [[320, 50], [728, 90], [970, 250]], 'div-gpt-ad-1617096742911-0')
     //     //         .setTargeting("test", "refresh")
     //     //         .defineSizeMapping(mapping)
     //     //         .addService(googletag.pubads());
-    
+
     //     //       googletag.pubads().enableSingleRequest();
     //     //       googletag.enableServices();
     //     //       googletag.display('div-gpt-ad-1617096742911-0');
@@ -64,7 +66,7 @@ const GoogleAds = (props) => {
     //     //     console.error('googletag is not defined');
     //     //   }
     //     // };
-    
+
     //     // Wait for the GPT script to load and then initialize ads
     //     if(typeof window !== 'undefined'){
     //         if (window.googletag) {
@@ -78,9 +80,15 @@ const GoogleAds = (props) => {
 
     return (
         <>
-            <Script
+            {/* <Script
                 id="gpt-script"
                 src="https://www.googletagservices.com/tag/js/gpt.js"
+                strategy="beforeInteractive"
+            /> */}
+
+            <Script
+                id="adsense-script"
+                src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
                 strategy="beforeInteractive"
             />
 
@@ -94,11 +102,11 @@ const GoogleAds = (props) => {
                         display: 'block',
                         overflow: 'hidden',
                     }}
-                    data-ad-slot="/21631575671/IR-728x90-Leaderboard"
+                    data-ad-slot={props.adSlot}
                     data-ad-format={"responsive"}
                     data-full-width-responsive={true}
                     data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
-                    {...props}
+                    // {...props}
                 />
             </div>}
 
