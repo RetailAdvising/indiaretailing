@@ -33,7 +33,7 @@ import "nprogress/nprogress.css"
 // import AuthSessionProvider from './auth/auth-session-provider'
 import { SessionProvider } from 'next-auth/react'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-// import Script from 'next/script'
+import Script from 'next/script'
 const inter = Faustina({
   weight: ["300", "400", "500", "600", '700'],
   display: "block",
@@ -95,8 +95,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       // return () => {
       //   document.body.removeChild(script);
       // };
-      
-     
+
+
       // window.adsbygoogle = window.adsbygoogle || [];
     }
 
@@ -211,14 +211,14 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   // }
   return (
     <>
-    {/* Load AdSense script */}
-    {/* <Script
+      {/* Load AdSense script */}
+      {/* <Script
         strategy="beforeInteractive"
         id="adsense-script"
         async
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
       /> */}
-       
+
       {/* Replace with your AdSense client ID */}
       {/* <Script
         strategy="beforeInteractive"
@@ -245,13 +245,28 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-thumbnail/1.1.0/lg-thumbnail.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-fullscreen/1.1.0/lg-fullscreen.min.js"></script> */}
+
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}`}
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+        />
+
+        <Script
+          id="adsense-script"
+          data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
+          strategy="beforeInteractive"
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
+        />
       </Head>
       <ErrorBoundary >
         <Provider store={store} >
           {/* { loading ? <p>loading...</p> calc(100vh_-_${tabHeight}px) */}
           <ChakraProvider>
             {/* <GoogleOAuthProvider clientId={"630423705748-pg41popq5up1nsvs08i7n0ia47fkpt01.apps.googleusercontent.com"}> */}
-           
+
             <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
               <SessionProvider session={session}>
                 <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >

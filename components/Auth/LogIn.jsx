@@ -360,7 +360,7 @@ export default function LogIn({ isModal, hide, auth }) {
             //     localStorage['roles'] = JSON.stringify(res.message[0].roles_list);
             // }
             localStorage['customerUser_id'] = resp.message.user_id;
-            localStorage['customer_id'] = resp.message.customer_id;
+            localStorage['customer_id'] = resp.message.customer_id ? resp.message.customer_id : resp.message.name;
             localStorage['full_name'] = resp.full_name;
             // hide()
 
