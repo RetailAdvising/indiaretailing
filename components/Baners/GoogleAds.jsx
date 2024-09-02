@@ -48,9 +48,9 @@ const GoogleAds = (props) => {
             />
             {props.script && <div dangerouslySetInnerHTML={{ __html: props.script }} />}
 
-            {/* <div id="div-gpt-ad-1617096742911-0" style={{ width: '100%', height: '250px' }}>
-                Ad will be rendered here
-            </div> */}
+            <div id="div-gpt-ad-1617096742911-0" style={{ width: '100%', height: '250px' }}>
+                {/* Ad will be rendered here */}
+            </div>
 
             {/* && props.data-ad-slot */}
             {(!props.script) && <div className="bg-black">
