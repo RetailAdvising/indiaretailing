@@ -43,6 +43,7 @@ const GoogleAds = (props) => {
         // Initialize GPT ad slots after the script is loaded
         const initializeAds = () => {
           if (window.googletag) {
+            let googletag = window.googletag
             const mapping = googletag.sizeMapping()
               .addSize([0, 0], [320, 50])
               .addSize([768, 0], [728, 90])
