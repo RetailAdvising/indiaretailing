@@ -11,33 +11,33 @@ const GoogleAds = (props) => {
     //     }
     // }, [])
 
-    useEffect(() => {
-        const gptInit = () => {
-            const mapping = googletag.sizeMapping()
-                .addSize([0, 0], [320, 50])
-                .addSize([768, 0], [728, 90])
-                .addSize([1024, 0], [970, 250])
-                .build();
+    // useEffect(() => {
+    //     const gptInit = () => {
+    //         const mapping = googletag.sizeMapping()
+    //             .addSize([0, 0], [320, 50])
+    //             .addSize([768, 0], [728, 90])
+    //             .addSize([1024, 0], [970, 250])
+    //             .build();
 
-            googletag.cmd.push(function () {
-                const slot1 = googletag.defineSlot('/21631575671/IR-728x90-Leaderboard', [[320, 50], [728, 90], [970, 250]], 'div-gpt-ad-1617096742911-0')
-                    .setTargeting("test", "refresh")
-                    .defineSizeMapping(mapping)
-                    .addService(googletag.pubads());
+    //         googletag.cmd.push(function () {
+    //             const slot1 = googletag.defineSlot('/21631575671/IR-728x90-Leaderboard', [[320, 50], [728, 90], [970, 250]], 'div-gpt-ad-1617096742911-0')
+    //                 .setTargeting("test", "refresh")
+    //                 .defineSizeMapping(mapping)
+    //                 .addService(googletag.pubads());
 
-                googletag.pubads().enableSingleRequest();
-                googletag.enableServices();
-                googletag.display('div-gpt-ad-1617096742911-0');
-            });
-        };
+    //             googletag.pubads().enableSingleRequest();
+    //             googletag.enableServices();
+    //             googletag.display('div-gpt-ad-1617096742911-0');
+    //         });
+    //     };
 
-        if (window.googletag) {
-            gptInit();
-        } else {
-            window.googletag = window.googletag || { cmd: [] };
-            window.googletag.cmd.push(gptInit);
-        }
-    }, []);
+    //     if (window.googletag) {
+    //         gptInit();
+    //     } else {
+    //         window.googletag = window.googletag || { cmd: [] };
+    //         window.googletag.cmd.push(gptInit);
+    //     }
+    // }, []);
 
     return (
         <>
@@ -48,9 +48,9 @@ const GoogleAds = (props) => {
             />
             {props.script && <div dangerouslySetInnerHTML={{ __html: props.script }} />}
 
-            <div id="div-gpt-ad-1617096742911-0" style={{ width: '100%', height: '250px' }}>
-                {/* Ad will be rendered here */}
-            </div>
+            {/* <div id="div-gpt-ad-1617096742911-0" style={{ width: '100%', height: '250px' }}>
+                Ad will be rendered here
+            </div> */}
 
             {/* && props.data-ad-slot */}
             {(!props.script) && <div className="bg-black">
