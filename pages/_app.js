@@ -33,7 +33,7 @@ import "nprogress/nprogress.css"
 // import AuthSessionProvider from './auth/auth-session-provider'
 import { SessionProvider } from 'next-auth/react'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import Script from 'next/script'
+// import Script from 'next/script'
 const inter = Faustina({
   weight: ["300", "400", "500", "600", '700'],
   display: "block",
@@ -218,6 +218,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         async
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
       /> */}
+       
       {/* Replace with your AdSense client ID */}
       {/* <Script
         strategy="beforeInteractive"
