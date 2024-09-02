@@ -328,8 +328,9 @@ export default function Home({ data, ads }) {
           __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
         }}
       /> */}
-
-      {/* <script
+      <GoogleAds
+        script={`
+          <script
           async
           src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
           strategy="lazyOnload"
@@ -346,48 +347,12 @@ export default function Home({ data, ads }) {
           <script>
           (adsbygoogle = window.adsbygoogle || []).push({})
           </script>
- */}
-      <GoogleAds
-        script={`
-          
-          <script>
-
-            // GPT slots
-
-            var gptAdSlots = []; // Created the Array To Get BrowserSize,Ad Size
-
-            googletag.cmd.push(function()
-
-            {
-
-            var mapping = googletag.sizeMapping().
-
-            //addSize is the browser size and each subsequent dimension is an ad size addSize([Browser Width,Browser Height],[Ad Width,Ad Height]).
-
-            build();
-
-            
-
-            slot1=googletag.defineSlot('/21631575671/IR-728x90-Leaderboard', [[320, 50], [728, 90], [970, 250]], 'div-gpt-ad-1617096742911-0').setTargeting("test", "refresh").
-
-            defineSizeMapping(mapping).
-
-            addService(googletag.pubads());
-
-            googletag.pubads().enableSingleRequest();
-
-            googletag.enableServices();
-
-            });
-
-          </script>  
           `}
-        
-          />
-          {/* data-ad-format="auto"
-          data-full-width-responsive="true"
-          className="adsbygoogle adbanner-customize" */}
-      {/* // data-ad-slot="7434970023" */}
+        data-ad-slot="/21631575671/IR-728x90-Leaderboard"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+        className="adsbygoogle adbanner-customize"
+      />
 
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
