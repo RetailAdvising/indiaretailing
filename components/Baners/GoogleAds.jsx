@@ -39,6 +39,42 @@ const GoogleAds = (props) => {
     //     }
     // }, []);
 
+    useEffect(() => {
+        // Initialize GPT ad slots after the script is loaded
+        const initializeAds = () => {
+          if (window.googletag) {
+            const mapping = googletag.sizeMapping()
+              .addSize([0, 0], [320, 50])
+              .addSize([768, 0], [728, 90])
+              .addSize([1024, 0], [970, 250])
+              .build();
+    
+            googletag.cmd.push(() => {
+              googletag.defineSlot('/21631575671/IR-728x90-Leaderboard', [[320, 50], [728, 90], [970, 250]], 'div-gpt-ad-1617096742911-0')
+                .setTargeting("test", "refresh")
+                .defineSizeMapping(mapping)
+                .addService(googletag.pubads());
+    
+              googletag.pubads().enableSingleRequest();
+              googletag.enableServices();
+              googletag.display('div-gpt-ad-1617096742911-0');
+            });
+          } else {
+            console.error('googletag is not defined');
+          }
+        };
+    
+        // Wait for the GPT script to load and then initialize ads
+        if(typeof window !== 'undefined'){
+            if (window.googletag) {
+              initializeAds();
+            } else {
+              window.googletag = window.googletag || { cmd: [] };
+              window.googletag.cmd.push(initializeAds);
+            }
+        }
+      }, []);
+
     return (
         <>
             <Script
