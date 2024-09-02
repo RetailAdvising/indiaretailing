@@ -86,29 +86,25 @@ const GoogleAds = (props) => {
                 strategy="beforeInteractive"
             />
 
-            {/* <Script
+            <Script
                 id="adsense-script"
-                data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
+                // data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
                 strategy="beforeInteractive"
                 async
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
-            /> */}
+            />
 
             {props.script && <div dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
             {/* && props.data-ad-slot */}
-            {(!props.script) && <div className="bg-black">
+            {(!props.script) && <div className="ad">
                 <ins
-                    style={{
-                        display: 'block',
-                        overflow: 'hidden',
-                    }}
                     data-ad-slot={props.adSlot}
                     data-ad-format={"responsive"}
                     data-full-width-responsive={true}
                     data-ad-client={props.adClient}
-                // {...props}
+                    {...props}
                 />
             </div>}
 

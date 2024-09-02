@@ -352,7 +352,7 @@ export default function Home({ data, ads }) {
         data-ad-format="auto"
         data-full-width-responsive="true"
         className="adsbygoogle adbanner-customize" */}
-      <GoogleAds adSlot={"8257587929"} adClient={"ca-pub-9354161551837950"} />
+      <GoogleAds adSlot={"8257587929"} style={{height: '200px',width:'100%',display: 'block', overflow: 'hidden'}} adClient={"ca-pub-9354161551837950"} />
 
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
