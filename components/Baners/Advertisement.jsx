@@ -29,13 +29,14 @@ export default function Advertisement({ data, imgClass, divClass }) {
                 </div >
             }
 
+            {/* data-ad-format="auto"
+                        data-full-width-responsive="true" */}
             {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
                     <ins class="adsbygoogle"
-                        style="display:inline-block;width:728px;height:90px;mar"
+                        style="display:inline-block;width:728px;height:90px;"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="8257587929"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"
+                        
                         ></ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});

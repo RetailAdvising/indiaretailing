@@ -234,7 +234,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     <>
       {/* <SEO /> */}
       {/* {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>} */}
-      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] w-[728px] m-auto'} /></div>}
+      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.header) && homeAd.header} divClass={'!h-[90px] !w-[728px] !m-auto'} /></div>}
       {/* <PdfViewer/> */}
       <>
         <Header checkout={checkout} />
