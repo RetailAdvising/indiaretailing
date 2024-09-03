@@ -246,20 +246,20 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-thumbnail/1.1.0/lg-thumbnail.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-fullscreen/1.1.0/lg-fullscreen.min.js"></script> */}
 
-        <Script
+        {/* <Script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}`}
           strategy="lazyOnload"
           crossOrigin="anonymous"
-        />
+        /> */}
 
-        <Script
+        {/* <Script
           id="adsense-script"
           data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
           strategy="beforeInteractive"
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
-        />
+        /> */}
       </Head>
       <ErrorBoundary >
         <Provider store={store} >

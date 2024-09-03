@@ -80,19 +80,19 @@ const GoogleAds = (props) => {
 
     return (
         <>
-            <Script
+            {/* <Script
                 id="gpt-script"
                 src="https://www.googletagservices.com/tag/js/gpt.js"
                 strategy="beforeInteractive"
-            />
+            /> */}
 
-            <Script
+            {/* <Script
                 id="adsense-script"
                 // data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
                 strategy="beforeInteractive"
                 async
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
-            />
+            /> */}
 
             {props.script && <div dangerouslySetInnerHTML={{ __html: props.script }} />}
 

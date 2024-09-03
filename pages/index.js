@@ -369,7 +369,8 @@ export default function Home({ data, ads }) {
         </script>
       </div>
 
-      <div style=" text-align:center"><script type="text/javascript">
+      <div style=" text-align:center">
+      <script type="text/javascript">
           google_ad_client = "ca-pub-9354161551837950";
           google_ad_slot = "6101971529";
           google_ad_width = 300;
@@ -378,7 +379,8 @@ export default function Home({ data, ads }) {
       <!-- 010.5 - Article Middle - 300x250 -->
       <script type="text/javascript"
       src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-      </script></div>
+      </script>
+      </div>
 `} />
 
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
