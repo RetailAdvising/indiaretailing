@@ -45,8 +45,8 @@ export default function Header({ checkout }) {
 
     useEffect(() => {
         // console.log(user)
-        roles()
         if (typeof window !== 'undefined') {
+            roles()
             let data = stored_customer_info();
             // console.log(data)
             // dispatch(setUser(s => s['message']['user_id'] = data.user_id))

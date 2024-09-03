@@ -328,8 +328,8 @@ export default function Home({ data, ads }) {
           __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
         }}
       /> */}
-          {/* // src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID} */}
-          {/* script={`
+      {/* // src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID} */}
+      {/* script={`
           <script
           async
           src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=div-gpt-ad-1617096742911-0
@@ -352,7 +352,34 @@ export default function Home({ data, ads }) {
         data-ad-format="auto"
         data-full-width-responsive="true"
         className="adsbygoogle adbanner-customize" */}
-      <GoogleAds adSlot={"8257587929"} style={{height: '200px',width:'100%',display: 'block', overflow: 'hidden'}} adClient={"ca-pub-9354161551837950"} />
+      {/* <GoogleAds adSlot={"8257587929"} style={{ height: '200px', width: '100%', display: 'block', overflow: 'hidden' }} adClient={"ca-pub-9354161551837950"} /> */}
+      <GoogleAds script={`
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <ins class="adsbygoogle"
+          style="display:inline-block;width:300px;height:600px"
+          data-ad-client="ca-pub-9354161551837950"
+          data-ad-slot="8257587929"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+
+      <div id='div-gpt-ad-1631698476376-0'style='min-width: 320px; min-height: 50px;'>
+        <script>
+          googletag.cmd.push(function() { googletag.display('div-gpt-ad-1631698476376-0'); });
+        </script>
+      </div>
+
+      <div style=" text-align:center"><script type="text/javascript">
+          google_ad_client = "ca-pub-9354161551837950";
+          google_ad_slot = "6101971529";
+          google_ad_width = 300;
+          google_ad_height = 250;
+      </script>
+      <!-- 010.5 - Article Middle - 300x250 -->
+      <script type="text/javascript"
+      src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script></div>
+`} />
 
       <RootLayout data={data} isLanding={true} head={''} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />

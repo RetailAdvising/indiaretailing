@@ -260,6 +260,8 @@ export async function GET(api) {
         apikey = localStorage['apikey'] ? localStorage['apikey'] : undefined;
         secret = localStorage['secret'] ? localStorage['secret'] : undefined;
     }
+    // console.log(apikey,"apikey")
+    // console.log(secret,"secret")
     const myHead = new Headers((apikey && secret) ? { "Authorization": 'token ' + apikey + ':' + secret, "Content-Type": "application/json" } : { "Content-Type": "application/json" })
     // const myHead = new Headers()
     // myHead.append('Content-Type', 'application/json');

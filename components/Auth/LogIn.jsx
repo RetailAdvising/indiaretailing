@@ -344,8 +344,9 @@ export default function LogIn({ isModal, hide, auth }) {
         const resp = await social_login(payload)
         // console.log(resp,"resp")
         if (resp.message && resp.message.message && resp.message.message == 'Logged In') {
-            localStorage['api_key'] = resp.message.api_key
+            localStorage['apikey'] = resp.message.api_key
             localStorage['api_secret'] = resp.message.api_secret
+            localStorage['secret'] = resp.message.api_secret
 
             // getCustomerInfo({ email: data.email, guest_id: localStorage['customerRefId'] }, datas)
             // let mail = {
