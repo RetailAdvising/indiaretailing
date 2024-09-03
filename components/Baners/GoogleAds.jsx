@@ -94,7 +94,7 @@ const GoogleAds = (props) => {
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
             /> */}
 
-            {props.script && <div dangerouslySetInnerHTML={{ __html: props.script }} />}
+            {props.script && <div className="m-auto" dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
             {/* && props.data-ad-slot */}

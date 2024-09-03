@@ -353,10 +353,11 @@ export default function Home({ data, ads }) {
         data-full-width-responsive="true"
         className="adsbygoogle adbanner-customize" */}
       {/* <GoogleAds adSlot={"8257587929"} style={{ height: '200px', width: '100%', display: 'block', overflow: 'hidden' }} adClient={"ca-pub-9354161551837950"} /> */}
+      {/* h-[90px] w-[728px] m-auto */}
       <GoogleAds script={`
       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       <ins class="adsbygoogle"
-          style="display:inline-block;width:300px;height:600px"
+          style="display:inline-block;width:728px;height:90px;mar"
           data-ad-client="ca-pub-9354161551837950"
           data-ad-slot="8257587929"></ins>
       <script>
