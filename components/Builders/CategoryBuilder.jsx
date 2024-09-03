@@ -229,7 +229,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
 
     if ((data && data.article_sections && data.article_sections.length != 0)) {
       // for (let j = 0; j < 5; j++) {
-     
+
       // console.log(el, 'el+', i)
       // }
       // console.log('data.article_sections', data.article_sections);
@@ -711,7 +711,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                             <Image src={res.icon} alt={res.name} height={25} width={20} />
                           </div>
                         </FacebookShareButton>
-                          : res.name == 'ws' ? <WhatsappShareButton url={`${'https://indiaretail.vercel.app/' + data.route }`}>
+                          : res.name == 'ws' ? <WhatsappShareButton url={`${'https://indiaretail.vercel.app/' + data.route}`}>
                             <div key={index} className={`rounded-full bg-light-gray p-2`}>
                               <Image src={res.icon} alt={res.name} height={25} width={20} />
                             </div>
@@ -832,8 +832,10 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               // sticky h-[calc(100vh_-_10px)] scrollbar-hide top-0 z-10 bg-white  overflow-auto
               <div id={'target' + i} className={` sticky h-[calc(100vh_-_10px)] scrollbar-hide top-0 z-10 bg-white  overflow-auto`}><Placeholders placeholder={data.place_holders_ads} ads_data={ads_data ? ads_data : null} tagbasedAd={data.banner_ad && Object.keys(data.banner_ad).length != 0 && data.banner_ad} productNavigation={productNavigation} /></div>
               : <>
-                {ads_data && ads_data.right_first && <Advertisement data={ads_data.right_first} divClass={`h-[250px] w-[300px]`} />}
-                {ads_data && ads_data.right_second && <Advertisement data={ads_data.right_second} divClass={`h-[250px] w-[300px]`} />}
+                <Advertisement data={(ads_data && ads_data.right_first) && ads_data.right_first} divClass={`h-[250px] w-[300px]`} />
+                <Advertisement data={(ads_data && ads_data.right_second) && ads_data.right_second} divClass={`h-[250px] w-[300px]`} />
+                {/* {ads_data && ads_data.right_first && <Advertisement data={ads_data.right_first} divClass={`h-[250px] w-[300px]`} />}
+                {ads_data && ads_data.right_second && <Advertisement data={ads_data.right_second} divClass={`h-[250px] w-[300px]`} />} */}
 
               </>
             }

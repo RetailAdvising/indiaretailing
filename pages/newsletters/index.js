@@ -81,9 +81,9 @@ export default function newsletter({ ads }) {
 
                 {!isMobile &&
                   <div className='flex-[0_0_calc(30%_-_15px)] md:mt-[15px] md:flex-[0_0_calc(100%_-_0px)]'>
-                    {(ads.right_first && Object.keys(ads.right_first).length != 0) && <div className='pb-[20px]'>
-                      <Advertisement divClass={'h-[250px] w-[300px] m-auto'} data={ads.right_first} />
-                    </div>}
+                    <div className='pb-[20px]'>
+                      <Advertisement divClass={'h-[250px] w-[300px] m-auto'} data={(ads.right_first && Object.keys(ads.right_first).length != 0) && ads.right_first} />
+                    </div>
                     <Subscribe />
                   </div>
                 }
