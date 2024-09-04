@@ -37,7 +37,6 @@ export default function Advertisement({ data, imgClass, divClass,insStyle }) {
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="8257587929"
-                        
                         ></ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});

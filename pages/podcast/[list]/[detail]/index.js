@@ -118,8 +118,8 @@ export default function PodcastDetail({ data, ads_data }) {
                 </div>
                 {/* {ads_data && ads_data.right_first && <Advertisement data={ads_data.right_first} divClass={`h-[250px] w-[300px]`} />}
                 {ads_data && ads_data.right_second && <Advertisement data={ads_data.right_second} divClass={`h-[250px] w-[300px]`} />} */}
-                 <Advertisement data={(ads_data && ads_data.right_first) && ads_data.right_first} divClass={`h-[250px] w-[300px]`} />
-                <Advertisement data={(ads_data && ads_data.right_second) && ads_data.right_second} divClass={`h-[250px] w-[300px]`} />
+                 <Advertisement data={(ads_data && ads_data.right_first) && ads_data.right_first} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                <Advertisement data={(ads_data && ads_data.right_second) && ads_data.right_second} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
             </RootLayout>}
 
         </>

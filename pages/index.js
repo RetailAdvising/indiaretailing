@@ -14,7 +14,7 @@ import TopStories from '@/components/Landing/TopStories'
 import ImageContainer from '@/components/Landing/ImageContainer'
 import SectionList from '@/components/Landing/SectionList'
 import LatestNews from '@/components/Landing/LatestNews'
-import AdsBaner from '@/components/Baners/AdsBaner'
+// import AdsBaner from '@/components/Baners/AdsBaner'
 import IRPrime from '@/components/Landing/IRPrime'
 import Subscribe from '@/components/Landing/Subscribe'
 // import BulletList from '@/components/Landing/BulletList'
@@ -49,13 +49,14 @@ const Video = dynamic(() => import('@/components/Video/Video'))
 const TrendingBox = dynamic(() => import('@/components/Landing/TrendingBox'))
 const Title = dynamic(() => import('@/components/common/Title'))
 const BulletList = dynamic(() => import('@/components/Landing/BulletList'))
+const Advertisement = dynamic(() => import('@/components/Baners/Advertisement'))
 // import SubscriptionAlert from '../common/SubscriptionAlert'
-import { useSession } from 'next-auth/react'
-import Script from 'next/script';
-import GoogleAds from '@/components/Baners/GoogleAds';
+// import { useSession } from 'next-auth/react'
+// import Advertisement from '@/components/Baners/Advertisement';
 
 export default function Home({ data, ads }) {
-  // console.log(data);
+  console.log(data,"data");
+  console.log(ads,"ads");
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
   let [loading, setLoading] = useState(false);
@@ -63,9 +64,9 @@ export default function Home({ data, ads }) {
   // let [ads, setAds] = useState()
   let [pageNo, setPageNo] = useState(1)
   let [noProduct, setNoProduct] = useState(false)
-  let page_no = 1;
+  // let page_no = 1;
 
-  const { data: session, status } = useSession()
+  // const { data: session, status } = useSession()
   // console.log(session,'session signin')
 
 
@@ -394,10 +395,12 @@ export default function Home({ data, ads }) {
                             <Title data={{ title: 'Latest News' }} seeMore={true} route={'/categories/latest-news'} />
                             {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(4, 6)} /></> : <LatestNews height={'md:h-[222px] lg:h-[240px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} />}
                           </>}
-                          {(ads && ads.infocus && c.component_title == "Infocus Ad" && data.section == 'Infocus' && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.infocus.section) &&
+                          {(ads && c.component_title == "Infocus Ad" && data.section == 'Infocus' && c.cid && data.data[c.cid]) &&
+                          // {(ads && ads.infocus && c.component_title == "Infocus Ad" && data.section == 'Infocus' && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.infocus.section) &&
                             <>
                               {/* {console.log(ads.infocus,'ads.infocus')} */}
-                              <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} />
+                              {/* <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} /> */}
+                              <Advertisement data={ads.infocus ? ads.infocus: null} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
                             </>
                           }
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
@@ -409,7 +412,8 @@ export default function Home({ data, ads }) {
                                 <div className='flex-[0_0_calc(55%_-_10px)]'><ImageContainer isWeb={true} data={data.data[c.cid].data[0]} height={'h-[250px]'} width={'w-[500px]'} /></div>
                                 <div className={`${isMobile ? '' : 'border_right border_left px-[20px] h-[250px] flex-[0_0_calc(45%_-_10px)]'}`}><BulletList data={data.data[c.cid].data.slice(1, 6)} /></div>
                               </div>
-                              {ads && ads.web_special && <div className='md:my-[15px] md:hidden'><AdsBaner data={ads && ads.web_special ? ads.web_special : null} height={'h-[250px]'} width={'w-[300px]'} /></div>}
+                              {/* {ads && ads.web_special && <div className='md:my-[15px] md:hidden'><AdsBaner data={ads && ads.web_special ? ads.web_special : null} height={'h-[250px]'} width={'w-[300px]'} /></div>} */}
+                              <div className='md:my-[15px] md:hidden'><Advertisement data={ads && ads.web_special ? ads.web_special : null} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /></div>
                             </div>
                             <div className={` flex border-t border-[#d4d8d8] pt-[10px] mt-[10px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(6, 10)} /></div>
                             <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards noPrimaryText={true} titleOnly={true} contentHeight={'pt-[10px]'} isHome={'/'} data={data.data[c.cid].data.slice(10, 15)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
@@ -465,9 +469,11 @@ export default function Home({ data, ads }) {
                             <Title data={{ title: c.component_title }} textClass={'text-white'} />
                             <><Video data={isMobile ? data.data[c.cid].data.slice(0, 1) : data.data[c.cid].data} vh={'h-[205px]'} isHome={'/video/'} isBg={true} imgClass={'h-[150px] w-full md:h-[200px]'} /></>
                           </>} */}
-                          {(ads && ads.video_below && c.component_title == "Video below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.video_below.section) &&
+                          {(ads && c.component_title == "Video below Ad" && c.cid && data.data[c.cid]) &&
+                          // {(ads && ads.video_below && c.component_title == "Video below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.video_below.section) &&
                             <>
-                              <AdsBaner data={ads.video_below} height={'h-[90px] w-[728px] object-contain m-[auto]'} />
+                              {/* <AdsBaner data={ads.video_below} height={'h-[90px] w-[728px] object-contain m-[auto]'} /> */}
+                              <Advertisement data={ads.video_below ? ads.video_below: null} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
                             </>}
 
                           {/* {(c.component_title == "Banner Ads" && ads && ads.video_below) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={'h-full'} width={'w-full'} data={ads.video_below} /></>} */}
@@ -515,7 +521,9 @@ export default function Home({ data, ads }) {
                             <Video imgClass={'h-[210px] md:h-[190px] w-full'} isHome={'/video/'} vh={'h-[265px] md:h-[245px]'} data={data.data[c.cid].data} />
                           </>}
 
-                          {(ads && ads.shopping_centre_below && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.shopping_centre_below.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.shopping_centre_below} height={"h-[90px] w-[728px] object-contain m-[auto]"} /></>}
+                          {/* {(ads && ads.shopping_centre_below && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.shopping_centre_below.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.shopping_centre_below} height={"h-[90px] w-[728px] object-contain m-[auto]"} /></>} */}
+                          {(ads && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid]) && <><Advertisement data={ads.shopping_centre_below ? ads.shopping_centre_below: null} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
+                          </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>
                             <Title data={{ title: c.component_title }} route={c.component_title == "Supply Chain" ? '/categories/supply-chain' : c.component_title == "Marketing" ? '/categories/marketting' : null} seeMore={true} />
@@ -582,7 +590,9 @@ export default function Home({ data, ads }) {
                             <Title data={{ title: c.component_title }} route={'/categories/reconnect'} seeMore={true} />
                             <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'} cardClass={'h-[320px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
                           </>}
-                          {(ads && ads.reconnect && c.component_title == "Reconnect Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.reconnect.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.reconnect} height={"h-[280px] w-[336px] object-contain m-[auto]"} /></>}
+                          {/* {(ads && ads.reconnect && c.component_title == "Reconnect Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.reconnect.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.reconnect} height={"h-[280px] w-[336px] object-contain m-[auto]"} /></>} */}
+                          {(ads && c.component_title == "Reconnect Ad" && c.cid && data.data[c.cid] ) && <><Advertisement data={ads.reconnect ? ads.reconnect: null} insStyle={"display:inline-block;width:336px;height:280px;"} divClass={`h-[280px] w-[336px] m-auto`} />
+                          </>}
 
                           {/* {(c.cid && c.component_title == "Banner Ads" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{ bannerAd: '/no_state.svg' }} /></div>} */}
                         </div>
