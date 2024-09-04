@@ -1,5 +1,5 @@
 import Script from "next/script";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const GoogleAds = (props) => {
 

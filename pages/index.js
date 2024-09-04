@@ -55,8 +55,8 @@ const Advertisement = dynamic(() => import('@/components/Baners/Advertisement'))
 // import Advertisement from '@/components/Baners/Advertisement';
 
 export default function Home({ data, ads }) {
-  console.log(data,"data");
-  console.log(ads,"ads");
+  // console.log(data,"data");
+  // console.log(ads,"ads");
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
   let [loading, setLoading] = useState(false);

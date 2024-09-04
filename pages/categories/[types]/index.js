@@ -62,8 +62,8 @@ export default function CategoryType({ values, ads }) {
             if (entries[0].intersectionRatio <= 0) return;
             // console.log(entries[0].intersectionRatio,"entries[0].intersectionRatio")
             if (!no_product) {
-                page_no > 1 ? loadMore() : null
                 page_no = page_no + 1
+                page_no > 1 ? loadMore() : null
             }
         });
 

@@ -10,7 +10,7 @@ import Head from 'next/head'
 // import { NextSeo } from 'next-seo'
 export default function Details({ data, page_route }) {
   const router = useRouter();
-  console.log(router,"router")
+  // console.log(router,"router")
   const [values, setValues] = useState([])
   const [prev, setPrev] = useState('')
   const [pagination, setPagination] = useState(true);

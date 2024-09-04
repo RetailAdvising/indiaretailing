@@ -593,13 +593,6 @@ const  getCarts = async (type) => {
         return () => {
           $lightGallery.data('lightGallery').destroy(true);
         };
-
-        const $lightGallery1 = $("#lightgallery1");
-        $lightGallery1.lightGallery();
-    
-        return () => {
-          $lightGallery1.data('lightGallery1').destroy(true);
-        };
         
         // $("#lightgallery").lightGallery();
   
@@ -911,7 +904,8 @@ const  getCarts = async (type) => {
                     {subs.map((item, index) => {
                       return (
                         <div className={`border cursor-pointer ${(index == indexs) ? 'activeBorder' : ''} flex flex-col justify-center text-center p-[10px_8px] rounded-[10px] lg:h-[130px] md:h-[85px]`} onClick={() => handleSubs(subs, item, index)} key={index}>
-                          <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.is_subscription && item.subscription_plan ? item.subscription_plan : 'One time purchase'}</p>
+                          <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.option_value}</p>
+                          {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.is_subscription && item.subscription_plan ? item.subscription_plan : 'One time purchase'}</p> */}
                           {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.attribute}</p> */}
                           <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.price)}</h6>
                           {/* {item.features && item.features.map((f, index) => {
@@ -938,7 +932,8 @@ const  getCarts = async (type) => {
                       return (
                         <div key={index} onClick={() => handleSubs(subs, item, index)} className={`flex cursor-pointer gap-[5px] pb-[7px] last:pb-[0px] items-center`}>
                           <input className={styles.input_radio} checked={index == indexs} type="radio"/>
-                          <p className='text-[13px] font-semibold'>{item.is_subscription && item.subscription_plan ? item.subscription_plan : 'One time purchase'}</p>
+                          <p className='text-[13px] font-semibold'>{item.option_value}</p>
+                          {/* <p className='text-[13px] font-semibold'>{item.is_subscription && item.subscription_plan ? item.subscription_plan : 'One time purchase'}</p> */}
                           {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.attribute}</p> */}
                           <p className='text-[13px] font-semibold'>({formatter.format(item.price)})</p>
                         </div>
