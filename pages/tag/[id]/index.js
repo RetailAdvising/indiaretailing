@@ -262,7 +262,8 @@ export default function Trending({ data, res, ads }) {
                                 <List data={news} isHome={'/'} flex={'mb-[10px]'} hash_bg={'lg:pt-[10px]'} primary_pb={'lg:pb-[5px]'} titleClamp={'line-clamp-2'} borderRadius={'rounded-[5px]'} imgFlex={'flex-[0_0_calc(35%_-_10px)]'} imgHeight={'h-[85px]'} imgWidth={'w-full'} />
                             </div>}
                             {/* <AdsBaner data={{ ad_image: '/ads_baner.png' }} height={'h-[250px]'} width={'w-[300px]'} /> */}
-                            {(ads.right && ads.right.length != 0 && ads.right[0]) && <AdsBaner data={(ads.right && ads.right.length != 0 && ads.right[0]) ? ads.right[0] : null} height={'h-[250px]'} width={'w-[300px]'} />}
+                            {/* {(ads.right && ads.right.length != 0 && ads.right[0]) && <AdsBaner data={(ads.right && ads.right.length != 0 && ads.right[0]) ? ads.right[0] : null} height={'h-[250px]'} width={'w-[300px]'} />} */}
+                            <Advertisement data={(ads && ads.right && ads.right.length != 0 && ads.right[0]) ? ads.right[0] : null} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
                         </div>
                         <div className='more' ref={cardref}></div>
                     </div>
