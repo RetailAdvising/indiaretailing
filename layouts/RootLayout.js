@@ -287,7 +287,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
           {children}
         </main>
 
-        {(!checkout && !is_detail) && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.footer) && homeAd.footer} divClass={'h-[90px] w-[728px] m-auto'} style={styles} height={'h-full'} width={'500px'} /></div>}
+        {(!checkout && !is_detail) && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.footer) && homeAd.footer} divClass={'!h-[90px] !w-[728px] !m-auto'} style={styles} height={'h-full'} width={'500px'} /></div>}
         {!checkout && footerData && footerData.length != 0 && <MainFooter footerData={footerData} />}
         {/* <div className='lg:hidden' >
           <BottomTabs />
