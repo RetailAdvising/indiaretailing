@@ -11,7 +11,7 @@ export default function Advertisement({ data, imgClass, divClass,insStyle }) {
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
-    }, [])
+    }, [insStyle])
 
 
     const checkIsMobile = async () => {
