@@ -11,6 +11,7 @@ import Dropdowns from '@/components/common/Dropdowns';
 import AdsBaner from '@/components/Baners/AdsBaner'
 import ImageLoader from '@/components/ImageLoader';
 import { Nunito } from 'next/font/google'
+import Advertisement from '@/components/Baners/Advertisement'
 const nunito = Nunito({
     weight: ["300", "400", "500", "600", "700"],
     display: "block",
