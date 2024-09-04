@@ -1,17 +1,17 @@
 import Script from "next/script";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 const GoogleAds = (props) => {
 
-    // useEffect(() => {
-    //     if (typeof window !== 'undefined') {
-    //         try {
-    //             (window.adsbygoogle = window.adsbygoogle || []).push({});
-    //         } catch (err) {
-    //             console.log(err);
-    //         }
-    //     }
-    // }, [props])
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                console.log(err,"err");
+            }
+        }
+    }, [props])
 
     // useEffect(() => {
     //     const gptInit = () => {
