@@ -86,13 +86,10 @@ const GoogleAds = (props) => {
                 strategy="beforeInteractive"
             /> */}
 
-            <Script
-                // id="adsense-script"
-                // data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
-                strategy="beforeInteractive"
+            {/* <script
                 async
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
-            />
+            ></script> */}
 
             {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
 

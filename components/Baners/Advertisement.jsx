@@ -2,7 +2,7 @@ import ImageLoader from '../ImageLoader'
 import { useEffect, useState } from 'react';
 import { checkMobile } from '@/libs/api'
 import GoogleAds from './GoogleAds';
-export default function Advertisement({ data, imgClass, divClass,insStyle }) {
+export default function Advertisement({ data, imgClass, divClass, insStyle }) {
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
@@ -31,17 +31,26 @@ export default function Advertisement({ data, imgClass, divClass,insStyle }) {
 
             {/* data-ad-format="auto"
                         data-full-width-responsive="true" */}
-                        {/* style="display:inline-block;width:728px;height:90px;" */}
+            {/* style="display:inline-block;width:728px;height:90px;" */}
             {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
+                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
+
                         data-ad-slot="8257587929"
                         ></ins>
                     <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>    
+                        window.onload = function() {
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        }
+                    </script>
+ 
             `} />}
+
+            {/* <script>
+                (adsbygoogle = window.adsbygoogle || []).push({ });
+            </script> */}
         </>
     )
 }
