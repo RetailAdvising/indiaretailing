@@ -41,9 +41,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                         data-ad-slot="8257587929"
                         ></ins>
                     <script>
-                        window.onload = function() {
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        }
+                        (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
  
             `} />}
@@ -51,6 +49,29 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
             {/* <script>
                 (adsbygoogle = window.adsbygoogle || []).push({ });
             </script> */}
+
+
+
+
+
+            {/* <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous" async></script> */}
+            {/* <script>
+                // GPT slots
+                var gptAdSlots = []; // Created the Array To Get BrowserSize,Ad Size
+                googletag.cmd.push(function()
+                {
+                var mapping = googletag.sizeMapping().
+                //addSize is the browser size and each subsequent dimension is an ad size addSize([Browser Width,Browser Height],[Ad Width,Ad Height]).
+                build();
+
+                slot1=googletag.defineSlot('/21631575671/IR-728x90-Leaderboard', [[320, 50], [728, 90], [970, 250]], 'div-gpt-ad-1617096742911-0').setTargeting("test", "refresh").
+                defineSizeMapping(mapping).
+                addService(googletag.pubads());
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+                });
+            </script> */}
+
         </>
     )
 }
