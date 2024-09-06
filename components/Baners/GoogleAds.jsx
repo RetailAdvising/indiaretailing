@@ -3,18 +3,18 @@ import { useEffect } from "react";
 
 const GoogleAds = (props) => {
 
-    useEffect(() => {
-        // console.log(props.script,"script")
-        setTimeout(() => {
-            if (typeof window !== 'undefined' && window.adsbygoogle) {
-                try {
-                    (window.adsbygoogle = window.adsbygoogle || []).push({});
-                } catch (err) {
-                    // console.log(err, "err");
-                }
-            }
-        }, 4000);
-    }, [])
+    // useEffect(() => {
+    //     // console.log(props.script,"script")
+    //     setTimeout(() => {
+    //         if (typeof window !== 'undefined' && window.adsbygoogle) {
+    //             try {
+    //                 (window.adsbygoogle = window.adsbygoogle || []).push({});
+    //             } catch (err) {
+    //                 // console.log(err, "err");
+    //             }
+    //         }
+    //     }, 4000);
+    // }, [])
 
     // useEffect(() => {
     //     // if (typeof window !== 'undefined') {
@@ -114,6 +114,28 @@ const GoogleAds = (props) => {
     //         observer.disconnect();
     //     };
     // }, [props.position]);
+
+    useEffect(() => {
+        if(typeof window !== 'undefined'){
+            const intervalId = setInterval(() => {
+                try {
+                    // Check if the 'ins' element already has an ad in it
+                    if (window.adsbygoogle) {
+                        window.adsbygoogle.push({});
+                        clearInterval(intervalId);
+                    }else{
+                        (window.adsbygoogle = window.adsbygoogle || []).push({ })
+                    }
+                } catch (err) {
+                    console.error("Error pushing ads: ", err);
+                    clearInterval(intervalId); // Ensure we clear interval on errors too
+                }
+            }, 2000);
+    
+    
+            return () => clearInterval(intervalId);
+        }
+    }, [props.position])
 
     return (
         <>
@@ -218,8 +240,9 @@ const GoogleAds = (props) => {
 
 
             {/* <Script
-                id="adsbygoogle-script"
-                strategy="afterInteractive"
+                strategy="lazyOnload"
+                async
+                crossOrigin="anonymous"
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
                 // onLoad={() => {
                 //     console.log("Google Ads script loaded.");

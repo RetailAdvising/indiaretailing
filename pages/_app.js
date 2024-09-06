@@ -254,19 +254,19 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         /> */}
 
         {/* <Script
-          id="adsense-script"
-          data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
-          strategy="beforeInteractive"
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
-        /> */}
-        {/* <Script
           // id="adsense-script"
           // data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
           strategy="beforeInteractive"
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
         /> */}
+
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=div-gpt-ad-1617096742911-0`}
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+        ></Script>
 
 
       </Head>
