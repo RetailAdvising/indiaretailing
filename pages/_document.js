@@ -16,11 +16,11 @@ export default function Document() {
           strategy="lazyOnload"
           crossOrigin="anonymous"
         /> */}
-        {/* <Script
+        <Script
           strategy="beforeInteractive"
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
-        /> */}
+        />
       </Head>
       <body>
         <Main />
