@@ -115,27 +115,6 @@ const GoogleAds = (props) => {
     //     };
     // }, [props.position]);
 
-    useEffect(() => {
-        if(typeof window !== 'undefined'){
-            const intervalId = setInterval(() => {
-                try {
-                    // Check if the 'ins' element already has an ad in it
-                    if (window.adsbygoogle) {
-                        window.adsbygoogle.push({});
-                        clearInterval(intervalId);
-                    }else{
-                        (window.adsbygoogle = window.adsbygoogle || []).push({ })
-                    }
-                } catch (err) {
-                    console.error("Error pushing ads: ", err);
-                    clearInterval(intervalId); // Ensure we clear interval on errors too
-                }
-            }, 2000);
-    
-    
-            return () => clearInterval(intervalId);
-        }
-    }, [props.position])
 
     return (
         <>
@@ -207,37 +186,36 @@ const GoogleAds = (props) => {
 
 
 
-            {typeof window !== "undefined" && <>
-                <div className="text-center">
-                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    {props.position == "high" ? (
-                        <ins
-                            className="adsbygoogle"
-                            style={{ display: "inline-block", width: "728px", height: "90px" }}
-                            data-ad-client="ca-pub-9354161551837950"
-                            data-ad-slot="8257587929"
-                        />
-                    ) : props.position == "medium" ? (
-                        <ins
-                            className="adsbygoogle"
-                            style={{ display: "inline-block", width: "500px", height: "90px" }}
-                            data-ad-client="ca-pub-9354161551837950"
-                            data-ad-slot="6101971529"
-                        />
-                    ) : (
-                        <ins
-                            className="adsbygoogle"
-                            style={{ display: "inline-block", width: "300px", height: "250px" }}
-                            data-ad-client="ca-pub-9354161551837950"
-                            data-ad-slot="6101971529"
-                        />
-                    )}
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({ });
-                    </script>
-                </div>
-            </>}
 
+            <div className="text-center">
+                <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                
+                {props.position == "high" ? (
+                    <ins
+                        className="adsbygoogle"
+                        style={{ display: "inline-block", width: "728px", height: "90px" }}
+                        data-ad-client="ca-pub-9354161551837950"
+                        data-ad-slot="8257587929"
+                    />
+                ) : props.position == "medium" ? (
+                    <ins
+                        className="adsbygoogle"
+                        style={{ display: "inline-block", width: "500px", height: "90px" }}
+                        data-ad-client="ca-pub-9354161551837950"
+                        data-ad-slot="6101971529"
+                    />
+                ) : (
+                    <ins
+                        className="adsbygoogle"
+                        style={{ display: "inline-block", width: "300px", height: "250px" }}
+                        data-ad-client="ca-pub-9354161551837950"
+                        data-ad-slot="6101971529"
+                    />
+                )}
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({ });
+                </script>
+            </div>
 
             {/* <Script
                 strategy="lazyOnload"
