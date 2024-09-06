@@ -445,7 +445,7 @@ export default function LogIn({ isModal, hide, auth }) {
             // }
             const doc = iframe.contentDocument || iframe.contentWindow;
 
-            if (iframe.contentWindow && iframe.contentWindow.document) {
+            // if (iframe.contentWindow && iframe.contentWindow.document) {
                 // console.log(iframe.contentWindow, "document")
                 // const divElement = iframe?.contentWindow?.document?.querySelector('div[role=button]');
 
@@ -462,7 +462,7 @@ export default function LogIn({ isModal, hide, auth }) {
                 //     }
                 // }
 
-            } else {
+            // } else {
                 iframe.addEventListener('load', () => {
                     const divElement = doc.querySelector('div[role=button]');
 
@@ -479,7 +479,7 @@ export default function LogIn({ isModal, hide, auth }) {
                         }
                     }
                 });
-            }
+            // }
         }
     }
 

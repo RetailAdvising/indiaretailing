@@ -17,7 +17,6 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
-
                         data-ad-slot="8257587929"
                         ></ins>
                         <div id='div-gpt-ad-1617096742911-0'>
@@ -31,27 +30,29 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                     </script>`
                     setScript(temp)
                 } else if (val[i] == "width:500px") {
-                    setScript(`<div style=" text-align:center"><script type="text/javascript">
-  google_ad_client = "ca-pub-9354161551837950";
-  google_ad_slot = "6101971529";
-  google_ad_width = 300;
-  google_ad_height = 250;
-</script>
-<!-- 010.5 - Article Middle - 300x250 -->
-<script type="text/javascript"
-src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-</script></div>`)
+                    setScript(`<div style=" text-align:center">
+                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                    <ins class="adsbygoogle ${divClass}"
+                        style="${insStyle}"
+                        data-ad-client="ca-pub-9354161551837950"
+                        data-ad-slot="6101971529"
+                        ></ins>
+                    <!-- 010.5 - Article Middle - 300x250 -->
+                    <script type="text/javascript"
+                    src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script></div>`)
                 } else if (val[i] == "width:300px") {
-                    setScript(`<div style=" text-align:center"><script type="text/javascript">
-  google_ad_client = "ca-pub-9354161551837950";
-  google_ad_slot = "6101971529";
-  google_ad_width = 500;
-  google_ad_height = 90;
-</script>
-<!-- 010.5 - Article Middle - 500x90 -->
-<script type="text/javascript"
-src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-</script></div>`)
+                    setScript(`<div style=" text-align:center">
+                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                    <ins class="adsbygoogle ${divClass}"
+                        style="${insStyle}"
+                        data-ad-client="ca-pub-9354161551837950"
+                        data-ad-slot="6101971529"
+                        ></ins>
+                    <!-- 010.5 - Article Middle - 500x90 -->
+                    <script type="text/javascript"
+                    src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script></div>`)
                 }
             }
 
@@ -60,7 +61,6 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
-
                         data-ad-slot="8257587929"
                         ></ins>
                         <div id='div-gpt-ad-1617096742911-0'>
