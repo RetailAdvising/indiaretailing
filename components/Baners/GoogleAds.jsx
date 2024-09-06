@@ -98,7 +98,7 @@
 //         // Set up a MutationObserver
 //         // const observer = new MutationObserver(() => {
 //         //     loadAds();
-            
+
 //         // });
 
 //         const observer = new MutationObserver((mutationsList) => {
@@ -274,55 +274,59 @@ import { useEffect, useState } from 'react';
 import Script from 'next/script';
 
 const GoogleAds = (props) => {
-//   const [adSlotId, setAdSlotId] = useState(null);
-//   const [adStyle, setAdStyle] = useState(null);
+    //   const [adSlotId, setAdSlotId] = useState(null);
+    //   const [adStyle, setAdStyle] = useState(null);
 
-//   useEffect(() => {
-//     // Determine ad slot ID based on props.position
-//     if (props.position === 'high') {
-//       setAdSlotId('8257587929');
-//       setAdStyle({ display: "inline-block", width: "728px", height: "90px" })
-//     } else if (props.position === 'medium') {
-//       setAdSlotId('6101971529');
-//       setAdStyle({ display: "inline-block", width: "500px", height: "90px" })
-//     } else {
-//       setAdSlotId('6101971529'); // Default or handle other positions
-//       setAdStyle({ display: "inline-block", width: "300px", height: "250px" })
-//     }
-//   }, [props.position]);
+    //   useEffect(() => {
+    //     // Determine ad slot ID based on props.position
+    //     if (props.position === 'high') {
+    //       setAdSlotId('8257587929');
+    //       setAdStyle({ display: "inline-block", width: "728px", height: "90px" })
+    //     } else if (props.position === 'medium') {
+    //       setAdSlotId('6101971529');
+    //       setAdStyle({ display: "inline-block", width: "500px", height: "90px" })
+    //     } else {
+    //       setAdSlotId('6101971529'); // Default or handle other positions
+    //       setAdStyle({ display: "inline-block", width: "300px", height: "250px" })
+    //     }
+    //   }, [props.position]);
 
-//   const handleAdsbygoogleLoaded = () => {
-//     if (typeof window !== 'undefined' && window.adsbygoogle) {
-//       window.adsbygoogle.push({});
-//       console.log("Google Ad script loaded and ad pushed.");
-//     } else {
-//       console.error("Adsbygoogle is not ready yet.");
-//     }
-//   };
+    //   const handleAdsbygoogleLoaded = () => {
+    //     if (typeof window !== 'undefined' && window.adsbygoogle) {
+    //       window.adsbygoogle.push({});
+    //       console.log("Google Ad script loaded and ad pushed.");
+    //     } else {
+    //       console.error("Adsbygoogle is not ready yet.");
+    //     }
+    //   };
 
-  return (
-    <>
-      <div className="text-center">
-      {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
-        {/* {(adSlotId && adStyle) && (
-          <ins
-            className="adsbygoogle"
-            style={adStyle}
-            data-ad-client="ca-pub-9354161551837950"
-            data-ad-slot={adSlotId}
-          />
-        )} */}
+    return (
+        <>
+            <div className="text-center">
+                {/* {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />} */}
+                {/* {(adSlotId && adStyle) && ( */}
+                <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                <ins
+                    className="adsbygoogle"
+                    style={props.insStyle}
+                    data-ad-client="ca-pub-9354161551837950"
+                    data-ad-slot={props.position === 'high' ? '8257587929' : '6101971529'}
+                />
+                {/* )} */}
 
-      </div>
-      {/* <Script
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({ });
+                </script>
+            </div>
+            {/* <Script
         strategy="lazyOnload"
         async
         crossOrigin="anonymous"
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"   
         onLoad={handleAdsbygoogleLoaded}
       /> */}
-    </>
-  );
+        </>
+    );
 };
 
 export default GoogleAds;
