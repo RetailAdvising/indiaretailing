@@ -9,7 +9,7 @@ const GoogleAds = (props) => {
             try {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             } catch (err) {
-                // console.log(err,"err");
+                console.log(err,"err");
             }
         }
     }, [])
@@ -94,7 +94,7 @@ const GoogleAds = (props) => {
 
             {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
-            <Script async src="//pagead2.googlesyndication.com/pagead/show_ads.js" />
+            {/* <Script async src="//pagead2.googlesyndication.com/pagead/show_ads.js" /> */}
 
             <Script
                 id="adsbygoogle-script"

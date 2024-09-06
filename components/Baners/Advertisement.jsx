@@ -11,7 +11,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
     useEffect(() => {
 
         if (insStyle) {
-            console.log(insStyle.split(";"))
+            // console.log(insStyle.split(";"))
             let val = insStyle.split(";");
             for (let i = 0; i < val.length; i++) {
                 if (val[i] == "width:728px") {
@@ -109,18 +109,18 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
 
+            {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
             {insStyle && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
-                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${script ? "6101971529" : "8257587929"}"
                         data-ad-format="auto"
                         ></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-            `} />}
+                        `} />}
+                        {/* <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script> */}
 
             {/* {script && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={script} />} */}
 
