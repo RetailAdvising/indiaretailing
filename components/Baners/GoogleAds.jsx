@@ -74,46 +74,55 @@ const GoogleAds = (props) => {
     // }, [props.position]);
 
 
-    // useEffect(() => {
-    //     const loadAds = () => {
-    //         if (typeof window !== 'undefined' && window.adsbygoogle) {
-    //             try {
-    //                 const ads = document.querySelectorAll(`.adsbygoogle[data-ad-slot="${props.position == 'high' ? '8257587929' : '6101971529'}"]`);
-    //                 ads.forEach(ad => {
-    //                     if (!ad.hasAttribute('data-adsbygoogle-initialized')) {
-    //                         window.adsbygoogle.push({});
-    //                         ad.setAttribute('data-adsbygoogle-initialized', 'true');
-    //                         console.log("Google ad pushed successfully for slot:", props.position);
-    //                     }
-    //                 });
-    //             } catch (err) {
-    //                 console.error("Adsbygoogle push error:", props.position);
-    //             }
-    //         } else {
-    //             console.log("Adsbygoogle is not ready yet.");
-    //         }
-    //     };
+    useEffect(() => {
+        const loadAds = () => {
+            if (typeof window !== 'undefined' && window.adsbygoogle) {
+                try {
+                    const ads = document.querySelectorAll(`.adsbygoogle[data-ad-slot="${props.position == 'high' ? '8257587929' : '6101971529'}"]`);
+                    ads.forEach(ad => {
+                        if (!ad.hasAttribute('data-adsbygoogle-initialized')) {
+                            window.adsbygoogle.push({});
+                            // ad.setAttribute('data-adsbygoogle-initialized', 'true');
+                            console.log("Google ad pushed successfully for slot:", props.position);
+                        }
+                    });
+                } catch (err) {
+                    console.error("Adsbygoogle push error:", props.position);
+                }
+            } else {
+                console.log("Adsbygoogle is not ready yet.");
+            }
+        };
 
-    //     // Set up a MutationObserver
-    //     const observer = new MutationObserver(() => {
-    //         loadAds();
-    //     });
+        // Set up a MutationObserver
+        // const observer = new MutationObserver(() => {
+        //     loadAds();
+            
+        // });
 
-    //     if (typeof window !== 'undefined') {
-    //         const adsContainers = document.querySelectorAll('.adsbygoogle');
-    //         adsContainers.forEach(container => {
-    //             observer.observe(container, { childList: true });
-    //         });
-    //     }
+        const observer = new MutationObserver((mutationsList) => {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    loadAds();
+                }
+            }
+        });
 
-    //     // Try loading ads with a timeout as a fallback
-    //     const timeoutId = setTimeout(loadAds, 5000);
+        if (typeof window !== 'undefined') {
+            const adsContainers = document.querySelectorAll('.adsbygoogle');
+            adsContainers.forEach(container => {
+                observer.observe(container, { childList: true,subtree: true });
+            });
+        }
 
-    //     return () => {
-    //         clearTimeout(timeoutId);
-    //         observer.disconnect();
-    //     };
-    // }, [props.position]);
+        // Try loading ads with a timeout as a fallback
+        const timeoutId = setTimeout(loadAds, 5000);
+
+        return () => {
+            clearTimeout(timeoutId);
+            observer.disconnect();
+        };
+    }, [props.position]);
 
 
     return (
@@ -188,8 +197,8 @@ const GoogleAds = (props) => {
 
 
             <div className="text-center">
-                <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                
+                {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
+
                 {props.position == "high" ? (
                     <ins
                         className="adsbygoogle"
@@ -212,12 +221,12 @@ const GoogleAds = (props) => {
                         data-ad-slot="6101971529"
                     />
                 )}
-                <script>
+                {/* <script>
                     (adsbygoogle = window.adsbygoogle || []).push({ });
-                </script>
+                </script> */}
             </div>
 
-            {/* <Script
+            <Script
                 strategy="lazyOnload"
                 async
                 crossOrigin="anonymous"
@@ -249,7 +258,7 @@ const GoogleAds = (props) => {
                         console.error("Adsbygoogle error on load:", err);
                     }
                 }}
-            /> */}
+            />
 
 
         </>

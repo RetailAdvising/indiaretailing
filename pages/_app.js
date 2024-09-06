@@ -261,12 +261,12 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
         /> */}
 
-        <Script
+        {/* <Script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=div-gpt-ad-1617096742911-0`}
           strategy="lazyOnload"
           crossOrigin="anonymous"
-        ></Script>
+        ></Script> */}
 
 
       </Head>
