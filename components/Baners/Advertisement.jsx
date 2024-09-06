@@ -1,10 +1,8 @@
 import ImageLoader from '../ImageLoader'
 import { useEffect, useState } from 'react';
 import { checkMobile } from '@/libs/api'
-// import GoogleAds from './GoogleAds';
-import dynamic from 'next/dynamic'
-const GoogleAds = dynamic(() => import('./GoogleAds'), { ssr: false })
-export default function Advertisement({ data, imgClass, divClass, insStyle, position }) {
+import GoogleAds from './GoogleAds';
+export default function Advertisement({ data, imgClass, divClass, insStyle }) {
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
@@ -13,8 +11,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
-
-    }, [])
+    }, [insStyle])
 
 
     const checkIsMobile = async () => {
@@ -35,30 +32,19 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
             {/* data-ad-format="auto"
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
-
-            {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
-            {/* {insStyle && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
+            {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
+                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
-                        data-ad-slot="${script ? "6101971529" : "8257587929"}"
-                        data-ad-format="auto"
-                        ></ins>
-                        `} />} */}
-            {/* <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script> */}
 
-            {/* {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={insStyle} position={position} />} */}
-            {insStyle && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
-                    <ins
-                        className="adsbygoogle"
-                        style="${insStyle}"
-                        data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="8257587929"
-                    />
-                   
-                `} />}
+                        ></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+ 
+            `} />}
 
             {/* <script>
                 (adsbygoogle = window.adsbygoogle || []).push({ });

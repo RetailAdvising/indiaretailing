@@ -81,22 +81,22 @@ export default function Home({ data, ads }) {
     // dispatch(userAction(users));
   }
 
-  const getAd = async () => {
-    // let params = { doctype: 'Web Page Builder', page_type: 'Home' }
-    // const res = await getAds(params);
-    // const ads = res.message;
-    // if (ads) {
-    //   setAds(ads)
-    // }
+  // const getAd = async () => {
+  //   // let params = { doctype: 'Web Page Builder', page_type: 'Home' }
+  //   // const res = await getAds(params);
+  //   // const ads = res.message;
+  //   // if (ads) {
+  //   //   setAds(ads)
+  //   // }
 
-    const resp = await HomePageAds();
-    if (resp.message) {
-      ads = resp.message;
-      setAds(ads)
-      // console.log(resp)
-      // setAds(ads)
-    }
-  }
+  //   const resp = await HomePageAds();
+  //   if (resp.message) {
+  //     ads = resp.message;
+  //     setAds(ads)
+  //     // console.log(resp)
+  //     // setAds(ads)
+  //   }
+  // }
 
   useMemo(() => {
 
@@ -107,6 +107,12 @@ export default function Home({ data, ads }) {
 
   let [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
+    if (window.googletag) {
+      window.googletag.cmd = window.googletag.cmd || [];
+      window.googletag.cmd.push(function () {
+        window.googletag.display('div-gpt-ad-1617096742911-0');
+      });
+    }
 
     checkIsMobile();
     get_polls()
@@ -138,7 +144,6 @@ export default function Home({ data, ads }) {
   useEffect(() => {
     if (data && data.page_content && data.page_content.length != 0) {
       // console.log(data.page_content,'data.page_content')
-      // getAd()
       setTimeout(() => {
         setValue(data.page_content)
       }, 100)
@@ -350,9 +355,9 @@ export default function Home({ data, ads }) {
         className="adsbygoogle adbanner-customize" */}
       {/* <GoogleAds adSlot={"8257587929"} style={{ height: '200px', width: '100%', display: 'block', overflow: 'hidden' }} adClient={"ca-pub-9354161551837950"} /> */}
       {/* h-[90px] w-[728px] m-auto */}
-
-
-
+      
+      
+      
       {/* <GoogleAds style={`h-[90px] w-[728px] m-auto`} script={`
       <ins class="adsbygoogle"
           style="display:inline-block;width:728px;height:90px;mar"
@@ -391,11 +396,11 @@ export default function Home({ data, ads }) {
                             {isMobile ? <><div className='no_scroll md:mb-[15px]'><LatestNews height={'h-[190px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} /></div><LatestNews height={'h-[190px]'} width={'w-full'} isList={true} data={data.data[c.cid].data.slice(4, 6)} /></> : <LatestNews height={'md:h-[222px] lg:h-[240px]'} width={'w-full'} data={data.data[c.cid].data.slice(0, 4)} />}
                           </>}
                           {(ads && c.component_title == "Infocus Ad" && data.section == 'Infocus' && c.cid && data.data[c.cid]) &&
-                            // {(ads && ads.infocus && c.component_title == "Infocus Ad" && data.section == 'Infocus' && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.infocus.section) &&
+                          // {(ads && ads.infocus && c.component_title == "Infocus Ad" && data.section == 'Infocus' && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.infocus.section) &&
                             <>
                               {/* {console.log(ads.infocus,'ads.infocus')} */}
                               {/* <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} /> */}
-                              <Advertisement data={ads.infocus ? ads.infocus : null} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
+                              <Advertisement data={ads.infocus ? ads.infocus: null} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
                             </>
                           }
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
@@ -408,7 +413,7 @@ export default function Home({ data, ads }) {
                                 <div className={`${isMobile ? '' : 'border_right border_left px-[20px] h-[250px] flex-[0_0_calc(45%_-_10px)]'}`}><BulletList data={data.data[c.cid].data.slice(1, 6)} /></div>
                               </div>
                               {/* {ads && ads.web_special && <div className='md:my-[15px] md:hidden'><AdsBaner data={ads && ads.web_special ? ads.web_special : null} height={'h-[250px]'} width={'w-[300px]'} /></div>} */}
-                              <div className='md:my-[15px] md:hidden'><Advertisement data={ads && ads.web_special ? ads.web_special : null} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /></div>
+                              <div className='md:my-[15px] md:hidden'><Advertisement data={ads && ads.web_special ? ads.web_special : null} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /></div>
                             </div>
                             <div className={` flex border-t border-[#d4d8d8] pt-[10px] mt-[10px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(6, 10)} /></div>
                             <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards noPrimaryText={true} titleOnly={true} contentHeight={'pt-[10px]'} isHome={'/'} data={data.data[c.cid].data.slice(10, 15)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
@@ -465,10 +470,10 @@ export default function Home({ data, ads }) {
                             <><Video data={isMobile ? data.data[c.cid].data.slice(0, 1) : data.data[c.cid].data} vh={'h-[205px]'} isHome={'/video/'} isBg={true} imgClass={'h-[150px] w-full md:h-[200px]'} /></>
                           </>} */}
                           {(ads && c.component_title == "Video below Ad" && c.cid && data.data[c.cid]) &&
-                            // {(ads && ads.video_below && c.component_title == "Video below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.video_below.section) &&
+                          // {(ads && ads.video_below && c.component_title == "Video below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.video_below.section) &&
                             <>
                               {/* <AdsBaner data={ads.video_below} height={'h-[90px] w-[728px] object-contain m-[auto]'} /> */}
-                              <Advertisement data={ads.video_below ? ads.video_below : null} position={"high"} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
+                              <Advertisement data={ads.video_below ? ads.video_below: null} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
                             </>}
 
                           {/* {(c.component_title == "Banner Ads" && ads && ads.video_below) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={'h-full'} width={'w-full'} data={ads.video_below} /></>} */}
@@ -517,7 +522,7 @@ export default function Home({ data, ads }) {
                           </>}
 
                           {/* {(ads && ads.shopping_centre_below && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.shopping_centre_below.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.shopping_centre_below} height={"h-[90px] w-[728px] object-contain m-[auto]"} /></>} */}
-                          {(ads && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid]) && <><Advertisement position={"high"} data={ads.shopping_centre_below ? ads.shopping_centre_below : null} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
+                          {(ads && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid]) && <><Advertisement data={ads.shopping_centre_below ? ads.shopping_centre_below: null} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
                           </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>
@@ -586,7 +591,7 @@ export default function Home({ data, ads }) {
                             <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'} cardClass={'h-[320px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
                           </>}
                           {/* {(ads && ads.reconnect && c.component_title == "Reconnect Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.reconnect.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.reconnect} height={"h-[280px] w-[336px] object-contain m-[auto]"} /></>} */}
-                          {(ads && c.component_title == "Reconnect Ad" && c.cid && data.data[c.cid]) && <><Advertisement data={ads.reconnect ? ads.reconnect : null} position={"small"} insStyle={"display:inline-block;width:336px;height:280px;"} divClass={`h-[280px] w-[336px] m-auto`} />
+                          {(ads && c.component_title == "Reconnect Ad" && c.cid && data.data[c.cid] ) && <><Advertisement data={ads.reconnect ? ads.reconnect: null} insStyle={"display:inline-block;width:336px;height:280px;"} divClass={`h-[280px] w-[336px] m-auto`} />
                           </>}
 
                           {/* {(c.cid && c.component_title == "Banner Ads" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{ bannerAd: '/no_state.svg' }} /></div>} */}
