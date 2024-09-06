@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { checkMobile } from '@/libs/api'
 // import GoogleAds from './GoogleAds';
 import dynamic from 'next/dynamic'
-const GoogleAds = dynamic(()=> import('./GoogleAds'),{ssr:false})
-export default function Advertisement({ data, imgClass, divClass, insStyle,position }) {
+const GoogleAds = dynamic(() => import('./GoogleAds'), { ssr: false })
+export default function Advertisement({ data, imgClass, divClass, insStyle, position }) {
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
@@ -45,11 +45,27 @@ export default function Advertisement({ data, imgClass, divClass, insStyle,posit
                         data-ad-format="auto"
                         ></ins>
                         `} />} */}
-                        {/* <script>
+            {/* <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script> */}
 
-            {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={insStyle} position={position} />}
+            {/* {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={insStyle} position={position} />} */}
+            {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={insStyle} position={position} script={`
+                
+                <div className="text-center">
+                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                    <ins
+                        className="adsbygoogle"
+                        style="${insStyle}"
+                        data-ad-client="ca-pub-9354161551837950"
+                        data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
+                    />
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({ });
+                    </script>
+                </div>
+                
+                `} />}
 
             {/* <script>
                 (adsbygoogle = window.adsbygoogle || []).push({ });

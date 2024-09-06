@@ -300,11 +300,23 @@ const GoogleAds = (props) => {
     //     }
     //   };
 
+    useEffect(() => {
+        setTimeout(() => {
+            if (typeof window !== 'undefined' && window.adsbygoogle) {
+                try {
+                    (window.adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (err) {
+                    // console.log(err, "err");
+                }
+            }
+        }, 2000);
+    }, [props.script])
+
 
 
     return (
         <>
-            {/* {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />} */}
+            {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
             {/* {(adSlotId && adStyle) && ( */}
             {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
             {/* <ins
@@ -326,7 +338,7 @@ const GoogleAds = (props) => {
                     }); */}
             {/* </script> */}
 
-            {props.position == "high" ?
+            {/* {props.position == "high" ?
                 <div className="text-center">
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins
@@ -352,7 +364,7 @@ const GoogleAds = (props) => {
                         (adsbygoogle = window.adsbygoogle || []).push({ });
                     </script>
                 </div>
-            }
+            } */}
 
             {/* <Script
         strategy="lazyOnload"
