@@ -15,23 +15,60 @@ const GoogleAds = (props) => {
     // }, [])
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const checkAdsByGoogle = () => {
-                if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) {
-                    try {
-                        window.adsbygoogle.push({});
-                    } catch (err) {
-                        console.error("Adsbygoogle error:", err);
-                    }
-                } else {
-                    console.log("Adsbygoogle is not ready yet.");
-                }
-            };
+        // if (typeof window !== 'undefined') {
+        //     const checkAdsByGoogle = () => {
+        //         if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) {
+        //             try {
+        //                 window.adsbygoogle.push({});
+        //             } catch (err) {
+        //                 console.error("Adsbygoogle error:", err);
+        //             }
+        //         } else {
+        //             console.log("Adsbygoogle is not ready yet.");
+        //         }
+        //     };
 
-            // Use a small delay to ensure adsbygoogle script is ready
-            const timeoutId = setTimeout(checkAdsByGoogle, 1000);
-            return () => clearTimeout(timeoutId); // Clean up the timeout on component unmount
+        //     // Use a small delay to ensure adsbygoogle script is ready
+        //     const timeoutId = setTimeout(checkAdsByGoogle, 1000);
+        //     return () => clearTimeout(timeoutId); // Clean up the timeout on component unmount
+        // }
+
+        const loadAds = () => {
+            if (typeof window !== 'undefined' && window.adsbygoogle) {
+                try {
+                    window.adsbygoogle.push({});
+                    console.log("Google Ads pushed successfully.");
+                } catch (err) {
+                    console.error("Adsbygoogle push error:", err);
+                }
+            } else {
+                console.log("Adsbygoogle is not ready yet.");
+            }
+        };
+
+        // Add a mutation observer to ensure ads are loaded properly
+        const observer = new MutationObserver((mutationsList, observer) => {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    loadAds();
+                }
+            }
+        });
+
+        if (typeof window !== 'undefined') {
+            const adsContainer = document.querySelector('.adsbygoogle');
+            if (adsContainer) {
+                observer.observe(adsContainer, { childList: true });
+            }
         }
+
+        // Try loading ads with a timeout as a fallback
+        const timeoutId = setTimeout(loadAds, 1500); // Wait for 1.5 seconds before retrying
+
+        return () => {
+            clearTimeout(timeoutId);
+            observer.disconnect();
+        };
     }, [props.position]);
 
     return (
@@ -132,6 +169,7 @@ const GoogleAds = (props) => {
                 strategy="afterInteractive"
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
                 onLoad={() => {
+                    console.log("Google Ads script loaded.");
                     try {
                         if (typeof window !== 'undefined' && window.adsbygoogle) {
                             (window.adsbygoogle = window.adsbygoogle || []).push({});
