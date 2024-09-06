@@ -300,80 +300,72 @@ const GoogleAds = (props) => {
     //     }
     //   };
 
+
+
     return (
         <>
-            {props.position == "high" ?
-                <div className="text-center">
-                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    <ins
-                        className="adsbygoogle"
-                        style="display: inline-block, width: 728px, height: 90px"
-                        data-ad-client="ca-pub-9354161551837950"
-                        data-ad-slot="8257587929"
-                    />
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({ });
-                    </script>
-                </div>
-                :
-                <div className="text-center">
-                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    <ins
-                        className="adsbygoogle"
-                        style="display: inline-block, width: 300px, height: 250px"
-                        data-ad-client="ca-pub-9354161551837950"
-                        data-ad-slot="6101971529"
-                    />
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({ });
-                    </script>
-                </div>
-            }
+            <div className="text-center">
+                {/* {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />} */}
+                {/* {(adSlotId && adStyle) && ( */}
+                {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
+                {/* <ins
+                    className="adsbygoogle"
+                    style={props.insStyle}
+                    data-ad-client="ca-pub-9354161551837950"
+                    data-ad-slot={props.position === 'high' ? '8257587929' : '6101971529'}
+                /> */}
+                {/* )} */}
 
+                {/* <script> */}
+                {/* (adsbygoogle = window.adsbygoogle || []).push({ }); */}
+                {/* (adsbygoogle = window.adsbygoogle || []).push({ });
+                    (adsbygoogle = window.adsbygoogle || []).push({ });
+                    (adsbygoogle = window.adsbygoogle || []).push({ }); */}
+                {/* [].forEach.call(document.querySelectorAll('.adsbygoogle'), function(){
+                        // console.log('123 from GoogleAds dom',adsbygoogle)
+                        (adsbygoogle = window.adsbygoogle || []).push({})
+                    }); */}
+                {/* </script> */}
+
+                {props.position == "high" ?
+                    <div className="text-center">
+                        <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                        <ins
+                            className="adsbygoogle"
+                            style="display: inline-block, width: 728px, height: 90px"
+                            data-ad-client="ca-pub-9354161551837950"
+                            data-ad-slot="8257587929"
+                        />
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({ });
+                        </script>
+                    </div>
+                    :
+                    <div className="text-center">
+                        <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                        <ins
+                            className="adsbygoogle"
+                            style="display: inline-block, width: 300px, height: 250px"
+                            data-ad-client="ca-pub-9354161551837950"
+                            data-ad-slot="6101971529"
+                        />
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({ });
+                        </script>
+                    </div>
+                }
+
+
+            </div>
+            {/* <Script
+        strategy="lazyOnload"
+        async
+        crossOrigin="anonymous"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"   
+        onLoad={handleAdsbygoogleLoaded}
+      /> */}
         </>
-    )
-
-
-
-
-    // return (
-    //     <>
-    //         <div className="text-center">
-    //             {/* {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />} */}
-    //             {/* {(adSlotId && adStyle) && ( */}
-    //             {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
-    //             {/* <ins
-    //                 className="adsbygoogle"
-    //                 style={props.insStyle}
-    //                 data-ad-client="ca-pub-9354161551837950"
-    //                 data-ad-slot={props.position === 'high' ? '8257587929' : '6101971529'}
-    //             /> */}
-    //             {/* )} */}
-
-    //             {/* <script> */}
-    //                 {/* (adsbygoogle = window.adsbygoogle || []).push({ }); */}
-    //                 {/* (adsbygoogle = window.adsbygoogle || []).push({ });
-    //                 (adsbygoogle = window.adsbygoogle || []).push({ });
-    //                 (adsbygoogle = window.adsbygoogle || []).push({ }); */}
-    //                 {/* [].forEach.call(document.querySelectorAll('.adsbygoogle'), function(){
-    //                     // console.log('123 from GoogleAds dom',adsbygoogle)
-    //                     (adsbygoogle = window.adsbygoogle || []).push({})
-    //                 }); */}
-    //             {/* </script> */}
-
-
-    //             {}
-
-    //         </div>
-    //         {/* <Script
-    //     strategy="lazyOnload"
-    //     async
-    //     crossOrigin="anonymous"
-    //     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"   
-    //     onLoad={handleAdsbygoogleLoaded}
-    //   /> */}
-    //     </>
-    // );
+    );
 };
 
 export default GoogleAds;

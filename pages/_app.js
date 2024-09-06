@@ -268,7 +268,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           crossOrigin="anonymous"
         ></Script> */}
 
-
+        <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
       </Head>
       <ErrorBoundary >
         <Provider store={store} >
