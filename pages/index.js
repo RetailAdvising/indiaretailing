@@ -395,22 +395,22 @@ export default function Home({ data, ads }) {
                             <>
                               {/* {console.log(ads.infocus,'ads.infocus')} */}
                               {/* <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} /> */}
-                              <Advertisement data={ads.infocus ? ads.infocus : null} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
-                              {/* {ads.infocus ?
-                                : */}
-                              <div className="text-center">
-                                <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                                <ins
-                                  className="adsbygoogle"
-                                  style="display: inline-block, width: 300px, height: 250px"
-                                  data-ad-client="ca-pub-9354161551837950"
-                                  data-ad-slot="6101971529"
-                                />
-                                <script>
-                                  (adsbygoogle = window.adsbygoogle || []).push({ });
-                                </script>
-                              </div>
-                              {/* } */}
+                              {ads.infocus ?
+                                <Advertisement data={ads.infocus ? ads.infocus : null} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
+                                :
+                                <div className="text-center">
+                                  <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                                  <ins
+                                    className="adsbygoogle"
+                                    style={{ display: "inline-block", width: "300px", height: "250px" }}
+                                    data-ad-client="ca-pub-9354161551837950"
+                                    data-ad-slot="6101971529"
+                                  />
+                                  <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({ });
+                                  </script>
+                                </div>
+                              }
 
                             </>
                           }
