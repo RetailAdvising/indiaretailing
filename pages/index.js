@@ -54,14 +54,14 @@ const Advertisement = dynamic(() => import('@/components/Baners/Advertisement'))
 // import { useSession } from 'next-auth/react'
 // import Advertisement from '@/components/Baners/Advertisement';
 
-export default function Home({ data, ads }) {
+export default function Home({ data }) {
   // console.log(data,"data");
   // console.log(ads,"ads");
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
   let [loading, setLoading] = useState(false);
   const [books, setBooks] = useState([])
-  // let [ads, setAds] = useState()
+  let [ads, setAds] = useState()
   let [pageNo, setPageNo] = useState(1)
   let [noProduct, setNoProduct] = useState(false)
   // let page_no = 1;
@@ -81,22 +81,22 @@ export default function Home({ data, ads }) {
     // dispatch(userAction(users));
   }
 
-  // const getAd = async () => {
-  //   // let params = { doctype: 'Web Page Builder', page_type: 'Home' }
-  //   // const res = await getAds(params);
-  //   // const ads = res.message;
-  //   // if (ads) {
-  //   //   setAds(ads)
-  //   // }
+  const getAd = async () => {
+    // let params = { doctype: 'Web Page Builder', page_type: 'Home' }
+    // const res = await getAds(params);
+    // const ads = res.message;
+    // if (ads) {
+    //   setAds(ads)
+    // }
 
-  //   const resp = await HomePageAds();
-  //   if (resp.message) {
-  //     ads = resp.message;
-  //     setAds(ads)
-  //     // console.log(resp)
-  //     // setAds(ads)
-  //   }
-  // }
+    const resp = await HomePageAds();
+    if (resp.message) {
+      ads = resp.message;
+      setAds(ads)
+      // console.log(resp)
+      // setAds(ads)
+    }
+  }
 
   useMemo(() => {
 
@@ -107,13 +107,7 @@ export default function Home({ data, ads }) {
 
   let [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
-    if (window.googletag) {
-      window.googletag.cmd = window.googletag.cmd || [];
-      window.googletag.cmd.push(function () {
-        window.googletag.display('div-gpt-ad-1617096742911-0');
-      });
-    }
-
+    
     checkIsMobile();
     get_polls()
     window.addEventListener('resize', checkIsMobile)
@@ -144,6 +138,7 @@ export default function Home({ data, ads }) {
   useEffect(() => {
     if (data && data.page_content && data.page_content.length != 0) {
       // console.log(data.page_content,'data.page_content')
+      getAd()
       setTimeout(() => {
         setValue(data.page_content)
       }, 100)
