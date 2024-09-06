@@ -30,7 +30,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                     </script>`
                     setScript(temp)
                 } else if (val[i] == "width:500px") {
-                    setScript(`<div style=" text-align:center">
+                    setScript(`
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
@@ -40,9 +40,13 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                     <!-- 010.5 - Article Middle - 300x250 -->
                     <script type="text/javascript"
                     src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-                    </script></div>`)
+                    </script>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    `)
                 } else if (val[i] == "width:300px") {
-                    setScript(`<div style=" text-align:center">
+                    setScript(`
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
@@ -52,7 +56,11 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                     <!-- 010.5 - Article Middle - 500x90 -->
                     <script type="text/javascript"
                     src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-                    </script></div>`)
+                    </script>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    `)
                 }
             }
 
