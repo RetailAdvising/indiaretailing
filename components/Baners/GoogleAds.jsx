@@ -319,6 +319,9 @@ const GoogleAds = (props) => {
         <>
             <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
             {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({ });
+            </script>
             {/* {(adSlotId && adStyle) && ( */}
             {/* <ins
                     className="adsbygoogle"

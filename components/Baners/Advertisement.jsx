@@ -50,16 +50,14 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         </script> */}
 
             {/* {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={insStyle} position={position} />} */}
-            {(insStyle) && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} position={position} script={`
+            {insStyle && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
                     <ins
                         className="adsbygoogle"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="8257587929"
                     />
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({ });
-                    </script>
+                   
                 `} />}
 
             {/* <script>
