@@ -327,7 +327,7 @@ const GoogleAds = (props) => {
                     }); */}
                 {/* </script> */}
 
-                {props.position == "high" ?
+                {/* {props.position == "high" ?
                     <div className="text-center">
                         <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                         <ins
@@ -353,9 +353,7 @@ const GoogleAds = (props) => {
                             (adsbygoogle = window.adsbygoogle || []).push({ });
                         </script>
                     </div>
-                }
-
-
+                } */}
             </div>
             {/* <Script
         strategy="lazyOnload"
