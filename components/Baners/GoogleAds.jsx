@@ -94,7 +94,7 @@ const GoogleAds = (props) => {
 
             {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
-
+            <script src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
             {/* && props.data-ad-slot */}
             {(!props.script) && <div className="ad">
                 <ins
