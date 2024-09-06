@@ -101,19 +101,19 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
             {/* data-ad-format="auto"
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
-            {/* {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
+            
+            {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
-
                         data-ad-slot="8257587929"
                         ></ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
  
-            `} />} */}
+            `} />}
             {script && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={script} />}
 
             {/* <script>
