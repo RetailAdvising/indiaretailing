@@ -320,7 +320,7 @@ const GoogleAds = (props) => {
                     (adsbygoogle = window.adsbygoogle || []).push({ });
                     (adsbygoogle = window.adsbygoogle || []).push({ }); */}
                     [].forEach.call(document.querySelectorAll('.adsbygoogle'), function(){
-                        console.log('123 from GoogleAds dom',adsbygoogle)
+                        // console.log('123 from GoogleAds dom',adsbygoogle)
                         (adsbygoogle = window.adsbygoogle || []).push({})
                     });
                 </script>
