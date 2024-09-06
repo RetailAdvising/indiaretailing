@@ -305,7 +305,7 @@ const GoogleAds = (props) => {
             <div className="text-center">
                 {/* {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />} */}
                 {/* {(adSlotId && adStyle) && ( */}
-                <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
                 <ins
                     className="adsbygoogle"
                     style={props.insStyle}
@@ -315,7 +315,14 @@ const GoogleAds = (props) => {
                 {/* )} */}
 
                 <script>
+                    {/* (adsbygoogle = window.adsbygoogle || []).push({ }); */}
+                    {/* (adsbygoogle = window.adsbygoogle || []).push({ });
                     (adsbygoogle = window.adsbygoogle || []).push({ });
+                    (adsbygoogle = window.adsbygoogle || []).push({ }); */}
+                    [].forEach.call(document.querySelectorAll('.adsbygoogle'), function(){
+                        console.log('123 from GoogleAds dom',adsbygoogle)
+                        (adsbygoogle = window.adsbygoogle || []).push({})
+                    });
                 </script>
             </div>
             {/* <Script

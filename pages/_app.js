@@ -253,13 +253,13 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           crossOrigin="anonymous"
         /> */}
 
-        <Script
+        {/* <Script
           // id="adsense-script"
           // data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
           strategy="beforeInteractive"
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
-        />
+        /> */}
 
         {/* <Script
           async
