@@ -305,7 +305,7 @@ const GoogleAds = (props) => {
     return (
         <>
             <div className="text-center">
-                {/* {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />} */}
+                {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
                 {/* {(adSlotId && adStyle) && ( */}
                 {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
                 {/* <ins
