@@ -4,90 +4,17 @@ import { checkMobile } from '@/libs/api'
 // import GoogleAds from './GoogleAds';
 import dynamic from 'next/dynamic'
 const GoogleAds = dynamic(()=> import('./GoogleAds'),{ssr:false})
-export default function Advertisement({ data, imgClass, divClass, insStyle }) {
+export default function Advertisement({ data, imgClass, divClass, insStyle,position }) {
 
     let [isMobile, setIsMobile] = useState(false)
-    const [script, setScript] = useState(false)
     useEffect(() => {
-
-        if (insStyle) {
-            // console.log(insStyle.split(";"))
-            let val = insStyle.split(";");
-            for (let i = 0; i < val.length; i++) {
-                if (val[i] == "width:728px") {
-                    // let temp = `<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    // <ins class="adsbygoogle ${divClass}"
-                    //     style="display:inline-block;width:728px;height:90px;"
-                    //     data-ad-client="ca-pub-9354161551837950"
-                    //     data-ad-slot="8257587929"
-                    //     ></ins>
-                    // <script>
-                    //     (adsbygoogle = window.adsbygoogle || []).push({});
-                    // </script>`
-                    setScript(false)
-                    return
-                } else if (val[i] == "width:500px") {
-                    setScript(true)
-                    return
-                    // setScript(`
-                    // <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    // <ins class="adsbygoogle ${divClass}"
-                    //     style="display:inline-block;width:500px;height:90px;"
-                    //     data-ad-client="ca-pub-9354161551837950"
-                    //     data-ad-slot="6101971529"
-                    //     ></ins>
-                    // <!-- 010.5 - Article Middle - 300x250 -->
-                    // <script type="text/javascript"
-                    // src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-                    // </script>
-                    // <script>
-                    //     (adsbygoogle = window.adsbygoogle || []).push({});
-                    // </script>
-                    // `)
-                } else if (val[i] == "width:300px") {
-                    setScript(true)
-                    return
-                    // setScript(`
-                    // <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    // <ins class="adsbygoogle ${divClass}"
-                    //     style="display:inline-block;width:300px;height:250px;"
-                    //     data-ad-client="ca-pub-9354161551837950"
-                    //     data-ad-slot="6101971529"
-                    //     ></ins>
-                    // <!-- 010.5 - Article Middle - 500x90 -->
-                    // <script type="text/javascript"
-                    // src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-                    // </script>
-                    // <script>
-                    //     (adsbygoogle = window.adsbygoogle || []).push({});
-                    // </script>
-                    // `)
-                }
-            }
-
-        } else {
-            // let temp = `<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-            //         <ins class="adsbygoogle ${divClass}"
-            //             style="${insStyle}"
-            //             data-ad-client="ca-pub-9354161551837950"
-            //             data-ad-slot="8257587929"
-            //             ></ins>
-            //         <script>
-            //             (adsbygoogle = window.adsbygoogle || []).push({});
-            //         </script>`
-            setScript(false)
-
-        }
-
-
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
 
-
-    }, [insStyle])
+    }, [])
 
 
     const checkIsMobile = async () => {
@@ -110,19 +37,19 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
             {/* style="display:inline-block;width:728px;height:90px;" */}
 
             {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
-            {insStyle && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
+            {/* {insStyle && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${script ? "6101971529" : "8257587929"}"
                         data-ad-format="auto"
                         ></ins>
-                        `} />}
+                        `} />} */}
                         {/* <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script> */}
 
-            {/* {script && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={script} />} */}
+            {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={insStyle} position={position} />}
 
             {/* <script>
                 (adsbygoogle = window.adsbygoogle || []).push({ });

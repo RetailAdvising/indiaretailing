@@ -94,7 +94,7 @@ export default function ExclusiveBuilder({ data, ads }) {
                 </div>
 
                 {/* {(ads.right_first && Object.keys(ads.right_first).length != 0  && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><Advertisement divClass={'h-[250px] w-[300px] m-auto'}   data={ads.right_first} /></div>} */}
-                {(!isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><Advertisement divClass={'h-[250px] w-[300px] m-auto'} insStyle={"display:inline-block;width:300px;height:250px;"}   data={(ads.right_first && Object.keys(ads.right_first).length != 0) && ads.right_first} /></div>}
+                {(!isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><Advertisement divClass={'h-[250px] w-[300px] m-auto'} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} data={(ads.right_first && Object.keys(ads.right_first).length != 0) && ads.right_first} /></div>}
             </div>}
 
             {/* Section - 3 p-[20px_30px]*/}
@@ -130,7 +130,7 @@ export default function ExclusiveBuilder({ data, ads }) {
                         imgFlex={'flex-[0_0_calc(28%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[160px] md:h-[130px]'} data={data.sec2.data.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                 </div>
                 {/* {(ads.right_second && Object.keys(ads.right_second).length != 0 && !isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><Advertisement divClass={'h-[600px] w-[300px] m-auto'}  data={ads.right_second} /></div>} */}
-                {(!isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><Advertisement divClass={'h-[600px] w-[300px] m-auto'} insStyle={"display:inline-block;width:300px;height:600px;"}  data={(ads.right_second && Object.keys(ads.right_second).length != 0 ) && ads.right_second} /></div>}
+                {(!isMobile) && <div className='w-[calc(25%_-_10px)] md:basis-full'><Advertisement divClass={'h-[600px] w-[300px] m-auto'} insStyle={"display:inline-block;width:300px;height:600px;"} position={"small"} data={(ads.right_second && Object.keys(ads.right_second).length != 0 ) && ads.right_second} /></div>}
 
                 {/* {(val.section_4 && val.section_4.col_2 && !isMobile) && <div className='flex-[0_0_calc(25%_-_10px)] md:basis-full'> <AdsBaner height={'h-[567px]'} width={'w-full'} data={val.section_4.col_2} /></div>} */}
             </div>}

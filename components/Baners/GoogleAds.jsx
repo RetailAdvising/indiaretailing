@@ -9,7 +9,7 @@ const GoogleAds = (props) => {
             try {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             } catch (err) {
-                console.log(err,"err");
+                console.log(err, "err");
             }
         }
     }, [])
@@ -92,11 +92,32 @@ const GoogleAds = (props) => {
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
             ></script> */}
 
-            {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
+            {/* {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />} */}
+
+            {props.position == "high" ?
+                <ins class="adsbygoogle"
+                    style="display:inline-block;width:728px;height:90px;"
+                    data-ad-client="ca-pub-9354161551837950"
+                    data-ad-slot="8257587929"
+                >
+                </ins> :
+                props.position == "medium" ?
+                    <ins class="adsbygoogle"
+                        style="display:inline-block;width:500px;height:90px;"
+                        data-ad-client="ca-pub-9354161551837950"
+                        data-ad-slot="6101971529"
+                    >
+                    </ins> :
+                    <ins class="adsbygoogle"
+                        style="display:inline-block;width:300px;height:250px;"
+                        data-ad-client="ca-pub-9354161551837950"
+                        data-ad-slot="6101971529"
+                    >
+                    </ins>}
 
             {/* <Script async src="//pagead2.googlesyndication.com/pagead/show_ads.js" /> */}
 
-            <Script
+            < Script
                 id="adsbygoogle-script"
                 strategy="afterInteractive"
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
@@ -113,15 +134,17 @@ const GoogleAds = (props) => {
 
 
             {/* && props.data-ad-slot */}
-            {(!props.script) && <div className="ad">
-                <ins
-                    data-ad-slot={props.adSlot}
-                    data-ad-format={"responsive"}
-                    data-full-width-responsive={true}
-                    data-ad-client={props.adClient}
-                    {...props}
-                />
-            </div>}
+            {
+                (!props.script) && <div className="ad">
+                    <ins
+                        data-ad-slot={props.adSlot}
+                        data-ad-format={"responsive"}
+                        data-full-width-responsive={true}
+                        data-ad-client={props.adClient}
+                        {...props}
+                    />
+                </div>
+            }
 
 
         </>
