@@ -9,7 +9,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
     useEffect(() => {
 
         if (insStyle) {
-            console.log(insStyle.split(";"))
+            // console.log(insStyle.split(";"))
             let val = insStyle.split(";");
             for (let i = 0; i < val.length; i++) {
                 if (val[i] == "width:728px") {
@@ -19,12 +19,6 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="8257587929"
                         ></ins>
-                        <div id='div-gpt-ad-1617096742911-0'>
-                            <script>
-                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1617096742911-0'); });
-                            setInterval(function(){googletag.pubads().refresh([slot1]);}, 3000);
-                            </script>
-                        </div>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>`
@@ -71,12 +65,6 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="8257587929"
                         ></ins>
-                        <div id='div-gpt-ad-1617096742911-0'>
-                            <script>
-                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1617096742911-0'); });
-                            setInterval(function(){googletag.pubads().refresh([slot1]);}, 3000);
-                            </script>
-                        </div>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>`
