@@ -81,8 +81,9 @@ const GoogleAds = (props) => {
                     const ads = document.querySelectorAll(`.adsbygoogle[data-ad-slot="${props.position == 'high' ? '8257587929' : '6101971529'}"]`);
                     ads.forEach(ad => {
                         if (!ad.hasAttribute('data-adsbygoogle-initialized')) {
-                            window.adsbygoogle.push({});
-                            // ad.setAttribute('data-adsbygoogle-initialized', 'true');
+                            // window.adsbygoogle.push({});
+                            (window.adsbygoogle = window.adsbygoogle || []).push({})
+                            ad.setAttribute('data-adsbygoogle-initialized', 'true');
                             console.log("Google ad pushed successfully for slot:", props.position);
                         }
                     });
