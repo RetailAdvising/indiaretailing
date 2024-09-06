@@ -11,7 +11,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
     useEffect(() => {
 
         if (insStyle) {
-            // console.log(insStyle.split(";"))
+            console.log(insStyle.split(";"))
             let val = insStyle.split(";");
             for (let i = 0; i < val.length; i++) {
                 if (val[i] == "width:728px") {
@@ -115,6 +115,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${script ? "6101971529" : "8257587929"}"
+                        data-ad-format="auto"
                         ></ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});

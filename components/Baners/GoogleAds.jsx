@@ -97,13 +97,16 @@ const GoogleAds = (props) => {
             <Script async src="//pagead2.googlesyndication.com/pagead/show_ads.js" />
 
             <Script
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                id="adsbygoogle-script"
                 strategy="afterInteractive"
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
                 onLoad={() => {
-                    try {
-                        (window.adsbygoogle = window.adsbygoogle || []).push({});
-                    } catch (err) {
-                        console.error("Adsbygoogle error on load", err);
+                    if (typeof window !== 'undefined' && window.adsbygoogle) {
+                        try {
+                            (window.adsbygoogle = window.adsbygoogle || []).push({});
+                        } catch (err) {
+                            console.error("Adsbygoogle error on load", err);
+                        }
                     }
                 }}
             />
