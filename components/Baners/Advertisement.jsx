@@ -9,7 +9,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
     useEffect(() => {
 
         if (insStyle) {
-            console.log(insStyle.split(";"))
+            // console.log(insStyle.split(";"))
             let val = insStyle.split(";");
             for (let i = 0; i < val.length; i++) {
                 if (val[i] == "width:728px") {

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 const GoogleAds = (props) => {
 
     useEffect(() => {
-        console.log(props.script,"script")
+        // console.log(props.script,"script")
         if (typeof window !== 'undefined') {
             try {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
