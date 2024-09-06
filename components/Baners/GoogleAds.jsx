@@ -3,81 +3,36 @@ import { useEffect } from "react";
 
 const GoogleAds = (props) => {
 
-    useEffect(() => {
-        // console.log(props.script,"script")
-        if (typeof window !== 'undefined' && window.adsbygoogle) {
-            try {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-            } catch (err) {
-                console.log(err, "err");
-            }
-        }
-    }, [])
-
     // useEffect(() => {
-    //     const gptInit = () => {
-    //         const mapping = googletag.sizeMapping()
-    //             .addSize([0, 0], [320, 50])
-    //             .addSize([768, 0], [728, 90])
-    //             .addSize([1024, 0], [970, 250])
-    //             .build();
-
-    //         googletag.cmd.push(function () {
-    //             const slot1 = googletag.defineSlot('/21631575671/IR-728x90-Leaderboard', [[320, 50], [728, 90], [970, 250]], 'div-gpt-ad-1617096742911-0')
-    //                 .setTargeting("test", "refresh")
-    //                 .defineSizeMapping(mapping)
-    //                 .addService(googletag.pubads());
-
-    //             googletag.pubads().enableSingleRequest();
-    //             googletag.enableServices();
-    //             googletag.display('div-gpt-ad-1617096742911-0');
-    //         });
-    //     };
-
-    //     if (window.googletag) {
-    //         gptInit();
-    //     } else {
-    //         window.googletag = window.googletag || { cmd: [] };
-    //         window.googletag.cmd.push(gptInit);
-    //     }
-    // }, []);
-
-    // useEffect(() => {
-    //     // Initialize GPT ad slots after the script is loaded
-    //     // const initializeAds = () => {
-    //     //   if (window.googletag) {
-    //     //     let googletag = window.googletag
-    //     //     const mapping = googletag.sizeMapping()
-    //     //       .addSize([0, 0], [320, 50])
-    //     //       .addSize([768, 0], [728, 90])
-    //     //       .addSize([1024, 0], [970, 250])
-    //     //       .build();
-
-    //     //     googletag.cmd.push(() => {
-    //     //       googletag.defineSlot('/21631575671/IR-728x90-Leaderboard', [[320, 50], [728, 90], [970, 250]], 'div-gpt-ad-1617096742911-0')
-    //     //         .setTargeting("test", "refresh")
-    //     //         .defineSizeMapping(mapping)
-    //     //         .addService(googletag.pubads());
-
-    //     //       googletag.pubads().enableSingleRequest();
-    //     //       googletag.enableServices();
-    //     //       googletag.display('div-gpt-ad-1617096742911-0');
-    //     //     });
-    //     //   } else {
-    //     //     console.error('googletag is not defined');
-    //     //   }
-    //     // };
-
-    //     // Wait for the GPT script to load and then initialize ads
-    //     if(typeof window !== 'undefined'){
-    //         if (window.googletag) {
-    //           initializeAds();
-    //         } else {
-    //           window.googletag = window.googletag || { cmd: [] };
-    //           window.googletag.cmd.push(initializeAds);
+    //     // console.log(props.script,"script")
+    //     if (typeof window !== 'undefined' && window.adsbygoogle) {
+    //         try {
+    //             (window.adsbygoogle = window.adsbygoogle || []).push({});
+    //         } catch (err) {
+    //             console.log(err, "err");
     //         }
     //     }
-    //   }, []);
+    // }, [])
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const checkAdsByGoogle = () => {
+                if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) {
+                    try {
+                        window.adsbygoogle.push({});
+                    } catch (err) {
+                        console.error("Adsbygoogle error:", err);
+                    }
+                } else {
+                    console.log("Adsbygoogle is not ready yet.");
+                }
+            };
+
+            // Use a small delay to ensure adsbygoogle script is ready
+            const timeoutId = setTimeout(checkAdsByGoogle, 1000);
+            return () => clearTimeout(timeoutId); // Clean up the timeout on component unmount
+        }
+    }, [props.position]);
 
     return (
         <>
@@ -94,7 +49,7 @@ const GoogleAds = (props) => {
 
             {/* {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />} */}
 
-            {props.position == "high" ?
+            {/* {props.position == "high" ?
                 <ins class="adsbygoogle"
                     style="display:inline-block;width:728px;height:90px;"
                     data-ad-client="ca-pub-9354161551837950"
@@ -113,11 +68,11 @@ const GoogleAds = (props) => {
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="6101971529"
                     >
-                    </ins>}
+                    </ins>} */}
 
             {/* <Script async src="//pagead2.googlesyndication.com/pagead/show_ads.js" /> */}
 
-            < Script
+            {/* < Script
                 id="adsbygoogle-script"
                 strategy="afterInteractive"
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
@@ -130,11 +85,11 @@ const GoogleAds = (props) => {
                         }
                     }
                 }}
-            />
+            /> */}
 
 
             {/* && props.data-ad-slot */}
-            {
+            {/* {
                 (!props.script) && <div className="ad">
                     <ins
                         data-ad-slot={props.adSlot}
@@ -144,7 +99,48 @@ const GoogleAds = (props) => {
                         {...props}
                     />
                 </div>
-            }
+            } */}
+
+
+
+
+            {props.position == "high" ? (
+                <ins
+                    className="adsbygoogle"
+                    style={{ display: "inline-block", width: "728px", height: "90px" }}
+                    data-ad-client="ca-pub-9354161551837950"
+                    data-ad-slot="8257587929"
+                />
+            ) : props.position == "medium" ? (
+                <ins
+                    className="adsbygoogle"
+                    style={{ display: "inline-block", width: "500px", height: "90px" }}
+                    data-ad-client="ca-pub-9354161551837950"
+                    data-ad-slot="6101971529"
+                />
+            ) : (
+                <ins
+                    className="adsbygoogle"
+                    style={{ display: "inline-block", width: "300px", height: "250px" }}
+                    data-ad-client="ca-pub-9354161551837950"
+                    data-ad-slot="6101971529"
+                />
+            )}
+
+            <Script
+                id="adsbygoogle-script"
+                strategy="afterInteractive"
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                onLoad={() => {
+                    try {
+                        if (typeof window !== 'undefined' && window.adsbygoogle) {
+                            (window.adsbygoogle = window.adsbygoogle || []).push({});
+                        }
+                    } catch (err) {
+                        console.error("Adsbygoogle error on load:", err);
+                    }
+                }}
+            />
 
 
         </>
