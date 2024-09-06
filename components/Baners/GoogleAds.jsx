@@ -302,6 +302,7 @@ const GoogleAds = (props) => {
 
     useEffect(() => {
         setTimeout(() => {
+            console.log(props.script,"props.script")
             if (typeof window !== 'undefined' && window.adsbygoogle) {
                 try {
                     (window.adsbygoogle = window.adsbygoogle || []).push({});

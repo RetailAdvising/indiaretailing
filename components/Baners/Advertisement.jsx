@@ -50,8 +50,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         </script> */}
 
             {/* {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={insStyle} position={position} />} */}
-            {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={insStyle} position={position} script={`
-                
+            {(insStyle && position) && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} position={position} script={`
                 <div className="text-center">
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins
@@ -64,7 +63,6 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         (adsbygoogle = window.adsbygoogle || []).push({ });
                     </script>
                 </div>
-                
                 `} />}
 
             {/* <script>
