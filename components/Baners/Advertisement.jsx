@@ -9,13 +9,13 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
     useEffect(() => {
 
         if (insStyle) {
-            // console.log(insStyle.split(";"))
+            console.log(insStyle.split(";"))
             let val = insStyle.split(";");
             for (let i = 0; i < val.length; i++) {
                 if (val[i] == "width:728px") {
                     let temp = `<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
-                        style="${insStyle}"
+                        style="display:inline-block;width:728px;height:90px;"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="8257587929"
                         ></ins>
@@ -33,7 +33,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                     setScript(`
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
-                        style="${insStyle}"
+                        style="display:inline-block;width:500px;height:90px;"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="6101971529"
                         ></ins>
@@ -49,7 +49,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                     setScript(`
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
-                        style="${insStyle}"
+                        style="display:inline-block;width:300px;height:250px;"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="6101971529"
                         ></ins>
