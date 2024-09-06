@@ -1,7 +1,9 @@
 import ImageLoader from '../ImageLoader'
 import { useEffect, useState } from 'react';
 import { checkMobile } from '@/libs/api'
-import GoogleAds from './GoogleAds';
+// import GoogleAds from './GoogleAds';
+import dynamic from 'next/dynamic'
+const GoogleAds = dynamic(()=> import('./GoogleAds'),{ssr:false})
 export default function Advertisement({ data, imgClass, divClass, insStyle }) {
 
     let [isMobile, setIsMobile] = useState(false)
@@ -9,7 +11,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
     useEffect(() => {
 
         if (insStyle) {
-            console.log(insStyle.split(";"))
+            // console.log(insStyle.split(";"))
             let val = insStyle.split(";");
             for (let i = 0; i < val.length; i++) {
                 if (val[i] == "width:728px") {

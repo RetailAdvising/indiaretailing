@@ -5,14 +5,14 @@ const GoogleAds = (props) => {
 
     useEffect(() => {
         // console.log(props.script,"script")
-        if (typeof window !== 'undefined') {
+        if (typeof window !== 'undefined' && window.adsbygoogle) {
             try {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             } catch (err) {
                 // console.log(err,"err");
             }
         }
-    }, [props])
+    }, [])
 
     // useEffect(() => {
     //     const gptInit = () => {
@@ -94,7 +94,21 @@ const GoogleAds = (props) => {
 
             {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
-            <script src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+            <Script async src="//pagead2.googlesyndication.com/pagead/show_ads.js" />
+
+            <Script
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                strategy="afterInteractive"
+                onLoad={() => {
+                    try {
+                        (window.adsbygoogle = window.adsbygoogle || []).push({});
+                    } catch (err) {
+                        console.error("Adsbygoogle error on load", err);
+                    }
+                }}
+            />
+
+
             {/* && props.data-ad-slot */}
             {(!props.script) && <div className="ad">
                 <ins
