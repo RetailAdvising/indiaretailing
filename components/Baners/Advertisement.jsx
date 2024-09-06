@@ -5,12 +5,85 @@ import GoogleAds from './GoogleAds';
 export default function Advertisement({ data, imgClass, divClass, insStyle }) {
 
     let [isMobile, setIsMobile] = useState(false)
+    const [script, setScript] = useState()
     useEffect(() => {
+
+        if (insStyle) {
+            console.log(insStyle.split(";"))
+            let val = insStyle.split(";");
+            for (let i = 0; i < val.length; i++) {
+                if (val[i] == "width:728px") {
+                    let temp = `<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                    <ins class="adsbygoogle ${divClass}"
+                        style="${insStyle}"
+                        data-ad-client="ca-pub-9354161551837950"
+
+                        data-ad-slot="8257587929"
+                        ></ins>
+                        <div id='div-gpt-ad-1617096742911-0'>
+                            <script>
+                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1617096742911-0'); });
+                            setInterval(function(){googletag.pubads().refresh([slot1]);}, 3000);
+                            </script>
+                        </div>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>`
+                    setScript(temp)
+                } else if (val[i] == "width:500px") {
+                    setScript(`<div style=" text-align:center"><script type="text/javascript">
+  google_ad_client = "ca-pub-9354161551837950";
+  google_ad_slot = "6101971529";
+  google_ad_width = 300;
+  google_ad_height = 250;
+</script>
+<!-- 010.5 - Article Middle - 300x250 -->
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>`)
+                } else if (val[i] == "width:300px") {
+                    setScript(`<div style=" text-align:center"><script type="text/javascript">
+  google_ad_client = "ca-pub-9354161551837950";
+  google_ad_slot = "6101971529";
+  google_ad_width = 500;
+  google_ad_height = 90;
+</script>
+<!-- 010.5 - Article Middle - 500x90 -->
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>`)
+                }
+            }
+
+        } else {
+            let temp = `<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                    <ins class="adsbygoogle ${divClass}"
+                        style="${insStyle}"
+                        data-ad-client="ca-pub-9354161551837950"
+
+                        data-ad-slot="8257587929"
+                        ></ins>
+                        <div id='div-gpt-ad-1617096742911-0'>
+                            <script>
+                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1617096742911-0'); });
+                            setInterval(function(){googletag.pubads().refresh([slot1]);}, 3000);
+                            </script>
+                        </div>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>`
+            setScript(temp)
+
+        }
+
+
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
+
+
     }, [insStyle])
 
 
@@ -32,7 +105,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
             {/* data-ad-format="auto"
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
-            {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
+            {/* {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins class="adsbygoogle ${divClass}"
                         style="${insStyle}"
@@ -44,7 +117,8 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
  
-            `} />}
+            `} />} */}
+            {script && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={script} />}
 
             {/* <script>
                 (adsbygoogle = window.adsbygoogle || []).push({ });
