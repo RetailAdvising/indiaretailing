@@ -9,8 +9,55 @@ const GoogleAds = (props) => {
             } catch (err) {
                 // console.log(err,"err");
             }
+
+            // Load ads individually
+            loadAd(props.adId);
         }
     }, [props])
+
+    function setAdHeight(adElement, position) {
+        // Determine dynamic height based on the position or other logic
+        let el = document.querySelector('.scripts');
+        if (el) {
+            el.style.height = position == 'high' ? '90px' : '250px';  // Example: Set background color
+        }
+
+        if (position === 'high') {
+            dynamicHeight = '90px';  // Example height for high position
+        } else {
+            dynamicHeight = '250px';  // Default height
+        }
+
+        // Set the custom property --adheight dynamically
+        adElement.style.setProperty('--adheight', dynamicHeight);
+    }
+
+
+    function checkAdStatus(adId) {
+        var adElement = document.getElementById(adId);
+        var adStatus = adElement.getAttribute('data-ad-status');
+        if (adStatus === 'unfilled') {
+            console.log("Ad unfilled for:", adId);
+            setAdHeight(adElement, props.position)
+            // adElement.style.minHeight = '90px';  // Set a minimum height to prevent collapsing
+            // Optionally display a fallback message or alternative content
+            // adElement.innerHTML = "<p>Ad not available</p>";
+        }
+    }
+
+    function loadAd(adId) {
+        var adElement = document.getElementById(adId);
+        if (adElement) {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            setTimeout(function () {
+                checkAdStatus(adId);
+            }, 1000);
+        } else {
+            console.log("Ad element not found for:", adId);
+        }
+    }
+
+
 
     // useEffect(() => {
     //     const gptInit = () => {
@@ -90,7 +137,7 @@ const GoogleAds = (props) => {
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
             ></script> */}
 
-            {props.script && <div className={`${props.style}`} dangerouslySetInnerHTML={{ __html: props.script }} />}
+            {props.script && <div className={`${props.style} scripts`} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
             {/* && props.data-ad-slot */}
