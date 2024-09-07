@@ -6,13 +6,13 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
-        console.log(adId, "adId")
+        // console.log(adId, "adId")
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
-    }, [insStyle, adId])
+    }, [insStyle, adId, position])
 
 
     const checkIsMobile = async () => {
@@ -44,14 +44,20 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                             <img src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />
                         </a>
                     </ins>
+                    
                     <script>
                         
-                        function loadDefaultBanner(adElement) {
-                            // Define your default banner HTML or image
-                            var defaultBannerHTML = '<img src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />';
-                            adElement.innerHTML = defaultBannerHTML; // Replace ad with default banner
-                            adElement.style.display = 'inline-block'; // Ensure the element is visible
-                            adElement.style.minHeight = '90px'; // Ensure the height is maintained
+                        function setAdHeight(adElement, position) {
+                            // Determine dynamic height based on the position or other logic
+                            let dynamicHeight;
+                            if (position === 'high') {
+                            dynamicHeight = '90px';  // Example height for high position
+                            } else {
+                            dynamicHeight = '250px';  // Default height
+                            }
+
+                            // Set the custom property --adheight dynamically
+                            adElement.style.setProperty('--adheight', dynamicHeight);
                         }
 
 
@@ -60,7 +66,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                             var adStatus = adElement.getAttribute('data-ad-status');
                             if (adStatus === 'unfilled') {
                                 console.log("Ad unfilled for:", adId);
-                                loadDefaultBanner(adElement)
+                                setAdHeight(adElement,${position})
                                 // adElement.style.minHeight = '90px';  // Set a minimum height to prevent collapsing
                                 // Optionally display a fallback message or alternative content
                                 // adElement.innerHTML = "<p>Ad not available</p>";
