@@ -38,7 +38,7 @@ export default function Bookstore({ data, ads_data, slider_data }) {
 
   return (
     <>
-      <RootLayout homeAd={ads_data ? ads_data : null}>
+      <RootLayout homeAd={ads_data ? ads_data : null} adIdH={'book-head'} adIdF={'book-foot'} >
         <SEO title={'Bookstore'} siteName={'India Reatiling'} description={'Bookstore'} />
 
         {/* {!isMobile && <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>} */}

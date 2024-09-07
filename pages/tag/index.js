@@ -193,7 +193,7 @@ export default function Tags({ res, data }) {
 
     return (
         <>
-            <RootLayout>
+            <RootLayout adIdH={'tags-head'} adIdF={'tags-foot'}>
                 {/* mobile tabs */}
                 <div id={'scrollTag'} class="bg-[#e7e7e7] overflow-auto scrollbar-hide mt-[3px] lg:hidden">
                     {(tabs && tag && tag.length != 0) && <Tabs categories={tag} tab={tabs} setTabs={(data) => getTabs(data)} />}

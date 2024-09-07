@@ -33,7 +33,7 @@ export default function Podcast({ data, ads_data, slider_data }) {
 
     return (
         <>
-            <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head="">
+            <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head="" adIdH={'podcast-head'} adIdF={'podcast-foot'}>
                 <SEO title={'Podcast'} siteName={'India Retailing'} description={'Podcast'} />
                 <div className="container zero-gap ">
                     {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-[220px] w-full'} event={true} data={slider_data} perView={1} className='gap-0' />}

@@ -66,7 +66,7 @@ export default function newsletter({ ads }) {
 
       {enableModal && <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
-      <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'}>
+      <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'} adIdH={'news-head'} adIdF={'news-foot'}>
         {/* {!skeleton && localValue && !localValue['cust_name'] &&  */}
 
         {skeleton ? <SkeletonLoader /> :

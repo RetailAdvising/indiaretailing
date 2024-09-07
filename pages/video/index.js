@@ -38,7 +38,7 @@ export default function Videos({ data, ads, slider_data }) {
   }
   return (
     <>
-      <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'IR Prime Videos'}>
+      <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'IR Prime Videos'} adIdH={'video-head'} adIdF={'video-foot'} >
         <SEO title={'IR Prime Videos'} siteName={'India Retailing'} description={'IR Prime Videos'} />
         <div className="container zero-gap ">
           {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-[220px] w-full'} event={true} data={slider_data} perView={1} className='gap-0' />}

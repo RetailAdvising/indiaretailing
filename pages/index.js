@@ -369,7 +369,7 @@ export default function Home({ data, ads }) {
       `} /> */}
 
 
-      <RootLayout data={data} isLanding={true} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
+      <RootLayout data={data} isLanding={true} head={''} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
         {(value && value.length != 0) ? value.map((data, i) => {
