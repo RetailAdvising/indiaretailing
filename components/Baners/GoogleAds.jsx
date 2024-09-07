@@ -17,7 +17,9 @@ const GoogleAds = (props) => {
 
     function setAdHeight(adElement, position) {
         // Determine dynamic height based on the position or other logic
-        let el = document.querySelector('.scripts');
+        let el = adElement.parentElement;
+        console.log(el,"el parent")
+        // let el = document.querySelector('.scripts');
         if (el) {
             el.style.height = position == 'high' ? '90px' : '250px';  // Example: Set background color
         }
