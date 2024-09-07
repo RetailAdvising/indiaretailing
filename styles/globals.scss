@@ -2566,3 +2566,13 @@ div[role=button]{
   
   }
 }
+
+
+// Google Ads
+ins.adsbygoogle a {
+  display: none !important;
+}
+
+ins.adsbygoogle[data-ad-status="unfilled"] a {
+  display: block !important;
+}

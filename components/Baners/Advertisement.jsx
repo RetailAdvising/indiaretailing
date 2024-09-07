@@ -6,13 +6,13 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
-        console.log(adId,"adId")
+        console.log(adId, "adId")
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
-    }, [insStyle,adId])
+    }, [insStyle, adId])
 
 
     const checkIsMobile = async () => {
@@ -39,7 +39,11 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
-                        ></ins>
+                        >
+                        <a href="#">
+                            <img src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />
+                        </a>
+                    </ins>
                     <script>
                         
                         function loadDefaultBanner(adElement) {
