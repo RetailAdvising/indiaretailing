@@ -23,16 +23,19 @@ const GoogleAds = (props) => {
         // Determine dynamic height based on the position or other logic
         let el = document.getElementById(adElement)
         let parent = document.getElementById(adElement + 'scripts');
-        console.log(parent, "parent parent")
+        // console.log(parent, "parent parent")
         // let el = document.querySelector('.scripts');
-        if (parent) {
-            parent.style.height = position == 'high' ? '90px !important' : '250px !important';  // Example: Set background color
-        }
+        
         let dynamicHeight;
         if (position === 'high') {
             dynamicHeight = '90px';  // Example height for high position
         } else {
             dynamicHeight = '250px';  // Default height
+        }
+
+        if (parent) {
+            parent.style.height = position == 'high' ? '90px !important' : '250px !important';  // Example: Set background color
+            parent.classList.add(position == 'high' ? 'height-90' : 'height-250')
         }
 
         // Set the custom property --adheight dynamically
