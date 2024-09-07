@@ -30,7 +30,7 @@ const nunito = Nunito({
   subsets: ["latin"],
   variable: '--font-inter',
 })
-export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail }) {
+export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail,adIdH,adIdF }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
   const [headerData, setHeaderData] = useState([]);
@@ -234,7 +234,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     <>
       {/* <SEO /> */}
       {/* {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>} */}
-      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] w-[728px] m-auto'} insStyle={"display:inline-block;width:728px;height:90px;"} position={"high"}  /></div>}
+      {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><Advertisement adId={adIdH} data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] w-[728px] m-auto'} insStyle={"display:inline-block;width:728px;height:90px;"} position={"high"}  /></div>}
       {/* <PdfViewer/> */}
       <>
         <Header checkout={checkout} />
@@ -287,7 +287,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
           {children}
         </main>
 
-        {(!checkout && !is_detail) && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><Advertisement data={(homeAd && homeAd.footer) && homeAd.footer} position={"high"} divClass={'h-[90px] w-[728px] m-auto'} insStyle={"display:inline-block;width:728px;height:90px;"} style={styles} height={'h-full'} width={'500px'} /></div>}
+        {(!checkout && !is_detail) && <div className="md:hidden mb-[10px] lg:grid lg:justify-center"><Advertisement adId={adIdF} data={(homeAd && homeAd.footer) && homeAd.footer} position={"high"} divClass={'h-[90px] w-[728px] m-auto'} insStyle={"display:inline-block;width:728px;height:90px;"} style={styles} height={'h-full'} width={'500px'} /></div>}
         {!checkout && footerData && footerData.length != 0 && <MainFooter footerData={footerData} />}
         {/* <div className='lg:hidden' >
           <BottomTabs />

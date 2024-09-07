@@ -2,7 +2,7 @@ import ImageLoader from '../ImageLoader'
 import { useEffect, useState } from 'react';
 import { checkMobile } from '@/libs/api'
 import GoogleAds from './GoogleAds';
-export default function Advertisement({ data, imgClass, divClass, insStyle }) {
+export default function Advertisement({ data, imgClass, divClass, insStyle, position, adId }) {
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
@@ -34,18 +34,37 @@ export default function Advertisement({ data, imgClass, divClass, insStyle }) {
             {/* style="display:inline-block;width:728px;height:90px;" */}
             {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    <ins class="adsbygoogle ${divClass}"
+                    <ins id="${adId} class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
-
-                        data-ad-slot="8257587929"
+                        data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
                         ></ins>
                     <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        
+                        function loadAd(adId) {
+                            var adElement = document.getElementById(adId);
+                            if (adElement) {
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            }
+                        }
+
+                        // Load ads individually
+                        loadAd(${adId});
+
+                        function refreshAd(adId) {
+                            var adElement = document.getElementById(adId);
+                            adElement.innerHTML = ''; // Remove current ad
+                            adElement.className = 'adsbygoogle'; // Reset class for new ad
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        }
+
+                        refreshAd(${adId})
+
                     </script>
  
             `} />}
 
+            {/* (adsbygoogle = window.adsbygoogle || []).push({}); */}
             {/* <script>
                 (adsbygoogle = window.adsbygoogle || []).push({ });
             </script> */}
