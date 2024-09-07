@@ -6,7 +6,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
-        // console.log(adId,"adId")
+        console.log(adId,"adId")
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
@@ -42,14 +42,24 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         ></ins>
                     <script>
                         
+                        function loadDefaultBanner(adElement) {
+                            // Define your default banner HTML or image
+                            var defaultBannerHTML = '<img src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />';
+                            adElement.innerHTML = defaultBannerHTML; // Replace ad with default banner
+                            adElement.style.display = 'inline-block'; // Ensure the element is visible
+                            adElement.style.minHeight = '90px'; // Ensure the height is maintained
+                        }
+
+
                         function checkAdStatus(adId) {
                             var adElement = document.getElementById(adId);
                             var adStatus = adElement.getAttribute('data-ad-status');
                             if (adStatus === 'unfilled') {
                                 console.log("Ad unfilled for:", adId);
-                                adElement.style.minHeight = '90px';  // Set a minimum height to prevent collapsing
+                                loadDefaultBanner(adElement)
+                                // adElement.style.minHeight = '90px';  // Set a minimum height to prevent collapsing
                                 // Optionally display a fallback message or alternative content
-                                adElement.innerHTML = "<p>Ad not available</p>";
+                                // adElement.innerHTML = "<p>Ad not available</p>";
                             }
                         }
 
@@ -68,8 +78,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         // Load ads individually
                         loadAd(${adId});
 
-                        
-
+                    
                     </script>
  
             `} />}
