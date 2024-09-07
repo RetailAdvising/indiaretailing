@@ -2240,11 +2240,17 @@ $nav-height: 55px;
 
     div[role=button] {
       border: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
   div[role=button] {
     border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -2599,10 +2605,10 @@ ins.adsbygoogle[data-ad-status="unfilled"] a {
   display: block !important;
 }
 
-.height-90{
+.height-90 {
   height: 90px !important;
 }
 
-.height-250{
+.height-250 {
   height: 250px !important;
 }
