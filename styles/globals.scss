@@ -38,8 +38,9 @@
     }
 
     .top_primary_text {
-      @apply text-[12px] font-[700] text-[#e21b22] line-clamp-1 pb-[5px]
+      @apply text-[10px] font-[700] text-[#e21b22] line-clamp-1 pb-[5px]
     }
+    // @apply text-[12px] font-[700] text-[#e21b22] line-clamp-1 pb-[5px]
 
     .title {
       @apply text-[14px] font-[700] leading-[18.62px] line-clamp-2;
@@ -87,8 +88,9 @@
     }
 
     .top_primary_text {
-      @apply text-[12px] uppercase font-semibold text-[#e21b22] line-clamp-1 pb-[5px]
+      @apply text-[10px] uppercase font-semibold text-[#e21b22] line-clamp-1 pb-[5px]
     }
+    // @apply text-[12px] uppercase font-semibold text-[#e21b22] line-clamp-1 pb-[5px]
 
 
     .title {
@@ -949,13 +951,15 @@ input {
     color: $primary-color;
     font-weight: 700;
     text-transform: capitalize;
-    font-size: 12px !important;
+    // font-size: 12px !important;
+    font-size: 10px !important;
     letter-spacing: 0px;
   }
 
   .secondary_text {
     color: $secondary-color;
-    font-size: 12px !important;
+    // font-size: 12px !important;
+    font-size: 10px !important;
     text-transform: capitalize;
     font-weight: 700;
     letter-spacing: 0px;
@@ -1282,13 +1286,15 @@ input {
     color: $primary-color;
     font-weight: 700;
     text-transform: capitalize;
-    font-size: $font-13 !important;
+    // font-size: $font-13 !important;
+    font-size: 10px !important;
     letter-spacing: 0px;
   }
 
   .secondary_text {
     color: $secondary-color;
-    font-size: $font-13 !important;
+    // font-size: $font-13 !important;
+    font-size: 10px !important;
     text-transform: capitalize;
     font-weight: 700;
     letter-spacing: 0px;
