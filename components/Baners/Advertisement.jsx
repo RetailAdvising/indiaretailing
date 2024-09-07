@@ -6,7 +6,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
-        console.log(adId,"adId")
+        // console.log(adId,"adId")
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
@@ -42,10 +42,26 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         ></ins>
                     <script>
                         
+                        function checkAdStatus(adId) {
+                            var adElement = document.getElementById(adId);
+                            var adStatus = adElement.getAttribute('data-ad-status');
+                            if (adStatus === 'unfilled') {
+                                console.log("Ad unfilled for:", adId);
+                                adElement.style.minHeight = '90px';  // Set a minimum height to prevent collapsing
+                                // Optionally display a fallback message or alternative content
+                                adElement.innerHTML = "<p>Ad not available</p>";
+                            }
+                        }
+
                         function loadAd(adId) {
                             var adElement = document.getElementById(adId);
                             if (adElement) {
-                            (adsbygoogle = window.adsbygoogle || []).push({});
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                setTimeout(function() {
+                                    checkAdStatus(adId);
+                                }, 1000);
+                            }else {
+                                console.log("Ad element not found for:", adId);
                             }
                         }
 
