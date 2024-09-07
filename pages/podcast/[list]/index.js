@@ -4,13 +4,15 @@ import { podcast_list, getAdvertisements } from '@/libs/api'
 import HomePodcast from '@/components/Podcast/HomePodcast';
 import SEO from '@/components/common/SEO'
 
-export default function PodcastList(data, ads_data) {
-    console.log(ads_data,'ads_data')
+export default function PodcastList(props) {
+    // export default function PodcastList(data, ads_data) {
+    // console.log(ads_data,'ads_data')
+    // console.log(props,'props')
     return (
         <>
-            <RootLayout homeAd={ads_data ? ads_data : null}>
+            <RootLayout  homeAd={props.ads_data ? props.ads_data : null}>
                 {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Retailing'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
-                {data && <HomePodcast data={data} />}
+                {props.data && <HomePodcast data={props} />}
             </RootLayout>
         </>
     )

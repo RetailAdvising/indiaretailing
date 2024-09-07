@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import Placeholders from '../common/Placeholders'
 import format from 'date-fns/format'
 import { Nunito } from 'next/font/google'
+import Advertisement from '../Baners/Advertisement'
 const nunito = Nunito({
     weight: ["300","400","500","600","700"],
     display: "block",
@@ -127,7 +128,15 @@ export default function EventDetail({ data,ads_data }) {
                             <button type='button' className={`primary_outline h-[45px] md:h-[40px] md:text-[14px] w-full md:w-[45%]`} onClick={viewMoreLink}>More Details</button>
                         </div>
                         {/* tagbasedAd={data.banner_ad && data.banner_ad.length != 0 && data.banner_ad.banner_ad_item.length != 0 ? data.banner_ad.banner_ad_item : [] } pro  ductNavigation={productNavigation}*/}
-                        {(data.place_holders_ads && data.place_holders_ads.length != 0) && <Placeholders placeholder={data.place_holders_ads} />}
+                        {(data.place_holders_ads && data.place_holders_ads.length != 0) ? <Placeholders placeholder={data.place_holders_ads} /> : 
+                        
+                        <>
+                         <Advertisement data={(ads_data && ads_data.right_first) && ads_data.right_first} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                         <Advertisement data={(ads_data && ads_data.right_second) && ads_data.right_second} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                         <Advertisement data={(ads_data && ads_data.right_third) && ads_data.right_third} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                        </>
+                        
+                        }
 
                         {/* {data && <AdsBaner data={{ ad_image: '/ads_baner.png' }} />} */}
                     </div>

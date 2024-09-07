@@ -16,6 +16,7 @@ import SubscriptionAlert from '@/components/common/SubscriptionAlert';
 import Placeholders from '@/components/common/Placeholders'
 import { Nunito } from 'next/font/google'
 import Head from 'next/head'
+import Advertisement from '@/components/Baners/Advertisement';
 const nunito = Nunito({
     weight: ["300", "400", "500", "600", "700"],
     display: "block",
@@ -35,7 +36,7 @@ export default function Videos({ meta_info, ads_data }) {
     const user = useSelector(s => s.user);
     const role = useSelector(s => s.role);
 
-    let bannerImg = { ad_image: '/ads_baner.png' };
+    // let bannerImg = { ad_image: '/ads_baner.png' };
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -288,7 +289,10 @@ export default function Videos({ meta_info, ads_data }) {
                                 <div className='border p-[10px] rounded-[5px] mb-[10px]'>
                                     <List isHome={'/video/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                                 </div>
-                                <AdsBaner data={bannerImg} height={'h-[250px]'} />
+                                <Advertisement data={(ads_data && ads_data.right_first) && ads_data.right_first} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                                <Advertisement data={(ads_data && ads_data.right_second) && ads_data.right_second} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                                <Advertisement data={(ads_data && ads_data.right_third) && ads_data.right_third} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                                {/* <AdsBaner data={bannerImg} height={'h-[250px]'} /> */}
                             </>
                             }
 

@@ -102,7 +102,7 @@ export default function ExclusiveBuilder({ data, ads }) {
             {(data.videos && data.videos.ir_video && data.videos.ir_video.length != 0) &&
                 <div className='bg-[#F8F8F8] md:mt-[20px]'>
                     <div className='lg:py-8 md:p-[15px] container'>
-                        <Title data={data.videos} isVid={true} route={'/video/ir-prime-videos'} seeMore={true} />
+                        <Title data={data.videos} isVid={true} route={'/video/ir-studio'} seeMore={true} />
                         {/* <div className='flex  gap-[15px] justify-between'><YTVideo data={res.ir_video} flex={"flex-[0_0_calc(25%_-_10px)]"} /></div> */}
                         <div className='lg:grid lg:grid-cols-4 irVideos lg:gap-[15px] lg:justify-between'>
                             <Video isHome={'/video/'} data={data.videos.ir_video} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} />

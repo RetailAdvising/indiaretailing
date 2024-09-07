@@ -1,6 +1,6 @@
 import RootLayout from '@/layouts/RootLayout'
 import React, { useEffect, useRef, useState } from 'react'
-import { articlesList, getAds } from '@/libs/api'
+import { articlesList, getAds,getAdvertisements } from '@/libs/api'
 import List from '@/components/common/List'
 import Cards from '@/components/common/Cards'
 import { useRouter } from 'next/router';
@@ -129,8 +129,11 @@ export async function getServerSideProps({ params }) {
     let value = await articlesList(param);
     let data = value.message;
 
-    let param1 = { doctype: 'Articles', page_type: 'List', category_route: params.types }
-    const resp = await getAds(param1);
+    // let param1 = { doctype: 'Articles', page_type: 'List', category_route: params.types }
+    // const resp = await getAds(param1);
+
+    let param1 = { page: 'IR Prime', page_type: 'List' }
+    const resp = await getAdvertisements(param1);
     const ads = resp.message;
 
     return {
