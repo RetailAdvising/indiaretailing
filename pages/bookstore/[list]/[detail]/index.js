@@ -647,7 +647,7 @@ const  getCarts = async (type) => {
 
   return (
     <>
-      <RootLayout homeAd={ads ? ads : null}>
+      <RootLayout homeAd={ads ? ads : null} adIdH={router.query.detail+'bookdH'} adIdF={router.query.detail+'bookdF'}>
       <Head>
           <title key="title">{value?.meta_title}</title>
           <meta name="description" content={value?.meta_description} />

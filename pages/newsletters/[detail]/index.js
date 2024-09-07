@@ -197,7 +197,7 @@ export default function NewsLists({ data, Id }) {
 
   return (
     <>
-      <RootLayout isLanding={false} homeAd={ads ? ads : null} head={'Newsletters'}>
+      <RootLayout isLanding={false} homeAd={ads ? ads : null} head={'Newsletters'} adIdH={router.query.deatil+'nwsH'} adIdF={router.query.deatil+'nwsF'}>
       <Head>
           <title key="title">{data?.article_detail.subject}</title>
           <meta name="description" content={data?.article_detail.subject} />

@@ -10,7 +10,7 @@ export default function PodcastList(props) {
     // console.log(props,'props')
     return (
         <>
-            <RootLayout  homeAd={props.ads_data ? props.ads_data : null}>
+            <RootLayout  homeAd={props.ads_data ? props.ads_data : null} adIdH={router.query.deatil+'podlH'} adIdF={router.query.deatil+'podlF'}>
                 {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Retailing'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
                 {props.data && <HomePodcast data={props} />}
             </RootLayout>

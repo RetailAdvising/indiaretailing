@@ -95,7 +95,7 @@ export default function EventDetails({ values }) {
     
     return (
         <>
-            <RootLayout isLanding={false} head={values.title} homeAd={ads ? ads : null} >
+            <RootLayout isLanding={false} head={values.title} homeAd={ads ? ads : null} adIdH={router.query.list+'evcH'} adIdF={router.query.list+'evcF'} >
             {values && <SEO title={values.title} siteName={'India Reatiling'}/>}
             {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Reatiling'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
                 <div className='md:p-[15px] container '>

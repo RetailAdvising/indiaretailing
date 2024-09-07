@@ -114,7 +114,7 @@ export default function CategoryType({ values, ads }) {
     }
     return (
         <>
-            <RootLayout isLanding={false} homeAd={ads ? ads : null} head={router.query.types}>
+            <RootLayout isLanding={false} homeAd={ads ? ads : null} adIdH={router.query.types+'catH'} adIdF={router.query.types+'catF'} head={router.query.types}>
                 <SEO title={router.query.types} siteName={'India Reatiling'} ogType={router.query.types} description={router.query.types} />
                 <div className={`${isMobile ? 'md:p-[15px]' : 'container'}`} id='root' >
                     {(data && data.length != 0) ? <div className={`lg:flex lg:flex-wrap  lg:gap-[20px]`}>

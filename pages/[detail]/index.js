@@ -333,7 +333,7 @@ export default function Details({ data, page_route }) {
 
   return (
     <>
-      <RootLayout isLanding={true} is_detail={true} homeAd={advertisement ? advertisement : null} head={''}>
+      <RootLayout isLanding={true} is_detail={true} adIdH={router.query.deatil+'aH'} adIdF={router.query.deatil+'aF'} homeAd={advertisement ? advertisement : null} head={''}>
         <Head>
           <title key="title">{data?.meta_title}</title>
           <meta name="description" content={data?.meta_description} />

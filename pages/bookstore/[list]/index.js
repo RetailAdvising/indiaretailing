@@ -60,7 +60,7 @@ export default function BookstoreList({ value, ads }) {
 
     return (
         <>
-            <RootLayout homeAd={ads ? ads : null}>
+            <RootLayout adIdH={router.query.list+'booklH'} adIdF={router.query.list+'booklF'} homeAd={ads ? ads : null}>
 
                 {/* <div className='md:hidden'>
               <BreadCrumb BreadCrumbs={breadCrumbs} cssClass={'pb-[10px]'}/>

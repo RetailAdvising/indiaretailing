@@ -14,7 +14,7 @@ export default function EventDetails({ data, ads_data }) {
     // console.log(data, 'detaial')
     return (
         <>
-            <RootLayout homeAd={ads_data ? ads_data : null} isLanding={false} head={'Events'}>
+            <RootLayout homeAd={ads_data ? ads_data : null} adIdH={router.query.deatil+'evdH'} adIdF={router.query.deatil+'evdF'} isLanding={false} head={'Events'}>
                 <Head>
                     <title key="title">{data?.message.meta_title}</title>
                     <meta name="description" content={data?.meta_description} />
