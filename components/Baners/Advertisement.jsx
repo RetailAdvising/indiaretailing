@@ -34,15 +34,16 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
             {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds adId={adId} position={position} style={divClass} script={`
+                    <div id="${adId}"></div>
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins id="${adId}" class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
                         >
-                        <a href="#">
-                            <img src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />
-                        </a>
+                        
+                        <img class="default_ban_img" src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />
+                        
                     </ins>
 
                     <script>

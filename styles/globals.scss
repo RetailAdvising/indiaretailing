@@ -2593,7 +2593,7 @@ div[role=button] {
 
 
 // Google Ads
-ins.adsbygoogle a {
+ins.adsbygoogle .default_ban_img {
   display: none !important;
 }
 
@@ -2601,7 +2601,7 @@ ins.adsbygoogle[data-ad-status="unfilled"] {
   height: var(--adheight, 90px) !important;
 }
 
-ins.adsbygoogle[data-ad-status="unfilled"] a {
+ins.adsbygoogle[data-ad-status="unfilled"] .default_ban_img {
   display: block !important;
 }
 
