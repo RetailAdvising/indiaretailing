@@ -43,6 +43,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         
                         function loadAd(adId) {
                             var adElement = document.getElementById(adId);
+                            console.log("Loading ad for:", adId)
                             if (adElement) {
                             (adsbygoogle = window.adsbygoogle || []).push({});
                             }
