@@ -12,23 +12,23 @@ const GoogleAds = (props) => {
 
             // Load ads individually
             // loadAd(props.adId);
-            if(props.adId && props.position){
-                setAdHeight(props.adId,props.position);
+            if (props.adId && props.position) {
+                setAdHeight(props.adId, props.position);
             }
         }
-    }, [props.adId,props.position])
+    }, [props.adId, props.position])
 
     function setAdHeight(adElement, position) {
         // function setAdHeight(adElement, position) {
         // Determine dynamic height based on the position or other logic
         let el = document.getElementById(adElement)
-        let parent = document.getElementById(adElement+'scripts');
-        console.log(parent,"parent parent")
+        let parent = document.getElementById(adElement + 'scripts');
+        console.log(parent, "parent parent")
         // let el = document.querySelector('.scripts');
         if (parent) {
             parent.style.height = position == 'high' ? '90px !important' : '250px !important';  // Example: Set background color
         }
-
+        let dynamicHeight;
         if (position === 'high') {
             dynamicHeight = '90px';  // Example height for high position
         } else {
@@ -143,7 +143,7 @@ const GoogleAds = (props) => {
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
             ></script> */}
 
-            {props.script && <div id={props.adId+"scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{ __html: props.script }} />}
+            {props.script && <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
             {/* && props.data-ad-slot */}
