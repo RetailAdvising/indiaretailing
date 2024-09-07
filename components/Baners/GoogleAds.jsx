@@ -48,7 +48,6 @@ const GoogleAds = (props) => {
     function loadAd(adId) {
         var adElement = document.getElementById(adId);
         if (adElement) {
-            (adsbygoogle = window.adsbygoogle || []).push({});
             setTimeout(function () {
                 checkAdStatus(adId);
             }, 1000);
