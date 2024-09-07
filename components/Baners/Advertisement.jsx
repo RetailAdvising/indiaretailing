@@ -6,12 +6,13 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
+        console.log(adId,"adId")
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
-    }, [insStyle])
+    }, [insStyle,adId])
 
 
     const checkIsMobile = async () => {
@@ -34,7 +35,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
             {/* style="display:inline-block;width:728px;height:90px;" */}
             {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds style={divClass} script={`
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    <ins id="${adId} class="adsbygoogle ${divClass}"
+                    <ins id="${adId}" class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
@@ -43,7 +44,6 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         
                         function loadAd(adId) {
                             var adElement = document.getElementById(adId);
-                            console.log("Loading ad for:", adId)
                             if (adElement) {
                             (adsbygoogle = window.adsbygoogle || []).push({});
                             }
@@ -52,18 +52,20 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         // Load ads individually
                         loadAd(${adId});
 
-                        function refreshAd(adId) {
+                        
+
+                    </script>
+ 
+            `} />}
+
+            {/* function refreshAd(adId) {
                             var adElement = document.getElementById(adId);
                             adElement.innerHTML = ''; // Remove current ad
                             adElement.className = 'adsbygoogle'; // Reset class for new ad
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         }
 
-                        refreshAd(${adId})
-
-                    </script>
- 
-            `} />}
+                        refreshAd(${adId}) */}
 
             {/* (adsbygoogle = window.adsbygoogle || []).push({}); */}
             {/* <script>
