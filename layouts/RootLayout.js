@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState, useMemo } from 'react'
-import { websiteSettings, get_article_breadcrumb, get_subscription_plans, get_customer_info } from '@/libs/api'
+import { websiteSettings, get_article_breadcrumb, get_subscription_plans, get_customer_info, checkMobile } from '@/libs/api'
 import MobileHead from '@/components/Headers//MobileHead';
 import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
@@ -30,7 +30,7 @@ const nunito = Nunito({
   subsets: ["latin"],
   variable: '--font-inter',
 })
-export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail,adIdH,adIdF }) {
+export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail, adIdH, adIdF }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
   const [headerData, setHeaderData] = useState([]);
@@ -64,7 +64,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     // Regular expression to match any character that is not a letter, number, or space
     // const regex = /[^a-zA-Z0-9\s%-_]/g;
     const regex = /[%\-]/g;
-    
+
     let array = value.split('/')
     // Replace matched characters with an empty string
     for (let i = 0; i < array.length; i++) {
@@ -74,7 +74,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     }
 
     return array;
-  
+
   }
 
   // console.log(homeAd,'homeAd')
@@ -230,11 +230,27 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     }
   }, [user])
 
+  let [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    // console.log(adId, "adId")
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile)
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, [])
+
+
+  const checkIsMobile = async () => {
+    let is_mobile = await checkMobile();
+    isMobile = is_mobile
+    setIsMobile(isMobile);
+  }
   return (
     <>
       {/* <SEO /> */}
       {/* {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>} */}
-      {(!checkout || is_detail) && <div className="lg:grid lg:justify-center"><Advertisement adId={adIdH} data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] w-[728px] m-auto'} insStyle={"display:inline-block;width:728px;height:90px;"} position={"high"}  /></div>}
+      {(!checkout || is_detail) && <div className="lg:grid lg:justify-center"><Advertisement adId={adIdH} data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"}  /></div>}
       {/* <PdfViewer/> */}
       <>
         <Header checkout={checkout} />
@@ -287,7 +303,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
           {children}
         </main>
 
-        {(!checkout && !is_detail) && <div className="mb-[10px] lg:grid lg:justify-center"><Advertisement adId={adIdF} data={(homeAd && homeAd.footer) && homeAd.footer} position={"high"} divClass={'h-[90px] w-[728px] m-auto'} insStyle={"display:inline-block;width:728px;height:90px;"} style={styles} height={'h-full'} width={'500px'} /></div>}
+        {(!checkout && !is_detail) && <div className="mb-[10px] lg:grid lg:justify-center"><Advertisement adId={adIdF} data={(homeAd && homeAd.footer) && homeAd.footer} position={"high"} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} style={styles} height={'h-full'} width={'500px'} /></div>}
         {!checkout && footerData && footerData.length != 0 && <MainFooter footerData={footerData} />}
         {/* <div className='lg:hidden' >
           <BottomTabs />
