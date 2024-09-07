@@ -34,7 +34,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
             {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds adId={adId} position={position} style={divClass} script={`
-                    <div id="${adId}"></div>
+                    
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins id="${adId}" class="adsbygoogle ${divClass}"
                         style="${insStyle}"
