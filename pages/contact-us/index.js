@@ -3,10 +3,12 @@ import footer from '@/libs/contactus';
 import Image from 'next/image';
 import RootLayout from '@/layouts/RootLayout';
 import ContactInfo from '../../components/ProfileCom/ContactInfo'
+import SEO from '@/components/common/SEO';
 export default function Contact() { 
  
     return (
-      <RootLayout>
+      <RootLayout adIdH={'contact-us-head'} adIdF={'contact-us-foot'}>
+         <SEO title={'India Reatiling Contact Us.'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
              {/* <ContactInfo contactInfo={footer.data}/> */}
              <div className="container lg:py-10 md:py-4">
             <div className="row">

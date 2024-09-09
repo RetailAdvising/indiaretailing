@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import RootLayout from '@/layouts/RootLayout';
 import Image from 'next/image';
 import data from '@/libs/teams'
+import SEO from '@/components/common/SEO';
 
 export default function Teams() {
     return (
       <RootLayout>
+         <SEO title={'India Reatiling Team'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
         <div className='bg-[#F8F8F8]'>
         <div className='container py-24 md:p-[15px]'>
             <div className="grid-cols-2 md:grid-cols-1 gap-4 md:gap-2 grid">

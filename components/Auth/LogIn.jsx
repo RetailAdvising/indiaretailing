@@ -275,11 +275,12 @@ export default function LogIn({ isModal, hide, auth }) {
         // console.log(parseJwt(response.credential))
         let val = parseJwt(response.credential)
         setCredential(val)
-        if (val.phone) {
-            socialLogin(parseJwt(response.credential))
-        } else {
-            setShowMob(true)
-        }
+        socialLogin(parseJwt(response.credential))
+        // if (val.phone) {
+        //     socialLogin(parseJwt(response.credential))
+        // } else {
+        //     setShowMob(true)
+        // }
     };
     const [mob, setMob] = useState()
 
@@ -342,7 +343,7 @@ export default function LogIn({ isModal, hide, auth }) {
         }
 
         const resp = await social_login(payload)
-        // console.log(resp,"resp")
+        console.log(resp,"resp")
         if (resp.message && resp.message.message && resp.message.message == 'Logged In') {
             localStorage['apikey'] = resp.message.api_key
             localStorage['api_secret'] = resp.message.api_secret
@@ -378,6 +379,9 @@ export default function LogIn({ isModal, hide, auth }) {
             // headerMsg = 'Alert'
             // setHeaderMsg(headerMsg)
             // setShowAlert(true)
+            if(resp.message.message){
+                
+            }
 
             toast.error(resp.message.message)
         }
@@ -446,39 +450,39 @@ export default function LogIn({ isModal, hide, auth }) {
             const doc = iframe.contentDocument || iframe.contentWindow;
 
             // if (iframe.contentWindow && iframe.contentWindow.document) {
-                // console.log(iframe.contentWindow, "document")
-                // const divElement = iframe?.contentWindow?.document?.querySelector('div[role=button]');
+            // console.log(iframe.contentWindow, "document")
+            // const divElement = iframe?.contentWindow?.document?.querySelector('div[role=button]');
 
-                // if (divElement) {
-                //     divElement.style.border = 'none';
-                //     const buttonClassElement = divElement.querySelector('.nsm7Bb-HzV7m-LgbsSe-BPrWId');
-                //     const spanElement = divElement.querySelector('span');
+            // if (divElement) {
+            //     divElement.style.border = 'none';
+            //     const buttonClassElement = divElement.querySelector('.nsm7Bb-HzV7m-LgbsSe-BPrWId');
+            //     const spanElement = divElement.querySelector('span');
 
-                //     if (buttonClassElement) {
-                //         buttonClassElement.style.display = 'none';
-                //     }
-                //     if (spanElement) {
-                //         spanElement.style.display = 'none';
-                //     }
-                // }
+            //     if (buttonClassElement) {
+            //         buttonClassElement.style.display = 'none';
+            //     }
+            //     if (spanElement) {
+            //         spanElement.style.display = 'none';
+            //     }
+            // }
 
             // } else {
-                iframe.addEventListener('load', () => {
-                    const divElement = doc.querySelector('div[role=button]');
+            iframe.addEventListener('load', () => {
+                const divElement = doc.querySelector('div[role=button]');
 
-                    if (divElement) {
-                        divElement.style.border = 'none';
-                        const buttonClassElement = divElement.querySelector('.nsm7Bb-HzV7m-LgbsSe-BPrWId');
-                        const spanElement = divElement.querySelector('span');
+                if (divElement) {
+                    divElement.style.border = 'none';
+                    const buttonClassElement = divElement.querySelector('.nsm7Bb-HzV7m-LgbsSe-BPrWId');
+                    const spanElement = divElement.querySelector('span');
 
-                        if (buttonClassElement) {
-                            buttonClassElement.style.display = 'none';
-                        }
-                        if (spanElement) {
-                            spanElement.style.display = 'none';
-                        }
+                    if (buttonClassElement) {
+                        buttonClassElement.style.display = 'none';
                     }
-                });
+                    if (spanElement) {
+                        spanElement.style.display = 'none';
+                    }
+                }
+            });
             // }
         }
     }
@@ -488,10 +492,10 @@ export default function LogIn({ isModal, hide, auth }) {
         <>
             <ToastContainer position={'bottom-right'} autoClose={2000} />
             {/* <div> */}
-                {/* <Script src="https://apis.google.com/js/platform.js" async defer />
+            {/* <Script src="https://apis.google.com/js/platform.js" async defer />
             <Script src="https://apis.google.com/js/api.js" async defer /> */}
-                {/* <Script src="https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" */}
-                {/* <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" /> */}
+            {/* <Script src="https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" */}
+            {/* <Script src="https://accounts.google.com/gsi/client" async defer strategy="beforeInteractive" /> */}
             {/* </div> */}
             {(!otp && (modal != 'signup' && modal != 'forget')) ? <div className='lg:flex container h-full md:h-[calc(100vh_-_50px)] !m-0 overflow-auto md:p-[0_15px] lg:justify-center gap-[20px] '>
                 {(!isModal || auth) && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden bg-[#E9ECF2] cursor-pointer border h-full rounded-[5px] '>

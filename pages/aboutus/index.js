@@ -8,13 +8,15 @@ import Exhibitions from '@/components/Aboutus/exhibitions';
 import Events from '@/components/Aboutus/events';
 import About from '@/components/Aboutus/about';
 import Books from '@/components/Aboutus/books';
+import SEO from '@/components/common/SEO';
 
 
 
 
 export default function Aboutus() {
     return (
-      <RootLayout>
+      <RootLayout adIdH={'about-head'} adIdF={'about-foot'}>
+         <SEO title={'India Reatiling About'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
         <About></About>
         <div className='container md:p-[15px]'>
             <Values></Values>

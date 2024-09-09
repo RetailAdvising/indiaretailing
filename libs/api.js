@@ -1,4 +1,5 @@
 import { domain,website } from "./config/siteConfig"
+// const methodUrl = `http://${domain}/api/method/`;
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
 const domainUrl = `india_retailing.india_retailing.api.`;
