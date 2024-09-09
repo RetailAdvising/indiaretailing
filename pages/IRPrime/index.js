@@ -23,7 +23,7 @@ export default function IRPrime({ data,ads }) {
     return (
         <>
             <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'IR Prime'} adIdH={'ir-prime-head'} adIdF={'ir-prime-foot'}>
-                <SEO title={'IR Prime'} siteName={'India Reatiling'} description={'IR Prime'} />
+                <SEO title={'IR Prime'} siteName={'India Retailing'} description={'IR Prime'} />
                 {(value && value.message && value.message.length != 0) ? <ExclusiveBuilder data={value} ads={ads ? ads : null} /> : <Skeleton />}
             </RootLayout>
 

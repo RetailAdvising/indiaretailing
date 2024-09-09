@@ -370,7 +370,7 @@ export default function Home({ data, ads }) {
 
 
       <RootLayout data={data} isLanding={true} head={''} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
-        <SEO title={'India Reatiling'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
+        <SEO title={'India Retailing'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
         {(value && value.length != 0) ? value.map((data, i) => {
           return (
@@ -550,7 +550,7 @@ export default function Home({ data, ads }) {
                             </>
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Poll") && <>
-                            <Title data={{ title: 'India Reatiling Poll' }} route={'/polls'} seeMore={true} />
+                            <Title data={{ title: 'India Retailing Poll' }} route={'/polls'} seeMore={true} />
                             {(pollList && ipAddress) && <Poll data={pollList.slice(0, 1)} ipAddress={ipAddress} />}
                             {/* <div className='border-light-gray border  rounded divide-y'>
                               <div className='p-[20px] h-[258px] overflow-auto'>

@@ -16,7 +16,7 @@ import SEO from '@/components/common/SEO';
 export default function Aboutus() {
     return (
       <RootLayout adIdH={'about-head'} adIdF={'about-foot'}>
-         <SEO title={'India Reatiling About'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
+         <SEO title={'India Retailing About'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
         <About></About>
         <div className='container md:p-[15px]'>
             <Values></Values>

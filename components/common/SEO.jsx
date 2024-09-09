@@ -10,7 +10,7 @@ import { domain } from '@/libs/config/siteConfig'
 //     }
 // }
 const DEFAULT_OG_IMAGE = '/indiaretail_new.png'
-export default function SEO({ title = "India Reatiling",
+export default function SEO({ title = "India Retailing",
     description = "This is IndiaRetailing and its about news and articles based on the popular site.",
     siteName = "Indiaretail",
     canonical = 'https://indiaretail.vercel.app/',

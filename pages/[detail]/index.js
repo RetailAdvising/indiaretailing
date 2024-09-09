@@ -400,7 +400,7 @@ export default function Details({ data, page_route }) {
           {values.map((res, index) => {
             return (
               <div id={'div' + index} key={index} className='box'>
-                {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Reatiling'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
+                {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Retailing'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
                 <CategoryBuilder ads_data={advertisement ? advertisement : null} productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data) => updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} noScroll={(val) => noScroll(val)} plans={(plans && plans.length != 0) ? plans : []} />
                 <div className="md:hidden my-5 lg:grid lg:justify-center"><Advertisement adId={"divsad"+index} data={(advertisement && advertisement.footer) ? advertisement.footer : null } position={"high"} divClass={'h-[90px] w-[728px] m-auto'} insStyle={"display:inline-block;width:728px;height:90px;"} /></div>
                 {!(index == values.length - 1) && <div className={` lg:m-[20px_auto_0]  md:p-[10px_15px] lg:p-[15px 0] container`}>

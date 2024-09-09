@@ -221,7 +221,7 @@ export default function Categories({ data, ads }) {
     return (
         <>
             <RootLayout homeAd={ads ? ads : null} adIdH={'category-head'} adIdF={'category-foot'} head={'Categories'} isLanding={true}>
-                <SEO title={'Categories'} siteName={'India Reatiling'} description={'Categories'} />
+                <SEO title={'Categories'} siteName={'India Retailing'} description={'Categories'} />
             
                 <div className={`md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
                     {/* <Title data={{ title: 'Categories' }} font={'20px'} className='md:hidden' title_class='md:hidden' /> */}

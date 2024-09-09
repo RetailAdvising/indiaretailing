@@ -16,7 +16,7 @@ import SEO from '@/components/common/SEO';
 export default function Advertise() {
   return (
     <RootLayout adIdH={'advertise-head'} adIdF={'advertise-foot'}>
-       <SEO title={'India Reatiling Advertise with Us.'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
+       <SEO title={'India Retailing Advertise with Us.'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
           <div className={`footer`}>
               <div className='container gap-11 py-10 md:p-[15px] max-w-full'>
                 <div className={`flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] flex flex-row gap-1.5 md:flex-col`}>

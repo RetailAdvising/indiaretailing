@@ -71,7 +71,7 @@ export default function newsletter({ ads }) {
 
         {skeleton ? <SkeletonLoader /> :
           <div className='lg:min-h-[250px]'>
-            <SEO title={'Newsletters'} siteName={'India Reatiling'} description={'Newsletters'} />
+            <SEO title={'Newsletters'} siteName={'India Retailing'} description={'Newsletters'} />
             {(data) && <div className='container p-[30px_0px] md:p-[15px] '>
               <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
               <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>

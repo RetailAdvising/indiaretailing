@@ -75,7 +75,7 @@ export default function Events({ data, slider_data, ads_data }) {
     return (
         <>
             <RootLayout homeAd={ads_data ? ads_data : null} isLanding={true} head={'Events'} adIdH={'events-head'} adIdF={'events-foot'}>
-                <SEO title={'Events'} siteName={'India Reatiling'} description={'Events'} />
+                <SEO title={'Events'} siteName={'India Retailing'} description={'Events'} />
                 {/* !mt-6 */}
                 <div className="container zero-gap ">
                     {slider_data && slider_data.length != 0 && <Sliders imgClass={'h-[400px] md:h-[220px] w-full'} event={true} data={slider_data} perView={1} className='gap-0' />}

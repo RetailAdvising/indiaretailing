@@ -8,7 +8,7 @@ export default function Contact() {
  
     return (
       <RootLayout adIdH={'contact-us-head'} adIdF={'contact-us-foot'}>
-         <SEO title={'India Reatiling Contact Us.'} siteName={'India Reatiling'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
+         <SEO title={'India Retailing Contact Us.'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
              {/* <ContactInfo contactInfo={footer.data}/> */}
              <div className="container lg:py-10 md:py-4">
             <div className="row">
