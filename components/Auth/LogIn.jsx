@@ -275,12 +275,12 @@ export default function LogIn({ isModal, hide, auth }) {
         // console.log(parseJwt(response.credential))
         let val = parseJwt(response.credential)
         setCredential(val)
-        // socialLogin(parseJwt(response.credential))
-        if (val.phone) {
-            socialLogin(parseJwt(response.credential))
-        } else {
-            setShowMob(true)
-        }
+        socialLogin(parseJwt(response.credential))
+        // if (val.phone) {
+        //     socialLogin(parseJwt(response.credential))
+        // } else {
+        //     setShowMob(true)
+        // }
     };
     const [mob, setMob] = useState()
 
@@ -379,15 +379,18 @@ export default function LogIn({ isModal, hide, auth }) {
             // headerMsg = 'Alert'
             // setHeaderMsg(headerMsg)
             // setShowAlert(true)
-            // if (resp._server_messages) {
-            //     let val = await getMessageFromResponse(resp)
-            //     if (val && val == "Error: Value missing for Customers: Phone") {
-            //         console.log(val, "val")
-            //         setShowMob(true)
-            //         // socialLogin(parseJwt(response.credential))
-            //     }
-            // }
-            toast.error(resp.message.message)
+            if (resp._server_messages) {
+                let val = await getMessageFromResponse(resp)
+                if (val && val == "Error: Value missing for Customers: Phone") {
+                    // console.log(val, "val")
+                    setShowMob(true)
+                    // socialLogin(parseJwt(response.credential))
+                }else{
+                    toast.error(resp.message.message)
+                }
+            }else{
+                toast.error(resp.message.message)
+            }
         }
 
 

@@ -47,12 +47,12 @@ const FbBtn = ({ socialLogin, setCredential, setShowMob }) => {
       setCredential(data)
 
 
-      // socialLogin(data)
-      if(data.phone){
-        socialLogin(data)
-      }else{
-        setShowMob(true)
-      }
+      socialLogin(data)
+      // if(data.phone){
+      //   socialLogin(data)
+      // }else{
+      //   setShowMob(true)
+      // }
     } else {
       toast.error(`Register your email with the linkedin...!`)
     }
