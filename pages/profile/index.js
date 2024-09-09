@@ -16,6 +16,7 @@ import NewsList from '@/components/Newsletter/NewsList';
 import setRole from 'redux/actions/roleAction';
 import { useSelector, useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
+import SEO from '@/components/common/SEO';
 
 export default function profile({ my_account }) {
 

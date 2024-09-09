@@ -275,12 +275,12 @@ export default function LogIn({ isModal, hide, auth }) {
         // console.log(parseJwt(response.credential))
         let val = parseJwt(response.credential)
         setCredential(val)
-        socialLogin(parseJwt(response.credential))
-        // if (val.phone) {
-        //     socialLogin(parseJwt(response.credential))
-        // } else {
-        //     setShowMob(true)
-        // }
+        // socialLogin(parseJwt(response.credential))
+        if (val.phone) {
+            socialLogin(parseJwt(response.credential))
+        } else {
+            setShowMob(true)
+        }
     };
     const [mob, setMob] = useState()
 
@@ -343,7 +343,7 @@ export default function LogIn({ isModal, hide, auth }) {
         }
 
         const resp = await social_login(payload)
-        console.log(resp,"resp")
+        // console.log(resp, "resp")
         if (resp.message && resp.message.message && resp.message.message == 'Logged In') {
             localStorage['apikey'] = resp.message.api_key
             localStorage['api_secret'] = resp.message.api_secret
@@ -379,11 +379,36 @@ export default function LogIn({ isModal, hide, auth }) {
             // headerMsg = 'Alert'
             // setHeaderMsg(headerMsg)
             // setShowAlert(true)
-            if(resp.message.message){
-                
-            }
-
+            // if (resp._server_messages) {
+            //     let val = await getMessageFromResponse(resp)
+            //     if (val && val == "Error: Value missing for Customers: Phone") {
+            //         console.log(val, "val")
+            //         setShowMob(true)
+            //         // socialLogin(parseJwt(response.credential))
+            //     }
+            // }
             toast.error(resp.message.message)
+        }
+
+
+
+    }
+
+    function getMessageFromResponse(resp) {
+        // Check if _server_messages exists
+        try {
+            // Try parsing the string as JSON
+            let val = JSON.parse(resp._server_messages);
+
+            // Check if the parsed result is an array and contains a string
+            if (Array.isArray(val) && val.length > 0) {
+                let parsedMessage = JSON.parse(val[0]); // Parse the inner string
+                return parsedMessage.message; // Return the message field
+            }
+        } catch (error) {
+            console.error('Error parsing response:', error);
+            // Return some default error or message if parsing fails
+            return undefined;
         }
 
     }
