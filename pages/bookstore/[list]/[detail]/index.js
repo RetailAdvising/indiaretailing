@@ -235,6 +235,8 @@ export default function Bookstoredetail({ value, res,ads }) {
         "content_type":content_type,
         // "price":data['price'],
         "price":checked_plans['price'],
+        "attribute_id": checked_plans["attribute_id"],
+        "option_value": checked_plans['option_value']
     }
     const resp = await insert_member_subscription(params);
     setLoader(false);

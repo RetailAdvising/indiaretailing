@@ -183,7 +183,8 @@ export default function Home({ data, ads }) {
               loading = true
               setLoading(loading)
               getPageData()
-            } else {
+            } 
+            else {
               pageNo += 1
               setPageNo(pageNo)
             }

@@ -9,6 +9,7 @@ import Title from '@/components/common/Title';
 import SEO from '@/components/common/SEO'
 import CardCarousel from '../../components/Sliders/CardCarousel';
 import CustomSlider from '@/components/Sliders/CustomSlider';
+import GoogleAds from '@/components/Baners/GoogleAds';
 
 // import Loader from '@/components/Loader';
 // import { useRouter } from 'next/router';
@@ -220,9 +221,10 @@ export default function Categories({ data, ads }) {
 
     return (
         <>
+            <GoogleAds adId={'category1-head'} page={true} position={'high'} style={"display:inline-block;width:728px;height:90px;"} script={``} />
             <RootLayout homeAd={ads ? ads : null} adIdH={'category-head'} adIdF={'category-foot'} head={'Categories'} isLanding={true}>
                 <SEO title={'Categories'} siteName={'India Retailing'} description={'Categories'} />
-            
+
                 <div className={`md:p-[15px_10px]  ${isMobile ? '' : 'container'}`}>
                     {/* <Title data={{ title: 'Categories' }} font={'20px'} className='md:hidden' title_class='md:hidden' /> */}
                     {(datas && datas.length != 0) ? datas.map((res, index) => {

@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { useEffect } from "react";
 
 const GoogleAds = (props) => {
@@ -25,7 +26,7 @@ const GoogleAds = (props) => {
         let parent = document.getElementById(adElement + 'scripts');
         // console.log(parent, "parent parent")
         // let el = document.querySelector('.scripts');
-        
+
         let dynamicHeight;
         if (position === 'high') {
             dynamicHeight = '90px';  // Example height for high position
@@ -39,7 +40,7 @@ const GoogleAds = (props) => {
         }
 
         // Set the custom property --adheight dynamically
-        el.style.setProperty('--adheight', dynamicHeight);
+        el?.style?.setProperty('--adheight', dynamicHeight);
     }
 
 
@@ -133,6 +134,31 @@ const GoogleAds = (props) => {
     //     }
     //   }, []);
 
+    useEffect(() => {
+        // Push the Google Ad Manager display command after the script is loaded
+        const handleAdScriptLoad = () => {
+            window.googletag = window.googletag || { cmd: [] };
+
+            window.googletag.cmd.push(function () {
+                googletag.defineSlot('/21631575671/New-IndiaRetailing-Home-Top-728x90', [728, 90], 'div-gpt-ad-1726054796921-0')
+                    .addService(googletag.pubads());
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+
+                // Display the ad slot after services are enabled
+                googletag.display('div-gpt-ad-1726054796921-0');
+            });
+        };
+
+        // Add event listener to ensure the script is loaded before running googletag commands
+        const scriptTag = document.querySelector('script[src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"]');
+        if (scriptTag && scriptTag.readyState === 'complete') {
+            handleAdScriptLoad();
+        } else {
+            scriptTag?.addEventListener('load', handleAdScriptLoad);
+        }
+    }, []);
+
     return (
         <>
             {/* <Script
@@ -146,11 +172,12 @@ const GoogleAds = (props) => {
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
             ></script> */}
 
-            {props.script && <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{ __html: props.script }} />}
+            {(props.script && !props.page) && <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{ __html: props.script }} />}
+
 
 
             {/* && props.data-ad-slot */}
-            {(!props.script) && <div className="ad">
+            {(!props.script && !props.page) && <div className="ad">
                 <ins
                     data-ad-slot={props.adSlot}
                     data-ad-format={"responsive"}
@@ -158,6 +185,17 @@ const GoogleAds = (props) => {
                     data-ad-client={props.adClient}
                     {...props}
                 />
+            </div>}
+
+            {props.page && <div>
+                {/* Load the Google Publisher Tag script */}
+                <Script
+                    src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+                    strategy="lazyOnload"
+                />
+
+                {/* Ad container */}
+                <div id="div-gpt-ad-1726054796921-0" style={{ minWidth: '728px', minHeight: '90px' }}></div>
             </div>}
 
 
