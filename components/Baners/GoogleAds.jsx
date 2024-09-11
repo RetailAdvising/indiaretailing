@@ -135,11 +135,14 @@ const GoogleAds = (props) => {
     //   }, []);
 
     useEffect(() => {
-        // Push the Google Ad Manager display command after the script is loaded
+        // Ensure googletag is available only after the script has loaded
         const handleAdScriptLoad = () => {
+            console.log("GPT script loaded"); // Check if script loads
             window.googletag = window.googletag || { cmd: [] };
 
             window.googletag.cmd.push(function () {
+                console.log("Ad slot being defined"); // Debug log for ad slot definition
+
                 googletag.defineSlot('/21631575671/New-IndiaRetailing-Home-Top-728x90', [728, 90], 'div-gpt-ad-1726054796921-0')
                     .addService(googletag.pubads());
                 googletag.pubads().enableSingleRequest();
@@ -150,7 +153,6 @@ const GoogleAds = (props) => {
             });
         };
 
-        // Add event listener to ensure the script is loaded before running googletag commands
         const scriptTag = document.querySelector('script[src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"]');
         if (scriptTag && scriptTag.readyState === 'complete') {
             handleAdScriptLoad();
@@ -192,6 +194,8 @@ const GoogleAds = (props) => {
                 <Script
                     src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
                     strategy="lazyOnload"
+                    onLoad={() => console.log("GPT script loaded via Script component")}
+                    onError={(e) => console.error("GPT script failed to load", e)}
                 />
 
                 {/* Ad container */}
