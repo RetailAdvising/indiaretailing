@@ -222,6 +222,7 @@ export default function Categories({ data, ads }) {
     return (
         <>
             <GoogleAds adId={'category1-head'} page={true} position={'high'} style={"display:inline-block;width:728px;height:90px;"} script={``} />
+            <GoogleAds adId={'category11-side'} page={true} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={``} />
             <RootLayout homeAd={ads ? ads : null} adIdH={'category-head'} adIdF={'category-foot'} head={'Categories'} isLanding={true}>
                 <SEO title={'Categories'} siteName={'India Retailing'} description={'Categories'} />
 

@@ -225,6 +225,39 @@ const GoogleAds = (props) => {
                     `
                 }} />
 
+                <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+                    __html:
+                        `
+                    <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
+                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                    <ins
+                        data-ad-slot={"/21631575671/New-IndiaRetailing-Home-300x250"}
+                        data-ad-client="ca-pub-9354161551837950"
+                        style="${props.style}"
+                        class="adsbygoogle"
+                    />
+                    <script>
+                        function loadAd(adId) {
+                            var adElement = document.getElementById(adId);
+                            if (adElement) {
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                // setTimeout(function() {
+                                //     checkAdStatus(adId);
+                                // }, 1000);
+                            }else {
+                                console.log("Ad element not found for:", adId);
+                            }
+                        }
+
+                        // Load ads individually
+                        loadAd(${props.adId});
+
+                    
+                    </script>
+                    
+                    `
+                }} />
+
 
                 {/* Ad container */}
                 {/* <div id="div-gpt-ad-1726054796921-0" style={{ minWidth: '728px', minHeight: '90px' }}></div>
