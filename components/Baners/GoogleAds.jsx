@@ -1,5 +1,5 @@
 import Script from "next/script";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 const GoogleAds = (props) => {
 
@@ -164,38 +164,41 @@ const GoogleAds = (props) => {
 
 
     // Rerender
-    const adRef = useRef();
+    useEffect(() => {
+        // Check if the Google Ads script is already loaded
+        if (!window.googletag) {
+            const script = document.createElement('script');
+            script.src = 'https://www.googletagservices.com/tag/js/gpt.js';
+            script.async = true;
+            document.body.appendChild(script);
 
-  useEffect(() => {
-    let observer;
-    if (window.IntersectionObserver && adRef.current) {
-      observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                console.log(entry,"entry")
-              // Load or refresh the ad when it comes into view
-              if (window.googletag && googletag.apiReady) {
-                googletag.cmd.push(function () {
-                  googletag.display(props.adId);  // Display the ad
-                  googletag.pubads().refresh([googletag.slots[props.adId]]); // Refresh ad slot
+            script.onload = () => {
+                window.googletag = window.googletag || { cmd: [] };
+                console.log(window.googletag,"window.googletag")
+                window.googletag.cmd.push(() => {
+                    // Define ad slot
+                    window.googletag.defineSlot(props.adId, [300, 250], props.adId).addService(window.googletag.pubads());
+                    window.googletag.enableServices();
+                    window.googletag.display(props.adId);
                 });
-              }
-            }
-          });
-        },
-        { threshold: 0.5 } // Adjust the threshold as needed
-      );
-
-      observer.observe(adRef.current);
-
-      return () => {
-        if (observer && adRef.current) {
-          observer.unobserve(adRef.current);
+            };
+        } else {
+            // If googletag is already loaded, display the ad immediately
+            window.googletag.cmd.push(() => {
+                window.googletag.defineSlot(props.adId, [300, 250], props.adId).addService(window.googletag.pubads());
+                window.googletag.enableServices();
+                window.googletag.display(props.adId);
+            });
         }
-      };
-    }
-  }, [props.adId]);
+
+        return () => {
+            // Cleanup script if needed
+            const script = document.querySelector(`script[src="https://www.googletagservices.com/tag/js/gpt.js"]`);
+            if (script) {
+                script.remove();
+            }
+        };
+    }, [props.adId]);
 
     return (
         <>
@@ -261,9 +264,9 @@ const GoogleAds = (props) => {
                     `
                 }} />
                     :
-                <div id={props.adId + "scripts"} ref={adRef} className={`${props.style} `} dangerouslySetInnerHTML={{
-                    __html:
-                        `
+                    <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+                        __html:
+                            `
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins
@@ -292,7 +295,7 @@ const GoogleAds = (props) => {
                     </script>
                     
                     `
-                }} />}
+                    }} />}
 
 
                 {/* Ad container */}
