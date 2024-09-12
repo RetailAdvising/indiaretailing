@@ -370,7 +370,7 @@ export default function Home({ data, ads }) {
       </script>    
       `} /> */}
 
-
+      <GoogleAds adId={'video_below11'} page={true} position={'high'} style={"display:inline-block;width:728px;height:90px;"} script={``} />
       <RootLayout data={data} isLanding={true} head={''} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Retailing'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
