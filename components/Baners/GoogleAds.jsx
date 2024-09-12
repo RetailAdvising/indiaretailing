@@ -198,7 +198,7 @@ const GoogleAds = (props) => {
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins
-                        data-ad-slot={"/21631575671/New-IndiaRetailing-Home-Top-728x90"}
+                        data-ad-slot="/21631575671/New-IndiaRetailing-Home-Top-728x90"
                         data-ad-client="ca-pub-9354161551837950"
                         style="${props.style}"
                         class="adsbygoogle"
@@ -231,7 +231,7 @@ const GoogleAds = (props) => {
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins
-                        data-ad-slot={"/21631575671/New-IndiaRetailing-Home-300x250"}
+                        data-ad-slot="/21631575671/New-IndiaRetailing-Home-300x250"
                         data-ad-client="ca-pub-9354161551837950"
                         style="${props.style}"
                         class="adsbygoogle"
