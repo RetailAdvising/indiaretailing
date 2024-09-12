@@ -192,7 +192,7 @@ const GoogleAds = (props) => {
             {props.page && <div>
                 {/* Load the Google Publisher Tag script */}
 
-                <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+                {props.position == 'high' ? <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
                     __html:
                         `
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
@@ -224,7 +224,7 @@ const GoogleAds = (props) => {
                     
                     `
                 }} />
-
+                    :
                 <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
                     __html:
                         `
@@ -256,7 +256,7 @@ const GoogleAds = (props) => {
                     </script>
                     
                     `
-                }} />
+                }} />}
 
 
                 {/* Ad container */}
