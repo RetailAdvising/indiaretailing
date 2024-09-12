@@ -33,7 +33,7 @@ export default function Title({ data, textClass, seeMore, font, noPadding, isVid
     }
   }
   return (
-    <>
+    <> 
       {data &&
         <div className={`title_div ${noPadding ? '' : 'pb-3'} flex justify-between ${title_class ? title_class : ''}`}>
           <div className='cursor-pointer'>
