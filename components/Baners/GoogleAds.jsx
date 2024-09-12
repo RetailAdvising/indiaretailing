@@ -1,9 +1,10 @@
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const GoogleAds = (props) => {
 
     useEffect(() => {
+        // console.log(props.adId,"props.adId")
         if (typeof window !== 'undefined') {
             try {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -161,6 +162,41 @@ const GoogleAds = (props) => {
         }
     }, []);
 
+
+    // Rerender
+    const adRef = useRef();
+
+  useEffect(() => {
+    let observer;
+    if (window.IntersectionObserver && adRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                console.log(entry,"entry")
+              // Load or refresh the ad when it comes into view
+              if (window.googletag && googletag.apiReady) {
+                googletag.cmd.push(function () {
+                  googletag.display(props.adId);  // Display the ad
+                  googletag.pubads().refresh([googletag.slots[props.adId]]); // Refresh ad slot
+                });
+              }
+            }
+          });
+        },
+        { threshold: 0.5 } // Adjust the threshold as needed
+      );
+
+      observer.observe(adRef.current);
+
+      return () => {
+        if (observer && adRef.current) {
+          observer.unobserve(adRef.current);
+        }
+      };
+    }
+  }, [props.adId]);
+
     return (
         <>
             {/* <Script
@@ -225,7 +261,7 @@ const GoogleAds = (props) => {
                     `
                 }} />
                     :
-                <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+                <div id={props.adId + "scripts"} ref={adRef} className={`${props.style} `} dangerouslySetInnerHTML={{
                     __html:
                         `
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>

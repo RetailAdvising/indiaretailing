@@ -370,7 +370,6 @@ export default function Home({ data, ads }) {
       </script>    
       `} /> */}
 
-      <GoogleAds adId={'video_below11'} page={true} position={'high'} style={"display:inline-block;width:728px;height:90px;"} script={``} />
       <RootLayout data={data} isLanding={true} head={''} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Retailing'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
@@ -560,23 +559,7 @@ export default function Home({ data, ads }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Poll") && <>
                             <Title data={{ title: 'India Retailing Poll' }} route={'/polls'} seeMore={true} />
                             {(pollList && ipAddress) && <Poll data={pollList.slice(0, 1)} ipAddress={ipAddress} />}
-                            {/* <div className='border-light-gray border  rounded divide-y'>
-                              <div className='p-[20px] h-[258px] overflow-auto'>
-                                <div className='font-semibold '>{data.data[c.cid].data[0] && data.data[c.cid].data[0]['question']}</div>
-                                {data.data[c.cid].data[0] && data.data[c.cid].data[0]['options'].map(ans =>
-                                (<div className='px-[10px] pt-[10px]'>
-                                  <input type='radio' name="poll" id={ans.option} value={ans.option} onChange={change_option}
-                                    className='cursor-pointer'></input>
-                                  <label for={ans.option} className='pl-[10px] cursor-pointer'>{ans.option}</label>
-                                </div>
-                                )
-                                )}
-                              </div>
-                              <div className='p-[10px] text-center '>
-                                <button className="primary_button px-[20px] py-[3px]" onClick={() => updatePollOption(data.data[c.cid].data[0]["name"])}>Update</button>
-                              </div>
-                            </div> */}
-
+                            
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && data.data[c.cid].data.length > 0 && c.component_title == "IMAGES Group Events") && <>
                             <Title data={{ title: c.component_title }} route={'/events'} seeMore={true} />
@@ -590,7 +573,6 @@ export default function Home({ data, ads }) {
                                         <div className={`flex flex-wrap gap-5 justify-between`}><Cards data={resp.data.data} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[330px]"} width={"w-full"} flex={'flex-[0_0_calc(20%_-_20px)] md:flex-[0_0_calc(50%_-_10px)]'} isBorder={true} /></div>
                                     </>} */}
                           {(c.cid && books && books.length != 0 && c.component_title == "Book Store") && <>
-                            {console.log(c.component_title, "component")}
                             <Title data={{ title: c.component_title }} route={'/bookstore'} seeMore={true} />
                             <div className={`lg:grid lg:gap-5 lg:grid-cols-5 no_scroll`}><Card isHome={true} imgClass={'lg:h-[300px] md:h-[225px] mouse'} check={true} flex={'md:flex-[0_0_calc(50%_-_10px)]'} data={books} boxShadow={true} /></div>
                           </>}
