@@ -199,7 +199,7 @@ const GoogleAds = (props) => {
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins
                         data-ad-slot={"/21631575671/New-IndiaRetailing-Home-Top-728x90"}
-                        data-ad-client={"ca-pub-9354161551837950"}
+                        data-ad-client="ca-pub-9354161551837950"
                         style="${props.style}"
                         class="adsbygoogle"
                     />
