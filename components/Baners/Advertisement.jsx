@@ -40,7 +40,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                     <ins id="${adId}" class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
-                        data-ad-slot="${adSlot ? adSlot : (position == 'high' ? '8257587929' : '6101971529')}"
+                        data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
                         
                         >
                         

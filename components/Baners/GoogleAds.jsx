@@ -5,48 +5,19 @@ const GoogleAds = (props) => {
 
     useEffect(() => {
         // console.log(props.adId,"props.adId")
-        // if (typeof window !== 'undefined') {
-        //     try {
-        //         (window.adsbygoogle = window.adsbygoogle || []).push({});
-        //     } catch (err) {
-        //         // console.log(err,"err");
-        //     }
-
-        //     // Load ads individually
-        //     // loadAd(props.adId);
-        //     if (props.adId && props.position) {
-        //         setAdHeight(props.adId, props.position);
-        //     }
-        // }
-
-
-        const loadAds = () => {
-            if (typeof window !== 'undefined') {
-                console.log('loading reloading...')
-                try {
-                    if (typeof window !== 'undefined' && window.adsbygoogle) {
-                        // Reload all ads
-                        (window.adsbygoogle = window.adsbygoogle || []).push({});
-                    }
-                } catch (error) {
-                    console.error('Error reloading ads', error);
-                }
-
-                if (props.adId && props.position) {
-                    setAdHeight(props.adId, props.position);
-                }
+        if (typeof window !== 'undefined') {
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                // console.log(err,"err");
             }
-        };
 
-        loadAds(); // Load the ad on initial render
-
-        // If you want to reload ads after a specific interval
-        const intervalId = setInterval(() => {
-            loadAds(); // Reload ads periodically if needed
-        }, 5000); // Example: Reload every 30 seconds
-
-        // Cleanup interval on unmount
-        return () => clearInterval(intervalId);
+            // Load ads individually
+            // loadAd(props.adId);
+            if (props.adId && props.position) {
+                setAdHeight(props.adId, props.position);
+            }
+        }
     }, [props.adId, props.position])
 
     function setAdHeight(adElement, position) {
@@ -164,32 +135,32 @@ const GoogleAds = (props) => {
     //     }
     //   }, []);
 
-    useEffect(() => {
-        // Ensure googletag is available only after the script has loaded
-        const handleAdScriptLoad = () => {
-            console.log("GPT script loaded"); // Check if script loads
-            window.googletag = window.googletag || { cmd: [] };
+    // useEffect(() => {
+    //     // Ensure googletag is available only after the script has loaded
+    //     const handleAdScriptLoad = () => {
+    //         console.log("GPT script loaded"); // Check if script loads
+    //         window.googletag = window.googletag || { cmd: [] };
 
-            window.googletag.cmd.push(function () {
-                console.log("Ad slot being defined"); // Debug log for ad slot definition
+    //         window.googletag.cmd.push(function () {
+    //             console.log("Ad slot being defined"); // Debug log for ad slot definition
 
-                googletag.defineSlot('/21631575671/New-IndiaRetailing-Home-Top-728x90', [728, 90], 'div-gpt-ad-1726054796921-0')
-                    .addService(googletag.pubads());
-                googletag.pubads().enableSingleRequest();
-                googletag.enableServices();
+    //             googletag.defineSlot('/21631575671/New-IndiaRetailing-Home-Top-728x90', [728, 90], 'div-gpt-ad-1726054796921-0')
+    //                 .addService(googletag.pubads());
+    //             googletag.pubads().enableSingleRequest();
+    //             googletag.enableServices();
 
-                // Display the ad slot after services are enabled
-                googletag.display('div-gpt-ad-1726054796921-0');
-            });
-        };
+    //             // Display the ad slot after services are enabled
+    //             googletag.display('div-gpt-ad-1726054796921-0');
+    //         });
+    //     };
 
-        const scriptTag = document.querySelector('script[src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"]');
-        if (scriptTag && scriptTag.readyState === 'complete') {
-            handleAdScriptLoad();
-        } else {
-            scriptTag?.addEventListener('load', handleAdScriptLoad);
-        }
-    }, []);
+    //     const scriptTag = document.querySelector('script[src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"]');
+    //     if (scriptTag && scriptTag.readyState === 'complete') {
+    //         handleAdScriptLoad();
+    //     } else {
+    //         scriptTag?.addEventListener('load', handleAdScriptLoad);
+    //     }
+    // }, []);
 
 
     // Rerender
@@ -241,7 +212,8 @@ const GoogleAds = (props) => {
                 async
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
             ></script> */}
-
+            <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
+            <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
             {(props.script && !props.page) && <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
@@ -257,10 +229,9 @@ const GoogleAds = (props) => {
                 />
             </div>}
 
-            {props.page && <div>
-                {/* Load the Google Publisher Tag script */}
+            {/* {props.page && <div> */}
 
-                {props.position == 'high' ? <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+            {/* {props.position == 'high' ? <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
                     __html:
                         `
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
@@ -291,9 +262,9 @@ const GoogleAds = (props) => {
                     </script>
                     
                     `
-                }} />
-                    :
-                    <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+                }} /> */}
+            {/* : */}
+            {/* <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
                         __html:
                             `
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
@@ -324,11 +295,11 @@ const GoogleAds = (props) => {
                     </script>
                     
                     `
-                    }} />}
+                    }} />} */}
 
 
-                {/* Ad container */}
-                {/* <div id="div-gpt-ad-1726054796921-0" style={{ minWidth: '728px', minHeight: '90px' }}></div>
+            {/* Ad container */}
+            {/* <div id="div-gpt-ad-1726054796921-0" style={{ minWidth: '728px', minHeight: '90px' }}></div>
                 <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                 <ins
                     data-ad-slot={"/21631575671/New-IndiaRetailing-Home-Top-728x90"}
@@ -336,7 +307,7 @@ const GoogleAds = (props) => {
                     style={props.style}
                 /> */}
 
-            </div>}
+            {/* </div>} */}
 
 
         </>
