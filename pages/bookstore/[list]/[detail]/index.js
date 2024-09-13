@@ -234,7 +234,7 @@ export default function Bookstoredetail({ value, res,ads }) {
         "subscription_type":"item",
         "content_type":content_type,
         // "price":data['price'],
-        "price":checked_plans['price'],
+        "price": Number(checked_plans['price'] + checked_plans['tax']),
         "attribute_id": checked_plans["attribute_id"],
         "option_value": checked_plans['option_value']
     }
@@ -242,7 +242,7 @@ export default function Bookstoredetail({ value, res,ads }) {
     setLoader(false);
     if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
     // load_razorpay(checked_plans.total_amount,checked_plans.plan_name,resp.message.data[0].document_name)
-    load_razorpay(checked_plans.price,checked_plans.subscription_plan,resp.message.data[0].document_name)
+    load_razorpay(Number(checked_plans.price+checked_plans.tax),checked_plans.subscription_plan,resp.message.data[0].document_name)
 
       // if(subs && subs.length != 0){
       //     setIndex(-1);
@@ -886,7 +886,7 @@ const  getCarts = async (type) => {
               {(subs && subs.length != 0) && 
               
               <>
-                            <h6 className={`md:text-[16px] line-clamp-2 lg:text-[18px] lg:p-[20px_0px_0px_0px] font-[700] ${nunito.className}`}>Subscription Plans</h6>
+              <h6 className={`md:text-[16px] line-clamp-2 lg:text-[18px] lg:p-[20px_0px_0px_0px] font-[700] ${nunito.className}`}>Subscription Plans</h6>
 
               
               <div className={`md:hidden grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[10px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
@@ -909,7 +909,11 @@ const  getCarts = async (type) => {
                           <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.option_value}</p>
                           {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.is_subscription && item.subscription_plan ? item.subscription_plan : 'One time purchase'}</p> */}
                           {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.attribute}</p> */}
-                          <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.price)}</h6>
+
+                          <div className='flex gap-[10px] items-center justify-center'>
+                            <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.price+item.tax)} </h6>
+                            <p className='text-[12px] '>(Incl.gst)</p>
+                          </div>
                           {/* {item.features && item.features.map((f, index) => {
                             return (<p key={index} style={{ fontWeight: '400' }} className='lg:text-[10px] sub_title md:text-[10px]'>{f.features}</p>);
                           })} */}
