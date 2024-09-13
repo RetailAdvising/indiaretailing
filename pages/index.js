@@ -107,13 +107,6 @@ export default function Home({ data }) {
 
   let [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
-    if (window.googletag) {
-      window.googletag.cmd = window.googletag.cmd || [];
-      window.googletag.cmd.push(function () {
-        window.googletag.display('div-gpt-ad-1617096742911-0');
-      });
-    }
-
     checkIsMobile();
     get_polls()
     window.addEventListener('resize', checkIsMobile)
@@ -417,7 +410,7 @@ export default function Home({ data }) {
                               </div>
                               {/* {ads && ads.web_special && <div className='md:my-[15px] md:hidden'><AdsBaner data={ads && ads.web_special ? ads.web_special : null} height={'h-[250px]'} width={'w-[300px]'} /></div>} */}
                               <div className='md:my-[15px]'>
-                                {/* <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> */}
+                                <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
                                 {/* {ads && ads.web_special ? <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
                                   <GoogleAds adId={'web_special'} page={true} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={``} />} */}
                                 {/* <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "300px", height: "250px" }} />} */}
@@ -481,7 +474,7 @@ export default function Home({ data }) {
                             // {(ads && ads.video_below && c.component_title == "Video below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.video_below.section) &&
                             <>
                               {/* <AdsBaner data={ads.video_below} height={'h-[90px] w-[728px] object-contain m-[auto]'} /> */}
-                              {/* <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} /> */}
+                              <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
                               {/* {ads.video_below ? <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} /> :
                                 <GoogleAds adId={'video_below'} page={true} position={'high'} style={"display:inline-block;width:728px;height:90px;"} script={``} />} */}
                             </>}
@@ -532,8 +525,8 @@ export default function Home({ data }) {
                           </>}
 
                           {/* {(ads && ads.shopping_centre_below && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.shopping_centre_below.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.shopping_centre_below} height={"h-[90px] w-[728px] object-contain m-[auto]"} /></>} */}
-                          {/* {(ads && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid]) && <><Advertisement position={'high'} adId={'shopping_centre_below'} data={ads.shopping_centre_below ? ads.shopping_centre_below : null} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
-                          </>} */}
+                          {(ads && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid]) && <><Advertisement position={'high'} adId={'shopping_centre_below'} data={ads.shopping_centre_below ? ads.shopping_centre_below : null} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
+                          </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>
                             <Title data={{ title: c.component_title }} route={c.component_title == "Supply Chain" ? '/categories/supply-chain' : c.component_title == "Marketing" ? '/categories/marketting' : null} seeMore={true} />
@@ -584,8 +577,8 @@ export default function Home({ data }) {
                             <div className={`lg:flex lg:gap-5 lg:justify-between no_scroll`}><Cards check={true} isHome={'/'} flex={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(75%_-_10px)]'} cardClass={'h-[320px] md:h-[290px]'} data={isMobile ? data.data[c.cid].data : data.data[c.cid].data.slice(0, 3)} borderRadius={"rounded-[10px_10px_0_0]"} height={"h-[180px] md:h-[160px]"} width={"w-full"} isBorder={true} /></div>
                           </>}
                           {/* {(ads && ads.reconnect && c.component_title == "Reconnect Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.reconnect.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.reconnect} height={"h-[280px] w-[336px] object-contain m-[auto]"} /></>} */}
-                          {/* {(ads && c.component_title == "Reconnect Ad" && c.cid && data.data[c.cid]) && <><Advertisement data={ads.reconnect ? ads.reconnect : null} position={'small'} adId={'reconnect'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[280px] w-[336px] m-auto`} />
-                          </>} */}
+                          {(ads && c.component_title == "Reconnect Ad" && c.cid && data.data[c.cid]) && <><Advertisement data={ads.reconnect ? ads.reconnect : null} position={'small'} adId={'reconnect'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[280px] w-[336px] m-auto`} />
+                          </>}
 
                           {/* {(c.cid && c.component_title == "Banner Ads" && !isMobile) && <div className='pt-[30px]'><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={"h-[300px]"} width={'w-full'} data={{ bannerAd: '/no_state.svg' }} /></div>} */}
                         </div>
