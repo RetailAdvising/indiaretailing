@@ -220,7 +220,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             let param = { article: cur.name, comment: element.value };
             let resp = await addComment(param);
             if (resp.message) {
-                console.log(resp,"resp")
+                // console.log(resp, "resp")
                 // toast.success("The comment will appear once it's been approved by IndiaRetailing");
                 setAlertMessage({ message: "The comment will appear once it's been approved by IndiaRetailing" })
                 setIsSuccessPopup(true)
@@ -350,7 +350,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                     <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{cur.read_time} </span></div>
                 </div>
             </div>}
-            {!isModal  && <div className={`relative bg-[#EEEEEE] mt-[10px] rounded-full flex justify-between border p-[5px]`}>
+            {!isModal && <div className={`relative bg-[#EEEEEE] mt-[10px] rounded-full flex justify-between border p-[5px]`}>
                 {/* <div className='flex gap-5 items-center'> */}
                 {/* <Image src={'/categories/send-01.svg'} className='cursor-pointer ' height={22} width={22} alt='send' /> */}
                 <p className={`${nunito.className} p-[5px_10px]`}>Be the first to comment</p>
@@ -387,13 +387,15 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                                 <Image src={'/categories/flag.svg'} height={16} width={16} alt={"image"} className='h-[25px] w-[25px]  cursor-pointer object-contain' onClick={() => report(res)} />
                                             </div>
                                         </div>
-                                        {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}
-                                        {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
+                                        {/* {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}
+                                        {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />} */}
                                     </div>
                                 </div>
                             )
                         })}
                     </div>
+                    {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}
+                    {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
                 </>
             }
 
