@@ -6,11 +6,11 @@ const GoogleAds = (props) => {
     useEffect(() => {
         // console.log(props.adId,"props.adId")
         if (typeof window !== 'undefined') {
-            // try {
-            //     (window.adsbygoogle = window.adsbygoogle || []).push({});
-            // } catch (err) {
-            //     // console.log(err,"err");
-            // }
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                // console.log(err,"err");
+            }
 
             // Load ads individually
             // loadAd(props.adId);
@@ -213,7 +213,7 @@ const GoogleAds = (props) => {
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
             ></script> */}
             {/* <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script> */}
-            <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+           
             {(props.script && !props.page) && <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
