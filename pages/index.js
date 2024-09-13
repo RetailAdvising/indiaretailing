@@ -402,7 +402,7 @@ export default function Home({ data, ads }) {
                               {/* {console.log(ads.infocus,'ads.infocus')} */}
                               {/* <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} /> */}
                               {(ads.infocus && ads.infocus) ? <Advertisement data={ads.infocus ? ads.infocus : null} position={'small'} adId={'infocus'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
-                                <GoogleAds adId={'infocus'} position={'small'} page={true} style={"display:inline-block;width:300px;height:250px;"} script={`
+                                <GoogleAds adId={'infocus'} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={`
                                 <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins id="infocus" class="adsbygoogle "
                         style="display:inline-block;width:300px;height:250px;"
