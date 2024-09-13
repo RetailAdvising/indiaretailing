@@ -371,6 +371,7 @@ export default function Home({ data, ads }) {
       </script>    
       `} /> */}
 
+      <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-Top-728x90" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "728px", height: "90px" }} />
       <RootLayout data={data} isLanding={true} head={''} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Retailing'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
@@ -404,8 +405,8 @@ export default function Home({ data, ads }) {
                               {/* <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} /> */}
                               {(ads.infocus && ads.infocus) ? <Advertisement data={ads.infocus ? ads.infocus : null} position={'small'} adId={'infocus'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
                                 // <GoogleAds adId={'infocus'} position={'small'} page={true} style={"display:inline-block;width:300px;height:250px;"} script={``} />
-                                <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{display:"inline-block",width:"300px",height:"250px"}} />
-                                }
+                                <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "300px", height: "250px" }} />
+                              }
                             </>
                           }
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
@@ -421,7 +422,7 @@ export default function Home({ data, ads }) {
                               <div className='md:my-[15px]'>
                                 {ads && ads.web_special ? <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
                                   // <GoogleAds adId={'web_special'} page={true} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={``} />}
-                                  <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{display:"inline-block",width:"300px",height:"250px"}} />}
+                                  <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "300px", height: "250px" }} />}
                               </div>
                             </div>
                             <div className={` flex border-t border-[#d4d8d8] pt-[10px] mt-[10px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(6, 10)} /></div>
@@ -563,7 +564,7 @@ export default function Home({ data, ads }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Poll") && <>
                             <Title data={{ title: 'India Retailing Poll' }} route={'/polls'} seeMore={true} />
                             {(pollList && ipAddress) && <Poll data={pollList.slice(0, 1)} ipAddress={ipAddress} />}
-                            
+
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && data.data[c.cid].data.length > 0 && c.component_title == "IMAGES Group Events") && <>
                             <Title data={{ title: c.component_title }} route={'/events'} seeMore={true} />
