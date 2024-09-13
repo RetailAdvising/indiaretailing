@@ -398,7 +398,7 @@ export default function Details({ data, page_route }) {
           <link rel="shortcut icon" href="/ir_2023.png" />
         </Head>
         {(values && values.length != 0) ? <>
-          <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-Top-728x90" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "728px", height: "90px" }} />
+          {/* <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-Top-728x90" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "728px", height: "90px" }} /> */}
           {values.map((res, index) => {
             return (
               <div id={'div' + index} key={index} className='box'>
