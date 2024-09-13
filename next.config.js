@@ -24,7 +24,14 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "script-src 'self' https://pagead2.googlesyndication.com;",
+            value: `
+              default-src 'self';
+              script-src 'self' https://pagead2.googlesyndication.com https://accounts.google.com;
+              frame-src 'self' https://accounts.google.com;
+              style-src 'self' 'unsafe-inline';
+              img-src 'self' data:;
+              connect-src 'self';
+            `.replace(/\s{2,}/g, ' ').trim(),
           },
         ],
       },

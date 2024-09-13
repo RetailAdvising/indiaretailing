@@ -11,6 +11,7 @@ const Adsense = ({ adSlot, adFormat = 'auto', adClient,adStyle }) => {
     }
   }, []);
 
+//         data-ad-format={adFormat}
   return (
     <ins
       className="adsbygoogle"
@@ -18,7 +19,6 @@ const Adsense = ({ adSlot, adFormat = 'auto', adClient,adStyle }) => {
     //   style={{ display: 'block' }}
       data-ad-client={adClient}
       data-ad-slot={adSlot}
-      data-ad-format={adFormat}
     ></ins>
   );
 };
