@@ -212,7 +212,7 @@ const GoogleAds = (props) => {
                 async
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
             ></script> */}
-            <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
+            {/* <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script> */}
             <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
             {(props.script && !props.page) && <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
