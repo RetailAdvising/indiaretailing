@@ -213,7 +213,7 @@ const GoogleAds = (props) => {
                 src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
             ></script> */}
             {/* <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script> */}
-           
+
             {(props.script && !props.page) && <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
@@ -229,9 +229,9 @@ const GoogleAds = (props) => {
                 />
             </div>}
 
-            {/* {props.page && <div> */}
+            {props.page && <div>
 
-            {/* {props.position == 'high' ? <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+                {props.position == 'high' ? <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
                     __html:
                         `
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
@@ -262,9 +262,9 @@ const GoogleAds = (props) => {
                     </script>
                     
                     `
-                }} /> */}
-            {/* : */}
-            {/* <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+                }} />
+                    :
+                    <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
                         __html:
                             `
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
@@ -295,11 +295,11 @@ const GoogleAds = (props) => {
                     </script>
                     
                     `
-                    }} />} */}
+                    }} />}
 
 
-            {/* Ad container */}
-            {/* <div id="div-gpt-ad-1726054796921-0" style={{ minWidth: '728px', minHeight: '90px' }}></div>
+                {/* Ad container */}
+                {/* <div id="div-gpt-ad-1726054796921-0" style={{ minWidth: '728px', minHeight: '90px' }}></div>
                 <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                 <ins
                     data-ad-slot={"/21631575671/New-IndiaRetailing-Home-Top-728x90"}
@@ -307,7 +307,7 @@ const GoogleAds = (props) => {
                     style={props.style}
                 /> */}
 
-            {/* </div>} */}
+            </div>}
 
 
         </>
