@@ -29,7 +29,7 @@ export default function Document() {
           dangerouslySetInnerHTML={{
             __html: `
                (adsbygoogle = window.adsbygoogle || []).push({
-                   google_ad_client: "YOUR_ID",
+                   google_ad_client: "div-gpt-ad-1617096742911-0",
                    enable_page_level_ads: true
               });
                 `
