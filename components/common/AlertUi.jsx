@@ -2,6 +2,8 @@ import React, { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 export default function AlertUi({ isOpen, closeModal, headerMsg, alertMsg, button_1, button_2 }) {
+  console.log(isOpen,"isOpen")
+  console.log(alertMsg,"alertMsg")
    return (
     <Transition appear show={isOpen} as={Fragment}>
     <Dialog as="div" className="relative z-[999]" onClose={closeModal}>
