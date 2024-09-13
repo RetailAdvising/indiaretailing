@@ -17,26 +17,6 @@ const nextConfig = {
   //   prependData: `@import "@styles/Variable.scss";`,
   // }
   swcMinify: false, // it should be false by default 
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: `
-              default-src 'self';
-              script-src 'self' https://pagead2.googlesyndication.com https://accounts.google.com;
-              frame-src 'self' https://accounts.google.com;
-              style-src 'self' 'unsafe-inline';
-              img-src 'self' data:;
-              connect-src 'self';
-            `.replace(/\s{2,}/g, ' ').trim(),
-          },
-        ],
-      },
-    ];
-  },
 }
 
 module.exports = nextConfig
