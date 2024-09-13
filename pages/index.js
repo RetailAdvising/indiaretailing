@@ -17,6 +17,7 @@ import LatestNews from '@/components/Landing/LatestNews'
 // import AdsBaner from '@/components/Baners/AdsBaner'
 import IRPrime from '@/components/Landing/IRPrime'
 import Subscribe from '@/components/Landing/Subscribe'
+import GoogleAds from '@/components/Baners/GoogleAds';
 // import BulletList from '@/components/Landing/BulletList'
 // import TrendingBox from '@/components/Landing/TrendingBox'
 // import Title from '@/components/common/Title'
@@ -54,14 +55,14 @@ const Advertisement = dynamic(() => import('@/components/Baners/Advertisement'))
 // import { useSession } from 'next-auth/react'
 // import Advertisement from '@/components/Baners/Advertisement';
 
-export default function Home({ data }) {
+export default function Home({ data, ads }) {
   // console.log(data,"data");
   // console.log(ads,"ads");
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
   let [loading, setLoading] = useState(false);
   const [books, setBooks] = useState([])
-  const [ads, setAds] = useState()
+  // let [ads, setAds] = useState()
   let [pageNo, setPageNo] = useState(1)
   let [noProduct, setNoProduct] = useState(false)
   // let page_no = 1;
@@ -81,22 +82,22 @@ export default function Home({ data }) {
     // dispatch(userAction(users));
   }
 
-  const getAd = async () => {
-    // let params = { doctype: 'Web Page Builder', page_type: 'Home' }
-    // const res = await getAds(params);
-    // const ads = res.message;
-    // if (ads) {
-    //   setAds(ads)
-    // }
+  // const getAd = async () => {
+  //   // let params = { doctype: 'Web Page Builder', page_type: 'Home' }
+  //   // const res = await getAds(params);
+  //   // const ads = res.message;
+  //   // if (ads) {
+  //   //   setAds(ads)
+  //   // }
 
-    const resp = await HomePageAds();
-    if (resp.message) {
-      // ads = resp.message;
-      setAds(resp.message)
-      // console.log(resp)
-      // setAds(ads)
-    }
-  }
+  //   const resp = await HomePageAds();
+  //   if (resp.message) {
+  //     ads = resp.message;
+  //     setAds(ads)
+  //     // console.log(resp)
+  //     // setAds(ads)
+  //   }
+  // }
 
   useMemo(() => {
 
@@ -107,6 +108,13 @@ export default function Home({ data }) {
 
   let [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
+    if (window.googletag) {
+      window.googletag.cmd = window.googletag.cmd || [];
+      window.googletag.cmd.push(function () {
+        window.googletag.display('div-gpt-ad-1617096742911-0');
+      });
+    }
+
     checkIsMobile();
     get_polls()
     window.addEventListener('resize', checkIsMobile)
@@ -146,7 +154,7 @@ export default function Home({ data }) {
 
     getNewsLetters();
     getBooks();
-    getAd();
+    // getAd();
 
 
     // const intersectionObserver = new IntersectionObserver(entries => {
@@ -361,10 +369,11 @@ export default function Home({ data }) {
           (adsbygoogle = window.adsbygoogle || []).push({});
       </script>    
       `} /> */}
+
       <RootLayout data={data} isLanding={true} head={''} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Retailing'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
-        {(ads) && (value && value.length != 0) ? value.map((data, i) => {
+        {(value && value.length != 0) ? value.map((data, i) => {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
             // Video section => bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll
@@ -392,11 +401,39 @@ export default function Home({ data }) {
                             <>
                               {/* {console.log(ads.infocus,'ads.infocus')} */}
                               {/* <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} /> */}
-                              {/* {(ads.infocus && ads.infocus) ? <Advertisement data={ads.infocus ? ads.infocus : null} position={'small'} adId={'infocus'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> : */}
-                              <Advertisement data={ads.infocus ? ads.infocus : null} position={'small'} adId={'infocus'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
-                              {/* // <GoogleAds adId={'infocus'} position={'small'} page={true} style={"display:inline-block;width:300px;height:250px;"} script={``} />
-                                // <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "300px", height: "250px" }} />
-                              // } */}
+                              {(ads.infocus && ads.infocus) ? <Advertisement data={ads.infocus ? ads.infocus : null} position={'small'} adId={'infocus'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
+                                <GoogleAds adId={'infocus'} position={'small'} page={true} style={"display:inline-block;width:300px;height:250px;"} script={`
+                                <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                    <ins id="infocus" class="adsbygoogle "
+                        style="display:inline-block;width:300px;height:250px;"
+                        data-ad-client="ca-pub-9354161551837950"
+                        data-ad-slot="6101971529"
+                        
+                        >
+                        
+                        <img class="default_ban_img" src="/no-image.jpg" alt="Default Banner" style="display:inline-block;width:300px;height:250px;" />
+                        
+                    </ins>
+
+                    <script>
+                        function loadAd(adId) {
+                            var adElement = document.getElementById(adId);
+                            if (adElement) {
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                // setTimeout(function() {
+                                //     checkAdStatus(adId);
+                                // }, 1000);
+                            }else {
+                                console.log("Ad element not found for:", adId);
+                            }
+                        }
+
+                        // Load ads individually
+                        loadAd('infocus');
+
+                    
+                    </script>
+                                `} />}
                             </>
                           }
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
@@ -410,10 +447,8 @@ export default function Home({ data }) {
                               </div>
                               {/* {ads && ads.web_special && <div className='md:my-[15px] md:hidden'><AdsBaner data={ads && ads.web_special ? ads.web_special : null} height={'h-[250px]'} width={'w-[300px]'} /></div>} */}
                               <div className='md:my-[15px]'>
-                                <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
-                                {/* {ads && ads.web_special ? <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
-                                  <GoogleAds adId={'web_special'} page={true} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={``} />} */}
-                                {/* <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "300px", height: "250px" }} />} */}
+                                {ads && ads.web_special ? <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
+                                  <GoogleAds adId={'web_special'} page={true} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={``} />}
                               </div>
                             </div>
                             <div className={` flex border-t border-[#d4d8d8] pt-[10px] mt-[10px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(6, 10)} /></div>
@@ -474,9 +509,9 @@ export default function Home({ data }) {
                             // {(ads && ads.video_below && c.component_title == "Video below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.video_below.section) &&
                             <>
                               {/* <AdsBaner data={ads.video_below} height={'h-[90px] w-[728px] object-contain m-[auto]'} /> */}
-                              <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
-                              {/* {ads.video_below ? <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} /> :
-                                <GoogleAds adId={'video_below'} page={true} position={'high'} style={"display:inline-block;width:728px;height:90px;"} script={``} />} */}
+
+                              {ads.video_below ? <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} /> :
+                                <GoogleAds adId={'video_below'} page={true} position={'high'} style={"display:inline-block;width:728px;height:90px;"} script={``} />}
                             </>}
 
                           {/* {(c.component_title == "Banner Ads" && ads && ads.video_below) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={'h-full'} width={'w-full'} data={ads.video_below} /></>} */}
@@ -555,7 +590,7 @@ export default function Home({ data }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Poll") && <>
                             <Title data={{ title: 'India Retailing Poll' }} route={'/polls'} seeMore={true} />
                             {(pollList && ipAddress) && <Poll data={pollList.slice(0, 1)} ipAddress={ipAddress} />}
-
+                            
                           </>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && data.data[c.cid].data.length > 0 && c.component_title == "IMAGES Group Events") && <>
                             <Title data={{ title: c.component_title }} route={'/events'} seeMore={true} />
@@ -841,11 +876,11 @@ export async function getStaticProps() {
   const resp = await HomePage(param);
   const data = await resp.message;
 
-  // const res = await HomePageAds();
-  // let ads = res.message
+  const res = await HomePageAds();
+  let ads = res.message
 
   return {
-    props: { data }, revalidate: 10
+    props: { data, ads }, revalidate: 10
   }
 
 }

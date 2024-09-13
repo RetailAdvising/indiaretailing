@@ -8,6 +8,7 @@ import ConfirmationScreen from '@/components/Membership/ConfirmationScreen';
 import Modal from '@/components/common/Modal';
 import { checkMobile, HomePage, get_subscription_plans, get_razorpay_settings, make_payment_entry } from '@/libs/api'
 import AlertUi from '@/components/common/AlertUi';
+import AuthModal from '@/components/Auth/AuthModal';
 
 export default function Membership() {
 
@@ -192,6 +193,9 @@ export default function Membership() {
       load_razorpay(obj.checked_plans.total_amount, obj.checked_plans.name, obj.name)
       setAlertMsg(obj);
       // setEnableModal(true);
+    } else if(obj && obj.status && obj.status == "failed"){
+        setAlertMsg(obj)
+        setEnableModal(true);
     } else {
       // setAlertMsg(obj);
       // setEnableModal(true);
@@ -294,7 +298,8 @@ export default function Membership() {
         <ConfirmationScreen membershipDetails={memberShipDetails} visible={visible} hide={(obj) => hide(obj)} startPlan={(membership, index) => startPlan(membership, index)} btnState={btnState} handleClick={handleClick} />
       }
 
-      <Modal modal={modal} show={show} visible={visible_} hide={hide_1} member={"membership_login"} membership={"membership"}/>
+      {/* <Modal modal={modal} show={show} visible={visible_} hide={hide_1} member={"membership_login"} membership={"membership"}/> */}
+      <div className='authModal'><AuthModal modal={modal} isModal={false} show={show} visible={visible_} hide={hide_1} /></div>
 
       <div className="pt-[30px] bg-[url('/membership/bg_membership.svg')] bg-no-repeat bg-contain">
         <div className="max-w-[1300px] m-[0px_auto]">
