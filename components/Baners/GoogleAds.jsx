@@ -5,19 +5,48 @@ const GoogleAds = (props) => {
 
     useEffect(() => {
         // console.log(props.adId,"props.adId")
-        if (typeof window !== 'undefined') {
-            try {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-            } catch (err) {
-                // console.log(err,"err");
-            }
+        // if (typeof window !== 'undefined') {
+        //     try {
+        //         (window.adsbygoogle = window.adsbygoogle || []).push({});
+        //     } catch (err) {
+        //         // console.log(err,"err");
+        //     }
 
-            // Load ads individually
-            // loadAd(props.adId);
-            if (props.adId && props.position) {
-                setAdHeight(props.adId, props.position);
+        //     // Load ads individually
+        //     // loadAd(props.adId);
+        //     if (props.adId && props.position) {
+        //         setAdHeight(props.adId, props.position);
+        //     }
+        // }
+
+
+        const loadAds = () => {
+            if (typeof window !== 'undefined') {
+                console.log('loading reloading...')
+                try {
+                    if (typeof window !== 'undefined' && window.adsbygoogle) {
+                        // Reload all ads
+                        (window.adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                } catch (error) {
+                    console.error('Error reloading ads', error);
+                }
+
+                if (props.adId && props.position) {
+                    setAdHeight(props.adId, props.position);
+                }
             }
-        }
+        };
+
+        loadAds(); // Load the ad on initial render
+
+        // If you want to reload ads after a specific interval
+        const intervalId = setInterval(() => {
+            loadAds(); // Reload ads periodically if needed
+        }, 5000); // Example: Reload every 30 seconds
+
+        // Cleanup interval on unmount
+        return () => clearInterval(intervalId);
     }, [props.adId, props.position])
 
     function setAdHeight(adElement, position) {
