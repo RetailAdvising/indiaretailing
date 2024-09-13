@@ -25,6 +25,16 @@ export default function Document() {
         <script async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           crossorigin="anonymous"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+               (adsbygoogle = window.adsbygoogle || []).push({
+                   google_ad_client: "YOUR_ID",
+                   enable_page_level_ads: true
+              });
+                `
+          }}
+        />
       </Head>
       <body>
         <Main />

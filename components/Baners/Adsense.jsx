@@ -5,6 +5,7 @@ const Adsense = ({ adSlot, adFormat = 'auto', adClient, adStyle }) => {
         try {
             if (typeof window !== "undefined") {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
+                console.log(window.adsbygoogle,"window.adsbygoogle")
             }
         } catch (e) {
             console.error("Adsbygoogle error", e);
@@ -14,9 +15,9 @@ const Adsense = ({ adSlot, adFormat = 'auto', adClient, adStyle }) => {
     //         data-ad-format={adFormat}
     return (
         <>
-            <script async
+            {/* <script async
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-                crossorigin="anonymous"></script>
+                crossorigin="anonymous"></script> */}
             <ins
                 className="adsbygoogle"
                 style={adStyle}
@@ -24,9 +25,9 @@ const Adsense = ({ adSlot, adFormat = 'auto', adClient, adStyle }) => {
                 data-ad-client={adClient}
                 data-ad-slot={adSlot}
             ></ins>
-            <script>
+            {/* <script>
                 (window.adsbygoogle = window.adsbygoogle || []).push({ });
-            </script>
+            </script> */}
         </>
     );
 };
