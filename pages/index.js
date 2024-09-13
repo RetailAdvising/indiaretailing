@@ -403,10 +403,11 @@ export default function Home({ data }) {
                             <>
                               {/* {console.log(ads.infocus,'ads.infocus')} */}
                               {/* <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} /> */}
-                              {(ads.infocus && ads.infocus) ? <Advertisement data={ads.infocus ? ads.infocus : null} position={'small'} adId={'infocus'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
-                                <GoogleAds adId={'infocus'} position={'small'} page={true} style={"display:inline-block;width:300px;height:250px;"} script={``} />
+                              {/* {(ads.infocus && ads.infocus) ? <Advertisement data={ads.infocus ? ads.infocus : null} position={'small'} adId={'infocus'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> : */}
+                              <Advertisement data={ads.infocus ? ads.infocus : null} position={'small'} adId={'infocus'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
+                                {/* // <GoogleAds adId={'infocus'} position={'small'} page={true} style={"display:inline-block;width:300px;height:250px;"} script={``} />
                                 // <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "300px", height: "250px" }} />
-                              }
+                              // } */}
                             </>
                           }
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
@@ -420,8 +421,9 @@ export default function Home({ data }) {
                               </div>
                               {/* {ads && ads.web_special && <div className='md:my-[15px] md:hidden'><AdsBaner data={ads && ads.web_special ? ads.web_special : null} height={'h-[250px]'} width={'w-[300px]'} /></div>} */}
                               <div className='md:my-[15px]'>
-                                {ads && ads.web_special ? <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
-                                  <GoogleAds adId={'web_special'} page={true} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={``} />}
+                              <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
+                                {/* {ads && ads.web_special ? <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
+                                  <GoogleAds adId={'web_special'} page={true} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={``} />} */}
                                   {/* <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "300px", height: "250px" }} />} */}
                               </div>
                             </div>
@@ -483,9 +485,9 @@ export default function Home({ data }) {
                             // {(ads && ads.video_below && c.component_title == "Video below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.video_below.section) &&
                             <>
                               {/* <AdsBaner data={ads.video_below} height={'h-[90px] w-[728px] object-contain m-[auto]'} /> */}
-
-                              {ads.video_below ? <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} /> :
-                                <GoogleAds adId={'video_below'} page={true} position={'high'} style={"display:inline-block;width:728px;height:90px;"} script={``} />}
+                              <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} /> 
+                              {/* {ads.video_below ? <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} /> :
+                                <GoogleAds adId={'video_below'} page={true} position={'high'} style={"display:inline-block;width:728px;height:90px;"} script={``} />} */}
                             </>}
 
                           {/* {(c.component_title == "Banner Ads" && ads && ads.video_below) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} height={'h-full'} width={'w-full'} data={ads.video_below} /></>} */}
