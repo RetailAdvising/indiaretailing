@@ -371,7 +371,7 @@ export default function Home({ data, ads }) {
       </script>    
       `} /> */}
 
-      <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-Top-728x90" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "728px", height: "90px" }} />
+      {/* <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-Top-728x90" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "728px", height: "90px" }} /> */}
       <RootLayout data={data} isLanding={true} head={''} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Retailing'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 

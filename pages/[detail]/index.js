@@ -1,12 +1,13 @@
 'use client'
 import RootLayout from '@/layouts/RootLayout'
 import React, { useState, useEffect, useMemo } from 'react'
-import { articlesDetail, getList, commentList, update_no_of_shares, get_subscription_plans, getAdvertisements,seo_Image,getCurrentUrl } from '@/libs/api';
+import { articlesDetail, getList, commentList, update_no_of_shares, get_subscription_plans, getAdvertisements, seo_Image, getCurrentUrl } from '@/libs/api';
 import CategoryBuilder from '@/components/Builders/CategoryBuilder';
 import { useRouter } from 'next/router';
 import Advertisement from '@/components/Baners/Advertisement'
 import { useSelector } from 'react-redux';
 import Head from 'next/head'
+import Adsense from '@/components/Baners/Adsense';
 // import { NextSeo } from 'next-seo'
 export default function Details({ data, page_route }) {
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function Details({ data, page_route }) {
 
   const generateMetaData = (data) => {
   }
-  
+
   const meta_inf = useMemo(() => generateMetaData(meta_info), [meta_info])
 
   // const meta_inf0s = useMemo(() => generateMetaData(comments), [comments])
@@ -333,7 +334,7 @@ export default function Details({ data, page_route }) {
 
   return (
     <>
-      <RootLayout isLanding={true} is_detail={true} adIdH={router.query.deatil+'aH'} adIdF={router.query.deatil+'aF'} homeAd={advertisement ? advertisement : null} head={''}>
+      <RootLayout isLanding={true} is_detail={true} adIdH={router.query.deatil + 'aH'} adIdF={router.query.deatil + 'aF'} homeAd={advertisement ? advertisement : null} head={''}>
         <Head>
           <title key="title">{data?.meta_title}</title>
           <meta name="description" content={data?.meta_description} />
@@ -356,7 +357,7 @@ export default function Details({ data, page_route }) {
           <meta
 
             property="og:image:alt"
-            content={`${data?.title } | ${'IndiaRetailing'}`}
+            content={`${data?.title} | ${'IndiaRetailing'}`}
           />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
@@ -390,19 +391,20 @@ export default function Details({ data, page_route }) {
             content={data?.meta_description}
           />
 
-         
+
 
           {/* <link rel="canonical" href={'https://indiaretail.vercel.app/'} /> */}
 
           <link rel="shortcut icon" href="/ir_2023.png" />
         </Head>
         {(values && values.length != 0) ? <>
+          <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-Top-728x90" adClient="ca-pub-9354161551837950" adStyle={{ display: "inline-block", width: "728px", height: "90px" }} />
           {values.map((res, index) => {
             return (
               <div id={'div' + index} key={index} className='box'>
                 {/* <SEO title={res.meta_title ? res.meta_title : res.title} ogImage={check_Image(res.meta_image ? res.meta_image : res.image)} siteName={'India Retailing'} ogType={res.meta_keywords ? res.meta_keywords : res.title} description={res.meta_description ? res.meta_description : res.title} /> */}
                 <CategoryBuilder ads_data={advertisement ? advertisement : null} productNavigation={(obj) => { productNavigation(obj) }} updateShare={(data) => updateShare(data)} isLast={index == values.length - 1} i={index} user={user} data={res} load={loadMore} comments={comments && comments.length != 0 ? comments : []} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} noScroll={(val) => noScroll(val)} plans={(plans && plans.length != 0) ? plans : []} />
-                <div className="md:hidden my-5 lg:grid lg:justify-center"><Advertisement adId={"divsad"+index} data={(advertisement && advertisement.footer) ? advertisement.footer : null } position={"high"} divClass={'h-[90px] w-[728px] m-auto'} insStyle={"display:inline-block;width:728px;height:90px;"} /></div>
+                <div className="md:hidden my-5 lg:grid lg:justify-center"><Advertisement adId={"divsad" + index} data={(advertisement && advertisement.footer) ? advertisement.footer : null} position={"high"} divClass={'h-[90px] w-[728px] m-auto'} insStyle={"display:inline-block;width:728px;height:90px;"} /></div>
                 {!(index == values.length - 1) && <div className={` lg:m-[20px_auto_0]  md:p-[10px_15px] lg:p-[15px 0] container`}>
                   <h6 className={`flex-[0_0_auto] lg:text-[18px] md:text-[14px] font-semibold pb-[10px]`}>Next Post</h6>
                   <div style={{ background: 'linear-gradient(90deg, #E21B22 0%, #E1252C 9.73%, #D8D8D8 10.3%, #D8D8D8 97.95%)' }} className='lg:bg-[#999] w-full h-[3px] md:bg-stone-200'></div>
