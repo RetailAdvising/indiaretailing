@@ -220,11 +220,11 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             let param = { article: cur.name, comment: element.value };
             let resp = await addComment(param);
             if (resp.message) {
-
+                console.log(resp,"resp")
                 // toast.success("The comment will appear once it's been approved by IndiaRetailing");
                 setAlertMessage({ message: "The comment will appear once it's been approved by IndiaRetailing" })
-                setIsSuccessPopup(true)
                 setTimeout(() => {
+                    setIsSuccessPopup(true)
                     if (element) element.value = '';
                 }, 200);
                 // console.log(resp.message);
