@@ -18,6 +18,7 @@ import LatestNews from '@/components/Landing/LatestNews'
 import IRPrime from '@/components/Landing/IRPrime'
 import Subscribe from '@/components/Landing/Subscribe'
 import GoogleAds from '@/components/Baners/GoogleAds';
+import Adsense from '@/components/Baners/Adsense';
 // import BulletList from '@/components/Landing/BulletList'
 // import TrendingBox from '@/components/Landing/TrendingBox'
 // import Title from '@/components/common/Title'
@@ -402,7 +403,9 @@ export default function Home({ data, ads }) {
                               {/* {console.log(ads.infocus,'ads.infocus')} */}
                               {/* <AdsBaner data={ads.infocus} height={'h-[250px] w-[300px] object-contain'} /> */}
                               {(ads.infocus && ads.infocus) ? <Advertisement data={ads.infocus ? ads.infocus : null} position={'small'} adId={'infocus'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
-                                <GoogleAds adId={'infocus'} position={'small'} page={true} style={"display:inline-block;width:300px;height:250px;"} script={``} />}
+                                // <GoogleAds adId={'infocus'} position={'small'} page={true} style={"display:inline-block;width:300px;height:250px;"} script={``} />
+                                <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{display:"inline-block",width:"300px",height:"250px"}} />
+                                }
                             </>
                           }
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
@@ -417,7 +420,8 @@ export default function Home({ data, ads }) {
                               {/* {ads && ads.web_special && <div className='md:my-[15px] md:hidden'><AdsBaner data={ads && ads.web_special ? ads.web_special : null} height={'h-[250px]'} width={'w-[300px]'} /></div>} */}
                               <div className='md:my-[15px]'>
                                 {ads && ads.web_special ? <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} /> :
-                                  <GoogleAds adId={'web_special'} page={true} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={``} />}
+                                  // <GoogleAds adId={'web_special'} page={true} position={'small'} style={"display:inline-block;width:300px;height:250px;"} script={``} />}
+                                  <Adsense adSlot="/21631575671/New-IndiaRetailing-Home-300x250" adClient="ca-pub-9354161551837950" adStyle={{display:"inline-block",width:"300px",height:"250px"}} />}
                               </div>
                             </div>
                             <div className={` flex border-t border-[#d4d8d8] pt-[10px] mt-[10px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(6, 10)} /></div>

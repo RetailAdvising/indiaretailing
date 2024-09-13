@@ -164,41 +164,41 @@ const GoogleAds = (props) => {
 
 
     // Rerender
-    useEffect(() => {
-        // Check if the Google Ads script is already loaded
-        if (!window.googletag) {
-            const script = document.createElement('script');
-            script.src = 'https://www.googletagservices.com/tag/js/gpt.js';
-            script.async = true;
-            document.body.appendChild(script);
+    // useEffect(() => {
+    //     // Check if the Google Ads script is already loaded
+    //     if (!window.googletag) {
+    //         const script = document.createElement('script');
+    //         script.src = 'https://www.googletagservices.com/tag/js/gpt.js';
+    //         script.async = true;
+    //         document.body.appendChild(script);
 
-            script.onload = () => {
-                window.googletag = window.googletag || { cmd: [] };
-                console.log(window.googletag,"window.googletag")
-                window.googletag.cmd.push(() => {
-                    // Define ad slot
-                    window.googletag.defineSlot(props.adId, [300, 250], props.adId).addService(window.googletag.pubads());
-                    window.googletag.enableServices();
-                    window.googletag.display(props.adId);
-                });
-            };
-        } else {
-            // If googletag is already loaded, display the ad immediately
-            window.googletag.cmd.push(() => {
-                window.googletag.defineSlot(props.adId, [300, 250], props.adId).addService(window.googletag.pubads());
-                window.googletag.enableServices();
-                window.googletag.display(props.adId);
-            });
-        }
+    //         script.onload = () => {
+    //             window.googletag = window.googletag || { cmd: [] };
+    //             console.log(window.googletag,"window.googletag")
+    //             window.googletag.cmd.push(() => {
+    //                 // Define ad slot
+    //                 window.googletag.defineSlot(props.adId, [300, 250], props.adId).addService(window.googletag.pubads());
+    //                 window.googletag.enableServices();
+    //                 window.googletag.display(props.adId);
+    //             });
+    //         };
+    //     } else {
+    //         // If googletag is already loaded, display the ad immediately
+    //         window.googletag.cmd.push(() => {
+    //             window.googletag.defineSlot(props.adId, [300, 250], props.adId).addService(window.googletag.pubads());
+    //             window.googletag.enableServices();
+    //             window.googletag.display(props.adId);
+    //         });
+    //     }
 
-        return () => {
-            // Cleanup script if needed
-            const script = document.querySelector(`script[src="https://www.googletagservices.com/tag/js/gpt.js"]`);
-            if (script) {
-                script.remove();
-            }
-        };
-    }, [props.adId]);
+    //     return () => {
+    //         // Cleanup script if needed
+    //         const script = document.querySelector(`script[src="https://www.googletagservices.com/tag/js/gpt.js"]`);
+    //         if (script) {
+    //             script.remove();
+    //         }
+    //     };
+    // }, [props.adId]);
 
     return (
         <>

@@ -3,9 +3,9 @@ const path = require('path');
 
 const nextConfig = {
   reactStrictMode: false,
- 
-  images:{
-    domains:["indiaretailing.go1cms.com","https://","via.placeholder.com","vumbnail.com",'img.youtube.com'],
+
+  images: {
+    domains: ["indiaretailing.go1cms.com", "https://", "via.placeholder.com", "vumbnail.com", 'img.youtube.com'],
     unoptimized: true,
     // loader: 'custom',
     // loaderFile: './components/ImageLoader.js'
@@ -16,8 +16,20 @@ const nextConfig = {
   //   // includePaths: [path.join(__dirname, 'styles')],
   //   prependData: `@import "@styles/Variable.scss";`,
   // }
-  swcMinify: false // it should be false by default 
-    
+  swcMinify: false, // it should be false by default 
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "script-src 'self' https://pagead2.googlesyndication.com;",
+          },
+        ],
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig
