@@ -13,10 +13,11 @@ import GoogleAds from '@/components/Baners/GoogleAds';
 
 // import Loader from '@/components/Loader';
 // import { useRouter } from 'next/router';
-export default function Categories({ data, ads }) {
+export default function Categories({ data }) {
     let [isMobile, setIsMobile] = useState(false)
     const [activeNav, setActiveNav] = useState()
     const [datas, setDatas] = useState([])
+    const [ads,setAds] = useState()
     useEffect(() => {
         // console.log(data);
         if (data && data.length != 0) {
@@ -24,12 +25,22 @@ export default function Categories({ data, ads }) {
                 setDatas(data)
             }, 200);
         }
+        getAds()
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
     }, [])
+
+    const getAds = async () => {
+        let param = { page: 'Categories', page_type: 'Landing' }
+        const resp = await getAdvertisements(param);
+        if(resp.message){
+            // const ads = resp.message;
+            setAds(resp.message)
+        }
+    }
 
     const checkIsMobile = async () => {
         let is_Mobile = await checkMobile();
@@ -251,7 +262,6 @@ export default function Categories({ data, ads }) {
                     {!datas?.length && <Skeleton type='' />}
                 </div>
             </RootLayout>
-
         </>
     )
 }
@@ -276,7 +286,7 @@ export async function getStaticProps() {
     const resp = await getAdvertisements(param);
     const ads = resp.message;
     return {
-        props: { data, ads }, revalidate: 50,
+        props: { data }, revalidate: 50,
     }
 }
 

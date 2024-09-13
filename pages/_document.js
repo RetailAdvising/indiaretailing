@@ -22,19 +22,9 @@ export default function Document() {
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js`}
         /> */}
         {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script> */}
-        <script async
+        {/* <script async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          crossorigin="anonymous"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-               (adsbygoogle = window.adsbygoogle || []).push({
-                   google_ad_client: "div-gpt-ad-1617096742911-0",
-                   enable_page_level_ads: true
-              });
-                `
-          }}
-        />
+          crossorigin="anonymous"></script> */}
       </Head>
       <body>
         <Main />

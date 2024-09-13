@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import Advertisement from '@/components/Baners/Advertisement'
 import { useSelector } from 'react-redux';
 import Head from 'next/head'
-import Adsense from '@/components/Baners/Adsense';
 // import { NextSeo } from 'next-seo'
 export default function Details({ data, page_route }) {
   const router = useRouter();
