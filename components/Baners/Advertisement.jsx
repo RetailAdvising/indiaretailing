@@ -2,7 +2,7 @@ import ImageLoader from '../ImageLoader'
 import { useEffect, useState } from 'react';
 import { checkMobile } from '@/libs/api'
 import GoogleAds from './GoogleAds';
-export default function Advertisement({ data, imgClass, divClass, insStyle, position, adId,adPage }) {
+export default function Advertisement({ data, imgClass, divClass, insStyle, position, adId }) {
 
     let [isMobile, setIsMobile] = useState(false)
     useEffect(() => {
@@ -34,22 +34,25 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
             {/* data-full-width-responsive="${isMobile}" */}
-            {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds page={adPage} adId={adId} position={position} style={divClass} script={`
+            {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds adId={adId} position={position} style={divClass} script={`
                     
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins id="${adId}" class="adsbygoogle ${divClass}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
-                        
-                        >
-                        
+                        > 
                         <img class="default_ban_img" src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />
                         
                     </ins>
 
                     <script>
-                        function loadAd(adId) {
+                     (adsbygoogle = window.adsbygoogle || []).push({});                    
+                    </script>
+ 
+            `} />}
+
+            {/* function loadAd(adId) {
                             var adElement = document.getElementById(adId);
                             if (adElement) {
                                 (adsbygoogle = window.adsbygoogle || []).push({});
@@ -62,12 +65,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         }
 
                         // Load ads individually
-                        loadAd(${adId});
-
-                    
-                    </script>
- 
-            `} />}
+                        loadAd(${adId}); */}
 
             {/* function refreshAd(adId) {
                             var adElement = document.getElementById(adId);

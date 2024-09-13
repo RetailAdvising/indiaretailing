@@ -416,7 +416,7 @@ export default function Home({ data }) {
                               </div>
                               {/* {ads && ads.web_special && <div className='md:my-[15px] md:hidden'><AdsBaner data={ads && ads.web_special ? ads.web_special : null} height={'h-[250px]'} width={'w-[300px]'} /></div>} */}
                               <div className='md:my-[15px]'>
-                                <Advertisement data={ads && ads.web_special ? ads.web_special : null} adPage={true} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
+                                <Advertisement data={ads && ads.web_special ? ads.web_special : null} position={'small'} adId={'web_special'} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px] m-auto`} />
                               </div>
                             </div>
                             <div className={` flex border-t border-[#d4d8d8] pt-[10px] mt-[10px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(6, 10)} /></div>
