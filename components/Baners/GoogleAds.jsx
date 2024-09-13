@@ -6,11 +6,11 @@ const GoogleAds = (props) => {
     useEffect(() => {
         // console.log(props.adId,"props.adId")
         if (typeof window !== 'undefined') {
-            try {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-            } catch (err) {
-                // console.log(err,"err");
-            }
+            // try {
+            //     (window.adsbygoogle = window.adsbygoogle || []).push({});
+            // } catch (err) {
+            //     // console.log(err,"err");
+            // }
 
             // Load ads individually
             // loadAd(props.adId);

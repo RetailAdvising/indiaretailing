@@ -41,7 +41,6 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
-                        
                         >
                         
                         <img class="default_ban_img" src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />
