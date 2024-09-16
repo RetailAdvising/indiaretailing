@@ -318,16 +318,6 @@ export default function Home({ data }) {
 
     // Loop over each element and remove it, then append new HTML
     unfilledAds.forEach(adElement => {
-      console.log(adElement, "adElement")
-      console.log(adElement.getAttribute('id'), "adElement")
-      console.log(adElement.getAttribute('class'), "adElement")
-      console.log(adElement.getAttribute('style'), "adElement")
-      console.log(adElement.getAttribute('data-ad-client'), "adElement")
-      console.log(adElement.getAttribute('data-ad-slot'), "adElement")
-      console.log(adElement.parentElement, "adElement parentElement")
-      // Remove the unfilled ad element
-
-
       // Create a new div to append as replacement content
       const newDiv = document.createElement('ins');
       newDiv.setAttribute('id', adElement.getAttribute('id'))
@@ -335,6 +325,8 @@ export default function Home({ data }) {
       newDiv.setAttribute('style', adElement.getAttribute('style'))
       newDiv.setAttribute('data-ad-client', adElement.getAttribute('data-ad-client'))
       newDiv.setAttribute('data-ad-slot', adElement.getAttribute('data-ad-slot'))
+      newDiv.setAttribute('data-adsbygoogle-status', 'done')
+      newDiv.setAttribute('data-ad-status', 'filled')
       // newDiv.innerHTML = `
       //   <div class="replacement-ad">
       //     <h3>Ad could not be loaded</h3>
@@ -344,7 +336,11 @@ export default function Home({ data }) {
       setTimeout(() => {
         adElement.parentElement.append(newDiv)
         adElement.remove();
-      }, 500);
+
+        if (typeof window !== 'undefined' && window.adsbygoogle) {
+          window.adsbygoogle.push({});
+        }
+      }, 1000);
       // Append the new HTML where the old ad was removed (e.g., parent node or another location)
       // document.body.appendChild(newDiv); // or use `adElement.parentElement.appendChild(newDiv);` if you want to append within the same parent container
     });
