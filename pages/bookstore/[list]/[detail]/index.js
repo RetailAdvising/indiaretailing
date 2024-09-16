@@ -46,6 +46,7 @@ export default function Bookstoredetail({ value, res,ads }) {
   const [loader,setLoader] = useState(false)
   // const [variants,setVariants] = useState([{'name':'PDF','selected':true},{'name':'PRINT','selected':false}])
   const [enableModal,setEnableModal] = useState(false)
+  const [enableModal1,setEnableModal1] = useState(false)
   const [alertMsg,setAlertMsg] = useState({})
   let content_type = 'PDF';
 
@@ -254,8 +255,13 @@ export default function Bookstoredetail({ value, res,ads }) {
 
 
     }else{
-      setAlertMsg({message:resp.message.message});
-      setEnableModal(true)
+      if(resp.message.message.includes('Payment is pending')){
+        setAlertMsg({message:resp.message.message});
+        setEnableModal1(true)
+      }else{
+        setAlertMsg({message:resp.message.message});
+        setEnableModal(true)
+      }
     }
   }
 
@@ -577,6 +583,13 @@ const  getCarts = async (type) => {
     setEnableModal(false);
   }
 
+  async function closeModal1(value){
+    if(value){
+      setEnableModal1(false);
+      router.push('/profile?my_account=subscription')
+    }
+  }
+
   // useEffect(() => {
   //   $("#lightgallery").lightGallery();
   //   $("#lightgallery").on('click', 'a', function() {
@@ -721,6 +734,7 @@ const  getCarts = async (type) => {
       </div> */}
     
     { enableModal && <AlertUi isOpen={enableModal} closeModal={(value)=>closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
+    { enableModal1 && <AlertUi isOpen={enableModal1} closeModal={(value)=>closeModal1(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
         
     {!data ?  <Skeleton /> :
       (data && Object.keys(data).length != 0) && 
