@@ -234,7 +234,7 @@ export default function Bookstoredetail({ value, res,ads }) {
         "subscription_type":"item",
         "content_type":content_type,
         // "price":data['price'],
-        "price": Number(checked_plans['price'] + checked_plans['tax']),
+        "price": Number(checked_plans['price'] + (checked_plans['tax'] ? checked_plans['tax'] : 0)),
         "attribute_id": checked_plans["attribute_id"],
         "option_value": checked_plans['option_value']
     }
@@ -242,7 +242,7 @@ export default function Bookstoredetail({ value, res,ads }) {
     setLoader(false);
     if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
     // load_razorpay(checked_plans.total_amount,checked_plans.plan_name,resp.message.data[0].document_name)
-    load_razorpay(Number(checked_plans.price+checked_plans.tax),checked_plans.subscription_plan,resp.message.data[0].document_name)
+    load_razorpay(Number(checked_plans.price+(checked_plans.tax ? checked_plans.tax : 0)),checked_plans.subscription_plan,resp.message.data[0].document_name)
 
       // if(subs && subs.length != 0){
       //     setIndex(-1);
@@ -911,7 +911,7 @@ const  getCarts = async (type) => {
                           {/* <p className='lg:text-[12px] md:text-[10px] font-semibold'>{item.attribute}</p> */}
 
                           <div className='flex gap-[10px] items-center justify-center'>
-                            <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.price+item.tax)} </h6>
+                            <h6 className='lg:py-[6px] md:p-[2px] text-[20px] md:text-[16px] font-semibold'>{formatter.format(item.price+(item.tax ? item.tax : 0))} </h6>
                             <p className='text-[12px] '>(Incl.gst)</p>
                           </div>
                           {/* {item.features && item.features.map((f, index) => {
