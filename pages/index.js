@@ -328,7 +328,7 @@ export default function Home({ data }) {
       newDiv.setAttribute('data-adsbygoogle-status', 'done')
       newDiv.setAttribute('data-ad-status', 'filled')
       let classs = adElement.getAttribute('class')
-      console.log(classs, "classs")
+      console.log(adElement,"adElement")
       if (classs.includes('small')) {
         newDiv.style.height = "250px"
       } else {
