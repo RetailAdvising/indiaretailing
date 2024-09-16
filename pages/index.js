@@ -341,13 +341,17 @@ export default function Home({ data }) {
       //   </div>
       // `;
       setTimeout(() => {
-        adElement.parentElement.append(newDiv)
-        adElement.remove();
+        adElement?.parentElement?.append(newDiv)
+        adElement?.remove();
 
-        if (typeof window !== 'undefined' && window.adsbygoogle) {
+        // if (typeof window !== 'undefined' && window.adsbygoogle) {
+        //   window.adsbygoogle.push({});
+        // }
+
+        if (typeof window !== 'undefined' && window.adsbygoogle && !newDiv.hasAttribute('data-adsbygoogle-status')) {
           window.adsbygoogle.push({});
         }
-      }, 1000);
+      }, 2000);
       // Append the new HTML where the old ad was removed (e.g., parent node or another location)
       // document.body.appendChild(newDiv); // or use `adElement.parentElement.appendChild(newDiv);` if you want to append within the same parent container
     });
