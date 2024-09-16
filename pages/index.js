@@ -327,6 +327,13 @@ export default function Home({ data }) {
       newDiv.setAttribute('data-ad-slot', adElement.getAttribute('data-ad-slot'))
       newDiv.setAttribute('data-adsbygoogle-status', 'done')
       newDiv.setAttribute('data-ad-status', 'filled')
+      let classs = adElement.getAttribute('class')
+      console.log(classs, "classs")
+      if (classs.includes('small')) {
+        newDiv.style.height = "250px"
+      } else {
+        newDiv.style.height = "90px"
+      }
       // newDiv.innerHTML = `
       //   <div class="replacement-ad">
       //     <h3>Ad could not be loaded</h3>
@@ -348,10 +355,36 @@ export default function Home({ data }) {
 
   // Use `useEffect` to run this function after the component is mounted
   useEffect(() => {
+    // if (typeof window !== 'undefined') {
+    //   replaceUnfilledAds();
+    // }
     if (typeof window !== 'undefined') {
+      // Run replaceUnfilledAds initially
       replaceUnfilledAds();
+
+      // Set up a MutationObserver to monitor DOM changes
+      const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+          // If new nodes are added, run replaceUnfilledAds
+          if (mutation.addedNodes.length > 0) {
+            replaceUnfilledAds();
+          }
+        });
+      });
+
+      // Target node to observe (e.g., document.body)
+      const targetNode = document.body;
+
+      // Configuration of the observer
+      const config = { childList: true, subtree: true };
+
+      // Start observing the target node for configured mutations
+      observer.observe(targetNode, config);
+
+      // Clean up the observer on component unmount
+      return () => observer.disconnect();
     }
-  }, [value]);
+  }, []);
 
 
 

@@ -37,7 +37,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
             {((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds adId={adId} position={position} style={divClass} script={`
                     
                     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    <ins id="${adId}" class="adsbygoogle ${divClass}"
+                    <ins id="${adId}" class="adsbygoogle ${divClass} ${position}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
