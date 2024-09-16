@@ -145,7 +145,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       nProgress.done()
     };
 
-    removeAdsbygoogleNoAblateClass()
+    if(typeof window !== 'undefined')
+      removeAdsbygoogleNoAblateClass()
 
     if (!router.query.detail) {
       router.events.on("routeChangeStart", handleStart);
