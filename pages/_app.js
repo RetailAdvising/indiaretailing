@@ -34,6 +34,7 @@ import "nprogress/nprogress.css"
 import { SessionProvider } from 'next-auth/react'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Script from 'next/script'
+import ScrollToTopButton from '@/components/common/ScrollToTopButton'
 const inter = Faustina({
   weight: ["300", "400", "500", "600", '700'],
   display: "block",
@@ -143,6 +144,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     };
     const handleComplete = () => {
       nProgress.done()
+      if(typeof window !== 'undefined')
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Smooth scroll
+        });
     };
 
     if(typeof window !== 'undefined')
@@ -216,12 +222,14 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   const removeAdsbygoogleNoAblateClass = () => {
     // Find all elements with the class 'adsbygoogle-noablate'
     const elements = document.querySelectorAll('.adsbygoogle-noablate');
-    console.log(elements,"elements")
+    // console.log(elements,"elements")
     // Loop over each element and remove the 'adsbygoogle-noablate' class
-    elements.forEach(el => {
-      // el.classList.remove('adsbygoogle-noablate');
-      el?.remove()
-    });
+    if(elements){
+      elements.forEach(el => {
+        // el.classList.remove('adsbygoogle-noablate');
+        el?.remove()
+      });
+    }
   };
   
   return (
@@ -297,6 +305,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
                   <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
                   {/* <Header/> */}
                   <Component {...pageProps} />
+                  <ScrollToTopButton />
                   <div className='lg:hidden'>
                     <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
                   </div>
