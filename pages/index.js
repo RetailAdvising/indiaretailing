@@ -312,83 +312,83 @@ export default function Home({ data }) {
 
 
 
-  const replaceUnfilledAds = () => {
-    // Find all elements with data-ad-status="unfilled"
-    const unfilledAds = document.querySelectorAll('[data-ad-status="unfilled"]');
+  // const replaceUnfilledAds = () => {
+  //   // Find all elements with data-ad-status="unfilled"
+  //   const unfilledAds = document.querySelectorAll('[data-ad-status="unfilled"]');
 
-    // Loop over each element and remove it, then append new HTML
-    unfilledAds.forEach(adElement => {
-      // Create a new div to append as replacement content
-      const newDiv = document.createElement('ins');
-      newDiv.setAttribute('id', adElement.getAttribute('id'))
-      newDiv.setAttribute('class', adElement.getAttribute('class'))
-      newDiv.setAttribute('style', adElement.getAttribute('style'))
-      newDiv.setAttribute('data-ad-client', adElement.getAttribute('data-ad-client'))
-      newDiv.setAttribute('data-ad-slot', adElement.getAttribute('data-ad-slot'))
-      newDiv.setAttribute('data-adsbygoogle-status', 'done')
-      newDiv.setAttribute('data-ad-status', 'filled')
-      let classs = adElement.getAttribute('class')
-      console.log(adElement,"adElement")
-      if (classs.includes('small')) {
-        newDiv.style.height = "250px"
-      } else {
-        newDiv.style.height = "90px"
-      }
-      // newDiv.innerHTML = `
-      //   <div class="replacement-ad">
-      //     <h3>Ad could not be loaded</h3>
-      //     <p>Here’s some other content to display in its place.</p>
-      //   </div>
-      // `;
-      setTimeout(() => {
-        adElement?.parentElement?.append(newDiv)
-        adElement?.remove();
+  //   // Loop over each element and remove it, then append new HTML
+  //   unfilledAds.forEach(adElement => {
+  //     // Create a new div to append as replacement content
+  //     const newDiv = document.createElement('ins');
+  //     newDiv.setAttribute('id', adElement.getAttribute('id'))
+  //     newDiv.setAttribute('class', adElement.getAttribute('class'))
+  //     newDiv.setAttribute('style', adElement.getAttribute('style'))
+  //     newDiv.setAttribute('data-ad-client', adElement.getAttribute('data-ad-client'))
+  //     newDiv.setAttribute('data-ad-slot', adElement.getAttribute('data-ad-slot'))
+  //     newDiv.setAttribute('data-adsbygoogle-status', 'done')
+  //     newDiv.setAttribute('data-ad-status', 'filled')
+  //     let classs = adElement.getAttribute('class')
+  //     console.log(adElement,"adElement")
+  //     if (classs.includes('small')) {
+  //       newDiv.style.height = "250px"
+  //     } else {
+  //       newDiv.style.height = "90px"
+  //     }
+  //     // newDiv.innerHTML = `
+  //     //   <div class="replacement-ad">
+  //     //     <h3>Ad could not be loaded</h3>
+  //     //     <p>Here’s some other content to display in its place.</p>
+  //     //   </div>
+  //     // `;
+  //     setTimeout(() => {
+  //       adElement?.parentElement?.append(newDiv)
+  //       adElement?.remove();
 
-        // if (typeof window !== 'undefined' && window.adsbygoogle) {
-        //   window.adsbygoogle.push({});
-        // }
+  //       // if (typeof window !== 'undefined' && window.adsbygoogle) {
+  //       //   window.adsbygoogle.push({});
+  //       // }
 
-        if (typeof window !== 'undefined' && window.adsbygoogle && !newDiv.hasAttribute('data-adsbygoogle-status')) {
-          window.adsbygoogle.push({});
-        }
-      }, 2000);
-      // Append the new HTML where the old ad was removed (e.g., parent node or another location)
-      // document.body.appendChild(newDiv); // or use `adElement.parentElement.appendChild(newDiv);` if you want to append within the same parent container
-    });
-  };
+  //       if (typeof window !== 'undefined' && window.adsbygoogle && !newDiv.hasAttribute('data-adsbygoogle-status')) {
+  //         window.adsbygoogle.push({});
+  //       }
+  //     }, 2000);
+  //     // Append the new HTML where the old ad was removed (e.g., parent node or another location)
+  //     // document.body.appendChild(newDiv); // or use `adElement.parentElement.appendChild(newDiv);` if you want to append within the same parent container
+  //   });
+  // };
 
-  // Use `useEffect` to run this function after the component is mounted
-  useEffect(() => {
-    // if (typeof window !== 'undefined') {
-    //   replaceUnfilledAds();
-    // }
-    if (typeof window !== 'undefined') {
-      // Run replaceUnfilledAds initially
-      replaceUnfilledAds();
+  // // Use `useEffect` to run this function after the component is mounted
+  // useEffect(() => {
+  //   // if (typeof window !== 'undefined') {
+  //   //   replaceUnfilledAds();
+  //   // }
+  //   if (typeof window !== 'undefined') {
+  //     // Run replaceUnfilledAds initially
+  //     replaceUnfilledAds();
 
-      // Set up a MutationObserver to monitor DOM changes
-      const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-          // If new nodes are added, run replaceUnfilledAds
-          if (mutation.addedNodes.length > 0) {
-            replaceUnfilledAds();
-          }
-        });
-      });
+  //     // Set up a MutationObserver to monitor DOM changes
+  //     const observer = new MutationObserver(mutations => {
+  //       mutations.forEach(mutation => {
+  //         // If new nodes are added, run replaceUnfilledAds
+  //         if (mutation.addedNodes.length > 0) {
+  //           replaceUnfilledAds();
+  //         }
+  //       });
+  //     });
 
-      // Target node to observe (e.g., document.body)
-      const targetNode = document.body;
+  //     // Target node to observe (e.g., document.body)
+  //     const targetNode = document.body;
 
-      // Configuration of the observer
-      const config = { childList: true, subtree: true };
+  //     // Configuration of the observer
+  //     const config = { childList: true, subtree: true };
 
-      // Start observing the target node for configured mutations
-      observer.observe(targetNode, config);
+  //     // Start observing the target node for configured mutations
+  //     observer.observe(targetNode, config);
 
-      // Clean up the observer on component unmount
-      return () => observer.disconnect();
-    }
-  }, []);
+  //     // Clean up the observer on component unmount
+  //     return () => observer.disconnect();
+  //   }
+  // }, []);
 
 
 
