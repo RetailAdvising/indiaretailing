@@ -145,6 +145,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       nProgress.done()
     };
 
+    removeAdsbygoogleNoAblateClass()
+
     if (!router.query.detail) {
       router.events.on("routeChangeStart", handleStart);
       router.events.on("routeChangeComplete", handleComplete);
@@ -209,6 +211,18 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   //   dispatch(setIsMobile(isMobile))
   //   console.log('isMobile', isMobile)
   // }
+
+  const removeAdsbygoogleNoAblateClass = () => {
+    // Find all elements with the class 'adsbygoogle-noablate'
+    const elements = document.querySelectorAll('.adsbygoogle-noablate');
+    console.log(elements,"elements")
+    // Loop over each element and remove the 'adsbygoogle-noablate' class
+    elements.forEach(el => {
+      // el.classList.remove('adsbygoogle-noablate');
+      el?.remove()
+    });
+  };
+  
   return (
     <>
       {/* Load AdSense script */}
