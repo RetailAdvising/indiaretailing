@@ -88,7 +88,7 @@ const formatter = new Intl.NumberFormat('en-US', {
                       <h6 className='text-[13.5px] font-semibold'>{formatDate(res.current_end_date)}</h6>
                       <span className='text-[12px] gray_color'>Activated on {' ' + formatDate(res.current_start_date)}</span>
                       </h6>
-                    <h6 className='flex-[0_0_calc(15%_-_5px)] ml-[5px] text-[13.5px] font-semibold'>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
+                    <h6 className='flex-[0_0_calc(15%_-_5px)] ml-[5px] text-[13.5px] font-semibold'>{formatter.format(type == 'items' ? res.sub_plans[0].order_info.total_amount : res.sub_plans[0].plan_info.price)}</h6>
                     {type == 'items' && <h6 className='flex-[0_0_calc(15%_-_5px)] ml-[5px] text-[13.5px] font-semibold'>{(res.sub_plans && res.sub_plans[0].plan_features && res.sub_plans[0].plan_features[0] && res.sub_plans[0].plan_features[0].features) ? res.sub_plans[0].plan_features[0].features : '-'}</h6>}
                     <h6 style={{color:res.status ? getColor(res.status)  : '#ddd'}} className='flex-[0_0_calc(10%_-_5px)] ml-[5px] text-[14px] font-semibold'>{res.status}</h6>
                     <div className='flex-[0_0_calc(10%_-_0px)]'><button onClick={()=>{res.status == 'Unpaid' ? payNow(res) : null}} className={`${res.status == 'Unpaid' ? 'primary_btn text-white' : 'bg-[#3b8b42] text-white'}  w-max p-[5px_25px] text-[13.5px] rounded-[5px]`}>{res.status == 'Unpaid' ? 'Pay' : 'Paid'}</button> </div>
@@ -104,7 +104,7 @@ const formatter = new Intl.NumberFormat('en-US', {
                      <div className='flex items-center gap-[5px]'><div style={{background:res.status ? getColor(res.status)  : '#ddd'}} className={`h-[6px] w-[6px] rounded-[50%]`}></div><h6 style={{color:res.status ? getColor(res.status)  : '#ddd'}} className='text-[12px]'>{res.status}</h6></div>
                    </div>
                    <div className={'flex-[0_0_calc(25%_-_5px)]'}>
-                     <h6 className='text-[14px] font-semibold mb-[7px]'>{formatter.format(res.sub_plans[0].plan_info.price)}</h6>
+                     <h6 className='text-[14px] font-semibold mb-[7px]'>{formatter.format(type == 'items' ? res.sub_plans[0].order_info.total_amount : res.sub_plans[0].plan_info.price)}</h6>
                      {res.status == 'Unpaid' && <div className='flex items-center justify-end'><button onClick={()=>{payNow(res)}} className='primary_btn w-max p-[5px_25px] text-[13px] rounded-[5px]'>Pay</button> </div>}
                    </div>
                 </div>

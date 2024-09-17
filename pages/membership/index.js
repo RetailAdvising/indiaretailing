@@ -9,6 +9,7 @@ import Modal from '@/components/common/Modal';
 import { checkMobile, HomePage, get_subscription_plans, get_razorpay_settings, make_payment_entry } from '@/libs/api'
 import AlertUi from '@/components/common/AlertUi';
 import AuthModal from '@/components/Auth/AuthModal';
+import { useRouter } from 'next/router';
 
 export default function Membership() {
 
@@ -276,9 +277,14 @@ export default function Membership() {
   }
 
 
+  const router = useRouter()
 
   async function closeModal(value) {
     setEnableModal(false);
+    // console.log(alertMsg)
+    if((alertMsg && alertMsg.message) && alertMsg.message.includes('Payment is pending')){
+      router.push('/profile?my_account=membership')
+    }
   }
 
   async function selected_plan() {

@@ -285,12 +285,12 @@ export default function NewsLists({ data, Id }) {
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_0px)]`}>
                 {/* <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.article_detail.title}</h6> */}
                 <p className={`text-[20px] md:text-[16px] font-[700] py-3 md:hidden ${nunito.className}`}>{data.article_detail.subject}</p>
-                <div dangerouslySetInnerHTML={{ __html: data.article_detail.message }} className={`contents sub_title py-3 md:hidden`} />
+                <div dangerouslySetInnerHTML={{ __html: data.article_detail.blog_intro }} className={`contents sub_title py-3 md:hidden`} />
                 <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] block h-[35px] w-[100px]'>subscribe</button>
               </div>
               <div className={`flex-[0_0_calc(45%_-_10px)] lg:sticky lg:top-[10px]  lg:bg-white lg:h-[400px] overflow-hidden md:flex-[0_0_calc(100%_-_0px)]`}>
                 <Image className={`h-[380px] w-full`} src={check_Image(data.article_detail.image)} height={300} width={500} alt={data.custom_title ? data.custom_title : data.subject ? data.subject : 'newsletter'} />
-                <div dangerouslySetInnerHTML={{ __html: data.article_detail.message }} className={`contents sub_title py-3 lg:hidden`} />
+                <div dangerouslySetInnerHTML={{ __html: data.article_detail.blog_intro }} className={`contents sub_title py-3 lg:hidden`} />
                 {/* <p className='sub_title py-3 lg:hidden'>{data.article_detail.description}</p> */}
                 <div className='w-full text-center lg:hidden'>
                   <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn block my-3 text-[14px] h-[35px] w-[50%] md:w-full'>subscribe</button>

@@ -191,7 +191,9 @@ export default function profile({ my_account }) {
 
   const payNow = (obj) => {
     // setIndex(index + 1);
-    load_razorpay(obj.sub_plans[0].plan_info.price, obj.subscription_plan, obj.sub_plans[0].order_info.name, obj)
+    // type == 'items' ? res.sub_plans[0].order_info.total_amount : res.sub_plans[0].plan_info.price
+    // tab == 'subscription' ? obj.sub_plans[0].order_info.total_amount
+    load_razorpay(tab == 'subscription' ? obj.sub_plans[0].order_info.total_amount : obj.sub_plans[0].plan_info.price, obj.subscription_plan, obj.sub_plans[0].order_info.name, obj)
   }
 
   function payment_error_callback(error) {

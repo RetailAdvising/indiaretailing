@@ -255,11 +255,11 @@ export default function Bookstoredetail({ value, res,ads }) {
 
 
     }else{
+      setAlertMsg({message:resp.message.message});
       if(resp.message.message.includes('Payment is pending')){
-        setAlertMsg({message:resp.message.message});
         setEnableModal1(true)
       }else{
-        setAlertMsg({message:resp.message.message});
+        // setAlertMsg({message:resp.message.message});
         setEnableModal(true)
       }
     }
