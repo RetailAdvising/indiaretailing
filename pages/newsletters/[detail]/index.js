@@ -200,12 +200,12 @@ export default function NewsLists({ data, Id }) {
       <RootLayout isLanding={false} homeAd={ads ? ads : null} head={'Newsletters'} adIdH={router.query.deatil+'nwsH'} adIdF={router.query.deatil+'nwsF'}>
       <Head>
           <title key="title">{data?.article_detail.subject}</title>
-          <meta name="description" content={data?.article_detail.subject} />
+          <meta name="description" content={data?.article_detail.blog_intro} />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
           <meta name="theme-color" content="#e21b22" />
           <meta property="og:type" content={'Article'} />
           <meta property="og:title" content={data?.article_detail.subject} />
-          <meta property="og:description" content={data?.article_detail.subject} />
+          <meta property="og:description" content={data?.article_detail.blog_intro} />
           <meta property="og:locale" content="en_IE" />
           {/* <meta property="og:site_name" content={'IndiaRetailing'} />
          
@@ -251,7 +251,7 @@ export default function NewsLists({ data, Id }) {
           <meta
 
             property="twitter:description"
-            content={data?.article_detail.subject}
+            content={data?.article_detail.blog_intro}
           />
 
          
