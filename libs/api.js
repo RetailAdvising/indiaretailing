@@ -1,4 +1,4 @@
-import { domain,website } from "./config/siteConfig"
+import { domain, website } from "./config/siteConfig"
 // const methodUrl = `http://${domain}/api/method/`;
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
@@ -586,6 +586,22 @@ export async function newsLanding() {
     return await postMethod(api, data)
 }
 
+
+export async function newsLetterLanding() {
+    let data = {};
+    let value = await stored_customer_info()
+
+    if (value && value.user_id) {
+        data['email'] = value.user_id
+    }
+
+    data['limit'] = 15
+
+    let api = domainUrl + 'get_newsletter_list_by_categories';
+    return await postMethod(api, data)
+}
+
+
 export async function newsDetail(data) {
     let api = domainUrl + 'newsletter_details';
     return await postMethod(api, data)
@@ -595,6 +611,17 @@ export async function get_all_newsletter(data) {
     let api = domainUrl + 'get_all_newsletter';
     return await postMethod(api, data)
 }
+
+export async function get_all_newsletter_by_category(data) {
+    let api = domainUrl + 'get_all_newsletter_by_category';
+    return await postMethod(api, data)
+}
+
+export async function get_newsletter_by_id(data) {
+    let api = domainUrl + 'get_newsletter_by_id';
+    return await postMethod(api, data)
+}
+
 
 export async function newsSubscribe(data) {
     let api = domainUrl + 'subscribe_newsletter';

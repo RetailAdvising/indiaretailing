@@ -5,7 +5,7 @@ import Title from '@/components/common/Title';
 import NewsCard from '@/components/Newsletter/NewsCard';
 import Tabs from '@/components/common/Tabs';
 import AlertPopup from '@/components/common/AlertPopup';
-import { get_all_newsletter, newsDetail, newsLanding, getAdvertisements, getCurrentUrl,seo_Image, getList,checkMobile } from '@/libs/api';
+import { get_all_newsletter, get_newsletter_by_id, newsLanding, getAdvertisements, getCurrentUrl, seo_Image, getList, checkMobile } from '@/libs/api';
 import { check_Image } from '@/libs/common';
 import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
@@ -17,16 +17,16 @@ import format from 'date-fns/format'
 import Head from 'next/head'
 import { Nunito } from 'next/font/google'
 const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-  })
+  weight: ["300", "400", "500", "600", "700"],
+  display: "block",
+  preload: true,
+  style: 'normal',
+  subsets: ["latin"],
+  variable: '--font-inter',
+})
 export default function NewsLists({ data, Id }) {
   const tabs = [{ name: 'Current edition' }, { name: 'All Newsletter' }]
-  // console.log(data,'data')
+  // console.log(data, 'data')
   const [isChecked, setIsChecked] = useState(false);
   const [allNewsLetter, setAllNewsLetter] = useState([])
   const [page_no, setPageno] = useState(1)
@@ -133,6 +133,13 @@ export default function NewsLists({ data, Id }) {
     }
     let resp = await getList(params)
     if (resp.message && resp.message.length != 0) {
+
+
+      let sunday = resp.message.findIndex(res => { return res.name == 'sunday' })
+      if (sunday >= 0) {
+        resp.message.splice(sunday, 1)
+      }
+
       newsCategory = resp.message;
       selectedCategory = resp.message[0].title;
       setSelectedCategory(selectedCategory)
@@ -197,88 +204,88 @@ export default function NewsLists({ data, Id }) {
 
   return (
     <>
-      <RootLayout isLanding={false} homeAd={ads ? ads : null} head={'Newsletters'} adIdH={router.query.deatil+'nwsH'} adIdF={router.query.deatil+'nwsF'}>
+      {/* <RootLayout isLanding={false} homeAd={ads ? ads : null} head={'Newsletters'} adIdH={router.query.deatil + 'nwsH'} adIdF={router.query.deatil + 'nwsF'}> */}
       <Head>
-          <title key="title">{data?.article_detail.subject}</title>
-          <meta name="description" content={data?.article_detail.blog_intro} />
-          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-          <meta name="theme-color" content="#e21b22" />
-          <meta property="og:type" content={'Article'} />
-          <meta property="og:title" content={data?.article_detail.subject} />
-          <meta property="og:description" content={data?.article_detail.blog_intro} />
-          <meta property="og:locale" content="en_IE" />
-          {/* <meta property="og:site_name" content={'IndiaRetailing'} />
-         
-          <meta property="og:site_name" content={'IndiaRetailing'} /> */}
-          <meta
+        <title key="title">{data?.message?.subject}</title>
+        <meta name="description" content={data?.message?.blog_intro} />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta name="theme-color" content="#e21b22" />
+        <meta property="og:type" content={'Article'} />
+        <meta property="og:title" content={data?.message?.subject} />
+        <meta property="og:description" content={data?.message?.blog_intro} />
+        <meta property="og:locale" content="en_IE" />
+        <meta
+          property="og:image"
+          itemprop="image"
+          content={seo_Image(data?.message?.image)}
+        />
+        <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
+        <meta
+          property="og:image:alt"
+          content={`${data?.message?.title} | ${'IndiaRetailing'}`}
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
 
-            property="og:image"
-            itemprop="image"
-            content={seo_Image(data?.article_detail.image)}
-          />
-           <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
-          <meta
+        <meta name="robots" content="index,follow" />
 
-            property="og:image:alt"
-            content={`${data?.article_detail.title } | ${'IndiaRetailing'}`}
-          />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
+        <meta
 
-          <meta name="robots" content="index,follow" />
+          name="twitter:card"
+          content="summary_large_image"
+        />
+        <meta
 
-          <meta
+          name="twitter:site"
+          content={'@d__indiaRetail'}
+        />
+        <meta
 
-            name="twitter:card"
-            content="summary_large_image"
-          />
-          <meta
+          name="twitter:creator"
+          content={'@d__indiaRetail'}
+        />
+        <meta property="twitter:image" content={seo_Image(data?.message?.image)} />
+        <meta
 
-            name="twitter:site"
-            content={'@d__indiaRetail'}
-          />
-          <meta
+          property="twitter:title"
+          content={data?.message?.subject}
+        />
+        <meta
 
-            name="twitter:creator"
-            content={'@d__indiaRetail'}
-          />
-          <meta property="twitter:image" content={seo_Image(data?.article_detail.image)} />
-          <meta
+          property="twitter:description"
+          content={data?.message?.blog_intro}
+        />
 
-            property="twitter:title"
-            content={data?.article_detail.subject}
-          />
-          <meta
 
-            property="twitter:description"
-            content={data?.article_detail.blog_intro}
-          />
 
-         
 
-          {/* <link rel="canonical" href={'https://indiaretail.vercel.app/'} /> */}
+        <link rel="shortcut icon" href="/ir_2023.png" />
+      </Head>
+      {enableModal &&
+        <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'ok'} alertMsg={alertMsg} />
+      }
 
-          <link rel="shortcut icon" href="/ir_2023.png" />
-        </Head>
-        {enableModal &&
-          <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'ok'} alertMsg={alertMsg} />
-        }
+      {/* <SEO title={data.meta_title ? data.meta_title : data.custom_title} ogImage={check_Image(data.custom_image_)} siteName={'India Retailing'} ogType={data.meta_keywords ? data.meta_keywords : data.custom_title} description={data.meta_description ? data.meta_description : data.custom_title} /> */}
+      {<div className='container p-[30px_0px] md:p-[15px]'>
 
-        {/* <SEO title={data.meta_title ? data.meta_title : data.custom_title} ogImage={check_Image(data.custom_image_)} siteName={'India Retailing'} ogType={data.meta_keywords ? data.meta_keywords : data.custom_title} description={data.meta_description ? data.meta_description : data.custom_title} /> */}
-        {<div className='container p-[30px_0px] md:p-[15px]'>
-          {(data && data.article_detail) && <label className='themeSwitcherTwo w-full  border_bottom shadow-card relative inline-flex cursor-pointer select-none'>
-            <input type='checkbox' className='sr-only' checked={isChecked} onChange={handleCheckboxChange} />
-            <span
-              className={`flex capitalize items-center space-x-[6px] ${nunito.className}  py-2 px-[18px] text-[16px] font-[700] text-[#111111] ${!isChecked ? 'tabActive' : ''
-                }`}>
-              {(data && data.article_detail && data.article_detail.is_current_edition == 1) ? 'Current edition' : changeDateFormat(data.article_detail.date)}
-            </span>
-            <span
-              className={`flex ${nunito.className} capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-[700] text-[#111111] ${isChecked ? 'tabActive' : ''
-                }`}>
-              All Newsletter
-            </span>
-          </label>}
+        {data && data.message && <div dangerouslySetInnerHTML={{ __html: data.message.message }} className={`contents sub_title py-3 `} />}
+
+        {false && (data && data.article_detail) && <label className='themeSwitcherTwo w-full  border_bottom shadow-card relative inline-flex cursor-pointer select-none'>
+          <input type='checkbox' className='sr-only' checked={isChecked} onChange={handleCheckboxChange} />
+          <span
+            className={`flex capitalize items-center space-x-[6px] ${nunito.className}  py-2 px-[18px] text-[16px] font-[700] text-[#111111] ${!isChecked ? 'tabActive' : ''
+              }`}>
+            {(data && data.article_detail && data.article_detail.is_current_edition == 1) ? 'Current edition' : changeDateFormat(data.article_detail.date)}
+          </span>
+          <span
+            className={`flex ${nunito.className} capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-[700] text-[#111111] ${isChecked ? 'tabActive' : ''
+              }`}>
+            All Newsletter
+          </span>
+        </label>}
+
+
+        {false && <>
 
           {!isChecked ? <>
             {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] md:flex-wrap justify-between gap-5 lg:relative`}>
@@ -312,7 +319,7 @@ export default function NewsLists({ data, Id }) {
               <div className={`flex items-center m-[10px] gap-[15px] overflow-auto scrollbar-hide`}>
                 {newsCategory && newsCategory.length != 0 && newsCategory.map((res, i) => {
                   return (
-                    <div key={i} id={'category'+i} onClick={() => activeCategory(res, i)} className='cursor-pointer flex-[0_0_auto]'>
+                    <div key={i} id={'category' + i} onClick={() => activeCategory(res, i)} className='cursor-pointer flex-[0_0_auto]'>
                       <p className={`${selectedCategory == res.title ? 'tabActive' : ''} pb-[5px] text-[14px] font-semibold capitalize ${nunito.className}`}>{res.category_name.split('-').join(" ")}</p>
                     </div>
                   )
@@ -333,13 +340,14 @@ export default function NewsLists({ data, Id }) {
           </> : <>
             {(allNewsLetter && allNewsLetter.length != 0) ?
               <div className='grid grid-cols-4 md:grid-cols-2 gap-[20px] md:gap-[10px] pt-[20px] md:pt-[15px] '>
-                <NewsCard load={() => handleCheckboxChange()} pagination={true} data={allNewsLetter} imgClass={'h-[315px] md:h-[200px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[300px]'} />
+                <NewsCard load={() => handleCheckboxChange()} data={allNewsLetter} imgClass={'h-[315px] md:h-[200px] w-full rounded-[10px_10px_0_0]'} cardClass={'h-[410px] md:h-[300px]'} />
               </div> :
               <NoProductFound cssClass={'flex-col h-[calc(100vh_-_220px)]'} empty_icon={'/empty_states/no-newsletter.svg'} heading={'No Newsletters Found'} />
             }
           </>}
-        </div>}
-      </RootLayout>
+        </>}
+      </div>}
+      {/* </RootLayout> */}
     </>
   )
 }
@@ -348,12 +356,13 @@ export default function NewsLists({ data, Id }) {
 export async function getServerSideProps({ params }) {
   let Id = params?.detail;
   let param = {
-    route: 'newsletters/' + Id,
+    name: Id,
+    // name: 'newsletters/' + Id,
     // another_category: "Fashion & Lifestyle",
     // newsletter_fields: ["custom_title", "custom_image_", "route", "name", "custom_category"]
   }
 
-  const resp = await newsDetail(param);
+  const resp = await get_newsletter_by_id(param);
   const data = resp.message;
 
 

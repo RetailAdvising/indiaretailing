@@ -31,6 +31,7 @@ export default function search({ searchTxt, data }) {
     { name: 'Search', route: '/search/searchText=' },
   ])
 
+  console.log(data,"data")
   const router = useRouter();
   let cardref = useRef();
   let page_no = 1

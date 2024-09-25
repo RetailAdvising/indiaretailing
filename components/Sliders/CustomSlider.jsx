@@ -13,7 +13,7 @@ const nunito = Nunito({
     subsets: ["latin"],
     variable: '--font-inter',
 })
-export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route, title_class, subtitle_class, primary_text_class, hashtags_class, hide_scroll_button, noPrimaryText, routers, parent, productNavigation }) {
+export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route, title_class, subtitle_class, primary_text_class, hashtags_class, hide_scroll_button, noPrimaryText, routers, parent, productNavigation,newsletter }) {
     // let router = routers ? routers : useRouter();
     // let router = routers ;
     let router;
@@ -138,9 +138,20 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
             // }
             // routers.push(res.route)
         } else if (route) {
+
             router.push(route + res.route)
         } else {
-            router.push('/' + res.route)
+            // let route = res.route.split('/')
+            if(newsletter){
+                const route1 = window.location.origin + ('/' + res.route.split('/')[0] + '/' + parent.day + '/' + res.route.split('/')[1]) // Replace with your route
+                window.open(route1, '_blank');
+            }else{
+                router.push((parent && parent.day) ? ('/' + res.route.split('/')[0] + '/' + parent.day + '/' + res.route.split('/')[1]) : ('/' + res.route))
+            }
+            // console.log(route, "route")
+            // console.log(router.asPath, "route")
+        
+            // router.push('/' + res.route)
         }
         // : route ? route + res.route : '/' + res.route
     }
@@ -165,7 +176,8 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                                 <div className={` flex flex-col justify-between p-[10px] `}>
                                     {/* !text-[10px] */}
                                     {(res.primary_text && res.secondary_text && !noPrimaryText) && <p className={`${primary_text_class} flex gap-2 items-center py-[5px]`}><span className={`primary_text leading-normal tracking-wider  line-clamp-1 ${nunito.className}`}>{res.primary_text}</span> {res.secondary_text && <span className="h-[10px] w-[1px] bg-[#6f6f6f]"></span>} <span className={`secondary_text line-clamp-1 ${nunito.className}`}>{res.secondary_text}</span></p>}
-                                    <h4 className={`title  ${title_class ? title_class : 'line-clamp-2'} ${nunito.className}`}>{res.title ? res.title : res.item ? res.item : ''}</h4>
+                                    <h4 className={`title  ${title_class ? title_class : 'line-clamp-2'} ${nunito.className}`}>{res.title ? res.title : res.item ? res.item : res.subject ? res.subject : ''}</h4>
+                                    {/* {res.subject && <h4 className={`title  ${title_class ? title_class : 'line-clamp-2'} ${nunito.className}`}>{res.subject}</h4>} */}
                                     {res.short_description && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title !mt-[6px] `}>{res.short_description}</p>}
                                     {(res.sub_title || res.blog_intro) && <p className={` ${subtitle_class ? subtitle_class : 'line-clamp-2'} sub_title !mt-[6px] `}>{res.sub_title ? res.sub_title : res.blog_intro ? res.blog_intro : ''}</p>}
                                     {(res.hashtags || res.publisher) && <p className={`${hashtags_class} hashtags pt-1 line-clamp-1 ${nunito.className}`}>{res.hashtags ? res.hashtags : res.publisher ? res.publisher : ''}</p>}

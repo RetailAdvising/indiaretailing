@@ -6,27 +6,34 @@ import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import Advertisement from '@/components/Baners/Advertisement';
 import Subscribe from '@/components/Landing/Subscribe';
-import { newsLanding, checkMobile, getAds, stored_customer_info,getAdvertisements } from '@/libs/api';
+import { checkMobile, stored_customer_info, getAdvertisements, check_Image, newsLetterLanding, newsLanding } from '@/libs/api';
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import AlertUi from '@/components/common/AlertUi';
 import SEO from '@/components/common/SEO'
 import { useSelector, useDispatch } from 'react-redux';
+import SectionBox from '@/components/Category/SectionBox';
+import CustomSlider from '@/components/Sliders/CustomSlider';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export default function newsletter({ ads }) {
 
   const [isMobile, setIsMobile] = useState();
   let [data, setData] = useState();
-  let [localValue, setLocalValue] = useState(undefined);
+  // let [localValue, setLocalValue] = useState(undefined);
   let [skeleton, setSkeleton] = useState(true);
   const user = useSelector(s => s.user);
-
+  const router = useRouter()
 
   useEffect(() => {
-    setSkeleton(true);
-    newsLanding_info();
+    // setSkeleton(true);
+    if (typeof window != 'undefined') {
+      newsLanding_info();
+      getNewsLetters()
+    }
     checkIsMobile();
-    let localValue = stored_customer_info()
-    setLocalValue(localValue);
+    // let localValue = stored_customer_info()
+    // setLocalValue(localValue);
     window.addEventListener('resize', checkIsMobile)
     return () => {
       window.removeEventListener('resize', checkIsMobile);
@@ -42,34 +49,84 @@ export default function newsletter({ ads }) {
   const [enableModal, setEnableModal] = useState(false)
 
   async function newsLanding_info() {
-    let value = await newsLanding();
+    let value = await newsLetterLanding();
     let news = value.message
     setData(news);
     setSkeleton(false);
   }
 
+  const [news, setNews] = useState()
+  const getNewsLetters = async () => {
+    let param = {
+      fields: ['custom_day', 'name', 'custom_category', 'custom_description', 'custom_image_', 'custom_title', 'route']
+    }
+    let value = await newsLanding(param);
+    let data = value.message;
+    if (data && data.length != 0) {
+      setNews(data);
+    }
+  }
+
+  // function hide(obj) {
+  //   if (obj.status == 'Success') {
+  //     setAlertMsg({ message: 'You have successfully subscribed to our newsletter' });
+  //     setEnableModal(true);
+  //   }
+  // }
+
+  async function closeModal(value) {
+    setEnableModal(false);
+  }
+
+  const [showAlert, setShowAlert] = useState(false);
+
+  async function showPopup(obj, index) {
+    // console.log(data);
+
+    let get_check = data.filter(res => { return res.selected == 1 })
+
+    if (get_check.length == data.length) {
+      setAlertMsg({ message: 'Already you have subscribed all the Newsletters' });
+      setEnableModal(true);
+    } else {
+      data.map((res, i) => {
+        if (i == index) {
+          res.selected = 1;
+        } else {
+          res.selected = 0;
+        }
+      })
+      // setNews(obj);
+      setShowAlert(true);
+      show();
+    }
+
+
+  }
+
+  const [visible, setVisible] = useState(false)
+
+  function show() {
+    setVisible(true);
+  }
+
   function hide(obj) {
+    setVisible(false);
     if (obj.status == 'Success') {
       setAlertMsg({ message: 'You have successfully subscribed to our newsletter' });
       setEnableModal(true);
     }
   }
 
-  async function closeModal(value) {
-    setEnableModal(false);
-  }
-
-
-
   return (
     <>
 
       {enableModal && <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
-
+      {visible && <SubscribeNews data={news} visible={visible} hide={(obj) => hide(obj)} />}
       <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'} adIdH={'news-head'} adIdF={'news-foot'}>
         {/* {!skeleton && localValue && !localValue['cust_name'] &&  */}
-
-        {skeleton ? <SkeletonLoader /> :
+        <SEO title={'Newsletters'} siteName={'India Retailing'} description={'Newsletters'} />
+        {/* {skeleton ? <SkeletonLoader /> :
           <div className='lg:min-h-[250px]'>
             <SEO title={'Newsletters'} siteName={'India Retailing'} description={'Newsletters'} />
             {(data) && <div className='container p-[30px_0px] md:p-[15px] '>
@@ -93,7 +150,39 @@ export default function newsletter({ ads }) {
 
             </div>}
           </div>
-        }
+        } */}
+
+
+        <div className={`md:p-[15px_10px]  ${isMobile ? '' : 'container p-[30px_0px]'}`}>
+          {/* <div className='container  md:p-[15px] '> */}
+          <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
+          {/* <Title data={{ title: 'Categories' }} font={'20px'} className='md:hidden' title_class='md:hidden' /> */}
+          {(data && data.length != 0) ? data.map((res, index) => {
+            return (
+              <div key={index} className={`block md:mb-[10px] p-[15px] lg:mr-[15px] ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} border rounded-[5px] `}>
+                {/* lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)] */}
+                <div className={`flex items-center justify-between lg:px-[20px]`} >
+                  <h6 className={`lg:text-[20px] md:text-[15px] text-center line-clamp-[2] font-[700] cursor-pointer`} >{res.day}</h6>
+
+                  <div className='flex-[0_0_auto] flex gap-[15px] items-center'>
+                    {!res.is_subscribed ? <>
+                      <button style={{ borderRadius: '5px' }} onClick={() => showPopup(res, index)} className='primary_btn md:hidden my-3 text-[14px] block h-[35px] w-[100px]'>Subscribe</button>
+                    </> : <></>}
+
+                    <p className='flex gap-[5px] md:justify-center items-center cursor-pointer ' onClick={() => router.push(`/newsletters/${res.day}`)}><span className='text-gray font-medium	 md:text-[12px]'>View All</span><Image className='img md:h-[14px] md:w-[14px]' src={'/categories/arrowright.svg'} alt='arrow' height={16} width={16} /></p>
+                  </div>
+                </div>
+                {/* lg:w-[calc(80%_-_10px)]  md:p-[10px] */}
+                <div className='lg:w-[97%] lg:m-[auto] py-[15px]'>
+                  <CustomSlider newsletter={true} parent={res} data={res.data} cardClass={'lg:h-[280px]  md:h-[235px]  flex-[0_0_calc(20%_-_16px)] bg-white md:flex-[0_0_calc(65%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
+                    slider_id={"slider_id" + index} slider_child_id={"slider_child_id" + index} subtitle_class={'hidden'} hashtags_class={'hidden'} primary_text_class={''} />
+                </div>
+              </div>
+            )
+          }) : <></>}
+
+        </div>
+
         {/* }
        {!skeleton && localValue && localValue['cust_name'] && 
          <SubscribeNews cssClass={'lg:w-[50%] lg:m-[0_auto] md:pb-[15px]'} data={data} no_modal={true} hide={(obj)=> hide(obj)}/>
@@ -115,6 +204,9 @@ export async function getStaticProps() {
 
   // let value = await newsLanding(param);
 
+
+  // let value = await newsLetterLanding();
+  // let data = value.message
 
 
   let ads_param = { page: 'Newsletters', page_type: 'Landing' }
