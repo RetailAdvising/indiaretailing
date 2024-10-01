@@ -2483,7 +2483,8 @@ span {
 .wrapper {
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: 45% 55%;
+  grid-template-columns: 55% 45%;
+  // grid-template-columns: 45% 55%;
   grid-template-areas:
     "sidebar_1 right_1 "
     "sidebar_1 right_2 ";
@@ -3277,4 +3278,11 @@ ins.adsbygoogle[data-ad-status="unfilled"] .default_ban_img {
     line-height: 20px;
     word-break: break-word;
   }
+}
+
+.active_tab{
+  background: $primary-color;
+  height: 3px;
+  width: 100%;
+  border-radius: 10px 10px 0 0;
 }

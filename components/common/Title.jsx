@@ -38,7 +38,7 @@ export default function Title({ data, textClass, seeMore, font, noPadding, isVid
         <div className={`title_div ${noPadding ? '' : 'pb-3'} flex justify-between ${title_class ? title_class : ''}`}>
           <div className='cursor-pointer'>
             <h6 style={{ fontSize: font }} className={`title text-[18px] ${textClass} ${inter.className}`}>{data.title ? data.title : data.category_name ? data.category_name : ''}</h6>
-            <div className='line mt-1'></div>
+            {data.title && <div className='line mt-1'></div>}
           </div>
           {
             seeMore &&

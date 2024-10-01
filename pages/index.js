@@ -535,9 +535,15 @@ export default function Home({ data }) {
                               // <div className={`pr-[30px] none research`}><MultiCarousel isHome={'/categories/'} none={true} check={true} cardHeight={'h-[310px]'} perView={2} noPlay={true} data={data.data[c.cid].data} card_width={"285px !important"} height={"h-[185px]"} width={'w-full'} type={'card'} /></div>
                             }
                           </>}
+
+                          {(ads && c.component_title == "Research Ad" && c.cid && data.data[c.cid]) &&
+                            <>
+                              <Advertisement data={ads.research_ad ? ads.research_ad : null} position={'high'} adId={'research_ad'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
+                            </>}
+
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Video Wall") && <>
-                            <Title data={{ title: c.component_title }} textClass={'text-white'} see={'text-white'} route={'/video'} seeMore={true} />
-                            <><IrVideoWall data={data.data[c.cid].data} isHome={'/video/'} imgClass={'h-[460px] w-full md:h-[200px]'} /></>
+                            {/* <Title data={{ title: c.component_title }} textClass={'text-white'} see={'text-white'} route={'/video'} seeMore={true} /> */}
+                            <><IrVideoWall data={data.data[c.cid].data} c={c} isHome={'/video/'} isMobile={isMobile} imgClass={'h-[460px] w-full md:h-[200px]'} /></>
                           </>}
                           {/* {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Retail with Rasul Bailay") && <>
                             <Title data={{ title: c.component_title }} textClass={'text-white'} />

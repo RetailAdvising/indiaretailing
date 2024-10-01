@@ -91,13 +91,14 @@ export default function VideoSlide({ data, cardClass, imgClass, slider_id, slide
 
     return (
         <>
-            {<div className='relative' id={slider_id}>
+            {<div className='relative lg:grid lg:h-full lg:items-center' id={slider_id}>
                 <div className={`${hide_scroll_button && 'hidden'} absolute top-[40%] left-[-15px] h-[35px] w-[35px] z-10  text-black  rounded-full flex items-center justify-center  cursor-pointer md:hidden`}
                     onClick={() => sctollTo('prev')} id={'prev_' + slider_id}>
                     <Image alt="Prev" src={'/video/black_left.svg'} width={35} height={35} ></Image>
                 </div>
+                {/* md:w-[calc(100vw_-_41px)] */}
                 <div id={slider_child_id} ref={containerRef}
-                    className=' overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px] md:w-[calc(100vw_-_41px)]'
+                    className=' overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px] md:w-[calc(100vw_-_60px)]'
                 >
                     {data && data.map((res, index) => {
                         return (
