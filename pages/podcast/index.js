@@ -5,15 +5,17 @@ import Sliders from '@/components/Sliders/index'
 import HomePodcast from '@/components/Podcast/HomePodcast'
 import { podcastLanding, getAdvertisements, sliders, checkMobile } from '@/libs/api'
 import SEO from '@/components/common/SEO'
+import Advertisement from '@/components/Baners/Advertisement'
 
 export default function Podcast({ data, ads_data, slider_data }) {
     const [isMobile, setIsMobile] = useState();
-    const [values,setValues] = useState([])
+    const [values, setValues] = useState([])
+    // console.log(data, "data")
     useEffect(() => {
-        if(data && data.length != 0){
-            setTimeout(()=>{
+        if (data && data.length != 0) {
+            setTimeout(() => {
                 setValues(data)
-            },200)
+            }, 200)
         }
         checkIsMobile();
         window.addEventListener('resize', checkIsMobile)
@@ -40,7 +42,13 @@ export default function Podcast({ data, ads_data, slider_data }) {
                 </div>
                 {(values && values.length != 0) ? values.map((res, index) => {
                     return (
-                        <HomePodcast key={index} isLanding={true} i={index} data={res} />
+                        <>
+                            <HomePodcast key={index} isLanding={true} i={index} data={res} />
+                            {(ads_data && res.category_name == "Women At Work") &&
+                                <div className='py-[20px]'>
+                                    <Advertisement data={ads_data.top_first ? ads_data.top_first : null} adId={'podcast_top_first'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
+                                </div>}
+                        </>
                     )
                 }) : <Skeleton />}
             </RootLayout>

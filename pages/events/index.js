@@ -3,11 +3,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import Title from '@/components/common/Title'
 import Sliders from '@/components/Sliders/index'
 import EventCards from '@/components/Events/EventCards'
-import { getCategoryList, sliders, getAds, checkMobile,getAdvertisements } from '@/libs/api'
+import { getCategoryList, sliders, getAds, checkMobile, getAdvertisements } from '@/libs/api'
 import SEO from '@/components/common/SEO'
+import Advertisement from '@/components/Baners/Advertisement'
 
 export default function Events({ data, slider_data, ads_data }) {
-    // console.log(ads_data)  
+    // console.log(ads_data,"ads_data")
+    // console.log(data,"data")
     const [pageData, setPageData] = useState([])
     const [isMobile, setIsMobile] = useState();
 
@@ -23,7 +25,7 @@ export default function Events({ data, slider_data, ads_data }) {
         // })
         if (data) {
             setTimeout(() => {
-            setPageData(data)
+                setPageData(data)
             }, 200);
         }
 
@@ -87,6 +89,10 @@ export default function Events({ data, slider_data, ads_data }) {
                                 {resp.events && resp.events.length != 0 && <div><Title data={resp} seeMore={true} /></div>}
                                 {/* flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_0px)]'} */}
                                 <div className={`lg:grid lg:grid-cols-4 eventCards md:flex  md:gap-[15px] md:overflow-auto justify-between lg:gap-[20px]`}><EventCards data={resp.events.slice(0, 4)} flex={'md:flex-[0_0_calc(70%_-_10px)]'} height={'h-[210px] md:h-[150px]'} width={'w-full'} /></div>
+                                {(ads_data && resp.name == "Conferences & Summits" ) &&
+                                    <div className='py-[20px]'>
+                                        <Advertisement data={ads_data.top_first ? ads_data.top_first : null} adId={'top_first'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
+                                    </div>}
                             </div>
                         )
                     }) : <Skeleton />}

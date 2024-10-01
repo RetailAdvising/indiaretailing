@@ -18,7 +18,7 @@ export default function Video({ data, flex, imgClass,big, isBg, isHome = undefin
         <>
             {data.map((res, index) => {
                 return (
-                    <Link key={index} className={`${flex} ${isHome && big ? 'lg:grid lg:h-full' : ''}`} href={isHome ? isHome + res.route : '/' + router.asPath.split('/')[1] + '/' + res.route}>
+                    <Link key={index} className={`${flex} ${isHome && big ? 'lg:grid lg:h-[350px]' : ''}`} href={isHome ? isHome + res.route : '/' + router.asPath.split('/')[1] + '/' + res.route}>
                         {/* onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} */}
                         <div className={` ${big ? 'relative' : ''} ${vh ? vh : ''} ${isHome ? 'lg:mb-[20px] ' : isList ? 'h-full' : 'h-[235px]'} cursor-pointer relative`}>
                             <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.video_image)} className={`rounded-[5px] ${imgClass ? imgClass : 'h-[175px] w-full'}`} height={150} width={273} alt={res.title} />

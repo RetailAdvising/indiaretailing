@@ -22,12 +22,18 @@ export default function newsletter({ ads }) {
   let [data, setData] = useState();
   // let [localValue, setLocalValue] = useState(undefined);
   let [skeleton, setSkeleton] = useState(true);
+  let [isLoggedIn, setIsLoggedIn] = useState(false);
   const user = useSelector(s => s.user);
   const router = useRouter()
 
   useEffect(() => {
     // setSkeleton(true);
     if (typeof window != 'undefined') {
+      if(localStorage['apikey']){
+        setIsLoggedIn(true)
+      }else{
+        setIsLoggedIn(false)
+      }
       newsLanding_info();
       getNewsLetters()
     }
@@ -126,34 +132,38 @@ export default function newsletter({ ads }) {
       <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'} adIdH={'news-head'} adIdF={'news-foot'}>
         {/* {!skeleton && localValue && !localValue['cust_name'] &&  */}
         <SEO title={'Newsletters'} siteName={'India Retailing'} description={'Newsletters'} />
-        {/* {skeleton ? <SkeletonLoader /> :
-          <div className='lg:min-h-[250px]'>
-            <SEO title={'Newsletters'} siteName={'India Retailing'} description={'Newsletters'} />
-            {(data) && <div className='container p-[30px_0px] md:p-[15px] '>
-              <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
-              <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
-                <div className={`flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(100%_-_0px)] ${isMobile ? '' : 'border p-[20px] rounded-[5px]'} `}>
-                  <NewsList data={data} />
+
+        {!isLoggedIn && <>
+          {skeleton ? <SkeletonLoader /> :
+            <div className='lg:min-h-[250px]'>
+              <SEO title={'Newsletters'} siteName={'India Retailing'} description={'Newsletters'} />
+              {(news) && <div className='container p-[30px_0px] md:p-[15px] '>
+                <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
+                <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
+                  <div className={`flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(100%_-_0px)] ${isMobile ? '' : 'border p-[20px] rounded-[5px]'} `}>
+                    <NewsList data={news} />
+                  </div>
+
+                  {!isMobile &&
+                    <div className='flex-[0_0_calc(30%_-_15px)] md:mt-[15px] md:flex-[0_0_calc(100%_-_0px)]'>
+                      <div className='pb-[20px]'>
+                        <Advertisement adId={'right_first'} divClass={'h-[250px] w-[300px] m-auto'} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} data={(ads.right_first && Object.keys(ads.right_first).length != 0) && ads.right_first} />
+                      </div>
+                      <Subscribe />
+                    </div>
+                  }
+
                 </div>
 
-                {!isMobile &&
-                  <div className='flex-[0_0_calc(30%_-_15px)] md:mt-[15px] md:flex-[0_0_calc(100%_-_0px)]'>
-                    <div className='pb-[20px]'>
-                      <Advertisement adId={'right_first'} divClass={'h-[250px] w-[300px] m-auto'} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} data={(ads.right_first && Object.keys(ads.right_first).length != 0) && ads.right_first} />
-                    </div>
-                    <Subscribe />
-                  </div>
-                }
 
-              </div>
+              </div>}
+            </div>
+          }
+        </>}
 
 
-            </div>}
-          </div>
-        } */}
 
-
-        <div className={`md:p-[15px_10px]  ${isMobile ? '' : 'container p-[30px_0px]'}`}>
+        {isLoggedIn && <div className={`md:p-[15px_10px]  ${isMobile ? '' : 'container p-[30px_0px]'}`}>
           {/* <div className='container  md:p-[15px] '> */}
           <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
           {/* <Title data={{ title: 'Categories' }} font={'20px'} className='md:hidden' title_class='md:hidden' /> */}
@@ -181,7 +191,7 @@ export default function newsletter({ ads }) {
             )
           }) : <></>}
 
-        </div>
+        </div>}
 
         {/* }
        {!skeleton && localValue && localValue['cust_name'] && 
