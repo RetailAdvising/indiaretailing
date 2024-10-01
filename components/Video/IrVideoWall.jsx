@@ -108,7 +108,7 @@ export default function IrVideoWall({ data, c, isMobile }) {
                 {categoryItems.length > 7 && <div className='right_2 rounded-[5px] p-[15px] md:my-[10px]' style={{ background: 'rgba(53, 53, 53, 1)' }}>
                     <VideoSlide slider_child_id={'slide_1' + '1112'} slider_id={'slide_parent_1' + '1112'} data={categoryItems.slice(6, categoryItems.length - 1)} title_class={'text-white line-clamp-2'} isHome={'/video/'} cardClass={'flex-[0_0_calc(40%_-_15px)] md:flex-[0_0_calc(70%_-_15px)]'} imgClass={'h-[160px] md:h-[135px] w-full'} />
                 </div>}
-
+ 
                 {/* {categoryItems.map((res, i) => {
                     return (
                         <div key={i} className={`${i == 0 ? 'sidebar_1' : i == 1 ? 'right_1 md:overflow-hidden' : 'right_2 md:overflow-hidden'} rounded-[5px] p-[15px] md:my-[10px]`} style={{ background: 'rgba(53, 53, 53, 1)' }}>
