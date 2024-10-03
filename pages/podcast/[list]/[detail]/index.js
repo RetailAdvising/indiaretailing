@@ -90,7 +90,7 @@ export default function PodcastDetail({ data, ads_data }) {
                         {/* <Placeholders placeholder={videoDetail.place_holders_ads}  /> */}
                         {
                             <div className="flex w-full justify-between gap-[15px]">
-                                <div className="flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_100%] md:w-full lg:pr-[10px] md:my-[10px]">
+                                <div className="flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_100%] md:w-full lg:pr-[10px] my-[10px]">
                                     <div className="w-full mb-5">
                                         <AudioPlayer data={data.message} />
                                     </div>
@@ -110,9 +110,11 @@ export default function PodcastDetail({ data, ads_data }) {
                                                 <List isHome={'/podcast/'} isDesc={true} imgFlex={`flex-[0_0_calc(40%_-_10px)]`} imgHeight={`h-[90px]`} borderRadius={'rounded-[5px]'} titleClamp={'line-clamp-2'} imgWidth={`w-full`} data={data.other_category.data} check={true} />
                                             </div>
                                     }
-                                    <Advertisement adId={'right_first'} data={(ads_data && ads_data.right_first) && ads_data.right_first} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
-                                    <div className='lg:py-[10px]'>
-                                    <Advertisement adId={'right_second'} data={(ads_data && ads_data.right_second) && ads_data.right_second} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                                    <div className='mb-[15px]'>
+                                        <Advertisement adId={'right_first'} data={(ads_data && ads_data.right_first) && ads_data.right_first} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                                        {(ads_data && ads_data.right_second) && <div className='lg:py-[10px]'>
+                                            <Advertisement adId={'right_second'} data={(ads_data && ads_data.right_second) && ads_data.right_second} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                                        </div>}
                                     </div>
                                 </div>
                             </div>

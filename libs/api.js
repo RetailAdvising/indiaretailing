@@ -246,10 +246,84 @@ export async function postMethod(api, payload) {
     // myHead.append('Content-Type', 'application/json');
     const response = await fetch(methodUrl + api,
         // cache: 'force-cache'
-        { method: 'POST', headers: myHead, body: JSON.stringify(payload), })
-    const data = await response.json();
+        { method: 'POST', headers: myHead, body: JSON.stringify(payload), }).catch(error => {
+            // console.error("Fetch failed:", error);
+            console.error("Fetch error object:", error);
+
+            // Check if it's a TypeError, which often happens with network issues
+            if (error instanceof TypeError) {
+                console.log("Network error or CORS issue:", error.message);
+            } else {
+                // For other types of errors, log more details
+                console.log("Unexpected error:", error.name, error.message);
+            }
+        });
+    console.error("Unauthorized: ", response);
+
+    if (response && response.status === 401) {
+        console.error("Unauthorized: ", response);
+        localStorage.clear();
+    }
+    const data = await response?.json();
     return data;
 }
+// export async function postMethod(api, payload) {
+//     let apikey;
+//     let secret;
+
+//     if (typeof window !== 'undefined') {
+//         // Retrieve apikey and secret from localStorage
+//         apikey = localStorage.getItem('apikey');
+//         secret = localStorage.getItem('secret');
+//     }
+
+//     // Build headers dynamically based on available apikey/secret
+//     let myHead = new Headers(apikey && secret 
+//         ? { "Authorization": `token ${apikey}:${secret}`, "Content-Type": "application/json" } 
+//         : { "Content-Type": "application/json" }
+//     );
+
+//     let response;
+
+//     try {
+//         // Attempt the request
+//         response = await fetch(methodUrl + api, {
+//             method: 'POST',
+//             headers: myHead,
+//             body: JSON.stringify(payload)
+//         });
+
+//         // Check for 401 Unauthorized status
+//         if (response.status === 401) {
+//             console.error("Unauthorized access. Clearing local storage.");
+
+//             // Clear localStorage
+//             localStorage.removeItem('apikey');
+//             localStorage.removeItem('secret');
+
+//             // Optionally, return an error message or re-prompt login
+//             return { error: "Unauthorized: API key or secret may be invalid." };
+//         }
+
+//         // If the response is not okay, log an error
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+
+//         // Parse the JSON response
+//         const data = await response.json();
+//         return data;
+
+//     } catch (error) {
+//         // Handle fetch errors (network errors, CORS issues, etc.)
+//         console.error("Fetch failed:", error);
+//         console.log("Fetch failed:", error);
+
+//         return null;
+//         // return { error: "Failed to fetch data. Please check your network or server." };
+//     }
+// }
+
 
 export async function GET(api) {
     let apikey;
