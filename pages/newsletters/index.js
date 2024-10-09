@@ -29,9 +29,9 @@ export default function newsletter({ ads }) {
   useEffect(() => {
     // setSkeleton(true);
     if (typeof window != 'undefined') {
-      if(localStorage['apikey']){
+      if (localStorage['apikey']) {
         setIsLoggedIn(true)
-      }else{
+      } else {
         setIsLoggedIn(false)
       }
       newsLanding_info();
@@ -172,7 +172,10 @@ export default function newsletter({ ads }) {
               <div key={index} className={`block md:mb-[10px] p-[15px] lg:mr-[15px] ${index == 0 ? 'lg:mb-[40px]' : 'lg:my-[35px]'} border rounded-[5px] `}>
                 {/* lg:w-[calc(20%_-_10px)] md:w-[calc(100%_-_0px)] */}
                 <div className={`flex items-center justify-between lg:px-[20px]`} >
-                  <h6 className={`lg:text-[20px] md:text-[15px] text-center line-clamp-[2] font-[700] cursor-pointer`} >{res.day}</h6>
+                  <div className='w-full'>
+                    <h6 className={`lg:text-[20px] md:text-[15px] text-center line-clamp-[2] pb-[5px] font-[700] cursor-pointer`} >{res.category}</h6>
+                    <p className={`sub_title line-clamp-[4] mb-[5px] cursor-pointer text-center w-[60%] m-[auto]`}>{res.description}</p>
+                  </div>
 
                   <div className='flex-[0_0_auto] flex gap-[15px] items-center'>
                     {!res.is_subscribed ? <>

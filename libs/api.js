@@ -863,3 +863,19 @@ export const checkMember = (data) => {
 //     const data = await response.json();
 //     return data
 // }
+
+export const parseISO8601Duration = (duration) => {
+    let match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    let hours = parseInt(match[1]) || 0;
+    let minutes = parseInt(match[2]) || 0;
+    let seconds = parseInt(match[3]) || 0;
+
+    // If minutes exceed 60, convert them to hours
+    if (minutes >= 60) {
+        hours += Math.floor(minutes / 60);
+        minutes = minutes % 60; // Remaining minutes after converting to hours
+    }
+
+    // Convert to a readable format: HH:MM:SS
+    return `${hours ? hours + ':' : ''}${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};

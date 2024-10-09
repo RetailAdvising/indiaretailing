@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
-import { check_Image } from '../../libs/api'
+import { check_Image, parseISO8601Duration } from '../../libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import ImageLoader from '../ImageLoader';
@@ -92,7 +92,7 @@ export default function VideoSlide({ data, cardClass, imgClass, slider_id, slide
     return (
         <>
             {<div className='relative lg:grid lg:h-full lg:items-center' id={slider_id}>
-                <div className={`${hide_scroll_button && 'hidden'} absolute top-[40%] left-[-15px] h-[35px] w-[35px] z-10  text-black  rounded-full flex items-center justify-center  cursor-pointer md:hidden`}
+                <div className={`${hide_scroll_button && 'hidden'} absolute top-[25%] left-[-15px] h-[35px] w-[35px] z-10  text-black  rounded-full flex items-center justify-center  cursor-pointer md:hidden`}
                     onClick={() => sctollTo('prev')} id={'prev_' + slider_id}>
                     <Image alt="Prev" src={'/video/black_left.svg'} width={35} height={35} ></Image>
                 </div>
@@ -102,23 +102,26 @@ export default function VideoSlide({ data, cardClass, imgClass, slider_id, slide
                 >
                     {data && data.map((res, index) => {
                         return (
-                            <div key={index} className={`${cardClass} item cursor-pointer rounded-[10px] overfow-hidden`} onClick={()=> router.push('/video/'+ res.route)} >
+                            <div key={index} className={`${cardClass} item cursor-pointer rounded-[10px] overfow-hidden`} onClick={() => router.push('/video/' + res.route)} >
                                 <div className={`relative`} >
                                     {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className={`${imgClass} rounded-[10px_10px_0_0]`} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.thumbnail_imagee ? res.thumbnail_imagee : res.thumbnail_path ? res.thumbnail_path : res.image_path ? res.image_path : res.video_image ? res.video_image : res.product_image ? res.product_image : res.image)} height={200} width={300} alt={index + 'image'} /> */}
                                     {/* <ImageLoader style={`${imgClass} rounded-[10px_10px_0_0]`} src={res.video_image ? res.video_image : null} title={index + 'image'} /> */}
                                     <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.video_image)} className={`rounded-[5px] ${imgClass ? imgClass : 'h-[175px] w-full'}`} height={150} width={273} alt={res.title} />
-                                    <Image src={'/irprime/youtube.svg'} className={`absolute bottom-[20px] left-[5px] object-contain h-[20px] w-[30px]`} height={100} width={100} alt={res.title} />
+                                    {/* <Image src={'/irprime/youtube.svg'} className={`absolute bottom-[20px] left-[5px] object-contain h-[20px] w-[30px]`} height={100} width={100} alt={res.title} /> */}
+                                    <div className={`absolute  bg-[#d50000] bottom-0 left-0 flex items-center gap-[7px] p-[3px_5px] rounded-[5px]`}>
+                                        <Image src={'/irprime/youtube.svg'} className={`object-contain h-[12px] w-[12px]`} height={100} width={100} alt={res.title} />
+                                        <p className='text-white text-[11px] font-[500]'>{parseISO8601Duration(res.duration ? res.duration : 'PT71M34S')}</p>
+                                    </div>
 
-                                
                                 </div>
                                 <div className={` flex flex-col justify-between p-[10px] `}>
-                                    <h4 className={`title  ${title_class ? title_class : 'line-clamp-2'} ${nunito.className}`}>{res.title ? res.title : ''}</h4>
+                                    <h4 className={`title !font-[500] ${title_class ? title_class : 'line-clamp-2'} ${nunito.className}`}>{res.title ? res.title : ''}</h4>
                                 </div>
                             </div>
                         )
                     })}
                 </div>
-                <div className={`${hide_scroll_button && 'hidden'} absolute top-[40%] right-[-15px] h-[35px] w-[35px] z-10 text-black  rounded-full flex items-center justify-center cursor-pointer md:hidden`}
+                <div className={`${hide_scroll_button && 'hidden'} absolute top-[25%] right-[-15px] h-[35px] w-[35px] z-10 text-black  rounded-full flex items-center justify-center cursor-pointer md:hidden`}
                     onClick={() => sctollTo('next')} id={'next_' + slider_id}>
                     <Image alt="forward" src={'/video/black_right.svg'} width={35} height={35}></Image>
                 </div>

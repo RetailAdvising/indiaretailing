@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 const ScrollToTopButton = () => {
@@ -29,6 +30,7 @@ const ScrollToTopButton = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
+          className='flex items-center justify-center'
           style={{
             position: 'fixed',
             bottom: '50px',
@@ -36,12 +38,14 @@ const ScrollToTopButton = () => {
             backgroundColor: '#000',
             color: '#fff',
             border: 'none',
-            padding: '10px 20px',
-            borderRadius: '5px',
-            cursor: 'pointer'
+            borderRadius: '50%',
+            cursor: 'pointer',
+            height: '45px',
+            width: '45px'
           }}
         >
-          Scroll to Top
+          <Image src={'/scroll_top.svg'} className='h-[20px] w-[20px]' height={20} width={20} alt='Scroll to Top'></Image>
+
         </button>
       )}
     </>
