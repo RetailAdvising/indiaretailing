@@ -22,7 +22,7 @@ const nunito = Nunito({
     variable: '--font-inter',
 })
 export default function IrVideoWall({ data, c, isMobile }) {
-    console.log(data, 'data')
+    // console.log(data, 'data')
     const router = useRouter()
     const [activeTab, setActiveTab] = useState()
     const [categoryItems, setCategoryItems] = useState([])

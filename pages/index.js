@@ -1,5 +1,5 @@
 import RootLayout from '@/layouts/RootLayout'
-import { HomePage, newsLanding, checkMobile, getList, getPollsList, get_ip, HomePageAds } from '../libs/api';
+import { HomePage, newsLanding, checkMobile, getList, getPollsList, get_ip, HomePageAds, check_Image } from '../libs/api';
 import { useEffect, useState, useRef, useMemo } from 'react';
 import SEO from '@/components/common/SEO'
 import dynamic from 'next/dynamic'
@@ -10,6 +10,10 @@ import LatestNews from '@/components/Landing/LatestNews'
 // import AdsBaner from '@/components/Baners/AdsBaner'
 import IRPrime from '@/components/Landing/IRPrime'
 import Subscribe from '@/components/Landing/Subscribe'
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import ImageLoader from '@/components/ImageLoader';
+import { Nunito } from 'next/font/google';
 
 
 const List = dynamic(() => import('@/components/common/List'))
@@ -31,8 +35,16 @@ const Advertisement = dynamic(() => import('@/components/Baners/Advertisement'))
 // import { useSession } from 'next-auth/react'
 // import Advertisement from '@/components/Baners/Advertisement';
 
+const nunito = Nunito({
+  weight: ["300", "400", "500", "600", "700"],
+  display: "block",
+  preload: true,
+  style: 'normal',
+  subsets: ["latin"],
+  variable: '--font-inter',
+}) 
 export default function Home({ data }) {
-  // console.log(data,"data");
+  // console.log(data, "data");
   // console.log(ads,"ads");
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
@@ -41,7 +53,7 @@ export default function Home({ data }) {
   const [ads, setAds] = useState()
   let [pageNo, setPageNo] = useState(1)
   let [noProduct, setNoProduct] = useState(false)
-
+  const router = useRouter()
 
   function get_customer_info() {
     let users = {}
@@ -287,14 +299,14 @@ export default function Home({ data }) {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
             // Video section => bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll
-            <div key={i} className={`py-[20px] ${data.section == 'PS-23-00094' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00157' || data.section == 'Infocus' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00166' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px]  no_scroll ' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : 'container'}  md:p-[15px]  md:py-[10px] lg:flex gap-5`}>
+            <div key={i} className={`py-[20px] ${data.section == 'PS-23-00094' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00157' || data.section == 'Infocus' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00166' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px]  no_scroll ' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : data.section == 'PS-24-00623' ? 'bg-[#F0F0F0]' : 'container'}  md:p-[15px]  md:py-[10px] lg:flex gap-5`}>
               {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                 return (
                   // || i == 5
-                  <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-23-00094') ? 'md:mb-[20px]' : 'container'}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} ${data.section == 'PS-23-00166' ? 'container' : ''}`}>
+                  <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-23-00094') ? 'md:mb-[20px]' : 'container'}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} ${data.section == 'PS-23-00166' ? 'container' : ''} ${data.section == 'PS-24-00623' && !isMobile ? 'container' : ''}`}>
                     {(res.components && res.components.length != 0) && res.components.map((c, c_index) => {
                       return (
-                        <div key={c.component_title} className={`${c.component_title == "Top 4 Stories" ? 'top3  lg:justify-center md:gap-5' : ''}`}>
+                        <div key={c.component_title} className={`${c.component_title == "Top 4 Stories" ? 'top3  lg:justify-center md:gap-5' : c.component_title == "Featured Content" ? 'md:mb-[20px] pt-[20px]' : ''}`}>
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Top 4 Stories") && <TopStories data={data.data[c.cid].data.slice(0, 4)} />}
                           {(c.component_title == "In Focus" && c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_data_type == 'Location') && <>
                             {/* <div className={``}> */}
@@ -335,6 +347,50 @@ export default function Home({ data }) {
                             </div>
                             <div className={` flex border-t border-[#d4d8d8] pt-[10px] mt-[10px] md:hidden`}><BulletList isBorder={true} data={data.data[c.cid].data.slice(6, 10)} /></div>
                             <div className={`lg:flex no_scroll lg:my-[15px] md:my-[10px] gap-[10px] lg:flex-wrap lg:justify-between`}><Cards noPrimaryText={true} titleOnly={true} contentHeight={'pt-[10px]'} isHome={'/'} data={data.data[c.cid].data.slice(10, 15)} check={true} height={'h-[125px] w-full'} border_none={true} flex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'} /></div>
+                          </>}
+
+                          {(c.cid && data.data[c.cid] && (data.data[c.cid]['banner-list'] && data.data[c.cid]['banner-list'].length > 0) && c.component_title == "Web Special New") && <>
+                            <Title data={{ title: c.component_title }} />
+                            <div className={`flex items-center gap-[20px] md:overflow-auto lg:flex-wrap ${isMobile ? 'scrollbar-hide' : ''} md:gap-[15px] lg:justify-center`}>
+                              {data.data[c.cid]['banner-list'].map((resp, index) => {
+                                return (
+                                  <div className={`flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)] cursor-pointer`} onClick={() => router.push(resp.url)} key={resp.url}>
+                                    <Image src={check_Image(resp['banner-image'])} className='h-[250px] md:h-[150px] w-full rounded-[10px]' height={100} width={100} alt={resp.url}></Image>
+                                  </div>
+                                )
+                              })}
+                            </div>
+
+                          </>}
+
+                          {(c.cid && data.data[c.cid] && (data.data[c.cid]['card-list'] && data.data[c.cid]['card-list'].length > 0) && c.component_title == "Featured Content") && <>
+                            <Title data={{ title: data.data[c.cid].title }} isIcon={true} see={`uppercase !font-semibold !text-[#e21b22]`} seeMore={true} />
+                            <div className={`flex items-center gap-[20px] md:overflow-auto lg:flex-wrap scrollbar-hide md:gap-[15px]`}>
+                              {data.data[c.cid]['card-list'].map((resp, index) => {
+                                return (
+                                  <div className={`flex-[0_0_calc(50%_-_15px)] md:flex-[0_0_calc(100%_-_10px)] gap-[15px] cursor-pointer flex items-center bg-white rounded-[10px] p-[10px] relative cursor-pointer`} onClick={() => router.push(resp.url)} key={resp.url}>
+                                    <div className='lg:flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'>
+                                      {/* <Image src={check_Image(resp['image'])} className='h-[250px] md:h-[150px] w-full rounded-[10px]' height={100} width={100} alt={resp.url}></Image> */}
+                                      <ImageLoader style={`rounded-[5px] h-[106px] md:h-[80px] w-full`} src={resp.image} title={resp.heading} />
+                                    </div>
+
+                                    <div className='absolute top-0 right-0 bg-[#E21B22] rounded-[0_10px_0_10px] min-w-[70px] text-center p-[3px_10px]'>
+                                      <p className={`text-white text-[11px] `}>{resp.tag}</p>
+                                    </div>
+
+                                    <div className='lg:flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'>
+                                      <h6 className={`line-clamp-2 title ${nunito.className}`}>{resp.heading}</h6>
+                                      <p className={`line-clamp-2 sub_title lg:py-[5px] `}>{resp.description}</p>
+                                      <div className='flex items-center gap-[5px] py-[5px]'>
+                                        <span className='text-[#999999] text-[12px] md:flex-[0_0_auto]'>Published On : </span>
+                                        <p className={`text-[13px] md:text-[12px] font-[500] ${nunito.className}`}>{resp['published-on']}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )
+                              })}
+                            </div>
+
                           </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Trending" && !isMobile) && <>
@@ -475,7 +531,7 @@ export default function Home({ data }) {
                               <div className={`flex flex-wrap gap-[20px]`}><EventList isRoute={'/events/'} check={false} data={data.data[c.cid].data.slice(1, 7)} height={"h-[160px] rounded-[0px]"} width={"w-full"} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} isHome={true} /></div>
                             </div>}
                           </>}
-                          
+
                           {(c.cid && books && books.length != 0 && c.component_title == "Book Store") && <>
                             <Title data={{ title: c.component_title }} route={'/bookstore'} seeMore={true} />
                             <div className={`lg:grid lg:gap-5 lg:grid-cols-5 no_scroll`}><Card isHome={true} imgClass={'lg:h-[300px] md:h-[225px] mouse'} check={true} flex={'md:flex-[0_0_calc(50%_-_10px)]'} data={books} boxShadow={true} /></div>
