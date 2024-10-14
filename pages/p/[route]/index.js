@@ -137,6 +137,27 @@ const index = ({ data, page_route, ads }) => {
 
                                                     </>}
 
+                                                    {
+                                                        (c.cid && data.data[c.cid] && (data.data[c.cid]['side_menu'] && data.data[c.cid]['side_menu'].length > 0) && c.component_title == "Side Menu") && <>
+                                                            <div>
+                                                                <h6 className='text-[13px] font-semibold uppercase'>{data.data[c.cid]['heading']}</h6>
+
+                                                                <div>
+                                                                    {data.data[c.cid]['side_menu'].map((resp, index) => {
+                                                                        return (
+                                                                            <div key={resp.title}>
+                                                                                {/* ${resp.url == } */}
+                                                                                <h6 className={`text-[14px]  text-[#737373]`}>{resp.title}</h6>
+
+                                                                            </div>
+                                                                        )
+                                                                    })}
+                                                                </div>
+                                                            </div>
+
+                                                        </>
+                                                    }
+
                                                 </div>
                                             )
                                         })}
