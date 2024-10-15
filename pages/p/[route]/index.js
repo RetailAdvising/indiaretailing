@@ -15,7 +15,7 @@ const nunito = Nunito({
     preload: true,
     style: 'normal',
     subsets: ["latin"],
-    variable: '--font-inter',
+    variable: '--font-nunito',
 })
 const index = ({ data, page_route, ads }) => {
     // console.log(data, "data")
