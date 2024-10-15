@@ -11,9 +11,12 @@ import SEO from '@/components/common/SEO'
 
 // import BreadCrumb from '@/components/common/BreadCrumb';
 
-export default function Bookstore({ data, ads_data, slider_data }) {
+export default function Bookstore({ data,slider_data }) {
+  // export default function Bookstore({ data, ads_data, slider_data }) {
   // console.log(data);
   let [isMobile, setIsmobile] = useState();
+  const [ads_data,setAdsData] = useState()
+  // const [slider_data,setSliderData] = useState()
   // let [breadCrumbs, setBreadCrumbs] = useState([
   //   { name: 'Home', route: '/' },
   //   { name: 'Bookstore' },
@@ -23,6 +26,7 @@ export default function Bookstore({ data, ads_data, slider_data }) {
     slider_data.map((res) => {
       res.web_image ? res.image = res.web_image : res.image = ''
     })
+    get_ads()
     checkIsMobile();
     window.addEventListener('resize', checkIsMobile)
     return () => {
@@ -35,6 +39,33 @@ export default function Bookstore({ data, ads_data, slider_data }) {
     setIsmobile(isMobile);
     // console.log('isMobile',isMobile)
   }
+
+  const get_ads = async () => {
+    let ads_params = { page: 'Books', page_type: 'Landing' }
+    const res_ads = await getAdvertisements(ads_params);
+    const ads_data = res_ads.message;
+    if(ads_data){
+      setAdsData(ads_data)
+    }
+  }
+
+  // const get_slides = async () => {
+  //   let slider_params = {
+  //     page: 'Product',
+  //     fields: ['name', 'title', 'web_image', 'mobile_image', 'mobile_app_image']
+  //   }
+  
+  //   const res = await sliders(slider_params)
+  //   const slider_data = res.message
+  //   if(slider_data){
+  //     slider_data.map((res) => {
+  //       res.web_image ? res.image = res.web_image : res.image = ''
+  //     })
+
+  //     setSliderData(slider_data)
+  //   }
+  
+  // }
 
   return (
     <>
@@ -93,53 +124,6 @@ export default function Bookstore({ data, ads_data, slider_data }) {
             </div>
           </div>}
 
-          {/* {(data.section_2) && <div style={{ background: "#fbfbfd" }} className='m-[30px_0]'>
-            <div className='p-[30px] container  md:flex-wrap flex justify-between gap-[15px]'>
-              {data.section_2.col_1.data && <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
-                <Title data={data.section_2.col_1} seeMore={true} />
-            
-                <div className={`grid gap-[35px] grid-cols-4 md:grid-cols-2 justify-between`}><Card imgClass={'h-[270px] w-[181px]'} isLanding={true} data={data.section_2.col_1.data} boxShadow={true} /></div>
-              </div>}
-
-              {val.section_2.col_2 && <div className={` flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
-                <AdsBaner data={data.section_2.col_2} />
-              </div>}
-            </div>
-
-          </div>} */}
-
-          {/* 
-
-          <div key={index} className='p-[30px] container  md:flex-wrap flex justify-between gap-[15px]'>
-                <div className={`${(res.category_name == "Magazines" || res.category_name == "Books & Publications") ? 'flex-[0_0_calc(70%_-_10px)]' : ''} md:flex-[0_0_calc(100%_-_10px)]`}>
-                  <Title data={res} query={true} seeMore={true} />
-                  {res.category_name == "Magazines" && <div className={`grid gap-[35px] grid-cols-4 md:grid-cols-2 justify-between`}><Card imgClass={'h-[270px] w-[181px]'} category={res.category_name} check={true} isLanding={true} data={res.products.slice(0, 8)} boxShadow={true} /></div>}
-                  {res.category_name == "Books & Publications" && <div className={`flex gap-[15px] h-full rounded-[5px] flex-wrap justify-between border p-[10px]`}><List isLanding={true} boxShadow={true} imgWidth={'flex-[0_0_calc(33%_-_10px)]'} height={'h-full'} width={'w-full'} data={res.products.slice(0,4)} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} /></div>}
-                </div>
-                {res.category_name == "Magazines" && <div className={` flex-[0_0_calc(30%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}><AdsBaner data={val.section_2.col_2} /></div>}
-                {res.category_name == "Lifestyle" && <div className={`flex gap-[10px] h-full rounded-[5px] flex-wrap justify-between flex-col border p-[10px]`}><List boxShadow={true} isLanding={true} imgWidth={'flex-[0_0_calc(28%_-_10px)]'} height={'h-full'} width={'w-full'} data={val.section_3.col_2.data} /></div>}
-              </div>
-           */}
-
-          {/* {(val.section_3) && <div className='container p-[30px] md:flex-wrap flex justify-between gap-[15px]'>
-            {val.section_3.col_1.data && <div className={`flex-[0_0_calc(70%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
-              <Title data={val.section_3.col_1} seeMore={true} />
-              <div className={`flex gap-[15px] h-full rounded-[5px] flex-wrap justify-between border p-[10px]`}><List isLanding={true} boxShadow={true} imgWidth={'flex-[0_0_calc(33%_-_10px)]'} height={'h-full'} width={'w-full'} data={val.section_3.col_1.data} flex={'flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]'} /></div>
-            </div>}
-
-            {val.section_3.col_2.data && <div className={`flex-[0_0_calc(30%_-_10px)] md:pt-[40px] md:flex-[0_0_calc(100%_-_10px)]`}>
-              <Title data={val.section_3.col_2} />
-              <div className={`flex gap-[10px] h-full rounded-[5px] flex-wrap justify-between flex-col border p-[10px]`}><List boxShadow={true} isLanding={true} imgWidth={'flex-[0_0_calc(28%_-_10px)]'} height={'h-full'} width={'w-full'} data={val.section_3.col_2.data} /></div>
-            </div>}
-          </div>}
-
-          {val.section_4.data && <div className='mb-[30px] mt-[60px]' style={{ background: '#fbfbfd' }}>
-            <div className={`flex-[0_0_calc(100%_-_10px)] container  p-[30px]`}>
-              <Title data={val.section_4} />
-              <div className={`flex gap-[15px] flex-wrap justify-between`}><Card isBorder={true} isLanding={true} flex={'flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_10px)]'} data={val.section_4.data} /></div>
-            </div>
-          </div>} */}
-
         </>}
       </RootLayout>
     </>
@@ -147,14 +131,10 @@ export default function Bookstore({ data, ads_data, slider_data }) {
 }
 
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
+  // export async function getStaticProps() {
   const resp = await booksLanding();
   const data = resp?.message;
-
-  let ads_params = { page: 'Books', page_type: 'Landing' }
-  const res_ads = await getAdvertisements(ads_params);
-  const ads_data = res_ads.message;
-
 
   let slider_params = {
     page: 'Product',
@@ -163,10 +143,10 @@ export async function getStaticProps() {
 
   const res = await sliders(slider_params)
   const slider_data = res.message
-
-
+  
   return {
-    props: { data, ads_data, slider_data }, revalidate: 50,
+    props: { data,slider_data }
+    // props: { data, ads_data, slider_data }, revalidate: 50,
   }
 
 }

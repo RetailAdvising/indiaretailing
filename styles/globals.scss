@@ -128,7 +128,7 @@
 }
 
 .lazy-load-image-background {
-  height: 100% !important;
+  // height: 100% !important;
   width: 100% !important;
 }
 
@@ -3285,4 +3285,12 @@ ins.adsbygoogle[data-ad-status="unfilled"] .default_ban_img {
   height: 3px;
   width: 100%;
   border-radius: 10px 10px 0 0;
+}
+
+.flex-80{
+  flex: 0 0 calc(80% - 15px);
+}
+
+.flex-custom-20{
+  flex: 0 0 calc(20% - 15px);
 }
