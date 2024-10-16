@@ -72,7 +72,7 @@ export default function Events({ data, slider_data, ads_data }) {
         return () => {
             window.removeEventListener('resize', checkIsMobile);
         };
-    }
+    }  
 
     return (
         <>
