@@ -1,11 +1,10 @@
 import RootLayout from '@/layouts/RootLayout'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Sliders from '@/components/Sliders/index'
 import Title from '@/components/common/Title'
 import Card from '@/components/Bookstore/Card'
-import AdsBaner from '@/components/Baners/AdsBaner'
 import List from '@/components/Bookstore/List'
-import { booksLanding, getAds, sliders,getAdvertisements } from '@/libs/api'
+import { booksLanding, sliders,getAdvertisements } from '@/libs/api'
 import { checkMobile } from '@/libs/api'
 import SEO from '@/components/common/SEO'
 
