@@ -24,7 +24,7 @@ export default function Video({ data, flex, imgClass, big, isBg, isHome = undefi
                             <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.video_image)} className={`rounded-[5px] ${imgClass ? imgClass : 'h-[175px] w-full'}`} height={150} width={273} alt={res.title} />
                             {/* <ImageLoader style={`rounded-[5px] ${imgClass ? imgClass : 'h-[175px] w-full'}`} src={res.video_image} title={res.title ? res.title : 's'} /> */}
                             {/* <Image src={'/irprime/youtube.svg'} className={`absolute ${big ? 'bottom-[50px] left-[10px]':  'bottom-[60px] left-[5px]'} ${abs ? abs : ''} ${isList ? '' : 'md:bottom-[60px]'}  object-contain h-[20px] w-[30px]`} height={100} width={100} alt={res.title} /> */}
-                            <div className={`absolute ${big ? 'bottom-[50px] left-[10px]' : 'bottom-[60px] left-[5px]'} ${abs ? abs : ''} ${isList ? '' : 'md:bottom-[60px]'} bg-[#d50000] flex items-center gap-[7px] p-[3px_5px] rounded-[5px]`}>
+                            <div className={`absolute ${big ? 'bottom-[70px] left-[10px]' : 'bottom-[60px] left-[5px]'} ${abs ? abs : ''} ${isList ? '' : 'md:bottom-[60px]'} bg-[#d50000] flex items-center gap-[7px] p-[3px_5px] rounded-[5px]`}>
                                 <Image src={'/irprime/youtube.svg'} className={`object-contain h-[12px] w-[12px]`} height={100} width={100} alt={res.title} />
                                 <p className='text-white text-[11px] font-[500]'>{parseISO8601Duration(res.duration ? res.duration : 'PT71M34S')}</p>
                             </div>  

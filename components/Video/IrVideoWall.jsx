@@ -71,7 +71,7 @@ export default function IrVideoWall({ data, c, isMobile }) {
             </div>
 
             <div className='md:hidden'>
-                <Title data={{title: null}} textClass={'text-white'} see={'text-white'} route={'/video'} seeMore={true} />
+                <Title data={{ title: null }} textClass={'text-white'} see={'text-white'} route={'/video'} seeMore={true} />
             </div>
 
             {categoryItems && categoryItems.length > 0 && <div className={`wrapper md:!block lg:py-[15px]`}>
@@ -95,20 +95,24 @@ export default function IrVideoWall({ data, c, isMobile }) {
                     )
                 })} */}
 
-{/* style={{ background: 'rgba(53, 53, rounded-[5px]53, 1)' }} */}
+                {/* style={{ background: 'rgba(53, 53, rounded-[5px]53, 1)' }} */}
                 <div className='sidebar_1  p-[15px] md:my-[10px]' >
                     {/* h-[330px] */}
-                    <Video data={categoryItems.slice(0, 1)} isBg={true} big={true} abs={'md:!bottom-[45px]'} isHome={'/video/'} imgClass={'h-[350px] w-full md:h-[200px]'} />
+                    {isMobile ?
+                        <VideoSlide slider_child_id={'slide_3' + '11123'} slider_id={'slide_parent_3' + '11123'} data={categoryItems} title_class={'text-white line-clamp-2'} isHome={'/video/'} cardClass={'md:flex-[0_0_calc(100%_-_5px)]'} imgClass={'md:h-[200px] w-full'} />
+                        :
+                        <Video data={categoryItems.slice(0, 1)} isBg={true} big={true} abs={'md:!bottom-[45px]'} isHome={'/video/'} imgClass={'h-[350px] w-full md:h-[200px]'} />
+                    }
                 </div>
-{/* style={{ background: 'rgba(53, 53rounded-[5px], 53, 1)' }} */}
-                <div className='right_1  p-[15px] md:my-[10px]' >
-                    <VideoSlide slider_child_id={'slide_1' + '11123'} slider_id={'slide_parent_1' + '11123'} data={categoryItems.slice(1, 6)} title_class={'text-white line-clamp-2'} isHome={'/video/'} cardClass={'flex-[0_0_calc(40%_-_15px)] md:flex-[0_0_calc(50%_-_15px)]'} imgClass={'h-[115px] md:h-[90px] w-full'} />
+                {/* style={{ background: 'rgba(53, 53rounded-[5px], 53, 1)' }} */}
+                <div className='right_1  p-[15px] md:my-[10px] md:hidden' >
+                    <VideoSlide slider_child_id={'slide_1' + '11123'} slider_id={'slide_parent_1' + '11123'} data={categoryItems.slice(1, 6)} title_class={'text-white line-clamp-2'} isHome={'/video/'} cardClass={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(50%_-_15px)]'} imgClass={'h-[115px] md:h-[90px] w-full'} />
                 </div>
-{/* style={{ background: 'rgba(53, 53, 53, 1)' }} rounded-[5px]*/}
-                {categoryItems.length > 7 && <div className='right_2  p-[15px] md:my-[10px]' >
-                    <VideoSlide slider_child_id={'slide_1' + '1112'} slider_id={'slide_parent_1' + '1112'} data={categoryItems.slice(6, categoryItems.length - 1)} title_class={'text-white line-clamp-2'} isHome={'/video/'} cardClass={'flex-[0_0_calc(40%_-_15px)] md:flex-[0_0_calc(50%_-_15px)]'} imgClass={'h-[115px] md:h-[90px] w-full'} />
+                {/* style={{ background: 'rgba(53, 53, 53, 1)' }} rounded-[5px]*/}
+                {categoryItems.length > 7 && <div className='right_2  p-[15px] md:my-[10px] md:hidden' >
+                    <VideoSlide slider_child_id={'slide_1' + '1112'} slider_id={'slide_parent_1' + '1112'} data={categoryItems.slice(6, categoryItems.length - 1)} title_class={'text-white line-clamp-2'} isHome={'/video/'} cardClass={'flex-[0_0_calc(33.333%_-_15px)] md:flex-[0_0_calc(50%_-_15px)]'} imgClass={'h-[115px] md:h-[90px] w-full'} />
                 </div>}
- 
+
                 {/* {categoryItems.map((res, i) => {
                     return (
                         <div key={i} className={`${i == 0 ? 'sidebar_1' : i == 1 ? 'right_1 md:overflow-hidden' : 'right_2 md:overflow-hidden'} rounded-[5px] p-[15px] md:my-[10px]`} style={{ background: 'rgba(53, 53, 53, 1)' }}>

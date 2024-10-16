@@ -92,7 +92,7 @@ export default function VideoSlide({ data, cardClass, imgClass, slider_id, slide
     return (
         <>
             {<div className='relative lg:grid lg:h-full lg:items-center' id={slider_id}>
-                <div className={`${hide_scroll_button && 'hidden'} absolute top-[25%] left-[-15px] h-[35px] w-[35px] z-10  text-black  rounded-full flex items-center justify-center  cursor-pointer md:hidden`}
+                <div className={`${hide_scroll_button && 'hidden'} absolute top-[25%] left-[-15px] h-[35px] w-[35px] z-10  text-black  rounded-full flex items-center justify-center  cursor-pointer`}
                     onClick={() => sctollTo('prev')} id={'prev_' + slider_id}>
                     <Image alt="Prev" src={'/video/black_left.svg'} width={35} height={35} ></Image>
                 </div>
@@ -121,7 +121,7 @@ export default function VideoSlide({ data, cardClass, imgClass, slider_id, slide
                         )
                     })}
                 </div>
-                <div className={`${hide_scroll_button && 'hidden'} absolute top-[25%] right-[-15px] h-[35px] w-[35px] z-10 text-black  rounded-full flex items-center justify-center cursor-pointer md:hidden`}
+                <div className={`${hide_scroll_button && 'hidden'} absolute top-[25%] right-[-15px] h-[35px] w-[35px] z-10 text-black  rounded-full flex items-center justify-center cursor-pointer `}
                     onClick={() => sctollTo('next')} id={'next_' + slider_id}>
                     <Image alt="forward" src={'/video/black_right.svg'} width={35} height={35}></Image>
                 </div>

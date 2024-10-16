@@ -44,7 +44,7 @@ const nunito = Nunito({
   variable: '--font-inter',
 }) 
 export default function Home({ data }) {
-  // console.log(data, "data");
+  console.log(data, "data");
   // console.log(ads,"ads");
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
@@ -299,11 +299,11 @@ export default function Home({ data }) {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
             // Video section => bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll
-            <div key={i} className={`py-[20px] ${data.section == 'PS-23-00094' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00157' || data.section == 'Infocus' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00166' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px]  no_scroll ' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : data.section == 'PS-24-00623' ? 'bg-[#F0F0F0]' : 'container'}  md:p-[15px]  md:py-[10px] lg:flex gap-5`}>
+            <div key={i} className={`py-[20px] ${data.section == 'PS-24-00630' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00157' || data.section == 'Infocus' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00166' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px]  no_scroll ' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : data.section == 'PS-24-00623' ? 'bg-[#F0F0F0]' : 'container'}  md:p-[15px]  md:py-[10px] lg:flex gap-5`}>
               {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                 return (
                   // || i == 5
-                  <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-23-00094') ? 'md:mb-[20px]' : 'container'}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} ${data.section == 'PS-23-00166' ? 'container' : ''} ${data.section == 'PS-24-00623' && !isMobile ? 'container' : ''}`}>
+                  <div key={index} className={`${res.class == 'flex-[0_0_calc(100%_-_0px)]' ? 'w-full' : res.class} ${(data.section != 'PS-24-00630') ? 'md:mb-[20px]' : 'container'}  ${((data.section == 'PS-23-00130') && !isMobile) ? 'container' : ''} ${data.section == 'PS-23-00166' ? 'container' : ''} ${data.section == 'PS-24-00623' && !isMobile ? 'container' : ''}`}>
                     {(res.components && res.components.length != 0) && res.components.map((c, c_index) => {
                       return (
                         <div key={c.component_title} className={`${c.component_title == "Top 4 Stories" ? 'top3  lg:justify-center md:gap-5' : c.component_title == "Featured Content" ? 'md:mb-[20px] pt-[20px]' : ''}`}>
@@ -374,16 +374,16 @@ export default function Home({ data }) {
                                       <ImageLoader style={`rounded-[5px] h-[106px] md:h-[80px] w-full`} src={resp.image} title={resp.heading} />
                                     </div>
 
-                                    <div className='absolute top-0 right-0 bg-[#E21B22] rounded-[0_10px_0_10px] min-w-[70px] text-center p-[3px_10px]'>
-                                      <p className={`text-white text-[11px] `}>{resp.tag}</p>
+                                    <div className='absolute top-0 right-0 bg-[#E21B22] rounded-[0_10px_0_10px] min-w-[70px] text-center p-[3px_10px] md:p-[2px_6px]'>
+                                      <p className={`text-white text-[11px] md:text-[9px]`}>{resp.tag}</p>
                                     </div>
 
                                     <div className='lg:flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'>
                                       <h6 className={`line-clamp-2 title ${nunito.className}`}>{resp.heading}</h6>
-                                      <p className={`line-clamp-2 sub_title lg:py-[5px] `}>{resp.description}</p>
+                                      <p className={`line-clamp-2 md:line-clamp-1 sub_title lg:py-[5px] `}>{resp.description}</p>
                                       <div className='flex items-center gap-[5px] py-[5px]'>
                                         <span className='text-[#999999] text-[12px] md:flex-[0_0_auto]'>Published On : </span>
-                                        <p className={`text-[13px] md:text-[12px] font-[500] ${nunito.className}`}>{resp['published-on']}</p>
+                                        <p className={`text-[13px] md:text-[12px] md:line-clamp-1 font-[500] ${nunito.className}`}>{resp['published-on']}</p>
                                       </div>
                                     </div>
                                   </div>

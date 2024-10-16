@@ -2483,7 +2483,8 @@ span {
 .wrapper {
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 50% 50%;
+  // grid-template-columns: 55% 45%;
   // grid-template-columns: 45% 55%;
   grid-template-areas:
     "sidebar_1 right_1 "
