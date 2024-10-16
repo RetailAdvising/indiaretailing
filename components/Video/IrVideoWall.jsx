@@ -1,7 +1,7 @@
 import Video from './Video'
 import VideoSlide from './VideoSlide'
 import Title from '../common/Title'
-import { Nunito, Inter } from 'next/font/google'
+import {  Inter } from 'next/font/google'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -13,14 +13,14 @@ const inter = Inter({
     subsets: ["latin"],
     variable: '--font-inter'
 })
-const nunito = Nunito({
-    weight: ["300", "400", "500", "600", "700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-})
+// const nunito = Nunito({
+//     weight: ["300", "400", "500", "600", "700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+// })
 export default function IrVideoWall({ data, c, isMobile }) {
     // console.log(data, 'data')
     const router = useRouter()
@@ -79,9 +79,9 @@ export default function IrVideoWall({ data, c, isMobile }) {
                     return (
                         <div key={i} className={`${i == 0 ? 'sidebar_1' : i == 1 ? 'right_1 md:overflow-hidden' : 'right_2 md:overflow-hidden'} rounded-[5px] p-[15px] md:my-[10px]`} style={{ background: 'rgba(53, 53, 53, 1)' }}>
                             <div className='flex justify-between pb-5'>
-                                <h6 className={`text-white ${nunito.className}`}>{res.category}</h6>
+                                <h6 className={`text-white nunito`}>{res.category}</h6>
                                 <div className='flex items-center gap-[5px] cursor-pointer' onClick={() => goTo(res)}>
-                                    <p className={`text-[12px] font-normal text-white ${nunito.className}`}>View All</p>
+                                    <p className={`text-[12px] font-normal text-white nunito`}>View All</p>
                                     <Image className='h-[11px] w-[5px] object-contain' src={'/arrow-white.svg'} height={5} width={5} alt='View All' />
                                 </div>
                             </div>

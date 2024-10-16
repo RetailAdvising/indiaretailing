@@ -3,15 +3,15 @@ import Image from 'next/image'
 import { check_Image } from '@/libs/api'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-  weight: ["300", "400", "500", "600", "700"],
-  display: "block",
-  preload: true,
-  style: 'normal',
-  subsets: ["latin"],
-  variable: '--font-inter',
-})
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//   weight: ["300", "400", "500", "600", "700"],
+//   display: "block",
+//   preload: true,
+//   style: 'normal',
+//   subsets: ["latin"],
+//   variable: '--font-inter',
+// })
 export default function IRPrime({ data }) {
     const router = useRouter();
     return (
@@ -24,7 +24,7 @@ export default function IRPrime({ data }) {
                                 <Image src={'/IR.svg'} objectFit='contain' height={30} width={35} className={``} alt={"IR Prime"}></Image>
                             </div>
                             <div className={`flex flex-col`}>
-                                <h6 className={`text-sm font-[700] ${nunito.className}`}>IR Prime</h6><span className={`text-[11px] font-[400] text-[#757575]`}>Top 3  stories of the day</span>
+                                <h6 className={`text-sm font-[700] nunito`}>IR Prime</h6><span className={`text-[11px] font-[400] text-[#757575]`}>Top 3  stories of the day</span>
                             </div>
                         </div>
                         <div>
@@ -38,7 +38,7 @@ export default function IRPrime({ data }) {
                                     <div className='flex-[0_0_calc(25%_-_10px)]'>
                                         <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' className='h-[60px] rounded-[5px] w-full' src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.image)} alt={res.title} height={50} width={70} />
                                     </div>
-                                    <p className={`text-sm font-[600] line-clamp-2 ${nunito.className}`}>{res.title}</p>
+                                    <p className={`text-sm font-[600] line-clamp-2 nunito`}>{res.title}</p>
                                 </div>
                             </Link>
                         )

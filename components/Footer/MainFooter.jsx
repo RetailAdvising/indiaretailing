@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import footer from '@/libs/footer';
 import Image from 'next/image';
 import { check_Image } from '@/libs/api';
-import { Nunito } from 'next/font/google'
+// import { Nunito } from 'next/font/google'
 import { useRouter } from 'next/router';
-const nunito = Nunito({
-    weight: ["300", "400", "500", "600", "700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-})
+// const nunito = Nunito({
+//     weight: ["300", "400", "500", "600", "700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+// })
 export default function MainFooter({ footerData }) {
     const router = useRouter();
     let [subsBox, setSubsBox] = useState()
@@ -102,8 +102,8 @@ export default function MainFooter({ footerData }) {
                             <Image src={check_Image(subsBox.image)} className={`object-contain w-full`} height={100} width={100} alt={subsBox.primary_text} />
                         </div>
                         <div>
-                            <p className={``}><span className={`font-[700] text-[#e21b22] text-[14px] ${nunito.className}`}>{subsBox.primary_text}</span>  <span className={`text-[#666666] font-[700] text-[14px] ${nunito.className}`}>{subsBox.secondary_text}</span></p>
-                            <p className={`text-[13px] leading-[1.3] my-[10px] ${nunito.className}`}>{subsBox.description}</p>
+                            <p className={``}><span className={`font-[700] text-[#e21b22] text-[14px] nunito`}>{subsBox.primary_text}</span>  <span className={`text-[#666666] font-[700] text-[14px] nunito`}>{subsBox.secondary_text}</span></p>
+                            <p className={`text-[13px] leading-[1.3] my-[10px] nunito`}>{subsBox.description}</p>
                             <button className={`primary_button h-[35px] p-[0_10px] text-[14px] cursor-pointer w-full`} onClick={() => router.push('/membership')}>{subsBox.button}</button>
                         </div>
                     </div>
@@ -138,7 +138,7 @@ export default function MainFooter({ footerData }) {
                                                     <p className='address font-normal text-[14px]'>We have various ways to promote your brand and to know how, please get in touch with Bhavesh Pitroda email : himanshurawal@imagesgroup.in</p>
                                                     </>  */}
                                                     <div className='md:flex-[0_0_calc(100%_-_10px)]' >
-                                                        <h6 className={`text-[16px] font-[700] pb-[10px] pt-[20px] ${nunito.className}`}>Our Social Media</h6>
+                                                        <h6 className={`text-[16px] font-[700] pb-[10px] pt-[20px] nunito`}>Our Social Media</h6>
                                                         <div className='flex items-center gap-[13px] py-[10px]'>
                                                             {item.social_links && item.social_links.map((res, index) => {
                                                                 return (
@@ -148,7 +148,7 @@ export default function MainFooter({ footerData }) {
                                                         </div>
                                                     </div>
                                                     <div className='md:flex-[0_0_calc(100%_-_10px)]' >
-                                                        <h6 className={`text-[16px] md:text-[14px] font-[700] py-3 ${nunito.className}`}>Download Indiaretailing App</h6>
+                                                        <h6 className={`text-[16px] md:text-[14px] font-[700] py-3 nunito`}>Download Indiaretailing App</h6>
                                                         <div className='flex gap-[15px] md:gap-[10px] items-center'>
                                                             <Image src={'/footer/play-store.svg'} className='h-[32px] w-[101px] md:w-[90px] md:object-contain' height={15} width={20} alt={'app-store'} />
                                                             <Image src={'/footer/app-store.svg'} className='h-[32px] w-[101px] md:w-[90px] md:object-contain' height={15} width={20} alt={'app-store'} />
@@ -160,10 +160,10 @@ export default function MainFooter({ footerData }) {
 
                                             {item.section_name == "Menu" &&
                                                 <div className={`list_div leading-[2.5] ${(i % 2 == 0) ? 'min-h-[290px]' : ''} md:flex-[0_0_calc(50%_-_20px)] md:min-h-[20px]  md:mr-[20px]`} >
-                                                    <h6 className={`text-[15px] font-[700] mb-3 ${nunito.className}`}>{item.title}</h6>
+                                                    <h6 className={`text-[15px] font-[700] mb-3 nunito`}>{item.title}</h6>
                                                     {(item.menus && item.menus.length != 0) && item.menus.map((item, index) => {
                                                         return (
-                                                            <a target={item.title == 'Events' ? '_blank' : '_self'} href={item.redirect_url} key={index}><p className={`sub_title  text-[15px] font-semibold mb-2  hover:text-[red] ${nunito.className}`}>{item.menu_label}</p></a>
+                                                            <a target={item.title == 'Events' ? '_blank' : '_self'} href={item.redirect_url} key={index}><p className={`sub_title  text-[15px] font-semibold mb-2  hover:text-[red] nunito`}>{item.menu_label}</p></a>
                                                         )
                                                     })}
                                                 </div>
@@ -174,8 +174,8 @@ export default function MainFooter({ footerData }) {
                                                     <Image src={check_Image(item.image)} className={`object-contain w-full`} height={100} width={100} alt={item.primary_text} />
                                                 </div>
                                                 <div>
-                                                    <p className={``}><span className={`font-[700] text-[#e21b22] text-[14px] ${nunito.className}`}>{item.primary_text}</span>  <span className={`text-[#666666] font-[700] text-[14px] ${nunito.className}`}>{item.secondary_text}</span></p>
-                                                    <p className={`text-[13px] leading-[1.3] my-[10px] ${nunito.className}`}>{item.description}</p>
+                                                    <p className={``}><span className={`font-[700] text-[#e21b22] text-[14px] nunito`}>{item.primary_text}</span>  <span className={`text-[#666666] font-[700] text-[14px] nunito`}>{item.secondary_text}</span></p>
+                                                    <p className={`text-[13px] leading-[1.3] my-[10px] nunito`}>{item.description}</p>
                                                     <button className={`primary_button h-[35px] p-[0_10px] text-[14px] cursor-pointer w-full`} onClick={() => router.push('/membership')}>{item.button}</button>
                                                 </div>
                                             </div>}

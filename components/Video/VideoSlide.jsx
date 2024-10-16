@@ -4,15 +4,15 @@ import { check_Image, parseISO8601Duration } from '../../libs/api'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import ImageLoader from '../ImageLoader';
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-    weight: ["300", "400", "500", "600", "700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-})
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//     weight: ["300", "400", "500", "600", "700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+// })
 export default function VideoSlide({ data, cardClass, imgClass, slider_id, slider_child_id, title_class, hide_scroll_button }) {
     const router = useRouter()
 
@@ -115,7 +115,7 @@ export default function VideoSlide({ data, cardClass, imgClass, slider_id, slide
 
                                 </div>
                                 <div className={` flex flex-col justify-between p-[10px] `}>
-                                    <h4 className={`title !font-[500] ${title_class ? title_class : 'line-clamp-2'} ${nunito.className}`}>{res.title ? res.title : ''}</h4>
+                                    <h4 className={`title !font-[500] ${title_class ? title_class : 'line-clamp-2'} nunito`}>{res.title ? res.title : ''}</h4>
                                 </div>
                             </div>
                         )

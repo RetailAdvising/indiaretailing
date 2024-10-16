@@ -7,15 +7,15 @@ import Image from 'next/image'
 import { check_Image } from '@/libs/common'
 import BreadCrumb from '@/components/common/BreadCrumb';
 import Link from 'next/link';
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-  })
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//     weight: ["300","400","500","600","700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+//   })
 export default function search({ searchTxt, data }) {
 
 
@@ -296,7 +296,7 @@ const AllCategory = ({ data }) => {
       {data && data.length != 0 && data.map((res, i) => {
         return (
           <div key={res.title} className=''>
-            <Link href={res.base_route} className={`text-[15px] font-[700] mb-[5px] ${nunito.className}`}>{res.title}</Link>
+            <Link href={res.base_route} className={`text-[15px] font-[700] mb-[5px] nunito`}>{res.title}</Link>
             {res.data && res.data.length != 0 && res.data.map((resp, index) => {
               return (
                 <Link className='block' href={res.base_route + resp.route} key={resp.title ? resp.title : resp.category_name}>{resp.title ? resp.title : resp.category_name}</Link>

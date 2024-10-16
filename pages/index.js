@@ -13,7 +13,7 @@ import Subscribe from '@/components/Landing/Subscribe'
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import ImageLoader from '@/components/ImageLoader';
-import { Nunito } from 'next/font/google';
+// import { Nunito } from 'next/font/google';
 
 
 const List = dynamic(() => import('@/components/common/List'))
@@ -35,14 +35,14 @@ const Advertisement = dynamic(() => import('@/components/Baners/Advertisement'))
 // import { useSession } from 'next-auth/react'
 // import Advertisement from '@/components/Baners/Advertisement';
 
-const nunito = Nunito({
-  weight: ["300", "400", "500", "600", "700"],
-  display: "block",
-  preload: true,
-  style: 'normal',
-  subsets: ["latin"],
-  variable: '--font-inter',
-}) 
+// const nunito = Nunito({
+//   weight: ["300", "400", "500", "600", "700"],
+//   display: "block",
+//   preload: true,
+//   style: 'normal',
+//   subsets: ["latin"],
+//   variable: '--font-inter',
+// }) 
 export default function Home({ data }) {
   console.log(data, "data");
   // console.log(ads,"ads");
@@ -379,11 +379,11 @@ export default function Home({ data }) {
                                     </div>
 
                                     <div className='lg:flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'>
-                                      <h6 className={`line-clamp-2 title ${nunito.className}`}>{resp.heading}</h6>
+                                      <h6 className={`line-clamp-2 title nunito`}>{resp.heading}</h6>
                                       <p className={`line-clamp-2 md:line-clamp-1 sub_title lg:py-[5px] `}>{resp.description}</p>
                                       <div className='flex items-center gap-[5px] py-[5px]'>
                                         <span className='text-[#999999] text-[12px] md:flex-[0_0_auto]'>Published On : </span>
-                                        <p className={`text-[13px] md:text-[12px] md:line-clamp-1 font-[500] ${nunito.className}`}>{resp['published-on']}</p>
+                                        <p className={`text-[13px] md:text-[12px] md:line-clamp-1 font-[500] nunito`}>{resp['published-on']}</p>
                                       </div>
                                     </div>
                                   </div>

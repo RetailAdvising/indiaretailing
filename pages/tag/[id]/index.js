@@ -10,16 +10,16 @@ import Title from '@/components/common/Title'
 import Dropdowns from '@/components/common/Dropdowns';
 import AdsBaner from '@/components/Baners/AdsBaner'
 import ImageLoader from '@/components/ImageLoader';
-import { Nunito } from 'next/font/google'
+// import { Nunito } from 'next/font/google'
 import Advertisement from '@/components/Baners/Advertisement'
-const nunito = Nunito({
-    weight: ["300", "400", "500", "600", "700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-})
+// const nunito = Nunito({
+//     weight: ["300", "400", "500", "600", "700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+// })
 export default function Trending({ data, res, ads }) {
     const categories = [{ name: 'All', route: 'all' }, { name: 'News', route: 'news_list' }, { name: 'Articles', route: 'article_list' }, { name: 'Events', route: 'event_list' }]
     const [resp_data, setData] = useState([])
@@ -223,12 +223,12 @@ export default function Trending({ data, res, ads }) {
                                                 <div className='flex justify-between items-center'>
                                                     <div onClick={() => router.push('/' + res.route)} className='flex items-center md:px-[10px] gap-[10px]'>
                                                         <Image className='h-[30px] w-[30px] object-contain' src={'/Navbar/IR-01.svg'} height={20} width={20} alt='ir prime' />
-                                                        <p className={`text-[14px] font-[700] capitalize ${nunito.className}`}>{res.category ? res.category : ''}</p>
+                                                        <p className={`text-[14px] font-[700] capitalize nunito`}>{res.category ? res.category : ''}</p>
                                                     </div>
                                                     {icons && <div className={`px-[10px]`}><Dropdowns updateShare={(data) => updateShare(data)} share={true} link={res} width={'w-[170px]'} type={'tag'} btnClass={'md:w-[32px]'} data={icons} /></div>}
 
                                                 </div>
-                                                <h6 onClick={() => router.push('/' + res.route)} className={`title line-clamp-2 ${nunito.className} md:p-[10px] py-[10px]`}>{res.title}</h6>
+                                                <h6 onClick={() => router.push('/' + res.route)} className={`title line-clamp-2 nunito md:p-[10px] py-[10px]`}>{res.title}</h6>
                                                 <div onClick={() => router.push('/' + res.route)}>
                                                     <ImageLoader style={`w-full h-[320px] lg:rounded-[5px]`} src={res.image ? res.image : res.thumbnail_imagee} title={res.title ? res.title : 's'} />
                                                     {/* <Image loading="lazy" blurDataURL={'/empty_state.svg'} placeholder='blur' src={check_Image(res.image ? res.image : res.thumbnail_imagee)} height={500} width={800} className={`w-full h-[320px] lg:rounded-[5px]`} alt={res.title ? res.title : index} /> */}

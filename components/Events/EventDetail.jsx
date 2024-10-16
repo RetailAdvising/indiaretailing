@@ -9,16 +9,16 @@ import EventCards from './EventCards'
 import { useRouter } from 'next/router'
 import Placeholders from '../common/Placeholders'
 import format from 'date-fns/format'
-import { Nunito } from 'next/font/google'
+// import { Nunito } from 'next/font/google'
 import Advertisement from '../Baners/Advertisement'
-const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-  })
+// const nunito = Nunito({
+//     weight: ["300","400","500","600","700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+//   })
 export default function EventDetail({ data,ads_data }) {
     const router = useRouter();
 
@@ -82,9 +82,9 @@ export default function EventDetail({ data,ads_data }) {
                 </div>
                 <div className={`lg:flex md:flex-wrap gap-[20px] pb-[20px] pt-[30px] md:pt-[10px]`}>
                     <div className={`flex-[0_0_calc(75%_-_10px)] md:flex-[0_0_calc(100%_-_10px)] p-[10px] border rounded-[5px]`}>
-                        <p className={`${nunito.className}`}>{dateFormat(data.message.start_date,'start')}</p>
+                        <p className={`nunito`}>{dateFormat(data.message.start_date,'start')}</p>
                         {/* <div className={`flex items-center pt-[15px] justify-between`}> */}
-                        <h6 className={`text-xl md:text-[17px] pt-[15px] md:pt-[10px] font-[700] ${nunito.className}`}>{data.message.title}</h6>
+                        <h6 className={`text-xl md:text-[17px] pt-[15px] md:pt-[10px] font-[700] nunito`}>{data.message.title}</h6>
                         {/* <div className='flex gap-[5px]'>
                                 <Image height={13} width={13} className={`h-[18px] w-[18px]`} alt={'share'} src={'/shares.svg'}></Image>
                                 <Image height={13} width={13} objectFit='contain' className={`h-[23px] w-[20px] object-contain`} alt={'settings'} src={'/settings.svg'}></Image>
@@ -92,22 +92,22 @@ export default function EventDetail({ data,ads_data }) {
                         {/* </div> */}
                         <p className='sub_title pt-[15px] md:pt-[10px]  line-clamp-2'>{data.message.description}</p>
                         <div className={`title_div py-5`}>
-                            <h6 className={`text-[16px] md:text-[15px] ${nunito.className} capitalize font-[700]`}>When and where</h6>
+                            <h6 className={`text-[16px] md:text-[15px] nunito capitalize font-[700]`}>When and where</h6>
                             <div className='line'></div>
                         </div>
                         <div className={`flex gap-[20px] pt-[10px]`}>
                             {/* pr-[60px] */}
                             <div className='flex gap-[10px] items-start  '>
                                 <Image src={'/Events/Date-time.svg'} className='md:h-[18px] md:w-[18px]' height={20} width={20} alt={'date and time'} />
-                                <p className={`flex flex-col`}><span className={`text-[15px] ${nunito.className} md:text-[14px] font-[700]`}>Date and Time</span><span className={`sub_title ${nunito.className}`}>{dateFormat(data.message.start_date,'end')}</span></p>
+                                <p className={`flex flex-col`}><span className={`text-[15px] nunito md:text-[14px] font-[700]`}>Date and Time</span><span className={`sub_title nunito`}>{dateFormat(data.message.start_date,'end')}</span></p>
                             </div>
                             {/* pl-[20px] */}
                             <div className='flex gap-[10px] items-start '>
                                 <Image src={'/Events/location.svg'} className='md:h-[20px] md:w-[18px] object-contain' height={20} width={20} alt={'location'} />
-                                <p className={`flex flex-col`}><span className={`text-[15px] font-semibold md:text-[14px] ${nunito.className}`}>Location</span>
+                                <p className={`flex flex-col`}><span className={`text-[15px] font-semibold md:text-[14px] nunito`}>Location</span>
                                     {(data.message.event_location && data.message.event_location.length != 0) && data.message.event_location.map((res, index) => {
                                         return (
-                                            <span key={res.event_location} className={`sub_title ${nunito.className}`}>{res.event_location}</span>
+                                            <span key={res.event_location} className={`sub_title nunito`}>{res.event_location}</span>
                                         )
                                     })}
                                 </p>

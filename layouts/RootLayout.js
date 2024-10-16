@@ -21,15 +21,15 @@ const SubscriptionAlert = dynamic(() => import('@/components/common/Subscription
 const ModPopup = dynamic(() => import('@/components/Category/ModPopup'))
 import { useDispatch, useSelector } from 'react-redux';
 import AlertUi from '@/components/common/AlertUi'
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-  weight: ["300", "400", "500", "600", "700"],
-  display: "block",
-  preload: true,
-  style: 'normal',
-  subsets: ["latin"],
-  variable: '--font-inter',
-})
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//   weight: ["300", "400", "500", "600", "700"],
+//   display: "block",
+//   preload: true,
+//   style: 'normal',
+//   subsets: ["latin"],
+//   variable: '--font-inter',
+// })
 export default function RootLayout({ children, checkout, isLanding, head, homeAd, data, header_data, is_detail, adIdH, adIdF }) {
   // console.log(data.footer_content)
   const [breadCrumbs, setBreadCrumbs] = useState([]);
@@ -267,13 +267,13 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
                   index == 1 ? router.query.detail ? '/categories/' + breadCrumbs[1] : '/' + breadCrumbs[1] : '/'
               return (<div key={index}  >
                 {index == 0 ? <Link className={`flex gap-[5px] items-center capitalize hover:text-red `} href={url}>
-                  <p className={`text-[12px] font-[500] ${nunito.className}`}> Home</p>
+                  <p className={`text-[12px] font-[500] nunito`}> Home</p>
                   <div className='ml-[5px] pt-[4px]'>
                     <Image alt='arrow' src={'/arrow.svg'} width={5} height={5} />
                   </div>
                 </Link> : index == breadCrumbs.length - 1 ?
                   <div className={`flex gap-[5px] items-center capitalize hover:text-red `}>
-                    <p className={`text-[12px] max-w-[250px] line-clamp-1 ${breadCrumbs.length - 1 == index ? 'font-[700]' : 'font-[500]'} ${nunito.className}`}> {bc.replaceAll('-', ' ')}</p>
+                    <p className={`text-[12px] max-w-[250px] line-clamp-1 ${breadCrumbs.length - 1 == index ? 'font-[700]' : 'font-[500]'} nunito`}> {bc.replaceAll('-', ' ')}</p>
                     {(index !== 0 && index != breadCrumbs.length - 1) &&
                       <div className='ml-[5px] pt-[4px]'>
                         <Image alt='arrow' src={'/arrow.svg'} width={5} height={5} />
@@ -281,7 +281,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
                     }
                   </div> :
                   <Link className={`flex gap-[5px] items-center capitalize`} href={url}>
-                    <p className={`text-[12px] ${breadCrumbs.length - 1 == index ? 'font-[700]' : 'font-[500]'} ${nunito.className}`}> {bc.replaceAll('-', ' ')}</p>
+                    <p className={`text-[12px] ${breadCrumbs.length - 1 == index ? 'font-[700]' : 'font-[500]'} nunito`}> {bc.replaceAll('-', ' ')}</p>
                     {(index !== 0 && index != breadCrumbs.length - 1) &&
                       <div className='ml-[5px] pt-[4px]'>
                         <Image alt='arrow' src={'/arrow.svg'} width={5} height={5} />

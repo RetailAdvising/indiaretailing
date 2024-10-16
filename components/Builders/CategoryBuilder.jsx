@@ -21,15 +21,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import Widgets from '../Category/Widgets'
 import ReactDOM from 'react-dom/client';
 import Benefits from '@/components/Membership/benefits';
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-  weight: ["300", "400", "500", "600", "700"],
-  display: "block",
-  preload: true,
-  style: 'normal',
-  subsets: ["latin"],
-  variable: '--font-inter',
-})
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//   weight: ["300", "400", "500", "600", "700"],
+//   display: "block",
+//   preload: true,
+//   style: 'normal',
+//   subsets: ["latin"],
+//   variable: '--font-inter',
+// })
 export default function CategoryBuilder({ data, load, isLast, i, ads, user, productNavigation, comments, updatedCmt, updateShare, noScroll, plans, ads_data }) {
   const styles = {}
   const [showComment, setshowComment] = useState(true);
@@ -697,7 +697,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
               {!isMobile && <div className={`flex flex-row justify-between`}>
                 {/* <p className="gray-text">Previous Post</p> */}
                 <hr></hr>
-                <h6 className={`font15_bold !font-[700] ${nunito.className}`}>Share this Article</h6>
+                <h6 className={`font15_bold !font-[700] nunito`}>Share this Article</h6>
                 <hr></hr>
                 {/* <p className="gray-text">Next Post</p> */}
               </div>}
@@ -752,7 +752,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                           <div className={`py-1.5 flex items-center gap-[10px] relative  ${styles.profile_div}`}>
                             {/* id={`cmt${data.route}`} */}
                             <div><Image src={'/categories/Comments-01.svg'} className='h-[20px] w-[20px] object-contain' height={25} width={25} alt='cmts' /></div>
-                            <h6 className={`font-[700] ${nunito.className} text-[17px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
+                            <h6 className={`font-[700] nunito text-[17px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
                             {/* <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>{res.data.length ? res.data.length : 0}</span></p> */}
                           </div>
                           <Comments cur={data} showSidebar={() => showSidebar()} noScroll={(val) => noScroll(val)} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 2)} hide_comment={hide} />
@@ -769,7 +769,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                             {/* id={`cmt${data.route}`} */}
                             <div><Image src={'/categories/Comments-01.svg'} className='h-[20px] w-[20px] object-contain' height={25} width={25} alt='cmts' /></div>
 
-                            <h6 className={`font-[700] ${nunito.className} text-[17px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
+                            <h6 className={`font-[700] nunito text-[17px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
                             {/* <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>0</span></p> */}
                           </div>
 

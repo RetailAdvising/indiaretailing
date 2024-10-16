@@ -3,15 +3,15 @@ import Image from 'next/image'
 import { check_Image } from '@/libs/api'
 import Link from 'next/link'
 import ImageLoader from '../ImageLoader';
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-  })
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//     weight: ["300","400","500","600","700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+//   })
 export default function TopStories({ data }) {
     // data = data.slice(0,3)
     return (
@@ -27,9 +27,9 @@ export default function TopStories({ data }) {
                         </div>
                         {/* </div> */}
                         <div className='lg:flex-[0_0_calc(73%_-_5px)]'>
-                            <p className={`${res.primary_text ? 'top_primary_text' : 'fnt_14'} tracking-[0] ${nunito.className}`}>{res.primary_text}</p>
+                            <p className={`${res.primary_text ? 'top_primary_text' : 'fnt_14'} tracking-[0] nunito`}>{res.primary_text}</p>
                             {/* <Link href={'/' + res.route}> */}
-                            <h6 className={`top_title tracking-[0] ${nunito.className}`}>{res.title}</h6>
+                            <h6 className={`top_title tracking-[0] nunito`}>{res.title}</h6>
                             {/* </Link> */}
                         </div>
                         {/* </div>*/}

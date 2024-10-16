@@ -15,15 +15,15 @@ import NoProductFound from '@/components/common/NoProductFound';
 import AlertUi from '@/components/common/AlertUi';
 import format from 'date-fns/format'
 import Head from 'next/head'
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-  weight: ["300", "400", "500", "600", "700"],
-  display: "block",
-  preload: true,
-  style: 'normal',
-  subsets: ["latin"],
-  variable: '--font-inter',
-})
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//   weight: ["300", "400", "500", "600", "700"],
+//   display: "block",
+//   preload: true,
+//   style: 'normal',
+//   subsets: ["latin"],
+//   variable: '--font-inter',
+// })
 export default function NewsLists({ data, Id }) {
   const tabs = [{ name: 'Current edition' }, { name: 'All Newsletter' }]
   // console.log(data, 'data')
@@ -273,12 +273,12 @@ export default function NewsLists({ data, Id }) {
         {false && (data && data.article_detail) && <label className='themeSwitcherTwo w-full  border_bottom shadow-card relative inline-flex cursor-pointer select-none'>
           <input type='checkbox' className='sr-only' checked={isChecked} onChange={handleCheckboxChange} />
           <span
-            className={`flex capitalize items-center space-x-[6px] ${nunito.className}  py-2 px-[18px] text-[16px] font-[700] text-[#111111] ${!isChecked ? 'tabActive' : ''
+            className={`flex capitalize items-center space-x-[6px] nunito  py-2 px-[18px] text-[16px] font-[700] text-[#111111] ${!isChecked ? 'tabActive' : ''
               }`}>
             {(data && data.article_detail && data.article_detail.is_current_edition == 1) ? 'Current edition' : changeDateFormat(data.article_detail.date)}
           </span>
           <span
-            className={`flex ${nunito.className} capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-[700] text-[#111111] ${isChecked ? 'tabActive' : ''
+            className={`flex nunito capitalize items-center space-x-[6px]  py-2 px-[18px] text-[16px] font-[700] text-[#111111] ${isChecked ? 'tabActive' : ''
               }`}>
             All Newsletter
           </span>
@@ -291,7 +291,7 @@ export default function NewsLists({ data, Id }) {
             {(data && data.article_detail) && <div className={`flex pt-[20px] md:pt-[0px] md:flex-wrap justify-between gap-5 lg:relative`}>
               <div className={`flex-[0_0_calc(55%_-_10px)] pt-[10px] leading-[2] md:flex-[0_0_calc(100%_-_0px)]`}>
                 {/* <h6 className='text-[20px] md:text-[16px] font-semibold leading-7'>{data.article_detail.title}</h6> */}
-                <p className={`text-[20px] md:text-[16px] font-[700] py-3 md:hidden ${nunito.className}`}>{data.article_detail.subject}</p>
+                <p className={`text-[20px] md:text-[16px] font-[700] py-3 md:hidden nunito`}>{data.article_detail.subject}</p>
                 <div dangerouslySetInnerHTML={{ __html: data.article_detail.blog_intro }} className={`contents sub_title py-3 md:hidden`} />
                 <button style={{ borderRadius: '5px' }} onClick={handleButtonClick} className='primary_btn md:hidden my-3 text-[14px] block h-[35px] w-[100px]'>subscribe</button>
               </div>
@@ -320,7 +320,7 @@ export default function NewsLists({ data, Id }) {
                 {newsCategory && newsCategory.length != 0 && newsCategory.map((res, i) => {
                   return (
                     <div key={i} id={'category' + i} onClick={() => activeCategory(res, i)} className='cursor-pointer flex-[0_0_auto]'>
-                      <p className={`${selectedCategory == res.title ? 'tabActive' : ''} pb-[5px] text-[14px] font-semibold capitalize ${nunito.className}`}>{res.category_name.split('-').join(" ")}</p>
+                      <p className={`${selectedCategory == res.title ? 'tabActive' : ''} pb-[5px] text-[14px] font-semibold capitalize nunito`}>{res.category_name.split('-').join(" ")}</p>
                     </div>
                   )
                 })}

@@ -10,15 +10,15 @@ import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO'
 import Tags from '@/components/common/Tags';
 import ImageLoader from '@/components/ImageLoader';
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-    weight: ["300", "400", "500", "600", "700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-})
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//     weight: ["300", "400", "500", "600", "700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+// })
 export default function CategoryType({ values, ads }) {
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -123,10 +123,10 @@ export default function CategoryType({ values, ads }) {
                             <div className={`${isMobile ? '' : 'border'} rounded-[10px] lg:h-[520px] lg:p-[15px] cursor-pointer`}>{data && data.slice(0, 1).map((res, index) => {
                                 return (
                                     <div key={res.title ? res.title : index} onClick={() => router.push(`/${res.route}`)} className={` pb-[10px]`}>
-                                        <h6 className={`lg:text-[18px] md:text-[16px] font-[700] ${nunito.className}`}>{res.title}</h6>
+                                        <h6 className={`lg:text-[18px] md:text-[16px] font-[700] nunito`}>{res.title}</h6>
                                         <ImageLoader style={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={res.image ? res.image : res.thumbnail_image} title={res.title ? res.title : 'indiaRetail'} />
                                         {/* <Image className={`h-[330px] w-full mt-[10px] rounded-[5px]`} src={check_Image(res.image ? res.image : res.thumbnail_image)} height={250} width={300} alt={res.title} /> */}
-                                        <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px] ${nunito.className}`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px] ${nunito.className}`}>{res.secondary_text}</span></p>
+                                        <p className={`flex items-center pt-[10px]`}><span className={`primary_text pr-[10px] nunito`}>{res.primary_text}</span><span className='h-[15px] w-[2px] bg-[#6f6f6f]'></span><span className={`secondary_text pl-[10px] nunito`}>{res.secondary_text}</span></p>
                                         <p className={`sub_title line-clamp-2 pt-[10px]`}>{res.blog_intro}</p>
                                         {/* <p className={`hashtags pt-[5px]`}>{res.publisher}</p> */}
                                         <Tags tags={res.tags} />

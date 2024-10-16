@@ -3,15 +3,15 @@ import React, { useState } from 'react'
 import SubscribeNews from '../Newsletter/SubscribeNews';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-  weight: ["300", "400", "500", "600", "700"],
-  display: "block",
-  preload: true,
-  style: 'normal',
-  subsets: ["latin"],
-  variable: '--font-inter',
-})
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//   weight: ["300", "400", "500", "600", "700"],
+//   display: "block",
+//   preload: true,
+//   style: 'normal',
+//   subsets: ["latin"],
+//   variable: '--font-inter',
+// })
 export default function Subscribe({ data, height, width, isSubscribe }) {
   let [email, setEmail] = useState('')
   let [wrong, setWrong] = useState(false)
@@ -107,7 +107,7 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
           <Image src={'/Subscribe-01.svg'} className={` object-contain h-[100px] w-full`} height={30} width={50} alt="" />
         </div>
         <div className='flex-[0_0_calc(70%_-_10px)]'>
-          <h5 className={`text-[17px] font-[700] text-center ${nunito.className}`}>Subscribe</h5>
+          <h5 className={`text-[17px] font-[700] text-center nunito`}>Subscribe</h5>
           <p className={`text-[12px] font-[400] p-[5px_10px] text-center `}>Subscripe our newsletter and get notifications to stay update</p>
           <div className='relative w-full text-center px-[10px]'>
             <input placeholder="Your email address" className='rounded-full w-[85%] pl-[10px] h-[30px] text-[13px] !border-none bg-[#EFF4F4]' onChange={(e) => changingValue(e)} />

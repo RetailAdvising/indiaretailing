@@ -20,16 +20,16 @@ import Dropdowns from '@/components/common/Dropdowns'
 // import { Document, Page } from 'react-pdf';
 // import BreadCrumb from '@/components/common/BreadCrumb';
 // import Razorpay from 'razorpay';
-import { Nunito } from 'next/font/google'
+// import { Nunito } from 'next/font/google'
 import Head from 'next/head'
-const nunito = Nunito({
-    weight: ["300","400","500","600","700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-  })
+// const nunito = Nunito({
+//     weight: ["300","400","500","600","700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+//   })
 export default function Bookstoredetail({ value, res,ads }) {
 
   const [subs, setSubs] = useState();
@@ -788,7 +788,7 @@ const  getCarts = async (type) => {
             {/* p-[20px] flex flex-col justify-between*/}
             <div className={` flex-[0_0_calc(60%_-_10px)] md:p-[10px] lg:p-[20px] md:flex-[0_0_calc(100%_-_0px)]`}>
               <div className={`flex md:p-[10px] lg:gap-5 md:gap-[5px] lg:h-[40px] md:pb-[10px]`}>
-                <h6 className={`lg:min-h-[60px] md:text-[16px] line-clamp-2 leading-[1.5] lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-[700] ${nunito.className}`}>{data.item_title}</h6>
+                <h6 className={`lg:min-h-[60px] md:text-[16px] line-clamp-2 leading-[1.5] lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-[700] nunito`}>{data.item_title}</h6>
                 {/* {route: router.asPath.split('/')[2]+'/'+data.route} */}
                 {icons && <Dropdowns share={true} updateShare={(data) => updateShare(data)} link={data} width={'w-[170px]'} btnClass={'md:w-[32px]'} data={icons} type={'books'} />}
 
@@ -900,7 +900,7 @@ const  getCarts = async (type) => {
               {(subs && subs.length != 0) && 
               
               <>
-              <h6 className={`md:text-[16px] line-clamp-2 lg:text-[18px] lg:p-[20px_0px_0px_0px] font-[700] ${nunito.className}`}>Subscription Plans</h6>
+              <h6 className={`md:text-[16px] line-clamp-2 lg:text-[18px] lg:p-[20px_0px_0px_0px] font-[700] nunito`}>Subscription Plans</h6>
 
               
               <div className={`md:hidden grid grid-cols-3 md:gap-[10px] md:p-[10px] lg:gap-[10px] lg:w-[570px]  lg:p-[20px_0px] justify-between`}>
@@ -984,16 +984,16 @@ const  getCarts = async (type) => {
 
               {data.full_description &&
                 <div className={`px-[10px] border_bottom pb-[20px] mb-[20px] ${(subs && subs.length != 0) ? '' : 'mt-5'}`}>
-                  <h6 className={`pb-[10px] font-[700] ${nunito.className}`}>This Issue</h6>
+                  <h6 className={`pb-[10px] font-[700] nunito`}>This Issue</h6>
                   {/* <div className='line-clamp-[10]' dangerouslySetInnerHTML={{__html:data.full_description}} ></div> */}
                   <div className='' dangerouslySetInnerHTML={{ __html: data.full_description }} />
                   {/* <p className='font-semibold'>Read More...</p> */}
                 </div>
               }
               <div className='grid grid-cols-3 md:p-[0_0px_10px_0px] md:gap-[5px] lg:gap-[8px]'>
-                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[16px] md:m-auto' width={25} alt={''} src={'/bookstore/digital.svg'} /></span><span style={{fontWeight:'600'}} className={`md:text-[12px] sub_title md:text-center  ${nunito.className}`}> Digital Subscription</span></div>
-                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[16px] md:m-auto' width={25} alt={''} src={'/bookstore/cancel.svg'} /></span><span style={{fontWeight:'600'}} className={`md:text-[12px] sub_title md:text-center  ${nunito.className}`}> Cancel Anytime</span></div>
-                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[16px] md:m-auto' width={25} alt={''} src={'/bookstore/payment.svg'} /></span><span style={{fontWeight:'600'}} className={`md:text-[12px] sub_title md:text-center  ${nunito.className}`}> Secure Payment</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[16px] md:m-auto' width={25} alt={''} src={'/bookstore/digital.svg'} /></span><span style={{fontWeight:'600'}} className={`md:text-[12px] sub_title md:text-center  nunito`}> Digital Subscription</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[16px] md:m-auto' width={25} alt={''} src={'/bookstore/cancel.svg'} /></span><span style={{fontWeight:'600'}} className={`md:text-[12px] sub_title md:text-center  nunito`}> Cancel Anytime</span></div>
+                <div className='flex md:block md:text-center cursor-pointer items-center gap-[10px]'><span className='h-[25px] flex items-center justify-center'><Image height={25} className='object-contain lg:h-[20px] md:h-[16px] md:m-auto' width={25} alt={''} src={'/bookstore/payment.svg'} /></span><span style={{fontWeight:'600'}} className={`md:text-[12px] sub_title md:text-center  nunito`}> Secure Payment</span></div>
               </div>
 
             </div>

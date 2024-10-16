@@ -6,17 +6,17 @@ import AlertUi from '../common/AlertUi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CommentModal from './CommentModal'
-import { Nunito } from 'next/font/google'
+// import { Nunito } from 'next/font/google'
 import format from 'date-fns/format'
 
-const nunito = Nunito({
-    weight: ["300", "400", "500", "600", "700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-})
+// const nunito = Nunito({
+//     weight: ["300", "400", "500", "600", "700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+// })
 export default function Comments({ data, isLast, load, comments, route, updatedCmt, cur, isModal, hide, noScroll, no_data, showSidebar }) {
     const [input, setInput] = useState({ index: -1, show: false })
     const [comment, setComment] = useState()
@@ -323,7 +323,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             {/* {mod && <ModPopup />} */}
 
             {/* {isModal && <div className={`flex justify-between p-[20px_15px] `}>
-                <h6 className={`text-[18px] font-[700] ${nunito.className}`}>All Comments</h6>
+                <h6 className={`text-[18px] font-[700] nunito`}>All Comments</h6>
                 <div>
                     <Image src={'/categories/close.svg'} onClick={hide} className='cursor-pointer ' height={22} width={22} alt='close' />
                 </div>
@@ -333,18 +333,18 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                 <h1 className={`lg:text-[24px] md:text-[16px] md:leading-[29.23px] font-semibold leading-[1.3] m-[8px_0] md:my-1 md:mb-[5px]`}>{cur.title}</h1>
 
                 <div className={`flex items-center gap-[8px] flex-wrap`}>
-                    <p className={`text-[13px] ${nunito.className} font-[700]`}>By : </p>
+                    <p className={`text-[13px] nunito font-[700]`}>By : </p>
                     {cur.publisher && cur.publisher.length != 0 &&
                         cur.publisher.slice(0, 2).map((r, index) => {
                             return (
-                                <h6 key={index} className={`font-[700] ${nunito.className} text-[13px]`}> {r.full_name}</h6>
+                                <h6 key={index} className={`font-[700] nunito text-[13px]`}> {r.full_name}</h6>
                             )
                         })
                     }
                 </div>
 
                 <div className='flex my-[15px]  items-center gap-[10px] md:justify-between md:hidden'>
-                    <h6 className={`text-gray text-[11px] gray-text ${nunito.className}`}>{dateFormat(cur.published_on ? cur.published_on : cur.modified)}</h6>
+                    <h6 className={`text-gray text-[11px] gray-text nunito`}>{dateFormat(cur.published_on ? cur.published_on : cur.modified)}</h6>
                     <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{cur.views ? cur.views : cur.no_of_views ? cur.no_of_views : 1} Views</span></div>
                     <div className='flex items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{cur.no_of_shares + ' shares'}</span></div>
                     <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{cur.read_time} </span></div>
@@ -353,7 +353,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             {!isModal && <div className={`relative bg-[#EEEEEE] mt-[10px] rounded-full flex justify-between border p-[5px]`}>
                 {/* <div className='flex gap-5 items-center'> */}
                 {/* <Image src={'/categories/send-01.svg'} className='cursor-pointer ' height={22} width={22} alt='send' /> */}
-                <p className={`${nunito.className} p-[5px_10px]`}>Be the first to comment</p>
+                <p className={`nunito p-[5px_10px]`}>Be the first to comment</p>
                 {/* </div> */}
 
                 {/* <button onClick={() => sendMsg('cmt')} className={`primary_button h-[35px] w-[120px] !rounded-full text-[13px]`}>Comment Now</button> */}
@@ -365,10 +365,10 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             {data && data.length != 0 &&
                 <>
                     {isModal && <div>
-                        <p className={`${nunito.className} text-[16px] md:text-[15px] md:pt-[5px] px-[20px] font-[700]`}>{data.length + ' Comments'}</p>
+                        <p className={`nunito text-[16px] md:text-[15px] md:pt-[5px] px-[20px] font-[700]`}>{data.length + ' Comments'}</p>
                     </div>}
                     <div id='scroll' className={`${isModal ? ' h-[calc(100vh_-_440px)] border !border-b-0 rounded-[30px_30px_0_0] overflow-auto customScroll p-[15px]' : ' rounded-[5px] p-[10px]'}  my-[10px]`}>
-                        {/* {isModal && <p className={`${nunito.className} text-[20px] mb-5 font-[700]`}>{data.length + ' Comments'}</p>} */}
+                        {/* {isModal && <p className={`nunito text-[20px] mb-5 font-[700]`}>{data.length + ' Comments'}</p>} */}
                         {data.map((res, i) => {
                             return (
                                 <div key={res.comment_by + i} className={`flex gap-[10px] mb-[10px] ${i != data.length - 1 ? 'border_bottom pb-[10px]' : ''}`}>
@@ -376,7 +376,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                         <Image height={45} width={45} className='rounded-full object-contain' alt={res.name} src={'/profit.svg'} />
                                     </div>
                                     <div className={`${isModal ? 'flex-[0_0_calc(91%_-_10px)]' : 'flex-[0_0_calc(94%_-_10px)] md:flex-[0_0_calc(87%_-_10px)]'}`}>
-                                        <h6 className={`text-[15px] capitalize ${nunito.className} font-[700]`}>{res.comment_by}</h6>
+                                        <h6 className={`text-[15px] capitalize nunito font-[700]`}>{res.comment_by}</h6>
                                         <div className='pb-[5px] sub_title !text-[14px]' dangerouslySetInnerHTML={{ __html: res.content }} />
                                         <div className='flex justify-between items-center py-[5px]'>
                                             <div className='flex gap-3'>
@@ -401,9 +401,9 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
 
             {isModal && <div className={`flex items-center border mx-[10px] h-[40px] bg-[#EEEEEE] rounded-full justify-between`}>
                 {/* <div> */}
-                <input id={'cmt' + cur.name} type='text' placeholder="What's on your mind" autoComplete='off' className={`h-full w-full flex-[0_0_calc(83%_-_10px)] md:flex-[0_0_calc(75%_-_10px)] ${nunito.className} text-[13px] !border-0 bg-[#EEEEEE] px-[10px] rounded-full`} />
+                <input id={'cmt' + cur.name} type='text' placeholder="What's on your mind" autoComplete='off' className={`h-full w-full flex-[0_0_calc(83%_-_10px)] md:flex-[0_0_calc(75%_-_10px)] nunito text-[13px] !border-0 bg-[#EEEEEE] px-[10px] rounded-full`} />
                 {/* </div> */}
-                <div className={`p-[5px] w-full h-full`}><button onClick={submitMsg} className={`primary_button cursor-pointer w-full h-full  text-[13px] md:text-[12px] ${nunito.className} !rounded-full`}>Post comment</button></div>
+                <div className={`p-[5px] w-full h-full`}><button onClick={submitMsg} className={`primary_button cursor-pointer w-full h-full  text-[13px] md:text-[12px] nunito !rounded-full`}>Post comment</button></div>
             </div>}
         </>
     )

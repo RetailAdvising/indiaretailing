@@ -3,15 +3,15 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import ImageLoader from '../ImageLoader';
-import { Nunito } from 'next/font/google'
-const nunito = Nunito({
-    weight: ["300", "400", "500", "600", "700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    variable: '--font-inter',
-})
+// import { Nunito } from 'next/font/google'
+// const nunito = Nunito({
+//     weight: ["300", "400", "500", "600", "700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     variable: '--font-inter',
+// })
 export default function Video({ data, flex, imgClass, big, isBg, isHome = undefined, isList, vh, abs }) {
     const router = useRouter();
     return (
@@ -28,7 +28,7 @@ export default function Video({ data, flex, imgClass, big, isBg, isHome = undefi
                                 <Image src={'/irprime/youtube.svg'} className={`object-contain h-[12px] w-[12px]`} height={100} width={100} alt={res.title} />
                                 <p className='text-white text-[11px] font-[500]'>{parseISO8601Duration(res.duration ? res.duration : 'PT71M34S')}</p>
                             </div>  
-                            <p className={`pt-[10px] text-[14px] md:text-[13px] ${big ? 'text-[17px] absolute bottom-[15px] mx-[10px] leading-[22px] font-[500]' : ''} line-clamp-2 ${isBg ? 'text-white' : ''} !font-[700] ${nunito.className}`}>{res.title}</p>
+                            <p className={`pt-[10px] text-[14px] md:text-[13px] ${big ? 'text-[17px] absolute bottom-[15px] mx-[10px] leading-[22px] font-[500]' : ''} line-clamp-2 ${isBg ? 'text-white' : ''} !font-[700] nunito`}>{res.title}</p>
                             {big && <div className='absolute bg-[#00000036] h-full w-full top-0'></div>}
                         </div>
                     </Link>
