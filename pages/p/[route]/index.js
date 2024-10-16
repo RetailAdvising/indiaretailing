@@ -3,20 +3,20 @@ import Title from '@/components/common/Title';
 import ImageLoader from '@/components/ImageLoader';
 import RootLayout from '@/layouts/RootLayout';
 import { check_Image, HomePage } from '@/libs/api';
-import { Nunito } from 'next/font/google';
+// import { Nunito } from 'next/font/google';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 
-const nunito = Nunito({
-    weight: ["300", "400", "500", "600", "700"],
-    display: "block",
-    preload: true,
-    style: 'normal',
-    subsets: ["latin"],
-    // variable: '--font-nunito',
-})
+// const nunito = Nunito({
+//     weight: ["300", "400", "500", "600", "700"],
+//     display: "block",
+//     preload: true,
+//     style: 'normal',
+//     subsets: ["latin"],
+//     // variable: '--font-nunito',
+// })
 const index = ({ data, page_route, ads }) => {
     // console.log(data, "data")
 
@@ -116,7 +116,7 @@ const index = ({ data, page_route, ads }) => {
                                                                 <Image className='h-[23px] w-[23px] object-contain' height={100} width={100} alt={data.data[c.cid].description} src={check_Image(data.data[c.cid].logo)}></Image>
                                                             </div>
 
-                                                            <h6 className={`flex items-center gap-[5px]  ${nunito.className}`}>
+                                                            <h6 className={`flex items-center gap-[5px]  nunito`}>
                                                                 <span className='text-[18px] font-[800] uppercase'>{data.data[c.cid].heading1}</span>
                                                                 <span className='text-[18px] font-[800] text-[#E21B22] uppercase'>{data.data[c.cid].span_heading}</span>
                                                                 <span className='text-[18px] font-[800] uppercase'>{data.data[c.cid].heading2}</span>
@@ -157,13 +157,13 @@ const index = ({ data, page_route, ads }) => {
                                                         <div>
                                                             <Title data={{ title: c.component_title }} isIcon={true} see={`uppercase !font-semibold !text-[#e21b22]`} seeMore={true} />
 
-                                                            <p className={`text-[#999999] uppercase text-[12px] py-[15px] md:py-[5px] ${nunito.className}`}>{data.data[c.cid].heading}</p>
+                                                            <p className={`text-[#999999] uppercase text-[12px] py-[15px] md:py-[5px] nunito`}>{data.data[c.cid].heading}</p>
                                                             <div className='flex gap-5 justify-between md:flex-col'>
                                                                 <div>
                                                                     <p className='text-[18px] md:text-[16px] font-semibold pb-[10px]'>{data.data[c.cid].p_title}</p>
                                                                     <div>
-                                                                        <span className={`text-[14px] text-[#202121B2] pr-[10px] ${nunito.className}`}>{data.data[c.cid].s_title}</span>
-                                                                        <span className={`border-l border-l-[#000] pl-[10px] text-[14px] font-[700]  ${nunito.className}`}>{data.data[c.cid].date}</span>
+                                                                        <span className={`text-[14px] text-[#202121B2] pr-[10px] nunito`}>{data.data[c.cid].s_title}</span>
+                                                                        <span className={`border-l border-l-[#000] pl-[10px] text-[14px] font-[700]  nunito`}>{data.data[c.cid].date}</span>
                                                                     </div>
                                                                 </div>
 
@@ -188,9 +188,9 @@ const index = ({ data, page_route, ads }) => {
                                                                             </div>
 
                                                                             <div className='flex-[0_0_calc(73%_-_5px)] '>
-                                                                                <h6 className={`text-[13px] leading-[14px] line-clamp-1 ${nunito.className} font-[700]`}>{resp.name}</h6>
+                                                                                <h6 className={`text-[13px] leading-[14px] line-clamp-1 nunito font-[700]`}>{resp.name}</h6>
                                                                                 <p className={`text-[#666666] text-[12px] leading-[16px] line-clamp-2 pb-[5px]`}>{resp.designation}</p>
-                                                                                <p className={`text-[12px] text-[#C93742] ${nunito.className}`}>{resp.company}</p>
+                                                                                <p className={`text-[12px] text-[#C93742] nunito`}>{resp.company}</p>
                                                                             </div>
                                                                         </div>
                                                                     )
@@ -208,7 +208,7 @@ const index = ({ data, page_route, ads }) => {
                                                                 {data.data[c.cid].lead_list.map((resp, index) => {
                                                                     return (
                                                                         <div className={`border-b border-b-[#e9e9e9] ${i == 0 ? 'pb-[10px]' : 'py-[10px]'} cursor-pointer`} onClick={() => click_data(resp)} key={resp.title}>
-                                                                            <p className={`text-[#999999] text-[14px] md:text-[12px] font-semibold ${nunito.className}`}>{data.data[c.cid].heading}</p>
+                                                                            <p className={`text-[#999999] text-[14px] md:text-[12px] font-semibold nunito`}>{data.data[c.cid].heading}</p>
                                                                             <div className='flex gap-[15px] justify-between pt-[5px]'>
                                                                                 <div className='flex-[0_0_calc(90%_-_15px)] flex gap-[10px]'>
                                                                                     <div className='flex-[0_0_calc(9%_-_10px)] md:flex-[0_0_calc(27%_-_10px)]'>
@@ -250,8 +250,8 @@ const index = ({ data, page_route, ads }) => {
                                                                     return (
                                                                         <div key={resp.title} className='cursor-pointer' onClick={() => click_data(resp)}>
                                                                             <ImageLoader style={`rounded-[5px] h-[215px] md:h-[140px] w-full`} src={resp.image} title={resp.title} />
-                                                                            <h6 className={`text-[11px] font-[700] py-[2px] line-clamp-1 text-[#E21B22] uppercase ${nunito.className}`}>{resp.primary_text}</h6>
-                                                                            <p className={`text-[15px] md:text-[13px] font-semibold line-clamp-2 ${nunito.className}`}>{resp.title}</p>
+                                                                            <h6 className={`text-[11px] font-[700] py-[2px] line-clamp-1 text-[#E21B22] uppercase nunito`}>{resp.primary_text}</h6>
+                                                                            <p className={`text-[15px] md:text-[13px] font-semibold line-clamp-2 nunito`}>{resp.title}</p>
                                                                         </div>
                                                                     )
                                                                 })}
@@ -274,7 +274,7 @@ const index = ({ data, page_route, ads }) => {
                                                                                     <Image src={'/pdf_file.svg'} height={20} width={20} alt='pdf'></Image>
                                                                                 </div>
                                                                             </div>
-                                                                            <h6 className={`text-[14px] font-semibold  ${nunito.className}`}>{resp.title}</h6>
+                                                                            <h6 className={`text-[14px] font-semibold  nunito`}>{resp.title}</h6>
 
                                                                         </div>
                                                                     )
@@ -292,14 +292,14 @@ const index = ({ data, page_route, ads }) => {
                                                                 {data.data[c.cid].data.slice(0, 4).map(resp => {
                                                                     return (
                                                                         <div className='cursor-pointer' onClick={() => click_data(resp)} key={resp.title}>
-                                                                            <p className='flex gap-2 line-clamp-1 items-center'><span className={`primary_text fnt_13 line-clamp-1 ${nunito.className}`}>{resp.primary_text}</span> {resp.secondary_text && <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span>} <span className={`secondary_text line-clamp-1 ${nunito.className}`}>{resp.secondary_text}</span></p>
+                                                                            <p className='flex gap-2 line-clamp-1 items-center'><span className={`primary_text fnt_13 line-clamp-1 nunito`}>{resp.primary_text}</span> {resp.secondary_text && <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span>} <span className={`secondary_text line-clamp-1 nunito`}>{resp.secondary_text}</span></p>
                                                                             <div className='relative py-[5px]'>
                                                                                 <ImageLoader style={`rounded-[10px] h-[215px] md:h-[140px] w-full`} src={resp.thumbnail_imagee} title={resp.title} />
                                                                                 <div className='absolute bottom-[10px] left-0 p-[5px] '>
                                                                                     <Image src={'/book.svg'} height={20} width={20} alt='pdf'></Image>
                                                                                 </div>
                                                                             </div>
-                                                                            <h6 className={`text-[14px] line-clamp-2 font-semibold min-h-[40px] ${nunito.className}`}>{resp.title}</h6>
+                                                                            <h6 className={`text-[14px] line-clamp-2 font-semibold min-h-[40px] nunito`}>{resp.title}</h6>
                                                                             <p className={`sub_title pt-1 line-clamp-2 md:line-clamp-1`}>{resp.blog_intro ? resp.blog_intro : ''}</p>
                                                                         </div>
                                                                     )
