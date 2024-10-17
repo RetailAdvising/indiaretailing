@@ -16,7 +16,7 @@ function AudioPlayer(data) {
   const updateShare = (val) => {
 
   }
-  console.log(data,"data")
+  // console.log(data,"data")
   return (
     <div className="border p-[20px_30px] flex md:p-[10px] gap-5 md:block">
       <div className="w-[30%] md:w-[100%]">
