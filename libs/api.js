@@ -505,6 +505,11 @@ export async function eventList(data) {
     return await postMethod(api, data)
 }
 
+export async function get_expired_event(data) {
+    let api = domainUrl + 'get_expired_event';
+    return await postMethod(api, data)
+}
+
 export async function commentList(data) {
     let api = domainUrl + 'comment_list';
     return await postMethod(api, data)

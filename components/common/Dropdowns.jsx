@@ -7,7 +7,7 @@ import { checkMobile } from '@/libs/api'
 import { ToastContainer, toast } from 'react-toastify';
 
 // import { Menu } from '@headlessui/react'
-export default function Dropdowns({ data, img, width, share, setting, element, type, link, updateShare, noScroll, btnClass, cur_data }) {
+export default function Dropdowns({ data, img, width, share, setting, element, type, link, updateShare, noScroll, btnClass, cur_data, copy_link }) {
     const router = useRouter();
 
 
@@ -157,7 +157,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
     // }, []);
 
 
-
+    const setings1 = [{ name: 'Copy Link', icon: '/bookstore/Copy.svg' }]
     return (
         <>
             {/* ${share ? 'w-[17px]' : type == 'head' ? 'w-[auto]' : 'w-[8px]'} */}
@@ -182,7 +182,7 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1">
                             {/* absolute md:left-[-55px] z-[99] rounded-[10px] mt-3 bg-white -translate-x-1/2 transform */}
-                            <Popover.Panel style={{boxShadow:'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px'}} className={`arrow_ absolute z-[99] rounded-[10px] mt-[8px]  bg-white md:right-0  transform  ${type == 'tag' ? 'lg:!right-0 ' : 'lg:left-0'}`}>
+                            <Popover.Panel style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px' }} className={`arrow_ absolute z-[99] rounded-[10px] mt-[8px]  bg-white md:right-0  transform  ${type == 'tag' ? 'lg:!right-0 ' : 'lg:left-0'}`}>
                                 <div className={`overflow-hidden ${width} shadow-[0_0_5px_#dddddd91] rounded-[7px_10px_10px_10px] bg-[#fff]`}>
                                     <div className="p-[7px]">
                                         {!share ? <>
@@ -233,13 +233,33 @@ export default function Dropdowns({ data, img, width, share, setting, element, t
                                                                 <span className='h-[18px] w-[18px]'><Image src={res.icon} className='h-[18px] w-[18px] object-contain' height={40} width={40} alt={'imgs'} /></span>
                                                                 <p className={'text-[14px]'}>{res.name}</p>
                                                             </WhatsappShareButton>}
+
                                                         </div>
+
+
 
                                                         <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
 
                                                     </div>
                                                 )
                                             })}
+
+                                            {copy_link && <div>
+                                                {setings1.map((res, index) => {
+                                                    return (
+                                                        <div onClick={() => settings(res)} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} key={index}>
+                                                            <div className='flex items-center gap-[5px]'>
+                                                                {res.icon && <div className='h-[17px] flex items-center justify-center'><Image className='object-contain h-[18px] w-[18px]' src={res.icon} height={20} alt={res.name} width={20} /></div>}
+                                                                <p className={`${(index != setings1.length - 1 && !res.icon) ? '' : ''} mb-[1px] text-[14px] `}>{res.name}</p>
+                                                            </div>
+
+                                                            <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
+
+                                                        </div>
+                                                    )
+                                                })}
+
+                                            </div>}
                                         </>
 
                                         }

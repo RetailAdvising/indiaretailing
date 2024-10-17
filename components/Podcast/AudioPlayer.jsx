@@ -23,10 +23,10 @@ function AudioPlayer(data) {
         <Image height={220} width={200} className={`md:pb-[5px] rounded-[5px]   h-[220px]  w-full md:object-contain md:h-[180px] md:pr-[5px]`} src={check_Image(data.data.image)} alt={"cards"} />
       </div>
       <div className="w-[70%] md:w-[100%] ">
-        <div className='flex items-center gap-5 justify-between'>
+        <div className='flex gap-5 justify-between'>
           <h6 className={`text-[32px] font-[700] nunito pb-2 md:text-[18px] md:pt-[20px]`}>{data.data.title}</h6>
           {typeof window !== "undefined" && <div className='flex-[0_0_auto]'>
-            {icons && <Dropdowns updateShare={updateShare} share={true} link={data.data} width={'w-[170px]'} data={icons} />}
+            {icons && <Dropdowns copy_link={true} updateShare={updateShare} share={true} link={data.data} width={'w-[170px]'} data={icons} />}
           </div>}
         </div>
         <p className={`nunito font-semibold`}>{data.data.category}</p>

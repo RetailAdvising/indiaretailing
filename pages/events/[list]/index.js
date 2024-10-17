@@ -1,14 +1,15 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { eventList,getAdvertisements } from '@/libs/api.js';
+import { eventList, get_expired_event, getAdvertisements } from '@/libs/api.js';
 import RootLayout from '@/layouts/RootLayout';
 import EventList from '@/components/Events/EventList';
 import Title from '@/components/common/Title';
 import EventCards from '@/components/Events/EventCards';
 import SEO from '@/components/common/SEO'
 import { check_Image } from '@/libs/common';
+import EventSlide from '@/components/Events/EventSlide';
 
-export default function EventDetails({ values }) {
+export default function EventDetails({ values, Id }) {
     const router = useRouter();
     // const [list, setList] = useState(false);
     const [isChecked, setIsChecked] = useState(false)
@@ -38,6 +39,7 @@ export default function EventDetails({ values }) {
         if (values) {
             // console.log(values);
             setData(values.message)
+            getExpiredEvents()
         }
 
         const handleScroll = (event) => {
@@ -66,6 +68,23 @@ export default function EventDetails({ values }) {
     }, [])
 
 
+    const [expiredEvents, setExpiredEvents] = useState([])
+    const getExpiredEvents = async () => {
+        let params = {
+            page_no: 1,
+            page_length: 20,
+            route: Id
+        }
+
+        const resp = await get_expired_event(params)
+        if (resp.message && resp.message.message && resp.message.message.length > 0) {
+            // console.log(resp.message,"resp.message")
+            setExpiredEvents(resp.message.message)
+        } else {
+            setExpiredEvents([])
+        }
+    }
+
     async function loadMore() {
         let Id = router.query?.list;
         let param = { route: Id, page_no: page_no, page_length: 12, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path"] }
@@ -82,22 +101,22 @@ export default function EventDetails({ values }) {
 
     }
 
-    const [ads,setAds] = useState()
+    const [ads, setAds] = useState()
 
     const getAd = async () => {
         let params = { page: 'Events', page_type: 'List' }
         const res = await getAdvertisements(params);
         const ads = res.message;
-        if(ads){
-          setAds(ads)
+        if (ads) {
+            setAds(ads)
         }
-      }
-    
+    }
+
     return (
         <>
-            <RootLayout isLanding={false} head={values.title} homeAd={ads ? ads : null} adIdH={router.query.list+'evcH'} adIdF={router.query.list+'evcF'} >
-            {values && <SEO title={values.title} siteName={'India Retailing'}/>}
-            {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Retailing'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
+            <RootLayout isLanding={false} head={values.title} homeAd={ads ? ads : null} adIdH={router.query.list + 'evcH'} adIdF={router.query.list + 'evcF'} >
+                {values && <SEO title={values.title} siteName={'India Retailing'} />}
+                {/* <SEO title={data.data.meta_title} ogImage={check_Image(data.data.image)} siteName={'India Retailing'} ogType={data.data.meta_keywords} description={data.data.meta_description}/> */}
                 <div className='md:p-[15px] container '>
                     <div className='flex md:hidden justify-between items-center'>
                         <div className='mt-[20px]'>
@@ -138,6 +157,13 @@ export default function EventDetails({ values }) {
                         </>
                         }
                     </div>
+
+                    {expiredEvents && expiredEvents.length > 0 && <div className='py-[20px]'>
+                        <Title data={{ title: 'Past Events' }} />
+
+                        <EventSlide data={expiredEvents} card={'h-[360px] md:h-[320px] flex-[0_0_calc(25%_-_15px)] md:flex-[0_0_calc(50%_-_15px)]'} height={'h-[210px] md:h-[150px]'} width={'w-full'}
+                            slider_id={"slider_id123"} slider_child_id={"slider_child_id123"}  />
+                    </div>}
                 </div>
             </RootLayout>
         </>
@@ -149,7 +175,7 @@ export async function getServerSideProps({ params }) {
     const response = await eventList(datas)
     const values = await response;
     return {
-        props: { values }
+        props: { values, Id }
     }
 }
 
