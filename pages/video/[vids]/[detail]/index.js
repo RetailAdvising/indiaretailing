@@ -214,7 +214,7 @@ export default function Videos({ meta_info, ads_data }) {
 
                             <div className={`flex md:p-[10px] justify-between lg:gap-5 md:gap-[5px] pb-[10px] md:pl-0`}>
                                 <h6 className={`md:text-[16px] line-clamp-2 lg:text-[20px] md:w-[calc(90%_-_10px)] md:mr-[10px] font-[700] nunito`}>{videoDetail.message.title}</h6>
-                                {icons && <><Dropdowns btnClass={'md:w-[32px]'} updateShare={(data) => updateShare(data)} link={videoDetail.message} data={icons} share={true} /></>}
+                                {icons && <><Dropdowns copy_link={true} btnClass={'md:w-[32px]'} updateShare={(data) => updateShare(data)} link={videoDetail.message} data={icons} share={true} /></>}
                             </div>
 
                             {(!validator && videoDetail.message.ir_prime == 1) && <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='lg:h-[500px] object-contain md:h-full w-full' />}

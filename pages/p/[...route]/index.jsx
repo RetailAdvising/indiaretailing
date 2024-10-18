@@ -1,13 +1,27 @@
-import SEO from '@/components/common/SEO';
-import Title from '@/components/common/Title';
-import ImageLoader from '@/components/ImageLoader';
-import RootLayout from '@/layouts/RootLayout';
-import { check_Image, HomePage } from '@/libs/api';
+import SEO from "@/components/common/SEO";
+import Title from "@/components/common/Title";
+import ImageLoader from "@/components/ImageLoader";
+import RootLayout from "@/layouts/RootLayout";
+import { check_Image, getWebinarData, HomePage } from "@/libs/api";
 // import { Nunito } from 'next/font/google';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useRef, useState } from 'react'
+import Image from "next/image";
+import { useRouter } from "next/router";
+import format from "date-fns/format";
+import { useCallback, useEffect, useRef, useState } from "react";
+import WebinarTitle from "@/components/Webinar/WebinarTitle";
+import KeyPointsCard from "@/components/Webinar/KeyPointsCard";
+import SpeakerCard from "@/components/Webinar/SpeakerCard";
+import Agenda from "@/components/Webinar/Agenda";
+import { Inter } from "next/font/google";
 
+const inter = Inter({
+  weight: ["300", "400", "500", "600", "700"],
+  display: "block",
+  preload: true,
+  style: "normal",
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 // const nunito = Nunito({
 //     weight: ["300", "400", "500", "600", "700"],
@@ -17,89 +31,141 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 //     subsets: ["latin"],
 //     // variable: '--font-nunito',
 // })
-const index = ({ data, page_route, ads }) => {
-    // console.log(data, "data")
+const index = ({ data, page_route, ads, webinar_data }) => {
+  // const index = ({ data, page_route, ads }) => {
+  console.log(page_route, "page_route");
 
-    const [noProduct, setNoProduct] = useState(false)
-    const [value, setValue] = useState([])
-    const router = useRouter()
-    useEffect(() => {
-        if (data && data.page_content && data.page_content.length != 0) {
-            setTimeout(() => {
-                setValue(data.page_content)
-            }, 100)
+  const [noProduct, setNoProduct] = useState(false);
+  const [webinarData, setWebinarData] = useState([]);
+  const [showMore, setShowMore] = useState(false);
+  const [keyPointsList, setKeyPointslist] = useState([]);
+  const [date, setDate] = useState();
+  const [value, setValue] = useState([]);
+  const router = useRouter();
+  // useEffect(() => {
+  //     if (data && data.page_content && data.page_content.length != 0) {
+  //         setTimeout(() => {
+  //             setValue(data.page_content)
+  //         }, 100)
 
-        }
+  //     }
 
-    }, [])
+  // }, [])
 
-    // Pagination
-    const observer = useRef();
-    const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const formattedDate = format(new Date(), "iiii, d MMMM yyyy");
+    setDate(formattedDate);
+    // console.log('router.asPath',router.asPath);
+    // console.log('router.asPath',nav);
+  }, []);
 
-    const lastPostElementRef = useCallback(
-        (node) => {
-            if (loading) return;
-            if (observer.current) observer.current.disconnect();
-
-            observer.current = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting) {
-                    setPage((prevPage) => prevPage + 1); // trigger loading of new posts by chaging page no
-                }
-            });
-
-            if (node) observer.current.observe(node);
-        },
-        [loading]
-    );
-
-    useEffect(() => {
-        if (page > 1 && !noProduct) {
-            // console.log(page,"page")
-            setLoading(true);
-            const data = {
-                page_no: page,
-                page_length: 10,
-                route: page_route
-            }
-            loadMore(data)
-            setLoading(false);
-        }
-    }, [page]);
-
-
-    const loadMore = async (data) => {
-        const resp = await HomePage(data);
-        if (resp.message && resp.message.page_content && resp.message.page_content.length > 0) {
-            setValue([...value, ...resp.message.page_content])
-            setNoProduct(false)
-        } else {
-            setNoProduct(true)
-        }
+  useEffect(() => {
+    if (webinarData) {
+      setTimeout(() => {
+        setWebinarData(webinar_data);
+      }, 100);
     }
+  }, []);
 
-    const click_data = (data) => {
-        console.log(data, "data")
-    }
-    const [activeIndex, setActiveIndex] = useState(0)
+  //   const keyPoints = (data)=>{
+  //     setShowMore(!showMore);
 
-    const activateSection = async (data, i) => {
-        // console.log(data,"data")
-        setActiveIndex(i)
-        let el = document.getElementById(data.url)
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' })
+  //      if(showMore){
+  //         setKeyPointslist(data)
+  //      }else{
+  //         setKeyPointslist(data.slice(0,4))
+  //      }
+  //   }
+
+  // Pagination
+  const observer = useRef();
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const lastPostElementRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prevPage) => prevPage + 1); // trigger loading of new posts by chaging page no
         }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
+
+  useEffect(() => {
+    if (page > 1 && !noProduct) {
+      // console.log(page,"page")
+      setLoading(true);
+      const data = {
+        page_no: page,
+        page_length: 10,
+        route: page_route,
+      };
+      loadMore(data);
+      setLoading(false);
     }
+  }, [page]);
 
+  const loadMore = async (data) => {
+    const resp = await HomePage(data);
+    if (
+      resp.message &&
+      resp.message.page_content &&
+      resp.message.page_content.length > 0
+    ) {
+      setValue([...value, ...resp.message.page_content]);
+      setNoProduct(false);
+    } else {
+      setNoProduct(true);
+    }
+  };
 
+  const click_data = (data) => {
+    console.log(data, "data");
+  };
+  const [activeIndex, setActiveIndex] = useState(0);
 
-    return (
-        <>
-            <RootLayout data={data} isLanding={true} head={''} adIdH={page_route + 'head'} adIdF={page_route + 'foot'} homeAd={ads && ads.header ? ads : null}>
-                <SEO title={'India Retailing'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
-                {(value && value.length != 0) ? value.map((data, i) => {
+  const activateSection = async (data, i) => {
+    // console.log(data,"data")
+    setActiveIndex(i);
+    let el = document.getElementById(data.url);
+    if (el) {
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "start",
+      });
+    }
+  };
+
+  console.log("wd", webinarData.banner_image);
+
+  return (
+    <>
+      <RootLayout
+        data={data}
+        isLanding={true}
+        head={""}
+        adIdH={page_route + "head"}
+        adIdF={page_route + "foot"}
+        homeAd={ads && ads.header ? ads : null}
+      >
+        <SEO
+          title={"India Retailing"}
+          siteName={"India Retailing"}
+          description={
+            "This is IndiaRetailing and its about news and articles based on the popular site."
+          }
+        />
+
+        <div>
+          {/* {(value && value.length != 0) ? value.map((data, i) => {
                     return (
                         <div key={i} ref={value.length === i + 1 ? lastPostElementRef : null} className={`py-[20px] container  md:p-[15px]  md:py-[10px] lg:flex gap-5`}>
                             {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
@@ -109,7 +175,7 @@ const index = ({ data, page_route, ads }) => {
                                             return (
                                                 <div key={c.component_title} id={c.component_title} className={`md:py-[15px]`}>
 
-                                                    {/* Title and Description */}
+                                                    
                                                     {(c.cid && data.data[c.cid] && c.component_title == "Title and Description") && <>
                                                         <div className={`flex items-center gap-[10px]`}>
                                                             <div className={`flex-[0_0_auto]`}>
@@ -139,7 +205,7 @@ const index = ({ data, page_route, ads }) => {
                                                                     {data.data[c.cid]['side_menu'].map((resp, index) => {
                                                                         return (
                                                                             <div key={resp.title} className={`${index == data.data[c.cid]['side_menu'].length - 1 ? '' : 'border-b border-b-[#D9D9D9]'} p-[10px] cursor-pointer`} onClick={() => activateSection(resp, index)}>
-                                                                                {/* ${resp.url == } */}
+                                                                                
                                                                                 <h6 className={`text-[14px] ${activeIndex == index ? 'text-[#E21B22] font-[700]' : 'text-[#737373]'} `}>{resp.title}</h6>
 
                                                                             </div>
@@ -151,7 +217,7 @@ const index = ({ data, page_route, ads }) => {
                                                         </>
                                                     }
 
-                                                    {/* { (c.cid && data.data[c.cid] && (data.data[c.cid]['side_menu'] && data.data[c.cid]['side_menu'].length > 0) && c.component_title == "Side Menu") && <> */}
+                                                    
                                                     {(c.cid && data.data[c.cid] && (data.data[c.cid] && data.data[c.cid]) && c.component_title == "Webinars") && <>
 
                                                         <div>
@@ -182,7 +248,7 @@ const index = ({ data, page_route, ads }) => {
                                                                 {data.data[c.cid].speaker_list.map((resp, index) => {
                                                                     return (
                                                                         <div key={resp.name} className='flex gap-[10px] cursor-pointer md:flex-[0_0_calc(100%_-_10px)]' onClick={() => click_data(resp)}>
-                                                                            {/* flex-[0_0_calc(27%_-_5px)] */}
+                                                                           
                                                                             <div className='flex-[0_0_auto]'>
                                                                                 <ImageLoader style={`rounded-[5px] h-[65px] w-full`} src={resp.image} title={resp.name} />
                                                                             </div>
@@ -316,27 +382,199 @@ const index = ({ data, page_route, ads }) => {
                             })}
                         </div>
                     )
-                }) : <></>}
-            </RootLayout>
-        </>
-    )
-}
+                }) : <></>} */}
+        </div>
 
-export default index
+        <>
+          <div className="container">
+            {/* <div style={{backgroundImage: `url(https://indiaretailing.go1cms.com${webinarData.banner_image})`}} className='lg:px-20 lg:py-10 flex flex-col justify-start'>
+                        <div className='inline-flex w-[200px]'>
+                            <ImageLoader style={`rounded-[5px] h-[65px] w-[80px]`} src={webinarData.brand_logo} />
+                            <h1 className='text-white text-3xl'>{webinarData.brand_name}</h1>
+                        </div>
+                      </div> */}
+
+            <div className="px-5 lg:px-16">
+              <div className="flex justify-between items-center">
+                <div className="flex gap-3">
+                  <div className="border p-2 rounded-lg">
+                    <ImageLoader
+                      src={webinarData.brand_logo}
+                      style={`rounded-[5px] h-[65px] w-[80px]`}
+                    />
+                  </div>
+                  <div className="">
+                    <h1 className="text-[28px] font-bold">
+                      {webinarData.brand_name}
+                    </h1>
+                    <p className="text-lg font-normal text-[#202121]">
+                      {webinarData.title}
+                    </p>
+                    <div className="flex gap-1 items-center">
+                      <Image src="/calendar-minus.png" width={14} height={14} />
+                      <span className="text-sm">{date && date}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <Image src="/shares.svg" width={24} height={24} />
+                </div>
+              </div>
+
+              <div className="mt-5">
+                {webinarData.overview && (
+                  <>
+                    <div>
+                      <WebinarTitle data={{ title: "Overview" }} />
+                      <p className="text-[18px] font-normal text-[#202121B2] text-justify mt-3">
+                        {webinarData.overview}
+                      </p>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              <div>
+                {webinarData.key_points && webinarData.length !== 0 && (
+                  <>
+                    <div className="mt-5">
+                      <div className="flex justify-between items-center">
+                        <WebinarTitle
+                          data={{ title: "KEY DISCUSSION POINTS" }}
+                        />
+
+                        {webinarData.key_points.length > 3 && (
+                          <div>
+                            <div
+                              className="flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
+                              onClick={""}
+                            >
+                              <p className={`nunito`}>More</p>
+                              <Image
+                                className="h-[11px] w-[5px] object-contain"
+                                src="/forwardIcon.svg"
+                                height={5}
+                                width={5}
+                                alt="View All"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 gap-8 mt-5">
+                      {webinarData.key_points &&
+                        webinarData.key_points.map((res, i) => (
+                          <div key={i}>
+                            <KeyPointsCard data={res} />
+                          </div>
+                        ))}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {webinarData.speakers && webinarData.speakers.length !== 0 && (
+                <>
+                  <div className="mt-5">
+                    <WebinarTitle data={{ title: "SPEAKERS" }} />
+                    <div className="grid md:grid-cols-1 lg:grid-cols-4 gap-6 mt-5">
+                      {webinarData.speakers.map((res, i) => (
+                        <div key={i}>
+                          <SpeakerCard data={res} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {webinarData.agenda && webinarData.agenda !== 0 && (
+                <>
+                  <div className="mt-5">
+                    <WebinarTitle data={{ title: "AGENDA" }} />
+
+                    <div className="mt-5">
+                      <Agenda data={webinarData.agenda} />
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {webinarData.who_should_attend && (
+                <>
+                  <div className="mt-5">
+                    <WebinarTitle data={{ title: "WHO SHOULD ATTEND" }} />
+
+                    <div
+                      className={`mt-8 text-[20px] font-medium text-[#202121] bg-[#F2F2F2] rounded-md p-2 w-fit ${inter.className}`}
+                    >
+                      <p>{webinarData.who_should_attend}</p>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {webinarData.contact_name &&
+                webinarData.contact_number &&
+                webinarData.contact_email && (
+                  <>
+                    <div className="mt-5">
+                      <WebinarTitle data={{ title: "CONTACT US" }} />
+                      <div className={`mt-8 ${inter.className}`}>
+                        <p className="md:text-base lg:text-lg font-normal break-words">
+                          {`For Delegation | ${webinarData.contact_name} | ${webinarData.contact_email} | ${webinarData.contact_number}`}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+
+                {
+                    <div className="p-5 bg-[#F2F2F2] flex flex-col mt-5">
+                        <h3 className="text-[30px] font-bold">{webinarData.bottom_banner_title}</h3>
+                        <p className="text-[22px] text-[#8D9D9D]">{webinarData.bottom_banner_description}</p>
+                        <span className="text-[20px] font-medium text-[#202121] mt-3">{webinarData.date}</span>
+                        <button className="px-3 py-2 text-sm font-bold w-fit mt-2 webinar-btn rounded-md text-white">{webinarData.button_name}</button>
+                    </div>
+                }
+            </div>
+          </div>
+        </>
+      </RootLayout>
+    </>
+  );
+};
+
+export default index;
 
 export async function getServerSideProps({ params }) {
-    let page_route = await params?.route;
-    // let Id = 'beauty-wellness';
-    const param = {
-        // "application_type": "mobile",
-        "route": page_route,
-        page_no: 1,
-        page_size: 4
-    }
-    const resp = await HomePage(param);
-    const data = await resp.message;
+  let page_route = await params;
+  // // let Id = 'beauty-wellness';
+  // const param = {
+  //     // "application_type": "mobile",
+  //     "route": page_route,
+  //     page_no: 1,
+  //     page_size: 4
+  // }
+  // const resp = await HomePage(param);
+  // const data = await resp.message;
 
-    return {
-        props: { data, page_route }
-    }
+  // return {
+  //     props: { data, page_route }
+  // }
+
+  const param = {
+    route: "webinars/reimagine-next--the-future-of-retail",
+  };
+
+  const res = await getWebinarData(param);
+  const webinar_data = res.message;
+
+  return {
+    props: { page_route, webinar_data },
+  };
 }

@@ -834,6 +834,11 @@ export async function newsletter_category_list(data) {
     return await GET_Resource(api)
 }
 
+export async function getWebinarData(data){
+   let api = domainUrl + 'get_webinar_data';
+   return await postMethod(api, data);
+}
+
 export const checkMember = (data) => {
     if (data && data.length != 0) {
         for (let j = 0; j < data.length; j++) {
