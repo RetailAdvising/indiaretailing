@@ -259,7 +259,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
         {/* {!checkout && <Navbar isLanding={isLanding} heading={head} /> } */}
         <div className={``}><Navbar isLanding={isLanding} heading={head} checkout={checkout} /></div>
         {/* {!checkout ? <Navbar isLanding={isLanding} heading={head} /> : <div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={head} /></div> } */}
-        {(breadCrumbs && breadCrumbs.length > 1 && breadCrumbs[1] && breadCrumbs[1] != 'newsletters' && breadCrumbs[1] != 'advertise-with-us' && breadCrumbs[1].split('?')[0] != 'thankyou' && breadCrumbs[1].split('?')[0] != 'profile' && breadCrumbs[1].split('?')[0] != 'search' && breadCrumbs[1].split('?')[0] != 'tag') &&
+        {(breadCrumbs && breadCrumbs.length > 1 && breadCrumbs[1] && breadCrumbs[1] != 'p' && breadCrumbs[1] != 'newsletters' && breadCrumbs[1] != 'advertise-with-us' && breadCrumbs[1].split('?')[0] != 'thankyou' && breadCrumbs[1].split('?')[0] != 'profile' && breadCrumbs[1].split('?')[0] != 'search' && breadCrumbs[1].split('?')[0] != 'tag') &&
           <div className='container flex  gap-[7px] md:hidden py-[20px]'>
             {breadCrumbs.map((bc, index) => {
               let url = index == 3 ? '/' + breadCrumbs[1] + '/' + breadCrumbs[2] + '/' + breadCrumbs[3] :

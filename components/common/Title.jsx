@@ -19,7 +19,7 @@ const inter = Inter({
 //     subsets: ["latin"],
 //     variable: '--font-inter',
 //   })
-export default function Title({ data, textClass, seeMore, font, noPadding, isVid, see, route, title_class,isIcon }) {
+export default function Title({ data, textClass, seeMore, font, noPadding, isVid, see, route, title_class,isIcon,counter }) {
   const router = useRouter()
 
   async function goTo(data) {
@@ -36,9 +36,12 @@ export default function Title({ data, textClass, seeMore, font, noPadding, isVid
     <> 
       {data &&
         <div className={`title_div ${noPadding ? '' : 'pb-3'} flex justify-between ${title_class ? title_class : ''}`}>
-          <div className='cursor-pointer'>
+          <div className={`cursor-pointer ${counter ? 'flex items-baseline gap-[5px]' : ''}`}>
+            <div>
             <h6 style={{ fontSize: font }} className={`title text-[18px] ${textClass} ${inter.className}`}>{data.title ? data.title : data.category_name ? data.category_name : ''}</h6>
             {data.title && <div className='line mt-1'></div>}
+            </div>
+           {counter && <p className='text-[#797979] text-[16px] font-semibold'>[ {` ${data.count} `} ]</p>}
           </div>
           {
             seeMore &&

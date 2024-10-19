@@ -287,11 +287,13 @@ export default function Home({ data }) {
 
 
 
+
   return (
     <>
       {/*  isLast={index == value.length - 1} */}
 
 
+      
       <RootLayout data={data} isLanding={true} head={''} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Retailing'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
@@ -364,7 +366,7 @@ export default function Home({ data }) {
                           </>}
 
                           {(c.cid && data.data[c.cid] && (data.data[c.cid]['card-list'] && data.data[c.cid]['card-list'].length > 0) && c.component_title == "Featured Content") && <>
-                            <Title data={{ title: data.data[c.cid].title }} isIcon={true} see={`uppercase !font-semibold !text-[#e21b22]`} seeMore={true} />
+                            <Title data={{ title: data.data[c.cid].title }} isIcon={true} see={`uppercase !font-semibold !text-[#e21b22]`} route={'/p/web-special-list/1'} seeMore={true} />
                             <div className={`flex items-center gap-[20px] md:overflow-auto lg:flex-wrap scrollbar-hide md:gap-[15px]`}>
                               {data.data[c.cid]['card-list'].map((resp, index) => {
                                 return (

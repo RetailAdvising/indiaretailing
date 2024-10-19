@@ -11,7 +11,7 @@ const inter = Inter({
   })
 
 const KeyPointsCard = ({data}) => {
-    console.log('key', data);
+    // console.log('key', data);
     
   return (
     <div className='bg-[#F0F0F0] p-2 h-full'>

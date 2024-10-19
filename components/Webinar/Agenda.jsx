@@ -35,7 +35,7 @@ const Agenda = ({ data }) => {
             </div>
 
             <div>
-              <Image src="/webinar/plus.png" width={20} onClick={() => toggle(i)} height={20} />
+            <span className="text-[26px] cursor-pointer" onClick={()=> toggle(i)}>{(seclected == i) ? '-' : '+'}</span>
             </div>
           </div>
 

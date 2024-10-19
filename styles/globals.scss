@@ -1284,6 +1284,15 @@ input {
     }
   }
 
+  .registration_form {
+    .rodal-dialog {
+      // height: 575px !important;
+      // width: 1000px !important;
+      height: 490px !important;
+      width: 30% !important;
+    }
+  }
+
   // .membership {
   //   .rodal-dialog {
   //     // height: 575px !important;
@@ -2085,6 +2094,15 @@ strong {
   .order_detail {
     .rodal-dialog {
       width: 100% !important;
+    }
+  }
+
+  .registration_form {
+    .rodal-dialog {
+      // height: 575px !important;
+      // width: 1000px !important;
+      height: 490px !important;
+      width: 90% !important;
     }
   }
 
@@ -3288,28 +3306,28 @@ ins.adsbygoogle[data-ad-status="unfilled"] .default_ban_img {
   }
 }
 
-.active_tab{
+.active_tab {
   background: $primary-color;
   height: 3px;
   width: 100%;
   border-radius: 10px 10px 0 0;
 }
 
-.flex-80{
+.flex-80 {
   flex: 0 0 calc(80% - 15px);
 }
 
-.flex-custom-20{
+.flex-custom-20 {
   flex: 0 0 calc(20% - 15px);
 }
 
-.webinar-title-line{
+.webinar-title-line {
   width: 39px;
-      height: 2px;
-      border-radius: 5px;
+  height: 2px;
+  border-radius: 5px;
   background: linear-gradient(90.93deg, #F25022 -1.03%, #7FBA00 34.73%, #00A4EF 63.84%, #FFB900 90.65%);
 }
 
-.webinar-btn{
+.webinar-btn {
   background: linear-gradient(277.61deg, #FFB900 6.03%, #00A4EF 29.03%, #7FBA00 54%, #F25022 84.68%);
 }

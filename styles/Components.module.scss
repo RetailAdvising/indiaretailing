@@ -1,15 +1,15 @@
 @import "./Variables.module.scss";
 
 //BulletList
-.bulletList{
+.bulletList {
     // border-bottom: 1px solid $border-color;
     display: flex;
     align-items: center;
     gap: 10px;
     padding-bottom: 15px;
     margin-bottom: 15px;
-   
-    .bullet{
+
+    .bullet {
         height: 7px;
         width: 7px;
         border: 1px solid red;
@@ -19,56 +19,61 @@
 
 }
 
-.bullet_none{
+.bullet_none {
     border-bottom: none !important;
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
 }
 
 // Login
-.input{
+.input {
     border: none;
     // border-bottom: 1px solid $border-color;
     padding: 5px 10px;
     font-size: 14px;
     // border-left: 1px solid $border-color;
     width: 100%;
+
     // height: 40px;
     // border-radius: 5px;
     // margin-top: 10px;
-    &:focus{
+    &:focus {
         outline: none;
     }
 }
 
-.input1{
+.input1 {
     border: 1px solid $border-color !important;
     border-radius: 5px;
     // height: 45px;
     height: 40px;
     margin-top: 5px;
 }
-.danger{
+
+.danger {
     color: $primary-color;
     font-weight: 600;
     padding-top: 5px;
     font-size: 11px;
 }
-.checkBox{
+
+.checkBox {
     height: 17px;
     width: 17px;
     color: #fff;
-    &:checked{
+
+    &:checked {
         accent-color: #e21b22;
-                
+
     }
-    &::after{
+
+    &::after {
         content: "";
         color: #fff;
     }
 }
 
-.loginBtn{
+.loginBtn {
     background: $primary-color;
     color: $white-color;
     width: 100%;
@@ -77,15 +82,15 @@
     border-radius: 5px;
 }
 
-.label{
+.label {
     font-size: 12px;
 }
 
 .input1::-webkit-outer-spin-button,
 .input1::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-  -moz-appearance: textfield;
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield;
 }
 
 // /* Firefox */
@@ -135,3 +140,16 @@
 //         font
 //     }
 // }
+
+.register_input {
+    border-bottom: 1px solid $border-color !important;
+    height: 40px;
+    padding: 5px 10px;
+    font-size: 14px;
+    width: 100%;
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+}
