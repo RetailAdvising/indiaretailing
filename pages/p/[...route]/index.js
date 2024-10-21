@@ -5,7 +5,7 @@ import RootLayout from "@/layouts/RootLayout";
 import { check_Image, get_web_special_detail, getCurrentUrl, seo_Image } from "@/libs/api";
 // import { Nunito } from 'next/font/google';
 import Image from "next/image";
-import {domain} from '@/libs/config/siteConfig'
+import { domain } from '@/libs/config/siteConfig'
 import { useRouter } from "next/router";
 import format from "date-fns/format";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -22,6 +22,7 @@ import WhitePaper from '@/components/Webinar/WhitePaper'
 import Reports from '@/components/Webinar/Reports'
 import Video from '@/components/Webinar/Video'
 import SocialMedia from '@/components/Webinar/SocialMedia'
+import YouTubeVideo from '@/components/Webinar/YouTubeVideo'
 import FeaturedContent from "@/components/WebSpecials/FeaturedContent";
 import SideMenu from "@/components/WebSpecials/SideMenu";
 import RegistrationForm from "@/components/WebSpecials/RegistrationForm";
@@ -41,7 +42,7 @@ const inter = Inter({
 const index = ({ page_route, ads, webinar_data, category_route }) => {
   // const index = ({ data, page_route, ads }) => {
   // console.log(category_route, "category_route");
-  // console.log(webinar_data, "webinar_data");
+  console.log(webinar_data, "webinar_data");
 
   const icons = [
     { icon: "/bookstore/linkedin.svg", name: "Linkedin" },
@@ -198,25 +199,25 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           }
         /> :
           <Head>
-            <title key="title">{(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title']  : webinar_data?.meta_title}</title>
-            <meta name="description" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro']  : webinar_data?.meta_description} />
+            <title key="title">{(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title'] : webinar_data?.meta_title}</title>
+            <meta name="description" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro'] : webinar_data?.meta_description} />
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
             <meta name="theme-color" content="#e21b22" />
             <meta property="og:type" content={'Article'} />
-            <meta property="og:title" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title']  : webinar_data?.meta_title} />
-            <meta property="og:description" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro']  : webinar_data?.meta_description} />
+            <meta property="og:title" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title'] : webinar_data?.meta_title} />
+            <meta property="og:description" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro'] : webinar_data?.meta_description} />
             <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
             <meta property="og:locale" content="en_IE" />
             <meta
 
               property="og:image"
               itemprop="image"
-              content={seo_Image((category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['thumbnail_imagee']  : webinar_data.meta_image ? webinar_data.meta_image : webinar_data.thumbnail_imagee)}
+              content={seo_Image((category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['thumbnail_imagee'] : webinar_data.meta_image ? webinar_data.meta_image : webinar_data.thumbnail_imagee)}
             />
             <meta
 
               property="og:image:alt"
-              content={`${(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title']  : webinar_data?.title} | ${'IndiaRetailing'}`}
+              content={`${(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title'] : webinar_data?.title} | ${'IndiaRetailing'}`}
             />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
@@ -238,16 +239,16 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               name="twitter:creator"
               content={'@d__indiaRetail'}
             />
-            <meta property="twitter:image" content={seo_Image((category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['thumbnail_imagee']  : webinar_data?.meta_image)} />
+            <meta property="twitter:image" content={seo_Image((category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['thumbnail_imagee'] : webinar_data?.meta_image)} />
             <meta
 
               property="twitter:title"
-              content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title']  : webinar_data?.title}
+              content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title'] : webinar_data?.title}
             />
             <meta
 
               property="twitter:description"
-              content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro']  : webinar_data?.meta_description}
+              content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro'] : webinar_data?.meta_description}
             />
 
 
@@ -638,12 +639,12 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
         {category_route == "webinars" && webinar_data && (
           <>
-            <div className="container">
+            <div>
               {/*Tob Banner */}
               <Banner data={webinar_data} click_data={click_data} />
 
               {/*Webinar Details */}
-              <div className="px-5 lg:px-16 py-8">
+              <div className="py-[20px] container md:p-[15px] md:py-[10px]">
                 {/*Brand Details */}
                 <BrandDetails webinar_data={webinar_data} updateShare={updateShare} icons={icons} />
 
@@ -656,6 +657,17 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                         <p className="text-[18px] font-normal text-[#202121B2] text-justify pt-3">
                           {webinar_data.overview}
                         </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <div className="py-5">
+                  {webinar_data.video_id && (
+                    <>
+                      <div>
+                         <Title data={{title: "Videos"}} />
+                         <YouTubeVideo id={webinar_data.video_id} />
                       </div>
                     </>
                   )}
@@ -677,9 +689,9 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {webinar_data.speakers &&
                   webinar_data.speakers.length !== 0 && (
                     <>
-                      <div className="mt-5">
+                      <div className="my-5">
                         <Title data={{ title: "SPEAKERS" }} />
-                        <div className="flex no_scroll lg:gap-6 mt-5">
+                        <div className="flex no_scroll lg:gap-6 pt-3">
                           {webinar_data.speakers.map((res, i) => (
                             <div key={i}>
                               <SpeakerCard data={res} />
@@ -694,10 +706,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
                 {webinar_data.agenda && webinar_data.agenda !== 0 && (
                   <>
-                    <div className="mt-5">
+                    <div className="py-5">
                       <Title data={{ title: "AGENDA" }} />
 
-                      <div className="mt-5">
+                      <div className="">
                         <Agenda data={webinar_data.agenda} />
                       </div>
                     </div>
@@ -707,11 +719,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {/*Who Should Attend */}
                 {webinar_data.who_should_attend && (
                   <>
-                    <div className="mt-5">
+                    <div className="py-5">
                       <Title data={{ title: "WHO SHOULD ATTEND" }} />
 
                       <div
-                        className={`mt-5 text-[20px] font-medium text-[#202121] bg-[#F2F2F2] rounded-md p-2 w-fit ${inter.className}`}
+                        className={`mt-3 text-[20px] font-medium text-[#202121] bg-[#F2F2F2] rounded-md py-3 px-2 w-fit ${inter.className}`}
                       >
                         <p>{webinar_data.who_should_attend}</p>
                       </div>
@@ -725,9 +737,9 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   webinar_data.contact_number &&
                   webinar_data.contact_email && (
                     <>
-                      <div className="mt-5">
+                      <div className="py-5">
                         <Title data={{ title: "CONTACT US" }} />
-                        <div className={`mt-5 ${inter.className}`}>
+                        <div className={`pt-3 ${inter.className}`}>
                           <p className="md:text-base lg:text-lg font-normal break-words">
                             {`For Delegation | ${webinar_data.contact_name} | ${webinar_data.contact_email} | ${webinar_data.contact_number}`}
                           </p>
@@ -745,19 +757,19 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     className="p-5 md:p-8 lg:p-10 flex flex-col my-5 bg-cover bg-center"
                   >
                     {webinar_data.bottom_banner_title && (
-                    <h3 className="text-[24px] md:text-[28px] lg:text-[30px] font-bold">
-                      {webinar_data.bottom_banner_title}
-                    </h3>
+                      <h3 className="text-[24px] md:text-[28px] lg:text-[30px] font-bold">
+                        {webinar_data.bottom_banner_title}
+                      </h3>
                     )}
                     {webinar_data.bottom_banner_description && (
-                    <p className="text-[18px] md:text-[20px] lg:text-[22px] text-[#8D9D9D]">
-                      {webinar_data.bottom_banner_description}
-                    </p>
+                      <p className="text-[18px] md:text-[20px] lg:text-[22px] text-[#8D9D9D]">
+                        {webinar_data.bottom_banner_description}
+                      </p>
                     )}
                     {webinar_data.date && (
-                    <span className="text-[16px] md:text-[18px] lg:text-[20px] font-medium text-[#202121] mt-3">
-                      {webinar_data.date}
-                    </span>
+                      <span className="text-[16px] md:text-[18px] lg:text-[20px] font-medium text-[#202121] mt-3">
+                        {webinar_data.date}
+                      </span>
                     )}
                     <button className="px-4 py-2 text-sm md:text-base font-bold w-fit mt-2 webinar-btn rounded-md text-white">
                       {webinar_data.button_name}
@@ -1015,22 +1027,23 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
 
                 <div className={`flex items-center justify-between py-[20px] md:py-[10px]`}>
-                  <div className='flex gap-4 items-center'>
-                    <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between '>
-                      <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{webinar_data.message.article_detail[0].views ? webinar_data.message.article_detail[0].views : webinar_data.message.article_detail[0].no_of_views ? webinar_data.message.article_detail[0].no_of_views : 1} Views</span></div>
-                      <div className='flex  items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{webinar_data.message.article_detail[0].no_of_shares + ' shares'}</span></div>
-                      <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{webinar_data.message.article_detail[0].read_time} </span></div>
-                    </div>
-                  </div>
 
                   <div className={`flex items-center gap-[8px] flex-wrap`}>
                     {webinar_data.message.article_detail[0].publisher && webinar_data.message.article_detail[0].publisher.length != 0 &&
-                      webinar_data.message.article_detail[0].publisher.map((r, index) => {
+                      webinar_data.message.article_detail[0].publisher.slice(0, 1).map((r, index) => {
                         return (
                           <div key={index} className='flex gap-[8px] items-center inner_line'>
-                            <Image className='rounded-full object-contain w-[30px] h-[30px]' priority={true} src={(r.avatar && r.avatar != '' && r.avatar != '') ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                            <Image className='rounded-full object-contain w-[40px] h-[40px]' priority={true} src={(r.avatar && r.avatar != '' && r.avatar != '') ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
                             <div className='block'>
                               <h6 className={`font-[700] nunito text-[12px]`}>{r.full_name}</h6>
+
+
+                              <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between '>
+                                <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{webinar_data.message.article_detail[0].views ? webinar_data.message.article_detail[0].views : webinar_data.message.article_detail[0].no_of_views ? webinar_data.message.article_detail[0].no_of_views : 1} Views</span></div>
+                                <div className='flex  items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{webinar_data.message.article_detail[0].no_of_shares + ' shares'}</span></div>
+                                <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{webinar_data.message.article_detail[0].read_time} </span></div>
+                              </div>
+
                             </div>
 
                           </div>
@@ -1038,7 +1051,6 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       })
                     }
                   </div>
-
 
                   {typeof window !== "undefined" && <div className='flex items-center gap-[15px] pr-[10px]'>
                     {icons && <Dropdowns noBg={true} updateShare={(data) => updateShare(data)} share={true} link={webinar_data.message.article_detail[0]} type={'articles'} width={'w-[170px]'} data={icons} />}

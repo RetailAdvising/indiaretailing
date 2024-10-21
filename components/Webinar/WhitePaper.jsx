@@ -6,7 +6,7 @@ import styles from '@/styles/Cards.module.scss'
 const WhitePaper = ({ data }) => {
   return (
     <>
-      <div className="flex mt-5 no_scroll lg:space-x-4">
+      <div className="flex mt-5 no_scroll lg:gap-4">
         {data.map((res, i) => (
            <div key={i} className="min-w-[310px] rounded-lg border p-3">
            <div className={`${styles.img_div}`}>

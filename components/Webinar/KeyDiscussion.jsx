@@ -5,8 +5,8 @@ import KeyPointsCard from './KeyPointsCard'
 
 const KeyDiscussion = ({setShowMore,webinar_data,showMore}) => {
     return (
-        <>
-            <div className="mt-5">
+        <div className='py-5'>
+            <div className="">
                 <div className="flex justify-between">
                     <Title data={{ title: "KEY DISCUSSION POINTS" }} />
 
@@ -40,7 +40,7 @@ const KeyDiscussion = ({setShowMore,webinar_data,showMore}) => {
             </div>
 
 
-        </>
+        </div>
     )
 }
 

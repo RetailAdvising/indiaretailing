@@ -4,8 +4,10 @@
 
 @import './Variables.module.scss';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Poppins:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Faustina:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Faustina:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 // @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 @layer components {
@@ -129,7 +131,8 @@
 }
 
 .nunito {
-  font-family: "Nunito", sans-serif;
+  // font-family: "Nunito", sans-serif;
+  font-family: "Jost", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -1671,7 +1674,8 @@ button:focus {
   line-height: 1.5 !important;
   // font-family: PT Serif !important;
   // font-family: 'Inter', sans-serif !important;
-  font-family: 'Faustina', sans-serif !important;
+  // font-family: 'Faustina', sans-serif !important;
+  font-family: "Tinos", serif !important;
 
 
   iframe {
@@ -1692,7 +1696,8 @@ button:focus {
     margin-bottom: 18px;
     // font-family: PT Serif !important;
     // font-family: 'Inter', sans-serif !important;
-    font-family: 'Faustina', sans-serif !important;
+    // font-family: 'Faustina', sans-serif !important;
+    font-family: "Tinos", serif !important;
     // margin-bottom: 26px;
   }
 
@@ -1712,7 +1717,8 @@ button:focus {
     // margin: 0 !important;
     padding: 0 !important;
     // font-family: 'Inter', sans-serif !important;
-    font-family: 'Faustina', sans-serif !important;
+    // font-family: 'Faustina', sans-serif !important;
+    font-family: "Tinos", serif !important;
     cursor: pointer;
     color: $primary-color;
   }
@@ -1724,13 +1730,15 @@ button:focus {
     line-height: 1.5 !important;
     // font-family: PT Serif !important;
     // font-family: 'Inter', sans-serif !important;
-    font-family: 'Faustina', sans-serif !important;
+    // font-family: 'Faustina', sans-serif !important;
+    font-family: "Tinos", serif !important;
   }
 
   strong {
     // font-family: PT Serif !important;
     // font-family: 'Inter', sans-serif !important;
-    font-family: 'Faustina', sans-serif !important;
+    // font-family: 'Faustina', sans-serif !important;
+    font-family: "Tinos", serif !important;
   }
 
   .ql-editor {
@@ -1742,13 +1750,15 @@ button:focus {
       line-height: 1.5 !important;
       // margin-bottom: 20px;
       // font-family: 'Inter', sans-serif !important;
-      font-family: 'Faustina', sans-serif !important;
+      // font-family: 'Faustina', sans-serif !important;
+      font-family: "Tinos", serif !important;
       padding: 0 !important;
     }
 
     strong {
       // font-family: 'Inter', sans-serif !important;
-      font-family: 'Faustina', sans-serif !important;
+      // font-family: 'Faustina', sans-serif !important;
+      font-family: "Tinos", serif !important;
     }
   }
 
