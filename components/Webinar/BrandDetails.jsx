@@ -1,12 +1,13 @@
+import Dropdowns from '../common/Dropdowns'
 import ImageLoader from '../ImageLoader'
 import Image from 'next/image'
 
-const BrandDetails = ({webinar_data}) => {
+const BrandDetails = ({webinar_data,updateShare,icons}) => {
     return (
         <>
             <div className="flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-0">
                 <div className="flex gap-3 items-center">
-                    <div className="border p-2 rounded-lg">
+                    <div className="border p-2 rounded-lg flex">
                         <ImageLoader
                             src={webinar_data.brand_logo}
                             style="rounded-[5px] h-[50px] w-[60px] lg:h-[65px] lg:w-[80px]"
@@ -26,16 +27,16 @@ const BrandDetails = ({webinar_data}) => {
                     </div>
                 </div>
 
-                <div className="flex justify-end lg:justify-center mt-4 lg:mt-0 md:hidden">
-                    <Image
+                {typeof window !== "undefined" &&<div className="flex justify-end lg:justify-center mt-4 lg:mt-0 md:hidden">
+                    {/* <Image
                         src="/shares.svg"
                         width={20}
                         height={20}
                         className="lg:w-[24px] lg:h-[24px]"
-                    />
-                    {/* {icons && <Dropdowns noScroll={(val) => noScroll(val)} updateShare={(data) => updateShare(data)} share={true} type={'articles'} width={'w-[170px]'} data={icons} />}
-                 */}
-                </div>
+                    /> */}
+                    {icons && <Dropdowns noBg={true} updateShare={(data) => updateShare(data)} share={true} type={'articles'} width={'w-[170px]'} data={icons} />}
+                
+                </div>}
             </div>
         </>
     )

@@ -13,15 +13,19 @@ import SpeakerCard from "@/components/Webinar/SpeakerCard";
 import Agenda from "@/components/Webinar/Agenda";
 import { Inter } from "next/font/google";
 import Banner from "@/components/Webinar/Banner";
+import Form from '@/components/Webinar/Form'
 import Dropdowns from "@/components/common/Dropdowns";
 import BrandDetails from "@/components/Webinar/BrandDetails";
 import KeyDiscussion from "@/components/Webinar/KeyDiscussion";
 import WhitePaper from '@/components/Webinar/WhitePaper'
 import Reports from '@/components/Webinar/Reports'
 import Video from '@/components/Webinar/Video'
+import SocialMedia from '@/components/Webinar/SocialMedia'
 import FeaturedContent from "@/components/WebSpecials/FeaturedContent";
 import SideMenu from "@/components/WebSpecials/SideMenu";
 import RegistrationForm from "@/components/WebSpecials/RegistrationForm";
+import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
+import { websiteUrl } from "@/libs/config/siteConfig";
 
 const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
@@ -34,9 +38,9 @@ const inter = Inter({
 
 const index = ({ page_route, ads, webinar_data, category_route }) => {
   // const index = ({ data, page_route, ads }) => {
-  console.log(page_route, "page_route");
-  console.log(category_route, "category_route");
-  console.log(webinar_data, "webinar_data");
+  // console.log(category_route, "category_route");
+  // console.log(webinar_data, "webinar_data");
+
   const icons = [
     { icon: "/bookstore/linkedin.svg", name: "Linkedin" },
     { icon: "/bookstore/FB.svg", name: "Facebook" },
@@ -44,8 +48,26 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
     { icon: "/bookstore/whatsapp.svg", name: "Whatsapp" },
   ];
 
+  const socials = [
+    {
+      "icon": "/fb.svg",
+      "name": "fb"
+    },
+    {
+      "icon": "/twitter.svg",
+      "name": "twitter"
+    },
+    {
+      "icon": "/linkedin.svg",
+      "name": "linkedin"
+    },
+    {
+      "icon": "/ws.svg",
+      "name": "ws"
+    }
+  ]
+
   const [showMore, setShowMore] = useState(true);
-  const [date, setDate] = useState();
   const router = useRouter();
 
   const [side_menu, setSideMenu] = useState([
@@ -57,10 +79,6 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
   ]);
 
   useEffect(() => {
-    const formattedDate = format(new Date(), "iiii, d MMMM yyyy");
-    setDate(formattedDate);
-    // console.log('router.asPath',router.asPath);
-    // console.log('router.asPath',nav);
 
     if (category_route == "case-studies") {
       let data = [...webinar_data.content_1, ...webinar_data.content_2]
@@ -78,21 +96,35 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
     }
   }, [router]);
 
-  const click_data = (data) => {
+  const click_data = (data, type) => {
     // console.log(data, "data");
-    if (data.route) {
-      router.push("/p/" + data.route);
-    }else{
+
+
+    if(type == "register"){
       showRegister()
+    }else{
+    if (data.route) {
+      let route = type == "article" ? ('/' + data.route) : ("/p/" + data.route)
+      if ((category_route == "featured-content" || category_route == "web-special-list")) {
+        router.push(route);
+      } else {
+        if (!webinar_data.is_registration_required) {
+          router.push(route);
+        } else {
+          showRegister()
+        }
+      }
     }
+    }
+
   };
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const activateSection = async (data, i) => {
+  const activateSection = async (data, i, type) => {
     // console.log(data,"data")
-    setActiveIndex(i);
-    let el = document.getElementById(data.url);
-    if (el) {
+    setActiveIndex(data);
+    if (type == 'click') {
+      let el = document.getElementById(data);
       el.scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -101,26 +133,52 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
     }
   };
 
-  
+
   const [visible, setVisible] = useState(false)
   const showRegister = () => {
     setVisible(true)
-    document.body.style.overflow="hidden"
+    document.body.style.overflow = "hidden"
   }
 
   const hide = (data) => {
     setVisible(false)
-    document.body.style.overflow="auto"
-    if(data){
-      
+    document.body.style.overflow = "auto"
+    if (data) {
+
     }
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('[data-section]');
+      let activeSection = '';
+      // console.log(sections,"sections")
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) {
+          activeSection = section.id;
+        }
+      });
+
+      if (activeSection) {
+        activateSection(activeSection, '', "scroll");
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const updateShare = (data) => {
+
+  }
+
 
   // console.log("wd", webinar_data.banner_image);
 
   return (
     <>
-    {visible && <RegistrationForm visible={visible} hide={hide} />}
+      {visible && <RegistrationForm visible={visible} hide={hide} />}
       <RootLayout
         data={webinar_data}
         isLanding={true}
@@ -216,7 +274,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   <div className={`md:py-[15px] flex-[0_0_calc(80%_-_15px)]`}>
                     {webinar_data.message.webinars_data &&
                       webinar_data.message.webinars_data.length > 0 && (
-                        <div>
+                        <div id={"Webinars"} data-section >
                           <Title
                             data={{
                               title: "Webinars",
@@ -276,7 +334,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                         <div
                                           key={resp.name}
                                           className="flex gap-[10px] cursor-pointer md:flex-[0_0_calc(100%_-_10px)]"
-                                          onClick={() => click_data(resp)}
+                                          onClick={() => click_data(resp, 'speakers')}
                                         >
                                           <div className="flex-[0_0_auto]">
                                             <ImageLoader
@@ -317,9 +375,9 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.lead_data &&
                       webinar_data.message.lead_data.length > 0 && (
                         <>
-                          <div className="py-[20px]">
+                          <div className="py-[20px]" id={"Lead Generation"} data-section>
                             <Title
-                              data={{ title: "LEAD GENERATION" }}
+                              data={{ title: "Lead Generation" }}
                               isIcon={true}
                               see={`uppercase !font-semibold !text-[#e21b22]`}
                               seeMore={true}
@@ -332,7 +390,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                     <div
                                       className={`border-b border-b-[#e9e9e9] ${index == 0 ? "pb-[10px]" : "py-[10px]"
                                         } cursor-pointer`}
-                                      onClick={() => click_data(resp)}
+                                      onClick={() => click_data(resp, 'lead_data')}
                                       key={resp.title}
                                     >
                                       <p
@@ -397,9 +455,9 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.brand_profile_data &&
                       webinar_data.message.brand_profile_data.length > 0 && (
                         <>
-                          <div className="py-[20px]">
+                          <div className="py-[20px]" id={"Brand Profile"} data-section>
                             <Title
-                              data={{ title: "BRAND PROFILE" }}
+                              data={{ title: "Brand Profile" }}
                               isIcon={true}
                               see={`uppercase !font-semibold !text-[#e21b22]`}
                               seeMore={true}
@@ -412,7 +470,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                     <div
                                       key={resp.title}
                                       className="cursor-pointer"
-                                      onClick={() => click_data(resp)}
+                                      onClick={() => click_data(resp, 'brand_profile_data')}
                                     >
                                       <ImageLoader
                                         style={`rounded-[5px] h-[215px] md:h-[140px] w-full`}
@@ -441,7 +499,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.case_studies_data &&
                       webinar_data.message.case_studies_data.length > 0 && (
                         <>
-                          <div className="py-[20px]">
+                          <div className="py-[20px]" id={"Case Studies"} data-section>
                             <Title
                               data={{ title: "Case Studies" }}
                               isIcon={true}
@@ -455,7 +513,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                   return (
                                     <div
                                       className="border border-[#e9e9e9] rounded-[10px] p-[10px] cursor-pointer"
-                                      onClick={() => click_data(resp)}
+                                      onClick={() => click_data(resp, 'case_studies_data')}
                                       key={resp.title}
                                     >
                                       <div className="relative pb-[5px]">
@@ -464,14 +522,14 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                           src={resp.image}
                                           title={resp.title}
                                         />
-                                        <div className="absolute bottom-[10px] left-0 p-[5px] rounded-[0_10px_0_10px] bg-[#FFE7E7]">
+                                        {/* <div className="absolute bottom-[10px] left-0 p-[5px] rounded-[0_10px_0_10px] bg-[#FFE7E7]">
                                           <Image
                                             src={"/pdf_file.svg"}
                                             height={20}
                                             width={20}
                                             alt="pdf"
                                           ></Image>
-                                        </div>
+                                        </div> */}
                                       </div>
                                       <h6
                                         className={`text-[14px] font-semibold  nunito`}
@@ -490,7 +548,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.featured_content_data &&
                       webinar_data.message.featured_content_data.length > 0 && (
                         <>
-                          <div className="py-[20px]">
+                          <div className="py-[20px]" id={"Featured Content"} data-section>
                             <Title
                               data={{ title: "Featured Content" }}
                               isIcon={true}
@@ -518,12 +576,12 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           <>
             <div className="container">
               {/*Tob Banner */}
-              <Banner data={webinar_data} />
+              <Banner data={webinar_data} click_data={click_data} />
 
               {/*Webinar Details */}
               <div className="px-5 lg:px-16 my-8">
                 {/*Brand Details */}
-                <BrandDetails webinar_data={webinar_data} />
+                <BrandDetails webinar_data={webinar_data} updateShare={updateShare} icons={icons} />
 
                 {/*Overview */}
                 <div className="mt-5">
@@ -640,20 +698,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {webinar_data.social_media &&
                   webinar_data.social_media.length !== 0 && (
                     <>
-                      <div className="flex flex-row gap-3 items-center justify-center py-5">
-                        {webinar_data.social_media.map((res, i) => (
-                          <a key={i} href={`${res.route}`} target="_blank">
-                            <div key={index} className={`rounded-full`}>
-                              <ImageLoader
-                                src={res.icon}
-                                alt={res.name}
-                                height={25}
-                                width={20}
-                              />
-                            </div>
-                          </a>
-                        ))}
-                      </div>
+                      <SocialMedia data={webinar_data.social_media} />
                     </>
                   )}
               </div>
@@ -663,9 +708,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
         {category_route == "lead-generation" && webinar_data && (
           <>
+            <Banner data={webinar_data} click_data={click_data} />
             <div className="py-[20px] container md:p-[15px] md:py-[10px]">
               <div className="py-[20px]">
-                <BrandDetails webinar_data={webinar_data} />
+                <BrandDetails webinar_data={webinar_data} updateShare={updateShare} icons={icons} />
               </div>
 
               {webinar_data.overview && (
@@ -691,7 +737,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               <div>
                 {
                   webinar_data.white_papers && webinar_data.length !== 0 && (
-                    <WhitePaper data={webinar_data.white_papers} />
+                    <div className="mt-5">
+                      <Title data={{ title: 'WHITE PAPERS' }} />
+                      <WhitePaper data={webinar_data.white_papers} />
+                    </div>
                   )
                 }
               </div>
@@ -699,7 +748,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               <div>
                 {
                   webinar_data.reports_detail && webinar_data.reports_detail !== 0 && (
-                    <Reports data={webinar_data.reports_detail} />
+                    <div className="mt-5">
+                      <Title data={{ title: 'REPORTS' }} />
+                      <Reports data={webinar_data.reports_detail} />
+                    </div>
                   )
                 }
               </div>
@@ -707,21 +759,35 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               <div>
                 {
                   webinar_data.video_detail && webinar_data.length !== 0 && (
-                    <Video data={webinar_data.video_detail} />
+                    <div className="mt-5">
+                      <Title data={{ title: "VIDEOS" }} />
+                      <Video data={webinar_data.video_detail} />
+                    </div>
                   )
                 }
               </div>
+
+              <div>
+                <Form />
+              </div>
+
+              {webinar_data.social_media &&
+                webinar_data.social_media.length !== 0 && (
+                  <>
+                    <SocialMedia data={webinar_data.social_media} />
+                  </>
+                )}
             </div>
           </>
         )}
 
         {category_route == "brand-profile" && webinar_data && (
           <>
-            <Banner data={webinar_data} />
+            <Banner data={webinar_data} click_data={click_data} />
 
             <div className="py-[20px] container md:p-[15px] md:py-[10px]">
               <div className="py-[20px]">
-                <BrandDetails webinar_data={webinar_data} />
+                <BrandDetails webinar_data={webinar_data} updateShare={updateShare} icons={icons} />
               </div>
 
               {webinar_data.overview && (
@@ -744,26 +810,68 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   )}
               </div>
 
+              <div>
+                {
+                  webinar_data.white_papers && webinar_data.length !== 0 && (
+                    <div className="mt-5">
+                      <Title data={{ title: 'WHITE PAPERS' }} />
+                      <WhitePaper data={webinar_data.white_papers} />
+                    </div>
+                  )
+                }
+              </div>
+
+
+              <div>
+                {
+                  webinar_data.reports_detail && webinar_data.reports_detail !== 0 && (
+                    <div className="mt-5">
+                      <Title data={{ title: 'REPORTS' }} />
+                      <Reports data={webinar_data.reports_detail} />
+                    </div>
+                  )
+                }
+              </div>
+
+              <div>
+                {
+                  webinar_data.video_detail && webinar_data.length !== 0 && (
+                    <div className="mt-5">
+                      <Title data={{ title: "VIDEOS" }} />
+                      <Video data={webinar_data.video_detail} />
+                    </div>
+                  )
+                }
+              </div>
+
               <div className="py-[20px]">
                 <Title data={{ title: "ARTICLES" }} />
 
                 <FeaturedContent
                   click_data={click_data}
+                  article={true}
                   cols={"grid-cols-5 md:grid-cols-2"}
                   webinar_data={webinar_data.articles}
                 />
               </div>
+
+              {webinar_data.social_media &&
+                webinar_data.social_media.length !== 0 && (
+                  <>
+                    <SocialMedia data={webinar_data.social_media} />
+                  </>
+                )}
             </div>
           </>
         )}
 
         {category_route == "case-studies" && webinar_data && (
           <>
-            <Banner data={webinar_data} />
+            <Banner data={webinar_data} click_data={click_data} />
 
             <div className="py-[20px] container md:p-[15px] md:py-[10px]">
               <div className="py-[20px]">
-                <BrandDetails webinar_data={webinar_data} />
+                <BrandDetails updateShare={updateShare} icons={icons} webinar_data={webinar_data} />
               </div>
 
 
@@ -774,7 +882,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   {(webinar_data.content_1 && webinar_data.content_1.length > 0) &&
                     webinar_data.content_1.map(res => {
                       return (
-                        <div className="py-[20px]">
+                        <div id={res.title} data-section className="py-[20px]">
                           <Title data={{ title: res.title }} />
                           <p className="text-[18px] font-normal text-[#202121B2] text-justify mt-3">
                             {res.description}
@@ -792,7 +900,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   {(webinar_data.content_2 && webinar_data.content_2.length > 0) &&
                     webinar_data.content_2.map(res => {
                       return (
-                        <div className="py-[20px]">
+                        <div id={res.title} data-section className="py-[20px]">
                           <Title data={{ title: res.title }} />
                           <p className="text-[18px] font-normal text-[#202121B2] text-justify mt-3">
                             {res.description}
@@ -804,11 +912,156 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 </div>
               </div>
 
+              <div className="py-[20px]">
+                <Title data={{ title: "ARTICLES" }} />
 
+                <FeaturedContent
+                  click_data={click_data}
+                  article={true}
+                  cols={"grid-cols-5 md:grid-cols-2"}
+                  webinar_data={webinar_data.articles}
+                />
+              </div>
+
+              {webinar_data.social_media &&
+                webinar_data.social_media.length !== 0 && (
+                  <>
+                    <SocialMedia data={webinar_data.social_media} />
+                  </>
+                )}
 
             </div>
           </>
         )}
+
+        {category_route == "featured-content" && (webinar_data && webinar_data.message) && <>
+          {(webinar_data.message.article_detail && webinar_data.message.article_detail.length > 0) && <div>
+            <div className={`w-full lg:h-[375px] `}><ImageLoader style={`lg:h-full md:object-contain w-full`} src={webinar_data.message.article_detail[0].image ? webinar_data.message.article_detail[0].image : webinar_data.message.article_detail[0].thumbnail_image} title={webinar_data.message.article_detail[0]['title']} /></div>
+
+            <div className="container">
+              <div className="py-[20px]">
+                <h1 className="text-[22px] md:text-[16px] font-semibold">{webinar_data.message.article_detail[0]['title']}</h1>
+
+
+
+                <div className={`flex items-center justify-between py-[20px] md:py-[10px]`}>
+                  <div className='flex gap-4 items-center'>
+                    <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between '>
+                      <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{webinar_data.message.article_detail[0].views ? webinar_data.message.article_detail[0].views : webinar_data.message.article_detail[0].no_of_views ? webinar_data.message.article_detail[0].no_of_views : 1} Views</span></div>
+                      <div className='flex  items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{webinar_data.message.article_detail[0].no_of_shares + ' shares'}</span></div>
+                      <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{webinar_data.message.article_detail[0].read_time} </span></div>
+                    </div>
+                  </div>
+
+                  <div className={`flex items-center gap-[8px] flex-wrap`}>
+                    {webinar_data.message.article_detail[0].publisher && webinar_data.message.article_detail[0].publisher.length != 0 &&
+                      webinar_data.message.article_detail[0].publisher.map((r, index) => {
+                        return (
+                          <div key={index} className='flex gap-[8px] items-center inner_line'>
+                            <Image className='rounded-full object-contain w-[30px] h-[30px]' priority={true} src={(r.avatar && r.avatar != '' && r.avatar != '') ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
+                            <div className='block'>
+                              <h6 className={`font-[700] nunito text-[12px]`}>{r.full_name}</h6>
+                            </div>
+
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+
+
+                  {typeof window !== "undefined" && <div className='flex items-center gap-[15px] pr-[10px]'>
+                    {icons && <Dropdowns noBg={true} updateShare={(data) => updateShare(data)} share={true} link={webinar_data.message.article_detail[0]} type={'articles'} width={'w-[170px]'} data={icons} />}
+                  </div>}
+                </div>
+
+                <h6 className="text-[20px] pb-[15px] md:pb-[10px] md:text-[16px] font-semibold nunito">{webinar_data.message.article_detail[0]['blog_intro']}</h6>
+
+                <div dangerouslySetInnerHTML={{ __html: webinar_data.message.article_detail[0].content }} id={`innerHtml`} className={`contents  ${'innerHtml'} `} />
+
+
+                <div className='flex flex-row gap-3 items-center justify-center py-5'>
+                  {socials.map((res, index) => {
+                    return (
+                      <div key={index} onClick={() => updateShare(webinar_data.message.article_detail[0])}>
+                        {
+                          res.name == 'fb' ? <FacebookShareButton url={`${websiteUrl + webinar_data.message.article_detail[0].route}`}>
+                            <div key={index} className={`rounded-full bg-light-gray p-[10px]`}>
+                              <Image src={res.icon} alt={res.name} height={25} width={20} />
+                            </div>
+                          </FacebookShareButton>
+                            : res.name == 'ws' ? <WhatsappShareButton url={`${websiteUrl + webinar_data.message.article_detail[0].route}`}>
+                              <div key={index} className={`rounded-full bg-light-gray p-[10px]`}>
+                                <Image src={res.icon} alt={res.name} height={25} width={20} />
+                              </div>
+                            </WhatsappShareButton>
+                              : res.name == 'linkedin' ? <LinkedinShareButton url={`${websiteUrl + webinar_data.message.article_detail[0].route}`}>
+                                <div key={index} className={`rounded-full bg-light-gray p-[10px]`}>
+                                  <Image src={res.icon} alt={res.name} height={25} width={20} />
+                                </div>
+                              </LinkedinShareButton>
+                                : res.name == 'twitter' ? <TwitterShareButton url={`${websiteUrl + webinar_data.message.article_detail[0].route}`}>
+                                  <div key={index} className={`rounded-full bg-light-gray p-[10px]`}>
+                                    <Image src={res.icon} alt={res.name} height={25} width={20} />
+                                  </div>
+                                </TwitterShareButton>
+                                  : null
+                        }
+
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {webinar_data.message.other_articles_data &&
+                webinar_data.message.other_articles_data.length > 0 && (
+                  <>
+                    <div className="py-[20px]">
+                      <Title
+                        data={{ title: "ARTICLES" }}
+
+                      />
+
+                      <FeaturedContent
+                        click_data={click_data}
+                        article={true}
+                        cols={"grid-cols-5 md:grid-cols-2"}
+                        webinar_data={
+                          webinar_data.message.other_articles_data.slice(0, 5)
+                        }
+                      />
+                    </div>
+                  </>
+                )}
+
+              {webinar_data.message.featured_content_data &&
+                webinar_data.message.featured_content_data.length > 0 && (
+                  <>
+                    <div className="py-[20px]">
+                      <Title
+                        data={{ title: "Featured Content" }}
+
+                      />
+
+                      <FeaturedContent
+                        click_data={click_data}
+                        cols={"grid-cols-5 md:grid-cols-2"}
+                        webinar_data={
+                          webinar_data.message.featured_content_data.slice(0, 5)
+                        }
+                      />
+                    </div>
+                  </>
+                )}
+
+                <div className="py-[20px]">
+                <Form />
+                </div>
+
+            </div>
+          </div>}
+        </>}
       </RootLayout>
     </>
   );

@@ -124,7 +124,7 @@ const JoinOurTeam = ({style, styles}) => {
   
     return (
       <>
-      <ToastContainer position={'bottom-right'} autoClose={2000}  />
+      {/* <ToastContainer position={'bottom-right'} autoClose={2000}  /> */}
       {/* shadow-[0_0_5px_#DAE0EC] rounded-[10px]  */}
       <form className={`lg:p-[50px] md:p-[25px] md:mt-[20px] `} onSubmit={handleSubmit(onSubmit)}>
 

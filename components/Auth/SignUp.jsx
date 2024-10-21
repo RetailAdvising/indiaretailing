@@ -175,7 +175,7 @@ export default function SignUp({ isModal, hide, auth }) {
     return (
         <>
             {/* {isOpen && <AlertUi isOpen={isOpen} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />} */}
-            <ToastContainer position={'bottom-right'} autoClose={2000} />
+            {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> */}
 
             {(auth && modal != 'login') || isMobile ? <div className='lg:flex container !m-0  gap-5 justify-between h-full '>
                 {!isModal && <div className='flex-[0_0_calc(60%_-_10px)] md:hidden cursor-pointer bg-[#E9ECF2] border rounded-[5px] '>

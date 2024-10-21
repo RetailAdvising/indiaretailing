@@ -44,7 +44,7 @@ const Advertisement = dynamic(() => import('@/components/Baners/Advertisement'))
 //   variable: '--font-inter',
 // }) 
 export default function Home({ data }) {
-  console.log(data, "data");
+  // console.log(data, "data");
   // console.log(ads,"ads");
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);

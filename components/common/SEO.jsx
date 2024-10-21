@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import { domain } from '@/libs/config/siteConfig'
+import { domain, websiteUrl } from '@/libs/config/siteConfig'
 
 // export const metadata = {
 //     title: "IndiaRetailing",
@@ -13,7 +13,7 @@ const DEFAULT_OG_IMAGE = '/indiaretail_new.png'
 export default function SEO({ title = "India Retailing",
     description = "This is IndiaRetailing and its about news and articles based on the popular site.",
     siteName = "Indiaretail",
-    canonical = 'https://indiaretail.vercel.app/',
+    canonical = websiteUrl,
     ogImage = DEFAULT_OG_IMAGE,
     ogType = "website",
     twitterHandle = "@d__indiaRetail" }) {

@@ -31,10 +31,10 @@ const KeyDiscussion = ({setShowMore,webinar_data,showMore}) => {
                 </div>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8 mt-5">
+            <div className="grid lg:grid-cols-2 gap-8 mt-[15px]">
                 {webinar_data.key_points.slice(0, !showMore ? webinar_data.key_points.length : 4).map((res, i) => (
                     <div key={i}>
-                        <KeyPointsCard data={res} />
+                        <KeyPointsCard data={res} len={webinar_data.key_points.length} />
                     </div>
                 ))}
             </div>

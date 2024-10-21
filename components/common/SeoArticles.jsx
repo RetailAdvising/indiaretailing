@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { check_Image } from '@/libs/api';
-import { domain } from '@/libs/config/siteConfig'
+import { domain, websiteUrl } from '@/libs/config/siteConfig'
 
 // export const metadata = {
 //     title: "IndiaRetailing",
@@ -11,7 +11,7 @@ import { domain } from '@/libs/config/siteConfig'
 //     }
 // }
 const DEFAULT_OG_IMAGE = '/indiaretail_new.png'
-export default function SeoArticles({ meta, meta_data, canonical = 'https://indiaretail.vercel.app/',
+export default function SeoArticles({ meta, meta_data, canonical = websiteUrl,
     ogType = "article",
     siteName = "Indiaretail",
     twitterHandle = "@d__indiaRetail" }) {

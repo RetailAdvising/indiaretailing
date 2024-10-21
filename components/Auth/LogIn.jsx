@@ -518,7 +518,7 @@ export default function LogIn({ isModal, hide, auth }) {
 
     return (
         <>
-            <ToastContainer position={'bottom-right'} autoClose={2000} />
+            {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> */}
             {/* <div> */}
             {/* <Script src="https://apis.google.com/js/platform.js" async defer />
             <Script src="https://apis.google.com/js/api.js" async defer /> */}

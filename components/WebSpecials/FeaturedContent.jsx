@@ -2,13 +2,13 @@ import React from 'react'
 import ImageLoader from '../ImageLoader'
 import Image from 'next/image'
 
-const FeaturedContent = ({webinar_data,click_data,cols}) => {
+const FeaturedContent = ({webinar_data,click_data,cols,article}) => {
     return (
         <>
             <div className={`grid ${cols ? cols : 'grid-cols-4 md:grid-cols-2'} gap-[15px] md:gap-[20px]`}>
                 {webinar_data.map(resp => {
                     return (
-                        <div className='cursor-pointer' onClick={() => click_data(resp)} key={resp.title}>
+                        <div className='cursor-pointer' onClick={() => click_data(resp,article ? 'article' : 'featured_content_data')} key={resp.title}>
                             <p className='flex gap-2 line-clamp-1 items-center'><span className={`primary_text fnt_13 line-clamp-1 nunito`}>{resp.primary_text}</span> {resp.secondary_text && <span className='h-[10px] w-[1px] bg-[#6f6f6f]'></span>} <span className={`secondary_text line-clamp-1 nunito`}>{resp.secondary_text}</span></p>
                             <div className='relative py-[5px]'>
                                 <ImageLoader style={`rounded-[10px] h-[215px] md:h-[140px] w-full`} src={resp.image} title={resp.title} />

@@ -10,12 +10,10 @@ const inter = Inter({
     variable: '--font-inter'
   })
 
-const KeyPointsCard = ({data}) => {
-    // console.log('key', data);
-    
+const KeyPointsCard = ({data, len}) => {
   return (
     <div className='bg-[#F0F0F0] p-2 h-full'>
-       <p className='text-[#797979] text-[16px] font-semibold'>[{`${data.docstatus}${data.idx}`}]</p>
+       <p className='text-[#797979] text-[16px] font-semibold'>[{`${len < 10 && '0'}${data.idx}`}]</p>
 
        <p className={`text-[#202121] mt-1 text-[18px] md:text-[16px] font-normal`}>{data.key_points}</p>
     </div>

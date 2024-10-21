@@ -3,15 +3,25 @@ import 'rodal/lib/rodal.css';
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import { useState } from 'react';
+import { insert_web_special_registration } from '@/libs/api';
 const RegistrationForm = ({ visible, hide }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [submitted,setSubmitted] = useState(false)
-    const [formData,setFormData] = useState()
-    const registerForm = (data) => {
-        console.log(data,"data")
+    const { register, handleSubmit, formState: { errors },reset } = useForm();
+    const [submitted, setSubmitted] = useState(false)
+    const [formData, setFormData] = useState()
+    const registerForm = async (data) => {
+        // console.log(data,"data")
         setFormData(data)
-        if(data){
-            hide(data)
+        if (data) {
+            let curRoute = router.asPath.split('/')[2] + "/" + router.asPath.split('/')[3]
+            const res = await insert_web_special_registration({ ...data, from_page: curRoute });
+            if (res.status === "Success") {
+                // console.log("Success");
+                toast.success(res.message.message)
+                reset();
+                hide(data)
+            } else {
+                toast.error(res.message.message)
+            }
         }
     }
     return (

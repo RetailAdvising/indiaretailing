@@ -35,6 +35,7 @@ import { SessionProvider } from 'next-auth/react'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Script from 'next/script'
 import ScrollToTopButton from '@/components/common/ScrollToTopButton'
+import { ToastContainer } from 'react-toastify'
 const inter = Faustina({
   weight: ["300", "400", "500", "600", '700'],
   display: "block",
@@ -304,6 +305,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
                 <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
                   <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
                   {/* <Header/> */}
+                  <ToastContainer position={'bottom-right'} autoClose={2000} />
                   <Component {...pageProps} />
                   <ScrollToTopButton />
                   <div className='lg:hidden'>

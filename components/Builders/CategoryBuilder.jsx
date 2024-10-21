@@ -706,22 +706,22 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                   return (
                     <div key={index} onClick={() => updateShare(data)}>
                       {
-                        res.name == 'fb' ? <FacebookShareButton url={`${'https://indiaretail.vercel.app/' + data.route}`}>
+                        res.name == 'fb' ? <FacebookShareButton url={`${ + data.route}`}>
                           <div key={index} className={`rounded-full bg-light-gray p-2`}>
                             <Image src={res.icon} alt={res.name} height={25} width={20} />
                           </div>
                         </FacebookShareButton>
-                          : res.name == 'ws' ? <WhatsappShareButton url={`${'https://indiaretail.vercel.app/' + data.route}`}>
+                          : res.name == 'ws' ? <WhatsappShareButton url={`${ + data.route}`}>
                             <div key={index} className={`rounded-full bg-light-gray p-2`}>
                               <Image src={res.icon} alt={res.name} height={25} width={20} />
                             </div>
                           </WhatsappShareButton>
-                            : res.name == 'linkedin' ? <LinkedinShareButton url={`${'https://indiaretail.vercel.app/' + data.route}`}>
+                            : res.name == 'linkedin' ? <LinkedinShareButton url={`${ + data.route}`}>
                               <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                 <Image src={res.icon} alt={res.name} height={25} width={20} />
                               </div>
                             </LinkedinShareButton>
-                              : res.name == 'twitter' ? <TwitterShareButton url={`${'https://indiaretail.vercel.app/' + data.route}`}>
+                              : res.name == 'twitter' ? <TwitterShareButton url={`${ + data.route}`}>
                                 <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                   <Image src={res.icon} alt={res.name} height={25} width={20} />
                                 </div>

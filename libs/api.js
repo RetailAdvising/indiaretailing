@@ -839,6 +839,11 @@ export async function get_web_special_detail(data){
    return await postMethod(api, data);
 }
 
+export async function insert_web_special_registration(data){
+    let api = domainUrl + 'insert_web_special_registration';
+    return await postMethod(api, data);
+ }
+
 export const checkMember = (data) => {
     if (data && data.length != 0) {
         for (let j = 0; j < data.length; j++) {

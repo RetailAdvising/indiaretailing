@@ -139,7 +139,7 @@ const FbBtn = ({ socialLogin, setCredential, setShowMob }) => {
 
   return (
     <>
-      <ToastContainer position={'bottom-right'} autoClose={2000} />
+      {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> */}
       {/* {!session ? (
         <button onClick={async () => {
           await signIn('facebook', {

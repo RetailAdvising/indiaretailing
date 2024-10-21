@@ -1,45 +1,58 @@
 import React from "react";
 import ImageLoader from "../ImageLoader";
 
-const Banner = ({ data }) => {
+const Banner = ({ data,click_data }) => {
   return (
     <>
       <div
         style={{
           backgroundImage: `url(https://indiaretailing.go1cms.com${data.banner_image})`,
         }}
-        className="lg:px-20 px-5 py-3 lg:py-10 flex flex-col bg-cover justify-start"
+        className="lg:px-[15px] px-5 py-5 lg:py-10 flex flex-col bg-cover justify-start"
       >
-        {/* Brand Logo and Name */}
-        <div className="inline-flex w-fit gap-3 items-center">
-          <ImageLoader
-            style={`rounded-[5px] h-[60px] w-[70px]`}
-            src={data.brand_logo}
-          />
-          <h1 className="text-white text-3xl lg:text-4xl font-bold">
-            {data.brand_name}
-          </h1>
+        <div className="container mx-auto">
+          {/* Brand Logos */}
+          <div className="flex flex-col lg:flex-row gap-3 lg:gap-8 items-start">
+            {/* First logo */}
+            <div className="w-full lg:w-auto">
+              <ImageLoader
+                style="rounded-[5px] object-contain h-[60px] w-full lg:w-auto"
+                src={data.banner_logo_1}
+              />
+            </div>
+            {/* Second logo */}
+            <div className="w-full lg:w-auto">
+              <ImageLoader
+                style="rounded-[5px] object-contain h-[60px] w-full lg:w-auto"
+                src={data.banner_logo_2}
+              />
+            </div>
+          </div>
+
+          {/* Banner Titles */}
+          <div className="mt-3 lg:mt-2 text-center lg:text-left">
+            <h1 className="text-3xl lg:text-5xl font-bold text-white">
+              {data.banner_title}
+            </h1>
+            <h1 className="text-3xl lg:text-5xl font-bold text-yellow-400 mt-2">
+              {data.span_title}
+            </h1>
+          </div>
+
+          {/* Date */}
+          <div className="mt-4 text-center lg:text-left">
+            <span className="font-normal text-[18px] lg:text-[20px] text-white">
+              {data.date}
+            </span>
+          </div>
+
+          {/* Button */}
+          <div className="mt-6 text-center lg:text-left">
+            <button onClick={()=> click_data(data,"register")} className="w-fit text-[#CA4A56] bg-white font-bold uppercase px-4 py-2 lg:py-3 rounded-3xl text-sm lg:text-base">
+              {data.button_name}
+            </button>
+          </div>
         </div>
-
-        {/* Banner Title and Subtitle */}
-        <div className="mt-4">
-          <h1 className="text-3xl lg:text-5xl text-white mt-3">
-            {data.banner_title}
-          </h1>
-          <h1 className="text-3xl lg:text-5xl text-yellow-400 mt-3">
-            {data.span_title}
-          </h1>
-        </div>
-
-        {/* Date */}
-        <span className="font-normal text-[18px] lg:text-[20px] text-white mt-5">
-          {data.date}
-        </span>
-
-        {/* Button */}
-        <button className="w-fit text-[#CA4A56] bg-white font-bold uppercase mt-5 px-4 py-2 lg:py-3 rounded-3xl text-sm lg:text-base">
-          {data.button_name}
-        </button>
       </div>
     </>
   );

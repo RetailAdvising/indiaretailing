@@ -21,10 +21,10 @@ const SideMenu = ({side_menu,activateSection,activeIndex}) => {
                                             ? ""
                                             : "border-b border-b-[#D9D9D9]"
                                             } p-[10px] cursor-pointer`}
-                                        onClick={() => activateSection(resp, index)}
+                                        onClick={() => activateSection(resp.url, index,'click')}
                                     >
                                         <h6
-                                            className={`text-[14px] ${activeIndex == index
+                                            className={`text-[14px] ${activeIndex == resp.url
                                                 ? "text-[#E21B22] font-[700]"
                                                 : "text-[#737373]"
                                                 } `}

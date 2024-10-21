@@ -394,7 +394,7 @@ export default function checkout() {
     <>
       {loadSpinner && <Backdrop />}
       <RootLayout checkout={isMobile ? false : true}>
-        <ToastContainer position={'bottom-right'} autoClose={2000} />
+        {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> */}
 
         {/* {alert.isOpen &&
           <AlertUi isOpen={alert.isOpen} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />

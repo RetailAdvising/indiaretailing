@@ -44,7 +44,7 @@ export default function Editprofile({ customerInfo }) {
 
   return (
     <>
-    <ToastContainer position={'bottom-right'} autoClose={2000} />
+    {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> */}
       {/* <div className={`flex-col flex justify-center`}> */}
             <form onSubmit={handleSubmit((data) => signup(data))} autoComplete='off' >
               <div className={`flex items-center gap-[20px] flex-wrap justify-between`}>

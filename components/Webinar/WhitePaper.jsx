@@ -1,23 +1,23 @@
 import React from "react";
 import ImageLoader from "../ImageLoader";
+import styles from '@/styles/Cards.module.scss'
+
 
 const WhitePaper = ({ data }) => {
-  console.log("wp", data);
-
   return (
     <>
-      {/* <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 mt-5">
+      <div className="flex mt-5 no_scroll lg:space-x-4">
         {data.map((res, i) => (
-          <div key={i} className="shadow-lg border rounded-2xl p-3">
-            <ImageLoader
-              src={res.image}
-              style={`rounded-[5px] h-[190px] md:h-[140px] w-full`}
-            />
-            <p className="text-[18px] font-medium mt-2">{res.title}</p>
-          </div>
+           <div key={i} className="min-w-[310px] rounded-lg border p-3">
+           <div className={`${styles.img_div}`}>
+           <ImageLoader src={res.image}  style={`h-[187px] object-cover w-full rounded-lg ${styles.card_img}`} alt="" />
+           </div>
+           <div className="">
+           {res.title && <h4 className={`card-title line-clamp-2 lg:min-h-[40px] pt-2`}>{res.title ? res.title : ''}</h4>}
+           </div>
+         </div>
         ))}
-      </div> */}
-      WhitePaper
+      </div>
     </>
   );
 };
