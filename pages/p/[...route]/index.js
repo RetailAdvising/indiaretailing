@@ -2,9 +2,10 @@ import SEO from "@/components/common/SEO";
 import Title from "@/components/common/Title";
 import ImageLoader from "@/components/ImageLoader";
 import RootLayout from "@/layouts/RootLayout";
-import { check_Image, get_web_special_detail } from "@/libs/api";
+import { check_Image, get_web_special_detail, getCurrentUrl, seo_Image } from "@/libs/api";
 // import { Nunito } from 'next/font/google';
 import Image from "next/image";
+import {domain} from '@/libs/config/siteConfig'
 import { useRouter } from "next/router";
 import format from "date-fns/format";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -26,6 +27,7 @@ import SideMenu from "@/components/WebSpecials/SideMenu";
 import RegistrationForm from "@/components/WebSpecials/RegistrationForm";
 import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
 import { websiteUrl } from "@/libs/config/siteConfig";
+import Head from "next/head";
 
 const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
@@ -100,21 +102,21 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
     // console.log(data, "data");
 
 
-    if(type == "register"){
+    if (type == "register") {
       showRegister()
-    }else{
-    if (data.route) {
-      let route = type == "article" ? ('/' + data.route) : ("/p/" + data.route)
-      if ((category_route == "featured-content" || category_route == "web-special-list")) {
-        router.push(route);
-      } else {
-        if (!webinar_data.is_registration_required) {
+    } else {
+      if (data.route) {
+        let route = type == "article" ? ('/' + data.route) : ("/p/" + data.route)
+        if ((category_route == "featured-content" || category_route == "web-special-list")) {
           router.push(route);
         } else {
-          showRegister()
+          if (!webinar_data.is_registration_required) {
+            router.push(route);
+          } else {
+            showRegister()
+          }
         }
       }
-    }
     }
 
   };
@@ -187,13 +189,75 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
         adIdF={category_route + "foot"}
         homeAd={ads && ads.header ? ads : null}
       >
-        <SEO
+
+        {category_route == "web-special-list" ? <SEO
           title={"India Retailing"}
           siteName={"India Retailing"}
           description={
             "This is IndiaRetailing and its about news and articles based on the popular site."
           }
-        />
+        /> :
+          <Head>
+            <title key="title">{(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title']  : webinar_data?.meta_title}</title>
+            <meta name="description" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro']  : webinar_data?.meta_description} />
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+            <meta name="theme-color" content="#e21b22" />
+            <meta property="og:type" content={'Article'} />
+            <meta property="og:title" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title']  : webinar_data?.meta_title} />
+            <meta property="og:description" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro']  : webinar_data?.meta_description} />
+            <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
+            <meta property="og:locale" content="en_IE" />
+            <meta
+
+              property="og:image"
+              itemprop="image"
+              content={seo_Image((category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['thumbnail_imagee']  : webinar_data.meta_image ? webinar_data.meta_image : webinar_data.thumbnail_imagee)}
+            />
+            <meta
+
+              property="og:image:alt"
+              content={`${(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title']  : webinar_data?.title} | ${'IndiaRetailing'}`}
+            />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+
+            <meta name="robots" content="index,follow" />
+
+            <meta
+
+              name="twitter:card"
+              content="summary_large_image"
+            />
+            <meta
+
+              name="twitter:site"
+              content={'@d__indiaRetail'}
+            />
+            <meta
+
+              name="twitter:creator"
+              content={'@d__indiaRetail'}
+            />
+            <meta property="twitter:image" content={seo_Image((category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['thumbnail_imagee']  : webinar_data?.meta_image)} />
+            <meta
+
+              property="twitter:title"
+              content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title']  : webinar_data?.title}
+            />
+            <meta
+
+              property="twitter:description"
+              content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro']  : webinar_data?.meta_description}
+            />
+
+
+            <link rel="shortcut icon" href="/ir_2023.png" />
+          </Head>
+
+        }
+
+
+
 
         {category_route == "web-special-list" &&
           webinar_data &&
@@ -579,17 +643,17 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               <Banner data={webinar_data} click_data={click_data} />
 
               {/*Webinar Details */}
-              <div className="px-5 lg:px-16 my-8">
+              <div className="px-5 lg:px-16 py-8">
                 {/*Brand Details */}
                 <BrandDetails webinar_data={webinar_data} updateShare={updateShare} icons={icons} />
 
                 {/*Overview */}
-                <div className="mt-5">
+                <div className="py-[20px]">
                   {webinar_data.overview && (
                     <>
                       <div>
                         <Title data={{ title: "Overview" }} />
-                        <p className="text-[18px] font-normal text-[#202121B2] text-justify mt-3">
+                        <p className="text-[18px] font-normal text-[#202121B2] text-justify pt-3">
                           {webinar_data.overview}
                         </p>
                       </div>
@@ -615,7 +679,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     <>
                       <div className="mt-5">
                         <Title data={{ title: "SPEAKERS" }} />
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-5">
+                        <div className="flex no_scroll lg:gap-6 mt-5">
                           {webinar_data.speakers.map((res, i) => (
                             <div key={i}>
                               <SpeakerCard data={res} />
@@ -676,19 +740,25 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {
                   <div
                     style={{
-                      backgroundImage: `url(https://indiaretailing.go1cms.com${webinar_data.banner_image})`,
+                      backgroundImage: `url(https://${domain}${webinar_data.bottom_banner_image})`,
                     }}
                     className="p-5 md:p-8 lg:p-10 flex flex-col my-5 bg-cover bg-center"
                   >
+                    {webinar_data.bottom_banner_title && (
                     <h3 className="text-[24px] md:text-[28px] lg:text-[30px] font-bold">
                       {webinar_data.bottom_banner_title}
                     </h3>
+                    )}
+                    {webinar_data.bottom_banner_description && (
                     <p className="text-[18px] md:text-[20px] lg:text-[22px] text-[#8D9D9D]">
                       {webinar_data.bottom_banner_description}
                     </p>
+                    )}
+                    {webinar_data.date && (
                     <span className="text-[16px] md:text-[18px] lg:text-[20px] font-medium text-[#202121] mt-3">
                       {webinar_data.date}
                     </span>
+                    )}
                     <button className="px-4 py-2 text-sm md:text-base font-bold w-fit mt-2 webinar-btn rounded-md text-white">
                       {webinar_data.button_name}
                     </button>
@@ -1055,9 +1125,9 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   </>
                 )}
 
-                <div className="py-[20px]">
+              <div className="py-[20px]">
                 <Form />
-                </div>
+              </div>
 
             </div>
           </div>}

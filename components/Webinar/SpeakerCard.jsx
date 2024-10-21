@@ -14,7 +14,7 @@ const inter = Inter({
 
 const SpeakerCard = ({ data }) => {
   return (
-    <div className='relative flex flex-col sm:flex-row gap-3'>
+    <div className='relative flex flex-row gap-3 w-[280px]'>
       <div className='flex-shrink-0'>
         <ImageLoader src={data.profile_image} style="h-[70px] w-[70px] sm:h-[90px] sm:w-[90px] rounded-xl" />
         <div className='absolute top-0 bg-[#F25022] rounded-tl-xl rounded-br-lg p-[6px] sm:p-[8px]'>
