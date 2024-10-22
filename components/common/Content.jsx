@@ -20,7 +20,6 @@ export default function Content({ res, i, updateShare, noScroll }) {
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
     const setings = [{ name: 'Copy Link', icon: '/bookstore/Copy.svg' }, { name: 'Comment', icon: '/bookstore/comment.svg' }, { name: 'More Stories', icon: '/bookstore/more-stories.svg' }]
 
-
     const dateFormat = (data) => {
         // console.log(data)
         if (data && data != null) {
@@ -160,7 +159,7 @@ export default function Content({ res, i, updateShare, noScroll }) {
             }
 
             {/* <p className='py-3 !leading-[1.74] !text-[15px] !text-justify font-semibold'>{res.blog_intro}</p> */}
-            <p className={`py-3 nunito !leading-[1.5] !text-[18px] !text-justify font-[700]`}>{res.blog_intro}</p>
+            <p className={`py-3 jost italic !leading-[1.5] !text-[18px] !text-justify font-[700]`}>{res.blog_intro}</p>
         </>
     )
 }

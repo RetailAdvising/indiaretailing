@@ -29,7 +29,7 @@ const Agenda = ({ data }) => {
                 {`${res.start_time} - ${res.end_time}`}
               </span>
               <p
-                className={`mt-2 md:text-[12px] lg:text-[18px] font-normal ${inter.className}`}
+                className={`mt-2 md:text-[14px] lg:text-[18px] font-normal ${inter.className}`}
               >
                 {res.content}
               </p>
@@ -53,7 +53,7 @@ const Agenda = ({ data }) => {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="py-2">
+            <p className="py-2 text-[12px] lg:text-[16px]">
               {res.description}
             </p>
           </motion.div>

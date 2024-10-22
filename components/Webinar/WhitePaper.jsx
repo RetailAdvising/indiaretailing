@@ -3,12 +3,12 @@ import ImageLoader from "../ImageLoader";
 import styles from '@/styles/Cards.module.scss'
 
 
-const WhitePaper = ({ data }) => {
+const WhitePaper = ({ data, click_data }) => {
   return (
     <>
       <div className="flex mt-5 no_scroll lg:gap-4">
         {data.map((res, i) => (
-           <div key={i} className="min-w-[310px] rounded-lg border p-3">
+           <div key={i} className="min-w-[310px] rounded-lg border p-3 cursor-pointer" onClick={()=> click_data(res)}>
            <div className={`${styles.img_div}`}>
            <ImageLoader src={res.image}  style={`h-[187px] object-cover w-full rounded-lg ${styles.card_img}`} alt="" />
            </div>

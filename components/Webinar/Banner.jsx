@@ -7,7 +7,7 @@ const Banner = ({ data, click_data }) => {
     <>
       <div
         style={{
-          backgroundImage: `url(https://${domain}${data.banner_image})`,
+          backgroundImage: `url(${data.banner_image ? `https://${domain}${data.banner_image}` : '/no-image.jpg'})`,
         }}
         className="lg:px-[15px] px-5 py-5 lg:py-10 flex flex-col bg-cover justify-start"
       >

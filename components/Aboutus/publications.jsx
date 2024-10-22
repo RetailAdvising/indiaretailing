@@ -8,7 +8,7 @@ export default function Publications() {
   return (
     <>
     <h2 className='font-bold text-3xl md:text-2xl pt-6 md:pt-0 text-center'>{data.title}</h2>
-    <p className='sub_title text-center pb-3 pt-3'>{data.subtitle}</p>
+    <p className='sub_title josefin-sans text-center pb-3 pt-3'>{data.subtitle}</p>
     <div className="pt-9 pb-9 md:pt-4 md:pb-4 grid-cols-3 md:grid-cols-2 gap-4 md:gap-2 grid">
       {data.publication.map((publication,index) => {
       return(

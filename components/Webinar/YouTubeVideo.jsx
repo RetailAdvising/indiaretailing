@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ImageLoader from '../ImageLoader';
 import Image from 'next/image';
 import { parseISO8601Duration } from '@/libs/api';
+import { YOUTUBE_API_KEY } from '@/libs/config/siteConfig';
 
 const YouTubeVideo = ({id}) => {
 
@@ -25,11 +26,12 @@ const YouTubeVideo = ({id}) => {
     
     useEffect(()=>{
         const fetchVideoDetails = async()=>{
-            const API_KEY = 'AIzaSyAtZV9erZrT33fiYG9qlTghJjhbQk3zAa0';
-            const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${API_KEY}&part=snippet,contentDetails`
+            //const API_KEY = 'AIzaSyAtZV9erZrT33fiYG9qlTghJjhbQk3zAa0';
+            const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${YOUTUBE_API_KEY}&part=snippet,contentDetails`
             const res = await fetch(apiUrl)
             const data = await res.json();
 
+          if(data.items){
             const videoData = data.items[0]
 
             setVideoDetails({
@@ -37,19 +39,26 @@ const YouTubeVideo = ({id}) => {
                 description: videoData.snippet.description,
                 duration: parseDuration(videoData.contentDetails.duration),
                 thumbnail: videoData.snippet.thumbnails.high.url,
+                channelTitle: videoData.snippet.channelTitle
               });
+          }
         }
 
-        fetchVideoDetails();
-    },[videoDetails]);
+        if(id){
+          fetchVideoDetails();
+        }
+
+    },[videoDetails,id]);
 
   return (
     <>
-      <div className='pt-3 flex flex-col lg:flex-row gap-4'>
-        <Image src={videoDetails.thumbnail} height={200} width={300} className='rounded-lg h-[300px] object-cover w-full lg:min-w-[564px]' />
+      {
+        videoDetails && (
+            <div className='pt-3 flex flex-col lg:flex-row gap-4'>
+        <img src={videoDetails.thumbnail} className='rounded-lg h-fit object-cover w-full lg:min-w-[564px]' />
         <div>
-            <h2 className='text-[20px] lg:text-[25px] w-fit font-medium'>{videoDetails.title}</h2>
-            <p className='mt-3 text-[#202121] text-[16px] lg:text-[18px]'>{videoDetails.description.slice(0,200)}</p>
+            <h2 className='text-[20px] lg:text-[25px] w-fit font-medium'><span className='text-[#929292] text-[20px] lg:text-[25px]'>{videoDetails.channelTitle} : </span>{videoDetails.title}</h2>
+            <p className='mt-3 text-[#202121] text-[16px] line-clamp-4 lg:text-[18px]'>{videoDetails.description}</p>
             <div className='mt-5 flex items-center gap-1'>
                 <Image src="/webinar/time.png" width={18} height={22} />
                 <span className='text-[#818181] text-[16px] mb-1'>{videoDetails.duration}</span>
@@ -60,6 +69,8 @@ const YouTubeVideo = ({id}) => {
             </button>
         </div>
       </div>
+        )
+      }
     </>
   )
 }

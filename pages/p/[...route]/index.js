@@ -2,10 +2,15 @@ import SEO from "@/components/common/SEO";
 import Title from "@/components/common/Title";
 import ImageLoader from "@/components/ImageLoader";
 import RootLayout from "@/layouts/RootLayout";
-import { check_Image, get_web_special_detail, getCurrentUrl, seo_Image } from "@/libs/api";
+import {
+  check_Image,
+  get_web_special_detail,
+  getCurrentUrl,
+  seo_Image,
+} from "@/libs/api";
 // import { Nunito } from 'next/font/google';
 import Image from "next/image";
-import { domain } from '@/libs/config/siteConfig'
+import { domain } from "@/libs/config/siteConfig";
 import { useRouter } from "next/router";
 import format from "date-fns/format";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -14,19 +19,24 @@ import SpeakerCard from "@/components/Webinar/SpeakerCard";
 import Agenda from "@/components/Webinar/Agenda";
 import { Inter } from "next/font/google";
 import Banner from "@/components/Webinar/Banner";
-import Form from '@/components/Webinar/Form'
+import Form from "@/components/Webinar/Form";
 import Dropdowns from "@/components/common/Dropdowns";
 import BrandDetails from "@/components/Webinar/BrandDetails";
 import KeyDiscussion from "@/components/Webinar/KeyDiscussion";
-import WhitePaper from '@/components/Webinar/WhitePaper'
-import Reports from '@/components/Webinar/Reports'
-import Video from '@/components/Webinar/Video'
-import SocialMedia from '@/components/Webinar/SocialMedia'
-import YouTubeVideo from '@/components/Webinar/YouTubeVideo'
+import WhitePaper from "@/components/Webinar/WhitePaper";
+import Reports from "@/components/Webinar/Reports";
+import Video from "@/components/Webinar/Video";
+import SocialMedia from "@/components/Webinar/SocialMedia";
+import YouTubeVideo from "@/components/Webinar/YouTubeVideo";
 import FeaturedContent from "@/components/WebSpecials/FeaturedContent";
 import SideMenu from "@/components/WebSpecials/SideMenu";
 import RegistrationForm from "@/components/WebSpecials/RegistrationForm";
-import { WhatsappShareButton, LinkedinShareButton, TwitterShareButton, FacebookShareButton } from 'react-share'
+import {
+  WhatsappShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  FacebookShareButton,
+} from "react-share";
 import { websiteUrl } from "@/libs/config/siteConfig";
 import Head from "next/head";
 
@@ -53,22 +63,22 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
   const socials = [
     {
-      "icon": "/fb.svg",
-      "name": "fb"
+      icon: "/fb.svg",
+      name: "fb",
     },
     {
-      "icon": "/twitter.svg",
-      "name": "twitter"
+      icon: "/twitter.svg",
+      name: "twitter",
     },
     {
-      "icon": "/linkedin.svg",
-      "name": "linkedin"
+      icon: "/linkedin.svg",
+      name: "linkedin",
     },
     {
-      "icon": "/ws.svg",
-      "name": "ws"
-    }
-  ]
+      icon: "/ws.svg",
+      name: "ws",
+    },
+  ];
 
   const [showMore, setShowMore] = useState(true);
   const router = useRouter();
@@ -82,51 +92,54 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
   ]);
 
   useEffect(() => {
-
     if (category_route == "case-studies") {
-      let data = [...webinar_data.content_1, ...webinar_data.content_2]
-      let menus = []
+      let data = [...webinar_data.content_1, ...webinar_data.content_2];
+      let menus = [];
       if (data && data.length > 0) {
         for (let index = 0; index < data.length; index++) {
-          if (data[index]['title']) {
-            let obj = { title: data[index]['title'], url: data[index]['title'] }
-            menus.push(obj)
+          if (data[index]["title"]) {
+            let obj = {
+              title: data[index]["title"],
+              url: data[index]["title"],
+            };
+            menus.push(obj);
           }
         }
       }
 
-      setSideMenu(menus)
+      setSideMenu(menus);
     }
   }, [router]);
 
   const click_data = (data, type) => {
     // console.log(data, "data");
 
-
     if (type == "register") {
-      showRegister()
+      showRegister();
     } else {
       if (data.route) {
-        let route = type == "article" ? ('/' + data.route) : ("/p/" + data.route)
-        if ((category_route == "featured-content" || category_route == "web-special-list")) {
+        let route = type == "article" ? "/" + data.route : "/p/" + data.route;
+        if (
+          category_route == "featured-content" ||
+          category_route == "web-special-list"
+        ) {
           router.push(route);
         } else {
           if (!webinar_data.is_registration_required) {
             router.push(route);
           } else {
-            showRegister()
+            showRegister();
           }
         }
       }
     }
-
   };
   const [activeIndex, setActiveIndex] = useState(0);
 
   const activateSection = async (data, i, type) => {
     // console.log(data,"data")
     setActiveIndex(data);
-    if (type == 'click') {
+    if (type == "click") {
       let el = document.getElementById(data);
       el.scrollIntoView({
         behavior: "smooth",
@@ -136,25 +149,23 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
     }
   };
 
-
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
   const showRegister = () => {
-    setVisible(true)
-    document.body.style.overflow = "hidden"
-  }
+    setVisible(true);
+    document.body.style.overflow = "hidden";
+  };
 
   const hide = (data) => {
-    setVisible(false)
-    document.body.style.overflow = "auto"
+    setVisible(false);
+    document.body.style.overflow = "auto";
     if (data) {
-
     }
-  }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = document.querySelectorAll('[data-section]');
-      let activeSection = '';
+      const sections = document.querySelectorAll("[data-section]");
+      let activeSection = "";
       // console.log(sections,"sections")
       sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
@@ -164,18 +175,15 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
       });
 
       if (activeSection) {
-        activateSection(activeSection, '', "scroll");
+        activateSection(activeSection, "", "scroll");
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const updateShare = (data) => {
-
-  }
-
+  const updateShare = (data) => {};
 
   // console.log("wd", webinar_data.banner_image);
 
@@ -190,75 +198,129 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
         adIdF={category_route + "foot"}
         homeAd={ads && ads.header ? ads : null}
       >
-
-        {category_route == "web-special-list" ? <SEO
-          title={"India Retailing"}
-          siteName={"India Retailing"}
-          description={
-            "This is IndiaRetailing and its about news and articles based on the popular site."
-          }
-        /> :
+        {category_route == "web-special-list" ? (
+          <SEO
+            title={"India Retailing"}
+            siteName={"India Retailing"}
+            description={
+              "This is IndiaRetailing and its about news and articles based on the popular site."
+            }
+          />
+        ) : (
           <Head>
-            <title key="title">{(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title'] : webinar_data?.meta_title}</title>
-            <meta name="description" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro'] : webinar_data?.meta_description} />
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-            <meta name="theme-color" content="#e21b22" />
-            <meta property="og:type" content={'Article'} />
-            <meta property="og:title" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title'] : webinar_data?.meta_title} />
-            <meta property="og:description" content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro'] : webinar_data?.meta_description} />
-            <meta property="og:url" content={getCurrentUrl(router.asPath)}></meta>
-            <meta property="og:locale" content="en_IE" />
+            <title key="title">
+              {category_route == "featured-content" &&
+              webinar_data.message &&
+              webinar_data.message.article_detail
+                ? webinar_data.message.article_detail[0]["title"]
+                : webinar_data?.meta_title}
+            </title>
             <meta
-
-              property="og:image"
-              itemprop="image"
-              content={seo_Image((category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['thumbnail_imagee'] : webinar_data.meta_image ? webinar_data.meta_image : webinar_data.thumbnail_imagee)}
+              name="description"
+              content={
+                category_route == "featured-content" &&
+                webinar_data.message &&
+                webinar_data.message.article_detail
+                  ? webinar_data.message.article_detail[0]["blog_intro"]
+                  : webinar_data?.meta_description
+              }
             />
             <meta
-
+              name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+            />
+            <meta name="theme-color" content="#e21b22" />
+            <meta property="og:type" content={"Article"} />
+            <meta
+              property="og:title"
+              content={
+                category_route == "featured-content" &&
+                webinar_data.message &&
+                webinar_data.message.article_detail
+                  ? webinar_data.message.article_detail[0]["title"]
+                  : webinar_data?.meta_title
+              }
+            />
+            <meta
+              property="og:description"
+              content={
+                category_route == "featured-content" &&
+                webinar_data.message &&
+                webinar_data.message.article_detail
+                  ? webinar_data.message.article_detail[0]["blog_intro"]
+                  : webinar_data?.meta_description
+              }
+            />
+            <meta
+              property="og:url"
+              content={getCurrentUrl(router.asPath)}
+            ></meta>
+            <meta property="og:locale" content="en_IE" />
+            <meta
+              property="og:image"
+              itemprop="image"
+              content={seo_Image(
+                category_route == "featured-content" &&
+                  webinar_data.message &&
+                  webinar_data.message.article_detail
+                  ? webinar_data.message.article_detail[0]["thumbnail_imagee"]
+                  : webinar_data.meta_image
+                  ? webinar_data.meta_image
+                  : webinar_data.thumbnail_imagee
+              )}
+            />
+            <meta
               property="og:image:alt"
-              content={`${(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title'] : webinar_data?.title} | ${'IndiaRetailing'}`}
+              content={`${
+                category_route == "featured-content" &&
+                webinar_data.message &&
+                webinar_data.message.article_detail
+                  ? webinar_data.message.article_detail[0]["title"]
+                  : webinar_data?.title
+              } | ${"IndiaRetailing"}`}
             />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
 
             <meta name="robots" content="index,follow" />
 
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:site" content={"@d__indiaRetail"} />
+            <meta name="twitter:creator" content={"@d__indiaRetail"} />
             <meta
-
-              name="twitter:card"
-              content="summary_large_image"
+              property="twitter:image"
+              content={seo_Image(
+                category_route == "featured-content" &&
+                  webinar_data.message &&
+                  webinar_data.message.article_detail
+                  ? webinar_data.message.article_detail[0]["thumbnail_imagee"]
+                  : webinar_data?.meta_image
+              )}
             />
             <meta
-
-              name="twitter:site"
-              content={'@d__indiaRetail'}
-            />
-            <meta
-
-              name="twitter:creator"
-              content={'@d__indiaRetail'}
-            />
-            <meta property="twitter:image" content={seo_Image((category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['thumbnail_imagee'] : webinar_data?.meta_image)} />
-            <meta
-
               property="twitter:title"
-              content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['title'] : webinar_data?.title}
+              content={
+                category_route == "featured-content" &&
+                webinar_data.message &&
+                webinar_data.message.article_detail
+                  ? webinar_data.message.article_detail[0]["title"]
+                  : webinar_data?.title
+              }
             />
             <meta
-
               property="twitter:description"
-              content={(category_route == "featured-content" && webinar_data.message && webinar_data.message.article_detail) ? webinar_data.message.article_detail[0]['blog_intro'] : webinar_data?.meta_description}
+              content={
+                category_route == "featured-content" &&
+                webinar_data.message &&
+                webinar_data.message.article_detail
+                  ? webinar_data.message.article_detail[0]["blog_intro"]
+                  : webinar_data?.meta_description
+              }
             />
-
 
             <link rel="shortcut icon" href="/ir_2023.png" />
           </Head>
-
-        }
-
-
-
+        )}
 
         {category_route == "web-special-list" &&
           webinar_data &&
@@ -334,12 +396,16 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       </>
                     )}
                   </div> */}
-                  <SideMenu side_menu={side_menu} activateSection={activateSection} activeIndex={activeIndex} />
+                  <SideMenu
+                    side_menu={side_menu}
+                    activateSection={activateSection}
+                    activeIndex={activeIndex}
+                  />
 
                   <div className={`md:py-[15px] flex-[0_0_calc(80%_-_15px)]`}>
                     {webinar_data.message.webinars_data &&
                       webinar_data.message.webinars_data.length > 0 && (
-                        <div id={"Webinars"} data-section >
+                        <div id={"Webinars"} data-section>
                           <Title
                             data={{
                               title: "Webinars",
@@ -348,7 +414,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             counter={true}
                             isIcon={true}
                             see={`uppercase !font-semibold !text-[#e21b22]`}
-                            seeMore={true}
+                            // seeMore={true}
                           />
 
                           {webinar_data.message.webinars_data.map((res) => {
@@ -378,7 +444,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                     {/* <Image className='md:h-[15px] md:w-[15px]' src={'/share.svg'} height={20} width={20} alt='share'></Image> */}
 
                                     <div className="border flex items-center gap-[5px] border-[#000000] px-[15px] md:px-[10px] md:h-[35px] h-[40px] rounded-[25px] cursor-pointer">
-                                      <h6 className="text-[15px] md:text-[13px] font-semibold text-[#292930]">
+                                      <h6 className="text-[15px] md:text-[13px] font-semibold text-[#292930]" onClick={()=> router.push('/p/'+res.route)}>
                                         {"watch on demand"}
                                       </h6>
                                       <Image
@@ -399,7 +465,9 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                         <div
                                           key={resp.name}
                                           className="flex gap-[10px] cursor-pointer md:flex-[0_0_calc(100%_-_10px)]"
-                                          onClick={() => click_data(resp, 'speakers')}
+                                          onClick={() =>
+                                            click_data(resp, "speakers")
+                                          }
                                         >
                                           <div className="flex-[0_0_auto]">
                                             <ImageLoader
@@ -440,12 +508,16 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.lead_data &&
                       webinar_data.message.lead_data.length > 0 && (
                         <>
-                          <div className="py-[20px]" id={"Lead Generation"} data-section>
+                          <div
+                            className="py-[20px]"
+                            id={"Lead Generation"}
+                            data-section
+                          >
                             <Title
                               data={{ title: "Lead Generation" }}
                               isIcon={true}
                               see={`uppercase !font-semibold !text-[#e21b22]`}
-                              seeMore={true}
+                              // seeMore={true}
                             />
 
                             <div className="pb-[20px] ">
@@ -453,9 +525,12 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                 (resp, index) => {
                                   return (
                                     <div
-                                      className={`border-b border-b-[#e9e9e9] ${index == 0 ? "pb-[10px]" : "py-[10px]"
-                                        } cursor-pointer`}
-                                      onClick={() => click_data(resp, 'lead_data')}
+                                      className={`border-b border-b-[#e9e9e9] ${
+                                        index == 0 ? "pb-[10px]" : "py-[10px]"
+                                      } cursor-pointer`}
+                                      onClick={() =>
+                                        click_data(resp, "lead_data")
+                                      }
                                       key={resp.title}
                                     >
                                       <p
@@ -520,12 +595,16 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.brand_profile_data &&
                       webinar_data.message.brand_profile_data.length > 0 && (
                         <>
-                          <div className="py-[20px]" id={"Brand Profile"} data-section>
+                          <div
+                            className="py-[20px]"
+                            id={"Brand Profile"}
+                            data-section
+                          >
                             <Title
                               data={{ title: "Brand Profile" }}
                               isIcon={true}
                               see={`uppercase !font-semibold !text-[#e21b22]`}
-                              seeMore={true}
+                              // seeMore={true}
                             />
 
                             <div className="grid grid-cols-4 md:grid-cols-2 md:gap-[15px] lg:gap-[20px]">
@@ -535,7 +614,9 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                     <div
                                       key={resp.title}
                                       className="cursor-pointer"
-                                      onClick={() => click_data(resp, 'brand_profile_data')}
+                                      onClick={() =>
+                                        click_data(resp, "brand_profile_data")
+                                      }
                                     >
                                       <ImageLoader
                                         style={`rounded-[5px] h-[215px] md:h-[140px] w-full`}
@@ -564,12 +645,16 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.case_studies_data &&
                       webinar_data.message.case_studies_data.length > 0 && (
                         <>
-                          <div className="py-[20px]" id={"Case Studies"} data-section>
+                          <div
+                            className="py-[20px]"
+                            id={"Case Studies"}
+                            data-section
+                          >
                             <Title
                               data={{ title: "Case Studies" }}
                               isIcon={true}
                               see={`uppercase !font-semibold !text-[#e21b22]`}
-                              seeMore={true}
+                              // seeMore={true}
                             />
 
                             <div className="grid grid-cols-3 md:grid-cols-1 gap-[15px]">
@@ -578,7 +663,9 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                   return (
                                     <div
                                       className="border border-[#e9e9e9] rounded-[10px] p-[10px] cursor-pointer"
-                                      onClick={() => click_data(resp, 'case_studies_data')}
+                                      onClick={() =>
+                                        click_data(resp, "case_studies_data")
+                                      }
                                       key={resp.title}
                                     >
                                       <div className="relative pb-[5px]">
@@ -613,12 +700,16 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.featured_content_data &&
                       webinar_data.message.featured_content_data.length > 0 && (
                         <>
-                          <div className="py-[20px]" id={"Featured Content"} data-section>
+                          <div
+                            className="py-[20px]"
+                            id={"Featured Content"}
+                            data-section
+                          >
                             <Title
                               data={{ title: "Featured Content" }}
                               isIcon={true}
                               see={`uppercase !font-semibold !text-[#e21b22]`}
-                              seeMore={true}
+                              // seeMore={true}
                             />
 
                             <FeaturedContent
@@ -646,7 +737,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               {/*Webinar Details */}
               <div className="py-[20px] container md:p-[15px] md:py-[10px]">
                 {/*Brand Details */}
-                <BrandDetails webinar_data={webinar_data} updateShare={updateShare} icons={icons} />
+                <BrandDetails
+                  webinar_data={webinar_data}
+                  updateShare={updateShare}
+                  icons={icons}
+                />
 
                 {/*Overview */}
                 <div className="py-[20px]">
@@ -654,7 +749,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     <>
                       <div>
                         <Title data={{ title: "Overview" }} />
-                        <p className="text-[18px] font-normal text-[#202121B2] text-justify pt-3">
+                        <p className="md:text-[16px] lg:text-[18px] font-normal text-[#202121B2] text-justify pt-3">
                           {webinar_data.overview}
                         </p>
                       </div>
@@ -666,8 +761,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   {webinar_data.video_id && (
                     <>
                       <div>
-                         <Title data={{title: "Videos"}} />
-                         <YouTubeVideo id={webinar_data.video_id} />
+                        <Title data={{ title: "Videos" }} />
+                        <YouTubeVideo id={webinar_data.video_id} />
                       </div>
                     </>
                   )}
@@ -691,7 +786,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     <>
                       <div className="my-5">
                         <Title data={{ title: "SPEAKERS" }} />
-                        <div className="flex no_scroll lg:gap-6 pt-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-5">
                           {webinar_data.speakers.map((res, i) => (
                             <div key={i}>
                               <SpeakerCard data={res} />
@@ -752,7 +847,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {
                   <div
                     style={{
-                      backgroundImage: `url(https://${domain}${webinar_data.bottom_banner_image})`,
+                      backgroundImage: `url(${
+                        webinar_data.bottom_banner_image
+                          ? `https://${domain}${webinar_data.bottom_banner_image}`
+                          : "/no-image.jpg"
+                      })`,
                     }}
                     className="p-5 md:p-8 lg:p-10 flex flex-col my-5 bg-cover bg-center"
                   >
@@ -771,7 +870,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                         {webinar_data.date}
                       </span>
                     )}
-                    <button className="px-4 py-2 text-sm md:text-base font-bold w-fit mt-2 webinar-btn rounded-md text-white">
+                    <button
+                      onClick={() => click_data(null, "register")}
+                      className="px-4 py-2 text-sm md:text-base font-bold w-fit mt-2 webinar-btn rounded-md text-white"
+                    >
                       {webinar_data.button_name}
                     </button>
                   </div>
@@ -793,13 +895,17 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
             <Banner data={webinar_data} click_data={click_data} />
             <div className="py-[20px] container md:p-[15px] md:py-[10px]">
               <div className="py-[20px]">
-                <BrandDetails webinar_data={webinar_data} updateShare={updateShare} icons={icons} />
+                <BrandDetails
+                  webinar_data={webinar_data}
+                  updateShare={updateShare}
+                  icons={icons}
+                />
               </div>
 
               {webinar_data.overview && (
                 <div className="py-[20px]">
                   <Title data={{ title: "Overview" }} />
-                  <p className="text-[18px] font-normal text-[#202121B2] text-justify mt-3">
+                  <p className="md:text-[16px] lg:text-[18px] font-normal text-[#202121B2] text-justify mt-3">
                     {webinar_data.overview}
                   </p>
                 </div>
@@ -817,41 +923,38 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               </div>
 
               <div>
-                {
-                  webinar_data.white_papers && webinar_data.length !== 0 && (
-                    <div className="mt-5">
-                      <Title data={{ title: 'WHITE PAPERS' }} />
-                      <WhitePaper data={webinar_data.white_papers} />
-                    </div>
-                  )
-                }
+                {webinar_data.white_papers && webinar_data.length !== 0 && (
+                  <div className="mt-5">
+                    <Title data={{ title: "WHITE PAPERS" }} />
+                    <WhitePaper data={webinar_data.white_papers} click_data={click_data} />
+                  </div>
+                )}
               </div>
 
               <div>
-                {
-                  webinar_data.reports_detail && webinar_data.reports_detail !== 0 && (
+                {webinar_data.reports_detail &&
+                  webinar_data.reports_detail !== 0 && (
                     <div className="mt-5">
-                      <Title data={{ title: 'REPORTS' }} />
-                      <Reports data={webinar_data.reports_detail} />
+                      <Title data={{ title: "REPORTS" }} />
+                      <Reports data={webinar_data.reports_detail} click_data={click_data} />
                     </div>
-                  )
-                }
+                  )}
               </div>
 
               <div>
-                {
-                  webinar_data.video_detail && webinar_data.length !== 0 && (
-                    <div className="mt-5">
-                      <Title data={{ title: "VIDEOS" }} />
-                      <Video data={webinar_data.video_detail} />
-                    </div>
-                  )
-                }
+                {webinar_data.video_detail && webinar_data.length !== 0 && (
+                  <div className="mt-5">
+                    <Title data={{ title: "VIDEOS" }} />
+                    <Video data={webinar_data.video_detail} click_data={click_data} />
+                  </div>
+                )}
               </div>
 
-              <div>
-                <Form />
-              </div>
+              {webinar_data.is_registration_required == 1 && (
+                <div>
+                  <Form />
+                </div>
+              )}
 
               {webinar_data.social_media &&
                 webinar_data.social_media.length !== 0 && (
@@ -869,19 +972,23 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
             <div className="py-[20px] container md:p-[15px] md:py-[10px]">
               <div className="py-[20px]">
-                <BrandDetails webinar_data={webinar_data} updateShare={updateShare} icons={icons} />
+                <BrandDetails
+                  webinar_data={webinar_data}
+                  updateShare={updateShare}
+                  icons={icons}
+                />
               </div>
 
               {webinar_data.overview && (
                 <div className="py-[20px]">
                   <Title data={{ title: "Overview" }} />
-                  <p className="text-[18px] font-normal text-[#202121B2] text-justify mt-3">
+                  <p className="md:text-[16px] lg:text-[18px] font-normal text-[#202121B2] text-justify mt-3">
                     {webinar_data.overview}
                   </p>
                 </div>
               )}
 
-              <div className="py-[20px]">
+              <div className="">
                 {webinar_data.key_points &&
                   webinar_data.key_points.length !== 0 && (
                     <KeyDiscussion
@@ -893,37 +1000,31 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               </div>
 
               <div>
-                {
-                  webinar_data.white_papers && webinar_data.length !== 0 && (
-                    <div className="mt-5">
-                      <Title data={{ title: 'WHITE PAPERS' }} />
-                      <WhitePaper data={webinar_data.white_papers} />
-                    </div>
-                  )
-                }
-              </div>
-
-
-              <div>
-                {
-                  webinar_data.reports_detail && webinar_data.reports_detail !== 0 && (
-                    <div className="mt-5">
-                      <Title data={{ title: 'REPORTS' }} />
-                      <Reports data={webinar_data.reports_detail} />
-                    </div>
-                  )
-                }
+                {webinar_data.white_papers && webinar_data.length !== 0 && (
+                  <div className="mt-5">
+                    <Title data={{ title: "WHITE PAPERS" }} />
+                    <WhitePaper data={webinar_data.white_papers} click_data={click_data} />
+                  </div>
+                )}
               </div>
 
               <div>
-                {
-                  webinar_data.video_detail && webinar_data.length !== 0 && (
+                {webinar_data.reports_detail &&
+                  webinar_data.reports_detail !== 0 && (
                     <div className="mt-5">
-                      <Title data={{ title: "VIDEOS" }} />
-                      <Video data={webinar_data.video_detail} />
+                      <Title data={{ title: "REPORTS" }} />
+                      <Reports data={webinar_data.reports_detail} click_data={click_data} />
                     </div>
-                  )
-                }
+                  )}
+              </div>
+
+              <div>
+                {webinar_data.video_detail && webinar_data.length !== 0 && (
+                  <div className="mt-5">
+                    <Title data={{ title: "VIDEOS" }} />
+                    <Video data={webinar_data.video_detail} click_data={click_data} />
+                  </div>
+                )}
               </div>
 
               <div className="py-[20px]">
@@ -953,16 +1054,24 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
             <div className="py-[20px] container md:p-[15px] md:py-[10px]">
               <div className="py-[20px]">
-                <BrandDetails updateShare={updateShare} icons={icons} webinar_data={webinar_data} />
+                <BrandDetails
+                  updateShare={updateShare}
+                  icons={icons}
+                  webinar_data={webinar_data}
+                />
               </div>
 
-
               <div className="lg:flex gap-5 md:pt-[10px] lg:pt-[20px]">
-                <SideMenu side_menu={side_menu} activateSection={activateSection} activeIndex={activeIndex} />
+                <SideMenu
+                  side_menu={side_menu}
+                  activateSection={activateSection}
+                  activeIndex={activeIndex}
+                />
 
                 <div className={`md:py-[15px] flex-[0_0_calc(80%_-_15px)]`}>
-                  {(webinar_data.content_1 && webinar_data.content_1.length > 0) &&
-                    webinar_data.content_1.map(res => {
+                  {webinar_data.content_1 &&
+                    webinar_data.content_1.length > 0 &&
+                    webinar_data.content_1.map((res) => {
                       return (
                         <div id={res.title} data-section className="py-[20px]">
                           <Title data={{ title: res.title }} />
@@ -970,17 +1079,19 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             {res.description}
                           </p>
                         </div>
-                      )
-                    })
-                  }
+                      );
+                    })}
 
-                  {webinar_data.video_id && <div className="py-[20px]">
+                  {webinar_data.video_id && (
+                    <div className="py-[20px]">
+                      <Title data={{ title: "VIDEOS" }} />
+                      {<YouTubeVideo id={webinar_data.video_id} />}
+                    </div>
+                  )}
 
-                  </div>}
-
-
-                  {(webinar_data.content_2 && webinar_data.content_2.length > 0) &&
-                    webinar_data.content_2.map(res => {
+                  {webinar_data.content_2 &&
+                    webinar_data.content_2.length > 0 &&
+                    webinar_data.content_2.map((res) => {
                       return (
                         <div id={res.title} data-section className="py-[20px]">
                           <Title data={{ title: res.title }} />
@@ -988,9 +1099,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             {res.description}
                           </p>
                         </div>
-                      )
-                    })
-                  }
+                      );
+                    })}
                 </div>
               </div>
 
@@ -1011,139 +1121,308 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     <SocialMedia data={webinar_data.social_media} />
                   </>
                 )}
-
             </div>
           </>
         )}
 
-        {category_route == "featured-content" && (webinar_data && webinar_data.message) && <>
-          {(webinar_data.message.article_detail && webinar_data.message.article_detail.length > 0) && <div>
-            <div className={`w-full lg:h-[375px] `}><ImageLoader style={`lg:h-full md:object-contain w-full`} src={webinar_data.message.article_detail[0].image ? webinar_data.message.article_detail[0].image : webinar_data.message.article_detail[0].thumbnail_image} title={webinar_data.message.article_detail[0]['title']} /></div>
+        {category_route == "featured-content" &&
+          webinar_data &&
+          webinar_data.message && (
+            <>
+              {webinar_data.message.article_detail &&
+                webinar_data.message.article_detail.length > 0 && (
+                  <div>
+                    <div className={`w-full lg:h-[375px] `}>
+                      <ImageLoader
+                        style={`lg:h-full md:object-contain w-full`}
+                        src={
+                          webinar_data.message.article_detail[0].image
+                            ? webinar_data.message.article_detail[0].image
+                            : webinar_data.message.article_detail[0]
+                                .thumbnail_image
+                        }
+                        title={webinar_data.message.article_detail[0]["title"]}
+                      />
+                    </div>
 
-            <div className="container">
-              <div className="py-[20px]">
-                <h1 className="text-[22px] md:text-[16px] font-semibold">{webinar_data.message.article_detail[0]['title']}</h1>
+                    <div className="container">
+                      <div className="py-[20px]">
+                        <h1 className="text-[22px] md:text-[16px] font-semibold">
+                          {webinar_data.message.article_detail[0]["title"]}
+                        </h1>
 
+                        <div
+                          className={`flex items-center justify-between py-[20px] md:py-[10px]`}
+                        >
+                          <div
+                            className={`flex items-center gap-[8px] flex-wrap`}
+                          >
+                            {webinar_data.message.article_detail[0].publisher &&
+                              webinar_data.message.article_detail[0].publisher
+                                .length != 0 &&
+                              webinar_data.message.article_detail[0].publisher
+                                .slice(0, 1)
+                                .map((r, index) => {
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="flex gap-[8px] items-center inner_line"
+                                    >
+                                      <Image
+                                        className="rounded-full object-contain w-[40px] h-[40px]"
+                                        priority={true}
+                                        src={
+                                          r.avatar &&
+                                          r.avatar != "" &&
+                                          r.avatar != ""
+                                            ? check_Image(r.avatar)
+                                            : "/profit.svg"
+                                        }
+                                        height={43.12}
+                                        width={43.12}
+                                        alt={"image"}
+                                      />
+                                      <div className="block">
+                                        <h6
+                                          className={`font-[700] nunito text-[12px]`}
+                                        >
+                                          {r.full_name}
+                                        </h6>
 
-
-                <div className={`flex items-center justify-between py-[20px] md:py-[10px]`}>
-
-                  <div className={`flex items-center gap-[8px] flex-wrap`}>
-                    {webinar_data.message.article_detail[0].publisher && webinar_data.message.article_detail[0].publisher.length != 0 &&
-                      webinar_data.message.article_detail[0].publisher.slice(0, 1).map((r, index) => {
-                        return (
-                          <div key={index} className='flex gap-[8px] items-center inner_line'>
-                            <Image className='rounded-full object-contain w-[40px] h-[40px]' priority={true} src={(r.avatar && r.avatar != '' && r.avatar != '') ? check_Image(r.avatar) : '/profit.svg'} height={43.12} width={43.12} alt={"image"} />
-                            <div className='block'>
-                              <h6 className={`font-[700] nunito text-[12px]`}>{r.full_name}</h6>
-
-
-                              <div className='flex lg:gap-4 items-center md:gap-[10px] md:justify-between '>
-                                <div className='flex md:block items-center gap-2'><Image height={11} width={11} alt={"image"} src={'/views.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{webinar_data.message.article_detail[0].views ? webinar_data.message.article_detail[0].views : webinar_data.message.article_detail[0].no_of_views ? webinar_data.message.article_detail[0].no_of_views : 1} Views</span></div>
-                                <div className='flex  items-center gap-2'><Image height={11} width={13} alt={"image"} className='md:h-[13px] md:w-[11px] md:m-auto' src={'/shares.svg'} /><span className='md:text-[10px] text-[12px] gray-text'>{webinar_data.message.article_detail[0].no_of_shares + ' shares'}</span></div>
-                                <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{webinar_data.message.article_detail[0].read_time} </span></div>
-                              </div>
-
-                            </div>
-
+                                        <div className="flex lg:gap-4 items-center md:gap-[10px] md:justify-between ">
+                                          <div className="flex md:block items-center gap-2">
+                                            <Image
+                                              height={11}
+                                              width={11}
+                                              alt={"image"}
+                                              src={"/views.svg"}
+                                              className="md:m-auto"
+                                            />
+                                            <span className="text-[12px] md:text-[10px] gray-text">
+                                              {webinar_data.message
+                                                .article_detail[0].views
+                                                ? webinar_data.message
+                                                    .article_detail[0].views
+                                                : webinar_data.message
+                                                    .article_detail[0]
+                                                    .no_of_views
+                                                ? webinar_data.message
+                                                    .article_detail[0]
+                                                    .no_of_views
+                                                : 1}{" "}
+                                              Views
+                                            </span>
+                                          </div>
+                                          <div className="flex  items-center gap-2">
+                                            <Image
+                                              height={11}
+                                              width={13}
+                                              alt={"image"}
+                                              className="md:h-[13px] md:w-[11px] md:m-auto"
+                                              src={"/shares.svg"}
+                                            />
+                                            <span className="md:text-[10px] text-[12px] gray-text">
+                                              {webinar_data.message
+                                                .article_detail[0]
+                                                .no_of_shares + " shares"}
+                                            </span>
+                                          </div>
+                                          <div className="flex md:block items-center gap-2">
+                                            <Image
+                                              height={12}
+                                              width={12}
+                                              alt={"image"}
+                                              src={"/time.svg"}
+                                              className="md:m-auto"
+                                            />
+                                            <span className="text-[12px] md:text-[10px] gray-text">
+                                              {
+                                                webinar_data.message
+                                                  .article_detail[0].read_time
+                                              }{" "}
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                })}
                           </div>
-                        )
-                      })
-                    }
-                  </div>
 
-                  {typeof window !== "undefined" && <div className='flex items-center gap-[15px] pr-[10px]'>
-                    {icons && <Dropdowns noBg={true} updateShare={(data) => updateShare(data)} share={true} link={webinar_data.message.article_detail[0]} type={'articles'} width={'w-[170px]'} data={icons} />}
-                  </div>}
-                </div>
-
-                <h6 className="text-[20px] pb-[15px] md:pb-[10px] md:text-[16px] font-semibold nunito">{webinar_data.message.article_detail[0]['blog_intro']}</h6>
-
-                <div dangerouslySetInnerHTML={{ __html: webinar_data.message.article_detail[0].content }} id={`innerHtml`} className={`contents  ${'innerHtml'} `} />
-
-
-                <div className='flex flex-row gap-3 items-center justify-center py-5'>
-                  {socials.map((res, index) => {
-                    return (
-                      <div key={index} onClick={() => updateShare(webinar_data.message.article_detail[0])}>
-                        {
-                          res.name == 'fb' ? <FacebookShareButton url={`${websiteUrl + webinar_data.message.article_detail[0].route}`}>
-                            <div key={index} className={`rounded-full bg-light-gray p-[10px]`}>
-                              <Image src={res.icon} alt={res.name} height={25} width={20} />
+                          {typeof window !== "undefined" && (
+                            <div className="flex items-center gap-[15px] pr-[10px]">
+                              {icons && (
+                                <Dropdowns
+                                  noBg={true}
+                                  updateShare={(data) => updateShare(data)}
+                                  share={true}
+                                  link={webinar_data.message.article_detail[0]}
+                                  type={"articles"}
+                                  width={"w-[170px]"}
+                                  data={icons}
+                                />
+                              )}
                             </div>
-                          </FacebookShareButton>
-                            : res.name == 'ws' ? <WhatsappShareButton url={`${websiteUrl + webinar_data.message.article_detail[0].route}`}>
-                              <div key={index} className={`rounded-full bg-light-gray p-[10px]`}>
-                                <Image src={res.icon} alt={res.name} height={25} width={20} />
+                          )}
+                        </div>
+
+                        <h6 className="text-[20px] pb-[15px] md:pb-[10px] md:text-[16px] font-semibold nunito">
+                          {webinar_data.message.article_detail[0]["blog_intro"]}
+                        </h6>
+
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              webinar_data.message.article_detail[0].content,
+                          }}
+                          id={`innerHtml`}
+                          className={`contents  ${"innerHtml"} `}
+                        />
+
+                        <div className="flex flex-row gap-3 items-center justify-center py-5">
+                          {socials.map((res, index) => {
+                            return (
+                              <div
+                                key={index}
+                                onClick={() =>
+                                  updateShare(
+                                    webinar_data.message.article_detail[0]
+                                  )
+                                }
+                              >
+                                {res.name == "fb" ? (
+                                  <FacebookShareButton
+                                    url={`${
+                                      websiteUrl +
+                                      webinar_data.message.article_detail[0]
+                                        .route
+                                    }`}
+                                  >
+                                    <div
+                                      key={index}
+                                      className={`rounded-full bg-light-gray p-[10px]`}
+                                    >
+                                      <Image
+                                        src={res.icon}
+                                        alt={res.name}
+                                        height={25}
+                                        width={20}
+                                      />
+                                    </div>
+                                  </FacebookShareButton>
+                                ) : res.name == "ws" ? (
+                                  <WhatsappShareButton
+                                    url={`${
+                                      websiteUrl +
+                                      webinar_data.message.article_detail[0]
+                                        .route
+                                    }`}
+                                  >
+                                    <div
+                                      key={index}
+                                      className={`rounded-full bg-light-gray p-[10px]`}
+                                    >
+                                      <Image
+                                        src={res.icon}
+                                        alt={res.name}
+                                        height={25}
+                                        width={20}
+                                      />
+                                    </div>
+                                  </WhatsappShareButton>
+                                ) : res.name == "linkedin" ? (
+                                  <LinkedinShareButton
+                                    url={`${
+                                      websiteUrl +
+                                      webinar_data.message.article_detail[0]
+                                        .route
+                                    }`}
+                                  >
+                                    <div
+                                      key={index}
+                                      className={`rounded-full bg-light-gray p-[10px]`}
+                                    >
+                                      <Image
+                                        src={res.icon}
+                                        alt={res.name}
+                                        height={25}
+                                        width={20}
+                                      />
+                                    </div>
+                                  </LinkedinShareButton>
+                                ) : res.name == "twitter" ? (
+                                  <TwitterShareButton
+                                    url={`${
+                                      websiteUrl +
+                                      webinar_data.message.article_detail[0]
+                                        .route
+                                    }`}
+                                  >
+                                    <div
+                                      key={index}
+                                      className={`rounded-full bg-light-gray p-[10px]`}
+                                    >
+                                      <Image
+                                        src={res.icon}
+                                        alt={res.name}
+                                        height={25}
+                                        width={20}
+                                      />
+                                    </div>
+                                  </TwitterShareButton>
+                                ) : null}
                               </div>
-                            </WhatsappShareButton>
-                              : res.name == 'linkedin' ? <LinkedinShareButton url={`${websiteUrl + webinar_data.message.article_detail[0].route}`}>
-                                <div key={index} className={`rounded-full bg-light-gray p-[10px]`}>
-                                  <Image src={res.icon} alt={res.name} height={25} width={20} />
-                                </div>
-                              </LinkedinShareButton>
-                                : res.name == 'twitter' ? <TwitterShareButton url={`${websiteUrl + webinar_data.message.article_detail[0].route}`}>
-                                  <div key={index} className={`rounded-full bg-light-gray p-[10px]`}>
-                                    <Image src={res.icon} alt={res.name} height={25} width={20} />
-                                  </div>
-                                </TwitterShareButton>
-                                  : null
-                        }
-
+                            );
+                          })}
+                        </div>
                       </div>
-                    )
-                  })}
-                </div>
-              </div>
 
-              {webinar_data.message.other_articles_data &&
-                webinar_data.message.other_articles_data.length > 0 && (
-                  <>
-                    <div className="py-[20px]">
-                      <Title
-                        data={{ title: "ARTICLES" }}
+                      {webinar_data.message.other_articles_data &&
+                        webinar_data.message.other_articles_data.length > 0 && (
+                          <>
+                            <div className="py-[20px]">
+                              <Title data={{ title: "ARTICLES" }} />
 
-                      />
+                              <FeaturedContent
+                                click_data={click_data}
+                                article={true}
+                                cols={"grid-cols-5 md:grid-cols-2"}
+                                webinar_data={webinar_data.message.other_articles_data.slice(
+                                  0,
+                                  5
+                                )}
+                              />
+                            </div>
+                          </>
+                        )}
 
-                      <FeaturedContent
-                        click_data={click_data}
-                        article={true}
-                        cols={"grid-cols-5 md:grid-cols-2"}
-                        webinar_data={
-                          webinar_data.message.other_articles_data.slice(0, 5)
-                        }
-                      />
+                      {webinar_data.message.featured_content_data &&
+                        webinar_data.message.featured_content_data.length >
+                          0 && (
+                          <>
+                            <div className="py-[20px]">
+                              <Title data={{ title: "Featured Content" }} />
+
+                              <FeaturedContent
+                                click_data={click_data}
+                                cols={"grid-cols-5 md:grid-cols-2"}
+                                webinar_data={webinar_data.message.featured_content_data.slice(
+                                  0,
+                                  5
+                                )}
+                              />
+                            </div>
+                          </>
+                        )}
+
+                      <div className="py-[20px]">
+                        <Form />
+                      </div>
                     </div>
-                  </>
+                  </div>
                 )}
-
-              {webinar_data.message.featured_content_data &&
-                webinar_data.message.featured_content_data.length > 0 && (
-                  <>
-                    <div className="py-[20px]">
-                      <Title
-                        data={{ title: "Featured Content" }}
-
-                      />
-
-                      <FeaturedContent
-                        click_data={click_data}
-                        cols={"grid-cols-5 md:grid-cols-2"}
-                        webinar_data={
-                          webinar_data.message.featured_content_data.slice(0, 5)
-                        }
-                      />
-                    </div>
-                  </>
-                )}
-
-              <div className="py-[20px]">
-                <Form />
-              </div>
-
-            </div>
-          </div>}
-        </>}
+            </>
+          )}
       </RootLayout>
     </>
   );

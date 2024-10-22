@@ -21,6 +21,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Widgets from '../Category/Widgets'
 import ReactDOM from 'react-dom/client';
 import Benefits from '@/components/Membership/benefits';
+import { toast } from 'react-toastify'
 // import { Nunito } from 'next/font/google'
 // const nunito = Nunito({
 //   weight: ["300", "400", "500", "600", "700"],
@@ -142,6 +143,13 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
           getMembershipLanding()
         } else {
           load();
+          if(data.ir_prime == 1 && data.is_member){
+            let remain = data.total_free_articles -  data.current_free_article_count
+            if(remain % 2 == 0){
+              // toast.warn(`Out of ${data.total_free_articles} free articles you consumed ${remain == 0 ? data.total_free_articles : remain}`)
+              toast.warn(`Warning: You have used ${data.total_free_articles - remain} out of ${data.total_free_articles} free articles. You have ${remain} articles remaining.`)
+            }
+          }
         }
         observer.unobserve(entry.target);
       }

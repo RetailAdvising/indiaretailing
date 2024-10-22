@@ -41,7 +41,7 @@ export default function SectionList({ data, isHome }) {
                   <p className={`primary_text lg:mb-[8px] nunito`}>{res.primary_text}</p>
                   <h4 className={`title line-clamp-2 lg:mb-[5px] nunito`}>{res.title}</h4>
                   {(res.blog_intro) && <p className={`sub_title lg:mb-[8px] line-clamp-1 md:line-clamp-1 md:!leading-[1.5]`}>{res.blog_intro}</p>}
-                  {(res.intro) && <p className={`sub_title lg:mb-[8px] line-clamp-2 md:line-clamp-1 md:!leading-[1.5]`}>{res.intro}</p>}
+                  {(res.intro) && <p className={`sub_title lg:mb-[8px] josefin-sans line-clamp-2 md:line-clamp-1 md:!leading-[1.5]`}>{res.intro}</p>}
                   {/* {res.publisher && <p className='light_text'>{res.publisher}</p>} */}
                   {res.tags && <Tags tagClass={'!p-0'} tags={res.tags} />}
                   {/* {res._user_tags &&} */}

@@ -17,6 +17,10 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
     // let router = routers ? routers : useRouter();
     // let router = routers ;
     let router;
+
+    const [atStart, setAtStart] = useState(true);
+    const [atEnd, setAtEnd] = useState(false);
+
     // console.log(type, 'type')
     if (type == 'widget') {
         router = routers
@@ -96,6 +100,24 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
 
     // };
 
+
+    const handleScroll = () => {
+        const sliderDiv = document.getElementById(slider_child_id);
+        if (sliderDiv) {
+            const isAtStart = sliderDiv.scrollLeft === 0;
+            const isAtEnd = sliderDiv.scrollLeft + sliderDiv.clientWidth >= sliderDiv.scrollWidth;
+    
+            setAtStart(isAtStart);
+            setAtEnd(isAtEnd);
+        }
+    };
+
+    
+    useEffect(()=>{
+        slider.addEventListener('scroll', handleScroll);
+        handleScroll();
+    },[])
+
     const checkRoute = (res) => {
         if (type == 'widget') {
             // console.log(parent)
@@ -158,7 +180,7 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
     return (
         <>
             {(!type || type == 'widget') && <div className='relative' id={slider_id}>
-                <div className={`${hide_scroll_button && 'hidden'} absolute top-[40%] left-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center  cursor-pointer md:hidden`}
+                <div className={`${hide_scroll_button && 'hidden'} ${atStart ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} absolute top-[40%] left-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center md:hidden`}
                     onClick={() => sctollTo('prev')} id={'prev_' + slider_id}>
                     <Image alt="Prev" src={'/less_than.svg'} width={35} height={35} ></Image>
                 </div>
@@ -197,7 +219,7 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
                         )
                     })}
                 </div>
-                <div className={`${hide_scroll_button && 'hidden'} absolute top-[40%] right-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center cursor-pointer md:hidden`}
+                <div className={`${hide_scroll_button && 'hidden'} ${atEnd ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} absolute top-[40%] right-[-15px] h-[35px] w-[35px] z-10 bg-[#fff] text-black  rounded-full flex items-center justify-center md:hidden`}
                     onClick={() => sctollTo('next')} id={'next_' + slider_id}>
                     <Image alt="forward" src={'/greater_than.svg'} width={35} height={35}></Image>
                 </div>
