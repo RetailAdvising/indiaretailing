@@ -17,7 +17,7 @@ const BrandDetails = ({webinar_data,updateShare,icons}) => {
                         <h1 className="text-[22px] lg:text-[28px] font-bold">
                             {webinar_data.brand_name}
                         </h1>
-                        <p className="text-base lg:text-lg font-normal text-[#202121]">
+                        <p className="text-base  lg:text-lg font-normal text-[#202121]">
                             {webinar_data.title}
                         </p>
                         <div className="flex gap-1 items-center">
@@ -34,7 +34,7 @@ const BrandDetails = ({webinar_data,updateShare,icons}) => {
                         height={20}
                         className="lg:w-[24px] lg:h-[24px]"
                     /> */}
-                    {icons && <Dropdowns noBg={true} updateShare={(data) => updateShare(data)} share={true} type={'articles'} width={'w-[170px]'} data={icons} />}
+                    {icons && <Dropdowns noBg={true} updateShare={(data) => updateShare(data)} share={true} type={'articles'} width={'w-[170px]'} showLeft={true} data={icons} />}
                 
                 </div>}
             </div>

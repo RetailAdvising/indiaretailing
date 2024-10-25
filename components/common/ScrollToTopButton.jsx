@@ -7,7 +7,7 @@ const ScrollToTopButton = () => {
 
   // Show the button when page is scrolled down
   const toggleVisibility = () => {
-    if (window.scrollY > 300) {
+    if (window.pageYOffset > 300) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
@@ -31,7 +31,7 @@ const ScrollToTopButton = () => {
       {isVisible && (
         <motion.button
           onClick={scrollToTop}
-          className="flex items-center justify-center z-20"
+          className="flex items-center justify-center"
           aria-label="Scroll to top"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -45,6 +45,7 @@ const ScrollToTopButton = () => {
             color: "#fff",
             border: "none",
             borderRadius: "50%",
+            zIndex: 1000,
             cursor: "pointer",
             height: "45px",
             width: "45px",

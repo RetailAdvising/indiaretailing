@@ -55,6 +55,7 @@ export default function Home({ data }) {
   let [noProduct, setNoProduct] = useState(false)
   const router = useRouter()
 
+  console.log('home', value)
   function get_customer_info() {
     let users = {}
     users.cust_email = localStorage['userid'] ? localStorage['userid'] : undefined;
@@ -237,6 +238,9 @@ export default function Home({ data }) {
     }
   }
 
+  console.log('ads', ads);
+  
+
   const getPageData = async () => {
     // console.log('load...',)
     // setLoading(true)
@@ -332,9 +336,9 @@ export default function Home({ data }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive" && !isMobile) && <Subscribe height={"h-[125px] "} data={news} width={"w-full"} />}
                           {(ads && c.component_title == "Top Stories Ad" && c.cid && data.data[c.cid]) &&
-                            <>
+                          <div className="h-[90px]" style={{height: '90px !important'}}>
                               <Advertisement data={ads.top_stories_ad ? ads.top_stories_ad : null} adId={'top_stories_ad'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
-                            </>}
+                            </div>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Web Special" && c.component_data_type == 'Location') && <>
                             <div className='lg:w-[calc(70%_-_10px)]'><Title data={{ title: c.component_title }} seeMore={true} route={'/categories/web-special'} /></div>
                             <div className={`lg:flex gap-5`}>
@@ -365,27 +369,27 @@ export default function Home({ data }) {
 
                           </>}
 
-                          {(c.cid && data.data[c.cid] && (data.data[c.cid]['card-list'] && data.data[c.cid]['card-list'].length > 0) && c.component_title == "Featured Content") && <>
-                            <Title data={{ title: data.data[c.cid].title }} isIcon={true} see={`uppercase !font-semibold !text-[#e21b22]`} route={'/p/web-special-list/1'} seeMore={true} />
+                          {(c.cid && data.data[c.cid]  && c.component_title == "Featured Content") && <>
+                            <Title data={{ title: c.component_title }} isIcon={true} see={`uppercase !font-semibold !text-[#e21b22]`} route={'/p/web-special-list/1'} seeMore={true} />
                             <div className={`flex items-center gap-[20px] md:overflow-auto lg:flex-wrap scrollbar-hide md:gap-[15px]`}>
-                              {data.data[c.cid]['card-list'].map((resp, index) => {
+                              {data.data[c.cid].data.map((resp, index) => {
                                 return (
-                                  <div className={`flex-[0_0_calc(50%_-_15px)] md:flex-[0_0_calc(100%_-_10px)] gap-[15px] cursor-pointer flex items-center bg-white rounded-[10px] p-[10px] relative cursor-pointer`} onClick={() => router.push(resp.url)} key={resp.url}>
+                                  <div className={`flex-[0_0_calc(50%_-_15px)] md:flex-[0_0_calc(100%_-_10px)] gap-[15px] flex items-center bg-white rounded-[10px] p-[10px] relative cursor-pointer`} onClick={() => router.push(resp.route)} key={resp.route}>
                                     <div className='lg:flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'>
                                       {/* <Image src={check_Image(resp['image'])} className='h-[250px] md:h-[150px] w-full rounded-[10px]' height={100} width={100} alt={resp.url}></Image> */}
-                                      <ImageLoader style={`rounded-[5px] h-[106px] md:h-[80px] w-full`} src={resp.image} title={resp.heading} />
+                                      <ImageLoader style={`rounded-[5px] h-[106px] md:h-[80px] w-full`} src={resp.thumbnail_imagee} title={resp.title} />
                                     </div>
 
                                     <div className='absolute top-0 right-0 bg-[#E21B22] rounded-[0_10px_0_10px] min-w-[70px] text-center p-[3px_10px] md:p-[2px_6px]'>
-                                      <p className={`text-white text-[11px] md:text-[9px]`}>{resp.tag}</p>
+                                      <p className={`text-white text-[11px] md:text-[9px]`}>{resp.featured_content_tag}</p>
                                     </div>
 
                                     <div className='lg:flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'>
-                                      <h6 className={`line-clamp-2 title nunito`}>{resp.heading}</h6>
-                                      <p className={`line-clamp-2 md:line-clamp-1 sub_title lg:py-[5px] `}>{resp.description}</p>
+                                      <h6 className={`line-clamp-2 title nunito`}>{resp.title}</h6>
+                                      <p className={`line-clamp-2 md:line-clamp-1 sub_title lg:py-[5px] `}>{resp.blog_intro}</p>
                                       <div className='flex items-center gap-[5px] py-[5px]'>
                                         <span className='text-[#999999] text-[12px] md:flex-[0_0_auto]'>Published On : </span>
-                                        <p className={`text-[13px] md:text-[12px] md:line-clamp-1 font-[500] nunito`}>{resp['published-on']}</p>
+                                        <p className={`text-[13px] md:text-[12px] md:line-clamp-1 font-[500] nunito`}>{resp['published_on']}</p>
                                       </div>
                                     </div>
                                   </div>
@@ -443,8 +447,7 @@ export default function Home({ data }) {
                           {(ads && c.component_title == "Video below Ad" && c.cid && data.data[c.cid]) &&
                             // {(ads && ads.video_below && c.component_title == "Video below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.video_below.section) &&
                             <>
-
-                              <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
+                              <Advertisement data={ads.video_below ? ads.video_below : null} position={'high'} adId={'video_below'} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] lg:w-[728px] md:w-full object-cover m-auto`} />
 
                             </>}
 

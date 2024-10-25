@@ -119,7 +119,7 @@ export default function EventDetail({ data, ads_data }) {
                             {/* pr-[60px] */}
                             <div className='flex gap-[10px] items-start  '>
                                 <Image src={'/Events/Date-time.svg'} className='md:h-[18px] md:w-[18px]' height={20} width={20} alt={'date and time'} />
-                                <p className={`flex flex-col`}><span className={`text-[15px] nunito md:text-[14px] font-[700]`}>Date and Time</span><span className={`sub_title nunito`}>{dateFormat(data.message.start_date, 'end')}</span></p>
+                                <p className={`flex flex-col`}><span className={`text-[15px] nunito md:text-[14px] font-[700]`}>Date and Time</span><span className={`sub_title josefin-sans`}>{dateFormat(data.message.start_date, 'end')}</span></p>
                             </div>
                             {/* pl-[20px] */}
                             <div className='flex gap-[10px] items-start '>
@@ -127,14 +127,14 @@ export default function EventDetail({ data, ads_data }) {
                                 <p className={`flex flex-col`}><span className={`text-[15px] font-semibold md:text-[14px] nunito`}>Location</span>
                                     {(data.message.event_location && data.message.event_location.length != 0) && data.message.event_location.map((res, index) => {
                                         return (
-                                            <span key={res.event_location} className={`sub_title nunito`}>{res.event_location}</span>
+                                            <span key={res.event_location} className={`sub_title josefin-sans`}>{res.event_location}</span>
                                         )
                                     })}
                                 </p>
                             </div>
                         </div>
                         <div className={`title_div py-5`}>
-                            <h6 className={`text-[16px] md:text-[15px] capitalize font-semibold`}>About This Event</h6>
+                            <h6 className={`text-[16px] md:text-[15px] capitalize jost font-semibold`}>About This Event</h6>
                             <div className='line'></div>
                         </div>
                         {/* <p className='w-[80%]'>{data.message.description}</p> */}

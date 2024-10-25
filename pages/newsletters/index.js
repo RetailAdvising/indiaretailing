@@ -179,7 +179,7 @@ export default function newsletter({ ads }) {
 
                   <div className='flex-[0_0_auto] flex gap-[15px] items-center'>
                     {!res.is_subscribed ? <>
-                      <button style={{ borderRadius: '5px' }} onClick={() => showPopup(res, index)} className='primary_btn md:hidden my-3 text-[14px] block h-[35px] w-[100px]'>Subscribe</button>
+                      <button style={{ borderRadius: '5px' }} onClick={() => showPopup(res, index)} className='primary_btn my-3 text-[14px] block h-[35px] w-[100px]'>Subscribe</button>
                     </> : <></>}
 
                     <p className='flex gap-[5px] md:justify-center items-center cursor-pointer ' onClick={() => router.push(`/newsletters/${res.day}`)}><span className='text-gray font-medium	 md:text-[12px]'>View All</span><Image className='img md:h-[14px] md:w-[14px]' src={'/categories/arrowright.svg'} alt='arrow' height={16} width={16} /></p>

@@ -141,7 +141,7 @@ export default function CategoryType({ values, ads }) {
                     </div> : <Skeleton />}
                     <div className={`grid grid-cols-4 md:grid-cols-2 md:pt-[20px] lg:py-8 md:gap-[10px] lg:gap-[20px]`}>
                         {/* contentHeight={'h-[175px]'} */}
-                        <Cards cardClass={"lg:h-[315px] md:h-[260px]"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data.slice(5, data.length - 1)} />
+                        <Cards cardClass={"lg:h-[315px] md:h-full"} noPrimaryText={true} borderRadius={"rounded-[10px_10px_0_0]"} height={"lg:h-[180px] md:h-[150px]"} check={true} width={"w-full"} isBorder={true} data={data.slice(5, data.length - 1)} />
                     </div>
                 </div>
 

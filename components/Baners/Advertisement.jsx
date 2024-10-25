@@ -2,6 +2,7 @@ import ImageLoader from '../ImageLoader'
 import { useEffect, useState } from 'react';
 import { checkMobile } from '@/libs/api'
 import GoogleAds from './GoogleAds';
+import styles from '@/styles/Cards.module.scss'
 export default function Advertisement({ data, imgClass, divClass, insStyle, position, adId }) {
 
     let [isMobile, setIsMobile] = useState(false)

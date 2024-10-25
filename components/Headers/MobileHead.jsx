@@ -93,7 +93,7 @@ export default function MobileHead({ isLanding = true, Heading, checkout, getAct
             {navbar && <Backdrop />}
 
             <div id="header" className=''>
-                <div className='flex border_bottom items-center justify-between p-[5px_15px] min-h-[60px]' >
+                <div className='flex border_bottom items-center z-30 justify-between p-[5px_15px] min-h-[60px]' >
                     <div className='flex gap-[15px] items-center'>
                         <div >
                             <Image onClick={() => isLanding ? showSidebar() : window.history.back()} className={`${isLanding ? 'w-[20px]' : 'w-[9px]'} mouse`} src={isLanding ? '/menu.svg' : '/back.svg'} height={14} width={15} layout="fixed" alt="Edit" />

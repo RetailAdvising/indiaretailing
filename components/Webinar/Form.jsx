@@ -4,7 +4,7 @@ import RegistrationForm from "@/components/WebSpecials/RegistrationForm";
 import Image from "next/image";
 import styles from "@/styles/Components.module.scss";
 import { useForm } from "react-hook-form";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { insert_web_special_registration } from "@/libs/api";
 import { useRouter } from "next/router";
 
@@ -39,7 +39,6 @@ const Form = () => {
         <Image src={"/webinar/form-img.png"} width={415} height={443} />
       </div>
       <div claaName="w-full text-center">
-      {/* <iframe src="https://lottie.host/embed/81ca34dc-ea77-4b43-bb9f-724a60243388/wDTSCOUks0.json"></iframe> */}
         <div>
           <h2 className="font-bold text-[30px] text-center mb-2">
             Connect now!

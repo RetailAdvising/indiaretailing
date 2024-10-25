@@ -350,14 +350,14 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                     <div className='flex md:block items-center gap-2'><Image height={12} width={12} alt={"image"} src={'/time.svg'} className='md:m-auto' /><span className='text-[12px] md:text-[10px] gray-text'>{cur.read_time} </span></div>
                 </div>
             </div>}
-            {!isModal && <div className={`relative bg-[#EEEEEE] mt-[10px] rounded-full flex justify-between border p-[5px]`}>
+            {!isModal && <div onClick={() => showSidebar()} className={`relative cursor-pointer bg-[#EEEEEE] mt-[10px] rounded-full flex justify-between border p-[5px]`}>
                 {/* <div className='flex gap-5 items-center'> */}
                 {/* <Image src={'/categories/send-01.svg'} className='cursor-pointer ' height={22} width={22} alt='send' /> */}
                 <p className={`nunito p-[5px_10px]`}>Be the first to comment</p>
                 {/* </div> */}
 
                 {/* <button onClick={() => sendMsg('cmt')} className={`primary_button h-[35px] w-[120px] !rounded-full text-[13px]`}>Comment Now</button> */}
-                <button onClick={() => showSidebar()} className={`primary_button h-[35px] w-[120px] !rounded-full text-[13px]`}>Comment Now</button>
+                <button className={`primary_button h-[35px] w-[120px] !rounded-full text-[13px]`}>Comment Now</button>
             </div>}
             {showPopup && <CommentModal type={''} hides1={(type, data) => hides1(type, data)} element={cmtVal} msgChange={(val) => msgChange(val)} />}
 

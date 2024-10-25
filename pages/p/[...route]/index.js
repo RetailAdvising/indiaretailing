@@ -10,6 +10,7 @@ import {
 } from "@/libs/api";
 // import { Nunito } from 'next/font/google';
 import Image from "next/image";
+import styles from '@/styles/Cards.module.scss'
 import { domain } from "@/libs/config/siteConfig";
 import { useRouter } from "next/router";
 import format from "date-fns/format";
@@ -53,6 +54,13 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
   // const index = ({ data, page_route, ads }) => {
   // console.log(category_route, "category_route");
   console.log(webinar_data, "webinar_data");
+
+  const [webinarLimit, setWebinarLimit] = useState(false);
+  const [leadLimit, setLeadLimit] = useState(false);
+  const [brandProfileLimit, setBrandProfileLimit] = useState(false);
+  const [caseStudiesLimit, setCaseStudiesLimit] = useState(false);
+  const [featuredContentLimit, setFeaturedContentLimit] = useState(false);
+  
 
   const icons = [
     { icon: "/bookstore/linkedin.svg", name: "Linkedin" },
@@ -186,6 +194,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
   const updateShare = (data) => {};
 
   // console.log("wd", webinar_data.banner_image);
+  
 
   return (
     <>
@@ -406,6 +415,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.webinars_data &&
                       webinar_data.message.webinars_data.length > 0 && (
                         <div id={"Webinars"} data-section>
+                          <div className="flex justify-between">
                           <Title
                             data={{
                               title: "Webinars",
@@ -414,10 +424,12 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             counter={true}
                             isIcon={true}
                             see={`uppercase !font-semibold !text-[#e21b22]`}
-                            // seeMore={true}
                           />
+                         
+                         {webinar_data.message.webinars_data.length > 3 && <button className="mb-4 text-[14px]" onClick={()=> setWebinarLimit(!webinarLimit)}>{webinarLimit ? 'View Less' : 'View More'}</button>}
+                          </div>
 
-                          {webinar_data.message.webinars_data.map((res) => {
+                          {webinar_data.message.webinars_data.slice(0, webinarLimit ? webinar_data.message.webinars_data.length : 3).map((res) => {
                             return (
                               <div key={res.name}>
                                 <p
@@ -464,7 +476,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                       return (
                                         <div
                                           key={resp.name}
-                                          className="flex gap-[10px] cursor-pointer md:flex-[0_0_calc(100%_-_10px)]"
+                                          className="flex gap-[10px] md:flex-[0_0_calc(100%_-_10px)]"
                                           onClick={() =>
                                             click_data(resp, "speakers")
                                           }
@@ -513,6 +525,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             id={"Lead Generation"}
                             data-section
                           >
+                            <div className="flex justify-between">
                             <Title
                               data={{ title: "Lead Generation" }}
                               isIcon={true}
@@ -520,8 +533,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                               // seeMore={true}
                             />
 
+                            {webinar_data.message.lead_data.length > 3 && <button className="mb-4 text-[14px]" onClick={()=> setLeadLimit(!leadLimit)}>{leadLimit ? 'View Less' : 'View More'}</button>}
+                            </div>
+
                             <div className="pb-[20px] ">
-                              {webinar_data.message.lead_data.map(
+                              {webinar_data.message.lead_data.slice(0, leadLimit ? webinar_data.message.lead_data.length : 3).map(
                                 (resp, index) => {
                                   return (
                                     <div
@@ -555,15 +571,15 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                           </div>
                                         </div>
 
-                                        <div className="flex-[0_0_auto]">
-                                          <Image
+                                        {/* <div className="flex-[0_0_auto]"> */}
+                                          {/* <Image
                                             className="md:h-[15px] md:w-[15px]"
                                             src={"/share.svg"}
                                             height={20}
                                             width={20}
                                             alt="share"
-                                          ></Image>
-                                        </div>
+                                          ></Image> */}
+                                        {/* </div> */}
                                       </div>
 
                                       <div className="flex items-center gap-[10px]">
@@ -600,15 +616,18 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             id={"Brand Profile"}
                             data-section
                           >
+                            <div className="flex justify-between">
                             <Title
                               data={{ title: "Brand Profile" }}
                               isIcon={true}
                               see={`uppercase !font-semibold !text-[#e21b22]`}
-                              // seeMore={true}
                             />
 
+                             {webinar_data.message.brand_profile_data.length > 4 && <button className="mb-4 text-[14px]" onClick={()=> setBrandProfileLimit(!brandProfileLimit)}>{brandProfileLimit ? 'View Less' : 'View More'}</button>}
+                            </div>
+
                             <div className="grid grid-cols-4 md:grid-cols-2 md:gap-[15px] lg:gap-[20px]">
-                              {webinar_data.message.brand_profile_data.map(
+                              {webinar_data.message.brand_profile_data.slice(0, brandProfileLimit ? webinar_data.message.brand_profile_data.length : 4).map(
                                 (resp) => {
                                   return (
                                     <div
@@ -618,11 +637,13 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                         click_data(resp, "brand_profile_data")
                                       }
                                     >
+                                      <div className={`${styles.img_div}`}>
                                       <ImageLoader
-                                        style={`rounded-[5px] h-[215px] md:h-[140px] w-full`}
+                                        style={`rounded-[5px] h-[215px] md:h-[140px] w-full ${styles.card_img}`}
                                         src={resp.meta_image}
                                         title={resp.title}
                                       />
+                                      </div>
                                       <h6
                                         className={`text-[11px] font-[700] py-[2px] line-clamp-1 text-[#E21B22] uppercase nunito`}
                                       >
@@ -650,6 +671,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             id={"Case Studies"}
                             data-section
                           >
+                            <div className="flex justify-between">
                             <Title
                               data={{ title: "Case Studies" }}
                               isIcon={true}
@@ -657,8 +679,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                               // seeMore={true}
                             />
 
+                           {webinar_data.message.case_studies_data.length > 3 && <button className="mb-4 text-[14px]" onClick={()=> setCaseStudiesLimit(!caseStudiesLimit)}>{caseStudiesLimit ? 'View Less' : 'View More'}</button>}
+                            </div>
+
                             <div className="grid grid-cols-3 md:grid-cols-1 gap-[15px]">
-                              {webinar_data.message.case_studies_data.map(
+                              {webinar_data.message.case_studies_data.slice(0, caseStudiesLimit ? webinar_data.message.case_studies_data.length : 3 ).map(
                                 (resp) => {
                                   return (
                                     <div
@@ -705,6 +730,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             id={"Featured Content"}
                             data-section
                           >
+                            <div className="flex justify-between">
                             <Title
                               data={{ title: "Featured Content" }}
                               isIcon={true}
@@ -712,11 +738,14 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                               // seeMore={true}
                             />
 
+                            {webinar_data.message.featured_content_data.length > 4 && <button className="mb-4 text-[14px]" onClick={()=> setFeaturedContentLimit(!featuredContentLimit)}>{featuredContentLimit ? 'View Less' : 'View More'}</button>}
+                            </div>
+
                             <FeaturedContent
                               click_data={click_data}
                               cols={"grid-cols-4 md:grid-cols-2"}
                               webinar_data={
-                                webinar_data.message.featured_content_data
+                                webinar_data.message.featured_content_data.slice(0, featuredContentLimit ? webinar_data.message.featured_content_data.length : 4)
                               }
                             />
                           </div>
@@ -728,6 +757,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
             </>
           )}
 
+
+
+
+
+        {/* Webinar */}
         {category_route == "webinars" && webinar_data && (
           <>
             <div>
@@ -749,7 +783,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     <>
                       <div>
                         <Title data={{ title: "Overview" }} />
-                        <p className="md:text-[16px] lg:text-[18px] font-normal text-[#202121B2] text-justify pt-3">
+                        <p className="md:text-[16px] lg:text-[18px] font-normal contents text-[#202121B2] text-justify pt-3">
                           {webinar_data.overview}
                         </p>
                       </div>
@@ -757,11 +791,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   )}
                 </div>
 
-                <div className="py-5">
+                <div>
                   {webinar_data.video_id && (
                     <>
                       <div>
-                        <Title data={{ title: "Videos" }} />
                         <YouTubeVideo id={webinar_data.video_id} />
                       </div>
                     </>
@@ -871,7 +904,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       </span>
                     )}
                     <button
-                      onClick={() => click_data(null, "register")}
+                      onClick={() => click_data(webinar_data, "register")}
                       className="px-4 py-2 text-sm md:text-base font-bold w-fit mt-2 webinar-btn rounded-md text-white"
                     >
                       {webinar_data.button_name}
@@ -890,6 +923,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           </>
         )}
 
+          {/* Lead Generation */}
         {category_route == "lead-generation" && webinar_data && (
           <>
             <Banner data={webinar_data} click_data={click_data} />
@@ -905,7 +939,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               {webinar_data.overview && (
                 <div className="py-[20px]">
                   <Title data={{ title: "Overview" }} />
-                  <p className="md:text-[16px] lg:text-[18px] font-normal text-[#202121B2] text-justify mt-3">
+                  <p className="md:text-[16px] lg:text-[18px] contents font-normal text-[#202121B2] text-justify mt-3">
                     {webinar_data.overview}
                   </p>
                 </div>
@@ -966,6 +1000,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           </>
         )}
 
+         {/* brand Profile */}
         {category_route == "brand-profile" && webinar_data && (
           <>
             <Banner data={webinar_data} click_data={click_data} />
@@ -982,7 +1017,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               {webinar_data.overview && (
                 <div className="py-[20px]">
                   <Title data={{ title: "Overview" }} />
-                  <p className="md:text-[16px] lg:text-[18px] font-normal text-[#202121B2] text-justify mt-3">
+                  <p className="md:text-[16px] lg:text-[18px] contents font-normal text-[#202121B2] text-justify mt-3">
                     {webinar_data.overview}
                   </p>
                 </div>
@@ -1048,6 +1083,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           </>
         )}
 
+           {/* Case Study */}
         {category_route == "case-studies" && webinar_data && (
           <>
             <Banner data={webinar_data} click_data={click_data} />
@@ -1075,7 +1111,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       return (
                         <div id={res.title} data-section className="py-[20px]">
                           <Title data={{ title: res.title }} />
-                          <p className="text-[18px] font-normal text-[#202121B2] text-justify mt-3">
+                          <p className="text-[18px] contents font-normal text-[#202121B2] text-justify mt-3">
                             {res.description}
                           </p>
                         </div>
@@ -1083,8 +1119,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     })}
 
                   {webinar_data.video_id && (
-                    <div className="py-[20px]">
-                      <Title data={{ title: "VIDEOS" }} />
+                    <div>
                       {<YouTubeVideo id={webinar_data.video_id} />}
                     </div>
                   )}
@@ -1095,7 +1130,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       return (
                         <div id={res.title} data-section className="py-[20px]">
                           <Title data={{ title: res.title }} />
-                          <p className="text-[18px] font-normal text-[#202121B2] text-justify mt-3">
+                          <p className="text-[18px] contents font-normal text-[#202121B2] text-justify mt-3">
                             {res.description}
                           </p>
                         </div>
@@ -1125,6 +1160,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           </>
         )}
 
+         {/* Featured Contente */}
         {category_route == "featured-content" &&
           webinar_data &&
           webinar_data.message && (

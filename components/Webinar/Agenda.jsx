@@ -39,7 +39,7 @@ const Agenda = ({ data }) => {
               <span
                 className="text-[26px] cursor-pointer"
               >
-                {selected === i ? "-" : "+"}
+                {selected === i ? "_" : "+"}
               </span>
             </div>
           </div>

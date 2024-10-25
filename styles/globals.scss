@@ -7,6 +7,7 @@
 // @import url('https://fonts.googleapis.com/css2?family=Faustina:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
@@ -137,6 +138,10 @@
   font-family: "Jost", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+.play-fair{
+  font-family: 'Playfair Display';
 }
 
 .josefin-sans{
@@ -2227,7 +2232,7 @@ $nav-height: 100px;
   transition: top 0.3s ease-in-out;
   width: 100%;
   background-color: #fff;
-  z-index: 10;
+  z-index: 1001;
 
   a {
     color: white;
@@ -2475,6 +2480,20 @@ span {
   box-shadow: -1px 1px 1px 0 #dddddd;
 }
 
+.arrow_right::before{
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: 0;
+  box-sizing: border-box;
+  border: 5px solid white;
+  border-color: transparent transparent #ffffff #fffffe;
+  transform-origin: 0 0;
+  transform: rotate(133deg);
+  box-shadow: -1px 1px 1px 0 #dddddd;
+}
+
 @media screen and (max-width: 768px) {
   .arrow_::before {
     right: 0;
@@ -2664,13 +2683,12 @@ ins.adsbygoogle[data-ad-status="unfilled"] .default_ban_img {
 }
 
 .height-90 {
-  height: 90px !important;
+   height: 90px !important;
 }
 
 .height-250 {
   height: 250px !important;
 }
-
 
 
 // Advertise with us
