@@ -10,7 +10,7 @@ import {
 } from "@/libs/api";
 // import { Nunito } from 'next/font/google';
 import Image from "next/image";
-import styles from '@/styles/Cards.module.scss'
+import styles from "@/styles/Cards.module.scss";
 import { domain } from "@/libs/config/siteConfig";
 import { useRouter } from "next/router";
 import format from "date-fns/format";
@@ -40,6 +40,7 @@ import {
 } from "react-share";
 import { websiteUrl } from "@/libs/config/siteConfig";
 import Head from "next/head";
+import Link from "next/link";
 
 const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
@@ -53,14 +54,13 @@ const inter = Inter({
 const index = ({ page_route, ads, webinar_data, category_route }) => {
   // const index = ({ data, page_route, ads }) => {
   // console.log(category_route, "category_route");
-  console.log(webinar_data, "webinar_data");
+  //console.log(webinar_data, "webinar_data");
 
   const [webinarLimit, setWebinarLimit] = useState(false);
   const [leadLimit, setLeadLimit] = useState(false);
   const [brandProfileLimit, setBrandProfileLimit] = useState(false);
   const [caseStudiesLimit, setCaseStudiesLimit] = useState(false);
   const [featuredContentLimit, setFeaturedContentLimit] = useState(false);
-  
 
   const icons = [
     { icon: "/bookstore/linkedin.svg", name: "Linkedin" },
@@ -124,7 +124,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
     if (type == "register") {
       showRegister();
-    } else {
+    }else {
       if (data.route) {
         let route = type == "article" ? "/" + data.route : "/p/" + data.route;
         if (
@@ -139,6 +139,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
             showRegister();
           }
         }
+      }else{
+        showRegister();
       }
     }
   };
@@ -194,7 +196,6 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
   const updateShare = (data) => {};
 
   // console.log("wd", webinar_data.banner_image);
-  
 
   return (
     <>
@@ -349,14 +350,14 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     ></Image>
                   </div>
 
-                  <h6 className={`flex items-center gap-[5px]  nunito`}>
-                    <span className="text-[18px] font-[800] uppercase">
+                  <h6 className="flex items-center md:gap-2 lg:gap-3 nunito">
+                    <span className="md:text-base lg:text-[18px] font-extrabold uppercase">
                       India
                     </span>
-                    <span className="text-[18px] font-[800] text-[#E21B22] uppercase">
+                    <span className="md:text-base lg:text-[18px] font-extrabold text-[#E21B22] uppercase">
                       Retailing
                     </span>
-                    <span className="text-[18px] font-[800] uppercase">
+                    <span className="md:text-base lg:text-[18px] font-extrabold uppercase">
                       Web Specials
                     </span>
                   </h6>
@@ -416,104 +417,120 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       webinar_data.message.webinars_data.length > 0 && (
                         <div id={"Webinars"} data-section>
                           <div className="flex justify-between">
-                          <Title
-                            data={{
-                              title: "Webinars",
-                              count: webinar_data.message.webinar_count,
-                            }}
-                            counter={true}
-                            isIcon={true}
-                            see={`uppercase !font-semibold !text-[#e21b22]`}
-                          />
-                         
-                         {webinar_data.message.webinars_data.length > 3 && <button className="mb-4 text-[14px]" onClick={()=> setWebinarLimit(!webinarLimit)}>{webinarLimit ? 'View Less' : 'View More'}</button>}
+                            <Title
+                              data={{
+                                title: "Webinars",
+                                count: webinar_data.message.webinar_count,
+                              }}
+                              counter={true}
+                              isIcon={true}
+                              see={`uppercase !font-semibold !text-[#e21b22]`}
+                            />
+
+                            {webinar_data.message.webinars_data.length > 3 && (
+                              <button
+                                className="mb-4 text-[14px]"
+                                onClick={() => setWebinarLimit(!webinarLimit)}
+                              >
+                                {webinarLimit ? "View Less" : "View More"}
+                              </button>
+                            )}
                           </div>
 
-                          {webinar_data.message.webinars_data.slice(0, webinarLimit ? webinar_data.message.webinars_data.length : 3).map((res) => {
-                            return (
-                              <div key={res.name}>
-                                <p
-                                  className={`text-[#999999] uppercase text-[12px] py-[10px] md:py-[5px] nunito`}
-                                >
-                                  webinar
-                                </p>
-                                <div className="flex gap-5 justify-between md:flex-col">
-                                  <div>
-                                    <p className="text-[18px] md:text-[16px] font-semibold pb-[10px]">
-                                      {res.title}
-                                    </p>
-                                    <span
-                                      className={`text-[14px] font-[700]  nunito`}
-                                    >
-                                      {format(
-                                        new Date(res.start_time),
-                                        "EEEE , dd MMM YYY"
-                                      )}
-                                    </span>
-                                  </div>
+                          {webinar_data.message.webinars_data
+                            .slice(
+                              0,
+                              webinarLimit
+                                ? webinar_data.message.webinars_data.length
+                                : 3
+                            )
+                            .map((res) => {
+                              return (
+                                <div key={res.name}>
+                                  <p
+                                    className={`text-[#999999] uppercase text-[12px] py-[10px] md:py-[5px] nunito`}
+                                  >
+                                    webinar
+                                  </p>
+                                  <div className="flex gap-5 justify-between md:flex-col cursor-pointer" onClick={() => router.push("/p/" + res.route)}>
+                                    <div>
+                                      <p className="text-[18px] md:text-[16px] font-semibold pb-[10px]">
+                                        {res.title}
+                                      </p>
+                                      <span
+                                        className={`text-[14px] font-[700]  nunito`}
+                                      >
+                                        {format(
+                                          new Date(res.start_time),
+                                          "EEEE , dd MMM YYY"
+                                        )}
+                                      </span>
+                                    </div>
 
-                                  <div className="flex-[0_0_auto] flex items-center gap-[15px] md:justify-end">
-                                    {/* <Image className='md:h-[15px] md:w-[15px]' src={'/share.svg'} height={20} width={20} alt='share'></Image> */}
+                                    <div className="flex-[0_0_auto] flex items-center gap-[15px] md:justify-end">
+                                      {/* <Image className='md:h-[15px] md:w-[15px]' src={'/share.svg'} height={20} width={20} alt='share'></Image> */}
 
-                                    <div className="border flex items-center gap-[5px] border-[#000000] px-[15px] md:px-[10px] md:h-[35px] h-[40px] rounded-[25px] cursor-pointer">
-                                      <h6 className="text-[15px] md:text-[13px] font-semibold text-[#292930]" onClick={()=> router.push('/p/'+res.route)}>
-                                        {"watch on demand"}
-                                      </h6>
-                                      <Image
-                                        className="md:h-[15px] md:w-[15px]"
-                                        src={"/ytplay.svg"}
-                                        height={20}
-                                        width={20}
-                                        alt="ytplay"
-                                      ></Image>
+                                      <div className="border flex items-center gap-[5px] border-[#000000] px-[15px] md:px-[10px] md:h-[35px] h-[40px] rounded-[25px] cursor-pointer">
+                                        <h6
+                                          className="text-[15px] md:text-[13px] font-semibold text-[#292930]"
+                                        >
+                                          {"watch on demand"}
+                                        </h6>
+                                        <Image
+                                          className="md:h-[15px] md:w-[15px]"
+                                          src={"/ytplay.svg"}
+                                          height={20}
+                                          width={20}
+                                          alt="ytplay"
+                                        ></Image>
+                                      </div>
                                     </div>
                                   </div>
+
+                                  {res.speakers && res.speakers.length > 0 && (
+                                    <div className="lg:py-[15px] md:pt-[15px] scrollbar-hide md:overflow-auto flex items-center md:gap-[15px] lg:gap-[20px]">
+                                      {res.speakers.map((resp, index) => {
+                                        return (
+                                          <div
+                                            key={resp.name}
+                                            className="flex gap-[10px] w-fit md:flex-[0_0_calc(70%_-_10px)]"
+                                            onClick={() =>
+                                              click_data(resp, "speakers")
+                                            }
+                                          >
+                                            <div className="flex-[0_0_auto]">
+                                              <ImageLoader
+                                                style={`rounded-[5px] h-[65px] w-full`}
+                                                src={resp.profile_image}
+                                                title={resp.name1}
+                                              />
+                                            </div>
+
+                                            <div className="flex-[0_0_calc(73%_-_5px)] ">
+                                              <h6
+                                                className={`text-[13px] leading-[14px] line-clamp-1 nunito font-[700]`}
+                                              >
+                                                {resp.name1}
+                                              </h6>
+                                              <p
+                                                className={`text-[#666666] text-[12px] leading-[16px] line-clamp-2 pb-[5px]`}
+                                              >
+                                                {resp.designation}
+                                              </p>
+                                              <p
+                                                className={`text-[12px] text-[#C93742] nunito`}
+                                              >
+                                                {resp.company_name}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  )}
                                 </div>
-
-                                {res.speakers && res.speakers.length > 0 && (
-                                  <div className="lg:py-[15px] md:pt-[15px] scrollbar-hide md:overflow-auto flex items-center md:gap-[15px] lg:gap-[20px]">
-                                    {res.speakers.map((resp, index) => {
-                                      return (
-                                        <div
-                                          key={resp.name}
-                                          className="flex gap-[10px] md:flex-[0_0_calc(100%_-_10px)]"
-                                          onClick={() =>
-                                            click_data(resp, "speakers")
-                                          }
-                                        >
-                                          <div className="flex-[0_0_auto]">
-                                            <ImageLoader
-                                              style={`rounded-[5px] h-[65px] w-full`}
-                                              src={resp.profile_image}
-                                              title={resp.name1}
-                                            />
-                                          </div>
-
-                                          <div className="flex-[0_0_calc(73%_-_5px)] ">
-                                            <h6
-                                              className={`text-[13px] leading-[14px] line-clamp-1 nunito font-[700]`}
-                                            >
-                                              {resp.name1}
-                                            </h6>
-                                            <p
-                                              className={`text-[#666666] text-[12px] leading-[16px] line-clamp-2 pb-[5px]`}
-                                            >
-                                              {resp.designation}
-                                            </p>
-                                            <p
-                                              className={`text-[12px] text-[#C93742] nunito`}
-                                            >
-                                              {resp.company_name}
-                                            </p>
-                                          </div>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
                         </div>
                       )}
 
@@ -526,19 +543,32 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             data-section
                           >
                             <div className="flex justify-between">
-                            <Title
-                              data={{ title: "Lead Generation" }}
-                              isIcon={true}
-                              see={`uppercase !font-semibold !text-[#e21b22]`}
-                              // seeMore={true}
-                            />
+                              <Title
+                                data={{ title: "Lead Generation" }}
+                                isIcon={true}
+                                see={`uppercase !font-semibold !text-[#e21b22]`}
+                                // seeMore={true}
+                              />
 
-                            {webinar_data.message.lead_data.length > 3 && <button className="mb-4 text-[14px]" onClick={()=> setLeadLimit(!leadLimit)}>{leadLimit ? 'View Less' : 'View More'}</button>}
+                              {webinar_data.message.lead_data.length > 3 && (
+                                <button
+                                  className="mb-4 text-[14px]"
+                                  onClick={() => setLeadLimit(!leadLimit)}
+                                >
+                                  {leadLimit ? "View Less" : "View More"}
+                                </button>
+                              )}
                             </div>
 
                             <div className="pb-[20px] ">
-                              {webinar_data.message.lead_data.slice(0, leadLimit ? webinar_data.message.lead_data.length : 3).map(
-                                (resp, index) => {
+                              {webinar_data.message.lead_data
+                                .slice(
+                                  0,
+                                  leadLimit
+                                    ? webinar_data.message.lead_data.length
+                                    : 3
+                                )
+                                .map((resp, index) => {
                                   return (
                                     <div
                                       className={`border-b border-b-[#e9e9e9] ${
@@ -572,7 +602,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                         </div>
 
                                         {/* <div className="flex-[0_0_auto]"> */}
-                                          {/* <Image
+                                        {/* <Image
                                             className="md:h-[15px] md:w-[15px]"
                                             src={"/share.svg"}
                                             height={20}
@@ -601,8 +631,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                       </div>
                                     </div>
                                   );
-                                }
-                              )}
+                                })}
                             </div>
                           </div>
                         </>
@@ -617,18 +646,37 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             data-section
                           >
                             <div className="flex justify-between">
-                            <Title
-                              data={{ title: "Brand Profile" }}
-                              isIcon={true}
-                              see={`uppercase !font-semibold !text-[#e21b22]`}
-                            />
+                              <Title
+                                data={{ title: "Brand Profile" }}
+                                isIcon={true}
+                                see={`uppercase !font-semibold !text-[#e21b22]`}
+                              />
 
-                             {webinar_data.message.brand_profile_data.length > 4 && <button className="mb-4 text-[14px]" onClick={()=> setBrandProfileLimit(!brandProfileLimit)}>{brandProfileLimit ? 'View Less' : 'View More'}</button>}
+                              {webinar_data.message.brand_profile_data.length >
+                                4 && (
+                                <button
+                                  className="mb-4 text-[14px]"
+                                  onClick={() =>
+                                    setBrandProfileLimit(!brandProfileLimit)
+                                  }
+                                >
+                                  {brandProfileLimit
+                                    ? "View Less"
+                                    : "View More"}
+                                </button>
+                              )}
                             </div>
 
                             <div className="grid grid-cols-4 md:grid-cols-2 md:gap-[15px] lg:gap-[20px]">
-                              {webinar_data.message.brand_profile_data.slice(0, brandProfileLimit ? webinar_data.message.brand_profile_data.length : 4).map(
-                                (resp) => {
+                              {webinar_data.message.brand_profile_data
+                                .slice(
+                                  0,
+                                  brandProfileLimit
+                                    ? webinar_data.message.brand_profile_data
+                                        .length
+                                    : 4
+                                )
+                                .map((resp) => {
                                   return (
                                     <div
                                       key={resp.title}
@@ -638,11 +686,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                       }
                                     >
                                       <div className={`${styles.img_div}`}>
-                                      <ImageLoader
-                                        style={`rounded-[5px] h-[215px] md:h-[140px] w-full ${styles.card_img}`}
-                                        src={resp.meta_image}
-                                        title={resp.title}
-                                      />
+                                        <ImageLoader
+                                          style={`rounded-[5px] h-[215px] md:h-[140px] w-full ${styles.card_img}`}
+                                          src={resp.meta_image}
+                                          title={resp.title}
+                                        />
                                       </div>
                                       <h6
                                         className={`text-[11px] font-[700] py-[2px] line-clamp-1 text-[#E21B22] uppercase nunito`}
@@ -656,8 +704,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                       </p>
                                     </div>
                                   );
-                                }
-                              )}
+                                })}
                             </div>
                           </div>
                         </>
@@ -672,19 +719,36 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             data-section
                           >
                             <div className="flex justify-between">
-                            <Title
-                              data={{ title: "Case Studies" }}
-                              isIcon={true}
-                              see={`uppercase !font-semibold !text-[#e21b22]`}
-                              // seeMore={true}
-                            />
+                              <Title
+                                data={{ title: "Case Studies" }}
+                                isIcon={true}
+                                see={`uppercase !font-semibold !text-[#e21b22]`}
+                                // seeMore={true}
+                              />
 
-                           {webinar_data.message.case_studies_data.length > 3 && <button className="mb-4 text-[14px]" onClick={()=> setCaseStudiesLimit(!caseStudiesLimit)}>{caseStudiesLimit ? 'View Less' : 'View More'}</button>}
+                              {webinar_data.message.case_studies_data.length >
+                                3 && (
+                                <button
+                                  className="mb-4 text-[14px]"
+                                  onClick={() =>
+                                    setCaseStudiesLimit(!caseStudiesLimit)
+                                  }
+                                >
+                                  {caseStudiesLimit ? "View Less" : "View More"}
+                                </button>
+                              )}
                             </div>
 
                             <div className="grid grid-cols-3 md:grid-cols-1 gap-[15px]">
-                              {webinar_data.message.case_studies_data.slice(0, caseStudiesLimit ? webinar_data.message.case_studies_data.length : 3 ).map(
-                                (resp) => {
+                              {webinar_data.message.case_studies_data
+                                .slice(
+                                  0,
+                                  caseStudiesLimit
+                                    ? webinar_data.message.case_studies_data
+                                        .length
+                                    : 3
+                                )
+                                .map((resp) => {
                                   return (
                                     <div
                                       className="border border-[#e9e9e9] rounded-[10px] p-[10px] cursor-pointer"
@@ -715,8 +779,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                       </h6>
                                     </div>
                                   );
-                                }
-                              )}
+                                })}
                             </div>
                           </div>
                         </>
@@ -731,22 +794,40 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             data-section
                           >
                             <div className="flex justify-between">
-                            <Title
-                              data={{ title: "Featured Content" }}
-                              isIcon={true}
-                              see={`uppercase !font-semibold !text-[#e21b22]`}
-                              // seeMore={true}
-                            />
+                              <Title
+                                data={{ title: "Featured Content" }}
+                                isIcon={true}
+                                see={`uppercase !font-semibold !text-[#e21b22]`}
+                                // seeMore={true}
+                              />
 
-                            {webinar_data.message.featured_content_data.length > 4 && <button className="mb-4 text-[14px]" onClick={()=> setFeaturedContentLimit(!featuredContentLimit)}>{featuredContentLimit ? 'View Less' : 'View More'}</button>}
+                              {webinar_data.message.featured_content_data
+                                .length > 4 && (
+                                <button
+                                  className="mb-4 text-[14px]"
+                                  onClick={() =>
+                                    setFeaturedContentLimit(
+                                      !featuredContentLimit
+                                    )
+                                  }
+                                >
+                                  {featuredContentLimit
+                                    ? "View Less"
+                                    : "View More"}
+                                </button>
+                              )}
                             </div>
 
                             <FeaturedContent
                               click_data={click_data}
                               cols={"grid-cols-4 md:grid-cols-2"}
-                              webinar_data={
-                                webinar_data.message.featured_content_data.slice(0, featuredContentLimit ? webinar_data.message.featured_content_data.length : 4)
-                              }
+                              webinar_data={webinar_data.message.featured_content_data.slice(
+                                0,
+                                featuredContentLimit
+                                  ? webinar_data.message.featured_content_data
+                                      .length
+                                  : 4
+                              )}
                             />
                           </div>
                         </>
@@ -756,10 +837,6 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               </div>
             </>
           )}
-
-
-
-
 
         {/* Webinar */}
         {category_route == "webinars" && webinar_data && (
@@ -795,7 +872,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   {webinar_data.video_id && (
                     <>
                       <div>
-                        <YouTubeVideo id={webinar_data.video_id} />
+                        <YouTubeVideo id={webinar_data.video_id} click_data={click_data} />
                       </div>
                     </>
                   )}
@@ -923,7 +1000,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           </>
         )}
 
-          {/* Lead Generation */}
+        {/* Lead Generation */}
         {category_route == "lead-generation" && webinar_data && (
           <>
             <Banner data={webinar_data} click_data={click_data} />
@@ -960,7 +1037,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {webinar_data.white_papers && webinar_data.length !== 0 && (
                   <div className="mt-5">
                     <Title data={{ title: "WHITE PAPERS" }} />
-                    <WhitePaper data={webinar_data.white_papers} click_data={click_data} />
+                    <WhitePaper
+                      data={webinar_data.white_papers}
+                      click_data={click_data}
+                    />
                   </div>
                 )}
               </div>
@@ -970,7 +1050,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   webinar_data.reports_detail !== 0 && (
                     <div className="mt-5">
                       <Title data={{ title: "REPORTS" }} />
-                      <Reports data={webinar_data.reports_detail} click_data={click_data} />
+                      <Reports
+                        data={webinar_data.reports_detail}
+                        click_data={click_data}
+                      />
                     </div>
                   )}
               </div>
@@ -979,7 +1062,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {webinar_data.video_detail && webinar_data.length !== 0 && (
                   <div className="mt-5">
                     <Title data={{ title: "VIDEOS" }} />
-                    <Video data={webinar_data.video_detail} click_data={click_data} />
+                    <Video
+                      data={webinar_data.video_detail}
+                      click_data={click_data}
+                    />
                   </div>
                 )}
               </div>
@@ -1000,7 +1086,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           </>
         )}
 
-         {/* brand Profile */}
+        {/* brand Profile */}
         {category_route == "brand-profile" && webinar_data && (
           <>
             <Banner data={webinar_data} click_data={click_data} />
@@ -1038,7 +1124,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {webinar_data.white_papers && webinar_data.length !== 0 && (
                   <div className="mt-5">
                     <Title data={{ title: "WHITE PAPERS" }} />
-                    <WhitePaper data={webinar_data.white_papers} click_data={click_data} />
+                    <WhitePaper
+                      data={webinar_data.white_papers}
+                      click_data={click_data}
+                    />
                   </div>
                 )}
               </div>
@@ -1048,7 +1137,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   webinar_data.reports_detail !== 0 && (
                     <div className="mt-5">
                       <Title data={{ title: "REPORTS" }} />
-                      <Reports data={webinar_data.reports_detail} click_data={click_data} />
+                      <Reports
+                        data={webinar_data.reports_detail}
+                        click_data={click_data}
+                      />
                     </div>
                   )}
               </div>
@@ -1057,7 +1149,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {webinar_data.video_detail && webinar_data.length !== 0 && (
                   <div className="mt-5">
                     <Title data={{ title: "VIDEOS" }} />
-                    <Video data={webinar_data.video_detail} click_data={click_data} />
+                    <Video
+                      data={webinar_data.video_detail}
+                      click_data={click_data}
+                    />
                   </div>
                 )}
               </div>
@@ -1083,7 +1178,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           </>
         )}
 
-           {/* Case Study */}
+        {/* Case Study */}
         {category_route == "case-studies" && webinar_data && (
           <>
             <Banner data={webinar_data} click_data={click_data} />
@@ -1119,9 +1214,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     })}
 
                   {webinar_data.video_id && (
-                    <div>
-                      {<YouTubeVideo id={webinar_data.video_id} />}
-                    </div>
+                    <div>{<YouTubeVideo id={webinar_data.video_id} />}</div>
                   )}
 
                   {webinar_data.content_2 &&
@@ -1160,7 +1253,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           </>
         )}
 
-         {/* Featured Contente */}
+        {/* Featured Contente */}
         {category_route == "featured-content" &&
           webinar_data &&
           webinar_data.message && (

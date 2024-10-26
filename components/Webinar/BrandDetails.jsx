@@ -5,7 +5,7 @@ import Image from 'next/image'
 const BrandDetails = ({webinar_data,updateShare,icons}) => {
     return (
         <>
-            <div className="flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-0">
+            <div className="flex flex-row justify-between items-center md:gap-2 lg:gap-0">
                 <div className="flex gap-3 items-center">
                     <div className="border p-2 rounded-lg flex">
                         <ImageLoader
@@ -27,14 +27,22 @@ const BrandDetails = ({webinar_data,updateShare,icons}) => {
                     </div>
                 </div>
 
-                {typeof window !== "undefined" &&<div className="flex justify-end lg:justify-center mt-4 lg:mt-0 md:hidden">
+                {/* {typeof window !== "undefined" && <div className='flex-[0_0_auto] md:mt-3 lg:mt-2'>
+            {icons && <Dropdowns copy_link={true} updateShare={(data) => updateShare(data)} share={true} link={data.data} width={'w-[170px]'} data={icons} />}
+          </div>}
+
+          {typeof window !== "undefined" && <div className='flex-[0_0_auto] md:mt-3 lg:mt-2'>
+            {icons && <Dropdowns copy_link={true} updateShare={(data) => updateShare(data)} share={true} width={'w-[170px]'} data={icons} />}
+          </div>} */}
+
+                {typeof window !== "undefined" &&<div className="flex-[0_0_auto] md:mt-3 lg:mt-2">
                     {/* <Image
                         src="/shares.svg"
                         width={20}
                         height={20}
                         className="lg:w-[24px] lg:h-[24px]"
                     /> */}
-                    {icons && <Dropdowns noBg={true} updateShare={(data) => updateShare(data)} share={true} type={'articles'} width={'w-[170px]'} showLeft={true} data={icons} />}
+                    {icons && <Dropdowns noBg={true} copy_link={true} updateShare={(data) => updateShare(data)} share={true} type={'articles'} width={'w-[170px]'} showLeft={true} data={icons} />}
                 
                 </div>}
             </div>

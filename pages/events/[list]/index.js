@@ -85,6 +85,9 @@ export default function EventDetails({ values, Id }) {
         }
     }
 
+    console.log('ee', expiredEvents);
+    
+
     async function loadMore() {
         let Id = router.query?.list;
         let param = { route: Id, page_no: page_no, page_length: 12, fields: ["name", "title", "description", "category_name", "start_date", "thumbnail_path"] }

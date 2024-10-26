@@ -11,7 +11,7 @@ import { check_Image,checkMobile } from '@/libs/api'
 //   variable: '--font-inter',
 // })
 export default function Widgets({ data, index, routers, productNavigation }) {
-  // console.log(data)
+   console.log('wight',data)
   const checkRoute = (res, data) => {
     if (data.title == 'Articles') {
       res.route = res.route
@@ -52,10 +52,10 @@ export default function Widgets({ data, index, routers, productNavigation }) {
       <div className={`${data.title == 'Banner Ad' ||  data.title == 'Custom Widget' ? 'my-[15px]' : 'border mb-[10px] rounded-[8px] p-[15px]'}`}>
         {data.title != 'Banner Ad' && data.title != 'Custom Widget' && <h6 className={`text-[15px] nunito font-[700] mb-[10px]`}>{data.title}</h6>}
         {data.data && data.data.length != 0 &&
-          <div className={`lg:grid lg:gap-5 ${data.title == 'Books' ? 'lg:grid-cols-4 ' : data.title == 'Banner Ad' || data.title == 'Custom Widget' ? 'grid-cols-1' : 'lg:grid-cols-3'} md:flex md:items-center md:gap-[15px] md:overflow-auto no_scroll`}>
+          <div className={`lg:grid lg:gap-5 ${data.title == 'Books' ? 'lg:grid-cols-4 ' : data.title == 'Banner Ad' || data.title == 'Custom Widget' ? 'grid-cols-1' : 'lg:grid-cols-3'} md:flex md:items-center md:gap-[10px] md:overflow-auto no_scroll`}>
             {data.title != 'Videos' && data.title != 'Books' && data.title != 'Banner Ad' && data.title != 'Custom Widget' && data.data.slice(0, 6).map((res, i) => {
               return (
-                <div key={index} onClick={() => checkRoute(res, data)} className='flex cursor-pointer h-[100px] gap-[10px] border rounded-[5px] p-[10px] md:flex-[0_0_calc(100%_-_10px)]'>
+                <div key={index} onClick={() => checkRoute(res, data)} className='flex cursor-pointer h-[100px] gap-[10px] border rounded-[5px] p-[10px] md:flex-[0_0_calc(90%_-_10px)]'>
                   <div className='flex-[0_0_calc(40%_-_10px)]'>
                     <Image className='h-[75px] rounded-[5px] !p-0 w-full' height={200} width={400} alt={res.title ? res.title : res.item ? res.item : i} src={check_Image(res.thumbnail_image ? res.thumbnail_image : res.image ? res.image : res.thumbnail_path ? res.thumbnail_path : res.product_image ? res.product_image : res.video_image ? res.video_image : null)} />
                   </div>

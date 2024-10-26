@@ -4,6 +4,8 @@ import styles from '@/styles/Cards.module.scss'
 
 
 const WhitePaper = ({ data, click_data }) => {
+  console.log('wp', data);
+  
   return (
     <>
       <div className="flex mt-5 no_scroll lg:gap-4">

@@ -27,6 +27,7 @@ const EventSlide = ({slider_id,slider_child_id,data,card,height,width,flex}) => 
         }
 
     }, [])
+    
 
     const sctollTo = (direction) => {
         if (slider_id && slider_child_id) {
@@ -83,7 +84,7 @@ const EventSlide = ({slider_id,slider_child_id,data,card,height,width,flex}) => 
                 <div id={slider_child_id} ref={containerRef}
                     className='overflow-auto scroll-smooth lg:flex-[0_0_calc(25%_-_15px)] scrollbar-hide md:gap-[10px] gap-[20px] flex md:p-[0px] md:w-[calc(100vw_-_41px)]'
                 >
-                    {data && data.map((res, index) => {
+                    {data &&  data.map((res, index) => {
                         return (
                             // '/' + router.asPath.split('/')[1] +
                             <div className={` flex flex-col rounded-[10px] ${card ? card : 'md:h-[300px] lg:h-[370px]'} border cursor-pointer ${flex}`} onClick={() => router.push(`/${router.asPath.split('/')[1]}/${res.route}`)} key={index}>

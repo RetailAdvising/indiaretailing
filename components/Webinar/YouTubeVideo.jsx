@@ -4,8 +4,9 @@ import Image from "next/image";
 import { parseISO8601Duration } from "@/libs/api";
 import { YOUTUBE_API_KEY } from "@/libs/config/siteConfig";
 import Title from "../common/Title";
+import Link from "next/link";
 
-const YouTubeVideo = ({ id }) => {
+const YouTubeVideo = ({ id, click_data }) => {
   const [videoDetails, setVideoDetails] = useState(null);
 
   const parseDuration = (isoDuration) => {
@@ -81,12 +82,12 @@ const YouTubeVideo = ({ id }) => {
               </div>
 
               <button className="webinar-btn px-8 py-1 text-white text-[18px] mt-5 font-semibold rounded-md">
-                <a
+                <Link
                   href={`https://www.youtube.com/watch?v=${id}`}
                   target="_blank"
                 >
                   Watch
-                </a>
+                </Link>
               </button>
             </div>
           </div>

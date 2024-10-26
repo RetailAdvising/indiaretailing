@@ -51,7 +51,7 @@ export default function Home({ data }) {
   let [loading, setLoading] = useState(false);
   const [books, setBooks] = useState([])
   const [ads, setAds] = useState()
-  let [pageNo, setPageNo] = useState(1)
+  let [pageNo, setPageNo] = useState(2)
   let [noProduct, setNoProduct] = useState(false)
   const router = useRouter()
 
@@ -224,7 +224,7 @@ export default function Home({ data }) {
     return () => {
       cardref?.current && intersectionObserver?.unobserve(cardref?.current)
     }
-  }, [])
+  }, [cardref])
   // console.log(data)
 
   const getNewsLetters = async () => {
@@ -436,7 +436,7 @@ export default function Home({ data }) {
 
                           {(ads && c.component_title == "Research Ad" && c.cid && data.data[c.cid]) &&
                             <>
-                              <Advertisement data={ads.research_ad ? ads.research_ad : null} adId={'research_ad'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
+                              <Advertisement data={ads.research ? ads.research : null} adId={'research_ad'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
                             </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Video Wall") && <>

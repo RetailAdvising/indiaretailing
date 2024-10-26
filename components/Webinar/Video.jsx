@@ -5,6 +5,9 @@ import styles from '@/styles/Cards.module.scss'
 import { useRouter } from "next/router";
 
 const Video = ({ data, click_data }) => {
+
+  console.log('video', data);
+  
   const router = useRouter()
   return (
     <>

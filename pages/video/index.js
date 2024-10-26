@@ -53,7 +53,7 @@ export default function Videos({ data, ads, slider_data }) {
                   <div className={`lg:grid grid-cols-4 no_scroll lg:gap-5`}><Video data={res.videos.slice(0, 4)} flex={'md:flex-[0_0_calc(70%_-_10px)] md:h-[235px]'} imgClass={'h-[180px] w-full'} /></div>
                   {(ads && res.category_name == "IR Studio") &&
                     <div className='py-[20px]'>
-                      <Advertisement data={ads.top_first ? ads.top_first : null} adId={'vid_top_first'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
+                      <Advertisement data={ads.the_store ? ads.the_store : null} adId={'vid_top_first'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
                     </div>}
                 </div>}
               </div>

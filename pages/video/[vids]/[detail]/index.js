@@ -267,7 +267,7 @@ export default function Videos({ meta_info, ads_data }) {
                                 {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
                             </div>
 
-                            {(videoDetail.message.description) && <div className='gray_color josefin-sans my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />}
+                            {/* {(videoDetail.message.description) && <div className='gray_color josefin-sans my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />} */}
 
                             {/* {videoDetail.other_category && videoDetail.other_category.data && videoDetail.other_category.data.length != 0 && 
                         <div className=''><Title data={videoDetail.other_category} seeMore={false} /><List fullWidth={true} check={true} isBB={true} isDesc={true} contentWidth={'w-[410px] md:w-[auto]'} imgFlex={'flex-[0_0_calc(20%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'} imgWidth={'w-full'} imgHeight={'h-[100px] md:h-[85px]'} data={videoDetail.other_category.data.slice(0,3)} borderRadius={'rounded-[5px]'} /></div>

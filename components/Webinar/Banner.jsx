@@ -9,7 +9,7 @@ const Banner = ({ data, click_data }) => {
         style={{
           backgroundImage: `url(${data.banner_image ? `https://${domain}${data.banner_image}` : '/no-image.jpg'})`,
         }}
-        className="lg:px-[15px] px-5 py-5 lg:py-10 flex flex-col bg-cover justify-start"
+        className="lg:px-[15px] px-5 py-5 lg:py-10 flex flex-col bg-cover bg-no-repeat justify-start"
       >
         <div className="container mx-auto">
           {/* Brand Logos */}

@@ -91,7 +91,7 @@ export default function Events({ data, slider_data, ads_data }) {
                                 <div className={`lg:grid lg:grid-cols-4 eventCards md:flex  md:gap-[15px] md:overflow-auto justify-between lg:gap-[20px]`}><EventCards data={resp.events.slice(0, 4)} flex={'md:flex-[0_0_calc(70%_-_10px)]'} height={'h-[210px] md:h-[150px]'} width={'w-full'} /></div>
                                 {(ads_data && resp.name == "Conferences & Summits" ) &&
                                     <div className='py-[20px]'>
-                                        <Advertisement data={ads_data.top_first ? ads_data.top_first : null} adId={'top_first'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
+                                        <Advertisement data={ads_data.web_special ? ads_data.web_special : null} adId={'top_first'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
                                     </div>}
                             </div>
                         )
