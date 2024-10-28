@@ -23,13 +23,13 @@ const Agenda = ({ data }) => {
     <>
       {data.map((res, i) => (
         <div key={i} className="border-b">
-          <div className="flex justify-between items-center py-3 cursor-pointer" onClick={() => toggle(i)}>
+          <div className="flex justify-between gap-3 items-center py-3 cursor-pointer" onClick={() => toggle(i)}>
             <div>
-              <span className="bg-[#F2F2F2] px-2 rounded-md text-[#999999] md:text-[10px] lg:text-sm font-semibold font-[Roboto] py-[2px]">
+              <span className="bg-[#F2F2F2] px-2 rounded-md text-[#999999] md:text-[10px] sub_title lg:text-sm font-semibold py-[2px]">
                 {`${res.start_time} - ${res.end_time}`}
               </span>
               <p
-                className={`mt-2 md:text-[14px] lg:text-[18px] font-normal ${inter.className}`}
+                className={`mt-2 md:text-[16px] lg:text-[18px] nunito font-normal`}
               >
                 {res.content}
               </p>
@@ -53,7 +53,7 @@ const Agenda = ({ data }) => {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="py-2 text-[12px] lg:text-[16px]">
+            <p className="py-2 md:text-[14px] contents lg:text-[16px]">
               {res.description}
             </p>
           </motion.div>

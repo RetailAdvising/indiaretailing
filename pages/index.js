@@ -1,6 +1,6 @@
 import RootLayout from '@/layouts/RootLayout'
 import { HomePage, newsLanding, checkMobile, getList, getPollsList, get_ip, HomePageAds, check_Image } from '../libs/api';
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import SEO from '@/components/common/SEO'
 import dynamic from 'next/dynamic'
 import TopStories from '@/components/Landing/TopStories'
@@ -48,14 +48,14 @@ export default function Home({ data }) {
   // console.log(ads,"ads");
   const [value, setValue] = useState([])
   const [news, setNews] = useState([]);
-  let [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [books, setBooks] = useState([])
   const [ads, setAds] = useState()
-  let [pageNo, setPageNo] = useState(2)
-  let [noProduct, setNoProduct] = useState(false)
+  const [pageNo, setPageNo] = useState(2)
+  const [noProduct, setNoProduct] = useState(false)
   const router = useRouter()
 
-  console.log('home', value)
+  // console.log('home', value)
   function get_customer_info() {
     let users = {}
     users.cust_email = localStorage['userid'] ? localStorage['userid'] : undefined;
@@ -81,9 +81,6 @@ export default function Home({ data }) {
     }
   }
 
-  useMemo(() => {
-
-  }, [ads, loading, pageNo, noProduct, news, value])
 
   let cardref = useRef();
 
@@ -153,78 +150,93 @@ export default function Home({ data }) {
     // }
 
 
-    if (!isMobile) {
-      const handleScroll = () => {
-        const scrollTop = document.documentElement.scrollTop
-        const scrollHeight = document.documentElement.scrollHeight
-        const clientHeight = document.documentElement.clientHeight
-        if ((scrollTop + clientHeight) + 1500 >= scrollHeight) {
-          if (!loading && !noProduct && !isMobile) {
-            // no_product = true
-            if (pageNo > 1) {
-              loading = true
-              setLoading(loading)
-              getPageData()
-            }
-            else {
-              pageNo += 1
-              setPageNo(pageNo)
-            }
-            // page_no > 1 ? getPageData() : loading = true, setLoading(loading)
-            // page_no = page_no + 1
-          }
-        }
-      };
+    // if (!isMobile) {
+    //   const handleScroll = () => {
+    //     const scrollTop = document.documentElement.scrollTop
+    //     const scrollHeight = document.documentElement.scrollHeight
+    //     const clientHeight = document.documentElement.clientHeight
+    //     if ((scrollTop + clientHeight) + 1500 >= scrollHeight) {
+    //       if (!loading && !noProduct && !isMobile) {
+    //         // no_product = true
+    //         if (pageNo > 1) {
+    //           loading = true
+    //           setLoading(loading)
+    //           getPageData()
+    //         }
+    //         else {
+    //           pageNo += 1
+    //           setPageNo(pageNo)
+    //         }
+    //         // page_no > 1 ? getPageData() : loading = true, setLoading(loading)
+    //         // page_no = page_no + 1
+    //       }
+    //     }
+    //   };
 
-      window.addEventListener('scroll', handleScroll);
+    //   window.addEventListener('scroll', handleScroll);
 
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }
+    //   return () => {
+    //     window.removeEventListener('scroll', handleScroll);
+    //   };
+    // }
 
-    const intersectionObserver = new IntersectionObserver(entries => {
-      if (entries[0].intersectionRatio <= 0) return;
-      if (!loading && !noProduct && isMobile) {
-        if (pageNo > 1) {
-          loading = true
-          setLoading(loading)
-          getPageData()
-        } else {
-          pageNo += 1
-          setPageNo(pageNo)
-        }
-      }
-    });
-
-    intersectionObserver?.observe(cardref?.current);
-
-    return () => {
-      cardref?.current && intersectionObserver?.unobserve(cardref?.current)
-    }
   }, [])
 
-  useEffect(() => {
-    const intersectionObserver = new IntersectionObserver(entries => {
-      if (entries[0].intersectionRatio <= 0) return;
-      if (!loading && !noProduct && isMobile) {
-        if (pageNo > 1) {
-          loading = true
-          setLoading(loading)
-          getPageData()
-        } else {
-          pageNo += 1
-          setPageNo(pageNo)
+  const observer = useRef();
+  const lastPostElementRef = useCallback(
+    (node) => {
+      if (loading && noProduct) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPageNo((prevPage) => prevPage + 1); // trigger loading of new posts by chaging page no
         }
-      }
-    });
+      });
 
-    intersectionObserver?.observe(cardref?.current);
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
 
-    return () => {
-      cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+  useEffect(() => {
+    if (pageNo > 1 && !noProduct) {
+      console.log(pageNo,"pageNo")
+
+      setLoading(true);
+      getPageData()
+
+      // const loadData = async () => {
+      //   await loadMore(data);
+
+      //   setLoading(false);
+      // };
+
+      // loadData();
     }
-  }, [cardref])
+  }, [pageNo]);
+
+  // useEffect(() => {
+  //   const intersectionObserver = new IntersectionObserver(entries => {
+  //     if (entries[0].intersectionRatio <= 0) return;
+  //     if (!loading && !noProduct && isMobile) {
+  //       if (pageNo > 1) {
+  //         loading = true
+  //         setLoading(loading)
+  //         getPageData()
+  //       } else {
+  //         pageNo += 1
+  //         setPageNo(pageNo)
+  //       }
+  //     }
+  //   });
+
+  //   intersectionObserver?.observe(cardref?.current);
+
+  //   return () => {
+  //     cardref?.current && intersectionObserver?.unobserve(cardref?.current)
+  //   }
+  // }, [cardref])
   // console.log(data)
 
   const getNewsLetters = async () => {
@@ -238,8 +250,8 @@ export default function Home({ data }) {
     }
   }
 
-  console.log('ads', ads);
-  
+  // console.log('ads', ads);
+
 
   const getPageData = async () => {
     // console.log('load...',)
@@ -255,20 +267,21 @@ export default function Home({ data }) {
       const resp = await HomePage(param);
       if (resp.message && resp.message.page_content && resp.message.page_content.length != 0) {
         setValue(d => d = [...d, ...resp.message.page_content])
-        loading = false
-        setLoading(loading)
-        pageNo += 1
-        setPageNo(pageNo)
+        // loading = false
+        setLoading(false)
+        // pageNo += 1
+        // setPageNo(pageNo)
+        setNoProduct(false)
         setTimeout(() => {
           // no_product = false;
         }, 200);
         // console.log(resp.message.page_content)
       } else {
         // no_product = true;
-        noProduct = true;
-        setNoProduct(noProduct)
-        loading = false
-        setLoading(loading)
+        // noProduct = true;
+        setNoProduct(true)
+        // loading = false
+        setLoading(false)
         // setLoading(false)
       }
     }
@@ -297,7 +310,7 @@ export default function Home({ data }) {
       {/*  isLast={index == value.length - 1} */}
 
 
-      
+
       <RootLayout data={data} isLanding={true} head={''} adIdH={'home-head'} adIdF={'home-foot'} homeAd={ads && ads.header ? ads : null}>
         <SEO title={'India Retailing'} siteName={'India Retailing'} description={'This is IndiaRetailing and its about news and articles based on the popular site.'} />
 
@@ -305,7 +318,7 @@ export default function Home({ data }) {
           return (
             // <HomePageBuilder news={news ? news : []} key={index} isLast={index == value.length - 1} i={index} val={value} data={res} loadMore={() => load()} />
             // Video section => bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px] md:h-[350px] no_scroll
-            <div key={i} className={`py-[20px] ${data.section == 'PS-24-00630' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00157' || data.section == 'Infocus' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00166' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px]  no_scroll ' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : data.section == 'PS-24-00623' ? 'bg-[#F0F0F0]' : 'container'}  md:p-[15px]  md:py-[10px] lg:flex gap-5`}>
+            <div key={i} ref={value.length === i + 3 ? lastPostElementRef : null} className={`py-[20px] ${data.section == 'PS-24-00630' ? 'lg:p-5 bg-[#F8F9FA]' : data.section == 'PS-23-00157' || data.section == 'Infocus' ? 'border-b border-[#d4d8d8] container' : data.section == 'PS-23-00166' ? 'bg-[#000] lg:my-5 lg:p-[20px_40px] md:py-[20px]  no_scroll ' : data.section == 'PS-23-00130' ? 'lg:bg-[#f1f1f1] p-5 lg:my-5' : data.section == 'PS-24-00623' ? 'bg-[#F0F0F0]' : 'container'}  md:p-[15px]  md:py-[10px] lg:flex gap-5`}>
               {(data.layout_json && JSON.parse(data.layout_json).length != 0) && JSON.parse(data.layout_json).map((res, index) => {
                 return (
                   // || i == 5
@@ -336,8 +349,8 @@ export default function Home({ data }) {
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive") && <IRPrime data={data.data[c.cid].data} />}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "IR Exclusive" && !isMobile) && <Subscribe height={"h-[125px] "} data={news} width={"w-full"} />}
                           {(ads && c.component_title == "Top Stories Ad" && c.cid && data.data[c.cid]) &&
-                          <div className="h-[90px]" style={{height: '90px !important'}}>
-                              <Advertisement data={ads.top_stories_ad ? ads.top_stories_ad : null} adId={'top_stories_ad'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
+                            <div className="h-[90px]" style={{ height: '90px !important' }}>
+                              <Advertisement data={ads.top_stories ? ads.top_stories : null} adId={'top_stories_ad'} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} />
                             </div>}
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && c.component_title == "Web Special" && c.component_data_type == 'Location') && <>
                             <div className='lg:w-[calc(70%_-_10px)]'><Title data={{ title: c.component_title }} seeMore={true} route={'/categories/web-special'} /></div>
@@ -369,7 +382,7 @@ export default function Home({ data }) {
 
                           </>}
 
-                          {(c.cid && data.data[c.cid]  && c.component_title == "Featured Content") && <>
+                          {(c.cid && data.data[c.cid] && c.component_title == "Featured Content") && <>
                             <Title data={{ title: c.component_title }} isIcon={true} see={`uppercase !font-semibold !text-[#e21b22]`} route={'/p/web-special-list/1'} seeMore={true} />
                             <div className={`flex items-center gap-[20px] md:overflow-auto lg:flex-wrap scrollbar-hide md:gap-[15px]`}>
                               {data.data[c.cid].data.map((resp, index) => {

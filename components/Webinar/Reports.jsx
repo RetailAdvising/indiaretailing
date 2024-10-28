@@ -14,8 +14,8 @@ const Reports = ({data, click_data}) => {
                      <ImageLoader style={'w-full object-contain h-[90px] rounded-lg'} src={res.image} />
                    </div>
                    <div>
-                     <h2 className='uppercase text-[#E21B22] font-semibold'>{res.title}</h2>
-                     <p className='text-[16px] font-normal mt-2'>{res.description}</p>
+                     <h2 className='uppercase text-[#E21B22] font-semibold nunito'>{res.title}</h2>
+                     <p className='text-[16px] font-normal mt-2 nunito'>{res.description}</p>
                    </div>
                 </div>
             ))

@@ -13,7 +13,7 @@ import ImageLoader from '../ImageLoader';
 //     subsets: ["latin"],
 //     variable: '--font-inter',
 // })
-export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route, title_class, subtitle_class, primary_text_class, hashtags_class, hide_scroll_button, noPrimaryText, routers, parent, productNavigation,newsletter }) {
+export default function CustomSlider({ data, cardClass, imgClass, slider_id, slider_child_id, type, route, title_class, subtitle_class, primary_text_class, hashtags_class, hide_scroll_button, noPrimaryText, routers, parent, productNavigation,newsletter,navigate }) {
     // let router = routers ? routers : useRouter();
     // let router = routers ;
     let router;
@@ -165,8 +165,9 @@ export default function CustomSlider({ data, cardClass, imgClass, slider_id, sli
         } else {
             // let route = res.route.split('/')
             if(newsletter){
-                const route1 = window.location.origin + ('/' + res.route.split('/')[0] + '/' + parent.day + '/' + res.route.split('/')[1]) // Replace with your route
-                window.open(route1, '_blank');
+                // const route1 = window.location.origin + ('/' + res.route.split('/')[0] + '/' + parent.day + '/' + res.route.split('/')[1]) // Replace with your route
+                // window.open(route1, '_blank');
+                navigate(res)
             }else{
                 router.push((parent && parent.day) ? ('/' + res.route.split('/')[0] + '/' + parent.day + '/' + res.route.split('/')[1]) : ('/' + res.route))
             }

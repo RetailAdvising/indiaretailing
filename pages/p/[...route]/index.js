@@ -54,7 +54,7 @@ const inter = Inter({
 const index = ({ page_route, ads, webinar_data, category_route }) => {
   // const index = ({ data, page_route, ads }) => {
   // console.log(category_route, "category_route");
-  //console.log(webinar_data, "webinar_data");
+  console.log(webinar_data, "webinar_data");
 
   const [webinarLimit, setWebinarLimit] = useState(false);
   const [leadLimit, setLeadLimit] = useState(false);
@@ -124,7 +124,17 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
     if (type == "register") {
       showRegister();
-    }else {
+    } else if (type === "video") {
+      if (!webinar_data.is_registration_required) {
+        const newTab = window.open(
+          `https://www.youtube.com/watch?v=${data}`,
+          "_blank"
+        );
+        newTab.focus();
+      } else {
+        showRegister();
+      }
+    } else {
       if (data.route) {
         let route = type == "article" ? "/" + data.route : "/p/" + data.route;
         if (
@@ -139,8 +149,6 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
             showRegister();
           }
         }
-      }else{
-        showRegister();
       }
     }
   };
@@ -350,14 +358,12 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     ></Image>
                   </div>
 
-                  <h6 className="flex items-center md:gap-2 lg:gap-3 nunito">
-                    <span className="md:text-base lg:text-[18px] font-extrabold uppercase">
-                      India
-                    </span>
-                    <span className="md:text-base lg:text-[18px] font-extrabold text-[#E21B22] uppercase">
-                      Retailing
-                    </span>
-                    <span className="md:text-base lg:text-[18px] font-extrabold uppercase">
+                  <h6 className="flex flex-wrap items-center gap-2 nunito font-extrabold uppercase text-[16px] md:text-[14px] lg:text-[18px]">
+                    <span className="text-inherit">India</span>
+
+                    <span className="text-[#E21B22]">Retailing</span>
+
+                    <span className="text-inherit md:whitespace-normal md:flex-1 lg:flex-auto">
                       Web Specials
                     </span>
                   </h6>
@@ -416,7 +422,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     {webinar_data.message.webinars_data &&
                       webinar_data.message.webinars_data.length > 0 && (
                         <div id={"Webinars"} data-section>
-                          <div className="flex justify-between">
+                          <div className="flex justify-between ">
                             <Title
                               data={{
                                 title: "Webinars",
@@ -429,10 +435,19 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
                             {webinar_data.message.webinars_data.length > 3 && (
                               <button
-                                className="mb-4 text-[14px]"
+                                className="mb-4 flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
                                 onClick={() => setWebinarLimit(!webinarLimit)}
                               >
-                                {webinarLimit ? "View Less" : "View More"}
+                                <p className={`nunito font-medium`}>
+                                  View {webinarLimit ? "Less" : "More"}
+                                </p>
+                                <Image
+                                  className="h-[11px] w-[5px] object-contain"
+                                  src="/forwardIcon.svg"
+                                  height={5}
+                                  width={5}
+                                  alt="View All"
+                                />
                               </button>
                             )}
                           </div>
@@ -446,13 +461,21 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                             )
                             .map((res) => {
                               return (
-                                <div key={res.name}>
-                                  <p
+                                <div
+                                  className="py-[15px] border-b border-b-[#e9e9e9]"
+                                  key={res.name}
+                                >
+                                  {/* <p
                                     className={`text-[#999999] uppercase text-[12px] py-[10px] md:py-[5px] nunito`}
                                   >
                                     webinar
-                                  </p>
-                                  <div className="flex gap-5 justify-between md:flex-col cursor-pointer" onClick={() => router.push("/p/" + res.route)}>
+                                  </p> */}
+                                  <div
+                                    className="flex gap-3 justify-between py-4 cursor-pointer md:items-end"
+                                    onClick={() =>
+                                      router.push("/p/" + res.route)
+                                    }
+                                  >
                                     <div>
                                       <p className="text-[18px] md:text-[16px] font-semibold pb-[10px]">
                                         {res.title}
@@ -467,13 +490,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                       </span>
                                     </div>
 
-                                    <div className="flex-[0_0_auto] flex items-center gap-[15px] md:justify-end">
+                                    <div className="flex-[0_0_auto] flex items-center gap-[15px]">
                                       {/* <Image className='md:h-[15px] md:w-[15px]' src={'/share.svg'} height={20} width={20} alt='share'></Image> */}
 
                                       <div className="border flex items-center gap-[5px] border-[#000000] px-[15px] md:px-[10px] md:h-[35px] h-[40px] rounded-[25px] cursor-pointer">
-                                        <h6
-                                          className="text-[15px] md:text-[13px] font-semibold text-[#292930]"
-                                        >
+                                        <h6 className="text-[15px] md:text-[13px] font-semibold text-[#292930]">
                                           {"watch on demand"}
                                         </h6>
                                         <Image
@@ -488,7 +509,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                   </div>
 
                                   {res.speakers && res.speakers.length > 0 && (
-                                    <div className="lg:py-[15px] md:pt-[15px] scrollbar-hide md:overflow-auto flex items-center md:gap-[15px] lg:gap-[20px]">
+                                    <div className="lg:py-[15px] no_scroll scrollbar-hide overflow-y-hidden md:flex items-center md:gap-[15px] lg:gap-[20px] lg:grid lg:grid-cols-4">
                                       {res.speakers.map((resp, index) => {
                                         return (
                                           <div
@@ -552,10 +573,19 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
                               {webinar_data.message.lead_data.length > 3 && (
                                 <button
-                                  className="mb-4 text-[14px]"
+                                  className="mb-4 flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
                                   onClick={() => setLeadLimit(!leadLimit)}
                                 >
-                                  {leadLimit ? "View Less" : "View More"}
+                                  <p className={`nunito font-medium`}>
+                                    View {leadLimit ? "Less" : "More"}
+                                  </p>
+                                  <Image
+                                    className="h-[11px] w-[5px] object-contain"
+                                    src="/forwardIcon.svg"
+                                    height={5}
+                                    width={5}
+                                    alt="View All"
+                                  />
                                 </button>
                               )}
                             </div>
@@ -872,7 +902,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   {webinar_data.video_id && (
                     <>
                       <div>
-                        <YouTubeVideo id={webinar_data.video_id} click_data={click_data} />
+                        <YouTubeVideo
+                          id={webinar_data.video_id}
+                          click_data={click_data}
+                        />
                       </div>
                     </>
                   )}
@@ -928,7 +961,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       <Title data={{ title: "WHO SHOULD ATTEND" }} />
 
                       <div
-                        className={`mt-3 text-[20px] font-medium text-[#202121] bg-[#F2F2F2] rounded-md py-3 px-2 w-fit ${inter.className}`}
+                        className={`mt-3 text-[20px] font-medium text-[#202121] tinos bg-[#F2F2F2] rounded-md py-3 px-2 w-fit ${inter.className}`}
                       >
                         <p>{webinar_data.who_should_attend}</p>
                       </div>
@@ -945,7 +978,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       <div className="py-5">
                         <Title data={{ title: "CONTACT US" }} />
                         <div className={`pt-3 ${inter.className}`}>
-                          <p className="md:text-base lg:text-lg font-normal break-words">
+                          <p className="md:text-base lg:text-lg font-normal break-words tinos">
                             {`For Delegation | ${webinar_data.contact_name} | ${webinar_data.contact_email} | ${webinar_data.contact_number}`}
                           </p>
                         </div>
@@ -959,14 +992,17 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     style={{
                       backgroundImage: `url(${
                         webinar_data.bottom_banner_image
-                          ? `https://${domain}${webinar_data.bottom_banner_image}`
+                          ? `https://${domain}${webinar_data.bottom_banner_image.replace(
+                              / /g,
+                              "%20"
+                            )}`
                           : "/no-image.jpg"
                       })`,
                     }}
                     className="p-5 md:p-8 lg:p-10 flex flex-col my-5 bg-cover bg-center"
                   >
                     {webinar_data.bottom_banner_title && (
-                      <h3 className="text-[24px] md:text-[28px] lg:text-[30px] font-bold">
+                      <h3 className="text-[24px] md:text-[28px] lg:text-[30px] nunito font-bold">
                         {webinar_data.bottom_banner_title}
                       </h3>
                     )}
@@ -976,7 +1012,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       </p>
                     )}
                     {webinar_data.date && (
-                      <span className="text-[16px] md:text-[18px] lg:text-[20px] font-medium text-[#202121] mt-3">
+                      <span className="text-[16px] md:text-[18px] lg:text-[20px] font-medium contents text-[#202121] mt-3">
                         {webinar_data.date}
                       </span>
                     )}
@@ -984,7 +1020,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       onClick={() => click_data(webinar_data, "register")}
                       className="px-4 py-2 text-sm md:text-base font-bold w-fit mt-2 webinar-btn rounded-md text-white"
                     >
-                      {webinar_data.button_name}
+                      Register
                     </button>
                   </div>
                 }
@@ -1070,7 +1106,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 )}
               </div>
 
-              {webinar_data.is_registration_required == 1 && (
+              {webinar_data.is_connect_now_required == 1 && (
                 <div>
                   <Form />
                 </div>
@@ -1261,9 +1297,9 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               {webinar_data.message.article_detail &&
                 webinar_data.message.article_detail.length > 0 && (
                   <div>
-                    <div className={`w-full lg:h-[375px] `}>
+                    <div className={`w-full lg:h-[375px] md:h-[200px]`}>
                       <ImageLoader
-                        style={`lg:h-full md:object-contain w-full`}
+                        style={`lg:h-full md:object-contain w-full md:h-[200px]`}
                         src={
                           webinar_data.message.article_detail[0].image
                             ? webinar_data.message.article_detail[0].image
@@ -1274,7 +1310,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       />
                     </div>
 
-                    <div className="container">
+                    <div className="container md:p-[15px] md:py-[10px]">
                       <div className="py-[20px]">
                         <h1 className="text-[22px] md:text-[16px] font-semibold">
                           {webinar_data.message.article_detail[0]["title"]}
@@ -1318,7 +1354,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                           {r.full_name}
                                         </h6>
 
-                                        <div className="flex lg:gap-4 items-center md:gap-[10px] md:justify-between ">
+                                        <div className="flex lg:gap-4 items-center md:gap-[10px] md:justify-between md:hidden">
                                           <div className="flex md:block items-center gap-2">
                                             <Image
                                               height={11}
@@ -1393,6 +1429,53 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                               )}
                             </div>
                           )}
+                        </div>
+
+                        <div className="flex md:gap-5 items-center lg:hidden md:p-[5px_0_15px_0]">
+                          <div className="flex items-center gap-2">
+                            <Image
+                              height={11}
+                              width={11}
+                              alt={"image"}
+                              src={"/views.svg"}
+                              className="md:m-auto"
+                            />
+                            <span className="text-[12px] md:text-[10px] gray-text">
+                              {webinar_data.message.article_detail[0].views
+                                ? webinar_data.message.article_detail[0].views
+                                : webinar_data.message.article_detail[0]
+                                    .no_of_views
+                                ? webinar_data.message.article_detail[0]
+                                    .no_of_views
+                                : 1}{" "}
+                              Views
+                            </span>
+                          </div>
+                          <div className="flex  items-center gap-2">
+                            <Image
+                              height={11}
+                              width={13}
+                              alt={"image"}
+                              className="md:h-[13px] md:w-[11px] md:m-auto"
+                              src={"/shares.svg"}
+                            />
+                            <span className="md:text-[10px] text-[12px] gray-text">
+                              {webinar_data.message.article_detail[0]
+                                .no_of_shares + " shares"}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Image
+                              height={12}
+                              width={12}
+                              alt={"image"}
+                              src={"/time.svg"}
+                              className="md:m-auto"
+                            />
+                            <span className="text-[12px] md:text-[10px] gray-text">
+                              {webinar_data.message.article_detail[0].read_time}{" "}
+                            </span>
+                          </div>
                         </div>
 
                         <h6 className="text-[20px] pb-[15px] md:pb-[10px] md:text-[16px] font-semibold nunito">
@@ -1544,9 +1627,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                           </>
                         )}
 
-                      <div className="py-[20px]">
-                        <Form />
-                      </div>
+                      {webinar_data.is_connect_now_required == 1 && (
+                        <div className="py-5">
+                          <Form />
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

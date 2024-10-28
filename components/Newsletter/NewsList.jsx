@@ -16,13 +16,13 @@ import ImageLoader from '../ImageLoader';
 //     subsets: ["latin"],
 //     variable: '--font-inter',
 //   })
-export default function NewsList({ data }) {
+export default function NewsList({ data,navigate }) {
   const router = useRouter();
   const [showAlert, setShowAlert] = useState(false);
   const [news, setNews] = useState()
 
   async function showPopup(obj,index) {
-    // console.log(data);
+    // console.log(obj);
 
     let get_check = data.filter(res=>{ return res.selected == 1})
 
@@ -56,6 +56,13 @@ export default function NewsList({ data }) {
 
   async function closeModal(value){
       setEnableModal(false);
+
+      if(!localStorage['customer_id']){
+        let ele = document.getElementById('sign-in')
+        if(ele){
+          ele.click()
+        }
+      }
   }
  
   function hide(obj) {
@@ -66,11 +73,11 @@ export default function NewsList({ data }) {
     }
   }
 
-  const navigate = (res) => {
-    // console.log(res)
-    const route1 = window.location.origin + ('/' + res.route.split('/')[0] + '/' + res.title + '/' + res.route.split('/')[1]) // Replace with your route
-    window.open(route1, '_blank');
-  }
+  // const navigate = (res) => {
+  //   // console.log(res)
+  //   const route1 = window.location.origin + ('/' + res.route.split('/')[0] + '/' + res.title + '/' + res.route.split('/')[1]) // Replace with your route
+  //   window.open(route1, '_blank');
+  // }
 
 
 

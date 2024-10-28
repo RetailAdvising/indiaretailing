@@ -65,29 +65,27 @@ const YouTubeVideo = ({ id, click_data }) => {
               style={"rounded-lg h-fit object-cover w-full lg:min-w-[564px]"}
             />
             <div>
-              <h2 className="text-[20px] lg:text-[25px] w-fit font-medium">
+              <h2 className="text-[20px] lg:text-[25px] w-fit font-medium nunito">
                 <span className="text-[#929292] text-[20px] lg:text-[25px]">
                   {videoDetails.channelTitle} :{" "}
                 </span>
                 {videoDetails.title}
               </h2>
-              <p className="mt-3 text-[#202121] text-[16px] line-clamp-4 lg:text-[18px]">
+              <p className="mt-3 text-[#202121] text-[16px] line-clamp-4 lg:text-[18px] tinos">
                 {videoDetails.description}
               </p>
               <div className="mt-5 flex items-center gap-1">
                 <Image src="/webinar/time.png" width={18} height={22} />
-                <span className="text-[#818181] text-[16px] mb-1">
+                <span className="text-[#818181] tinos text-[16px] mb-1">
                   {videoDetails.duration}
                 </span>
               </div>
 
-              <button className="webinar-btn px-8 py-1 text-white text-[18px] mt-5 font-semibold rounded-md">
-                <Link
-                  href={`https://www.youtube.com/watch?v=${id}`}
-                  target="_blank"
-                >
-                  Watch
-                </Link>
+              <button
+                onClick={() => click_data(id, "video")}
+                className="webinar-btn px-8 py-1 text-white text-[18px] mt-5 font-semibold rounded-md"
+              >
+                Watch
               </button>
             </div>
           </div>

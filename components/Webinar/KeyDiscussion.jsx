@@ -15,7 +15,7 @@ const KeyDiscussion = ({setShowMore,webinar_data,showMore}) => {
                             className="flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
                             onClick={() => setShowMore(!showMore)}
                         >
-                            <p className={`nunito`}>
+                            <p className={`nunito font-medium`}>
                                 {showMore ? "More" : "Less"}
                             </p>
                             <Image

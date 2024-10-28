@@ -183,7 +183,7 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1">
                             {/* absolute md:left-[-55px] z-[99] rounded-[10px] mt-3 bg-white -translate-x-1/2 transform */}
-                            <Popover.Panel style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px' }} className={`${ showLeft ? 'arrow_right' : 'arrow_'} absolute z-[99] rounded-[10px] mt-[8px]  bg-white ${showLeft ? 'md:left-0' : 'md:right-0'} transform  ${type == 'tag' ? 'lg:!right-0 ' : showLeft ? 'lg:right-0' : 'lg:left-0'}`}>
+                            <Popover.Panel style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px' }} className={`${ showLeft ? 'arrow_right' : 'arrow_'} absolute z-[99] rounded-[10px] mt-[8px]  bg-white ${showLeft ? 'md:right-0' : 'md:right-0'} transform  ${type == 'tag' ? 'lg:!right-0 ' : showLeft ? 'lg:right-0' : 'lg:left-0'}`}>
                                 <div className={`overflow-hidden ${width} shadow-[0_0_5px_#dddddd91] rounded-[7px_10px_10px_10px] bg-[#fff]`}>
                                     <div className="p-[7px]">
                                         {!share ? <>

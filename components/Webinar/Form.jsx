@@ -40,7 +40,7 @@ const Form = () => {
       </div>
       <div claaName="w-full text-center">
         <div>
-          <h2 className="font-bold text-[30px] text-center mb-2">
+          <h2 className="font-bold text-[30px] text-center mb-2 nunito">
             Connect now!
           </h2>
         </div>

@@ -248,16 +248,17 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     isMobile = is_mobile
     setIsMobile(isMobile);
   }
+  // console.log(router,"router")
   return (
     <>
       {/* <SEO /> */}
       {/* {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>} */}
-      {(!checkout || is_detail) && <div className="lg:grid md:overflow-hidden lg:justify-center"><Advertisement adId={adIdH} data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"}  /></div>}
+      {router.pathname != "/p/[...route]" && (!checkout || is_detail) && <div className="lg:grid md:overflow-hidden lg:justify-center"><Advertisement adId={adIdH} data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"}  /></div>}
       {/* <PdfViewer/> */}
       <>
-        <Header checkout={checkout} />
+        {router.pathname != "/p/[...route]" && <Header checkout={checkout} />}
         {/* {!checkout && <Navbar isLanding={isLanding} heading={head} /> } */}
-        <div className={``}><Navbar isLanding={isLanding} heading={head} checkout={checkout} /></div>
+        {router.pathname != "/p/[...route]" && <div className={``}><Navbar isLanding={isLanding} heading={head} checkout={checkout} /></div>}
         {/* {!checkout ? <Navbar isLanding={isLanding} heading={head} /> : <div className='lg:hidden'><MobileHead isLanding={isLanding} Heading={head} /></div> } */}
         {(breadCrumbs && breadCrumbs.length > 1 && breadCrumbs[1] && breadCrumbs[1] != 'p' && breadCrumbs[1] != 'newsletters' && breadCrumbs[1] != 'advertise-with-us' && breadCrumbs[1].split('?')[0] != 'thankyou' && breadCrumbs[1].split('?')[0] != 'profile' && breadCrumbs[1].split('?')[0] != 'search' && breadCrumbs[1].split('?')[0] != 'tag') &&
           <div className='container flex  gap-[7px] md:hidden py-[20px]'>

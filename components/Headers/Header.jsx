@@ -325,7 +325,7 @@ export default function Header({ checkout }) {
                                 {!role ?
                                     <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
                                         <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub} nunito`}>{head.btn1}</button>
-                                        <button type='button' onClick={show} className={`${styles.btn_sig} nunito`}>{head.btn2}</button>
+                                        <button type='button' id='sign-in' onClick={show} className={`${styles.btn_sig} nunito`}>{head.btn2}</button>
                                     </div>
                                     :
                                     <div className='flex justify-end'>

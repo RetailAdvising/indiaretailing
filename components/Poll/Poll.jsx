@@ -48,7 +48,7 @@ function Poll({ data, ipAddress }) {
     }
 
     const activateProgress = (qns) => {
-        console.log(qns.options)
+        // console.log(qns.options)
         setTimeout(() => {
             if (qns.options && qns.options.length != 0) {
                 for (let i = 0; i < qns.options.length; i++) {

@@ -15,11 +15,11 @@ export default function SubscribeNews({ data, visible, hide, no_modal, email = u
 
   return (
     <div className='NewsLetterSub'>
-      {!no_modal && <Rodal visible={visible} onClose={(obj) => { hide(obj) }}>
-        <NewsLetterSub cssClass={cssClass} email={email} data={data} hide={(obj) => { hide(obj) }} />
+      {!no_modal && <Rodal visible={visible} onClose={hide}>
+        <NewsLetterSub cssClass={cssClass} email={email} data={data} hide={hide} />
       </Rodal>
       }
-      {no_modal && <NewsLetterSub cssClass={cssClass} data={data} hide={(obj) => { hide(obj) }} />}
+      {no_modal && <NewsLetterSub cssClass={cssClass} data={data} hide={hide} />}
     </div>
   )
 }

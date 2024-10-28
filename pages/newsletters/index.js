@@ -82,6 +82,8 @@ export default function newsletter({ ads }) {
 
   async function closeModal(value) {
     setEnableModal(false);
+
+    
   }
 
   const [showAlert, setShowAlert] = useState(false);
@@ -124,6 +126,12 @@ export default function newsletter({ ads }) {
     }
   }
 
+  const navigate = (res) => {
+    console.log(res)
+    const route1 = window.location.origin + ('/' + res.route.split('/')[0] + '/' + res.title + '/' + res.route.split('/')[1]) // Replace with your route
+    window.open(route1, '_blank');
+  }
+
   return (
     <>
 
@@ -141,7 +149,7 @@ export default function newsletter({ ads }) {
                 <div className='md:hidden text-center'><Title data={{ title: 'Newsletters' }} /></div>
                 <div className='lg:flex md:flex-wrap justify-between gap-[20px]'>
                   <div className={`flex-[0_0_calc(70%_-_15px)] md:flex-[0_0_calc(100%_-_0px)] ${isMobile ? '' : 'border p-[20px] rounded-[5px]'} `}>
-                    <NewsList data={news} />
+                    <NewsList navigate={navigate} data={news} />
                   </div>
 
                   {!isMobile &&
@@ -187,7 +195,7 @@ export default function newsletter({ ads }) {
                 </div>
                 {/* lg:w-[calc(80%_-_10px)]  md:p-[10px] */}
                 <div className='lg:w-[97%] lg:m-[auto] py-[15px]'>
-                  <CustomSlider newsletter={true} parent={res} data={res.data} cardClass={'lg:h-[280px]  md:h-[235px]  flex-[0_0_calc(20%_-_16px)] bg-white md:flex-[0_0_calc(65%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
+                  <CustomSlider navigate={navigate} newsletter={true} parent={res} data={res.data} cardClass={'lg:h-[280px]  md:h-[235px]  flex-[0_0_calc(20%_-_16px)] bg-white md:flex-[0_0_calc(65%_-_10px)]'} imgClass={'lg:h-[185px] md:h-[140px] w-full'}
                     slider_id={"slider_id" + index} slider_child_id={"slider_child_id" + index} subtitle_class={'hidden'} hashtags_class={'hidden'} primary_text_class={''} />
                 </div>
               </div>

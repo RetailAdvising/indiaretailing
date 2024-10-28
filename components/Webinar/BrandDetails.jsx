@@ -7,22 +7,22 @@ const BrandDetails = ({webinar_data,updateShare,icons}) => {
         <>
             <div className="flex flex-row justify-between items-center md:gap-2 lg:gap-0">
                 <div className="flex gap-3 items-center">
-                    <div className="border p-2 rounded-lg flex">
+                    <div className="border p-2 rounded-lg flex flex-[0_0_auto]">
                         <ImageLoader
                             src={webinar_data.brand_logo}
                             style="rounded-[5px] h-[50px] w-[60px] lg:h-[65px] lg:w-[80px]"
                         />
                     </div>
                     <div>
-                        <h1 className="text-[22px] lg:text-[28px] font-bold">
+                        <h1 className="text-[16px] lg:text-[28px] font-bold nunito">
                             {webinar_data.brand_name}
                         </h1>
-                        <p className="text-base  lg:text-lg font-normal text-[#202121]">
+                        <p className="text-[14px]  lg:text-lg font-normal josefin-sans text-[#202121]">
                             {webinar_data.title}
                         </p>
                         <div className="flex gap-1 items-center">
                             <Image src="/calendar-minus.png" width={14} height={14} />
-                            <span className="text-xs lg:text-sm">{webinar_data.creation}</span>
+                            <span className="!text-xs lg:!text-sm contents">{webinar_data.creation}</span>
                         </div>
                     </div>
                 </div>

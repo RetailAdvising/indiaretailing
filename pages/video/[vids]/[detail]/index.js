@@ -235,6 +235,7 @@ export default function Videos({ meta_info, ads_data }) {
                                         </div>
 
                                     </div> */}
+                                        <p className='gray_color  my-[10px] line-clamp-2 md:text-[14px] lg:text-[16px]' >videoDetail.message.intro</p>
                                         <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
                                         <SubscriptionAlert data={(plans && plans.length != 0) ? plans : []} />
                                         {/* <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='h-full w-full' />
