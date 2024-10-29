@@ -96,7 +96,7 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
     <>
       {/* <ToastContainer position={'bottom-right'} autoClose={2000} /> bg-[#fbfbfd] */}
       {/* h-[240px] */}
-      <div className={`items-center h-[210px] gap-[10px] justify-center  rounded-[10px] border`} >
+      <div className={`items-center h-fit gap-[10px] justify-center  rounded-[10px] border`} >
         {/* <div className={``}> */}
         {/* <p className={`absolute top-[35px] right-[120px] font-semibold text-[20px]`}>Subscribe</p>
           // <Image src={'/newsletter1.svg'} className={`${height} ${width}`} height={30} width={50} alt="" /> */}
@@ -106,7 +106,7 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
           {/* <Image src={'/Newsletter-subscription.svg'} className={` object-contain h-full w-full`} height={30} width={50} alt="" /> */}
           <Image src={'/Subscribe-01.svg'} className={` object-contain h-[100px] w-full`} height={30} width={50} alt="" />
         </div>
-        <div className='flex-[0_0_calc(70%_-_10px)]'>
+        <div className='flex-[0_0_calc(70%_-_10px)] pb-2'>
           <h5 className={`text-[17px] font-[700] text-center nunito`}>Subscribe</h5>
           <p className={`text-[12px] font-[400] p-[5px_10px] text-center `}>Subscripe our newsletter and get notifications to stay update</p>
           <div className='relative w-full text-center px-[10px]'>
@@ -116,7 +116,7 @@ export default function Subscribe({ data, height, width, isSubscribe }) {
               <Image src={'/categories/send-01.svg'} onClick={showPopup} className='absolute top-[50%] left-[50%] cursor-pointer h-[25px] w-[25px] object-contain' style={{ transform: 'translate(-50%, -50%)' }} height={30} width={30} alt='send icon' />
             </div>
           </div>
-          {wrong && <p className={`text-[#e21b22] font-semibold text-[12px]`}>Enter valid email</p>}
+          {wrong && <p className={`text-[#e21b22] font-semibold text-[12px] px-3 py-1 text-center`}>Enter valid email</p>}
         </div>
         {/* </div> */}
         {/* <button className={`subscribe`} onClick={showPopup}>Subscribe</button> */}

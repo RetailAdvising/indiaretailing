@@ -42,7 +42,7 @@ const Banner = ({ data, click_data }) => {
               </h1>
             )}
             {data.span_title && (
-              <h1 className="text-[20px] lg:text-5xl font-bold text-yellow-400 mt-2">
+              <h1 className="md:text-[20px] lg:text-5xl font-bold text-yellow-400 mt-2">
                 {data.span_title}
               </h1>
             )}
@@ -51,7 +51,7 @@ const Banner = ({ data, click_data }) => {
           {/* Date */}
           {data.date && (
             <div className="mt-4 text-left">
-              <span className="font-normal text-[18px] lg:text-[20px] text-white">
+              <span className="font-normal md:text-[18px] lg:text-[20px] text-white nunito">
                 {data.date}
               </span>
             </div>

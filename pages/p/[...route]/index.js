@@ -4,6 +4,7 @@ import ImageLoader from "@/components/ImageLoader";
 import RootLayout from "@/layouts/RootLayout";
 import {
   check_Image,
+  checkMobile,
   get_web_special_detail,
   getCurrentUrl,
   seo_Image,
@@ -54,13 +55,31 @@ const inter = Inter({
 const index = ({ page_route, ads, webinar_data, category_route }) => {
   // const index = ({ data, page_route, ads }) => {
   // console.log(category_route, "category_route");
-  console.log(webinar_data, "webinar_data");
+  // console.log(webinar_data, "webinar_data");
 
   const [webinarLimit, setWebinarLimit] = useState(false);
   const [leadLimit, setLeadLimit] = useState(false);
   const [brandProfileLimit, setBrandProfileLimit] = useState(false);
   const [caseStudiesLimit, setCaseStudiesLimit] = useState(false);
   const [featuredContentLimit, setFeaturedContentLimit] = useState(false);
+  let [isMobile, setIsMobile] = useState(false)
+
+
+  useEffect(() => {
+    checkIsMobile();
+   
+    window.addEventListener('resize', checkIsMobile)
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, [])
+
+
+  const checkIsMobile = async () => {
+    let is_mobile = await checkMobile();
+    isMobile = is_mobile
+    setIsMobile(isMobile);
+  }
 
   const icons = [
     { icon: "/bookstore/linkedin.svg", name: "Linkedin" },
@@ -124,7 +143,17 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
     if (type == "register") {
       showRegister();
-    } else if (type === "video") {
+    } else if (type === "white-paper") {
+      if (!webinar_data.is_registration_required) {
+        const newTab = window.open(
+          `https://${domain}${data.route}`,
+          "_blank"
+        );
+        newTab.focus();
+      } else {
+        showRegister();
+      }
+    }else if(type=== "video"){
       if (!webinar_data.is_registration_required) {
         const newTab = window.open(
           `https://www.youtube.com/watch?v=${data}`,
@@ -471,7 +500,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                     webinar
                                   </p> */}
                                   <div
-                                    className="flex gap-3 justify-between py-4 cursor-pointer md:items-end"
+                                    className="flex gap-3 justify-between md:pb-4 lg:pb-0 cursor-pointer md:items-end"
                                     onClick={() =>
                                       router.push("/p/" + res.route)
                                     }
@@ -609,11 +638,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                       }
                                       key={resp.title}
                                     >
-                                      <p
+                                      {/* <p
                                         className={`text-[#999999] text-[14px] md:text-[12px] font-semibold nunito`}
                                       >
                                         LEAD GENERATION
-                                      </p>
+                                      </p> */}
                                       <div className="flex gap-[15px] justify-between pt-[5px]">
                                         <div className="flex-[0_0_calc(90%_-_15px)] flex gap-[10px]">
                                           <div className="flex-[0_0_calc(9%_-_10px)] md:flex-[0_0_calc(27%_-_10px)]">
@@ -1250,7 +1279,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                     })}
 
                   {webinar_data.video_id && (
-                    <div>{<YouTubeVideo id={webinar_data.video_id} />}</div>
+                    <div>{<YouTubeVideo id={webinar_data.video_id} click_data={click_data} />}</div>
                   )}
 
                   {webinar_data.content_2 &&

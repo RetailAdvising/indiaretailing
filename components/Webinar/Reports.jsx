@@ -10,12 +10,12 @@ const Reports = ({data, click_data}) => {
          {
             data.map((res,i)=>(
                 <div key={i} className='border rounded-xl p-3 flex gap-4 cursor-pointer' onClick={()=> click_data(res)}>
-                   <div>
-                     <ImageLoader style={'w-full object-contain h-[90px] rounded-lg'} src={res.image} />
+                   <div className='min-w-[90px]'>
+                     <ImageLoader style={`object-cover h-[90px] w-full rounded-lg`} src={res.image} />
                    </div>
                    <div>
-                     <h2 className='uppercase text-[#E21B22] font-semibold nunito'>{res.title}</h2>
-                     <p className='text-[16px] font-normal mt-2 nunito'>{res.description}</p>
+                     <h2 className='uppercase text-[#E21B22] font-semibold nunito line-clamp-1'>{res.title}</h2>
+                     <p className='text-[16px] font-normal mt-2 nunito line-clamp-2'>{res.description}</p>
                    </div>
                 </div>
             ))

@@ -11,7 +11,7 @@ const Video = ({ data, click_data }) => {
   const router = useRouter()
   return (
     <>
-      <div className="flex mt-5 no_scroll lg:space-x-4">
+      <div className="md:flex lg:grid lg:grid-cols-4 mt-5 no_scroll gap-4">
         {data.map((res, i) => (
           <div key={i} className="min-w-[310px] md:min-w-[85%] cursor-pointer" onClick={()=> click_data(res)}>
             <div className={`${styles.img_div}`}>

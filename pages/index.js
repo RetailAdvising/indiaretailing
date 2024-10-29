@@ -86,12 +86,12 @@ export default function Home({ data }) {
 
   let [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
-    if (window.googletag) {
-      window.googletag.cmd = window.googletag.cmd || [];
-      window.googletag.cmd.push(function () {
-        window.googletag.display('div-gpt-ad-1617096742911-0');
-      });
-    }
+    // if (window.googletag) {
+    //   window.googletag.cmd = window.googletag.cmd || [];
+    //   window.googletag.cmd.push(function () {
+    //     window.googletag.display('div-gpt-ad-1617096742911-0');
+    //   });
+    // }
 
     checkIsMobile();
     get_polls()
@@ -201,7 +201,7 @@ export default function Home({ data }) {
 
   useEffect(() => {
     if (pageNo > 1 && !noProduct) {
-      console.log(pageNo,"pageNo")
+      // console.log(pageNo,"pageNo")
 
       setLoading(true);
       getPageData()
