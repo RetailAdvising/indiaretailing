@@ -140,19 +140,19 @@
   font-style: normal;
 }
 
-.play-fair{
+.play-fair {
   font-family: 'Playfair Display';
 }
 
-.josefin-sans{
+.josefin-sans {
   font-family: 'Josefin Sans';
 }
 
-.jost{
+.jost {
   font-family: 'Jost';
 }
 
-.tinos{
+.tinos {
   font-family: "Tinos", serif !important;
 }
 
@@ -975,6 +975,20 @@ input {
       // .rodal-close:after {
       //   background: #fff;
       // }
+    }
+  }
+
+  .news_detail {
+    .rodal {
+      z-index: 9999 !important;
+      .rodal-dialog {
+        // left: 876px;
+        left: 0% !important;
+        height: calc(100vh - 0px) !important;
+        padding: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+      }
     }
   }
 
@@ -2484,7 +2498,7 @@ span {
   box-shadow: -1px 1px 1px 0 #dddddd;
 }
 
-.arrow_right::before{
+.arrow_right::before {
   content: "";
   position: absolute;
   width: 0;
@@ -2687,7 +2701,7 @@ ins.adsbygoogle[data-ad-status="unfilled"] .default_ban_img {
 }
 
 .height-90 {
-   height: 90px !important;
+  height: 90px !important;
 }
 
 .height-250 {

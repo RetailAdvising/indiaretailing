@@ -6,7 +6,7 @@ import Title from '@/components/common/Title';
 import AdsBaner from '@/components/Baners/AdsBaner';
 import Advertisement from '@/components/Baners/Advertisement';
 import Subscribe from '@/components/Landing/Subscribe';
-import { checkMobile, stored_customer_info, getAdvertisements, check_Image, newsLetterLanding, newsLanding } from '@/libs/api';
+import { checkMobile, stored_customer_info, getAdvertisements, check_Image, newsLetterLanding, newsLanding, get_newsletter_by_id } from '@/libs/api';
 import SubscribeNews from '@/components/Newsletter/SubscribeNews';
 import AlertUi from '@/components/common/AlertUi';
 import SEO from '@/components/common/SEO'
@@ -15,6 +15,7 @@ import SectionBox from '@/components/Category/SectionBox';
 import CustomSlider from '@/components/Sliders/CustomSlider';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import NewsDetail from '@/components/Newsletter/NewsDetail';
 
 export default function newsletter({ ads }) {
 
@@ -126,10 +127,35 @@ export default function newsletter({ ads }) {
     }
   }
 
+  const [newsDetail,setNewsDetail] = useState(false)
+  const[detail,setDetail] = useState()
   const navigate = (res) => {
-    console.log(res)
-    const route1 = window.location.origin + ('/' + res.route.split('/')[0] + '/' + res.title + '/' + res.route.split('/')[1]) // Replace with your route
-    window.open(route1, '_blank');
+    // console.log(res)
+    if(isMobile){
+      getNewsDetail(res.name)
+    }else{
+      const route1 = window.location.origin + ('/' + res.route.split('/')[0] + '/' + res.title + '/' + res.route.split('/')[1]) // Replace with your route
+      window.open(route1, '_blank');
+    }
+  }
+
+  function hideDetail() {
+    setNewsDetail(false);
+    document.body.style.overflow="auto"
+  }
+
+  const getNewsDetail = async (id)=>{
+    let param = {
+      name: id,
+    }
+  
+    const resp = await get_newsletter_by_id(param);
+    const data = resp.message;
+    if(data.message){
+      setDetail(data)
+      setNewsDetail(true)
+      document.body.style.overflow="hidden"
+    }
   }
 
   return (
@@ -137,6 +163,7 @@ export default function newsletter({ ads }) {
 
       {enableModal && <AlertUi isOpen={enableModal} closeModal={(value) => closeModal(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
       {visible && <SubscribeNews data={news} visible={visible} hide={(obj) => hide(obj)} />}
+      {newsDetail && <NewsDetail data={detail} visible={newsDetail} hide={hideDetail} />}
       <RootLayout homeAd={ads ? ads : null} isLanding={true} head={'Newsletters'} adIdH={'news-head'} adIdF={'news-foot'}>
         {/* {!skeleton && localValue && !localValue['cust_name'] &&  */}
         <SEO title={'Newsletters'} siteName={'India Retailing'} description={'Newsletters'} />
