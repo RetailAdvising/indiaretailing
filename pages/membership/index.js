@@ -20,7 +20,7 @@ export default function Membership() {
   const [razorpay_settings, setRazorpay_settings] = useState({});
   let [isMobile, setIsmobile] = useState();
   let [subscribed_plans_length, setSubscribed_plans_length] = useState(0);
-  let [isActive,setIsActive] = useState(-1)
+  let [isActive, setIsActive] = useState(-1)
 
   useEffect(() => {
     getMembershipLanding()
@@ -47,7 +47,7 @@ export default function Membership() {
   }
 
   async function getMembershipLanding() {
-    let data = { "route": "membership", "page_no": 1, "page_size": 10}
+    let data = { "route": "membership", "page_no": 1, "page_size": 10 }
     const resp = await HomePage(data);
     // console.log(resp);
     if (resp && resp.message && resp.message.page_content && resp.message.page_content != 0) {
@@ -63,8 +63,8 @@ export default function Membership() {
 
 
   async function getMembershipData() {
-    let data = { "plan_type": btnState ? "Day" : "Year", "res_type": "member" }
-    // let data = { "plan_type": btnState ? "Month" : "Year", "res_type": "member" }
+    // let data = { "plan_type": btnState ? "Day" : "Year", "res_type": "member" }
+    let data = { "plan_type": btnState ? "Month" : "Year", "res_type": "member" }
     const resp = await get_subscription_plans(data);
     // console.log(resp);
     if (resp && resp.message && resp.message.status && resp.message.status == 'success') {
@@ -72,18 +72,18 @@ export default function Membership() {
       let datas = resp.message.message;
 
       let subscribed_plans = resp.message.subscribed_plans ? resp.message.subscribed_plans : []
-  
+
 
       if (subscribed_plans.length != 0) {
-         datas.map((res,i) => {
+        datas.map((res, i) => {
           // let check_plan = subscribed_plans.find(r => { return r.subscription_plan == res.plan_name })
 
-           if (subscribed_plans[0].subscription_plan == res.plan_name && subscribed_plans[0].status ==  "Active") {
-              // res.isActive = true;
-              setIsActive(i);
-              setSubscribed_plans_length(subscribed_plans.length);
-           }
-         })
+          if (subscribed_plans[0].subscription_plan == res.plan_name && subscribed_plans[0].status == "Active") {
+            // res.isActive = true;
+            setIsActive(i);
+            setSubscribed_plans_length(subscribed_plans.length);
+          }
+        })
 
       }
 
@@ -194,9 +194,9 @@ export default function Membership() {
       load_razorpay(obj.checked_plans.total_amount, obj.checked_plans.name, obj.name)
       setAlertMsg(obj);
       // setEnableModal(true);
-    } else if(obj && obj.status && obj.status == "failed"){
-        setAlertMsg(obj)
-        setEnableModal(true);
+    } else if (obj && obj.status && obj.status == "failed") {
+      setAlertMsg(obj)
+      setEnableModal(true);
     } else {
       // setAlertMsg(obj);
       // setEnableModal(true);
@@ -282,16 +282,16 @@ export default function Membership() {
   async function closeModal(value) {
     setEnableModal(false);
     // console.log(alertMsg)
-    if((alertMsg && alertMsg.message) && alertMsg.message.includes('Payment is pending')){
+    if ((alertMsg && alertMsg.message) && alertMsg.message.includes('Payment is pending')) {
       router.push('/profile?my_account=membership')
     }
   }
 
   async function selected_plan() {
-     if(subscribed_plans_length > 0){
+    if (subscribed_plans_length > 0) {
       setAlertMsg({ message: "Already you have one membership plan.So, you can't pick an other plans" });
       setEnableModal(true);
-     }
+    }
   }
 
 
@@ -330,7 +330,7 @@ export default function Membership() {
                 {memberShipDetails.map((membership, index) => {
                   return (
                     // ${subscribed_plans_length > 0 ? 'active_member_ship' : ''} 
-                    <div onClick={()=>selected_plan()} key={index} className={`${isActive == index ? 'cur_member_ship' : ''} ${subscribed_plans_length == 0 ? 'active_member_ship' : ''} md:mb-[20px] flex-[0_0_calc(33.333%_-_16px)] member-card lg:p-8 md:p-[15px] bg-white rounded-2xl relative`}>
+                    <div onClick={() => selected_plan()} key={index} className={`${isActive == index ? 'cur_member_ship' : ''} ${subscribed_plans_length == 0 ? 'active_member_ship' : ''} md:mb-[20px] flex-[0_0_calc(33.333%_-_16px)] member-card lg:p-8 md:p-[15px] bg-white rounded-2xl relative`}>
                       <h3 className='text-2xl font-bold'>{membership.plan_name}</h3>
 
                       {/* <div className='flex items-center gap-[3px] my-[2px] rounded-[35px] w-max p-[5px_8px] member-button'>
@@ -375,7 +375,7 @@ export default function Membership() {
                   <Benefits data={res}></Benefits>
                 </div>
               } */}
-                
+
               <Benefits data={res}></Benefits>
 
               {res.section_name == 'FAQ Style 4' && res.section_type == 'Custom Section' &&

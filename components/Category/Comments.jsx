@@ -219,10 +219,14 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
         if (element && element.value) {
             let param = { article: cur.name, comment: element.value };
             let resp = await addComment(param);
+            // console.log(resp,"resp")
             if (resp.message) {
                 // console.log(resp, "resp")
-                // toast.success("The comment will appear once it's been approved by IndiaRetailing");
-                setAlertMessage({ message: "The comment will appear once it's been approved by IndiaRetailing" })
+                toast.success("The comment will appear once it's been approved by IndiaRetailing");
+                if(hide){
+                    hide()
+                }
+                // setAlertMessage({ message: "The comment will appear once it's been approved by IndiaRetailing" })
                 setIsSuccessPopup(true)
                 setTimeout(() => {
                     if (element) element.value = '';
@@ -395,7 +399,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                         })}
                     </div>
                     {reportComment && <Modal modal={modal} show={show} visible={visible} hide={(resp_message) => hideReport(resp_message)} data={reportComment} cur={selecedComment.name} />}
-                    {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
+                    {isSuccessPopup && <AlertUi alertMsg={alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
                 </>
             }
 

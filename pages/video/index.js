@@ -10,8 +10,7 @@ import Sliders from '@/components/Sliders/index'
 import Advertisement from '@/components/Baners/Advertisement'
 
 export default function Videos({ data, ads, slider_data }) {
-  // console.log(data)
-  // console.log(ads)
+  
   const [isMobile, setIsMobile] = useState();
   const [values, setValues] = useState([])
 

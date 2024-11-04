@@ -2,14 +2,23 @@ import React from "react";
 import ImageLoader from "../ImageLoader";
 import { domain } from "@/libs/config/siteConfig";
 
-const Banner = ({ data, click_data }) => {
+const Banner = ({ data, click_data , isMobile }) => {
+  
+  const backgroundImage = isMobile
+    ? data.mobile_banner
+      ? `https://${domain}${data.mobile_banner.replace(/ /g, "%20")}`
+      : "/no-image.jpg"
+    : data.banner_image
+      ? `https://${domain}${data.banner_image.replace(/ /g, "%20")}`
+      : "/no-image.jpg";
+  
   return (
     <>
       <div
         style={{
-          backgroundImage: `url(${data.banner_image ? `https://${domain}${data.banner_image.replace(/ /g, "%20")}` : '/no-image.jpg'})`,
+          backgroundImage: `url(${backgroundImage})`,
         }}
-        className={`lg:px-[15px] px-5 py-5 lg:py-10 flex flex-col bg-cover bg-no-repeat justify-start`}
+        className={`lg:px-[15px] px-5 py-5 lg:py-10 flex flex-col bg-center bg-cover bg-no-repeat justify-start`}
       >
         <div className="container mx-auto">
           {/* Brand Logos */}
@@ -37,7 +46,7 @@ const Banner = ({ data, click_data }) => {
           {/* Banner Titles */}
           <div className="mt-3 lg:mt-2 text-left nunito">
             {data.banner_title && (
-              <h1 className="text-[20px]] lg:text-5xl font-bold text-white">
+              <h1 className="md:text-[20px] lg:text-5xl font-bold text-white">
                 {data.banner_title}
               </h1>
             )}

@@ -303,14 +303,14 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
             <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
               <SessionProvider session={session}>
                 <main className={` ${inter.className} md:max-h-[100vh] md:overflow-auto`} id='scroll_div' >
-                  <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>
+                  {router.pathname != "/p/[...route]" && <div className='lg:hidden'><MobileHead getActiveTab={getActiveTab} activeTab={activeTab} /></div>}
                   {/* <Header/> */}
                   <ToastContainer position={'bottom-right'} autoClose={2000} />
                   <Component {...pageProps} />
                   <ScrollToTopButton />
-                  <div className='lg:hidden'>
+                 {router.pathname != "/p/[...route]" && <div className='lg:hidden'>
                     <BottomTabs getActiveTab={getActiveTab} activeTab={activeTab} />
-                  </div>
+                  </div>}
                 </main>
               </SessionProvider>
             </GoogleOAuthProvider>

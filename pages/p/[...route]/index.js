@@ -55,7 +55,7 @@ const inter = Inter({
 const index = ({ page_route, ads, webinar_data, category_route }) => {
   // const index = ({ data, page_route, ads }) => {
   // console.log(category_route, "category_route");
-  // console.log(webinar_data, "webinar_data");
+   console.log(webinar_data, "webinar_data");
 
   const [webinarLimit, setWebinarLimit] = useState(false);
   const [leadLimit, setLeadLimit] = useState(false);
@@ -67,7 +67,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
   useEffect(() => {
     checkIsMobile();
-   
+
     window.addEventListener('resize', checkIsMobile)
     return () => {
       window.removeEventListener('resize', checkIsMobile);
@@ -80,6 +80,15 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
     isMobile = is_mobile
     setIsMobile(isMobile);
   }
+
+
+  const bottomBackgroundImage = isMobile
+    ? webinar_data.bottom_mobile_banner
+      ? `https://${domain}${webinar_data.bottom_mobile_banner.replace(/ /g, "%20")}`
+      : "/no-image.jpg"
+    : webinar_data.bottom_banner_image
+      ? `https://${domain}${webinar_data.bottom_banner_image.replace(/ /g, "%20")}`
+      : "/no-image.jpg";
 
   const icons = [
     { icon: "/bookstore/linkedin.svg", name: "Linkedin" },
@@ -141,44 +150,84 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
   const click_data = (data, type) => {
     // console.log(data, "data");
 
+    // if (type == "register") {
+    //   showRegister();
+    // } else if (type === "white-paper") {
+    //   if (!webinar_data.is_registration_required) {
+    //     const newTab = window.open(
+    //       `https://${domain}${data.route}`,
+    //       "_blank"
+    //     );
+    //     newTab.focus();
+    //   } else {
+    //     showRegister();
+    //   }
+    // } else if (type === "video") {
+    //   if (!webinar_data.is_registration_required) {
+    //     const newTab = window.open(
+    //       `https://www.youtube.com/watch?v=${data}`,
+    //       "_blank"
+    //     );
+    //     newTab.focus();
+    //   } else {
+    //     showRegister();
+    //   }
+    // } else {
+    //   if (data.route) {
+    //     let route = type == "article" ? "/" + data.route : "/p/" + data.route;
+    //     if (
+    //       category_route == "featured-content" ||
+    //       category_route == "web-special-list"
+    //     ) {
+    //       router.push(route);
+    //     } else {
+    //       if (!webinar_data.is_registration_required) {
+    //         if(data.route.indexOf('https') == -1){
+    //           router.push(route);
+    //         }else{
+    //           // router.push(data.route);
+    //           const newTab = window.open(
+    //             data.route,
+    //             "_blank"
+    //           );
+    //           newTab.focus();
+    //         }
+    //       } else {
+    //         showRegister();
+    //       }
+    //     }
+    //   }
+    // }
+
+
     if (type == "register") {
       showRegister();
-    } else if (type === "white-paper") {
-      if (!webinar_data.is_registration_required) {
-        const newTab = window.open(
-          `https://${domain}${data.route}`,
-          "_blank"
-        );
-        newTab.focus();
-      } else {
-        showRegister();
-      }
-    }else if(type=== "video"){
-      if (!webinar_data.is_registration_required) {
-        const newTab = window.open(
-          `https://www.youtube.com/watch?v=${data}`,
-          "_blank"
-        );
-        newTab.focus();
-      } else {
-        showRegister();
-      }
     } else {
-      if (data.route) {
-        let route = type == "article" ? "/" + data.route : "/p/" + data.route;
-        if (
-          category_route == "featured-content" ||
-          category_route == "web-special-list"
-        ) {
+      if (!webinar_data.is_registration_required) {
+        let route = type === "white-paper" ? `https://${domain}${data.route}` : type === "video" ? `https://www.youtube.com/watch?v=${data}` : type == "article" ? "/" + data.route : "/p/" + data.route
+        if (type === "video") {
+          const newTab = window.open(
+            route,
+            "_blank"
+          );
+          newTab.focus();
+        } else if (category_route == "featured-content" || category_route == "web-special-list") {
           router.push(route);
         } else {
-          if (!webinar_data.is_registration_required) {
+          if (data.route.indexOf('https') == -1) {
             router.push(route);
           } else {
-            showRegister();
+            const newTab = window.open(
+              data.route,
+              "_blank"
+            );
+            newTab.focus();
           }
         }
+      } else {
+        showRegister();
       }
+
     }
   };
   const [activeIndex, setActiveIndex] = useState(0);
@@ -230,7 +279,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const updateShare = (data) => {};
+  const updateShare = (data) => { };
 
   // console.log("wd", webinar_data.banner_image);
 
@@ -257,8 +306,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           <Head>
             <title key="title">
               {category_route == "featured-content" &&
-              webinar_data.message &&
-              webinar_data.message.article_detail
+                webinar_data.message &&
+                webinar_data.message.article_detail
                 ? webinar_data.message.article_detail[0]["title"]
                 : webinar_data?.meta_title}
             </title>
@@ -266,8 +315,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               name="description"
               content={
                 category_route == "featured-content" &&
-                webinar_data.message &&
-                webinar_data.message.article_detail
+                  webinar_data.message &&
+                  webinar_data.message.article_detail
                   ? webinar_data.message.article_detail[0]["blog_intro"]
                   : webinar_data?.meta_description
               }
@@ -282,8 +331,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               property="og:title"
               content={
                 category_route == "featured-content" &&
-                webinar_data.message &&
-                webinar_data.message.article_detail
+                  webinar_data.message &&
+                  webinar_data.message.article_detail
                   ? webinar_data.message.article_detail[0]["title"]
                   : webinar_data?.meta_title
               }
@@ -292,8 +341,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               property="og:description"
               content={
                 category_route == "featured-content" &&
-                webinar_data.message &&
-                webinar_data.message.article_detail
+                  webinar_data.message &&
+                  webinar_data.message.article_detail
                   ? webinar_data.message.article_detail[0]["blog_intro"]
                   : webinar_data?.meta_description
               }
@@ -312,19 +361,18 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   webinar_data.message.article_detail
                   ? webinar_data.message.article_detail[0]["thumbnail_imagee"]
                   : webinar_data.meta_image
-                  ? webinar_data.meta_image
-                  : webinar_data.thumbnail_imagee
+                    ? webinar_data.meta_image
+                    : webinar_data.thumbnail_imagee
               )}
             />
             <meta
               property="og:image:alt"
-              content={`${
-                category_route == "featured-content" &&
+              content={`${category_route == "featured-content" &&
                 webinar_data.message &&
                 webinar_data.message.article_detail
-                  ? webinar_data.message.article_detail[0]["title"]
-                  : webinar_data?.title
-              } | ${"IndiaRetailing"}`}
+                ? webinar_data.message.article_detail[0]["title"]
+                : webinar_data?.title
+                } | ${"IndiaRetailing"}`}
             />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
@@ -348,8 +396,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               property="twitter:title"
               content={
                 category_route == "featured-content" &&
-                webinar_data.message &&
-                webinar_data.message.article_detail
+                  webinar_data.message &&
+                  webinar_data.message.article_detail
                   ? webinar_data.message.article_detail[0]["title"]
                   : webinar_data?.title
               }
@@ -358,8 +406,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               property="twitter:description"
               content={
                 category_route == "featured-content" &&
-                webinar_data.message &&
-                webinar_data.message.article_detail
+                  webinar_data.message &&
+                  webinar_data.message.article_detail
                   ? webinar_data.message.article_detail[0]["blog_intro"]
                   : webinar_data?.meta_description
               }
@@ -597,7 +645,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                 data={{ title: "Lead Generation" }}
                                 isIcon={true}
                                 see={`uppercase !font-semibold !text-[#e21b22]`}
-                                // seeMore={true}
+                              // seeMore={true}
                               />
 
                               {webinar_data.message.lead_data.length > 3 && (
@@ -630,9 +678,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                 .map((resp, index) => {
                                   return (
                                     <div
-                                      className={`border-b border-b-[#e9e9e9] ${
-                                        index == 0 ? "pb-[10px]" : "py-[10px]"
-                                      } cursor-pointer`}
+                                      className={`border-b border-b-[#e9e9e9] ${index == 0 ? "pb-[10px]" : "py-[10px]"
+                                        } cursor-pointer`}
                                       onClick={() =>
                                         click_data(resp, "lead_data")
                                       }
@@ -644,11 +691,11 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                         LEAD GENERATION
                                       </p> */}
                                       <div className="flex gap-[15px] justify-between pt-[5px]">
-                                        <div className="flex-[0_0_calc(90%_-_15px)] flex gap-[10px]">
+                                        <div className="flex-[0_0_calc(90%_-_15px)] flex gap-[10px] items-center">
                                           <div className="flex-[0_0_calc(9%_-_10px)] md:flex-[0_0_calc(27%_-_10px)]">
                                             <ImageLoader
                                               style={`rounded-[5px] h-[65px] md:h-[65px] w-full`}
-                                              src={resp.image}
+                                              src={resp.image ? resp.image : resp.meta_image}
                                               title={resp.title}
                                             />
                                           </div>
@@ -711,17 +758,21 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                 see={`uppercase !font-semibold !text-[#e21b22]`}
                               />
 
-                              {webinar_data.message.brand_profile_data.length >
-                                4 && (
+                            {webinar_data.message.brand_profile_data.length > 4 && (
                                 <button
-                                  className="mb-4 text-[14px]"
-                                  onClick={() =>
-                                    setBrandProfileLimit(!brandProfileLimit)
-                                  }
+                                  className="mb-4 flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
+                                  onClick={() => setBrandProfileLimit(!brandProfileLimit)}
                                 >
-                                  {brandProfileLimit
-                                    ? "View Less"
-                                    : "View More"}
+                                  <p className={`nunito font-medium`}>
+                                    View {brandProfileLimit ? "Less" : "More"}
+                                  </p>
+                                  <Image
+                                    className="h-[11px] w-[5px] object-contain"
+                                    src="/forwardIcon.svg"
+                                    height={5}
+                                    width={5}
+                                    alt="View All"
+                                  />
                                 </button>
                               )}
                             </div>
@@ -732,7 +783,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                   0,
                                   brandProfileLimit
                                     ? webinar_data.message.brand_profile_data
-                                        .length
+                                      .length
                                     : 4
                                 )
                                 .map((resp) => {
@@ -782,18 +833,24 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                 data={{ title: "Case Studies" }}
                                 isIcon={true}
                                 see={`uppercase !font-semibold !text-[#e21b22]`}
-                                // seeMore={true}
+                              // seeMore={true}
                               />
 
-                              {webinar_data.message.case_studies_data.length >
-                                3 && (
+                            {webinar_data.message.case_studies_data.length > 3 && (
                                 <button
-                                  className="mb-4 text-[14px]"
-                                  onClick={() =>
-                                    setCaseStudiesLimit(!caseStudiesLimit)
-                                  }
+                                  className="mb-4 flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
+                                  onClick={() => setCaseStudiesLimit(!caseStudiesLimit)}
                                 >
-                                  {caseStudiesLimit ? "View Less" : "View More"}
+                                  <p className={`nunito font-medium`}>
+                                    View {caseStudiesLimit ? "Less" : "More"}
+                                  </p>
+                                  <Image
+                                    className="h-[11px] w-[5px] object-contain"
+                                    src="/forwardIcon.svg"
+                                    height={5}
+                                    width={5}
+                                    alt="View All"
+                                  />
                                 </button>
                               )}
                             </div>
@@ -804,7 +861,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                   0,
                                   caseStudiesLimit
                                     ? webinar_data.message.case_studies_data
-                                        .length
+                                      .length
                                     : 3
                                 )
                                 .map((resp) => {
@@ -857,22 +914,24 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                 data={{ title: "Featured Content" }}
                                 isIcon={true}
                                 see={`uppercase !font-semibold !text-[#e21b22]`}
-                                // seeMore={true}
+                              // seeMore={true}
                               />
 
-                              {webinar_data.message.featured_content_data
-                                .length > 4 && (
+                            {webinar_data.message.featured_content_data.length > 4 && (
                                 <button
-                                  className="mb-4 text-[14px]"
-                                  onClick={() =>
-                                    setFeaturedContentLimit(
-                                      !featuredContentLimit
-                                    )
-                                  }
+                                  className="mb-4 flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
+                                  onClick={() => setFeaturedContentLimit(!featuredContentLimit)}
                                 >
-                                  {featuredContentLimit
-                                    ? "View Less"
-                                    : "View More"}
+                                  <p className={`nunito font-medium`}>
+                                    View {featuredContentLimit ? "Less" : "More"}
+                                  </p>
+                                  <Image
+                                    className="h-[11px] w-[5px] object-contain"
+                                    src="/forwardIcon.svg"
+                                    height={5}
+                                    width={5}
+                                    alt="View All"
+                                  />
                                 </button>
                               )}
                             </div>
@@ -884,7 +943,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                 0,
                                 featuredContentLimit
                                   ? webinar_data.message.featured_content_data
-                                      .length
+                                    .length
                                   : 4
                               )}
                             />
@@ -902,7 +961,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
           <>
             <div>
               {/*Tob Banner */}
-              <Banner data={webinar_data} click_data={click_data} />
+              <Banner data={webinar_data} click_data={click_data} isMobile={isMobile} />
 
               {/*Webinar Details */}
               <div className="py-[20px] container md:p-[15px] md:py-[10px]">
@@ -1019,14 +1078,14 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 {
                   <div
                     style={{
-                      backgroundImage: `url(${
-                        webinar_data.bottom_banner_image
-                          ? `https://${domain}${webinar_data.bottom_banner_image.replace(
-                              / /g,
-                              "%20"
-                            )}`
-                          : "/no-image.jpg"
-                      })`,
+                      // backgroundImage: `url(${webinar_data.bottom_banner_image
+                      //   ? `https://${domain}${webinar_data.bottom_banner_image.replace(
+                      //     / /g,
+                      //     "%20"
+                      //   )}`
+                      //   : "/no-image.jpg"
+                      //   })`,
+                      backgroundImage: `url(${bottomBackgroundImage})`,
                     }}
                     className="p-5 md:p-8 lg:p-10 flex flex-col my-5 bg-cover bg-center"
                   >
@@ -1068,7 +1127,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
         {/* Lead Generation */}
         {category_route == "lead-generation" && webinar_data && (
           <>
-            <Banner data={webinar_data} click_data={click_data} />
+            <Banner data={webinar_data} click_data={click_data} isMobile={isMobile} />
             <div className="py-[20px] container md:p-[15px] md:py-[10px]">
               <div className="py-[20px]">
                 <BrandDetails
@@ -1154,7 +1213,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
         {/* brand Profile */}
         {category_route == "brand-profile" && webinar_data && (
           <>
-            <Banner data={webinar_data} click_data={click_data} />
+            <Banner data={webinar_data} click_data={click_data} isMobile={isMobile} />
 
             <div className="py-[20px] container md:p-[15px] md:py-[10px]">
               <div className="py-[20px]">
@@ -1229,7 +1288,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   click_data={click_data}
                   article={true}
                   cols={"grid-cols-5 md:grid-cols-2"}
-                  webinar_data={webinar_data.articles}
+                  webinar_data={webinar_data.articles_detail}
                 />
               </div>
 
@@ -1246,7 +1305,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
         {/* Case Study */}
         {category_route == "case-studies" && webinar_data && (
           <>
-            <Banner data={webinar_data} click_data={click_data} />
+            <Banner data={webinar_data} click_data={click_data} isMobile={isMobile} />
 
             <div className="py-[20px] container md:p-[15px] md:py-[10px]">
               <div className="py-[20px]">
@@ -1304,7 +1363,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   click_data={click_data}
                   article={true}
                   cols={"grid-cols-5 md:grid-cols-2"}
-                  webinar_data={webinar_data.articles}
+                  webinar_data={webinar_data.articles_detail}
                 />
               </div>
 
@@ -1333,7 +1392,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                           webinar_data.message.article_detail[0].image
                             ? webinar_data.message.article_detail[0].image
                             : webinar_data.message.article_detail[0]
-                                .thumbnail_image
+                              .thumbnail_image
                         }
                         title={webinar_data.message.article_detail[0]["title"]}
                       />
@@ -1367,8 +1426,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                         priority={true}
                                         src={
                                           r.avatar &&
-                                          r.avatar != "" &&
-                                          r.avatar != ""
+                                            r.avatar != "" &&
+                                            r.avatar != ""
                                             ? check_Image(r.avatar)
                                             : "/profit.svg"
                                         }
@@ -1396,14 +1455,14 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                               {webinar_data.message
                                                 .article_detail[0].views
                                                 ? webinar_data.message
-                                                    .article_detail[0].views
+                                                  .article_detail[0].views
                                                 : webinar_data.message
+                                                  .article_detail[0]
+                                                  .no_of_views
+                                                  ? webinar_data.message
                                                     .article_detail[0]
                                                     .no_of_views
-                                                ? webinar_data.message
-                                                    .article_detail[0]
-                                                    .no_of_views
-                                                : 1}{" "}
+                                                  : 1}{" "}
                                               Views
                                             </span>
                                           </div>
@@ -1450,6 +1509,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                   noBg={true}
                                   updateShare={(data) => updateShare(data)}
                                   share={true}
+                                  copy_link={true}
                                   link={webinar_data.message.article_detail[0]}
                                   type={"articles"}
                                   width={"w-[170px]"}
@@ -1473,10 +1533,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                               {webinar_data.message.article_detail[0].views
                                 ? webinar_data.message.article_detail[0].views
                                 : webinar_data.message.article_detail[0]
+                                  .no_of_views
+                                  ? webinar_data.message.article_detail[0]
                                     .no_of_views
-                                ? webinar_data.message.article_detail[0]
-                                    .no_of_views
-                                : 1}{" "}
+                                  : 1}{" "}
                               Views
                             </span>
                           </div>
@@ -1533,11 +1593,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                               >
                                 {res.name == "fb" ? (
                                   <FacebookShareButton
-                                    url={`${
-                                      websiteUrl +
+                                    url={`${websiteUrl +
                                       webinar_data.message.article_detail[0]
                                         .route
-                                    }`}
+                                      }`}
                                   >
                                     <div
                                       key={index}
@@ -1553,11 +1612,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                   </FacebookShareButton>
                                 ) : res.name == "ws" ? (
                                   <WhatsappShareButton
-                                    url={`${
-                                      websiteUrl +
+                                    url={`${websiteUrl +
                                       webinar_data.message.article_detail[0]
                                         .route
-                                    }`}
+                                      }`}
                                   >
                                     <div
                                       key={index}
@@ -1573,11 +1631,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                   </WhatsappShareButton>
                                 ) : res.name == "linkedin" ? (
                                   <LinkedinShareButton
-                                    url={`${
-                                      websiteUrl +
+                                    url={`${websiteUrl +
                                       webinar_data.message.article_detail[0]
                                         .route
-                                    }`}
+                                      }`}
                                   >
                                     <div
                                       key={index}
@@ -1593,11 +1650,10 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                   </LinkedinShareButton>
                                 ) : res.name == "twitter" ? (
                                   <TwitterShareButton
-                                    url={`${
-                                      websiteUrl +
+                                    url={`${websiteUrl +
                                       webinar_data.message.article_detail[0]
                                         .route
-                                    }`}
+                                      }`}
                                   >
                                     <div
                                       key={index}
@@ -1618,6 +1674,25 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                         </div>
                       </div>
 
+                      {webinar_data.message.featured_content_data &&
+                        webinar_data.message.featured_content_data.length >
+                        0 && (
+                          <>
+                            <div className="py-[20px]">
+                              <Title data={{ title: "Featured Content" }} />
+
+                              <FeaturedContent
+                                click_data={click_data}
+                                cols={"grid-cols-5 md:grid-cols-2"}
+                                webinar_data={webinar_data.message.featured_content_data.slice(
+                                  0,
+                                  5
+                                )}
+                              />
+                            </div>
+                          </>
+                        )}
+
                       {webinar_data.message.other_articles_data &&
                         webinar_data.message.other_articles_data.length > 0 && (
                           <>
@@ -1637,24 +1712,6 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                           </>
                         )}
 
-                      {webinar_data.message.featured_content_data &&
-                        webinar_data.message.featured_content_data.length >
-                          0 && (
-                          <>
-                            <div className="py-[20px]">
-                              <Title data={{ title: "Featured Content" }} />
-
-                              <FeaturedContent
-                                click_data={click_data}
-                                cols={"grid-cols-5 md:grid-cols-2"}
-                                webinar_data={webinar_data.message.featured_content_data.slice(
-                                  0,
-                                  5
-                                )}
-                              />
-                            </div>
-                          </>
-                        )}
 
                       {webinar_data.is_connect_now_required == 1 && (
                         <div className="py-5">

@@ -45,13 +45,17 @@ export default function Header({ checkout }) {
 
     useEffect(() => {
         // console.log(user)
-        if (typeof window !== 'undefined') {
+        if (typeof window !== 'undefined' && localStorage['apikey']) {
             roles()
             let data = stored_customer_info();
             // console.log(data)
             // dispatch(setUser(s => s['message']['user_id'] = data.user_id))
-            localStorage['apikey'] ? setValid(!valid) : null;
+            localStorage['apikey'] ? setValid(false) : null;
             // roleMember();
+        }else{
+            dispatch(setUser(null))
+            dispatch(setRole(null))
+            localStorage.clear();
         }
 
         getWithExpiry('api')
@@ -191,10 +195,10 @@ export default function Header({ checkout }) {
             // If the item is expired, delete the item from storage
             // and return null
             // localStorage.removeItem(key)
-            dispatch(setUser(''))
-            dispatch(setRole(''))
+            dispatch(setUser(null))
+            dispatch(setRole(null))
             localStorage.clear();
-            setValid(!valid);
+            setValid(true);
             // setLoader(true);
             return null
         }
@@ -322,13 +326,16 @@ export default function Header({ checkout }) {
                         {loader &&
                             <>
                             {/* !valid && (!user || user != '') */}
+                            {/* <p>user: {JSON.stringify(user)}</p>
+                            <p>role: {JSON.stringify(role)}</p> */}
                                 {!role ?
-                                    <div className={`flex items-center justify-end gap-3 ${!valid ? '' : 'hidden'}`}>
+                                    <div className={`flex items-center justify-end gap-3 `}>
+                                        
                                         <button type='button' onClick={() => router.push('/membership')} className={`${styles.btn_sub} nunito`}>{head.btn1}</button>
                                         <button type='button' id='sign-in' onClick={show} className={`${styles.btn_sig} nunito`}>{head.btn2}</button>
                                     </div>
                                     :
-                                    <div className='flex justify-end'>
+                                    <div className={`flex justify-end ${valid ? 'hidden' : ''}`}>
                                         {/* ((user) || (localStorage && localStorage['userid'])) */}
                                         {((user) || role) && <div onClick={myAccounts} className='flex cursor-pointer items-center gap-[10px]'>
                                             <Image src={'/Navbar/profile.svg'} className={`cursor-pointer  h-[30px] w-[30px] `} height={30} width={30} alt='profile' />

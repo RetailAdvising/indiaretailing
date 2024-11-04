@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import { check_Image, parseISO8601Duration } from '../../libs/api';
+import { check_Image, getVideoDuration, parseISO8601Duration } from '../../libs/api';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ImageLoader from '../ImageLoader';
@@ -37,6 +37,28 @@ export default function VideoSlide({ data, cardClass, imgClass, slider_id, slide
         const sliderWidth = slider.clientWidth;
         slider.scrollLeft += direction === 'next' ? sliderWidth : -sliderWidth;
     };
+
+    const get_durations = async (id) => {
+        let val =  await getVideoDuration(id)
+        return await (val && val.duration) ? val.duration : '00:00'
+    }
+
+    const [durations, setDurations] = useState({});
+
+  useEffect(() => {
+    const fetchDurations = async () => {
+      const durationsObj = {};
+      for (const item of data) {
+        const val = await get_durations(item.video_id);
+        durationsObj[item.video_id] = val;
+      }
+      setDurations(durationsObj);
+    };
+
+    if (data) {
+      fetchDurations();
+    }
+  }, [data]);
 
     return (
         <>
@@ -82,7 +104,7 @@ export default function VideoSlide({ data, cardClass, imgClass, slider_id, slide
                                             alt={res.title}
                                         />
                                         <p className="text-white text-[11px] font-[500]">
-                                            {parseISO8601Duration(res.duration || 'PT71M34S')}
+                                            {durations[res.video_id]}
                                         </p>
                                     </div>
                                 </div>

@@ -1,4 +1,4 @@
-import { domain, website } from "./config/siteConfig"
+import { domain, website, YOUTUBE_API_KEY } from "./config/siteConfig"
 // const methodUrl = `http://${domain}/api/method/`;
 const methodUrl = `https://${domain}/api/method/`;
 const resourceUrl = `https://${domain}/api/resource/`;
@@ -258,7 +258,7 @@ export async function postMethod(api, payload) {
                 console.log("Unexpected error:", error.name, error.message);
             }
         });
-    console.error("Unauthorized: ", response);
+    // console.error("Unauthorized: ", response);
 
     if (response && response.status === 401) {
         console.error("Unauthorized: ", response);
@@ -834,15 +834,50 @@ export async function newsletter_category_list(data) {
     return await GET_Resource(api)
 }
 
-export async function get_web_special_detail(data){
-   let api = domainUrl + 'get_web_special_detail';
-   return await postMethod(api, data);
+export async function get_web_special_detail(data) {
+    let api = domainUrl + 'get_web_special_detail';
+    return await postMethod(api, data);
 }
 
-export async function insert_web_special_registration(data){
+export async function insert_web_special_registration(data) {
     let api = domainUrl + 'insert_web_special_registration';
     return await postMethod(api, data);
- }
+}
+
+export async function check_authorization(data) {
+
+    const post_method = async (api, payload) => {
+        const myHead = new Headers({ "Content-Type": "application/json" })
+        // const myHead = new Headers()
+        // myHead.append('Content-Type', 'application/json');
+        const response = await fetch(methodUrl + api,
+            // cache: 'force-cache'
+            { method: 'POST', headers: myHead, body: JSON.stringify(payload), }).catch(error => {
+                // console.error("Fetch failed:", error);
+                console.error("Fetch error object:", error);
+
+                // Check if it's a TypeError, which often happens with network issues
+                if (error instanceof TypeError) {
+                    console.log("Network error or CORS issue:", error.message);
+                } else {
+                    // For other types of errors, log more details
+                    console.log("Unexpected error:", error.name, error.message);
+                }
+            });
+        // console.error("Unauthorized: ", response);
+
+        if (response && response.status === 401) {
+            console.error("Unauthorized: ", response);
+            localStorage.clear();
+        }
+        const data = await response?.json();
+        return data;
+    }
+
+
+    let api = domainUrl + 'check_authorization';
+    return await post_method(api, data);
+}
 
 export const checkMember = (data) => {
     if (data && data.length != 0) {
@@ -894,3 +929,45 @@ export const parseISO8601Duration = (duration) => {
     // Convert to a readable format: HH:MM:SS
     return `${hours ? hours + ':' : ''}${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };
+
+
+export const parseDuration = (isoDuration) => {
+    const match = isoDuration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    const hours = parseInt(match[1], 10) || 0;
+    const minutes = parseInt(match[2], 10) || 0;
+    const seconds = parseInt(match[3], 10) || 0;
+
+    const formattedMinutes =
+      hours > 0
+        ? `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+            2,
+            "0"
+          )}`
+        : String(minutes).padStart(2, "0");
+    const formattedSeconds = String(seconds).padStart(2, "0");
+
+    return hours > 0
+      ? `${formattedMinutes}:${formattedSeconds} Hours`
+      : `${formattedMinutes}:${formattedSeconds} Minutes`;
+  };
+
+
+export const getVideoDuration = async (id) => {
+    const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${YOUTUBE_API_KEY}&part=snippet,contentDetails`;
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+
+    if (data.items) {
+        const videoData = data.items[0];
+
+        let details = {
+            title: videoData.snippet.title,
+            description: videoData.snippet.description,
+            duration: parseDuration(videoData.contentDetails.duration),
+            thumbnail: videoData.snippet.thumbnails.high.url,
+            channelTitle: videoData.snippet.channelTitle,
+        };
+
+        return await details
+    }
+}

@@ -25,7 +25,6 @@ const Form = () => {
     let curRoute = router.asPath.split('/')[2] + "/" + router.asPath.split('/')[3]
     const res = await insert_web_special_registration({...data,from_page: curRoute});
     if(res.status === "Success"){
-        console.log("Success");
         toast.success(res.message.message)
         reset();
     }else{

@@ -387,7 +387,7 @@ export default function Home({ data }) {
                             <div className={`flex items-center gap-[20px] md:overflow-auto lg:flex-wrap scrollbar-hide md:gap-[15px]`}>
                               {data.data[c.cid].data.map((resp, index) => {
                                 return (
-                                  <div className={`flex-[0_0_calc(50%_-_15px)] md:flex-[0_0_calc(100%_-_10px)] gap-[15px] flex items-center bg-white rounded-[10px] p-[10px] relative cursor-pointer`} onClick={() => router.push(resp.route)} key={resp.route}>
+                                  <div className={`flex-[0_0_calc(50%_-_15px)] md:flex-[0_0_calc(90%_-_10px)] gap-[15px] flex items-center bg-white rounded-[10px] p-[10px] relative cursor-pointer`} onClick={() => router.push(resp.route)} key={resp.route}>
                                     <div className='lg:flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(40%_-_10px)]'>
                                       {/* <Image src={check_Image(resp['image'])} className='h-[250px] md:h-[150px] w-full rounded-[10px]' height={100} width={100} alt={resp.url}></Image> */}
                                       <ImageLoader style={`rounded-[5px] h-[106px] md:h-[80px] w-full`} src={resp.thumbnail_imagee} title={resp.title} />

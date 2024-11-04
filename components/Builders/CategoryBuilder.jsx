@@ -610,7 +610,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   //   };
 
   // }, [])
-console.log('detail', data);
+// console.log('detail', data);
 
 
   return (

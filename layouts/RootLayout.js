@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState, useMemo } from 'react'
-import { websiteSettings, get_article_breadcrumb, get_subscription_plans, get_customer_info, checkMobile } from '@/libs/api'
+import { websiteSettings, get_article_breadcrumb, get_subscription_plans, get_customer_info, checkMobile, check_authorization } from '@/libs/api'
 import MobileHead from '@/components/Headers//MobileHead';
 import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
@@ -21,6 +21,8 @@ const SubscriptionAlert = dynamic(() => import('@/components/common/Subscription
 const ModPopup = dynamic(() => import('@/components/Category/ModPopup'))
 import { useDispatch, useSelector } from 'react-redux';
 import AlertUi from '@/components/common/AlertUi'
+import setRole from 'redux/actions/roleAction'
+import setUser from 'redux/actions/userAction'
 // import { Nunito } from 'next/font/google'
 // const nunito = Nunito({
 //   weight: ["300", "400", "500", "600", "700"],
@@ -56,7 +58,9 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
 
     let ads = document.getElementById('ads')
     get_website_settings()
-
+    if(typeof window !== "undefined" && localStorage['apikey']){
+      checkSession()
+    }
     // ads.classList.remove('hidden')
   }, [])
 
@@ -248,12 +252,32 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     isMobile = is_mobile
     setIsMobile(isMobile);
   }
+
+  const dispatch = useDispatch()
+
+  const checkSession = async () => {
+    let params = {
+      api_key: localStorage['apikey']
+    };
+
+    const resp = await check_authorization(params);
+    const data = resp.message;
+    if(data.status && data.status != "Success"){
+      logout()
+    }
+  }
+
+  const logout = () => {
+    localStorage.clear();
+    dispatch(setRole(null))
+    dispatch(setUser(null))
+  }
   // console.log(router,"router")
   return (
     <>
       {/* <SEO /> */}
       {/* {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>} */}
-      {router.pathname != "/p/[...route]" && (!checkout || is_detail) && <div className="lg:grid md:overflow-hidden lg:justify-center"><Advertisement adId={adIdH} data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"}  /></div>}
+      {router.pathname != "/p/[...route]" && (!checkout || is_detail) && <div className="lg:grid md:overflow-hidden lg:justify-center"><Advertisement adId={adIdH} data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} /></div>}
       {/* <PdfViewer/> */}
       <>
         {router.pathname != "/p/[...route]" && <Header checkout={checkout} />}
