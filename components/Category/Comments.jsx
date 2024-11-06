@@ -256,7 +256,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
         el?.addEventListener('scroll', ($event) => {
             console.log($event)
             if ($event.target.scrollTop + $event.target.offsetHeight >= $event.target.scrollHeight) {
-                console.log('pagination.....')
+                // console.log('pagination.....')
                 // if (!no_product) {
                 //     // console.log('scroll')
                 //     page_no > 1 ? get_list() : null

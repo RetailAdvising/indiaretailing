@@ -124,7 +124,7 @@ export default function SignUp({ isModal, hide, auth }) {
                 localStorage['customer_id'] = val.message.customer_id;
                 localStorage['full_name'] = val.full_name;
                 localStorage['company'] = "true"
-                
+                localStorage['CustomerPwd'] = data.new_password
                 // checkMember(val.message.roles)
                 localStorage['roles'] = JSON.stringify(val.message.roles)
                 dispatch(setUser(val))

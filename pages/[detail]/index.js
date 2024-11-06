@@ -68,7 +68,8 @@ export default function Details({ data, page_route }) {
         values.push(data)
         setValues(values)
         setPrev(route ? route : page_route)
-        if (data.is_member == 0) {
+        if (!data.is_member && data.ir_prime == 1) {
+          // if (data.is_member == 0) {
           getMembershipPlans();
         }
       }

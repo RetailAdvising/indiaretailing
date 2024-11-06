@@ -67,7 +67,7 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
     const cancel = async (type) => {
         sub = type
         setSub(sub)
-        if(type == 'no'){
+        if (type == 'no') {
             hide()
         }
     }
@@ -157,7 +157,7 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
                                 </div>
                             </div> */}
                             {(comments && !noData) ?
-                            // commentPopup
+                                // commentPopup
                                 <div className=' '>
                                     <Comments isModal={true} hide={hide} updatedCmt={(cmt, route, index) => updatedCmt(cmt, route, index)} cur={cur} load={loadMore} route={route} data={comments} />
                                 </div>
@@ -172,47 +172,50 @@ export default function Modal({ modal, hide, visible, data, cur, comments, route
                             }
                         </Rodal>
                             : modal == 'report' ?
-                                <Rodal visible={visible} animation='slideUp' onClose={hide} className='h-[70%]'>
-                                    <h3 className='text-[18px] font-bold md:p-[10px] pb-[0px]'>Report Comment </h3>
-                                    {errors?.report && <p className={`${styles.danger}`}>{errors.report.message}</p>}
+                                <div className='report_popup'>
 
-                                    <form onSubmit={handleSubmit((form_data) => check(form_data))} autoComplete='off'>
-                                        {
-                                            data && data.map(rc => {
-                                                return (
+                                    <Rodal visible={visible} animation='slideUp' onClose={hide} className='h-[70%]'>
+                                        <h3 className='text-[18px] font-bold md:p-[10px] pb-[0px]'>Report Comment </h3>
+                                        {errors?.report && <p className={`${styles.danger}`}>{errors.report.message}</p>}
 
-                                                    <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
-                                                        <label htmlFor={rc.name} className='w-full cursor-pointer '>
-                                                            <input
-                                                                type="radio"
-                                                                className='mr-[8px] cursor-pointer'
-                                                                id={rc.name}
-                                                                name={modal}
-                                                                value={rc.name}
-                                                                {...register('report', {
-                                                                    required: { value: true, message: 'Must select one report' },
-                                                                })}
-                                                            />
-                                                            {rc.name}
-                                                        </label>
-                                                    </div>
+                                        <form onSubmit={handleSubmit((form_data) => check(form_data))} autoComplete='off'>
+                                            {
+                                                data && data.map(rc => {
+                                                    return (
 
-                                                    //  <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
-                                                    //       <input type="radio" className='cursor-pointer' id={rc.name} name={modal} value={ rc.name} {...register('report', { required: { value: true, message: 'Must be Select One Report' }} )}/>
-                                                    //       <label for={rc.name}  className='cursor-pointer text-[14px]'>{rc.name}</label>
-                                                    //  </div>       
+                                                        <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
+                                                            <label htmlFor={rc.name} className='w-full cursor-pointer '>
+                                                                <input
+                                                                    type="radio"
+                                                                    className='mr-[8px] cursor-pointer'
+                                                                    id={rc.name}
+                                                                    name={modal}
+                                                                    value={rc.name}
+                                                                    {...register('report', {
+                                                                        required: { value: true, message: 'Must select one report' },
+                                                                    })}
+                                                                />
+                                                                {rc.name}
+                                                            </label>
+                                                        </div>
 
+                                                        //  <div className='flex items-center gap-[10px] m-[20px] cursor-pointer'>
+                                                        //       <input type="radio" className='cursor-pointer' id={rc.name} name={modal} value={ rc.name} {...register('report', { required: { value: true, message: 'Must be Select One Report' }} )}/>
+                                                        //       <label for={rc.name}  className='cursor-pointer text-[14px]'>{rc.name}</label>
+                                                        //  </div>       
+
+                                                    )
+                                                }
                                                 )
                                             }
-                                            )
-                                        }
-                                        <div className='flex gap-[10px] justify-end text-[14px] absolute lg:bottom-[20px] right-[20px]'>
-                                            <button className='primary_outline px-[10px] py-[5px] color-red' style={{ color: '#e21b22' }} onClick={() => cancel('no')}>Cancel</button>
-                                            <button className='primary_button px-[10px] cursor-pointer' type="Submit" onClick={() => cancel('yes')}>Submit</button>
-                                        </div>
-                                    </form>
-                                    {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
-                                </Rodal> :
+                                            <div className='flex gap-[10px] justify-end text-[14px] absolute lg:bottom-[20px] right-[20px]'>
+                                                <button className='primary_outline px-[10px] py-[5px] color-red' style={{ color: '#e21b22' }} onClick={() => cancel('no')}>Cancel</button>
+                                                <button className='primary_button px-[10px] cursor-pointer' type="Submit" onClick={() => cancel('yes')}>Submit</button>
+                                            </div>
+                                        </form>
+                                        {isSuccessPopup && <AlertUi alertMsg={alertMessage && alertMessage} isOpen={isSuccessPopup} closeModal={closeModal} button_2={"ok"} />}
+                                    </Rodal>
+                                </div> :
                                 null
             }
         </div>

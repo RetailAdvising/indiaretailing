@@ -878,7 +878,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                       <div className="relative pb-[5px]">
                                         <ImageLoader
                                           style={`rounded-[10px] h-[215px] md:h-[185px] w-full`}
-                                          src={resp.image}
+                                          src={resp.image ? resp.image : resp.meta_image}
                                           title={resp.title}
                                         />
                                         {/* <div className="absolute bottom-[10px] left-0 p-[5px] rounded-[0_10px_0_10px] bg-[#FFE7E7]">

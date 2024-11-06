@@ -253,7 +253,9 @@ export default function Videos({ meta_info, ads_data }) {
                                         </div>
                                     </div> */}
                                     </>
-                                    : <iframe
+                                    : 
+                                    <>
+                                    <iframe
                                         className={`lg:h-[80vh] md:h-[30vh] w-full`}
                                         title={videoDetail.message.title ? videoDetail.message.title : ''}
                                         // src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
@@ -263,7 +265,13 @@ export default function Videos({ meta_info, ads_data }) {
                                         frameBorder="2"
                                         loading="lazy"
                                     // allowfullscreen="allowfullscreen"
-                                    ></iframe>}
+                                    ></iframe>
+                                    
+
+                                    <p className='gray_color  my-[10px] line-clamp-2 md:text-[14px] lg:text-[16px]' >{videoDetail.message.intro}</p>
+                                        <div className='gray_color  my-[20px]' dangerouslySetInnerHTML={{ __html: videoDetail.message.description }} />
+                                    </>
+                                    }
 
                                 {/* <Image className='h-[400px] ' src={check_Image(videoDetail.message.video_image)} height={430} width={430} layout="fixed" alt={''} /> */}
                             </div>
@@ -291,7 +299,7 @@ export default function Videos({ meta_info, ads_data }) {
                                     <List isHome={'/video/'} imgFlex={'flex-[0_0_calc(40%_-_10px)]'} isDesc={true} titleClamp={'line-clamp-2'} check={true} imgWidth={'w-full'} imgHeight={'h-[90px] md:h-[85px]'} data={videoDetail.related_videos.slice(0, 3)} borderRadius={'rounded-[5px]'} />
                                 </div>
                                 <Advertisement adId={'right_first'} data={(ads_data && ads_data.right_first) && ads_data.right_first} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
-                                <Advertisement adId={'right_second'} data={(ads_data && ads_data.right_second) && ads_data.right_second} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />
+                                {ads_data && ads_data.right_second && <Advertisement adId={'right_second'} data={(ads_data && ads_data.right_second) && ads_data.right_second} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} />}
                                 {/* <Advertisement adId={'right_third'} data={(ads_data && ads_data.right_third) && ads_data.right_third} position={"small"} insStyle={"display:inline-block;width:300px;height:250px;"} divClass={`h-[250px] w-[300px]`} /> */}
                                 {/* <AdsBaner data={bannerImg} height={'h-[250px]'} /> */}
                             </>

@@ -40,6 +40,13 @@ const GoogleAds = (props) => {
             parent.classList.add(position == 'high' ? 'height-90' : 'height-250')
         }
 
+        // setTimeout(() => {
+        //     if (parent && parent.style && parent.style.height) {
+        //     // if (parent && parent.style && parent.style.height && parent.style.height === "auto") {
+        //         parent.style.height = ""; // Removes the inline height style
+        //     }
+        // }, 3000);
+
         // Set the custom property --adheight dynamically
         el?.style?.setProperty('--adheight', dynamicHeight);
     }
@@ -200,6 +207,26 @@ const GoogleAds = (props) => {
     //     };
     // }, [props.adId]);
 
+    useEffect(() => {
+        if (document.readyState === 'complete') {
+            onPageLoad();
+        } else {
+            window.addEventListener('load', onPageLoad);
+            // Remove the event listener when component unmounts
+            return () => window.removeEventListener('load', onPageLoad);
+        }
+    }, [])
+
+    const onPageLoad = () => {
+        const elements = document.querySelectorAll('.scripts');
+        // const elements = document.querySelectorAll('[class$="scripts"]');
+        // console.log(elements,"elements")
+        elements.forEach((element) => {
+            // element.style.height = "";
+            element.style.height = "unset";
+        });
+    }
+
     return (
         <>
             {/* <Script
@@ -214,7 +241,7 @@ const GoogleAds = (props) => {
             ></script> */}
             {/* <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script> */}
 
-            {(props.script && !props.page) && <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{ __html: props.script }} />}
+            {(props.script && !props.page) && <div id={props.adId + "scripts"} className={`${props.style} scripts`} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
 
@@ -222,7 +249,7 @@ const GoogleAds = (props) => {
             {(!props.script && !props.page) && <div className="ad">
                 <ins
                     data-ad-slot={props.adSlot}
-                    data-ad-format={"responsive"}
+                    // data-ad-format={"responsive"}
                     data-full-width-responsive={true}
                     data-ad-client={props.adClient}
                     {...props}
@@ -231,7 +258,7 @@ const GoogleAds = (props) => {
 
             {props.page && <div>
 
-                {props.position == 'high' ? <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+                {props.position == 'high' ? <div id={props.adId + "scripts"} className={`${props.style} scripts`} dangerouslySetInnerHTML={{
                     __html:
                         `
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>
@@ -264,7 +291,7 @@ const GoogleAds = (props) => {
                     `
                 }} />
                     :
-                    <div id={props.adId + "scripts"} className={`${props.style} `} dangerouslySetInnerHTML={{
+                    <div id={props.adId + "scripts"} className={`${props.style} scripts`} dangerouslySetInnerHTML={{
                         __html:
                             `
                     <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script>

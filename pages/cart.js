@@ -161,7 +161,7 @@ export default function cart() {
                 {enableModal_1 && <AlertUi isOpen={enableModal_1} closeModal={(value) => closeModal_1(value)} headerMsg={'Alert'} button_2={'Ok'} alertMsg={alertMsg} />}
 
 
-                <div className={`${isMobile ? 'p-[15px]' : 'container'} `}>
+                <div className={`${isMobile ? 'p-[15px]' : 'container'} lg:pb-5`}>
                     {!isMobile && <Title data={{ title: 'Shopping Cart' }} />}
                     {/* {load && <div className='overlay'><Image src={'/cart/loading.gif'} className='h-[100px] w-full'  height={40} width={40} alt='loading' /></div>} */}
                     {(!skeleton && cart_items && cart_items.marketplace_items && cart_items.marketplace_items.length != 0) ? <div className={`flex items-baseline justify-between md:flex-wrap gap-[15px]`}>

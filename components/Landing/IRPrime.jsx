@@ -17,7 +17,7 @@ export default function IRPrime({ data }) {
     return (
         <>
             {
-                <div className={`p-[15px] my-[10px] rounded bg-[#FFEDEF]`}>
+                <div className={`p-[15px] my-[10px] rounded bg-[#FFEDEF] z-[9] relative`}>
                     <div className={`flex justify-between cursor-pointer items-center pb-[5px] border_bottom_white`} >
                         <div className={`flex gap-2`}>
                             <div className={``}>

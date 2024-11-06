@@ -22,7 +22,7 @@ const Banner = ({ data, click_data , isMobile }) => {
       >
         <div className="container mx-auto">
           {/* Brand Logos */}
-          <div className="flex flex-col lg:flex-row gap-3 lg:gap-8 items-start">
+          <div className="flex flex-row gap-3 lg:gap-8 items-start">
             {/* First logo */}
             {data.banner_logo_1 && (
               <div className="w-fit lg:w-auto">

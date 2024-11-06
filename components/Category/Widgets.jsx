@@ -1,6 +1,6 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { check_Image,checkMobile } from '@/libs/api'
+import { check_Image, checkMobile } from '@/libs/api'
 // import { Nunito } from 'next/font/google'
 // const nunito = Nunito({
 //   weight: ["300", "400", "500", "600", "700"],
@@ -11,7 +11,7 @@ import { check_Image,checkMobile } from '@/libs/api'
 //   variable: '--font-inter',
 // })
 export default function Widgets({ data, index, routers, productNavigation }) {
-   console.log('wight',data)
+  //  console.log('wight',data)
   const checkRoute = (res, data) => {
     if (data.title == 'Articles') {
       res.route = res.route
@@ -46,10 +46,42 @@ export default function Widgets({ data, index, routers, productNavigation }) {
     setIsMobile(isMobile);
   }
 
+  useEffect(() => {
+    if ((data && data.title == "Custom Widget") && (data.data && data.data.length > 0 && data.data[0].snippet)) {
+      // console.log(data.data[0].snippet,"snipeet")
+      setTimeout(() => {
+        console.log(getAllIframeArticleHeights(),"getAllIframeArticleHeights")
+      }, 4000);
+    }
+  }, [data])
+
+  function getAllIframeArticleHeights() {
+    const iframes = Array.from(document.querySelectorAll('iframe'));
+  
+    return iframes.map((iframe) => {
+      
+      if(iframe.getAttribute('title') == "Embedded post"){
+        console.log(`Iframe title: ${iframe.getAttribute('title')}`);
+        if (iframe.contentDocument || iframe.contentWindow) {
+          console.log(iframe.contentDocument,"iframe.contentDocument")
+          console.log(iframe.contentWindow,"iframe.contentWindow")
+          // const article = iframe.contentDocument.querySelector('article');
+    
+          // if (article) {
+          //   const articleHeight = article.offsetHeight;
+          //   console.log(`Article height inside iframe: ${articleHeight}px`);
+          //   return { title: iframe.getAttribute('title'), articleHeight };
+          // }
+        } 
+      }
+    });
+  }
+
+
 
   return (
     <>
-      <div className={`${data.title == 'Banner Ad' ||  data.title == 'Custom Widget' ? 'my-[15px]' : 'border mb-[10px] rounded-[8px] p-[15px]'}`}>
+      <div className={`${data.title == 'Banner Ad' || data.title == 'Custom Widget' ? 'my-[15px]' : 'border mb-[10px] rounded-[8px] p-[15px]'}`}>
         {data.title != 'Banner Ad' && data.title != 'Custom Widget' && <h6 className={`text-[15px] nunito font-[700] mb-[10px]`}>{data.title}</h6>}
         {data.data && data.data.length != 0 &&
           <div className={`lg:grid lg:gap-5 ${data.title == 'Books' ? 'lg:grid-cols-4 ' : data.title == 'Banner Ad' || data.title == 'Custom Widget' ? 'grid-cols-1' : 'lg:grid-cols-3'} md:flex md:items-center md:gap-[10px] md:overflow-auto no_scroll`}>
@@ -114,7 +146,7 @@ export default function Widgets({ data, index, routers, productNavigation }) {
               <Image className='h-full w-full !p-0' src={check_Image(isMobile ? data.data[0].mobile_image : data.data[0].web_image)} height={200} width={200} alt={data.data[0].title ? data.data[0].title : data.title} />
             </a>}
 
-            {data.title == 'Custom Widget' && data.data[0] &&  <div className='m-[auto]' dangerouslySetInnerHTML={{__html: data.data[0].snippet}} />}
+            {data.title == 'Custom Widget' && data.data[0] && <div className='m-[auto]' dangerouslySetInnerHTML={{ __html: data.data[0].snippet }} />}
           </div>}
       </div>
     </>

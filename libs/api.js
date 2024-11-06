@@ -932,23 +932,26 @@ export const parseISO8601Duration = (duration) => {
 
 
 export const parseDuration = (isoDuration) => {
-    const match = isoDuration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-    const hours = parseInt(match[1], 10) || 0;
-    const minutes = parseInt(match[2], 10) || 0;
-    const seconds = parseInt(match[3], 10) || 0;
-
-    const formattedMinutes =
-      hours > 0
-        ? `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-            2,
-            "0"
-          )}`
-        : String(minutes).padStart(2, "0");
-    const formattedSeconds = String(seconds).padStart(2, "0");
-
-    return hours > 0
-      ? `${formattedMinutes}:${formattedSeconds}`
-      : `${formattedMinutes}:${formattedSeconds}`;
+    if(isoDuration){
+        const match = isoDuration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+        const hours = parseInt(match[1], 10) || 0;
+        const minutes = parseInt(match[2], 10) || 0;
+        const seconds = parseInt(match[3], 10) || 0;
+    
+        const formattedMinutes =
+          hours > 0
+            ? `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+                2,
+                "0"
+              )}`
+            : String(minutes).padStart(2, "0");
+        const formattedSeconds = String(seconds).padStart(2, "0");
+    
+        return hours > 0
+          ? `${formattedMinutes}:${formattedSeconds}`
+          : `${formattedMinutes}:${formattedSeconds}`;
+    }
+    return '00:00'
   };
 
 

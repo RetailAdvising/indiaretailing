@@ -5,7 +5,7 @@ import Image from 'next/image'
 const FeaturedContent = ({webinar_data,click_data,cols,article}) => {
     return (
         <>
-            <div className={`grid ${cols ? cols : 'grid-cols-4 md:grid-cols-2'} gap-[15px] md:gap-[20px]`}>
+            <div className={`grid ${cols ? cols : 'grid-cols-4 md:grid-cols-2'} gap-[15px] md:gap-[20px] py-3`}>
                 {webinar_data.map(resp => {
                     return (
                         <div className='cursor-pointer' onClick={() => click_data(resp,article ? 'article' : 'featured_content_data')} key={resp.title}>

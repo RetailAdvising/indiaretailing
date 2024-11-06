@@ -27,23 +27,31 @@ function Poll({ data, ipAddress }) {
 
     const updatePollOption = async (event, qsn) => {
         // console.log(qsn);
-        if (qsn && qsn.ans) {
-            let payload = {
-                poll_id: qsn.name,
-                answer: qsn.ans,
-                ip_address: ipAddress
+
+        if(localStorage['apikey']){
+            if (qsn && qsn.ans) {
+                let payload = {
+                    poll_id: qsn.name,
+                    answer: qsn.ans,
+                    ip_address: ipAddress
+                }
+                const resp = await updatePollOptionValue(payload)
+                if (resp.status == 'Success') {
+                    qsn['voted'] = true
+                    update += 1;
+                    setUpdate(update)
+                    toast.success('Voted successfully.');
+                    event.target.disabled = true
+                    event.target.classList.add('opacity-70')
+                    activateProgress(qsn)
+                }
+                else toast.failed('Something Went Wrong! Try Again Later.');
             }
-            const resp = await updatePollOptionValue(payload)
-            if (resp.status == 'Success') {
-                qsn['voted'] = true
-                update += 1;
-                setUpdate(update)
-                toast.success('Voted successfully.');
-                event.target.disabled = true
-                event.target.classList.add('opacity-70')
-                activateProgress(qsn)
+        }else{
+            let el = document.getElementById('sign-in')
+            if(el){
+                el.click()
             }
-            else toast.failed('Something Went Wrong! Try Again Later.');
         }
     }
 
@@ -52,7 +60,7 @@ function Poll({ data, ipAddress }) {
         setTimeout(() => {
             if (qns.options && qns.options.length != 0) {
                 for (let i = 0; i < qns.options.length; i++) {
-                    let el = document.getElementById(qns.options[i]['option']+qns.name)
+                    let el = document.getElementById(qns.options[i]['option'] + qns.name)
                     // el.style.width = qns.options[i]['voting_percentage'] + "%"
                     let width = 1;
                     let max = qns.options[i]['voting_percentage']
@@ -61,7 +69,7 @@ function Poll({ data, ipAddress }) {
                             clearInterval();
                         } else if (max >= width) {
                             width++;
-                            if(el) el.style.width = width + "%";
+                            if (el) el.style.width = width + "%";
                         }
                     }, 10);
                 }
@@ -103,7 +111,7 @@ function Poll({ data, ipAddress }) {
                                 </div>
 
                                 <div className="myProgress">
-                                    <div id={ans.option+qsn.name} className={`myBar ${ans.option}`}></div>
+                                    <div id={ans.option + qsn.name} className={`myBar ${ans.option}`}></div>
                                 </div>
 
                             </div>

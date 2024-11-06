@@ -32,13 +32,13 @@ export default function ChangePwd({ customerInfo }) {
 
   function get_check(values) {
 
-    // if(this.password_form.value.old_password != localStorage['CustomerPwd']){
-    //    setAlertMsg({message:'Wrong Old Password'});
-    // }  else 
-    if(values.old_password == (values.new_password || values.confirm_password)){
+    if (values.old_password != localStorage['CustomerPwd']) {
+      setAlertUi(true);
+      setAlertMsg({ message: 'Wrong Old Password' });
+    } else if (values.old_password == (values.new_password || values.confirm_password)) {
       setAlertUi(true);
       setAlertMsg({ message: 'Old password and new password must be unique..!' });
-    }else if (values.confirm_password != values.new_password) {
+    } else if (values.confirm_password != values.new_password) {
       setAlertUi(true);
       setAlertMsg({ message: 'New password and confirm password are not matching..!' });
     }

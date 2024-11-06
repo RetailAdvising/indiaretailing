@@ -13,7 +13,7 @@ import Dropdowns from '../common/Dropdowns';
 // })
 function AudioPlayer(data) {
 
-  console.log('podcast', data)
+  // console.log('podcast', data)
   const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
   const updateShare = (val) => {
 
@@ -32,6 +32,7 @@ function AudioPlayer(data) {
           </div>}
         </div>
         <p className={`josefin-sans font-semibold`}>{data.data.category}</p>
+        <p className={`p-[10px_0px]`} dangerouslySetInnerHTML={{ __html: data.data.intro }}></p>
         <p className={`p-[10px_0px]`} dangerouslySetInnerHTML={{ __html: data.data.description }}></p>
         <audio className="w-[100%] md:w-90" controls id="audio-element" controlsList='nodownload noplaybackrate' src={check_Image(data.data.sound)}></audio>
       </div>

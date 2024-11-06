@@ -393,13 +393,13 @@ export default function Home({ data }) {
                                       <ImageLoader style={`rounded-[5px] h-[106px] md:h-[80px] w-full`} src={resp.thumbnail_imagee} title={resp.title} />
                                     </div>
 
-                                    <div className='absolute top-0 right-0 bg-[#E21B22] rounded-[0_10px_0_10px] min-w-[70px] text-center p-[3px_10px] md:p-[2px_6px]'>
+                                    {resp.featured_content_tag && <div className='absolute top-0 right-0 bg-[#E21B22] rounded-[0_10px_0_10px] min-w-[70px] text-center p-[3px_10px] md:p-[2px_6px]'>
                                       <p className={`text-white text-[11px] md:text-[9px]`}>{resp.featured_content_tag}</p>
-                                    </div>
+                                    </div>}
 
                                     <div className='lg:flex-[0_0_calc(50%_-_10px)] md:flex-[0_0_calc(60%_-_10px)]'>
                                       <h6 className={`line-clamp-2 title nunito`}>{resp.title}</h6>
-                                      <p className={`line-clamp-2 md:line-clamp-1 sub_title lg:py-[5px] `}>{resp.blog_intro}</p>
+                                      <p className={`line-clamp-2 md:line-clamp-1 sub_title lg:my-[5px] `}>{resp.blog_intro}</p>
                                       <div className='flex items-center gap-[5px] py-[5px]'>
                                         <span className='text-[#999999] text-[12px] md:flex-[0_0_auto]'>Published On : </span>
                                         <p className={`text-[13px] md:text-[12px] md:line-clamp-1 font-[500] nunito`}>{resp['published_on']}</p>
@@ -510,7 +510,7 @@ export default function Home({ data }) {
                           </>}
 
                           {/* {(ads && ads.shopping_centre_below && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid] && data.data[c.cid].section == ads.shopping_centre_below.section) && <><AdsBaner Class={'flex pt-[10px] flex-col justify-center items-center'} data={ads.shopping_centre_below} height={"h-[90px] w-[728px] object-contain m-[auto]"} /></>} */}
-                          {(ads && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid]) && <><Advertisement position={'high'} adId={'shopping_centre_below'} data={ads.shopping_centre_below ? ads.shopping_centre_below : null} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] m-auto`} />
+                          {(ads && c.component_title == "Shopping centre below Ad" && c.cid && data.data[c.cid]) && <><Advertisement position={'high'} adId={'shopping_centre_below'} data={ads.shopping_centre_below ? ads.shopping_centre_below : null} insStyle={"display:inline-block;width:728px;height:90px;"} divClass={`h-[90px] w-[728px] md:w-full m-auto`} />
                           </>}
 
                           {(c.cid && data.data[c.cid] && data.data[c.cid].data && (c.component_title == "Supply Chain" || c.component_title == "Marketing")) && <>

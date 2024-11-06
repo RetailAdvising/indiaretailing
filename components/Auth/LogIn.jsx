@@ -139,6 +139,7 @@ export default function LogIn({ isModal, hide, auth }) {
                 localStorage['full_name'] = val.full_name;
                 // getCustomerInfo()
                 localStorage['company'] = "true"
+                localStorage['CustomerPwd'] = data.password
                 checkMember(val.message.roles)
                 localStorage['roles'] = JSON.stringify(val.message.roles);
                 setWithExpiry('api', val.message.api_key, 90)

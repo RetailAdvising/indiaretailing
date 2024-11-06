@@ -34,7 +34,7 @@ export default function SubscriptionAlert({ data,isModal }) {
 
                 </div>
                 <div className={`${isModal ? 'flex-[0_0_calc(65%_-_10px)]' : 'flex-[0_0_calc(70%_-_10px)]'}`}>
-                    {!(localStorage && localStorage['apikey']) && <div className="rounded-full justify-center flex gap-[10px] p-[10px] mb-[10px] items-center bg-[#ddd] w-[60%] md:w-[80%] md:p-[8px]">
+                    {!(localStorage && localStorage['apikey']) && <div className="rounded-full justify-center flex gap-[10px] p-[10px] mb-[10px] items-center bg-[#ddd] w-[60%] md:w-[90%] md:p-[8px]">
                         <p className={`text-[16px] md:text-[14px] nunito`}>Already subscribed to Prime </p>
                         <div onClick={show} className='flex cursor-pointer items-center gap-[5px]'>
                             <span className={`text-red text-[16px] md:text-[14px] nunito`}>Login</span>
