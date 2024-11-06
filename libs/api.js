@@ -947,8 +947,8 @@ export const parseDuration = (isoDuration) => {
     const formattedSeconds = String(seconds).padStart(2, "0");
 
     return hours > 0
-      ? `${formattedMinutes}:${formattedSeconds} Hours`
-      : `${formattedMinutes}:${formattedSeconds} Minutes`;
+      ? `${formattedMinutes}:${formattedSeconds}`
+      : `${formattedMinutes}:${formattedSeconds}`;
   };
 
 
@@ -961,11 +961,11 @@ export const getVideoDuration = async (id) => {
         const videoData = data.items[0];
 
         let details = {
-            title: videoData.snippet.title,
-            description: videoData.snippet.description,
-            duration: parseDuration(videoData.contentDetails.duration),
-            thumbnail: videoData.snippet.thumbnails.high.url,
-            channelTitle: videoData.snippet.channelTitle,
+            title: videoData?.snippet?.title,
+            description: videoData?.snippet?.description,
+            duration: parseDuration(videoData?.contentDetails?.duration),
+            thumbnail: videoData?.snippet?.thumbnails?.high.url,
+            channelTitle: videoData?.snippet?.channelTitle,
         };
 
         return await details

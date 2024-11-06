@@ -51,7 +51,7 @@ const Agenda = ({ data }) => {
               opacity: selected === i ? 1 : 0,
             }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden"
+            className="overflow-hidden pb-3"
           >
             <p className="py-2 md:text-[14px] contents lg:text-[16px]">
               {res.description}

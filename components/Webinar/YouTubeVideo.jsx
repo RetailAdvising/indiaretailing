@@ -31,7 +31,6 @@ const YouTubeVideo = ({ id, click_data }) => {
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
-      //const API_KEY = 'AIzaSyAtZV9erZrT33fiYG9qlTghJjhbQk3zAa0';
       const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${YOUTUBE_API_KEY}&part=snippet,contentDetails`;
       const res = await fetch(apiUrl);
       const data = await res.json();

@@ -55,7 +55,7 @@ const inter = Inter({
 const index = ({ page_route, ads, webinar_data, category_route }) => {
   // const index = ({ data, page_route, ads }) => {
   // console.log(category_route, "category_route");
-   console.log(webinar_data, "webinar_data");
+  console.log(webinar_data, "webinar_data");
 
   const [webinarLimit, setWebinarLimit] = useState(false);
   const [leadLimit, setLeadLimit] = useState(false);
@@ -204,24 +204,26 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
       showRegister();
     } else {
       if (!webinar_data.is_registration_required) {
-        let route = type === "white-paper" ? `https://${domain}${data.route}` : type === "video" ? `https://www.youtube.com/watch?v=${data}` : type == "article" ? "/" + data.route : "/p/" + data.route
-        if (type === "video") {
-          const newTab = window.open(
-            route,
-            "_blank"
-          );
-          newTab.focus();
-        } else if (category_route == "featured-content" || category_route == "web-special-list") {
-          router.push(route);
-        } else {
-          if (data.route.indexOf('https') == -1) {
-            router.push(route);
-          } else {
+        if (data.route) {
+          let route = type === "white-paper" ? `https://${domain}${data.route}` : type === "video" ? `https://www.youtube.com/watch?v=${data}` : type == "article" ? "/" + data.route : "/p/" + data.route
+          if (type === "video") {
             const newTab = window.open(
-              data.route,
+              route,
               "_blank"
             );
             newTab.focus();
+          } else if (category_route == "featured-content" || category_route == "web-special-list") {
+            router.push(route);
+          } else {
+            if (data.route.indexOf('https') == -1) {
+              router.push(route);
+            } else {
+              const newTab = window.open(
+                data.route,
+                "_blank"
+              );
+              newTab.focus();
+            }
           }
         }
       } else {
@@ -758,7 +760,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                                 see={`uppercase !font-semibold !text-[#e21b22]`}
                               />
 
-                            {webinar_data.message.brand_profile_data.length > 4 && (
+                              {webinar_data.message.brand_profile_data.length > 4 && (
                                 <button
                                   className="mb-4 flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
                                   onClick={() => setBrandProfileLimit(!brandProfileLimit)}
@@ -836,7 +838,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                               // seeMore={true}
                               />
 
-                            {webinar_data.message.case_studies_data.length > 3 && (
+                              {webinar_data.message.case_studies_data.length > 3 && (
                                 <button
                                   className="mb-4 flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
                                   onClick={() => setCaseStudiesLimit(!caseStudiesLimit)}
@@ -917,7 +919,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                               // seeMore={true}
                               />
 
-                            {webinar_data.message.featured_content_data.length > 4 && (
+                              {webinar_data.message.featured_content_data.length > 4 && (
                                 <button
                                   className="mb-4 flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
                                   onClick={() => setFeaturedContentLimit(!featuredContentLimit)}
