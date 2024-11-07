@@ -184,7 +184,8 @@ export default function Address({ hide, edit_address, modal }) {
               {...field}
               value={
                 selectedValues && selectedValues['country']
-                  ? { value: selectedValues['country'], label: selectedValues['country'] }
+                  ? selectedValues['country']
+                  // ? { value: selectedValues['country'], label: selectedValues['country'] }
                   : null
               }
               options={countryList}

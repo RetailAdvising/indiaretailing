@@ -96,7 +96,7 @@ export default function Content({ res, i, updateShare, noScroll }) {
 
                 <div className='flex items-center gap-[15px] pr-[10px]'>
                     {icons && <Dropdowns noScroll={(val) => noScroll(val)} updateShare={(data) => updateShare(data)} share={true} link={res} type={'articles'} width={'w-[170px]'} data={icons} />}
-                    {setings && <Dropdowns noScroll={(val) => noScroll(val)} setting={true} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} img={'/setting.svg'} element={'cmt' + res.name} cur_data={res} width={'w-[100px] lg:w-[160px]'} data={setings} />}
+                    {setings && <Dropdowns i={i} noScroll={(val) => noScroll(val)} setting={true} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} img={'/setting.svg'} element={'cmt' + res.route} cur_data={res} width={'w-[100px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
             <div className='flex gap-3 justify-between'>
@@ -120,7 +120,7 @@ export default function Content({ res, i, updateShare, noScroll }) {
                 <div className='lg:hidden flex gap-[15px] mr-[10px]'>
                     {icons && <Dropdowns btnClass={'!w-[30px] !h-[30px]'} type={'articles'} noScroll={(val) => noScroll(val)} updateShare={(data) => updateShare(data)} link={res} share={true} width={'w-[170px]'} data={icons} />}
 
-                    {setings && <Dropdowns btnClass={'!w-[30px] !h-[30px]'} noScroll={(val) => noScroll(val)} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} setting={true} img={'/setting.svg'} element={'cmt' + res.name} cur_data={res} width={'w-[160px] lg:w-[160px]'} data={setings} />}
+                    {setings && <Dropdowns i={i} btnClass={'!w-[30px] !h-[30px]'} noScroll={(val) => noScroll(val)} link={res.articles_category && res.articles_category.length != 0 && res.articles_category[0] ? res.articles_category[0].category_route : null} setting={true} img={'/setting.svg'} element={'cmt' + res.route} cur_data={res} width={'w-[160px] lg:w-[160px]'} data={setings} />}
                 </div>
             </div>
 

@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState, useMemo } from 'react'
-import { websiteSettings, get_article_breadcrumb, get_subscription_plans, get_customer_info, checkMobile, check_authorization } from '@/libs/api'
+import { websiteSettings, get_article_breadcrumb, get_subscription_plans, get_customer_info, checkMobile, check_authorization, checkAds } from '@/libs/api'
 import MobileHead from '@/components/Headers//MobileHead';
 import Title from '@/components/common/Title'
 // import '@/styles/globals.scss
@@ -58,7 +58,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
 
     let ads = document.getElementById('ads')
     get_website_settings()
-    if(typeof window !== "undefined" && localStorage['apikey']){
+    if (typeof window !== "undefined" && localStorage['apikey']) {
       checkSession()
     }
     // ads.classList.remove('hidden')
@@ -262,7 +262,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
 
     const resp = await check_authorization(params);
     const data = resp.message;
-    if(data.status && data.status != "Success"){
+    if (data.status && data.status != "Success") {
       logout()
     }
   }
@@ -273,11 +273,22 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
     dispatch(setUser(null))
   }
   // console.log(router,"router")
+
+
+  // const [noAds, setNoAds] = useState(false)
+  // useEffect(() => {
+  //   if (router && router.pathname) {
+  //     let val = checkAds(router.pathname)
+  //     setNoAds(val)
+  //   }
+  // }, [router])
+
+
   return (
     <>
       {/* <SEO /> */}
       {/* {(!checkout || is_detail) && <div className="md:hidden lg:grid lg:justify-center"><AdsBaner homeAd={homeAd} style={styles} height={'h-full'} width={'500px'} /></div>} */}
-      {router.pathname != "/p/[...route]" && (!checkout || is_detail) && <div className="lg:grid md:overflow-hidden lg:justify-center"><Advertisement adId={adIdH} data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} /></div>}
+      {!checkAds(router.pathname) && (!checkout || is_detail) && <div className="lg:grid md:overflow-hidden lg:justify-center"><Advertisement adId={adIdH} data={(homeAd && homeAd.header) && homeAd.header} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} position={"high"} /></div>}
       {/* <PdfViewer/> */}
       <>
         {router.pathname != "/p/[...route]" && <Header checkout={checkout} />}
@@ -331,7 +342,7 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
           {children}
         </main>
 
-        {(!checkout && !is_detail) && <div className="mb-[10px] lg:grid lg:justify-center md:overflow-hidden"><Advertisement adId={adIdF} data={(homeAd && homeAd.footer) && homeAd.footer} position={"high"} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} style={styles} height={'h-full'} width={'500px'} /></div>}
+        {!checkAds(router.pathname) && (!checkout && !is_detail) && <div className="mb-[10px] lg:grid lg:justify-center md:overflow-hidden"><Advertisement adId={adIdF} data={(homeAd && homeAd.footer) && homeAd.footer} position={"high"} divClass={'h-[90px] lg:w-[728px] md:w-full m-auto'} insStyle={isMobile ? "display:inline-block;width:360px;height:90px;" : "display:inline-block;width:728px;height:90px;"} style={styles} height={'h-full'} width={'500px'} /></div>}
         {!checkout && footerData && footerData.length != 0 && <MainFooter footerData={footerData} />}
         {/* <div className='lg:hidden' >
           <BottomTabs />

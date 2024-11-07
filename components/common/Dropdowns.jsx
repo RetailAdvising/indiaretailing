@@ -6,15 +6,20 @@ import { useRouter } from 'next/router';
 import { checkMobile } from '@/libs/api'
 import { ToastContainer, toast } from 'react-toastify';
 import { website, websiteUrl } from '@/libs/config/siteConfig';
+import { CloseButton } from '@chakra-ui/react';
 
 // import { Menu } from '@headlessui/react'
-export default function Dropdowns({ data, showLeft, img, width, share, setting, element, type, link, updateShare, noScroll, btnClass, cur_data, copy_link,noBg }) {
+export default function Dropdowns({ data, showLeft, img, width, share, setting, element, type, link, updateShare, noScroll, btnClass, cur_data, copy_link, noBg, i }) {
     const router = useRouter();
 
 
-    const settings = async (data) => {
+    const settings = async (e, data, close) => {
+        e.stopPropagation();
+        e.preventDefault();
+
         if (data.name == 'More Stories') {
             // router.push('/' + router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2])
+            close()
             router.push('/categories/' + link)
         } else if (data.name == 'Copy Link') {
             // console.log('https://indiaretail.vercel.app' + router.asPath)
@@ -22,16 +27,32 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
             // let str = 'https://indiaretail.vercel.app/' + router.asPath.split('/')[1]
             await navigator?.clipboard?.writeText(str);
             // navigator?.clipboard?.writeText(str);
+            close()
             toast.success("Link copied successfully")
             // copyToClipboard(str);
         } else if (data.name == 'Comment') {
-            // let el = document.getElementById(element)
-            let el = document.getElementsByClassName(element)
+            let el = document.getElementById(element)
+            // let el = document.getElementsByClassName(element)
             // console.log(el, 'el')
-            let doc = Array.from(el)
-            if (doc && doc.length != 0 && doc[0]) {
-                noScroll(isMobile ? false : true);
-                doc[0].scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
+            // let doc = Array.from(el)
+            if (el) {
+                // if (doc && doc.length != 0 && doc[0]) {
+
+                noScroll(true);
+                // noScroll(isMobile ? false : true);
+                el.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
+                close()
+
+
+                // setTimeout(() => {
+                //     let ele_next = document.getElementById('div_next'+cur_data.route)
+                //     console.log(ele_next,"ele_next")
+                //     if(ele_next){
+                //         ele_next.click()
+                //     }
+                // }, 400);
+
+                // doc[0].scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
             }
 
             // noScroll(isMobile ? false : true);
@@ -109,7 +130,8 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
         // !isMobile && noScroll(true);
     }
 
-    const myAccounts = (data) => {
+    const myAccounts = (data, close) => {
+        close()
         if (data.name == 'Logout') {
             localStorage.clear();
             router.push('/login')
@@ -163,9 +185,9 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
         <>
             {/* ${share ? 'w-[17px]' : type == 'head' ? 'w-[auto]' : 'w-[8px]'} */}
             <Popover className={`relative `}>
-                {({ open }) => (
+                {({ open, close }) => (
                     <>
-                        <Popover.Button className={`${open ? '' : ''} ${btnClass ? btnClass : ''} ${noBg ? '': 'lg:border-[1px] border-slate-100 bg-[#e9e9e9]'}  rounded-[5px] h-[32px] lg:w-[32px] flex items-center justify-center `}>
+                        <Popover.Button className={`${open ? '' : ''} ${btnClass ? btnClass : ''} ${noBg ? '' : 'lg:border-[1px] border-slate-100 bg-[#e9e9e9]'}  rounded-[5px] h-[32px] lg:w-[32px] flex items-center justify-center `}>
                             {/* <span>{btn_name}</span> */}
                             <div className='flex gap-[10px] items-center'>
                                 {/*  */}
@@ -183,19 +205,20 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1">
                             {/* absolute md:left-[-55px] z-[99] rounded-[10px] mt-3 bg-white -translate-x-1/2 transform */}
-                            <Popover.Panel style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px' }} className={`${ showLeft ? 'arrow_right' : 'arrow_'} absolute z-[99] rounded-[10px] mt-[8px]  bg-white ${showLeft ? 'md:right-0' : 'md:right-0'} transform  ${type == 'tag' ? 'lg:!right-0 ' : showLeft ? 'lg:right-0' : 'lg:left-0'}`}>
+                            <Popover.Panel style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px' }} className={`${showLeft ? 'arrow_right' : 'arrow_'} absolute z-[99] rounded-[10px] mt-[8px]  bg-white ${showLeft ? 'md:right-0' : 'md:right-0'} transform  ${type == 'tag' ? 'lg:!right-0 ' : showLeft ? 'lg:right-0' : 'lg:left-0'}`}>
                                 <div className={`overflow-hidden ${width} shadow-[0_0_5px_#dddddd91] rounded-[7px_10px_10px_10px] bg-[#fff]`}>
                                     <div className="p-[7px]">
                                         {!share ? <>
                                             {data.map((res, index) => {
                                                 return (
-                                                    <div onClick={() => setting ? settings(res) : type == 'head' ? myAccounts(res) : null} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} key={index}>
+                                                    <div onClick={(e) => setting ? settings(e, res, close) : type == 'head' ? myAccounts(res, close) : null} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} >
                                                         <div className='flex items-center gap-[5px]'>
                                                             {res.icon && <div className='h-[17px] flex items-center justify-center'><Image className='object-contain h-[18px] w-[18px]' src={res.icon} height={20} alt={res.name} width={20} /></div>}
                                                             <p className={`${(index != data.length - 1 && !res.icon) ? '' : ''} mb-[1px] text-[14px] ${(router.asPath.split('/')[1] == 'news' && res.name == 'Comment') ? 'hidden' : ''}`}>{res.name}</p>
                                                         </div>
 
                                                         <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
+
 
                                                     </div>
                                                 )
@@ -248,7 +271,7 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
                                             {copy_link && <div>
                                                 {setings1.map((res, index) => {
                                                     return (
-                                                        <div onClick={() => settings(res)} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} key={index}>
+                                                        <div onClick={(e) => settings(e, res)} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} key={index}>
                                                             <div className='flex items-center gap-[5px]'>
                                                                 {res.icon && <div className='h-[17px] flex items-center justify-center'><Image className='object-contain h-[18px] w-[18px]' src={res.icon} height={20} alt={res.name} width={20} /></div>}
                                                                 <p className={`${(index != setings1.length - 1 && !res.icon) ? '' : ''} mb-[1px] text-[14px] `}>{res.name}</p>

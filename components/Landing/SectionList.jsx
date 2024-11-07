@@ -39,7 +39,7 @@ export default function SectionList({ data, isHome }) {
                 </div>
                 <div className='md:grid'>
                   <p className={`primary_text lg:mb-[8px] nunito`}>{res.primary_text}</p>
-                  <h4 className={`title line-clamp-2 lg:mb-[5px] nunito`}>{res.title}</h4>
+                  <h4 className={`title line-clamp-2 md:my-[5px] lg:mb-[5px] nunito`}>{res.title}</h4>
                   {(res.blog_intro) && <p className={`sub_title lg:mb-[8px] line-clamp-1 md:line-clamp-1 md:!leading-[1.5]`}>{res.blog_intro}</p>}
                   {(res.intro) && <p className={`sub_title lg:mb-[8px] josefin-sans line-clamp-2 md:line-clamp-1 md:!leading-[1.5]`}>{res.intro}</p>}
                   {/* {res.publisher && <p className='light_text'>{res.publisher}</p>} */}

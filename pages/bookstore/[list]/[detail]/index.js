@@ -352,7 +352,7 @@ export default function Bookstoredetail({ value, res,ads }) {
 
 async function insert_cart(dataValue,type,value){
   // console.log('dataValue',dataValue)
-  // console.log(value)
+  console.log(value)
   
   let param = {
     "item_code": dataValue.name,
@@ -361,7 +361,7 @@ async function insert_cart(dataValue,type,value){
     "cart_type": "Shopping Cart",
     "customer": localStorage['customer_id'],
     // "attribute": dataValue.attribute ? dataValue.attribute : '',
-    "attribute": value && value.attribute ? value.attribute : '',
+    "attribute": (value && value.attribute) ? (value.attribute + " " + value.option_value) : '',
     // "attribute_id": dataValue.attribute_ids ? dataValue.attribute_ids : '',
     "attribute_id": value && value.attribute_id ? value.attribute_id : '',
     "business": dataValue.restaurant ? dataValue.restaurant : 'BS-00001'

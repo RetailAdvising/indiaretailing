@@ -143,9 +143,9 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
           getMembershipLanding()
         } else {
           load();
-          if(data.ir_prime == 1 && data.is_member){
-            let remain = data.total_free_articles -  data.current_free_article_count
-            if(remain % 2 == 0){
+          if (data.ir_prime == 1 && data.is_member) {
+            let remain = data.total_free_articles - data.current_free_article_count
+            if (remain % 2 == 0) {
               // toast.warn(`Out of ${data.total_free_articles} free articles you consumed ${remain == 0 ? data.total_free_articles : remain}`)
               toast.warn(`Warning: You have used ${data.total_free_articles - remain} out of ${data.total_free_articles} free articles. You have ${remain} articles remaining.`)
             }
@@ -169,27 +169,6 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
       setpageContent(datas);
     }
   }
-
-  // const more = useRef(null)
-  // useEffect(() => {
-  //   if (!more?.current) return;
-  //   const intersectionObserver = new IntersectionObserver(([entries]) => {
-  //     if (entries.isIntersecting) {
-  //       console.log(prev, 'route')
-  //       console.log(entries, 'route')
-  //       intersectionObserver.unobserve(entries.target)
-  //     }
-  //     // if (!no_product) {
-  //     //     page_no > 1 ? get_list() : null
-  //     //     page_no = page_no + 1
-  //     // }
-  //   });
-  //   intersectionObserver.observe(more.current);
-
-  //   // return () => {
-  //   //     more?.current && intersectionObserver.unobserve(more?.current)
-  //   // }
-  // }, [])
 
   // Modal Popup
   const [modal, setModal] = useState('')
@@ -322,11 +301,6 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     }
   };
 
-  const checkRoute = (link) => {
-    // console.log(link)
-  }
-
-
   //  FUNCTION TO HANDLE CLOSE ACTION ON SIDEDRAWER/MODAL
   const sideDrawerClosedHandler = () => {
     setshowComment(!showComment)
@@ -456,163 +430,6 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
     }, 500);
   }
 
-
-  // let [scrolls, setScrolls] = useState(false)
-  // useEffect(() => {
-  //   // const handleScroll = () => {
-  //   //   const scrollTop = document.documentElement.scrollTop
-  //   //   const scrollHeight = document.documentElement.scrollHeight
-  //   //   const clientHeight = document.documentElement.clientHeight
-  //   //   if ((scrollTop + clientHeight)  >= 1700) {
-  //   //     let ind = i-1
-  //   //     // let element = document.querySelectorAll('.finding')
-  //   //     let element = document.getElementById('finding'+ind)
-  //   //     // let arr = Array.from(element)
-  //   //     // console.log(arr[i].classList.add('fixed','right-0','top-0'))
-  //   //     console.log(element?.classList.add('fixed','right-0','top-0'))
-  //   //   }else{
-  //   //     let ind = i-1
-  //   //     // let element = document.querySelectorAll('.finding')
-  //   //     let element = document.getElementById('finding'+ind)
-  //   //     // let arr = Array.from(element)
-  //   //     // console.log(arr[i].classList.remove('fixed','right-0','top-0'))
-  //   //     console.log(element?.classList.remove('fixed','right-0','top-0'))
-
-  //   //   }
-  //   //   // console.log(scrollTop,'scrollTop')
-  //   //   //   console.log(clientHeight,'clientHeight')
-  //   //   //   console.log(scrollHeight,'scrollHeight')
-
-  //   // };
-
-  //   // window.addEventListener('scroll', handleScroll);
-
-  //   // return () => {
-  //   //   window.removeEventListener('scroll', handleScroll);
-  //   // };
-
-  //   const handleScroll = () => {
-  //     // const parentElement = document.getElementById('parent');
-  //     // const targetElement = document.getElementById('target');
-
-  //     // if (parentElement && targetElement) {
-  //     //   const parentRect = parentElement.getBoundingClientRect();
-  //     //   const targetRect = targetElement.getBoundingClientRect();
-
-  //     //   if (parentRect.bottom <= targetRect.top) {
-  //     //     // setIsSticky(true);
-  //     //     console.log(parentRect, 'parentRect')
-  //     //     console.log(targetRect, 'targetRect')
-  //     //   } else {
-  //     //     console.log(parentRect, 'parentRect')
-  //     //     console.log(targetRect, 'targetRect')
-  //     //     // setIsSticky(false);
-  //     //   }
-  //     // }
-  //     const scrollPosition = window.scrollY;
-  //     const windowHeight = window.innerHeight;
-  //     const scrollTop = document.documentElement.scrollTop
-  //     const scrollHeight = document.documentElement.scrollHeight
-  //     const clientHeight = document.documentElement.clientHeight
-
-  //     for (const divId of element) {
-
-  //       const div = document.getElementById(divId);
-
-  //       if (!div) continue;
-
-  //       const divTop = div.getBoundingClientRect().top;
-  //       const divBottom = div.getBoundingClientRect().bottom;
-  //       if ((scrollTop + clientHeight) >= 1200 && !scrolls) {
-  //         // let val = document.getElementById('target' + divId[divId.length - 1])
-  //         // // val.classList.add('fixed', 'top-0', 'right-[15px]')
-  //         // val.classList.add('sticky', 'top-0', 'z-10','bg-white','h-[calc(100vh_-_10px)]','overflow-auto','scrollbar-hide')
-
-  //         // scrolls = true
-  //         // setScrolls(scrolls)
-  //       }
-  //       // if (divTop < windowHeight / 2 && divBottom > windowHeight / 2) {
-  //       //   // let ind = divId.replace('div', '')
-  //       //   // ind = Number(ind);
-  //       //   // console.log(div, 'reach')
-  //       //   // console.log(divId[divId.length - 1], 'reach')
-  //       //   let val = document.getElementById('target' + divId[divId.length - 1])
-  //       //   val.classList.add('fixed', 'top-0', 'right-[15px]')
-  //       //   // console.log(val)
-  //       // } else {
-  //       //   let val = document.getElementById('target' + divId[divId.length - 1])
-  //       //   val.classList.remove('fixed', 'top-[15px]', 'right-[15px]')
-  //       //   console.log(div)
-  //       // }
-  //     }
-
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  //   // let ele = document.getElementById('parent' + i)
-  //   // let ele = document.getElementById('tg')
-  //   // // const observer = new IntersectionObserver(([entry]) => {
-  //   // //   console.log(entry)
-  //   // //   if (entry.isIntersecting) {
-
-  //   // //     observer.unobserve(entry.target);
-  //   // //   }
-  //   // // });
-
-  //   // // observer.observe(ele);
-  //   // const intersectionObserver = new IntersectionObserver(entries => {
-  //   //   if (entries[0].intersectionRatio <= 0){
-  //   //     console.log(entries[0])
-  //   //   }
-  //   //   console.log(entries[0])
-  //   // });
-
-  //   // ele && intersectionObserver?.observe(ele);
-
-  //   // return () => {
-  //   //   ele && intersectionObserver?.unobserve(ele)
-  //   // }
-  // }, [])
-
-  // useEffect(() => {
-  //   // findingElement()
-  //   const handleScroll = () => {
-  //     for (const divId of shareEle) {
-  //       const div = document.getElementById(divId);
-
-  //       if (!div) continue;
-
-  //       const intersectionObserver = new IntersectionObserver(entries => {
-  //         if (entries[0].intersectionRatio >= 0 && scrolls) {
-  //           // console.log(entries[0])
-  //           // let val = document.getElementById('target' + divId[divId.length - 1])
-  //           // val?.classList.remove('sticky', 'top-0', 'z-10','bg-white','h-[calc(100vh_-_10px)]','overflow-auto','scrollbar-hide')
-  //           // val?.classList.remove('fixed', 'top-0', 'right-[15px]')
-  //           // scrolls = false
-  //           // setScrolls(scrolls)
-  //         }
-  //       });
-
-  //       intersectionObserver?.observe(div);
-
-  //       return () => {
-  //         intersectionObserver?.unobserve(div)
-  //       }
-  //     }
-  //   }
-
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-
-  // }, [])
-// console.log('detail', data);
-
-
   return (
     <>
       <div ref={cardref}>
@@ -715,22 +532,22 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                   return (
                     <div key={index} onClick={() => updateShare(data)}>
                       {
-                        res.name == 'fb' ? <FacebookShareButton url={`${ + data.route}`}>
+                        res.name == 'fb' ? <FacebookShareButton url={`${+ data.route}`}>
                           <div key={index} className={`rounded-full bg-light-gray p-2`}>
                             <Image src={res.icon} alt={res.name} height={25} width={20} />
                           </div>
                         </FacebookShareButton>
-                          : res.name == 'ws' ? <WhatsappShareButton url={`${ + data.route}`}>
+                          : res.name == 'ws' ? <WhatsappShareButton url={`${+ data.route}`}>
                             <div key={index} className={`rounded-full bg-light-gray p-2`}>
                               <Image src={res.icon} alt={res.name} height={25} width={20} />
                             </div>
                           </WhatsappShareButton>
-                            : res.name == 'linkedin' ? <LinkedinShareButton url={`${ + data.route}`}>
+                            : res.name == 'linkedin' ? <LinkedinShareButton url={`${+ data.route}`}>
                               <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                 <Image src={res.icon} alt={res.name} height={25} width={20} />
                               </div>
                             </LinkedinShareButton>
-                              : res.name == 'twitter' ? <TwitterShareButton url={`${ + data.route}`}>
+                              : res.name == 'twitter' ? <TwitterShareButton url={`${+ data.route}`}>
                                 <div key={index} className={`rounded-full bg-light-gray p-2`}>
                                   <Image src={res.icon} alt={res.name} height={25} width={20} />
                                 </div>
@@ -753,18 +570,18 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                 {(comments && comments.length != 0) &&
                   comments.map((res, i) => {
                     return (
-                      <div key={i}>
+                      <div key={i + "artcile_comments"}>
                         {/* style={{ background: "#efefef" }} */}
                         {(res.route == data.name && res.data && res.data.length != 0) ? <div className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} relative p-[10px]  border rounded-[5px]`}>
 
                           {/* w-[120px] md:w-[105px] */}
-                          <div className={`py-1.5 flex items-center gap-[10px] relative  ${styles.profile_div}`}>
+                          <div className={`py-1.5 flex items-center gap-[10px] relative  ${styles.profile_div}`} id={'cmt' + data.route}>
                             {/* id={`cmt${data.route}`} */}
                             <div><Image src={'/categories/Comments-01.svg'} className='h-[20px] w-[20px] object-contain' height={25} width={25} alt='cmts' /></div>
-                            <h6 className={`font-[700] nunito text-[17px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
+                            <h6 className={`font-[700] nunito text-[17px] md:text-[15px] `}>Comments</h6>
                             {/* <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>{res.data.length ? res.data.length : 0}</span></p> */}
                           </div>
-                          <Comments cur={data} showSidebar={() => showSidebar()} noScroll={(val) => noScroll(val)} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 2)} hide_comment={hide} />
+                          <Comments cur={data} showSidebar={showSidebar} noScroll={noScroll} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 2)} hide_comment={hide} />
 
                           {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
                           {/* {isMobile && (res.data && res.data.length != 0) ? <div className='mt-[10px] flex gap-[10px] justify-center'>
@@ -774,15 +591,16 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                           </div>} */}
                           <div className='w-full flex justify-center'><button onClick={showSidebar} className={`justify-center bg-red text-white p-[10px_20px] md:mt-4 mt-3 rounded-full items-center  ${styles.cmt_btn} text-[13px] flex`}>{(res.data && res.data.length != 0) && 'View Comments'} </button></div>
                         </div> :
-                          (res.route == data.name && res.data && res.data.length == 0) ? <><div className={`py-1.5 flex items-center gap-[10px] relative ${styles.profile_div}`}>
-                            {/* id={`cmt${data.route}`} */}
-                            <div><Image src={'/categories/Comments-01.svg'} className='h-[20px] w-[20px] object-contain' height={25} width={25} alt='cmts' /></div>
+                          (res.route == data.name && res.data && res.data.length == 0) ? <>
+                            <div className={`py-1.5 flex items-center gap-[10px] relative ${styles.profile_div}`} id={'cmt' + data.route}>
+                              {/* id={`cmt${data.route}`} */}
+                              <div><Image src={'/categories/Comments-01.svg'} className='h-[20px] w-[20px] object-contain' height={25} width={25} alt='cmts' /></div>
 
-                            <h6 className={`font-[700] nunito text-[17px] md:text-[15px] ${'cmt' + data.name}`}>Comments</h6>
-                            {/* <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>0</span></p> */}
-                          </div>
+                              <h6 className={`font-[700] nunito text-[17px] md:text-[15px] `}>Comments</h6>
+                              {/* <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>0</span></p> */}
+                            </div>
 
-                            <Comments cur={data} noScroll={(val) => noScroll(val)} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={[]} showSidebar={() => showSidebar()} hide_comment={hide} />
+                            <Comments cur={data} noScroll={noScroll} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={[]} showSidebar={showSidebar} hide_comment={hide} />
                             {/* {isMobile && (res.data && res.data.length != 0) ? <div className='mt-[10px] flex gap-[10px] justify-center'>
                               <button onClick={showSidebar} className={`justify-center bg-red text-white h-[45px] rounded items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex`}>{(res.data && res.data.length != 0) ? 'View Comments' : 'Add Comment'}</button>
                             </div> : <div className={`mt-[10px] flex justify-center`}>
@@ -794,8 +612,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                     )
                   })
                 }
-              </>
-              }
+              </>}
 
               {/* <div id={`share` + i}></div> */}
 

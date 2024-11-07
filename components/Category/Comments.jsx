@@ -31,9 +31,9 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
     const cardref = useRef(null)
     useEffect(() => {
         // setComment(data)
-        setTimeout(() => {
-            scrollElement()
-        }, 1000);
+        // setTimeout(() => {
+        //     scrollElement()
+        // }, 1000);
         if (!cardref?.current) return;
         const observer = new IntersectionObserver(([entry]) => {
             if (isLast && entry.isIntersecting) {
@@ -45,66 +45,72 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
         observer.observe(cardref.current);
     }, [isLast, reportComment])
 
-    const likeCmt = async (comm, index) => {
+    const likeCmt = async (e,comm, index) => {
         // console.log(route)
+        e.stopPropagation()
+        noScroll(true);
         if ((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']) {
             setAlertMessage({ message: 'Do you want to like this comment ? you need to login.' })
             setIsSuccessPopup(true)
-            return
+
+        } else {
+            let param = {
+                name: comm.name,
+                like: comm.is_liked == 1 ? 'No' : 'Yes'
+            }
+            comm['is_liked'] == 1 ? 0 : 1
+            const resp = await like(param);
+            if (resp.status == 'Success') {
+                // console.log(comm)
+                updatedCmt(comm, route, index)
+                // setComment(resp.message);
+                // if (comments) {
+                //     let index = comments.comments.findIndex(res => { return res.name == resp.message.name })
+                //     if (index >= 0) {
+                //         comments['comments'][index] = resp.message
+                //         // store_comments(comments); john
+                //     }
+                // }
+            }
+            // setComment({...comm,likes:(comm.is_liked && comm.is_liked == 1) ? comm.likes - 1:comm.likes + 1
+            //     ,is_liked:(comm.is_liked && comm.is_liked == 1) ? 0 : 1})  ;
+            //     if(comm.is_disliked ==1 && comm.is_liked == 0) dislikeCmt(comm);
         }
-        let param = {
-            name: comm.name,
-            like: comm.is_liked == 1 ? 'No' : 'Yes'
-        }
-        comm['is_liked'] == 1 ? 0 : 1
-        const resp = await like(param);
-        if (resp.status == 'Success') {
-            // console.log(comm)
-            updatedCmt(comm, route, index)
-            // setComment(resp.message);
-            // if (comments) {
-            //     let index = comments.comments.findIndex(res => { return res.name == resp.message.name })
-            //     if (index >= 0) {
-            //         comments['comments'][index] = resp.message
-            //         // store_comments(comments); john
-            //     }
-            // }
-        }
-        // setComment({...comm,likes:(comm.is_liked && comm.is_liked == 1) ? comm.likes - 1:comm.likes + 1
-        //     ,is_liked:(comm.is_liked && comm.is_liked == 1) ? 0 : 1})  ;
-        //     if(comm.is_disliked ==1 && comm.is_liked == 0) dislikeCmt(comm);
     }
-    const dislikeCmt = async (comm, index) => {
+    const dislikeCmt = async (e,comm, index) => {
         // console.log(comment);
         // console.log(route)
+        e.stopPropagation()
+        noScroll(true);
         if ((localStorage || !localStorage) && !localStorage['apikey'] && !localStorage['secret']) {
             setAlertMessage({ message: 'Do you want to dislike this comment ? you need to login.' })
             setIsSuccessPopup(true)
-            return
-        }
-        let param = {
-            name: comm.name,
-            dislike: comm.is_disliked == 1 ? 'No' : 'Yes'
-        }
-        comm['is_disliked'] == 1 ? 0 : 1
-        const resp = await dislike(param);
-        if (resp.status == 'success') {
-            // setComment(resp.message);
-            // console.log(comm)
-            updatedCmt(comm, route, index)
-            // if (comments.comments) {
-            //     let index = comments.comments.findIndex(res => { return res.name == resp.message.name })
-            //     if (index >= 0) {
-            //         comments['comments'][index] = resp.message
-            //         store_comments(comments);
-            //     }
-            // }
+
+        } else {
+            let param = {
+                name: comm.name,
+                dislike: comm.is_disliked == 1 ? 'No' : 'Yes'
+            }
+            comm['is_disliked'] == 1 ? 0 : 1
+            const resp = await dislike(param);
+            if (resp.status == 'success') {
+                // setComment(resp.message);
+                // console.log(comm)
+                updatedCmt(comm, route, index)
+                // if (comments.comments) {
+                //     let index = comments.comments.findIndex(res => { return res.name == resp.message.name })
+                //     if (index >= 0) {
+                //         comments['comments'][index] = resp.message
+                //         store_comments(comments);
+                //     }
+                // }
 
 
+            }
+            // setComment({...comm,dislikes:(comm.is_disliked && comm.is_disliked == 1) ? comm.dislikes - 1:comm.dislikes + 1,
+            //     is_disliked:(comm.is_disliked && comm.is_disliked == 1) ? 0 : 1});
+            //     console.log(comment);
         }
-        // setComment({...comm,dislikes:(comm.is_disliked && comm.is_disliked == 1) ? comm.dislikes - 1:comm.dislikes + 1,
-        //     is_disliked:(comm.is_disliked && comm.is_disliked == 1) ? 0 : 1});
-        //     console.log(comment);
     }
     const closeModal = () => {
         setIsSuccessPopup(false)
@@ -223,7 +229,7 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
             if (resp.message) {
                 // console.log(resp, "resp")
                 toast.success("The comment will appear once it's been approved by IndiaRetailing");
-                if(hide){
+                if (hide) {
                     hide()
                 }
                 // setAlertMessage({ message: "The comment will appear once it's been approved by IndiaRetailing" })
@@ -300,9 +306,19 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                 <div className='flex justify-between items-center py-[5px]'>
                                     <div className='flex gap-3'>
                                         {/* || (comment.likes && comment.likes == 1) */}
-                                        <p className='flex gap-2 items-center sub_title'><span>{comment.likes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => likeCmt(comment, index)} src={(comment.is_liked && comment.is_liked == 1) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-2 items-center sub_title'><span>{comment.likes}</span>
+                                            <div className='cursor-pointer' onClick={() => likeCmt(comment, index)}>
+                                                <Image className='h-[20px] w-[20px]  ' src={(comment.is_liked && comment.is_liked == 1) ? '/like-active.svg' : '/like.svg'} height={20} width={20} alt={""} />
+                                            </div>
+
+                                        </p>
                                         {/* || (comment.dislikes && comment.dislikes == 1) */}
-                                        <p className='flex gap-2 items-center sub_title'><span>{comment.dislikes}</span><Image className='h-[20px] w-[20px]  cursor-pointer' onClick={() => dislikeCmt(comment, index)} src={(comment.is_disliked && comment.is_disliked == 1) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} /></p>
+                                        <p className='flex gap-2 items-center sub_title'><span>{comment.dislikes}</span>
+                                            <div className='cursor-pointer' onClick={() => dislikeCmt(comment, index)}>
+                                                <Image className='h-[20px] w-[20px]  cursor-pointer' src={(comment.is_disliked && comment.is_disliked == 1) ? '/dislike-active.svg' : '/dislike.svg'} height={20} width={20} alt={""} />
+                                            </div>
+
+                                        </p>
                                         {/* <p className='sub_title'>Share</p>
                                                 <p className='sub_title' onClick={() => showInputs(index)}>Reply</p> */}
                                     </div>
@@ -371,7 +387,8 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                     {isModal && <div>
                         <p className={`nunito text-[16px] md:text-[15px] md:pt-[5px] px-[20px] font-[700]`}>{data.length + ' Comments'}</p>
                     </div>}
-                    <div id='scroll' className={`${isModal ? ' h-[calc(100vh_-_440px)] border !border-b-0 rounded-[30px_30px_0_0] overflow-auto customScroll p-[15px]' : ' rounded-[5px] p-[10px]'}  my-[10px]`}>
+                    {/* id='scroll' */}
+                    <div  className={`${isModal ? ' h-[calc(100vh_-_440px)] border !border-b-0 rounded-[30px_30px_0_0] overflow-auto customScroll p-[15px]' : ' rounded-[5px] p-[10px]'}  my-[10px]`}>
                         {/* {isModal && <p className={`nunito text-[20px] mb-5 font-[700]`}>{data.length + ' Comments'}</p>} */}
                         {data.map((res, i) => {
                             return (
@@ -383,9 +400,17 @@ export default function Comments({ data, isLast, load, comments, route, updatedC
                                         <h6 className={`text-[15px] capitalize nunito font-[700]`}>{res.comment_by}</h6>
                                         <div className='pb-[5px] sub_title !text-[14px]' dangerouslySetInnerHTML={{ __html: res.content }} />
                                         <div className='flex justify-between items-center py-[5px]'>
-                                            <div className='flex gap-3'>
-                                                <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.likes}</span><Image className='h-[25px] w-[25px]  cursor-pointer object-contain' onClick={() => likeCmt(res, i)} src={(res.is_liked && res.is_liked == 1) ? '/categories/like-fill.svg' : '/categories/like-1.svg'} height={20} width={20} alt={""} /></p>
-                                                <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.dislikes}</span><Image className='h-[25px] w-[25px]  cursor-pointer object-contain' onClick={() => dislikeCmt(res, i)} src={(res.is_disliked && res.is_disliked == 1) ? '/categories/dislike-fill.svg' : '/categories/dislike-1.svg'} height={20} width={20} alt={""} /></p>
+                                            <div className='flex gap-3' >
+                                                <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.likes}</span>
+                                                    <div className='cursor-pointer' onClick={(e) => likeCmt(e,res, i)}>
+                                                        <Image className='h-[25px] w-[25px]  cursor-pointer object-contain' src={(res.is_liked && res.is_liked == 1) ? '/categories/like-fill.svg' : '/categories/like-1.svg'} height={20} width={20} alt={""} />
+                                                    </div>
+                                                </p>
+                                                <p className='flex gap-[5px] items-center sub_title'><span className='text-[13px]'>{res.dislikes}</span>
+                                                    <div className='cursor-pointer' onClick={(e) => dislikeCmt(e,res, i)}>
+                                                        <Image className='h-[25px] w-[25px]  cursor-pointer object-contain' src={(res.is_disliked && res.is_disliked == 1) ? '/categories/dislike-fill.svg' : '/categories/dislike-1.svg'} height={20} width={20} alt={""} />
+                                                    </div>
+                                                </p>
                                             </div>
                                             <div>
                                                 <Image src={'/categories/flag.svg'} height={16} width={16} alt={"image"} className='h-[25px] w-[25px]  cursor-pointer object-contain' onClick={() => report(res)} />

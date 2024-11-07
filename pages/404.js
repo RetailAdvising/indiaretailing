@@ -7,6 +7,7 @@ export default function Error() {
     const router = useRouter();
     return (
         <>
+        
             <RootLayout isLanding={false} head={'404 Error'}>
                 <div className='flex  container lg:p-[0_20px] md:p-[15px]'>
                     <div className='flex-[0_0_calc(40%_-_10px)] mt-[5%]'>

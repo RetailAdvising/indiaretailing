@@ -50,7 +50,7 @@ export default function Widgets({ data, index, routers, productNavigation }) {
     if ((data && data.title == "Custom Widget") && (data.data && data.data.length > 0 && data.data[0].snippet)) {
       // console.log(data.data[0].snippet,"snipeet")
       setTimeout(() => {
-        console.log(getAllIframeArticleHeights(),"getAllIframeArticleHeights")
+        // console.log(getAllIframeArticleHeights(),"getAllIframeArticleHeights")
       }, 4000);
     }
   }, [data])
@@ -61,10 +61,10 @@ export default function Widgets({ data, index, routers, productNavigation }) {
     return iframes.map((iframe) => {
       
       if(iframe.getAttribute('title') == "Embedded post"){
-        console.log(`Iframe title: ${iframe.getAttribute('title')}`);
+        // console.log(`Iframe title: ${iframe.getAttribute('title')}`);
         if (iframe.contentDocument || iframe.contentWindow) {
-          console.log(iframe.contentDocument,"iframe.contentDocument")
-          console.log(iframe.contentWindow,"iframe.contentWindow")
+          // console.log(iframe.contentDocument,"iframe.contentDocument")
+          // console.log(iframe.contentWindow,"iframe.contentWindow")
           // const article = iframe.contentDocument.querySelector('article');
     
           // if (article) {

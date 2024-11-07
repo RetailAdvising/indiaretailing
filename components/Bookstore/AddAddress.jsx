@@ -88,9 +88,9 @@ export default function AddAddress() {
     setVisible(true);
   }
 
-  function show() {
-    setVisible(true);
-  }
+  // function show() {
+  //   setVisible(true);
+  // }
 
   function hide(obj) {
     setVisible(false);
