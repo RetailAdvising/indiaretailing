@@ -116,7 +116,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
     },
   ];
 
-  const [showMore, setShowMore] = useState(true);
+  const [showMore, setShowMore] = useState(false);
   const router = useRouter();
 
   const [side_menu, setSideMenu] = useState([
@@ -201,18 +201,16 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
 
     if (type == "register") {
-      showRegister();
+      if (data.is_link_required && data.registration_url) {
+        router.push(data.registration_url);
+      } else {
+        showRegister();
+      }
     } else {
       if (!webinar_data.is_registration_required) {
         if (data.route) {
-          let route = type === "white-paper" ? `https://${domain}${data.route}` : type === "video" ? `https://www.youtube.com/watch?v=${data}` : type == "article" ? "/" + data.route : "/p/" + data.route
-          if (type === "video") {
-            const newTab = window.open(
-              route,
-              "_blank"
-            );
-            newTab.focus();
-          } else if (category_route == "featured-content" || category_route == "web-special-list") {
+          let route = type === "white-paper" ? `https://${domain}${data.route}` : type == "article" ? "/" + data.route : "/p/" + data.route
+          if (category_route == "featured-content" || category_route == "web-special-list") {
             router.push(route);
           } else {
             if (data.route.indexOf('https') == -1) {
@@ -225,6 +223,12 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               newTab.focus();
             }
           }
+        } else if (type === "video") {
+          const newTab = window.open(
+            `https://www.youtube.com/watch?v=${data}`,
+            "_blank"
+          );
+          newTab.focus();
         }
       } else {
         showRegister();
@@ -287,7 +291,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
   return (
     <>
-      {visible && <RegistrationForm visible={visible} hide={hide} />}
+      {visible && <RegistrationForm webinar_data={webinar_data} visible={visible} hide={hide} />}
       <RootLayout
         data={webinar_data}
         isLanding={true}
@@ -1032,7 +1036,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
                 {/* Agenda */}
 
-                {webinar_data.agenda && webinar_data.agenda !== 0 && (
+                {webinar_data.agenda && webinar_data.agenda.length !== 0 && (
                   <>
                     <div className="py-5">
                       <Title data={{ title: "AGENDA" }} />
@@ -1160,7 +1164,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               </div>
 
               <div>
-                {webinar_data.white_papers && webinar_data.length !== 0 && (
+                {webinar_data.white_papers && webinar_data.white_papers.length !== 0 && (
                   <div className="mt-5">
                     <Title data={{ title: "WHITE PAPERS" }} />
                     <WhitePaper
@@ -1173,7 +1177,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
               <div>
                 {webinar_data.reports_detail &&
-                  webinar_data.reports_detail !== 0 && (
+                  webinar_data.reports_detail.length !== 0 && (
                     <div className="mt-5">
                       <Title data={{ title: "REPORTS" }} />
                       <Reports
@@ -1185,7 +1189,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               </div>
 
               <div>
-                {webinar_data.video_detail && webinar_data.length !== 0 && (
+                {webinar_data.video_detail && webinar_data.video_detail.length !== 0 && (
                   <div className="mt-5">
                     <Title data={{ title: "VIDEOS" }} />
                     <Video
@@ -1196,9 +1200,28 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 )}
               </div>
 
-              {webinar_data.is_connect_now_required == 1 && (
+              {webinar_data.articles_data &&
+                webinar_data.articles_data.length > 0 && (
+                  <>
+                    <div className="py-[20px]">
+                      <Title data={{ title: "ARTICLES" }} />
+
+                      <FeaturedContent
+                        click_data={click_data}
+                        article={true}
+                        cols={"grid-cols-5 md:grid-cols-2"}
+                        webinar_data={webinar_data.other_articles_data.slice(
+                          0,
+                          5
+                        )}
+                      />
+                    </div>
+                  </>
+                )}
+
+              {webinar_data.is_connect_now_required && (
                 <div>
-                  <Form />
+                  <Form webinar_data={webinar_data} />
                 </div>
               )}
 
@@ -1247,7 +1270,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               </div>
 
               <div>
-                {webinar_data.white_papers && webinar_data.length !== 0 && (
+                {webinar_data.white_papers && webinar_data.white_papers.length !== 0 && (
                   <div className="mt-5">
                     <Title data={{ title: "WHITE PAPERS" }} />
                     <WhitePaper
@@ -1260,7 +1283,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
               <div>
                 {webinar_data.reports_detail &&
-                  webinar_data.reports_detail !== 0 && (
+                  webinar_data.reports_detail.length !== 0 && (
                     <div className="mt-5">
                       <Title data={{ title: "REPORTS" }} />
                       <Reports
@@ -1272,7 +1295,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
               </div>
 
               <div>
-                {webinar_data.video_detail && webinar_data.length !== 0 && (
+                {webinar_data.video_detail && webinar_data.video_detail.length !== 0 && (
                   <div className="mt-5">
                     <Title data={{ title: "VIDEOS" }} />
                     <Video
@@ -1283,16 +1306,19 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 )}
               </div>
 
-              <div className="py-[20px]">
-                <Title data={{ title: "ARTICLES" }} />
+              {webinar_data.articles_detail && webinar_data.articles_detail.length !== 0 && (
+                <div className="py-[20px]">
+                  <Title data={{ title: "ARTICLES" }} />
 
-                <FeaturedContent
-                  click_data={click_data}
-                  article={true}
-                  cols={"grid-cols-5 md:grid-cols-2"}
-                  webinar_data={webinar_data.articles_detail}
-                />
-              </div>
+                  <FeaturedContent
+                    click_data={click_data}
+                    article={true}
+                    cols={"grid-cols-5 md:grid-cols-2"}
+                    webinar_data={webinar_data.articles_detail}
+                  />
+                </div>
+              )}
+
 
               {webinar_data.social_media &&
                 webinar_data.social_media.length !== 0 && (
@@ -1358,16 +1384,18 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 </div>
               </div>
 
-              <div className="py-[20px]">
-                <Title data={{ title: "ARTICLES" }} />
+              {webinar_data.articles_detail && webinar_data.articles_detail.length !== 0 && (
+                <div className="py-[20px]">
+                  <Title data={{ title: "ARTICLES" }} />
 
-                <FeaturedContent
-                  click_data={click_data}
-                  article={true}
-                  cols={"grid-cols-5 md:grid-cols-2"}
-                  webinar_data={webinar_data.articles_detail}
-                />
-              </div>
+                  <FeaturedContent
+                    click_data={click_data}
+                    article={true}
+                    cols={"grid-cols-5 md:grid-cols-2"}
+                    webinar_data={webinar_data.articles_detail}
+                  />
+                </div>
+              )}
 
               {webinar_data.social_media &&
                 webinar_data.social_media.length !== 0 && (
@@ -1717,7 +1745,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
 
                       {webinar_data.is_connect_now_required == 1 && (
                         <div className="py-5">
-                          <Form />
+                          <Form webinar_data={webinar_data} />
                         </div>
                       )}
                     </div>

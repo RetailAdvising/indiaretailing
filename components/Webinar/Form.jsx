@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { insert_web_special_registration } from "@/libs/api";
 import { useRouter } from "next/router";
 
-const Form = () => {
+const Form = ({webinar_data}) => {
   const router = useRouter()
 
   const {
@@ -22,8 +22,8 @@ const Form = () => {
   const registerForm = async(data) => {
     setFormData(data)
     // console.log('formdata', data);
-    let curRoute = router.asPath.split('/')[2] + "/" + router.asPath.split('/')[3]
-    const res = await insert_web_special_registration({...data,from_page: curRoute});
+    // let curRoute = router.asPath.split('/')[2] + "/" + router.asPath.split('/')[3]
+    const res = await insert_web_special_registration({...data,from_page: webinar_data.name});
     if(res.status === "Success"){
         toast.success(res.message.message)
         reset();

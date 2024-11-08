@@ -11,15 +11,15 @@ import { CloseButton } from '@chakra-ui/react';
 // import { Menu } from '@headlessui/react'
 export default function Dropdowns({ data, showLeft, img, width, share, setting, element, type, link, updateShare, noScroll, btnClass, cur_data, copy_link, noBg, i }) {
     const router = useRouter();
-
+    // console.log(cur_data,"cur_data")
 
     const settings = async (e, data, close) => {
         e.stopPropagation();
         e.preventDefault();
+        close()
 
         if (data.name == 'More Stories') {
             // router.push('/' + router.asPath.split('/')[1] + '/' + router.asPath.split('/')[2])
-            close()
             router.push('/categories/' + link)
         } else if (data.name == 'Copy Link') {
             // console.log('https://indiaretail.vercel.app' + router.asPath)
@@ -27,7 +27,7 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
             // let str = 'https://indiaretail.vercel.app/' + router.asPath.split('/')[1]
             await navigator?.clipboard?.writeText(str);
             // navigator?.clipboard?.writeText(str);
-            close()
+            // close()
             toast.success("Link copied successfully")
             // copyToClipboard(str);
         } else if (data.name == 'Comment') {
@@ -38,11 +38,9 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
             if (el) {
                 // if (doc && doc.length != 0 && doc[0]) {
 
-                noScroll(true);
-                // noScroll(isMobile ? false : true);
+                // noScroll(true);
+                noScroll(isMobile ? false : true);
                 el.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
-                close()
-
 
                 // setTimeout(() => {
                 //     let ele_next = document.getElementById('div_next'+cur_data.route)
@@ -211,16 +209,18 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
                                         {!share ? <>
                                             {data.map((res, index) => {
                                                 return (
-                                                    <div onClick={(e) => setting ? settings(e, res, close) : type == 'head' ? myAccounts(res, close) : null} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} >
-                                                        <div className='flex items-center gap-[5px]'>
-                                                            {res.icon && <div className='h-[17px] flex items-center justify-center'><Image className='object-contain h-[18px] w-[18px]' src={res.icon} height={20} alt={res.name} width={20} /></div>}
-                                                            <p className={`${(index != data.length - 1 && !res.icon) ? '' : ''} mb-[1px] text-[14px] ${(router.asPath.split('/')[1] == 'news' && res.name == 'Comment') ? 'hidden' : ''}`}>{res.name}</p>
+                                                    <Fragment>
+                                                        <div onClick={(e) => setting ? settings(e, res, close) : type == 'head' ? myAccounts(res, close) : null} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} >
+                                                            <div className='flex items-center gap-[5px]'>
+                                                                {res.icon && <div className='h-[17px] flex items-center justify-center'><Image className='object-contain h-[18px] w-[18px]' src={res.icon} height={20} alt={res.name} width={20} /></div>}
+                                                                <p className={`${(index != data.length - 1 && !res.icon) ? '' : ''} mb-[1px] text-[14px] ${(router.asPath.split('/')[1] == 'news' && res.name == 'Comment') ? 'hidden' : ''}`}>{res.name}</p>
+                                                            </div>
+
+                                                            <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
+
+
                                                         </div>
-
-                                                        <div className='flex items-center justify-center h-[18px]'><Image className='h-[11px] w-[5px] object-contain' src={'/forwardIcon.svg'} height={5} width={5} alt='View All' /></div>
-
-
-                                                    </div>
+                                                    </Fragment>
                                                 )
                                             })}
                                         </> : <>

@@ -1324,7 +1324,8 @@ input {
     .rodal-dialog {
       // height: 575px !important;
       // width: 1000px !important;
-      height: 590px !important;
+      //height: 590px !important;
+      height: fit-content !important;
       // height: 490px !important;
       width: 30% !important;
     }
@@ -2149,7 +2150,7 @@ strong {
     .rodal-dialog {
       // height: 575px !important;
       // width: 1000px !important;
-      height: 590px !important;
+      height: fit-content !important;
       // height: 490px !important;
       width: 90% !important;
     }

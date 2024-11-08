@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { insert_web_special_registration } from '@/libs/api';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-const RegistrationForm = ({ visible, hide }) => {
+const RegistrationForm = ({ webinar_data,visible, hide }) => {
     const { register, handleSubmit, formState: { errors },reset } = useForm();
     const [submitted, setSubmitted] = useState(false)
     const [formData, setFormData] = useState()
@@ -15,8 +15,8 @@ const RegistrationForm = ({ visible, hide }) => {
         // console.log(data,"data")
         setFormData(data)
         if (data) {
-            let curRoute = router.asPath.split('/')[2] + "/" + router.asPath.split('/')[3]
-            const res = await insert_web_special_registration({ ...data, from_page: curRoute });
+            // let curRoute = router.asPath.split('/')[2] + "/" + router.asPath.split('/')[3]
+            const res = await insert_web_special_registration({ ...data, from_page: webinar_data.name });
             const resp = await res.message
             if (resp.status === "Success") {
                 // console.log("Success");
@@ -33,7 +33,7 @@ const RegistrationForm = ({ visible, hide }) => {
             <div className={`registration_form`}>
                 <Rodal visible={visible} animation='slideUp' onClose={hide}>
                     <div>
-                        <h6 className='text-[16px] font-semibold nunito py-[15px]'>To secure your spot for the webinar, kindly provide your details below</h6>
+                        <h6 className='text-[16px] font-semibold nunito py-[15px]'>{webinar_data.registration_form_title ? webinar_data.registration_form_title : 'To secure your spot for the webinar, kindly provide your details below'}</h6>
                         <form onSubmit={handleSubmit((data) => registerForm(data))} autoComplete='off'>
                             <div className={`flex flex-col pb-[10px] relative`}>
                                 <input placeholder='Email' className={`${styles.register_input}`} {...register('email', { required: { value: true, message: 'Email is required' }, pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: "Please enter a valid email" } },)} />

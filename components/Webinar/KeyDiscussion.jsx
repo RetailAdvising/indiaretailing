@@ -11,13 +11,19 @@ const KeyDiscussion = ({setShowMore,webinar_data,showMore}) => {
                     <Title data={{ title: "KEY DISCUSSION POINTS" }} />
 
                     <div>
-                        <div
+                        {
+                            webinar_data.key_points.length > 4 && (
+                                <div
                             className="flex items-center text-[20px] font-bold gap-[5px] cursor-pointer"
                             onClick={() => setShowMore(!showMore)}
                         >
-                            <p className={`nunito font-medium`}>
-                                {showMore ? "More" : "Less"}
-                            </p>
+                            {
+                                webinar_data.key_points.length > 4 && (
+                                    <p className={`nunito font-medium`}>
+                                      {showMore ? "Less" : "More"}
+                                    </p>
+                                )
+                            }
                             <Image
                                 className="h-[11px] w-[5px] object-contain"
                                 src="/forwardIcon.svg"
@@ -26,13 +32,15 @@ const KeyDiscussion = ({setShowMore,webinar_data,showMore}) => {
                                 alt="View All"
                             />
                         </div>
+                            )
+                        }
                     </div>
 
                 </div>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8 pt-3">
-                {webinar_data.key_points.slice(0, !showMore ? webinar_data.key_points.length : 4).map((res, i) => (
+                {webinar_data.key_points.slice(0, showMore ? webinar_data.key_points.length : 4).map((res, i) => (
                     <div key={i}>
                         <KeyPointsCard data={res} index={i} />
                     </div>

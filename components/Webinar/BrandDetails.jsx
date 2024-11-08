@@ -20,10 +20,10 @@ const BrandDetails = ({webinar_data,updateShare,icons}) => {
                         <p className="text-[14px]  lg:text-lg font-normal josefin-sans text-[#202121]">
                             {webinar_data.title}
                         </p>
-                        <div className="flex gap-1 items-center">
+                        {/* <div className="flex gap-1 items-center">
                             <Image src="/calendar-minus.png" width={14} height={14} />
                             <span className="!text-xs lg:!text-sm contents">{webinar_data.creation}</span>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 

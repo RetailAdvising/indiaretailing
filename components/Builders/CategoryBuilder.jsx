@@ -41,6 +41,10 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
   const [updateCmts, setupdateCmts] = useState(false)
   const role = useSelector(s => s.role);
 
+  // useEffect(()=>{
+  //   console.log(comments,"comments")
+  // },[comments])
+
   // console.log(ads)
   // let validate;
 
@@ -572,26 +576,20 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                     return (
                       <div key={i + "artcile_comments"}>
                         {/* style={{ background: "#efefef" }} */}
-                        {(res.route == data.name && res.data && res.data.length != 0) ? <div className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} relative p-[10px]  border rounded-[5px]`}>
+                        {(res.route == data.name && res.data && res.data.length > 0) ?
+                          <div className={` ${showComment && 'transition-all ease-in delay-500 duration-500 h-[auto] w-[auto]'} relative p-[10px]  border rounded-[5px]`}>
+                            {/* w-[120px] md:w-[105px] */}
+                            <div className={`py-1.5 flex items-center gap-[10px] relative  ${styles.profile_div}`} id={'cmt' + data.route}>
+                              {/* id={`cmt${data.route}`} */}
+                              <div><Image src={'/categories/Comments-01.svg'} className='h-[20px] w-[20px] object-contain' height={25} width={25} alt='cmts' /></div>
+                              <h6 className={`font-[700] nunito text-[17px] md:text-[15px] `}>Comments</h6>
+                              {/* <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>{res.data.length ? res.data.length : 0}</span></p> */}
+                            </div>
+                            <Comments cur={data} showSidebar={showSidebar} noScroll={noScroll} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 2)} hide_comment={hide} />
 
-                          {/* w-[120px] md:w-[105px] */}
-                          <div className={`py-1.5 flex items-center gap-[10px] relative  ${styles.profile_div}`} id={'cmt' + data.route}>
-                            {/* id={`cmt${data.route}`} */}
-                            <div><Image src={'/categories/Comments-01.svg'} className='h-[20px] w-[20px] object-contain' height={25} width={25} alt='cmts' /></div>
-                            <h6 className={`font-[700] nunito text-[17px] md:text-[15px] `}>Comments</h6>
-                            {/* <p className={`absolute top-0 right-0 bg-[#ddd] rounded-[50%] text-center min-w-[25px] min-h-[25px] max-w-max`}><span className='text-[13px]'>{res.data.length ? res.data.length : 0}</span></p> */}
-                          </div>
-                          <Comments cur={data} showSidebar={showSidebar} noScroll={noScroll} updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} route={res.route} data={res.data.slice(0, 2)} hide_comment={hide} />
-
-                          {/* <button onClick={showSidebar} className={`justify-center p-[6px_8px] md:mt-0 mt-3 text-[13px] rounded ${(data.comments && data.comments.length != 0) ? 'text-[#e21b22] border-[#e21b22]' : 'bg-red text-white'} items-center flex border`}>Post a comment </button> */}
-                          {/* {isMobile && (res.data && res.data.length != 0) ? <div className='mt-[10px] flex gap-[10px] justify-center'>
-                            <button onClick={showSidebar} className={`justify-center rounded-full bg-red text-white h-[45px]  items-center  ${styles.cmt_btn} lg:w-[25%] md:text-[13px] md:px-[15px]  flex`}>{(res.data && res.data.length != 0) ? 'View Comments' : 'Add Comment'}</button>
-                          </div> : <div className={`mt-[10px] flex justify-center`}>
-                            {res.data && res.data.length != 0 && <button onClick={showSidebar} className={`justify-center bg-red text-white p-[10px_20px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex`}>{(res.data && res.data.length != 0) && 'View Comments'} </button>}
-                          </div>} */}
-                          <div className='w-full flex justify-center'><button onClick={showSidebar} className={`justify-center bg-red text-white p-[10px_20px] md:mt-4 mt-3 rounded-full items-center  ${styles.cmt_btn} text-[13px] flex`}>{(res.data && res.data.length != 0) && 'View Comments'} </button></div>
-                        </div> :
-                          (res.route == data.name && res.data && res.data.length == 0) ? <>
+                            <div className='w-full flex justify-center'><button onClick={showSidebar} className={`justify-center bg-red text-white p-[10px_20px] md:mt-4 mt-3 rounded-full items-center  ${styles.cmt_btn} text-[13px] flex`}>{(res.data && res.data.length != 0) && 'View Comments'} </button></div>
+                          </div> :
+                          (res.route == data.name && res.data && res.data.length == 0) && <>
                             <div className={`py-1.5 flex items-center gap-[10px] relative ${styles.profile_div}`} id={'cmt' + data.route}>
                               {/* id={`cmt${data.route}`} */}
                               <div><Image src={'/categories/Comments-01.svg'} className='h-[20px] w-[20px] object-contain' height={25} width={25} alt='cmts' /></div>
@@ -606,7 +604,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                             </div> : <div className={`mt-[10px] flex justify-center`}>
                               {res.data && res.data.length != 0 && <button onClick={showSidebar} className={`justify-center bg-red text-white p-[10px_20px] md:mt-4 mt-3 rounded items-center  ${styles.cmt_btn} text-[13px] flex`}>{(res.data && res.data.length != 0) && 'View Comments'} </button>}
                             </div>} */}
-                          </> : <></>
+                          </> 
                         }
                       </div>
                     )
@@ -635,7 +633,7 @@ export default function CategoryBuilder({ data, load, isLast, i, ads, user, prod
                     <div key={i}>
                       {(res.route == data.name && res.data && (res.data.length != 0 || res.data.length == 0)) && <div className={`${isMobile ? 'popright' : 'popright_1'}`}>
                         {/* <Modal visible={true} modal={'comments'} cur={data} store_comments={(cur) => store_comments(cur)} hide={sideDrawerClosedHandler} /> */}
-                        <Modal updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} cur={data} visible={true} modal={'comments'} route={res.route} comments={res.data} hide={sideDrawerClosedHandler} />
+                        <Modal updatedCmt={(cmt, route, index) => { updatedCmt(cmt, route, index), reRender() }} cur={data} visible={true} modal={'comments'} route={res.route} noScroll={noScroll} comments={res.data} hide={sideDrawerClosedHandler} />
                         {/* scrolling="no" */}
                         {/* <iframe className='w-full ' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092358111637737472" height="696" width="504" frameborder="0" allowfullscreen="false" title="Embedded post"></iframe> */}
                         {/* <iframe className='w-full' rel='preload' src="https://www.linkedin.com/embed/feed/update/urn:li:share:7092137020289904641" height="725" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> */}

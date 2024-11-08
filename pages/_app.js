@@ -33,7 +33,6 @@ import "nprogress/nprogress.css"
 // import AuthSessionProvider from './auth/auth-session-provider'
 import { SessionProvider } from 'next-auth/react'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import Script from 'next/script'
 import ScrollToTopButton from '@/components/common/ScrollToTopButton'
 import { ToastContainer } from 'react-toastify'
 const inter = Faustina({
@@ -152,10 +151,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         });
     };
 
-    if(typeof window !== 'undefined')
-      removeAdsbygoogleNoAblateClass()
+    // if(typeof window !== 'undefined')
+    //   removeAdsbygoogleNoAblateClass()
 
-    if (!router.query.detail) {
+    if (router.pathname != "/[...detail]") {
+      // if (!router.query.detail) {
       router.events.on("routeChangeStart", handleStart);
       router.events.on("routeChangeComplete", handleComplete);
       router.events.on("routeChangeError", handleComplete);
@@ -220,18 +220,18 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   //   console.log('isMobile', isMobile)
   // }
 
-  const removeAdsbygoogleNoAblateClass = () => {
-    // Find all elements with the class 'adsbygoogle-noablate'
-    const elements = document.querySelectorAll('.adsbygoogle-noablate');
-    // console.log(elements,"elements")
-    // Loop over each element and remove the 'adsbygoogle-noablate' class
-    if(elements){
-      elements.forEach(el => {
-        // el.classList.remove('adsbygoogle-noablate');
-        el?.remove()
-      });
-    }
-  };
+  // const removeAdsbygoogleNoAblateClass = () => {
+  //   // Find all elements with the class 'adsbygoogle-noablate'
+  //   const elements = document.querySelectorAll('.adsbygoogle-noablate');
+  //   // console.log(elements,"elements")
+  //   // Loop over each element and remove the 'adsbygoogle-noablate' class
+  //   if(elements){
+  //     elements.forEach(el => {
+  //       // el.classList.remove('adsbygoogle-noablate');
+  //       el?.remove()
+  //     });
+  //   }
+  // };
   
   return (
     <>

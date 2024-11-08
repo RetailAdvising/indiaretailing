@@ -219,7 +219,8 @@ export default function Videos({ meta_info, ads_data }) {
 
                             {(!validator && videoDetail.message.ir_prime == 1) && <Image src={check_Image(videoDetail.message.video_image)} alt='img' height={200} width={200} className='lg:h-[500px] object-contain md:h-full w-full' />}
 
-                            <div className={`${validator ? 'lg:h-[80vh] md:h-[220px]' : ''} my-[10px]`}>
+                            {/* md:h-[220px] */}
+                            <div className={`${validator ? 'lg:min-h-[80vh] md:min-h-[220px]' : ''} my-[10px]`}>
                                 {(!validator && videoDetail.message.ir_prime == 1) ?
                                     <>
                                         {/* <div className='grid place-content-center max-w-[400px] p-[30px_20px_20px_20px] md:p-[20px] m-[0_auto]'>
@@ -256,7 +257,7 @@ export default function Videos({ meta_info, ads_data }) {
                                     : 
                                     <>
                                     <iframe
-                                        className={`lg:h-[80vh] md:h-[30vh] w-full`}
+                                        className={`lg:h-[75vh] md:h-[30vh] w-full`}
                                         title={videoDetail.message.title ? videoDetail.message.title : ''}
                                         // src={`https://www.youtube.com/embed/${videoDetail.message.video_id ? videoDetail.message.video_id : videoDetail.message.video_id}`}
                                         src={videoLink(videoDetail.message)}

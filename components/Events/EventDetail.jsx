@@ -117,12 +117,12 @@ export default function EventDetail({ data, ads_data }) {
                         </div>
                         <div className={`flex gap-[20px] pt-[10px]`}>
                             {/* pr-[60px] */}
-                            <div className='flex gap-[10px] items-start  '>
+                            <div className='flex gap-[10px] items-center'>
                                 <Image src={'/Events/Date-time.svg'} className='md:h-[18px] md:w-[18px]' height={20} width={20} alt={'date and time'} />
                                 <p className={`flex flex-col`}><span className={`text-[15px] nunito md:text-[14px] font-[700]`}>Date and Time</span><span className={`sub_title josefin-sans`}>{dateFormat(data.message.start_date, 'end')}</span></p>
                             </div>
                             {/* pl-[20px] */}
-                            <div className='flex gap-[10px] items-start '>
+                            <div className='flex gap-[10px] items-center'>
                                 <Image src={'/Events/location.svg'} className='md:h-[20px] md:w-[18px] object-contain' height={20} width={20} alt={'location'} />
                                 <p className={`flex flex-col`}><span className={`text-[15px] font-semibold md:text-[14px] nunito`}>Location</span>
                                     {(data.message.event_location && data.message.event_location.length != 0) && data.message.event_location.map((res, index) => {

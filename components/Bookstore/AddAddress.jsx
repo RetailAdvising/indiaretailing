@@ -27,6 +27,8 @@ export default function AddAddress() {
 
     if (customer && !customer.address) {
       customer_info();
+    }else{
+      setSkeleton(false);
     }
   }, [])
 

@@ -119,7 +119,7 @@ export default function MainFooter({ footerData }) {
                                             {/* // <> */}
                                             {item.section_name == 'Footer Contact' &&
                                                 <div className={` flex-[0_0_calc(25%_-_10px)] md:flex-[0_0_calc(100%_-_10px)]`}>
-                                                    <Image src={check_Image(item.logo)} height={66} width={200} alt={"image"} className='mb-[20px]' />
+                                                    <Image src={check_Image(item.logo)} onClick={()=> router.push("/")} height={66} width={200} alt={"image"} className='mb-[20px] cursor-pointer' />
                                                     <h6 className='font-medium pb-1  text-[13px]'>{item.title}</h6>
                                                     <p className='address font-normal text-[13px]'>{item.address_content}</p>
                                                     <span className='flex flex-row mt-2.5 gray-text'>

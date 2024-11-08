@@ -218,9 +218,9 @@ export default function search({ searchTxt, data }) {
             {/* {!isMobile && <BreadCrumb BreadCrumbs={breadCrumbs}/>} */}
             {searchResult && searchResult.length == 0 ?
               // <EmptySection searchValue={searchValue} />
-              <>
+              <div className={'px-[10px] lg:w-[60%] lg:m-[16px_auto_0px_auto]'}>
                 {allCategory && allCategory.length != 0 ? <AllCategory data={allCategory} /> : <EmptySection searchValue={searchValue} />}
-              </>
+              </div>
               :
               <>
                 <div className='lg:min-h-[325px] md:min-h-[500px] grid md:grid-cols-2 grid-cols-5 gap-[15px] container py-[20px] md:px-[10px]'>
@@ -292,7 +292,8 @@ const EmptySection = ({ searchValue }) => {
 const AllCategory = ({ data }) => {
   // console.log(data,'data')
   return (
-    <div className='grid grid-cols-3 md:grid-cols-2 gap-5 my-5'>
+   <div>
+       <div className='grid grid-cols-3 md:grid-cols-2 gap-5 my-5'>
       {data && data.length != 0 && data.map((res, i) => {
         return (
           <div key={res.title} className=''>
@@ -306,5 +307,6 @@ const AllCategory = ({ data }) => {
         )
       })}
     </div>
+   </div>
   )
 }

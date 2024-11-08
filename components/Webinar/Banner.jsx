@@ -46,12 +46,12 @@ const Banner = ({ data, click_data , isMobile }) => {
           {/* Banner Titles */}
           <div className="mt-3 lg:mt-2 text-left nunito">
             {data.banner_title && (
-              <h1 className="md:text-[20px] lg:text-5xl font-bold text-white">
+              <h1 style={{color: `${data.banner_title_color}`}} className="md:text-[20px] lg:text-5xl font-bold text-white">
                 {data.banner_title}
               </h1>
             )}
             {data.span_title && (
-              <h1 className="md:text-[20px] lg:text-5xl font-bold text-yellow-400 mt-2">
+              <h1 style={{color: `${data.span_title_color}`}} className="md:text-[20px] lg:text-5xl font-bold text-yellow-400 mt-2">
                 {data.span_title}
               </h1>
             )}

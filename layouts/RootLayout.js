@@ -47,8 +47,15 @@ export default function RootLayout({ children, checkout, isLanding, head, homeAd
   useEffect(() => {
     if (typeof window != 'undefined' && router) {
       // console.log(router);
-      if (router.query.detail) {
-        article_breadcrumb(router.query.detail)
+      if (router.pathname == "/[...detail]") {
+        // if (router.query.detail) {
+        let page_route = router.query.detail
+        if (page_route && Array.isArray(page_route) && page_route.length > 1) {
+          page_route = page_route.join("/") + "/"
+        } else {
+          page_route = page_route.join(" ")
+        }
+        article_breadcrumb(page_route)
       } else {
         // setBreadCrumbs(removeSpecialCharacters(router.asPath))
         setBreadCrumbs(router.asPath.split('/'))

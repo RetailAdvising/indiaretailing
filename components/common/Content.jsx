@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '@/styles/category.module.scss'
 import Image from 'next/image'
 import { check_Image } from '@/libs/api'
@@ -18,7 +18,7 @@ import ImageLoader from '../ImageLoader';
 export default function Content({ res, i, updateShare, noScroll }) {
     const router = useRouter()
     const icons = [{ icon: "/bookstore/linkedin.svg", name: 'Linkedin' }, { icon: "/bookstore/FB.svg", name: 'Facebook' }, { icon: "/bookstore/twitter.svg", name: 'Twitter' }, { icon: "/bookstore/whatsapp.svg", name: 'Whatsapp' }]
-    const setings = [{ name: 'Copy Link', icon: '/bookstore/Copy.svg' }, { name: 'Comment', icon: '/bookstore/comment.svg' }, { name: 'More Stories', icon: '/bookstore/more-stories.svg' }]
+    const [setings,setSettings] = useState([{ name: 'Copy Link', icon: '/bookstore/Copy.svg' }, { name: 'Comment', icon: '/bookstore/comment.svg' }, { name: 'More Stories', icon: '/bookstore/more-stories.svg' }])
 
     const dateFormat = (data) => {
         // console.log(data)
@@ -36,7 +36,15 @@ export default function Content({ res, i, updateShare, noScroll }) {
         return type == 'yt' ? 'https://www.youtube.com/embed/' + link : 'https://player.vimeo.com/video/' + link
     }
 
-    
+    useEffect(()=>{
+        if(res.disable_comments && res.comments){
+            setSettings(val=>{
+                let pre = val
+                pre.splice(1,1)
+                return pre
+            })
+        }
+    },[res])
 
     return (
         <>
