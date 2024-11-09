@@ -10,6 +10,9 @@ import setUser from 'redux/actions/userAction';
 // import AlertUi from '../common/AlertUi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CryptoJS from 'crypto-js';
+
+
 export default function SignUp({ isModal, hide, auth }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter()
@@ -124,7 +127,10 @@ export default function SignUp({ isModal, hide, auth }) {
                 localStorage['customer_id'] = val.message.customer_id;
                 localStorage['full_name'] = val.full_name;
                 localStorage['company'] = "true"
-                localStorage['CustomerPwd'] = data.new_password
+
+                // Encrypted Password
+                const encryptedPassword = CryptoJS.AES.encrypt(data.new_password, 'encryption-key').toString();
+                localStorage['CustomerPwd'] = encryptedPassword;
                 // checkMember(val.message.roles)
                 localStorage['roles'] = JSON.stringify(val.message.roles)
                 dispatch(setUser(val))

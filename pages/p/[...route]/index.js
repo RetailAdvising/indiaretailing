@@ -975,6 +975,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 <BrandDetails
                   webinar_data={webinar_data}
                   updateShare={updateShare}
+                  dateShow
                   icons={icons}
                 />
 
@@ -1093,7 +1094,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                       //   })`,
                       backgroundImage: `url(${bottomBackgroundImage})`,
                     }}
-                    className="p-5 md:p-8 lg:p-10 flex flex-col my-5 bg-cover bg-center"
+                    className="p-5 md:p-8 lg:p-10 flex flex-col gap-3 my-5 bg-cover bg-center"
                   >
                     {webinar_data.bottom_banner_title && (
                       <h3 className="text-[24px] md:text-[28px] lg:text-[30px] nunito font-bold">
@@ -1105,8 +1106,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                         {webinar_data.bottom_banner_description}
                       </p>
                     )}
-                    {webinar_data.date && (
-                      <span className="text-[16px] md:text-[18px] lg:text-[20px] font-medium contents text-[#202121] mt-3">
+                    {webinar_data.date && webinar_data.is_buttom_banner_date_required === 1 && (
+                      <span className="text-[16px] md:text-[18px] lg:text-[20px] font-medium contents text-[#202121]">
                         {webinar_data.date}
                       </span>
                     )}
@@ -1200,8 +1201,8 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                 )}
               </div>
 
-              {webinar_data.articles_data &&
-                webinar_data.articles_data.length > 0 && (
+              {webinar_data.articles_detail &&
+                webinar_data.articles_detail.length > 0 && (
                   <>
                     <div className="py-[20px]">
                       <Title data={{ title: "ARTICLES" }} />
@@ -1210,7 +1211,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                         click_data={click_data}
                         article={true}
                         cols={"grid-cols-5 md:grid-cols-2"}
-                        webinar_data={webinar_data.other_articles_data.slice(
+                        webinar_data={webinar_data.articles_detail.slice(
                           0,
                           5
                         )}
@@ -1219,7 +1220,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                   </>
                 )}
 
-              {webinar_data.is_connect_now_required && (
+              {webinar_data.is_connect_now_required === 1 && (
                 <div>
                   <Form webinar_data={webinar_data} />
                 </div>
@@ -1743,7 +1744,7 @@ const index = ({ page_route, ads, webinar_data, category_route }) => {
                         )}
 
 
-                      {webinar_data.is_connect_now_required == 1 && (
+                      {webinar_data.is_connect_now_required === 1 && (
                         <div className="py-5">
                           <Form webinar_data={webinar_data} />
                         </div>

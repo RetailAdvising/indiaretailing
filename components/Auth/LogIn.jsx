@@ -12,6 +12,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import FacebookLogin from 'react-facebook-login';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CryptoJS from 'crypto-js';
 
 // import { GoogleOAuthProvider } from '@react-oauth/google';
 // import { GoogleLogin } from '@react-oauth/google';
@@ -139,7 +140,10 @@ export default function LogIn({ isModal, hide, auth }) {
                 localStorage['full_name'] = val.full_name;
                 // getCustomerInfo()
                 localStorage['company'] = "true"
-                localStorage['CustomerPwd'] = data.password
+
+                // Encrypted Password
+                const encryptedPassword = CryptoJS.AES.encrypt(data.password, 'encryption-key').toString();
+                localStorage['CustomerPwd'] = encryptedPassword
                 checkMember(val.message.roles)
                 localStorage['roles'] = JSON.stringify(val.message.roles);
                 setWithExpiry('api', val.message.api_key, 90)

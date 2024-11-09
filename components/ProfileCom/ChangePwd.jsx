@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import styles from '@/styles/Components.module.scss'
 import { update_password } from '@/libs/api';
 import AlertUi from '@/components/common/AlertUi';
+import CryptoJS from 'crypto-js';
 
 export default function ChangePwd({ customerInfo }) {
 
@@ -32,7 +33,11 @@ export default function ChangePwd({ customerInfo }) {
 
   function get_check(values) {
 
-    if (values.old_password != localStorage['CustomerPwd']) {
+    const storedEncryptedPassword = localStorage.getItem('CustomerPwd');
+    const bytes = CryptoJS.AES.decrypt(storedEncryptedPassword, 'encryption-key');
+    const decryptedPassword = bytes.toString(CryptoJS.enc.Utf8);
+
+    if (values.old_password != decryptedPassword) {
       setAlertUi(true);
       setAlertMsg({ message: 'Wrong Old Password' });
     } else if (values.old_password == (values.new_password || values.confirm_password)) {
@@ -54,13 +59,13 @@ export default function ChangePwd({ customerInfo }) {
   async function updating(values) {
     let data = { key: "", old_password: values.old_password, user: localStorage['userid'], new_password: values.new_password }
     const res = await update_password(data)
-    //  console.log(res)
-    if (res.full_name || res.message) {
+     //console.log(res)
+    if (res.message.status === 'Success') {
       setAlertUi(true);
       setAlertMsg({ message: "Password updated successfully" });
     } else {
       setAlertUi(true);
-      setAlertMsg({ message: res.message });
+      setAlertMsg({ message: res.message.message });
     }
   }
 

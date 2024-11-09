@@ -271,7 +271,7 @@ export default function Dropdowns({ data, showLeft, img, width, share, setting, 
                                             {copy_link && <div>
                                                 {setings1.map((res, index) => {
                                                     return (
-                                                        <div onClick={(e) => settings(e, res)} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} key={index}>
+                                                        <div onClick={(e) => settings(e, res, close)} className={`cursor-pointer flex items-center justify-between rounded-[5px] hover:bg-[#f1f1f1] p-[8px_10px]`} key={index}>
                                                             <div className='flex items-center gap-[5px]'>
                                                                 {res.icon && <div className='h-[17px] flex items-center justify-center'><Image className='object-contain h-[18px] w-[18px]' src={res.icon} height={20} alt={res.name} width={20} /></div>}
                                                                 <p className={`${(index != setings1.length - 1 && !res.icon) ? '' : ''} mb-[1px] text-[14px] `}>{res.name}</p>

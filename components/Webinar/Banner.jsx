@@ -46,19 +46,19 @@ const Banner = ({ data, click_data , isMobile }) => {
           {/* Banner Titles */}
           <div className="mt-3 lg:mt-2 text-left nunito">
             {data.banner_title && (
-              <h1 style={{color: `${data.banner_title_color}`}} className="md:text-[20px] lg:text-5xl font-bold text-white">
+              <h1 style={{color: `${data.banner_title_color}`}} className="md:text-[20px] lg:text-5xl font-bold">
                 {data.banner_title}
               </h1>
             )}
             {data.span_title && (
-              <h1 style={{color: `${data.span_title_color}`}} className="md:text-[20px] lg:text-5xl font-bold text-yellow-400 mt-2">
+              <h1 style={{color: `${data.span_title_color}`}} className="md:text-[20px] lg:text-5xl font-bold mt-2">
                 {data.span_title}
               </h1>
             )}
           </div>
 
           {/* Date */}
-          {data.date && (
+          {data.date && data.is_date_required === 1 && (
             <div className="mt-4 text-left">
               <span className="font-normal md:text-[18px] lg:text-[20px] text-white nunito">
                 {data.date}
@@ -70,7 +70,7 @@ const Banner = ({ data, click_data , isMobile }) => {
           <div className="mt-6 text-left">
             <button
               onClick={() => click_data(data, "register")}
-              className="w-fit text-[#CA4A56] bg-white font-bold uppercase px-4 py-2 lg:py-3 rounded-3xl text-sm lg:text-base"
+              className="w-fit text-[#CA4A56] bg-white font-bold uppercase px-4 py-2 rounded-3xl text-sm lg:text-base"
             >
               {data.button_name}
             </button>
