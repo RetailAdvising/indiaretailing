@@ -3,9 +3,7 @@ import ImageLoader from "../ImageLoader";
 import styles from '@/styles/Cards.module.scss'
 
 
-const WhitePaper = ({ data, click_data }) => {
-  console.log('wp', data);
-  
+const WhitePaper = ({ data, click_data }) => {  
   return (
     <>
       <div className="md:flex lg:grid lg:grid-cols-4 mt-5 no_scroll lg:gap-4">
