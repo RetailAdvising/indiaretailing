@@ -9,7 +9,7 @@ import OTP from './OTP';
 import SignUp from './SignUp';
 import Forget from './Forget'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CryptoJS from 'crypto-js';
