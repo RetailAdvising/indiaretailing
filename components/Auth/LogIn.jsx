@@ -9,7 +9,7 @@ import OTP from './OTP';
 import SignUp from './SignUp';
 import Forget from './Forget'
 // import FacebookLogin from 'react-facebook-login';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import CryptoJS from 'crypto-js';
 
 // import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -17,14 +17,14 @@ import CryptoJS from 'crypto-js';
 import { useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
 import FbBtn from './FbBtn';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 
 // const REDIRECT_URI =
 //     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
 
 
 export default function LogIn({ isModal, hide, auth }) {
-   
+
     const [show, setShow] = useState(false)
     const [wrong, setWrong] = useState(false)
     const [otp, setOtp] = useState(false)
@@ -34,7 +34,7 @@ export default function LogIn({ isModal, hide, auth }) {
 
     // const cookieStore = cookies();
     const { register, handleSubmit, formState: { errors } } = useForm();
- 
+
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
         checkIsMobile();
@@ -131,6 +131,8 @@ export default function LogIn({ isModal, hide, auth }) {
     const [credential, setCredential] = useState()
     // Google Login
     const handleSuccess = (response) => {
+        console.log(response)
+        // debugger
         // console.log(parseJwt(response.credential))
         let val = parseJwt(response.credential)
         setCredential(val)
@@ -228,10 +230,10 @@ export default function LogIn({ isModal, hide, auth }) {
                     // console.log(val, "val")
                     setShowMob(true)
                     // socialLogin(parseJwt(response.credential))
-                }else{
+                } else {
                     toast.error(resp.message.message)
                 }
-            }else{
+            } else {
                 toast.error(resp.message.message)
             }
         }
@@ -330,6 +332,11 @@ export default function LogIn({ isModal, hide, auth }) {
         }
     }
 
+    const googlelogin = useGoogleLogin({
+        onSuccess: codeResponse => handleSuccess(codeResponse),
+        flow: 'auth-code',
+      });
+
 
     return (
         <>
@@ -381,6 +388,7 @@ export default function LogIn({ isModal, hide, auth }) {
                                 {errors.password && <p className={`${styles.danger}`}>{errors.password.message}</p>}
                             </div>
 
+
                             <div className={`flex items-center justify-between gap-[50px] pb-5`}>
                                 <div className='flex cursor-pointer items-center gap-[10px]'>
                                     <input type='checkbox' className={`${styles.checkBox} indeterminate:bg-gray-300 cursor-pointer`} {...register('remember')} />
@@ -411,6 +419,8 @@ export default function LogIn({ isModal, hide, auth }) {
                                     style={{ border: 'none !important' }}
                                     onSuccess={handleSuccess}
                                     onFailure={handleFailure} />
+
+                                {/* <button onClick={() => googlelogin()}><Image src={"/google-login.svg"}  width={25} height={25} alt='google icons'/></button> */}
                                 {/* <button onClick={() => signIn("google")}>Login with Google</button> */}
                             </div>
 
