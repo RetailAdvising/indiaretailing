@@ -9,7 +9,7 @@ import OTP from './OTP';
 import SignUp from './SignUp';
 import Forget from './Forget'
 // import FacebookLogin from 'react-facebook-login';
-import { toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import CryptoJS from 'crypto-js';
 
 // import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -17,14 +17,14 @@ import CryptoJS from 'crypto-js';
 import { useDispatch } from 'react-redux';
 import setUser from 'redux/actions/userAction';
 import FbBtn from './FbBtn';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 // const REDIRECT_URI =
 //     'https://plenty-planets-beam-42-118-51-2.loca.lt/account/login';
 
 
 export default function LogIn({ isModal, hide, auth }) {
-
+   
     const [show, setShow] = useState(false)
     const [wrong, setWrong] = useState(false)
     const [otp, setOtp] = useState(false)
@@ -34,7 +34,7 @@ export default function LogIn({ isModal, hide, auth }) {
 
     // const cookieStore = cookies();
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+ 
     const [isMobile, setIsMobile] = useState()
     useEffect(() => {
         checkIsMobile();
@@ -131,8 +131,6 @@ export default function LogIn({ isModal, hide, auth }) {
     const [credential, setCredential] = useState()
     // Google Login
     const handleSuccess = (response) => {
-        console.log(response)
-        debugger
         // console.log(parseJwt(response.credential))
         let val = parseJwt(response.credential)
         setCredential(val)
@@ -230,10 +228,10 @@ export default function LogIn({ isModal, hide, auth }) {
                     // console.log(val, "val")
                     setShowMob(true)
                     // socialLogin(parseJwt(response.credential))
-                } else {
+                }else{
                     toast.error(resp.message.message)
                 }
-            } else {
+            }else{
                 toast.error(resp.message.message)
             }
         }
@@ -332,63 +330,6 @@ export default function LogIn({ isModal, hide, auth }) {
         }
     }
 
-    // const googlelogin = useGoogleLogin({
-    //     onSuccess: codeResponse => handleSuccess(codeResponse),
-    //     flow: 'auth-code',
-    //   });
-
-    // const { NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NEXTAUTH_URL } = process.env;
-    const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-    const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET;
-    console.log(CLIENT_ID,clientSecret,process.env)
-
-    const [doamin_url, setDomainUrl] = useState()
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setDomainUrl(window.location.origin)
-    }
-  }, [])
-    // console.log(apiUrl,":apoin")
-
-    const googlelogin = useGoogleLogin({
-        onSuccess: async (codeResponse) => {
-          // Exchange the authorization code for an access token
-          const { code } = codeResponse;
-          
-          try {
-            // debugger
-            const response = await fetch('https://oauth2.googleapis.com/token', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              body: new URLSearchParams({
-                code: code,
-                client_id: CLIENT_ID,
-                client_secret: clientSecret,
-                redirect_uri: `${doamin_url}/auth/signin`,  
-                grant_type: 'authorization_code',
-              }),
-            });
-            
-            const data = await response.json();
-            console.log(data); // This will contain access_token and id_token
-            
-            // Now you can extract user info from the ID token or make further API calls with the access token
-            const user = parseJwt(data.id_token); // Decoding the ID token
-            
-            // Use the user data
-            setCredential(user);
-            socialLogin(user);  // Pass the user to your login function
-          } catch (error) {
-            console.error('Error exchanging code for token:', error);
-          }
-        },
-        flow: 'auth-code', // Continue using 'auth-code' flow
-      });
-      
-
 
     return (
         <>
@@ -439,7 +380,7 @@ export default function LogIn({ isModal, hide, auth }) {
                                 </div>
                                 {errors.password && <p className={`${styles.danger}`}>{errors.password.message}</p>}
                             </div>
-
+                            
 
                             <div className={`flex items-center justify-between gap-[50px] pb-5`}>
                                 <div className='flex cursor-pointer items-center gap-[10px]'>
@@ -464,15 +405,13 @@ export default function LogIn({ isModal, hide, auth }) {
                                 {/* {<GoogleLogin buttonText="" clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>} */}
                                 {/* <GoogleOAuthProvider clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"></GoogleOAuthProvider>; */}
                                 {/* <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} /> */}
-                                {/* <GoogleLogin shape='square' ref={iframeRef}
+                                <GoogleLogin shape='square' ref={iframeRef}
                                     text=' '
                                     size='large'
                                     width={'50px'}
                                     style={{ border: 'none !important' }}
                                     onSuccess={handleSuccess}
-                                    onFailure={handleFailure} /> */}
-
-                                <button onClick={() => googlelogin()}><Image src={"/google-login.svg"}  width={25} height={25} alt='google icons'/></button>
+                                    onFailure={handleFailure} />
                                 {/* <button onClick={() => signIn("google")}>Login with Google</button> */}
                             </div>
 
