@@ -338,8 +338,10 @@ export default function LogIn({ isModal, hide, auth }) {
     //   });
 
     // const { NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NEXTAUTH_URL } = process.env;
-    const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-    const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+    const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+    const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET;
+    console.log(CLIENT_ID,clientSecret,process.env)
+
     const [doamin_url, setDomainUrl] = useState()
 
   useEffect(() => {
@@ -364,7 +366,7 @@ export default function LogIn({ isModal, hide, auth }) {
               body: new URLSearchParams({
                 code: code,
                 client_id: CLIENT_ID,
-                client_secret: CLIENT_SECRET,
+                client_secret: clientSecret,
                 redirect_uri: `${doamin_url}/auth/signin`,  
                 grant_type: 'authorization_code',
               }),
