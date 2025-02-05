@@ -132,7 +132,7 @@ export default function LogIn({ isModal, hide, auth }) {
     // Google Login
     const handleSuccess = (response) => {
         console.log(response)
-        // debugger
+        debugger
         // console.log(parseJwt(response.credential))
         let val = parseJwt(response.credential)
         setCredential(val)
@@ -332,10 +332,60 @@ export default function LogIn({ isModal, hide, auth }) {
         }
     }
 
+    // const googlelogin = useGoogleLogin({
+    //     onSuccess: codeResponse => handleSuccess(codeResponse),
+    //     flow: 'auth-code',
+    //   });
+
+    // const { NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NEXTAUTH_URL } = process.env;
+    const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+    const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+    const [doamin_url, setDomainUrl] = useState()
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setDomainUrl(window.location.origin)
+    }
+  }, [])
+    // console.log(apiUrl,":apoin")
+
     const googlelogin = useGoogleLogin({
-        onSuccess: codeResponse => handleSuccess(codeResponse),
-        flow: 'auth-code',
+        onSuccess: async (codeResponse) => {
+          // Exchange the authorization code for an access token
+          const { code } = codeResponse;
+          
+          try {
+            // debugger
+            const response = await fetch('https://oauth2.googleapis.com/token', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: new URLSearchParams({
+                code: code,
+                client_id: CLIENT_ID,
+                client_secret: CLIENT_SECRET,
+                redirect_uri: `${doamin_url}/auth/signin`,  
+                grant_type: 'authorization_code',
+              }),
+            });
+            
+            const data = await response.json();
+            console.log(data); // This will contain access_token and id_token
+            
+            // Now you can extract user info from the ID token or make further API calls with the access token
+            const user = parseJwt(data.id_token); // Decoding the ID token
+            
+            // Use the user data
+            setCredential(user);
+            socialLogin(user);  // Pass the user to your login function
+          } catch (error) {
+            console.error('Error exchanging code for token:', error);
+          }
+        },
+        flow: 'auth-code', // Continue using 'auth-code' flow
       });
+      
 
 
     return (
@@ -412,15 +462,15 @@ export default function LogIn({ isModal, hide, auth }) {
                                 {/* {<GoogleLogin buttonText="" clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>} */}
                                 {/* <GoogleOAuthProvider clientId="189689673866-irqdceaurkp36epq803g6gdbcsj0rum7.apps.googleusercontent.com"></GoogleOAuthProvider>; */}
                                 {/* <GoogleSignInButton onSuccess={handleSuccess} onFailure={handleFailure} /> */}
-                                <GoogleLogin shape='square' ref={iframeRef}
+                                {/* <GoogleLogin shape='square' ref={iframeRef}
                                     text=' '
                                     size='large'
                                     width={'50px'}
                                     style={{ border: 'none !important' }}
                                     onSuccess={handleSuccess}
-                                    onFailure={handleFailure} />
+                                    onFailure={handleFailure} /> */}
 
-                                {/* <button onClick={() => googlelogin()}><Image src={"/google-login.svg"}  width={25} height={25} alt='google icons'/></button> */}
+                                <button onClick={() => googlelogin()}><Image src={"/google-login.svg"}  width={25} height={25} alt='google icons'/></button>
                                 {/* <button onClick={() => signIn("google")}>Login with Google</button> */}
                             </div>
 
