@@ -84,7 +84,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                     googletag.cmd.push(function() { googletag.display('div-gpt-ad-1711950996868-0'); });
                 </script>
                 </div>`,
-        "middle": `
+        "middle": `<!--Images Retail Awards-->
                     <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
                     <script>
                     var googletag = googletag || {};
@@ -135,7 +135,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                     setInterval(function(){googletag.pubads().refresh([slot1]);}, 5000); 
                     </script>
                     </div>`,
-        "header": `
+        "header": `// Top Header Add Home Page
                     <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
                     <script>
                     window.googletag = window.googletag || {cmd: []};
@@ -216,47 +216,23 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
             {/* data-full-width-responsive="${isMobile}" */}
-            {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={`
-                    
-                    
-                    <div id="${adId}">
-                        ${scripts[adPos]}
-                    </div>
+            {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={scripts[adPos]} />}
 
-                
-                `} />}
+
+        </>
+    )
+}
 
 {/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins id="${adId}" class="adsbygoogle ${divClass} ${position}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
                         data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
-                        > 
+                        >
                         <img class="default_ban_img" src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />
-                        
+
                     </ins>
 
                     <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});                    
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                     </script> */}
-
-{/* ${adPos == '300' ? <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> : ''} */}
-
-            {/* ${adPos == '300' ? `<script>
-                window.googletag = window.googletag || {cmd: []};
-                googletag.cmd.push(function() {
-                    googletag.defineSlot('/21631575671/Indiaretailing_mid_center_300x250', [300, 250], 'div-gpt-ad-1711950996868-0').addService(googletag.pubads());
-                    googletag.pubads().enableSingleRequest();
-                    googletag.enableServices();
-                });
-                </script>
-
-                
-                <div id='div-gpt-ad-1711950996868-0' style='min-width: 300px; min-height: 250px;'>
-                <script>
-                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1711950996868-0'); });
-                </script>
-                </div>` : '' */}
-        </>
-    )
-}
