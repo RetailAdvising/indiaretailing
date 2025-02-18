@@ -135,7 +135,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                     setInterval(function(){googletag.pubads().refresh([slot1]);}, 5000); 
                     </script>
                     </div>`,
-        "header": `// Top Header Add Home Page
+        "header": `
                     <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
                     <script>
                     window.googletag = window.googletag || {cmd: []};
