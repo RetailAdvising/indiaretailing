@@ -218,7 +218,14 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
             {/* data-full-width-responsive="${isMobile}" */}
             {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={`
                     
-                    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                    
+
+                    ${scripts[adPos]}
+
+                
+                `} />}
+
+{/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                     <ins id="${adId}" class="adsbygoogle ${divClass} ${position}"
                         style="${insStyle}"
                         data-ad-client="ca-pub-9354161551837950"
@@ -230,12 +237,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
 
                     <script>
                      (adsbygoogle = window.adsbygoogle || []).push({});                    
-                    </script>
-
-                    ${scripts[adPos]}
-
-                
-                `} />}
+                    </script> */}
 
 {/* ${adPos == '300' ? <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> : ''} */}
 
