@@ -26,7 +26,7 @@ const GoogleAds = (props) => {
             try {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             } catch (err) {
-                // console.log(err,"err");
+                console.log(err,"err");
             }
 
             // Load ads individually

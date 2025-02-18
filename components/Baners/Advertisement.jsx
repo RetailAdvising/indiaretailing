@@ -84,7 +84,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                     googletag.cmd.push(function() { googletag.display('div-gpt-ad-1711950996868-0'); });
                 </script>
                 </div>`,
-        "middle": `<!--Images Retail Awards-->
+        "middle": `
                     <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
                     <script>
                     var googletag = googletag || {};
@@ -135,7 +135,7 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
                     setInterval(function(){googletag.pubads().refresh([slot1]);}, 5000); 
                     </script>
                     </div>`,
-        "header": `// Top Header Add Home Page
+        "header": `
                     <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
                     <script>
                     window.googletag = window.googletag || {cmd: []};
@@ -219,8 +219,9 @@ export default function Advertisement({ data, imgClass, divClass, insStyle, posi
             {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={`
                     
                     
-
-                    ${scripts[adPos]}
+                    <div id="${adId}">
+                        ${scripts[adPos]}
+                    </div>
 
                 
                 `} />}
