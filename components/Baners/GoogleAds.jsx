@@ -109,7 +109,8 @@ const GoogleAds = (props) => {
             ></script> */}
             {/* <script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async ></script> */}
 
-            {(props.script && !props.page) && <div id={props.adId + "scripts"} className={`${props.style} scripts`} dangerouslySetInnerHTML={{ __html: props.script }} />}
+{/* id={props.adId + "scripts"} */}
+            {(props.script && !props.page) && <div  className={`${props.style} scripts`} dangerouslySetInnerHTML={{ __html: props.script }} />}
 
 
 
