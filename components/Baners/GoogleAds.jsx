@@ -262,7 +262,7 @@ const GoogleAds = (props) => {
             window.googletag.cmd.push(function() {
                 const adSlotElement = document.getElementById(`${props.adSlotEle}`);
                 // const adSlotElement = document.getElementById(`div-gpt-ad-${props.adId}-${props.position}`);
-                console.log(adSlotElement,"adSlotElement")
+                // console.log(adSlotElement,"adSlotElement")
                 if (adSlotElement) {
                     googletag.defineSlot(props.slotId, props.adSizes, adSlotElement)
                         .addService(googletag.pubads());
@@ -271,8 +271,8 @@ const GoogleAds = (props) => {
                 }
             });
         }
-        console.log(window,"window")
-        console.log(window.googletag,"window googletag")
+        // console.log(window,"window")
+        // console.log(window.googletag,"window googletag")
     }, [props.adId, props.position, props.slotId, props.adSizes]);
 
     return (
