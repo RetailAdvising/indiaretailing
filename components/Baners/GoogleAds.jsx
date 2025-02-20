@@ -256,9 +256,28 @@ const GoogleAds = (props) => {
     //     el?.style?.setProperty('--adwidth', dynamicWidth);
     // };
 
+    useEffect(() => {
+        // Ensure googletag is loaded and ready
+        if (window.googletag && window.googletag.cmd) {
+            window.googletag.cmd.push(function() {
+                const adSlotElement = document.getElementById(`${props.adSlotEle}`);
+                // const adSlotElement = document.getElementById(`div-gpt-ad-${props.adId}-${props.position}`);
+                console.log(adSlotElement,"adSlotElement")
+                if (adSlotElement) {
+                    googletag.defineSlot(props.slotId, props.adSizes, adSlotElement)
+                        .addService(googletag.pubads());
+                    googletag.pubads().enableSingleRequest();
+                    googletag.enableServices();
+                }
+            });
+        }
+        console.log(window,"window")
+        console.log(window.googletag,"window googletag")
+    }, [props.adId, props.position, props.slotId, props.adSizes]);
+
     return (
         <div
-            id={props.adId}
+            id={`div-gpt-ad-${props.adId}-${props.position}`}
             className={`${props.style} scripts`}
             dangerouslySetInnerHTML={{ __html: props.script }}
         />

@@ -67,6 +67,7 @@ function Advertisement({ data, imgClass, divClass, insStyle, position, adId, ad_
         return "Unknown";
     }
 
+    // (window.adsbygoogle = window.adsbygoogle || []).push({});
 
     const scripts = {
         "300": `
@@ -203,6 +204,23 @@ function Advertisement({ data, imgClass, divClass, insStyle, position, adId, ad_
                     </div>`
     }
 
+    const slotIds = {
+        "300": "/21631575671/Indiaretailing_mid_center_300x250",
+        "300_size": "[300, 250]",
+        "300_id": "div-gpt-ad-1711950996868-0",
+
+        "middle": "/21631575671/IR-728x90-Leaderboard",
+        "middle_size": "[[970, 250], [728, 90], [320, 50]]",
+        "middle_id": "div-gpt-ad-1617096742911-0",
+
+        "header": "/21631575671/IR-NEW-TOP-728x90-Leaderboard",
+        "header_size": "[[320, 50], [728, 90]]",
+        "header_id":"div-gpt-ad-1738918272133-0",
+
+        "footer": "/21631575671/IR-home-middle_3-728x90",
+        "footer_size": "[[970, 250], [728, 90], [320, 50]]",
+        "footer_id": "div-gpt-ad-1707461460584-0"
+    }
 
     return (
         <>
@@ -218,7 +236,7 @@ function Advertisement({ data, imgClass, divClass, insStyle, position, adId, ad_
             {/* style="display:inline-block;width:728px;height:90px;" */}
             {/* data-full-width-responsive="${isMobile}" */}
 
-            {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={scripts[adPos]} />}
+            {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} slotId={slotIds[adPos]} adSlotEle={slotIds[adPos+"_id"]} adSizes={slotIds[adPos+"_size"]} adId={adId} position={position} style={divClass} script={scripts[adPos]} />}
 
             {/* {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={`
                 <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
