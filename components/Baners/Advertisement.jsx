@@ -217,8 +217,10 @@ function Advertisement({ data, imgClass, divClass, insStyle, position, adId, ad_
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
             {/* data-full-width-responsive="${isMobile}" */}
-            {/* {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={scripts[adPos]} />} */}
-            {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={`
+
+            {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={scripts[adPos]} />}
+
+            {/* {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={`
                 <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
                 <ins id="${adId}" class="adsbygoogle ${divClass} ${position}"
                     style="${insStyle}"
@@ -233,9 +235,9 @@ function Advertisement({ data, imgClass, divClass, insStyle, position, adId, ad_
                     (adsbygoogle = window.adsbygoogle || []).push({ });
                 </script>               
                 
-                `} />}
+                `} />} */}
 
-{/* data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}" */}
+            {/* data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}" */}
         </>
     )
 }
