@@ -217,26 +217,29 @@ function Advertisement({ data, imgClass, divClass, insStyle, position, adId, ad_
                         data-full-width-responsive="true" */}
             {/* style="display:inline-block;width:728px;height:90px;" */}
             {/* data-full-width-responsive="${isMobile}" */}
-            {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={scripts[adPos]} />}
+            {/* {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={scripts[adPos]} />} */}
+            {adPos && ((data && Object.keys(data).length == 0) || !(data)) && <GoogleAds isMobile={isMobile} adId={adId} position={position} style={divClass} script={`
+                <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+                <ins id="${adId}" class="adsbygoogle ${divClass} ${position}"
+                    style="${insStyle}"
+                    data-ad-client="ca-pub-9354161551837950"
+                    data-ad-slot="${adPos == '300' ? 'div-gpt-ad-1711950996868-0' : adPos == 'middle' ? 'div-gpt-ad-1617096742911-0' : adPos == "header" ? "div-gpt-ad-1738918272133-0" : adPos == "footer" ? "div-gpt-ad-1707461460584-0" : '6101971529'}"
+                >
+                    <img class="default_ban_img" src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />
+    
+                </ins>
+    
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({ });
+                </script>               
+                
+                `} />}
 
-
+{/* data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}" */}
         </>
     )
 }
 
-{/* <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-                    <ins id="${adId}" class="adsbygoogle ${divClass} ${position}"
-                        style="${insStyle}"
-                        data-ad-client="ca-pub-9354161551837950"
-                        data-ad-slot="${position == 'high' ? '8257587929' : '6101971529'}"
-                        >
-                        <img class="default_ban_img" src="/no-image.jpg" alt="Default Banner" style="${insStyle}" />
-
-                    </ins>
-
-                    <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script> */}
 
 
 
